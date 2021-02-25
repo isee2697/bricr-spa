@@ -54,8 +54,8 @@ export const RelationCard = ({ title, crm, compare, onCheck, isChecked, children
             width="100%"
           >
             <TypographyItem
-              source={`${crm.firstName} ${crm.insertion} ${crm.lastName}`}
-              compare={compare && `${compare.firstName} ${compare.insertion} ${compare.lastName}`}
+              source={`${crm.firstName} ${crm.lastName}`}
+              compare={compare && `${compare.firstName} ${compare.lastName}`}
               className={classes.name}
               variant="h3"
             />

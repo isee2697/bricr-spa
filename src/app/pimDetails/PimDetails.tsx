@@ -5,7 +5,7 @@ import { Alert, Box, Grid, Loader } from 'ui/atoms';
 import { useLocale } from 'hooks';
 import { EntityTypeProvider } from 'app/shared/entityType';
 import { PimDetailsSidebarMenu } from 'app/shared/pimDetailsSidebarMenu/PimDetailsSidebarMenu';
-import { AogSpaceType, TiaraEntities } from 'api/types';
+import { AogSpaceType, Pim, TiaraEntities } from 'api/types';
 
 import { PimDetailsProps } from './PimDetails.types';
 import { useStyles } from './PimDetails.styles';
@@ -46,10 +46,10 @@ export const PimDetails = ({
   const { formatMessage } = useLocale();
   const classes = useStyles();
   const [isSidebarVisible, setSidebarVisibility] = useState(true);
-  const { state } = useLocation<{ newlyAdded: boolean }>();
+  const { state } = useLocation<{ newlyAdded: boolean; data: Pim }>();
 
-  const pim = data?.getPimGeneral;
-  const mainPicture = data?.getPimMedia.pictures?.find(({ isMainPicture }) => isMainPicture);
+  const pim = data;
+  const mainPicture = data?.pictures?.find(({ isMainPicture }) => isMainPicture);
   const title = pim ? `${pim.street} ${pim.houseNumber} ${pim.postalCode} ${pim.city}` : '';
 
   const handleSidebarHide = useCallback(() => {

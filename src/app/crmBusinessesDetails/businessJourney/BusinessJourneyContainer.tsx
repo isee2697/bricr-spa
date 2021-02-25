@@ -50,7 +50,7 @@ export const BusinessJourneyContainer = ({ crm, isSidebarVisible, onSidebarOpen 
     }
   }, [status]);
 
-  const { firstName, insertion, lastName } = crm;
+  const { firstName, lastName } = crm;
 
   return (
     <>
@@ -58,7 +58,7 @@ export const BusinessJourneyContainer = ({ crm, isSidebarVisible, onSidebarOpen 
 
       <Grid xs={12} item container className={classes.header}>
         <Typography variant="h1" className={classes.title}>
-          {firstName} {insertion} {lastName}
+          {firstName} {lastName}
         </Typography>
 
         <IconButton variant="rounded" size="small" onClick={() => {}} className={classes.marginRightTwo}>

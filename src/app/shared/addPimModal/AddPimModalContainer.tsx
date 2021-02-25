@@ -111,10 +111,10 @@ export const AddPimModalContainer = () => {
             .replace(':projectId', options.projectId as string)
             .replace(':objectTypeId', options.objectTypeId as string)
             .replace(':id', result.createPim.id),
-          { newlyAdded: true },
+          { newlyAdded: true, data: result.createPim },
         );
       } else {
-        push(AppRoute.pimDetails.replace(':id', result.createPim.id), { newlyAdded: true });
+        push(AppRoute.pimDetails.replace(':id', result.createPim.id), { newlyAdded: true, data: result.createPim });
       }
 
       close('add-new-pim');

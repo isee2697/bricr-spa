@@ -17,7 +17,6 @@ import { useStyles } from './CrmRelationsDetailsCustomerJourney.styles';
 import { ListItem } from './listItem/ListItem';
 
 export const CrmRelationsDetailsCustomerJourney = ({
-  crm: { firstName, insertion, lastName },
   items,
   status,
   onStatusChange,

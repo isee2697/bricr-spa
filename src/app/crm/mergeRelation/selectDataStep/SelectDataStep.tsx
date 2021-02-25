@@ -10,7 +10,6 @@ import { useStyles } from './SelectDataStep.styles';
 
 const fields: DataFieldType[] = [
   'firstName',
-  'insertion',
   'lastName',
   'initials',
   'gender',
@@ -31,9 +30,7 @@ export const SelectDataStep = ({ onPrev, onNext, onUpdate, objects, results }: M
   const [newCrm, setNewCrm] = useState<CrmDetailItem>(results.crm);
 
   const getField = (crm: CrmDetailItem, field: DataFieldType) => {
-    if (field === 'initials') {
-      return crm.partner?.insertion;
-    } else if (field === 'partner') {
+    if (field === 'partner') {
       return `${crm.partner?.firstName} ${crm.partner?.lastName}`;
     } else if (
       field === 'street' ||
@@ -47,7 +44,7 @@ export const SelectDataStep = ({ onPrev, onNext, onUpdate, objects, results }: M
       field === 'email' ||
       field === 'phoneNumber' ||
       field === 'firstName' ||
-      field === 'insertion' ||
+      field === 'initials' ||
       field === 'lastName'
     ) {
       return crm[field];
@@ -68,7 +65,7 @@ export const SelectDataStep = ({ onPrev, onNext, onUpdate, objects, results }: M
     ) {
       setNewCrm({ ...newCrm, [field]: updateCrm.address?.[field] });
     } else if (field === 'initials') {
-      setNewCrm({ ...newCrm, partner: { ...(newCrm.partner as LinkedCrm), insertion: updateCrm.partner?.insertion } });
+      setNewCrm({ ...newCrm, partner: { ...(newCrm.partner as LinkedCrm), initials: updateCrm.partner?.initials } });
     } else {
       setNewCrm({ ...newCrm, [field]: updateCrm[field] });
     }

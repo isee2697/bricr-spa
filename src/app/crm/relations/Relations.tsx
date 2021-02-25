@@ -2,26 +2,27 @@ import React, { useCallback, useState } from 'react';
 import clsx from 'classnames';
 import { useHistory } from 'react-router-dom';
 
-import { BulkOperations, CrmType, ListCrmFilters } from 'api/types';
+import { CrmType, ListCrmFilters, BulkField, BulkOperations } from 'api/types';
 import { Page } from 'ui/templates';
 import { ConfirmModal, List, PropertyItemPlaceholder } from 'ui/molecules';
 import { Grid, Card, CardHeader, CardContent, Box, Typography } from 'ui/atoms';
 import { CrmHeader } from '../crmHeader/CrmHeader';
 import { CrmActionTabs } from '../crmActionTabs/CrmActionTabs';
-import { useLocale } from 'hooks';
+import { useLocale, useModalDispatch } from 'hooks';
 import { CrmSubHeader } from '../crmSubHeader/CrmSubHeader';
-import { CrmItem } from '../Crm.types';
 import { CrmListItem } from '../crmListItem/CrmListItem';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { ActiveFilters } from 'ui/molecules/filters/activeFilters/ActiveFilters';
+import { FieldChange } from 'ui/bulk/fieldChange/FieldChange';
 import { ConfirmButtonType } from 'ui/molecules/confirmModal/ConfirmModal.types';
 import { MoveCrmRelationContainer } from '../moveRelation/MoveCrmRelationContainer';
-import { useModalDispatch } from 'hooks/useModalDispatch/useModalDispatch';
+import { CrmItem } from '../Crm.types';
 
 import { RelationsProps } from './Relations.types';
 import { useStyles } from './Relations.styles';
 import { CrmTableView } from './../crmTableView/CrmTableView';
 import { RelationsMenu } from './relationsMenu/RelationsMenu';
+import { CrmStatusOptions } from './dictionaries';
 
 export const Relations = ({
   onSidebarOpen,
@@ -36,6 +37,11 @@ export const Relations = ({
   activeFilters,
   sorting,
   pagination,
+  bulkData,
+  onBulk,
+  onBulkOpen,
+  onSelectItems,
+  selectedItems,
   viewMode,
   setViewMode,
 }: RelationsProps) => {
@@ -47,23 +53,23 @@ export const Relations = ({
 
   const crmItemsFiltered = crms.filter(crmItem => crmItem.status === status);
 
-  const [selected, setSelected] = useState<string[]>([]);
-
   const handleSelectItem = (itemId: string) => {
-    const index = selected.findIndex(id => id === itemId);
+    const index = selectedItems.findIndex(id => id === itemId);
 
     if (index >= 0) {
-      setSelected(selected.filter(id => id !== itemId));
+      onSelectItems(selectedItems.filter(id => id !== itemId));
     } else {
-      setSelected([...selected, itemId]);
+      onSelectItems([...selectedItems, itemId]);
     }
   };
 
   const handleSelectAllItems = useCallback(() => {
-    setSelected(
-      crmItemsFiltered && crmItemsFiltered?.length !== selected.length ? crmItemsFiltered.map(item => item.id) : [],
+    onSelectItems(
+      crmItemsFiltered && crmItemsFiltered?.length !== selectedItems.length
+        ? crmItemsFiltered.map(item => item.id)
+        : [],
     );
-  }, [crmItemsFiltered, selected.length]);
+  }, [crmItemsFiltered, onSelectItems, selectedItems.length]);
 
   return (
     <>
@@ -100,8 +106,8 @@ export const Relations = ({
               <Box px={2}>
                 {viewMode === 'table' ? (
                   <CrmTableView
-                    items={crmItemsFiltered as CrmItem[]}
-                    selected={selected}
+                    items={crmItemsFiltered}
+                    selected={selectedItems}
                     onSelectItem={handleSelectItem}
                     onSelectAllItems={handleSelectAllItems}
                     pagination={pagination}
@@ -117,11 +123,38 @@ export const Relations = ({
                     )}
                     sortOptions={sorting.sortOptions}
                     onSort={sorting.onSort}
+                    onBulk={onBulk}
+                    onBulkOpen={onBulkOpen}
+                    bulkTitle={formatMessage({ id: 'crm.bulk.title' })}
+                    bulkData={bulkData}
+                    bulkSubmitText={formatMessage({ id: 'crm.bulk.submit' })}
+                    bulkActions={[
+                      {
+                        key: BulkField.Status,
+                        title: formatMessage({ id: 'crm.bulk.status.title' }),
+                        content: (
+                          <FieldChange
+                            fieldLabelId="crm.bulk.status.label"
+                            fieldName={BulkField.Status}
+                            fieldPlaceholderId="crm.bulk.status.placeholder"
+                            valuesFieldName={'status'}
+                            valuesLabel={formatMessage({ id: 'crm.bulk.status.values_title' })}
+                            radioOptions={CrmStatusOptions.map(s => ({
+                              ...s,
+                              label: formatMessage({ id: `dictionaries.status.${s.label}` }),
+                            }))}
+                            xs={6}
+                            type="radiogroup"
+                          />
+                        ),
+                      },
+                    ]}
+                    onOperation={onOperation}
                   />
                 ) : (
                   <List<CrmItem>
                     className="crm-list"
-                    items={crmItemsFiltered as CrmItem[]}
+                    items={crmItemsFiltered}
                     itemIndex={'id'}
                     loadingItem={<PropertyItemPlaceholder />}
                     emptyTitle={formatMessage({ id: 'crm.list.empty_title' })}
@@ -158,7 +191,34 @@ export const Relations = ({
                     pagination={pagination}
                     sortOptions={sorting.sortOptions}
                     onSort={sorting.onSort}
-                    onSelectItems={setSelected}
+                    selectedItems={selectedItems}
+                    onSelectItems={onSelectItems}
+                    onBulk={onBulk}
+                    onBulkOpen={onBulkOpen}
+                    bulkTitle={formatMessage({ id: 'crm.bulk.title' })}
+                    bulkData={bulkData}
+                    bulkSubmitText={formatMessage({ id: 'crm.bulk.submit' })}
+                    bulkActions={[
+                      {
+                        key: BulkField.Status,
+                        title: formatMessage({ id: 'crm.bulk.status.title' }),
+                        content: (
+                          <FieldChange
+                            fieldLabelId="crm.bulk.status.label"
+                            fieldName={BulkField.Status}
+                            fieldPlaceholderId="crm.bulk.status.placeholder"
+                            valuesFieldName={'status'}
+                            valuesLabel={formatMessage({ id: 'crm.bulk.status.values_title' })}
+                            radioOptions={CrmStatusOptions.map(s => ({
+                              ...s,
+                              label: formatMessage({ id: `dictionaries.status.${s.label}` }),
+                            }))}
+                            xs={6}
+                            type="radiogroup"
+                          />
+                        ),
+                      },
+                    ]}
                     onOperation={onOperation}
                   />
                 )}
@@ -179,7 +239,7 @@ export const Relations = ({
               { id: 'bulk_actions.delete.message_line_1' },
               {
                 count: 1,
-                name: `${deleteItem.firstName} ${deleteItem.insertion} ${deleteItem.lastName}`,
+                name: `${deleteItem.firstName} ${deleteItem.lastName}`,
                 span: msg => (
                   <Typography component="span" color="secondary">
                     {msg}

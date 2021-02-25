@@ -13,7 +13,7 @@ export const GET_CRM_FAMILY_CONTACTS = gql`
       partner {
         id
         firstName
-        insertion
+        initials
         lastName
         email
         avatar {

@@ -5,7 +5,7 @@ import { useModalDispatch } from 'hooks/useModalDispatch/useModalDispatch';
 import { RadioGroupField } from 'form/fields';
 import { SquareIcon } from 'ui/atoms/icons';
 import { FormModal } from 'ui/organisms';
-import { CrmIdentificationNumberType } from 'api/types';
+import { IdentificationNumberType } from 'api/types';
 
 import { AddNewIdentificationNumberModalProps } from './AddNewIdentificationNumberModal.types';
 
@@ -13,7 +13,7 @@ export const AddNewIdentificationNumberModal = ({ isOpened, onSubmit }: AddNewId
   const { formatMessage } = useLocale();
   const { close } = useModalDispatch();
 
-  const types = Object.keys(CrmIdentificationNumberType).map(type => ({
+  const types = Object.keys(IdentificationNumberType).map(type => ({
     label: `dictionaries.personal_information_general.identification_number_type.${type}`,
     icon: <SquareIcon />,
     value: type,

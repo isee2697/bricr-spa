@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 
-import { PimOverallInfoQueryHookResult, PimOverallInfoQuery } from 'api/types';
+import { PimOverallInfoQueryHookResult, PimOverallInfoQuery, Pim } from 'api/types';
 import { EntityType } from 'app/shared/entityType';
 
 export type PimDetailsSectionProps = {
@@ -11,8 +11,8 @@ export type PimDetailsSectionProps = {
   isPurchased?: boolean;
 };
 
-export type PimDetailsProps = Pick<PimOverallInfoQueryHookResult, 'loading' | 'error' | 'data'> & {
-  data?: PimOverallInfoQuery;
+export type PimDetailsProps = Pick<PimOverallInfoQueryHookResult, 'loading' | 'error'> & {
+  data?: Pim;
   objectTypeName?: string;
   breadcrumbs: ReactNode;
   path: string;

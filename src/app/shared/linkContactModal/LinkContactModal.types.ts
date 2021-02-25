@@ -1,6 +1,6 @@
 import { CrmListItem, CrmType } from 'api/types';
 
-export type LinkContactModalCrmListItem = Pick<CrmListItem, 'id' | 'firstName' | 'insertion' | 'lastName'>;
+export type LinkContactModalCrmListItem = Pick<CrmListItem, 'id' | 'firstName' | 'initials' | 'lastName'>;
 
 export type LinkContactModalForm = {
   contact?: string[];
