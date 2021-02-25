@@ -73,14 +73,14 @@ export const BankAccounts = () => {
     <>
       <FormSection
         title={formatMessage({ id: 'crm.details.personal_information_financial_profile.bank_accounts.title' })}
-        isEditable
         onAdd={() => open('add-new-bank-account')}
+        isEditable={false}
       >
         {isEditing => (
           <AutosaveForm onSave={onSave} initialValues={initialValues}>
             <Grid item xs={12}>
               {bankAccounts.length === 0 && (
-                <InfoSection emoji="🤔">
+                <InfoSection emoji="🙌">
                   <Typography variant="h3">
                     {formatMessage({
                       id: 'crm.details.personal_information_financial_profile.bank_accounts.empty_title',

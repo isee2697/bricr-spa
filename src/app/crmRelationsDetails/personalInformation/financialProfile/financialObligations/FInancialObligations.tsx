@@ -71,14 +71,14 @@ export const FinancialObligations = () => {
     <>
       <FormSection
         title={formatMessage({ id: 'crm.details.personal_information_financial_profile.financial_obligations.title' })}
-        isEditable
         onAdd={() => open('add-new-financial-obligation')}
+        isEditable={false}
       >
         {isEditing => (
           <AutosaveForm onSave={onSave} initialValues={initialValues}>
             <Grid item xs={12}>
               {obligations.length === 0 && (
-                <InfoSection emoji="🤔">
+                <InfoSection emoji="🙌">
                   <Typography variant="h3">
                     {formatMessage({
                       id: 'crm.details.personal_information_financial_profile.bank_accounts.empty_title',

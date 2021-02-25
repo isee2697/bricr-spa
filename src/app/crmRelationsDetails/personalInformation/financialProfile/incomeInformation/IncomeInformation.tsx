@@ -64,14 +64,14 @@ export const IncomeInformation = () => {
     <>
       <FormSection
         title={formatMessage({ id: 'crm.details.personal_information_financial_profile.income_information.title' })}
-        isEditable
         onAdd={() => open('add-new-income-information')}
+        isEditable={false}
       >
         {isEditing => (
           <AutosaveForm onSave={onSave} initialValues={initialValues} mutators={{ ...arrayMutators }}>
             <Grid item xs={12}>
               {incomeInformationItems.length === 0 && (
-                <InfoSection emoji="🤔">
+                <InfoSection emoji="🙌">
                   <Typography variant="h3">
                     {formatMessage({
                       id: 'crm.details.personal_information_contact_information.addresses.empty_title',
