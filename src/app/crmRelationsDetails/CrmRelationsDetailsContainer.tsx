@@ -6,21 +6,24 @@ import { Loader, NavBreadcrumb } from 'ui/atoms';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { CRM as mockCrm } from 'api/mocks/crm';
 import { EntityType } from 'app/shared/entityType';
-import { CrmType, useGetCrmGeneralQuery } from 'api/types';
+import { CrmType, useGetCrmGeneralQuery, CrmGeneral } from 'api/types';
+import { useStateQuery } from 'hooks/useStateQuery/useStateQuery';
 
 import { CrmRelationsDetails } from './CrmRelationsDetails';
 
 export const CrmRelationsDetailsContainer = () => {
   const { formatMessage } = useLocale();
   const { id } = useParams<{ id: string }>();
-  const { data } = useGetCrmGeneralQuery({ variables: { id } });
 
-  if (!data?.getCrmGeneral) {
+  const { loading, data } = useStateQuery({
+    query: useGetCrmGeneralQuery,
+    variables: { id },
+  });
+
+  if (loading) {
     return <Loader />;
   }
-  const {
-    getCrmGeneral: { firstName, insertion, lastName, avatar },
-  } = data;
+  const { firstName, insertion, lastName, avatar } = data as CrmGeneral;
 
   const crm = { ...mockCrm, id, firstName, insertion, lastName, avatar };
 

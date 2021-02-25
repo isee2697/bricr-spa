@@ -21,7 +21,8 @@ enum EventEntityType {
   ProjectPhase,
   Tags,
   TextChapters,
-  Usps
+  Usps,
+  Crm
 }
 
 enum EventParentType {

@@ -2607,6 +2607,7 @@ export enum EventEntityType {
   Cadastre = 'Cadastre',
   CadastreMap = 'CadastreMap',
   Cost = 'Cost',
+  Crm = 'Crm',
   Floor = 'Floor',
   Inspection = 'Inspection',
   MediaLinks = 'MediaLinks',
@@ -10773,7 +10774,15 @@ export type CreatePimMutationVariables = Exact<{
 }>;
 
 export type CreatePimMutation = { __typename?: 'Mutation' } & {
-  createPim?: Maybe<{ __typename?: 'Pim' } & Pick<Pim, 'id'>>;
+  createPim?: Maybe<
+    { __typename?: 'Pim' } & Pick<
+      Pim,
+      'id' | 'realEstateType' | 'street' | 'houseNumber' | 'postalCode' | 'city' | 'developmentType'
+    > & {
+        outsideFeatures?: Maybe<Array<{ __typename?: 'OutsideFeature' } & Pick<OutsideFeature, 'id'>>>;
+        floors?: Maybe<Array<{ __typename?: 'Floor' } & Pick<Floor, 'id'>>>;
+      }
+  >;
 };
 
 export type UpdateDescriptionMutationVariables = Exact<{
@@ -18537,6 +18546,18 @@ export const CreatePimDocument = gql`
   mutation CreatePim($input: CreatePimInput!) {
     createPim(input: $input) {
       id
+      realEstateType
+      street
+      houseNumber
+      postalCode
+      city
+      developmentType
+      outsideFeatures {
+        id
+      }
+      floors {
+        id
+      }
     }
   }
 `;
