@@ -118,7 +118,7 @@ export const CrmTableView = ({
       }
 
       if (cell === 'partner' || cell === 'manager') {
-        return `${crm[cell].firstName} ${crm[cell].lastName}`;
+        return `${crm[cell]?.firstName} ${crm[cell]?.lastName}`;
       }
 
       if (cell === 'status') {

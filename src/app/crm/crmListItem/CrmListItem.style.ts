@@ -42,6 +42,10 @@ export const useStyles = makeStyles(theme => ({
   meta: {
     width: 74,
     height: 40,
+    borderLeft: `1px solid ${theme.palette.gray.light}`,
+    '&:last-child': {
+      borderRight: `1px solid ${theme.palette.gray.light}`,
+    },
   },
   metaCount: {
     textAlign: 'center',

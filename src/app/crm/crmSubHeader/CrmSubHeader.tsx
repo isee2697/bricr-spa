@@ -2,7 +2,8 @@ import React from 'react';
 
 import { Box, IconButton } from 'ui/atoms';
 import { ListIcon, LocationIcon, SearchIcon, HamburgerIcon } from 'ui/atoms/icons';
-import { FiltersButton } from '../filters/FiltersButton';
+import { FiltersButton } from 'ui/molecules/filters/FiltersButton';
+import { CrmsFilters } from '../dictionaries';
 
 import { useStyles } from './CrmSubHeader.style';
 import { CrmSubHeaderProps } from './CrmSubHeader.types';
@@ -31,8 +32,7 @@ export const CrmSubHeader = ({ viewMode = 'list', setViewMode, activeFilters, on
       <IconButton variant="rounded" size="small" classes={{ root: classes.sortIcon }}>
         <LocationIcon color="inherit" />
       </IconButton>
-      <Box ml={3} />
-      <FiltersButton color="primary" data={activeFilters} getActiveFilters={onFilter} />
+      <FiltersButton color="primary" data={activeFilters} getActiveFilters={onFilter} filters={CrmsFilters} />
       <IconButton variant="roundedContained" size="small" classes={{ root: classes.sortIcon }}>
         <SearchIcon color="inherit" />
       </IconButton>

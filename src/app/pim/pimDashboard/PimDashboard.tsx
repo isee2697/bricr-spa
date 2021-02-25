@@ -5,14 +5,15 @@ import { PimDashBoardProps } from 'app/pim/pimDashboard/PimDashboard.types';
 import { useLocale } from 'hooks';
 import { ActiveFilters } from 'ui/molecules/filters/activeFilters/ActiveFilters';
 import { ListPimsFilters } from 'api/types';
+import { FiltersButton } from 'ui/molecules/filters/FiltersButton';
 
-import { PimDashboardFiltersButton } from './filters/FiltersButton';
 import { useStyles } from './PimDashboard.styles';
 import { PimDashboardMetaHeader } from './metaHeader/MetaHeader';
 import { NewInterestsContainer } from './newInterests/NewInterestsContainer';
 import { NewBiddingsContainer } from './newBiddings/NewBiddingsContainer';
 import { SoldContainer } from './sold/SoldContainer';
 import { NewSalesContainer } from './newSales/NewSalesContainer';
+import { PimDashboardFilters } from './dictionaries';
 
 export const PimDashboard = ({ breadcrumbs, activeFilters, onFilter }: PimDashBoardProps) => {
   const { formatMessage } = useLocale();
@@ -25,7 +26,7 @@ export const PimDashboard = ({ breadcrumbs, activeFilters, onFilter }: PimDashBo
         <Box display="flex" alignItems="center" justifyContent="space-between">
           <NavBreadcrumbs />
           <Box display="flex" alignItems="center">
-            <PimDashboardFiltersButton data={activeFilters} getActiveFilters={onFilter} />
+            <FiltersButton data={activeFilters} getActiveFilters={onFilter} filters={PimDashboardFilters} />
           </Box>
         </Box>
         <Box mt={3}>

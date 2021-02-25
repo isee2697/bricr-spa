@@ -477,8 +477,7 @@ export type MutationAddLabelArgs = {
 };
 
 export type MutationAddMatchProfileArgs = {
-  crmId: Scalars['ID'];
-  input: MatchProfileInput;
+  input: AddMatchProfileInput;
 };
 
 export type MutationAddMediaLinkArgs = {
@@ -949,7 +948,7 @@ export type MutationUpdateLinkedPropertiesListDescriptionArgs = {
 
 export type MutationUpdateMatchProfileArgs = {
   id: Scalars['ID'];
-  input: MatchProfileInput;
+  input: UpdateMatchProfileInput;
 };
 
 export type MutationUpdateMediaLinkArgs = {
@@ -2442,10 +2441,23 @@ export type CrmListItem = {
   firstName?: Maybe<Scalars['String']>;
   insertion?: Maybe<Scalars['String']>;
   lastName?: Maybe<Scalars['String']>;
+  gender?: Maybe<GenderType>;
+  dateOfBirth?: Maybe<Scalars['Date']>;
+  placeOfBirth?: Maybe<Scalars['String']>;
+  nationality?: Maybe<Scalars['String']>;
+  maritalStatus?: Maybe<Scalars['String']>;
+  familyCompositionChildren?: Maybe<Scalars['Int']>;
+  familyCompositionAdults?: Maybe<Scalars['Int']>;
+  currentHomeSituation?: Maybe<Scalars['String']>;
+  partner?: Maybe<LinkedCrm>;
   phoneNumber?: Maybe<Scalars['String']>;
+  addresses?: Maybe<Array<CrmAddress>>;
   email?: Maybe<Scalars['String']>;
   avatar?: Maybe<File>;
   status?: Maybe<CrmStatus>;
+  dateCreated: Scalars['Date'];
+  dateUpdated?: Maybe<Scalars['Date']>;
+  completeness: Scalars['Float'];
 };
 
 export type CrmListSearchResult = {
@@ -3260,7 +3272,7 @@ export type MatchProfile = {
   propertyType?: Maybe<MatchPropertyType>;
   startDate?: Maybe<Scalars['Date']>;
   endDate?: Maybe<Scalars['Date']>;
-  duration?: Maybe<MatchProfileDateRange>;
+  matchDuration?: Maybe<MatchProfileDateRange>;
   matchWith?: Maybe<Array<MatchProfileWith>>;
   description?: Maybe<Scalars['String']>;
   estateType?: Maybe<MatchEstateType>;
@@ -3349,7 +3361,7 @@ export type MatchOutsidePricing = {
 
 export type MatchGarden = {
   __typename?: 'MatchGarden';
-  situation?: Maybe<MatchGardenSituation>;
+  situation?: Maybe<Array<MatchGardenSituation>>;
   outdoorSpacesMin?: Maybe<Scalars['Float']>;
   outdoorSpacesMax?: Maybe<Scalars['Float']>;
   volumeMin?: Maybe<Scalars['Float']>;
@@ -3372,11 +3384,11 @@ export type MatchMeasurements = {
 
 export type MatchProfileLocation = {
   __typename?: 'MatchProfileLocation';
-  latitude: Scalars['Float'];
-  longitude: Scalars['Float'];
-  street: Scalars['String'];
-  houseNumber: Scalars['Int'];
-  radius: Scalars['Float'];
+  latitude?: Maybe<Scalars['Float']>;
+  longitude?: Maybe<Scalars['Float']>;
+  street?: Maybe<Scalars['String']>;
+  houseNumber?: Maybe<Scalars['Int']>;
+  radius?: Maybe<Scalars['Float']>;
 };
 
 export type MatchRequirement = {
@@ -3385,11 +3397,34 @@ export type MatchRequirement = {
   status: MatchRequirementStatus;
 };
 
-export type MatchProfileInput = {
+export type AddMatchProfileInput = {
+  crmId: Scalars['ID'];
   propertyType?: Maybe<MatchPropertyType>;
   startDate?: Maybe<Scalars['Date']>;
   endDate?: Maybe<Scalars['Date']>;
-  duration?: Maybe<DateRange>;
+  matchDuration?: Maybe<DateRange>;
+  matchWith?: Maybe<Array<MatchProfileWith>>;
+  description?: Maybe<Scalars['String']>;
+  estateType?: Maybe<MatchEstateType>;
+  commercialEstateType?: Maybe<MatchCommercialEstateType>;
+  characteristics?: Maybe<MatchCharacteristicsInput>;
+  commercialCharacteristics?: Maybe<MatchCommercialCharacteristicsInput>;
+  pricing?: Maybe<MatchPricingInput>;
+  outside?: Maybe<MatchOutsidePricingInput>;
+  garden?: Maybe<MatchGardenInput>;
+  tags?: Maybe<Array<MatchTags>>;
+  measurements?: Maybe<MatchMeasurementsInput>;
+  revenue?: Maybe<IntRangeInput>;
+  exploitation?: Maybe<IntRangeInput>;
+  requirements?: Maybe<Array<MatchRequirementInput>>;
+  locations?: Maybe<Array<MatchProfileLocationInput>>;
+};
+
+export type UpdateMatchProfileInput = {
+  propertyType?: Maybe<MatchPropertyType>;
+  startDate?: Maybe<Scalars['Date']>;
+  endDate?: Maybe<Scalars['Date']>;
+  matchDuration?: Maybe<DateRange>;
   matchWith?: Maybe<Array<MatchProfileWith>>;
   description?: Maybe<Scalars['String']>;
   estateType?: Maybe<MatchEstateType>;
@@ -3466,7 +3501,7 @@ export type MatchOutsidePricingInput = {
 };
 
 export type MatchGardenInput = {
-  situation?: Maybe<MatchGardenSituation>;
+  situation?: Maybe<Array<MatchGardenSituation>>;
   outdoorSpacesMin?: Maybe<Scalars['Float']>;
   outdoorSpacesMax?: Maybe<Scalars['Float']>;
   volumeMin?: Maybe<Scalars['Float']>;
@@ -3487,11 +3522,11 @@ export type MatchMeasurementsInput = {
 };
 
 export type MatchProfileLocationInput = {
-  latitude: Scalars['Float'];
-  longitude: Scalars['Float'];
-  street: Scalars['String'];
-  houseNumber: Scalars['Int'];
-  radius: Scalars['Float'];
+  latitude?: Maybe<Scalars['Float']>;
+  longitude?: Maybe<Scalars['Float']>;
+  street?: Maybe<Scalars['String']>;
+  houseNumber?: Maybe<Scalars['Int']>;
+  radius?: Maybe<Scalars['Float']>;
 };
 
 export type MatchRequirementInput = {
@@ -9506,8 +9541,7 @@ export type AddLabelMutation = { __typename?: 'Mutation' } & {
 };
 
 export type AddMatchProfileMutationVariables = Exact<{
-  crmId: Scalars['ID'];
-  input: MatchProfileInput;
+  input: AddMatchProfileInput;
 }>;
 
 export type AddMatchProfileMutation = { __typename?: 'Mutation' } & {
@@ -9528,7 +9562,7 @@ export type AddMatchProfileMutation = { __typename?: 'Mutation' } & {
       | 'services'
       | 'tags'
     > & {
-        duration?: Maybe<{ __typename?: 'MatchProfileDateRange' } & Pick<MatchProfileDateRange, 'from' | 'to'>>;
+        matchDuration?: Maybe<{ __typename?: 'MatchProfileDateRange' } & Pick<MatchProfileDateRange, 'from' | 'to'>>;
         characteristics?: Maybe<
           { __typename?: 'MatchCharacteristics' } & Pick<MatchCharacteristics, 'general'> & {
               property?: Maybe<
@@ -9608,7 +9642,7 @@ export type AddMatchProfileMutation = { __typename?: 'Mutation' } & {
 
 export type UpdateMatchProfileMutationVariables = Exact<{
   id: Scalars['ID'];
-  input: MatchProfileInput;
+  input: UpdateMatchProfileInput;
 }>;
 
 export type UpdateMatchProfileMutation = { __typename?: 'Mutation' } & {
@@ -9629,7 +9663,7 @@ export type UpdateMatchProfileMutation = { __typename?: 'Mutation' } & {
       | 'services'
       | 'tags'
     > & {
-        duration?: Maybe<{ __typename?: 'MatchProfileDateRange' } & Pick<MatchProfileDateRange, 'from' | 'to'>>;
+        matchDuration?: Maybe<{ __typename?: 'MatchProfileDateRange' } & Pick<MatchProfileDateRange, 'from' | 'to'>>;
         characteristics?: Maybe<
           { __typename?: 'MatchCharacteristics' } & Pick<MatchCharacteristics, 'general'> & {
               property?: Maybe<
@@ -11371,8 +11405,34 @@ export type CrmListQuery = { __typename?: 'Query' } & {
       Array<
         { __typename?: 'CrmListItem' } & Pick<
           CrmListItem,
-          'id' | 'type' | 'firstName' | 'insertion' | 'lastName' | 'phoneNumber' | 'email' | 'status'
-        > & { avatar?: Maybe<{ __typename?: 'File' } & Pick<File, 'url'>> }
+          | 'id'
+          | 'type'
+          | 'firstName'
+          | 'insertion'
+          | 'lastName'
+          | 'gender'
+          | 'dateOfBirth'
+          | 'placeOfBirth'
+          | 'nationality'
+          | 'maritalStatus'
+          | 'familyCompositionChildren'
+          | 'familyCompositionAdults'
+          | 'currentHomeSituation'
+          | 'phoneNumber'
+          | 'email'
+          | 'status'
+          | 'dateCreated'
+          | 'dateUpdated'
+          | 'completeness'
+        > & {
+            partner?: Maybe<
+              { __typename?: 'LinkedCrm' } & Pick<LinkedCrm, 'id' | 'firstName' | 'lastName'> & {
+                  avatar?: Maybe<{ __typename?: 'File' } & Pick<File, 'url'>>;
+                }
+            >;
+            addresses?: Maybe<Array<{ __typename?: 'CrmAddress' } & Pick<CrmAddress, 'city'>>>;
+            avatar?: Maybe<{ __typename?: 'File' } & Pick<File, 'url'>>;
+          }
       >
     >;
   };
@@ -11596,7 +11656,7 @@ export type GetMatchProfileQuery = { __typename?: 'Query' } & {
       | 'services'
       | 'tags'
     > & {
-        duration?: Maybe<{ __typename?: 'MatchProfileDateRange' } & Pick<MatchProfileDateRange, 'from' | 'to'>>;
+        matchDuration?: Maybe<{ __typename?: 'MatchProfileDateRange' } & Pick<MatchProfileDateRange, 'from' | 'to'>>;
         characteristics?: Maybe<
           { __typename?: 'MatchCharacteristics' } & Pick<MatchCharacteristics, 'general'> & {
               property?: Maybe<
@@ -11697,7 +11757,7 @@ export type ListMatchProfilesQuery = { __typename?: 'Query' } & {
         | 'services'
         | 'tags'
       > & {
-          duration?: Maybe<{ __typename?: 'MatchProfileDateRange' } & Pick<MatchProfileDateRange, 'from' | 'to'>>;
+          matchDuration?: Maybe<{ __typename?: 'MatchProfileDateRange' } & Pick<MatchProfileDateRange, 'from' | 'to'>>;
           characteristics?: Maybe<
             { __typename?: 'MatchCharacteristics' } & Pick<MatchCharacteristics, 'general'> & {
                 property?: Maybe<
@@ -15761,15 +15821,16 @@ export type AddLabelMutationOptions = ApolloReactCommon.BaseMutationOptions<
   AddLabelMutationVariables
 >;
 export const AddMatchProfileDocument = gql`
-  mutation AddMatchProfile($crmId: ID!, $input: MatchProfileInput!) {
-    addMatchProfile(crmId: $crmId, input: $input) {
+  mutation AddMatchProfile($input: AddMatchProfileInput!) {
+    addMatchProfile(input: $input)
+      @rest(type: "AddMatchResponse", path: "/create-match", method: "POST", endpoint: "default") {
       id
       crmId
       companyId
       propertyType
       startDate
       endDate
-      duration {
+      matchDuration {
         from
         to
       }
@@ -15874,15 +15935,16 @@ export type AddMatchProfileMutationOptions = ApolloReactCommon.BaseMutationOptio
   AddMatchProfileMutationVariables
 >;
 export const UpdateMatchProfileDocument = gql`
-  mutation UpdateMatchProfile($id: ID!, $input: MatchProfileInput!) {
-    updateMatchProfile(id: $id, input: $input) {
+  mutation UpdateMatchProfile($id: ID!, $input: UpdateMatchProfileInput!) {
+    updateMatchProfile(id: $id, input: $input)
+      @rest(type: "UpdateMatchResponse", path: "/update-match?id={args.id}", method: "PUT", endpoint: "default") {
       id
       crmId
       companyId
       propertyType
       startDate
       endDate
-      duration {
+      matchDuration {
         from
         to
       }
@@ -15987,7 +16049,13 @@ export type UpdateMatchProfileMutationOptions = ApolloReactCommon.BaseMutationOp
   UpdateMatchProfileMutationVariables
 >;
 export const DeleteMatchProfileDocument = gql`
-  mutation DeleteMatchProfile($id: ID!) {
+  mutation DeleteMatchProfile($id: ID!)
+    @rest(
+      type: "DeleteMatchProfileResponse"
+      path: "/delete-match?id={args.id}"
+      method: "DELETE"
+      endpoint: "default"
+    ) {
     deleteMatchProfile(id: $id)
   }
 `;
@@ -19692,12 +19760,34 @@ export const CrmListDocument = gql`
         firstName
         insertion
         lastName
+        gender
+        dateOfBirth
+        placeOfBirth
+        nationality
+        maritalStatus
+        familyCompositionChildren
+        familyCompositionAdults
+        currentHomeSituation
+        partner {
+          id
+          firstName
+          lastName
+          avatar {
+            url
+          }
+        }
         phoneNumber
+        addresses {
+          city
+        }
         email
         avatar {
           url
         }
         status
+        dateCreated
+        dateUpdated
+        completeness
       }
     }
   }
@@ -20159,14 +20249,15 @@ export type LinkedPimsListQueryResult = ApolloReactCommon.QueryResult<
 >;
 export const GetMatchProfileDocument = gql`
   query GetMatchProfile($id: ID!) {
-    getMatchProfile(id: $id) {
+    getMatchProfile(id: $id)
+      @rest(type: "GetMatchProfileResponse", path: "/get-match?id={args.id}", method: "GET", endpoint: "default") {
       id
       crmId
       companyId
       propertyType
       startDate
       endDate
-      duration {
+      matchDuration {
         from
         to
       }
@@ -20280,14 +20371,20 @@ export type GetMatchProfileQueryResult = ApolloReactCommon.QueryResult<
 >;
 export const ListMatchProfilesDocument = gql`
   query ListMatchProfiles($crmId: ID!) {
-    listMatchProfiles(crmId: $crmId) {
+    listMatchProfiles(crmId: $crmId)
+      @rest(
+        type: "ListMatchProfileResponse"
+        path: "/list-matches?crmId={args.crmId}"
+        method: "GET"
+        endpoint: "default"
+      ) {
       id
       crmId
       companyId
       propertyType
       startDate
       endDate
-      duration {
+      matchDuration {
         from
         to
       }

@@ -5,6 +5,7 @@ import { AddIcon, ArrowDownIcon, ArrowUpIcon } from 'ui/atoms/icons';
 import { FiltersButton } from 'ui/molecules/filters/FiltersButton';
 import { UploadModal } from 'ui/organisms';
 
+import { CrmRelationsDocumentsFilters } from './dictionaries';
 import { ListViewTabsProps } from './ListViewTabs.types';
 
 export const ListViewTabs = ({ activeFilters, onFilter, onAdd, isExpanded, onToggleExpand }: ListViewTabsProps) => {
@@ -28,7 +29,12 @@ export const ListViewTabs = ({ activeFilters, onFilter, onAdd, isExpanded, onTog
         <AddIcon color="inherit" />
       </IconButton>
       <Box mr={2} />
-      <FiltersButton color="primary" data={activeFilters} getActiveFilters={onFilter} />
+      <FiltersButton
+        color="primary"
+        data={activeFilters}
+        getActiveFilters={onFilter}
+        filters={CrmRelationsDocumentsFilters}
+      />
       <Box mr={2} />
       <IconButton size="small" variant="roundedContained" onClick={onToggleExpand}>
         {isExpanded ? <ArrowUpIcon /> : <ArrowDownIcon />}

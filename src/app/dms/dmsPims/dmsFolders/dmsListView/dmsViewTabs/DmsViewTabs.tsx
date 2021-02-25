@@ -5,6 +5,7 @@ import { ListIcon, SwimlaneIcon, AddIcon } from 'ui/atoms/icons';
 import { FiltersButton } from 'ui/molecules/filters/FiltersButton';
 import { UploadModal } from 'ui/organisms';
 
+import { DmsFilters } from './dictionaries';
 import { DmsViewTabsProps } from './DmsViewTabs.types';
 
 export const DmsViewTabs = ({ status, onStatusChange, activeFilters, onFilter, onAdd }: DmsViewTabsProps) => {
@@ -35,7 +36,7 @@ export const DmsViewTabs = ({ status, onStatusChange, activeFilters, onFilter, o
         </IconButton>
       </Grid>
       <Grid item>
-        <FiltersButton data={activeFilters} getActiveFilters={onFilter} />
+        <FiltersButton data={activeFilters} getActiveFilters={onFilter} filters={DmsFilters} />
       </Grid>
       <Grid item>
         <IconButton aria-label="add" color="primary" size="small" onClick={handleUpload}>

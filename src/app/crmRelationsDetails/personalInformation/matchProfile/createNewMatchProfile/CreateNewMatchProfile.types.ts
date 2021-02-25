@@ -1,4 +1,4 @@
-import { MatchProfile, MatchProfileInput } from 'api/types';
+import { MatchProfile, AddMatchProfileInput, UpdateMatchProfileInput } from 'api/types';
 import { PromiseFunction } from 'app/shared/types';
 
 export type CreateNewMatchProfileContainerProps = {
@@ -9,9 +9,9 @@ export type CreateNewMatchProfileContainerProps = {
 
 export type CreateNewMatchProfileProps = CreateNewMatchProfileContainerProps & {
   matchProfile?: MatchProfile;
-  onSave: PromiseFunction<MatchProfileInput>;
+  onSave: PromiseFunction<AddMatchProfileInput | UpdateMatchProfileInput>;
 };
 
 export type SubSectionProps = {
-  onSave: PromiseFunction<MatchProfileInput>;
+  onSave: PromiseFunction<AddMatchProfileInput | UpdateMatchProfileInput>;
 };

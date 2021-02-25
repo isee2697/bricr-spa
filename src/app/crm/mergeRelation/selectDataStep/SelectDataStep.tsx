@@ -4,6 +4,7 @@ import { useLocale } from 'hooks';
 import { Grid, Button, Box, Card, CardHeader, CardContent, Radio, FormControlLabel, Typography } from 'ui/atoms';
 import { SubmitButton } from 'ui/molecules';
 import { CrmDetailItem, DataFieldType, MergeDataStepProps } from '../MergeCrmRelation.types';
+import { LinkedCrm } from 'api/types';
 
 import { useStyles } from './SelectDataStep.styles';
 
@@ -31,9 +32,9 @@ export const SelectDataStep = ({ onPrev, onNext, onUpdate, objects, results }: M
 
   const getField = (crm: CrmDetailItem, field: DataFieldType) => {
     if (field === 'initials') {
-      return crm.partner.initials;
+      return crm.partner?.insertion;
     } else if (field === 'partner') {
-      return `${crm.partner.firstName} ${crm.partner.lastName}`;
+      return `${crm.partner?.firstName} ${crm.partner?.lastName}`;
     } else if (
       field === 'street' ||
       field === 'houseNumber' ||
@@ -67,7 +68,7 @@ export const SelectDataStep = ({ onPrev, onNext, onUpdate, objects, results }: M
     ) {
       setNewCrm({ ...newCrm, [field]: updateCrm.address?.[field] });
     } else if (field === 'initials') {
-      setNewCrm({ ...newCrm, partner: { ...newCrm.partner, initials: updateCrm.partner.initials } });
+      setNewCrm({ ...newCrm, partner: { ...(newCrm.partner as LinkedCrm), insertion: updateCrm.partner?.insertion } });
     } else {
       setNewCrm({ ...newCrm, [field]: updateCrm[field] });
     }

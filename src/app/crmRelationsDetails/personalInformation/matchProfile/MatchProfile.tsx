@@ -45,7 +45,7 @@ export const MatchProfile = ({ crm, path, onSidebarOpen, isSidebarVisible }: Mat
         />
         <Route
           exact
-          path={`${path}/:profileId/edit`}
+          path={`${path}/:matchProfileId/edit`}
           component={() => (
             <CreateNewMatchProfileContainer
               path={path}
