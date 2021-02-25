@@ -20,6 +20,7 @@ import { useModalDispatch } from 'hooks/useModalDispatch/useModalDispatch';
 import { HamburgerIcon, ListIcon, LocationIcon } from 'ui/atoms/icons';
 import { ActionTab } from 'ui/molecules/actionTabs/ActionTabs.types';
 import { ListView } from 'ui/templates/page/PageWithListsCard/PageWithListsCard.types';
+import { CrmsFilters } from 'app/crm/dictionaries';
 
 import { RelationsProps } from './Relations.types';
 import { useStyles } from './Relations.styles';
@@ -122,7 +123,7 @@ export const Relations = ({
 
   return (
     <>
-      <PageWithListsCard<CrmItem, CrmStatus>
+      <PageWithListsCard<CrmItem, CrmStatus, ListCrmFilters>
         header={{
           addButtonTextId: `crm.add.${CrmType.Relation}`,
           onAdd: () => open('add-relation'),
@@ -133,8 +134,9 @@ export const Relations = ({
         }}
         views={viewsDict}
         filters={{
-          data: activeFilters,
-          getActiveFilters: onFilter,
+          activeFilters: activeFilters,
+          availableFilters: CrmsFilters,
+          onDelete: onFilter,
         }}
         actionTabs={{ tabs, onStatusChange, status }}
         list={{

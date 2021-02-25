@@ -1,22 +1,33 @@
 import React, { ReactElement, useState } from 'react';
 import clsx from 'classnames';
+import { AnyObject } from 'final-form';
+import { useHistory } from 'react-router-dom';
 
 import { PageWithListsHeader } from 'ui/templates/page/PageWithListsCard/PageWithListsHeader';
 import { Box, Grid, IconButton } from 'ui/atoms';
 import { FormSection } from 'ui/organisms';
 import { useLocale } from 'hooks';
 import { useStyles } from 'ui/templates/page/PageWithListsCard/PageWithListsCard.styles';
-import { FiltersButton } from 'app/crm/filters/FiltersButton';
-import { ActiveFilters } from 'app/crm/filters/activeFilters/ActiveFilters';
+import { FiltersButton } from 'ui/molecules/filters/FiltersButton';
+import { ActiveFilters, hasActiveFilters } from 'ui/molecules/filters/activeFilters/ActiveFilters';
 import { ActionTabs, List } from 'ui/molecules';
 import { BaseListType } from 'ui/molecules/list/List.types';
 
 import { PageWithListsCardProps } from './PageWithListsCard.types';
-
-export const PageWithListsCard: <T, D>(
-  p: PageWithListsCardProps<T, D>,
-) => ReactElement<PageWithListsCardProps<T, D>> = ({ header, card, views, filters, actionTabs, list }) => {
+type test<T> = (data: T) => boolean;
+export const PageWithListsCard: <V, A, F>(
+  p: PageWithListsCardProps<V, A, F>,
+) => ReactElement<PageWithListsCardProps<V, A, F>> = ({
+  header,
+  card,
+  views,
+  filters,
+  actionTabs,
+  list,
+  baseRoute,
+}) => {
   const [activeView, setActiveView] = useState(views.findIndex(view => view.isActive) ?? 0);
+  const { push } = useHistory();
   const { formatMessage } = useLocale();
   const classes = useStyles();
 
@@ -34,10 +45,11 @@ export const PageWithListsCard: <T, D>(
     );
   });
 
-  const hasFilters = () =>
-    Object.values(filters?.data ?? {}).filter(item => {
-      return Array.isArray(item) && !!item.length;
-    }).length > 0;
+  const handleFilterChange = (newFilters: AnyObject) => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+    // @ts-ignore
+    filters?.onDelete(newFilters);
+  };
 
   return (
     <Grid xs={12}>
@@ -46,19 +58,22 @@ export const PageWithListsCard: <T, D>(
         buttons={
           <>
             {buttons}
-            {filters && <FiltersButton color="primary" {...filters} />}
+            {filters && (
+              <FiltersButton
+                color="primary"
+                data={filters.activeFilters}
+                filters={filters.availableFilters}
+                getActiveFilters={handleFilterChange}
+              />
+            )}
           </>
         }
         title={formatMessage({ id: card.titleId })}
         isEditable={false}
       >
         <ActionTabs {...actionTabs} />
-        {filters && hasFilters() && (
-          <ActiveFilters
-            className={classes.filters}
-            activeFilters={filters.data!}
-            onDelete={filters.getActiveFilters!}
-          />
+        {filters && hasActiveFilters(filters?.activeFilters) && (
+          <ActiveFilters className={classes.filters} {...filters} />
         )}
         <List
           {...list}
@@ -70,8 +85,8 @@ export const PageWithListsCard: <T, D>(
                 {checkbox}
                 <Box component="span" className={classes.rowItem}>
                   <Box
-                  // className={classes.itemButton}
-                  // onClick={() => push(AppRoute.crmRelationsDetails.replace(':id', baseItem.id))}
+                    // className={classes.itemButton}
+                    onClick={() => baseRoute && push(baseRoute.replace(':id', baseItem.id))}
                   >
                     {views[activeView].renderViewComponent(item)}
                   </Box>

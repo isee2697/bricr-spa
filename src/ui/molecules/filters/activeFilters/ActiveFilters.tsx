@@ -1,4 +1,5 @@
 import React from 'react';
+import { AnyObject } from 'final-form';
 
 import { useLocale } from 'hooks';
 import { Box, Chip } from 'ui/atoms';
@@ -17,11 +18,16 @@ type ChipProps = {
   onDelete: (key: string, filter: Filter | string) => void;
 };
 
-type ActiveFiltersProps<T> = {
+export type ActiveFiltersProps<T> = {
   activeFilters: T;
   onDelete: (filters: T) => void;
   className?: string;
 };
+
+export const hasActiveFilters = (activeFilters: AnyObject): boolean =>
+  Object.values(activeFilters ?? {}).filter(item => {
+    return (Array.isArray(item) && !!item.length) || item !== undefined;
+  }).length > 0;
 
 const ChipComponent = ({ index, filter, onDelete }: ChipProps) => {
   const { formatMessage } = useLocale();
@@ -106,12 +112,7 @@ export const ActiveFilters: <T>(p: ActiveFiltersProps<T>) => React.ReactElement<
   };
 
   return (
-    <Box
-      className={`${classes.root} ${
-        activeFilters && Object.values(activeFilters).length > 0 ? classes.hasfilters : ''
-      } ${className}`}
-      p={2}
-    >
+    <Box className={`${classes.root} ${hasActiveFilters(activeFilters) ? classes.hasfilters : ''} ${className}`} p={2}>
       {generateFilters()}
     </Box>
   );

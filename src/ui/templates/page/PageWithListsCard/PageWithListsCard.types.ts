@@ -1,11 +1,10 @@
 import { ReactNode } from 'react';
-import * as React from 'react';
-import { RouteComponentProps } from 'react-router';
-import { AnyObject } from 'final-form';
 
-import { FilterButtonProps } from 'app/crm/filters/Filters.types';
 import { ActionTabsProps } from 'ui/molecules/actionTabs/ActionTabs.types';
 import { ListProps } from 'ui/molecules/list/List.types';
+import { ActiveFiltersProps } from 'ui/molecules/filters/activeFilters/ActiveFilters';
+import { FiltersTypes } from 'ui/molecules/filters/Filters.types';
+import { AppRoute } from 'routing/AppRoute.enum';
 
 export type ListView<T> = {
   renderViewComponent: (item: T) => JSX.Element;
@@ -13,15 +12,18 @@ export type ListView<T> = {
   isActive?: boolean;
 };
 
-export type PageWithListsCardProps<T, D> = {
+export type PageWithListsCardProps<V, A, F> = {
   header: PageWithListsHeaderProps;
+  baseRoute?: AppRoute;
   card: {
     titleId: string;
   };
-  views: ListView<T>[];
-  filters?: FilterButtonProps;
-  actionTabs: ActionTabsProps<D>;
-  list: Omit<ListProps<T>, 'renderItem'>;
+  views: ListView<V>[];
+  filters?: ActiveFiltersProps<F> & {
+    availableFilters: FiltersTypes[];
+  };
+  actionTabs: ActionTabsProps<A>;
+  list: Omit<ListProps<V>, 'renderItem'>;
 };
 
 export type PageWithListsHeaderProps = {
