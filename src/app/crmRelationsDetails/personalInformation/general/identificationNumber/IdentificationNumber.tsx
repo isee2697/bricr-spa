@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import * as uuid from 'uuid';
-import { useForm } from 'react-final-form';
 
 import { Box, Card, CardContent, CardHeader, FormControlLabel, Grid, IconButton, Switch, Typography } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';

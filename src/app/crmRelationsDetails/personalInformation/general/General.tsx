@@ -6,7 +6,6 @@ import { NavBreadcrumb, TextField } from 'ui/atoms';
 import { joinUrlParams } from 'routing/AppRoute.utils';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { Page } from 'ui/templates';
-import { AutosaveForm } from 'ui/organisms';
 
 import { useStyles } from './General.styles';
 import { PersonalInformation } from './personalInformation/PersonalInformation';
