@@ -92,13 +92,12 @@ export const PreferredTitle = ({ data, onSave }: PreferredTitleProps) => {
               </Box>
             </Box>
             <Box className={classes.marginTopFour}>
-              <Typography variant="h5">
-                {formatMessage({ id: 'crm.details.personal_information_general.preferred_title.extra_information' })}
-              </Typography>
               <GenericField
-                className={classes.formField}
                 name="preferredTitleInformation"
                 disabled={!isEditing}
+                label={formatMessage({
+                  id: 'crm.details.personal_information_general.preferred_title.extra_information',
+                })}
                 placeholder="crm.details.personal_information_general.preferred_title.put_extra_information"
               />
             </Box>

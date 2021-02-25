@@ -23,13 +23,13 @@ export const CrmRelationsDetailsContainer = () => {
   if (loading) {
     return <Loader />;
   }
-  const { firstName, insertion, lastName, avatar } = data as CrmGeneral;
+  const { firstName, initials, lastName, avatar } = data as CrmGeneral;
 
-  const crm = { ...mockCrm, id, firstName, insertion, lastName, avatar };
+  const crm = { ...mockCrm, id, firstName, initials, lastName, avatar };
 
   const crmType = CrmType.Relation;
 
-  const title = `${firstName || ''} ${insertion || ''} ${lastName || ''}`;
+  const title = `${firstName || ''} ${lastName || ''}`;
 
   const breadcrumbs = (
     <>

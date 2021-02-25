@@ -118,7 +118,7 @@ export const CrmRelationsDetailsSidebarMenu = ({ onHide, isVisible, crm }: CrmRe
     ],
   };
 
-  const title = crm.firstName + (crm.insertion ? ` ${crm.insertion} ` : ' ') + crm.lastName;
+  const title = (crm.firstName || '') + (crm.lastName || '');
 
   return (
     <SidebarMenu
@@ -132,11 +132,7 @@ export const CrmRelationsDetailsSidebarMenu = ({ onHide, isVisible, crm }: CrmRe
             title={title}
             subtitle={formatMessage({ id: 'crm.relation' })}
             icon={
-              <UserAvatar
-                name={`${crm.firstName} ${crm.insertion} ${crm.lastName}`}
-                avatar={crm.avatar?.url || ''}
-                variant="rounded"
-              />
+              <UserAvatar name={`${crm.firstName} ${crm.lastName}`} avatar={crm.avatar?.url || ''} variant="rounded" />
             }
           />
           <Box display="flex" alignItems="center" mt={1} ml={4.5}>
@@ -155,14 +151,10 @@ export const CrmRelationsDetailsSidebarMenu = ({ onHide, isVisible, crm }: CrmRe
             alignItems="center"
             className={classes.alternativeRelation}
           >
-            <UserAvatar
-              name={`${crm.firstName} ${crm.insertion} ${crm.lastName}`}
-              avatar={crm.avatar?.url || ''}
-              variant="rounded"
-            />
+            <UserAvatar name={`${crm.firstName} ${crm.lastName}`} avatar={crm.avatar?.url || ''} variant="rounded" />
             <Box ml={1}>
               <Typography variant="h5" color="textSecondary" className={classes.fontWeightBold}>
-                {crm.firstName} {crm.insertion} {crm.lastName}
+                {crm.firstName} {crm.lastName}
               </Typography>
               <Typography variant="h6" color="textSecondary">
                 {formatMessage({ id: 'crm.relation' })}

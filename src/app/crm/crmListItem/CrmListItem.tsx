@@ -33,8 +33,13 @@ export const CrmListItem = ({ crm, renderAction }: CrmListItemProps) => {
   const { push } = useHistory();
   const theme = useTheme();
 
-  const { firstName, insertion, lastName, email, phoneNumber, avatar } = crm;
   const {
+    firstName,
+    initials,
+    lastName,
+    email,
+    phoneNumber,
+    avatar,
     property,
     partner,
     manager: { image: managerAvatar, firstName: managerFirstName, lastName: managerLastName },
@@ -95,7 +100,7 @@ export const CrmListItem = ({ crm, renderAction }: CrmListItemProps) => {
             <Box>
               <Box>
                 <Typography variant="h3" className={classes.crmUserName}>
-                  {firstName} {insertion} {lastName}
+                  {firstName} {initials} {lastName}
                 </Typography>
               </Box>
               <Box display="flex">

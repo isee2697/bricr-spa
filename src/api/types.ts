@@ -2217,7 +2217,7 @@ export type LinkedCrm = {
   id: Scalars['ID'];
   firstName?: Maybe<Scalars['String']>;
   extraNames?: Maybe<Scalars['String']>;
-  insertion?: Maybe<Scalars['String']>;
+  initials?: Maybe<Scalars['String']>;
   lastName?: Maybe<Scalars['String']>;
   email?: Maybe<Scalars['String']>;
   phoneNumber?: Maybe<Scalars['String']>;
@@ -2299,11 +2299,11 @@ export enum PreferredLetterSalutationType {
   LordMylady = 'LordMylady',
 }
 
-export enum CrmIdentificationNumberType {
-  Sap = 'Sap',
-  Woningnet = 'Woningnet',
-  DebtorNumber = 'DebtorNumber',
-  Custom = 'Custom',
+export enum IdentificationType {
+  Passport = 'Passport',
+  DriverLicense = 'DriverLicense',
+  IdCard = 'IdCard',
+  ResidencePermit = 'ResidencePermit',
 }
 
 export enum CrmStatus {
@@ -2315,20 +2315,24 @@ export enum CrmStatus {
 export type CrmGeneral = {
   __typename?: 'CrmGeneral';
   id: Scalars['ID'];
+  description?: Maybe<Scalars['String']>;
   firstName?: Maybe<Scalars['String']>;
   extraNames?: Maybe<Scalars['String']>;
-  insertion?: Maybe<Scalars['String']>;
+  initials?: Maybe<Scalars['String']>;
   lastName?: Maybe<Scalars['String']>;
   avatar?: Maybe<File>;
   gender?: Maybe<GenderType>;
   dateOfBirth?: Maybe<Scalars['Date']>;
   placeOfBirth?: Maybe<Scalars['String']>;
   nationality?: Maybe<Scalars['String']>;
+  dateOfDeath?: Maybe<Scalars['Date']>;
+  isPassedAway?: Maybe<Scalars['Boolean']>;
   preferredLanguage?: Maybe<Scalars['String']>;
-  identification?: Maybe<Scalars['String']>;
+  identification?: Maybe<IdentificationType>;
   identificationNumber?: Maybe<Scalars['String']>;
   identificationIssueCity?: Maybe<Scalars['String']>;
   identificationIssueDate?: Maybe<Scalars['Date']>;
+  identificationExpirationDate?: Maybe<Scalars['Date']>;
   preferredTitlePrefix?: Maybe<Scalars['String']>;
   preferredTitleSuffix?: Maybe<Scalars['String']>;
   preferredLetterSalutation?: Maybe<Scalars['String']>;
@@ -2339,21 +2343,21 @@ export type CrmGeneral = {
 
 export type CrmIdentificationNumber = {
   __typename?: 'CrmIdentificationNumber';
-  type: CrmIdentificationNumberType;
-  number: Scalars['String'];
+  type: IdentificationNumberType;
+  number?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
 };
 
 export type CrmIdentificationNumberInput = {
-  type: CrmIdentificationNumberType;
-  number: Scalars['String'];
+  type: IdentificationNumberType;
+  number?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
 };
 
 export type CreateCrmInput = {
   type: CrmType;
   firstName?: Maybe<Scalars['String']>;
-  insertion?: Maybe<Scalars['String']>;
+  initials?: Maybe<Scalars['String']>;
   lastName?: Maybe<Scalars['String']>;
   email?: Maybe<Scalars['String']>;
   phoneNumber?: Maybe<Scalars['String']>;
@@ -2361,20 +2365,24 @@ export type CreateCrmInput = {
 
 export type UpdateCrmGeneralInput = {
   id: Scalars['ID'];
+  description?: Maybe<Scalars['String']>;
   firstName?: Maybe<Scalars['String']>;
   extraNames?: Maybe<Scalars['String']>;
-  insertion?: Maybe<Scalars['String']>;
+  initials?: Maybe<Scalars['String']>;
   lastName?: Maybe<Scalars['String']>;
   gender?: Maybe<GenderType>;
   avatarId?: Maybe<Scalars['String']>;
   dateOfBirth?: Maybe<Scalars['Date']>;
   placeOfBirth?: Maybe<Scalars['String']>;
   nationality?: Maybe<Scalars['String']>;
+  dateOfDeath?: Maybe<Scalars['Date']>;
+  isPassedAway?: Maybe<Scalars['Boolean']>;
   preferredLanguage?: Maybe<Scalars['String']>;
-  identification?: Maybe<Scalars['String']>;
+  identification?: Maybe<IdentificationType>;
   identificationNumber?: Maybe<Scalars['String']>;
   identificationIssueCity?: Maybe<Scalars['String']>;
   identificationIssueDate?: Maybe<Scalars['Date']>;
+  identificationExpirationDate?: Maybe<Scalars['Date']>;
   preferredTitlePrefix?: Maybe<Scalars['String']>;
   preferredTitleSuffix?: Maybe<Scalars['String']>;
   preferredLetterSalutation?: Maybe<Scalars['String']>;
@@ -2440,7 +2448,7 @@ export type CrmListItem = {
   id: Scalars['ID'];
   type: CrmType;
   firstName?: Maybe<Scalars['String']>;
-  insertion?: Maybe<Scalars['String']>;
+  initials?: Maybe<Scalars['String']>;
   lastName?: Maybe<Scalars['String']>;
   gender?: Maybe<GenderType>;
   dateOfBirth?: Maybe<Scalars['Date']>;
@@ -2456,6 +2464,9 @@ export type CrmListItem = {
   email?: Maybe<Scalars['String']>;
   avatar?: Maybe<File>;
   status?: Maybe<CrmStatus>;
+  matchProfilesFrom?: Maybe<Scalars['Date']>;
+  matchProfilesTo?: Maybe<Scalars['Date']>;
+  sales?: Maybe<Array<Sales>>;
   dateCreated: Scalars['Date'];
   dateUpdated?: Maybe<Scalars['Date']>;
   completeness: Scalars['Float'];
@@ -2475,7 +2486,7 @@ export type ListCrmFilters = {
 
 export type CrmWithSameInfoInput = {
   firstName?: Maybe<Scalars['String']>;
-  insertion?: Maybe<Scalars['String']>;
+  initials?: Maybe<Scalars['String']>;
   lastName?: Maybe<Scalars['String']>;
   email?: Maybe<Scalars['String']>;
   phoneNumber?: Maybe<Scalars['String']>;
@@ -9363,17 +9374,20 @@ export type UpdateCrmGeneralMutation = { __typename?: 'Mutation' } & {
       | 'id'
       | 'firstName'
       | 'extraNames'
-      | 'insertion'
+      | 'initials'
       | 'lastName'
       | 'gender'
       | 'dateOfBirth'
       | 'placeOfBirth'
       | 'nationality'
+      | 'dateOfDeath'
+      | 'isPassedAway'
       | 'preferredLanguage'
       | 'identification'
       | 'identificationNumber'
       | 'identificationIssueCity'
       | 'identificationIssueDate'
+      | 'identificationExpirationDate'
       | 'preferredTitlePrefix'
       | 'preferredTitleSuffix'
       | 'preferredLetterSalutation'
@@ -11327,7 +11341,7 @@ export type GetCrmFamilyContactsQuery = { __typename?: 'Query' } & {
       | 'familyCompositionInformation'
     > & {
         partner?: Maybe<
-          { __typename?: 'LinkedCrm' } & Pick<LinkedCrm, 'id' | 'firstName' | 'insertion' | 'lastName' | 'email'> & {
+          { __typename?: 'LinkedCrm' } & Pick<LinkedCrm, 'id' | 'firstName' | 'initials' | 'lastName' | 'email'> & {
               avatar?: Maybe<{ __typename?: 'File' } & Pick<File, 'url'>>;
             }
         >;
@@ -11353,17 +11367,20 @@ export type GetCrmGeneralQuery = { __typename?: 'Query' } & {
       | 'id'
       | 'firstName'
       | 'extraNames'
-      | 'insertion'
+      | 'initials'
       | 'lastName'
       | 'gender'
       | 'dateOfBirth'
       | 'placeOfBirth'
       | 'nationality'
+      | 'dateOfDeath'
+      | 'isPassedAway'
       | 'preferredLanguage'
       | 'identification'
       | 'identificationNumber'
       | 'identificationIssueCity'
       | 'identificationIssueDate'
+      | 'identificationExpirationDate'
       | 'preferredTitlePrefix'
       | 'preferredTitleSuffix'
       | 'preferredLetterSalutation'
@@ -11418,7 +11435,7 @@ export type CrmListQuery = { __typename?: 'Query' } & {
           | 'id'
           | 'type'
           | 'firstName'
-          | 'insertion'
+          | 'initials'
           | 'lastName'
           | 'gender'
           | 'dateOfBirth'
@@ -14690,7 +14707,7 @@ export type AdvancedSearchQuery = { __typename?: 'Query' } & {
         Array<
           { __typename?: 'CrmListItem' } & Pick<
             CrmListItem,
-            'id' | 'type' | 'firstName' | 'insertion' | 'lastName' | 'phoneNumber' | 'email'
+            'id' | 'type' | 'firstName' | 'initials' | 'lastName' | 'phoneNumber' | 'email'
           > & { avatar?: Maybe<{ __typename?: 'File' } & Pick<File, 'url'>> }
         >
       >;
@@ -15395,17 +15412,20 @@ export const UpdateCrmGeneralDocument = gql`
       id
       firstName
       extraNames
-      insertion
+      initials
       lastName
       gender
       dateOfBirth
       placeOfBirth
       nationality
+      dateOfDeath
+      isPassedAway
       preferredLanguage
       identification
       identificationNumber
       identificationIssueCity
       identificationIssueDate
+      identificationExpirationDate
       preferredTitlePrefix
       preferredTitleSuffix
       preferredLetterSalutation
@@ -19642,7 +19662,7 @@ export const GetCrmFamilyContactsDocument = gql`
       partner {
         id
         firstName
-        insertion
+        initials
         lastName
         email
         avatar {
@@ -19686,17 +19706,20 @@ export const GetCrmGeneralDocument = gql`
       id
       firstName
       extraNames
-      insertion
+      initials
       lastName
       gender
       dateOfBirth
       placeOfBirth
       nationality
+      dateOfDeath
+      isPassedAway
       preferredLanguage
       identification
       identificationNumber
       identificationIssueCity
       identificationIssueDate
+      identificationExpirationDate
       preferredTitlePrefix
       preferredTitleSuffix
       preferredLetterSalutation
@@ -19788,7 +19811,7 @@ export const CrmListDocument = gql`
         id
         type
         firstName
-        insertion
+        initials
         lastName
         gender
         dateOfBirth
@@ -24765,7 +24788,7 @@ export const AdvancedSearchDocument = gql`
         id
         type
         firstName
-        insertion
+        initials
         lastName
         phoneNumber
         email

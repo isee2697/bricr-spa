@@ -239,7 +239,7 @@ export const Relations = ({
               { id: 'bulk_actions.delete.message_line_1' },
               {
                 count: 1,
-                name: `${deleteItem.firstName} ${deleteItem.insertion} ${deleteItem.lastName}`,
+                name: `${deleteItem.firstName} ${deleteItem.lastName}`,
                 span: msg => (
                   <Typography component="span" color="secondary">
                     {msg}
