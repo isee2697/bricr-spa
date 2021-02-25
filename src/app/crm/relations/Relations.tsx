@@ -2,8 +2,8 @@ import React, { useCallback, useState } from 'react';
 import clsx from 'classnames';
 import { useHistory } from 'react-router-dom';
 
-import { BulkOperations, CrmType, ListCrmFilters } from 'api/types';
-import { Page } from 'ui/templates';
+import { BulkOperations, CrmStatus, CrmType, ListCrmFilters } from 'api/types';
+import { Page, PageWithListsCard } from 'ui/templates';
 import { ConfirmModal, List, PropertyItemPlaceholder } from 'ui/molecules';
 import { Grid, Card, CardHeader, CardContent, Box, Typography } from 'ui/atoms';
 import { CrmHeader } from '../crmHeader/CrmHeader';
@@ -17,6 +17,9 @@ import { ActiveFilters } from '../filters/activeFilters/ActiveFilters';
 import { ConfirmButtonType } from 'ui/molecules/confirmModal/ConfirmModal.types';
 import { MoveCrmRelationContainer } from '../moveRelation/MoveCrmRelationContainer';
 import { useModalDispatch } from 'hooks/useModalDispatch/useModalDispatch';
+import { HamburgerIcon, ListIcon, LocationIcon } from 'ui/atoms/icons';
+import { ActionTab } from 'ui/molecules/actionTabs/ActionTabs.types';
+import { ListView } from 'ui/templates/page/PageWithListsCard/PageWithListsCard.types';
 
 import { RelationsProps } from './Relations.types';
 import { useStyles } from './Relations.styles';
@@ -65,8 +68,93 @@ export const Relations = ({
     );
   }, [crmItemsFiltered, selected.length]);
 
+  const renderMenu = (item: CrmItem) => (
+    <RelationsMenu
+      item={item}
+      onMerge={id => push(`${AppRoute.crm}/merge/${id}`)}
+      onMove={() => {
+        open('move-crm-relation');
+      }}
+      onUpdateStatus={onUpdateItemStatus}
+      onDelete={() => setDeleteItem(item)}
+    />
+  );
+
+  const viewsDict: ListView<CrmItem>[] = [
+    {
+      viewIcon: <ListIcon />,
+      renderViewComponent: (item: CrmItem) => <CrmListItem crm={item} renderAction={renderMenu} />,
+      isActive: true,
+    },
+    {
+      viewIcon: <HamburgerIcon />,
+      renderViewComponent: (item: CrmItem) => <>{item.firstName}</>,
+    },
+    {
+      viewIcon: <LocationIcon />,
+      renderViewComponent: (item: CrmItem) => (
+        <>
+          {item.firstName} {item.lastName}
+        </>
+      ),
+    },
+  ];
+
+  const tabs: ActionTab[] = [
+    {
+      value: CrmStatus.ActionRequired,
+      amount: amounts?.ActionRequired || 0,
+      hasBadge: true,
+      badgeColor: 'secondary',
+      label: formatMessage({ id: 'crm.status.action_required' }),
+    },
+    {
+      value: CrmStatus.Active,
+      amount: amounts?.Active || 0,
+      label: formatMessage({ id: 'crm.status.active' }),
+    },
+    {
+      value: CrmStatus.Inactive,
+      amount: amounts?.Inactive || 0,
+      label: formatMessage({ id: 'crm.status.inactive' }),
+    },
+  ];
+
   return (
     <>
+      <PageWithListsCard<CrmItem, CrmStatus>
+        header={{
+          addButtonTextId: `crm.add.${CrmType.Relation}`,
+          onAdd: () => open('add-relation'),
+          titleId: 'crm.title',
+        }}
+        card={{
+          titleId: 'crm.type.relations',
+        }}
+        views={viewsDict}
+        filters={{
+          data: activeFilters,
+          getActiveFilters: onFilter,
+        }}
+        actionTabs={{ tabs, onStatusChange, status }}
+        list={{
+          className: 'crm-list',
+          items: crmItemsFiltered as CrmItem[],
+          itemIndex: 'id',
+          loadingItem: <PropertyItemPlaceholder />,
+          emptyTitle: formatMessage({ id: 'crm.list.empty_title' }),
+          emptyDescription: formatMessage(
+            { id: 'crm.list.empty_description' },
+            { buttonName: formatMessage({ id: `crm.add.relations` }) },
+          ),
+
+          pagination,
+          sortOptions: sorting.sortOptions,
+          onSort: sorting.onSort,
+          onSelectItems: setSelected,
+          onOperation,
+        }}
+      />
       <CrmHeader type={CrmType.Relation} onSidebarOpen={onSidebarOpen} isSidebarVisible={isSidebarVisible} />
       <Page withoutHeader>
         <Grid item xs={12}>
