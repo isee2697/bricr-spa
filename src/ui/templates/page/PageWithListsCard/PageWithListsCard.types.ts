@@ -14,7 +14,7 @@ export type ListView<T> = {
 
 export type PageWithListsCardProps<V, A, F> = {
   header: PageWithListsHeaderProps;
-  baseRoute?: AppRoute;
+  baseRoute?: AppRoute | string;
   card: {
     titleId: string;
   };

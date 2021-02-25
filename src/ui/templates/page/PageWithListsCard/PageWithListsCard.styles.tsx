@@ -40,4 +40,7 @@ export const useStyles = makeStyles(({ palette, shadows, spacing }) => ({
     padding: spacing(3.75, 2, 3.75, 0),
     width: '100%',
   },
+  itemButton: {
+    cursor: 'pointer',
+  },
 }));

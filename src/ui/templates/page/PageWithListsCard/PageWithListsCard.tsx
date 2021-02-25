@@ -85,7 +85,7 @@ export const PageWithListsCard: <V, A, F>(
                 {checkbox}
                 <Box component="span" className={classes.rowItem}>
                   <Box
-                    // className={classes.itemButton}
+                    className={classes.itemButton}
                     onClick={() => baseRoute && push(baseRoute.replace(':id', baseItem.id))}
                   >
                     {views[activeView].renderViewComponent(item)}

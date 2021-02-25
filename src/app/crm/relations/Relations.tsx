@@ -124,6 +124,7 @@ export const Relations = ({
   return (
     <>
       <PageWithListsCard<CrmItem, CrmStatus, ListCrmFilters>
+        baseRoute={AppRoute.crmRelationsDetails}
         header={{
           addButtonTextId: `crm.add.${CrmType.Relation}`,
           onAdd: () => open('add-relation'),
