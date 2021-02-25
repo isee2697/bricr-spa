@@ -35,7 +35,7 @@ export const CrmListItem = ({ crm, renderAction }: CrmListItemProps) => {
 
   const {
     firstName,
-    insertion,
+    initials,
     lastName,
     email,
     phoneNumber,
@@ -100,7 +100,7 @@ export const CrmListItem = ({ crm, renderAction }: CrmListItemProps) => {
             <Box>
               <Box>
                 <Typography variant="h3" className={classes.crmUserName}>
-                  {firstName} {insertion} {lastName}
+                  {firstName} {initials} {lastName}
                 </Typography>
               </Box>
               <Box display="flex">

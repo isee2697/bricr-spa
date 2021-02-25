@@ -68,10 +68,10 @@ export const PersonalInformation = ({ data, onSave }: PersonalInformationProps) 
                     <Grid container spacing={1}>
                       <Grid item xs={6}>
                         <GenericField
-                          name="insertion"
+                          name="initials"
                           disabled={!isEditing}
                           label={formatMessage({
-                            id: 'crm.details.personal_information_general.personal_info.insertion',
+                            id: 'crm.details.personal_information_general.personal_info.initials',
                           })}
                           placeholder="crm.details.personal_information_general.personal_info.placeholder"
                         />
@@ -151,6 +151,7 @@ export const PersonalInformation = ({ data, onSave }: PersonalInformationProps) 
                     label={formatMessage({
                       id: 'crm.details.personal_information_general.personal_info.date_of_death',
                     })}
+                    disableToolbar={false}
                   />
                 </Grid>
                 <Grid item xs={4}>

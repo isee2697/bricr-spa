@@ -33,7 +33,7 @@ export const CrmBusinessDetailsDashboard = ({
       <Page withoutHeader>
         <Grid xs={12} item>
           <Typography variant="h1">
-            {crm.firstName} {crm.insertion} {crm.lastName}
+            {crm.firstName} {crm.lastName}
           </Typography>
         </Grid>
         <MetaHeader {...crm.meta} />

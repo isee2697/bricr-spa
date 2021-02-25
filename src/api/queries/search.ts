@@ -45,7 +45,7 @@ export const ADVANCED_SEARCH = gql`
         id
         type
         firstName
-        insertion
+        initials
         lastName
         phoneNumber
         email

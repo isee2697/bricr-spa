@@ -20,9 +20,7 @@ export const AddNewPersonModal = ({ isOpened, onSubmit, onClose, crmList }: AddN
   }));
 
   const filterItem = (item: AddNewPersonModalCrmListItem, currentValue: string) =>
-    `${item.firstName ?? ''} ${item.insertion ?? ''} ${item.lastName ?? ''}`
-      .toLocaleLowerCase()
-      .includes(currentValue.toLocaleLowerCase());
+    `${item.firstName ?? ''} ${item.lastName ?? ''}`.toLocaleLowerCase().includes(currentValue.toLocaleLowerCase());
 
   const handleSelect = (input: FieldInputProps<string[]>, value: string) => {
     if (input.value.includes(value)) {
@@ -51,7 +49,7 @@ export const AddNewPersonModal = ({ isOpened, onSubmit, onClose, crmList }: AddN
                 <TileCheckbox
                   onClick={() => handleSelect(input, item.id)}
                   isSelected={input.value.includes(item.id)}
-                  title={highlightString(`${item.firstName ?? ''} ${item.insertion ?? ''} ${item.lastName ?? ''}`)}
+                  title={highlightString(`${item.firstName ?? ''} ${item.lastName ?? ''}`)}
                   orientation="horizontal"
                 >
                   <BogIcon />

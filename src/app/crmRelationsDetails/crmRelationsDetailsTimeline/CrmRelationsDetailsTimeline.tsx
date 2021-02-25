@@ -256,7 +256,7 @@ export const CrmRelationsDetailsTimeline = ({
       <Page withoutHeader>
         <Grid xs={12} item container className={classes.header}>
           <Typography variant="h1" className={classes.title}>
-            {crm.firstName} {crm.insertion} {crm.lastName}
+            {crm.firstName} {crm.lastName}
           </Typography>
 
           <IconButton variant="rounded" size="small" onClick={() => {}} className={classes.marginRightTwo}>

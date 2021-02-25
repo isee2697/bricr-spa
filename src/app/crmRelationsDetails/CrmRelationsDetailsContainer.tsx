@@ -19,14 +19,14 @@ export const CrmRelationsDetailsContainer = () => {
     return <Loader />;
   }
   const {
-    getCrmGeneral: { firstName, insertion, lastName, avatar },
+    getCrmGeneral: { firstName, initials, lastName, avatar },
   } = data;
 
-  const crm = { ...mockCrm, id, firstName, insertion, lastName, avatar };
+  const crm = { ...mockCrm, id, firstName, initials, lastName, avatar };
 
   const crmType = CrmType.Relation;
 
-  const title = `${firstName || ''} ${insertion || ''} ${lastName || ''}`;
+  const title = `${firstName || ''} ${lastName || ''}`;
 
   const breadcrumbs = (
     <>

@@ -52,14 +52,14 @@ export const MergeCrmRelationContainer = (props: MergeCrmRelationContainerProps)
   }
 
   const {
-    getCrmGeneral: { firstName, insertion, lastName, avatar },
+    getCrmGeneral: { firstName, initials, lastName, avatar },
   } = data;
 
   const crm: CrmDetailItem = {
     ...mockCrm,
     id,
     firstName,
-    insertion,
+    initials,
     lastName,
     avatar,
     address: {

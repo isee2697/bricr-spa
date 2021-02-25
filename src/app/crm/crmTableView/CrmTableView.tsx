@@ -113,20 +113,12 @@ export const CrmTableView = ({
 
   const renderCell = useCallback(
     (crm: CrmItem, cell: CrmTableFixedHeader | CrmTableMovableHeader) => {
-      if (cell === 'lastName') {
-        return `${crm.insertion ? crm.insertion + ' ' : ''}${crm.lastName}`;
-      }
-
       if (cell === 'partner' || cell === 'manager') {
         return `${crm[cell]?.firstName} ${crm[cell]?.lastName}`;
       }
 
       if (cell === 'status') {
         return formatMessage({ id: `dictionaries.crm_status.${crm.status}` });
-      }
-
-      if (cell === 'initials') {
-        return '';
       }
 
       return crm[cell];

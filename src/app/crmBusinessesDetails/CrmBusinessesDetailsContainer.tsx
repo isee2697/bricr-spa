@@ -21,7 +21,7 @@ export const CrmBusinessesDetailsContainer = () => {
 
   const crmType = CrmType.Business;
 
-  const title = `${crm.firstName || ''} ${crm.insertion || ''} ${crm.lastName || ''}`;
+  const title = `${crm.firstName || ''} ${crm.lastName || ''}`;
 
   const breadcrumbs = (
     <>

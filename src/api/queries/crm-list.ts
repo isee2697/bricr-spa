@@ -19,7 +19,7 @@ export const CRM_LIST = gql`
         id
         type
         firstName
-        insertion
+        initials
         lastName
         gender
         dateOfBirth
