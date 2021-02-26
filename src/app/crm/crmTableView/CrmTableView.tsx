@@ -2,18 +2,7 @@ import React, { ReactNode, useCallback, useState } from 'react';
 import classnames from 'classnames';
 import clsx from 'clsx';
 
-import {
-  Table,
-  TableHead,
-  TableRow,
-  TableCell,
-  TableBody,
-  Checkbox,
-  Typography,
-  Box,
-  Pagination,
-  Grid,
-} from 'ui/atoms';
+import { Table, TableHead, TableRow, TableCell, TableBody, Checkbox, Typography, Box, Pagination } from 'ui/atoms';
 import { SettingsIcon, ArrowDownIcon, ArrowUpIcon } from 'ui/atoms/icons';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { BulkOperations } from 'api/types';
@@ -32,7 +21,7 @@ import { useStyles } from './CrmTableView.styles';
 import { HeaderFilterModal } from './headerFilterModal/HeaderFilterModal';
 import { HeaderColumnItemType } from './headerFilterModal/HeaderFilterModal.types';
 
-const FIXED_HEADER_COLUMNS: CrmTableFixedHeader[] = [];
+const FIXED_HEADER_COLUMNS: CrmTableFixedHeader[] = ['firstName', 'lastName'];
 const MOVABLE_HEADER_COLUMNS: HeaderColumnItemType[] = [
   {
     value: 'firstName',
@@ -75,48 +64,42 @@ const MOVABLE_HEADER_COLUMNS: HeaderColumnItemType[] = [
     hidden: true,
   },
 ];
-
-export const TableRowItem = ({
-  item,
+export const ListTableRow = ({
+  children,
   headerCells,
-  renderAction,
+  className,
+  isHeader,
 }: {
-  item: CrmItem;
+  children?: ReactNode;
+  className?: string;
   headerCells: CrmTableHeaderCell[];
-  renderAction?: (item: CrmItem) => ReactNode;
+  isHeader?: true;
 }) => {
-  const classes = useStyles();
-  const { formatMessage } = useLocale();
-
-  const renderCell = useCallback(
-    (crm: CrmItem, cell: CrmTableFixedHeader | CrmTableMovableHeader) => {
-      if (cell === 'partner' || cell === 'manager') {
-        return `${crm.partner?.firstName} ${crm.partner?.lastName}`;
-      }
-
-      if (cell === 'status') {
-        return formatMessage({ id: `dictionaries.crm_status.${crm.status}` });
-      }
-
-      return crm[cell];
-    },
-    [formatMessage],
-  );
-
   const width = `${100 / (headerCells.length + 1)}%`;
 
   return (
-    <Box display="flex" alignItems="center" pt={1} pb={1}>
-      <Box width={!!renderAction ? 'calc(100% - 40px)' : '100%'} display="flex">
+    <Box className={className} display="flex" alignItems="center" pt={1} pb={1} pr={2}>
+      <Box flexGrow={1} display="flex">
         {headerCells.map((cell, index) => (
           <Box minWidth={width} width={width} key={index}>
-            {renderCell(item, cell.field)}
+            {children ?? cell.label}
           </Box>
         ))}
       </Box>
-      {renderAction?.(item)}
     </Box>
   );
+};
+
+export const renderCell = (fieldName: keyof CrmItem, item?: CrmItem) => {
+  if (fieldName === 'partner' || fieldName === 'manager') {
+    return `${item?.partner?.firstName} ${item?.partner?.lastName}`;
+  }
+
+  if (fieldName === 'status') {
+    return `dictionaries.crm_status.${item?.status}`;
+  }
+
+  return item?.[fieldName] as string;
 };
 
 export const CrmTableView = ({

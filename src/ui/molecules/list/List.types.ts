@@ -38,6 +38,7 @@ export type ListProps<T> = {
   bulkTitle?: string;
   bulkSubmitText?: string;
   isShowHeader?: boolean;
+  listIndexHeader?: ReactNode;
 };
 
 export type ListHeaderProps = {

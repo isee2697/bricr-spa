@@ -39,14 +39,7 @@ export const Crm = ({ path, status, onStatusChange }: CrmProps) => {
             />
             <Route
               path={`${path}/relations`}
-              render={() => (
-                <RelationsContainer
-                  isSidebarVisible={isSidebarMenuVisible}
-                  onSidebarOpen={handleSidebarOpen}
-                  onStatusChange={onStatusChange}
-                  status={status}
-                />
-              )}
+              render={() => <RelationsContainer onStatusChange={onStatusChange} status={status} />}
             />
             <Route
               path={`${path}/businesses`}
