@@ -1186,7 +1186,6 @@ export type MutationVerifyUserArgs = {
 export type Query = {
   __typename?: 'Query';
   _?: Maybe<Scalars['Boolean']>;
-  advancedSearch?: Maybe<AdvancedSearchResult>;
   checkCompanyRegistered: CheckRegisteredResponse;
   crmList: CrmListSearchResult;
   dictionary?: Maybe<Scalars['Dictionary']>;
@@ -1264,10 +1263,7 @@ export type Query = {
   listObjectTypes: ObjectTypeListSearchResult;
   listPims: PimListSearchResult;
   me?: Maybe<Profile>;
-};
-
-export type QueryAdvancedSearchArgs = {
-  input: AdvancedSearchInput;
+  search?: Maybe<SearchResult>;
 };
 
 export type QueryCheckCompanyRegisteredArgs = {
@@ -1569,6 +1565,10 @@ export type QueryListPimsArgs = {
   filters?: Maybe<ListPimsFilters>;
   pagination?: Maybe<Pagination>;
   sort?: Maybe<Array<Sort>>;
+};
+
+export type QuerySearchArgs = {
+  input: SearchInput;
 };
 
 export type LoginInput = {
@@ -8549,8 +8549,8 @@ export type Pagination = {
   searchAfter?: Maybe<Array<Scalars['String']>>;
 };
 
-export type AdvancedSearchResult = {
-  __typename?: 'AdvancedSearchResult';
+export type SearchResult = {
+  __typename?: 'SearchResult';
   users?: Maybe<Array<Profile>>;
   emails?: Maybe<Array<Profile>>;
   crms?: Maybe<Array<CrmListItem>>;
@@ -8560,9 +8560,9 @@ export type AdvancedSearchResult = {
   sales?: Maybe<Array<Sales>>;
 };
 
-export type AdvancedSearchInput = {
+export type SearchInput = {
   keyword: Scalars['String'];
-  type?: Maybe<Array<Entities>>;
+  types?: Maybe<Array<Entities>>;
   page?: Maybe<Scalars['Int']>;
   size?: Maybe<Scalars['Int']>;
 };
@@ -9360,7 +9360,7 @@ export type CreateCrmMutationVariables = Exact<{
 }>;
 
 export type CreateCrmMutation = { __typename?: 'Mutation' } & {
-  createCrm: { __typename?: 'CrmGeneral' } & Pick<CrmGeneral, 'id'>;
+  createCrm: { __typename?: 'CrmGeneral' } & Pick<CrmGeneral, 'id' | 'firstName' | 'initials' | 'lastName'>;
 };
 
 export type UpdateCrmGeneralMutationVariables = Exact<{
@@ -14674,13 +14674,13 @@ export type GetSalesListQuery = { __typename?: 'Query' } & {
   >;
 };
 
-export type AdvancedSearchQueryVariables = Exact<{
-  input: AdvancedSearchInput;
+export type SearchQueryVariables = Exact<{
+  input: SearchInput;
 }>;
 
-export type AdvancedSearchQuery = { __typename?: 'Query' } & {
-  advancedSearch?: Maybe<
-    { __typename?: 'AdvancedSearchResult' } & {
+export type SearchQuery = { __typename?: 'Query' } & {
+  search?: Maybe<
+    { __typename?: 'SearchResult' } & {
       users?: Maybe<
         Array<
           { __typename?: 'Profile' } & Pick<
@@ -15392,6 +15392,9 @@ export const CreateCrmDocument = gql`
   mutation CreateCrm($input: CreateCrmInput!) {
     createCrm(input: $input) {
       id
+      firstName
+      initials
+      lastName
     }
   }
 `;
@@ -24743,9 +24746,9 @@ export function useGetSalesListLazyQuery(
 export type GetSalesListQueryHookResult = ReturnType<typeof useGetSalesListQuery>;
 export type GetSalesListLazyQueryHookResult = ReturnType<typeof useGetSalesListLazyQuery>;
 export type GetSalesListQueryResult = ApolloReactCommon.QueryResult<GetSalesListQuery, GetSalesListQueryVariables>;
-export const AdvancedSearchDocument = gql`
-  query AdvancedSearch($input: AdvancedSearchInput!) {
-    advancedSearch(input: $input) {
+export const SearchDocument = gql`
+  query Search($input: SearchInput!) {
+    search(input: $input) @rest(type: "Search", path: "/search", method: "POST", endpoint: "default") {
       users {
         id
         firstName
@@ -24870,28 +24873,17 @@ export const AdvancedSearchDocument = gql`
     }
   }
 `;
-export function useAdvancedSearchQuery(
-  baseOptions?: ApolloReactHooks.QueryHookOptions<AdvancedSearchQuery, AdvancedSearchQueryVariables>,
-) {
-  return ApolloReactHooks.useQuery<AdvancedSearchQuery, AdvancedSearchQueryVariables>(
-    AdvancedSearchDocument,
-    baseOptions,
-  );
+export function useSearchQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<SearchQuery, SearchQueryVariables>) {
+  return ApolloReactHooks.useQuery<SearchQuery, SearchQueryVariables>(SearchDocument, baseOptions);
 }
-export function useAdvancedSearchLazyQuery(
-  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<AdvancedSearchQuery, AdvancedSearchQueryVariables>,
+export function useSearchLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<SearchQuery, SearchQueryVariables>,
 ) {
-  return ApolloReactHooks.useLazyQuery<AdvancedSearchQuery, AdvancedSearchQueryVariables>(
-    AdvancedSearchDocument,
-    baseOptions,
-  );
+  return ApolloReactHooks.useLazyQuery<SearchQuery, SearchQueryVariables>(SearchDocument, baseOptions);
 }
-export type AdvancedSearchQueryHookResult = ReturnType<typeof useAdvancedSearchQuery>;
-export type AdvancedSearchLazyQueryHookResult = ReturnType<typeof useAdvancedSearchLazyQuery>;
-export type AdvancedSearchQueryResult = ApolloReactCommon.QueryResult<
-  AdvancedSearchQuery,
-  AdvancedSearchQueryVariables
->;
+export type SearchQueryHookResult = ReturnType<typeof useSearchQuery>;
+export type SearchLazyQueryHookResult = ReturnType<typeof useSearchLazyQuery>;
+export type SearchQueryResult = ApolloReactCommon.QueryResult<SearchQuery, SearchQueryVariables>;
 export const SettingInfoDocument = gql`
   query SettingInfo {
     getTeams {
