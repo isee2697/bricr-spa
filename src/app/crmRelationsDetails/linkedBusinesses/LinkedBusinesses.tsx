@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import groupBy from 'lodash/groupBy';
+import { DateTime } from 'luxon';
 
 import {
   Avatar,
@@ -19,16 +20,16 @@ import { CrmRelationsDetailsHeader } from '../crmRelationsDetailsHeader/CrmRelat
 import { useLocale, useModalDispatch } from 'hooks';
 import { useEntityType } from 'app/shared/entityType';
 import { Page } from 'ui/templates';
-import { AddIcon, EditIcon, HelpIcon, MenuIcon } from 'ui/atoms/icons';
+import { AddIcon } from 'ui/atoms/icons';
 import { LinkBusinessType } from 'app/shared/linkBusinessModal/LinkBusinessModal.types';
 import { LinkBusinessModalContainer } from 'app/shared/linkBusinessModal/LinkBusinessModalContainer';
-import { InfoSection } from 'ui/molecules';
+import { InfoSection, ListOptionsMenu } from 'ui/molecules';
 import { FormSubSection } from 'ui/organisms';
 
 import { LinkedBusinessesProps, LinkedBusinessItem } from './LinkedBusinesses.types';
 import { useStyles } from './LinkedBusinesses.styles';
 
-export const LinkedBusinesses = ({ path, isSidebarVisible, onSidebarOpen }: LinkedBusinessesProps) => {
+export const LinkedBusinesses = ({ isSidebarVisible, onSidebarOpen }: LinkedBusinessesProps) => {
   const { formatMessage } = useLocale();
   const { baseUrl } = useEntityType();
   const urlParams = useParams();
@@ -47,8 +48,10 @@ export const LinkedBusinesses = ({ path, isSidebarVisible, onSidebarOpen }: Link
         phone: '123456789',
         image: 'http://placeimg.com/168/140/arch',
         name: 'Ikea',
-        office: 'Vestiging Weert',
-        linkType: LinkBusinessType.FinancialAdvisor,
+        street: 'Isenburgstraat 36',
+        postalCode: '1414 VA',
+        city: 'Breda',
+        linkType: LinkBusinessType.AccountManager,
       },
       {
         id: '0002',
@@ -56,8 +59,10 @@ export const LinkedBusinesses = ({ path, isSidebarVisible, onSidebarOpen }: Link
         phone: '123456789',
         image: 'http://placeimg.com/168/140/arch',
         name: 'Ikea',
-        office: 'Vestiging Weert',
-        linkType: LinkBusinessType.MainContact,
+        street: 'Isenburgstraat 36',
+        postalCode: '1414 VA',
+        city: 'Breda',
+        linkType: LinkBusinessType.Manager,
       },
       {
         id: '0003',
@@ -65,8 +70,10 @@ export const LinkedBusinesses = ({ path, isSidebarVisible, onSidebarOpen }: Link
         phone: '123456789',
         image: 'http://placeimg.com/168/140/arch',
         name: 'Ikea',
-        office: 'Vestiging Weert',
-        linkType: LinkBusinessType.Broker,
+        street: 'Isenburgstraat 36',
+        postalCode: '1414 VA',
+        city: 'Breda',
+        linkType: LinkBusinessType.Accountant,
       },
       {
         id: '0004',
@@ -74,8 +81,10 @@ export const LinkedBusinesses = ({ path, isSidebarVisible, onSidebarOpen }: Link
         phone: '123456789',
         image: 'http://placeimg.com/168/140/arch',
         name: 'Ikea',
-        office: 'Vestiging Weert',
-        linkType: LinkBusinessType.MainContact,
+        street: 'Isenburgstraat 36',
+        postalCode: '1414 VA',
+        city: 'Breda',
+        linkType: LinkBusinessType.DeputyDirector,
       },
     ]);
 
@@ -92,20 +101,12 @@ export const LinkedBusinesses = ({ path, isSidebarVisible, onSidebarOpen }: Link
         urlBase={joinUrlParams(baseUrl, urlParams)}
       />
       <CrmRelationsDetailsHeader onSidebarOpen={onSidebarOpen} isSidebarVisible={isSidebarVisible} />
-      <Page withoutHeader>
-        <Grid xs={12} item container className={classes.header}>
-          <Typography variant="h1" className={classes.title}>
-            {formatMessage({ id: 'crm.details.linked_businesses.business_information' })}
-          </Typography>
-
-          <IconButton variant="rounded" size="small" onClick={() => {}} className={classes.marginRightTwo}>
-            <HelpIcon />
-          </IconButton>
-
-          <IconButton variant="rounded" size="small" onClick={() => {}}>
-            <MenuIcon />
-          </IconButton>
-        </Grid>
+      <Page
+        title={formatMessage({ id: 'crm.details.linked_businesses.business_information' })}
+        titleActions={<></>}
+        updatedBy={{ id: '0001', email: 'test@email.com', firstName: 'Christian', lastName: 'Gils' }}
+        dateUpdated={DateTime.local().toISO()}
+      >
         <Card className={classes.businesses}>
           <CardHeader
             title={formatMessage({ id: 'crm.details.linked_businesses.title' })}
@@ -136,6 +137,7 @@ export const LinkedBusinesses = ({ path, isSidebarVisible, onSidebarOpen }: Link
                   <FormSubSection
                     title={formatMessage({ id: `dictionaries.link_business_type.${group[0].linkType}` })}
                     onOptionsClick={() => {}}
+                    customOption={<></>}
                     counter={index + 1}
                     key={index}
                   >
@@ -153,7 +155,11 @@ export const LinkedBusinesses = ({ path, isSidebarVisible, onSidebarOpen }: Link
                                 {businessItem.name}
                               </Typography>
                             </Box>
-                            <EditIcon />
+                            <ListOptionsMenu
+                              id={`linked-businesses-menu-${businessItem.id}`}
+                              onDeleteClick={() => {}}
+                              onEditClick={() => {}}
+                            />
                           </Box>
                           <Box pt={2} className={classes.businessItemDataBody}>
                             <Grid container>
@@ -161,7 +167,10 @@ export const LinkedBusinesses = ({ path, isSidebarVisible, onSidebarOpen }: Link
                                 <Typography variant="h6" className={classes.fontWeightMedium}>
                                   {formatMessage({ id: 'common.office' })}
                                 </Typography>
-                                <Typography variant="h6">{businessItem.office}</Typography>
+                                <Typography variant="h6">{businessItem.street}</Typography>
+                                <Typography variant="h6">
+                                  {businessItem.postalCode} {businessItem.city}
+                                </Typography>
                               </Grid>
                               <Grid item xs={7}>
                                 <Typography variant="h6" className={classes.fontWeightMedium}>

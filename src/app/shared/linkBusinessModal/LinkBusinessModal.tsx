@@ -3,9 +3,9 @@ import { Field, FieldInputProps, Form } from 'react-final-form';
 import arrayMutators from 'final-form-arrays';
 
 import { useLocale } from 'hooks';
-import { Modal, SubmitButton } from 'ui/molecules';
-import { Button, DialogActions, DialogContent, Typography, Box, TileCheckbox } from 'ui/atoms';
-import { AddIcon, BogIcon, HomeIcon } from 'ui/atoms/icons';
+import { Modal, SubmitButton, CancelButton, TileButton } from 'ui/molecules';
+import { DialogActions, DialogContent, Typography, Box, TileCheckbox } from 'ui/atoms';
+import { AddIcon, HomeIcon, RoundBusinessCenterIcon } from 'ui/atoms/icons';
 import { SearchList } from 'ui/organisms';
 import { RadioGroupField } from 'form/fields';
 import { RadioDataType } from 'form/fields/radioGroupField/RadioGroupField.types';
@@ -59,7 +59,7 @@ export const LinkBusinessModal = ({ isOpened, onClose, onSubmit, businessList }:
                           title={highlightString(item.name ?? '')}
                           orientation="horizontal"
                         >
-                          <BogIcon />
+                          <RoundBusinessCenterIcon />
                         </TileCheckbox>
                       </Box>
                     )}
@@ -69,17 +69,17 @@ export const LinkBusinessModal = ({ isOpened, onClose, onSubmit, businessList }:
               </Field>
               <Box mt={4}>
                 <Typography variant="h3" className={classes.fontWeightMedium}>
-                  {formatMessage({ id: 'common.select_type' })}
+                  {formatMessage({ id: 'common.select_role_to_business' })}
                 </Typography>
               </Box>
               <Box mt={2}>
-                <RadioGroupField name="type" options={linkTypes} />
+                <RadioGroupField name="type" options={linkTypes} actionElement={<TileButton onClick={() => {}} />} />
               </Box>
             </DialogContent>
             <DialogActions className={classes.actions}>
-              <Button color="ghost" size="small" onClick={onClose}>
+              <CancelButton size="large" variant="outlined" onClick={onClose}>
                 {formatMessage({ id: 'common.cancel' })}
-              </Button>
+              </CancelButton>
               <SubmitButton
                 startIcon={<AddIcon color="inherit" />}
                 type="submit"

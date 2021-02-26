@@ -56,6 +56,7 @@ export const CrmRelationsDetailsSidebarMenu = ({ onHide, isVisible, crm }: CrmRe
           { key: 'personal_information_home_situation', hideIcon: true },
           { key: 'personal_information_financial_profile', hideIcon: true },
           { key: 'personal_information_match_profile', hideIcon: true },
+          { key: 'personal_information_business_contacts', hideIcon: true },
         ],
       },
       {
@@ -109,11 +110,6 @@ export const CrmRelationsDetailsSidebarMenu = ({ onHide, isVisible, crm }: CrmRe
           { key: 'marketing_target_groups', hideIcon: true },
           { key: 'marketing_cross_sell', hideIcon: true },
         ],
-      },
-      {
-        key: 'crm.details.menu.business_info',
-        isCollapsable: true,
-        items: [{ key: 'linked_businesses' }],
       },
     ],
   };
