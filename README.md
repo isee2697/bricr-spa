@@ -170,7 +170,7 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 
 ## Deploy manually
 ### branchname should be: 
-- deploy/**
+- deploy/spa**
 
 
 Be aware a pr should be opened and closed afterwards this is an issue with circleci :)
