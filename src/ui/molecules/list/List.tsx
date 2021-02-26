@@ -38,6 +38,7 @@ export const List: <T>(p: ListProps<T>) => React.ReactElement<ListProps<T>> = ({
   bulkSubmitText,
   bulkTitle,
   isShowHeader = true,
+  listIndexHeader,
 }) => {
   const classes = useStyles();
   const [isActionModalOpened, setActionModalOpened] = useState(false);
@@ -147,6 +148,7 @@ export const List: <T>(p: ListProps<T>) => React.ReactElement<ListProps<T>> = ({
           onSort={!!onSort ? onSort : () => {}}
         />
       )}
+      {!loading && !!listIndexHeader && <Box className={classes.listIndex}>{listIndexHeader}</Box>}
       {!loading &&
         items.length > 0 &&
         items.map(item => {
