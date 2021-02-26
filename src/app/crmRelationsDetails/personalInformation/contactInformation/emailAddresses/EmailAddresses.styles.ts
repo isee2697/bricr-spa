@@ -25,13 +25,6 @@ export const useStyles = makeStyles(theme => ({
     marginLeft: theme.spacing(1),
     flex: 1,
   },
-  emailAddressFormFields: {
-    marginBottom: theme.spacing(4),
-
-    '&:last-of-type': {
-      marginBottom: 0,
-    },
-  },
   formField: {
     marginTop: theme.spacing(1),
   },

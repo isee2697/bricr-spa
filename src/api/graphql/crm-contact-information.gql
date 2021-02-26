@@ -37,16 +37,21 @@ enum ContactSocialMediaType {
   Custom
 }
 
-type CrmContactInformation {
+type CrmContactInformation implements LastUpdated {
   id: ID!
+  contactInfoDescription: String
   addresses: [CrmAddress!]
   phoneNumbers: [CrmPhoneNumber!]
   emailAddresses: [CrmEmailAddress!]
   socialMedia: [CrmSocialMedia!]
+  dateCreated: Date!
+  lastEditedBy: LastUpdatedProfile
+  dateUpdated: Date
 }
 
 input UpdateCrmContactInformationInput {
   id: ID!
+  contactInfoDescription: String
   addresses: [CrmAddressInput!]
   phoneNumbers: [CrmPhoneNumberInput!]
   emailAddresses: [CrmEmailAddressInput!]
@@ -54,6 +59,7 @@ input UpdateCrmContactInformationInput {
 }
 
 type CrmAddress {
+  id: ID!
   type: ContactAddressType!
   street: String
   houseNumber: Int
@@ -67,23 +73,26 @@ type CrmAddress {
 }
 
 type CrmPhoneNumber {
+  id: ID!
   type: ContactPhoneNumberType!
-  countryCode: String!
-  phoneNumber: String!
+  countryCode: String
+  phoneNumber: String
   availableFrom: Date
   note: String
 }
 
 type CrmEmailAddress {
+  id: ID!
   type: ContactEmailAddressType!
-  email: String!
+  email: String
   availableFrom: Date
   note: String
 }
 
 type CrmSocialMedia {
+  id: ID!
   type: ContactSocialMediaType!
-  url: String!
+  url: String
 }
 
 input CrmAddressInput {
@@ -101,22 +110,22 @@ input CrmAddressInput {
 
 input CrmPhoneNumberInput {
   type: ContactPhoneNumberType!
-  countryCode: String!
-  phoneNumber: String!
+  countryCode: String
+  phoneNumber: String
   availableFrom: Date
   note: String
 }
 
 input CrmEmailAddressInput {
   type: ContactEmailAddressType!
-  email: String!
+  email: String
   availableFrom: Date
   note: String
 }
 
 input CrmSocialMediaInput {
   type: ContactSocialMediaType!
-  url: String!
+  url: String
 }
 
 extend type Mutation {
