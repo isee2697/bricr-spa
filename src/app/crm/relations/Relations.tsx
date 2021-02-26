@@ -1,32 +1,26 @@
-import React, { useCallback, useState } from 'react';
-import clsx from 'classnames';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
-import { CrmType, ListCrmFilters, BulkField, BulkOperations } from 'api/types';
-import { Page } from 'ui/templates';
-import { ConfirmModal, List, PropertyItemPlaceholder } from 'ui/molecules';
-import { Grid, Card, CardHeader, CardContent, Box, Typography } from 'ui/atoms';
-import { CrmHeader } from '../crmHeader/CrmHeader';
-import { CrmActionTabs } from '../crmActionTabs/CrmActionTabs';
+import { BulkOperations, CrmStatus, CrmType, ListCrmFilters } from 'api/types';
+import { PageWithListsCard } from 'ui/templates';
 import { useLocale, useModalDispatch } from 'hooks';
-import { CrmSubHeader } from '../crmSubHeader/CrmSubHeader';
-import { CrmListItem } from '../crmListItem/CrmListItem';
-import { AppRoute } from 'routing/AppRoute.enum';
-import { ActiveFilters } from 'ui/molecules/filters/activeFilters/ActiveFilters';
-import { FieldChange } from 'ui/bulk/fieldChange/FieldChange';
-import { ConfirmButtonType } from 'ui/molecules/confirmModal/ConfirmModal.types';
-import { MoveCrmRelationContainer } from '../moveRelation/MoveCrmRelationContainer';
 import { CrmItem } from '../Crm.types';
+import { AppRoute } from 'routing/AppRoute.enum';
+import { MoveCrmRelationContainer } from '../moveRelation/MoveCrmRelationContainer';
+import {
+  createActionTabsDict,
+  createCrmViewsDict,
+  CrmsFilters,
+  FIXED_HEADER_COLUMNS,
+  MOVABLE_HEADER_COLUMNS,
+} from 'app/crm/dictionaries';
+import { ListTableCell } from 'ui/molecules/listTableItem/ListTableItem.types';
+import { HeaderColumnItemType } from 'ui/molecules/columnModal/ColumnModal.types';
 
 import { RelationsProps } from './Relations.types';
-import { useStyles } from './Relations.styles';
-import { CrmTableView } from './../crmTableView/CrmTableView';
-import { RelationsMenu } from './relationsMenu/RelationsMenu';
-import { CrmStatusOptions } from './dictionaries';
+import { RelationMenuItems } from './relationsMenu/RelationsMenu';
 
 export const Relations = ({
-  onSidebarOpen,
-  isSidebarVisible,
   status,
   onStatusChange,
   amounts,
@@ -37,227 +31,105 @@ export const Relations = ({
   activeFilters,
   sorting,
   pagination,
-  bulkData,
-  onBulk,
-  onBulkOpen,
   onSelectItems,
   selectedItems,
-  viewMode,
-  setViewMode,
+  loading,
 }: RelationsProps) => {
   const { push } = useHistory();
   const { formatMessage } = useLocale();
-  const classes = useStyles();
-  const [deleteItem, setDeleteItem] = useState<CrmItem | null>(null);
   const { open } = useModalDispatch();
+  const [movableHeaderCells, setMovableHeaderCells] = useState<HeaderColumnItemType<CrmItem>[]>(MOVABLE_HEADER_COLUMNS);
+  const [headerCells, setHeaderCells] = useState<ListTableCell<CrmItem>[]>([
+    ...FIXED_HEADER_COLUMNS.map(cell => ({
+      field: cell as keyof CrmItem,
+      label: formatMessage({ id: `table.header.${cell}` }),
+      sortable: true,
+    })),
+    ...MOVABLE_HEADER_COLUMNS.filter(cell => !cell.hidden && !FIXED_HEADER_COLUMNS.includes(cell.value)).map(cell => ({
+      field: cell.value,
+      label: formatMessage({ id: `table.header.${cell.value}` }),
+      sortable: true,
+    })),
+  ]);
+
+  const changeHeaderCells = (headerCells: HeaderColumnItemType<CrmItem>[]) => {
+    setMovableHeaderCells([...headerCells]);
+    setHeaderCells([
+      ...FIXED_HEADER_COLUMNS.map(cell => ({
+        field: cell,
+        label: formatMessage({ id: `pim.table.header.${cell}` }),
+        sortable: true,
+      })),
+      ...headerCells
+        .filter(cell => !cell.hidden && !FIXED_HEADER_COLUMNS.includes(cell.value))
+        .map(cell => ({
+          field: cell.value,
+          label: formatMessage({ id: `pim.table.header.${cell.value}` }),
+          sortable: true,
+        })),
+    ]);
+  };
 
   const crmItemsFiltered = crms.filter(crmItem => crmItem.status === status);
 
-  const handleSelectItem = (itemId: string) => {
-    const index = selectedItems.findIndex(id => id === itemId);
-
-    if (index >= 0) {
-      onSelectItems(selectedItems.filter(id => id !== itemId));
-    } else {
-      onSelectItems([...selectedItems, itemId]);
-    }
-  };
-
-  const handleSelectAllItems = useCallback(() => {
-    onSelectItems(
-      crmItemsFiltered && crmItemsFiltered?.length !== selectedItems.length
-        ? crmItemsFiltered.map(item => item.id)
-        : [],
-    );
-  }, [crmItemsFiltered, onSelectItems, selectedItems.length]);
+  const optionMenuItems = (item: CrmItem) => (
+    <RelationMenuItems
+      item={item}
+      onMerge={id => push(`${AppRoute.crm}/merge/${id}`)}
+      onMove={() => open('move-crm-relation')}
+      onUpdateStatus={onUpdateItemStatus}
+    />
+  );
 
   return (
     <>
-      <CrmHeader type={CrmType.Relation} onSidebarOpen={onSidebarOpen} isSidebarVisible={isSidebarVisible} />
-      <Page withoutHeader>
-        <Grid item xs={12}>
-          <Card>
-            <CardHeader
-              title={formatMessage({ id: `crm.type.relations` })}
-              action={
-                <CrmSubHeader
-                  viewMode={viewMode}
-                  setViewMode={setViewMode}
-                  activeFilters={activeFilters}
-                  onFilter={onFilter}
-                />
-              }
-            />
-            <CardContent className={classes.listContainer}>
-              <Box mx={2}>
-                <CrmActionTabs
-                  status={status}
-                  onStatusChange={onStatusChange}
-                  amounts={{
-                    actionRequired: amounts?.ActionRequired || 0,
-                    active: amounts?.Active || 0,
-                    inactive: amounts?.Inactive || 0,
-                  }}
-                />
-              </Box>
-              <Box mt={-2}>
-                <ActiveFilters<ListCrmFilters> activeFilters={activeFilters} onDelete={onFilter} />
-              </Box>
-              <Box px={2}>
-                {viewMode === 'table' ? (
-                  <CrmTableView
-                    items={crmItemsFiltered}
-                    selected={selectedItems}
-                    onSelectItem={handleSelectItem}
-                    onSelectAllItems={handleSelectAllItems}
-                    pagination={pagination}
-                    onClick={id => push(AppRoute.crmRelationsDetails.replace(':id', id))}
-                    renderAction={(item: CrmItem) => (
-                      <RelationsMenu
-                        item={item}
-                        onMerge={id => push(`${AppRoute.crm}/merge/${id}`)}
-                        onMove={() => open('move-crm-relation')}
-                        onUpdateStatus={onUpdateItemStatus}
-                        onDelete={() => setDeleteItem(item)}
-                      />
-                    )}
-                    sortOptions={sorting.sortOptions}
-                    onSort={sorting.onSort}
-                    onBulk={onBulk}
-                    onBulkOpen={onBulkOpen}
-                    bulkTitle={formatMessage({ id: 'crm.bulk.title' })}
-                    bulkData={bulkData}
-                    bulkSubmitText={formatMessage({ id: 'crm.bulk.submit' })}
-                    bulkActions={[
-                      {
-                        key: BulkField.Status,
-                        title: formatMessage({ id: 'crm.bulk.status.title' }),
-                        content: (
-                          <FieldChange
-                            fieldLabelId="crm.bulk.status.label"
-                            fieldName={BulkField.Status}
-                            fieldPlaceholderId="crm.bulk.status.placeholder"
-                            valuesFieldName={'status'}
-                            valuesLabel={formatMessage({ id: 'crm.bulk.status.values_title' })}
-                            radioOptions={CrmStatusOptions.map(s => ({
-                              ...s,
-                              label: formatMessage({ id: `dictionaries.status.${s.label}` }),
-                            }))}
-                            xs={6}
-                            type="radiogroup"
-                          />
-                        ),
-                      },
-                    ]}
-                    onOperation={onOperation}
-                  />
-                ) : (
-                  <List<CrmItem>
-                    className="crm-list"
-                    items={crmItemsFiltered}
-                    itemIndex={'id'}
-                    loadingItem={<PropertyItemPlaceholder />}
-                    emptyTitle={formatMessage({ id: 'crm.list.empty_title' })}
-                    emptyDescription={formatMessage(
-                      { id: 'crm.list.empty_description' },
-                      { buttonName: formatMessage({ id: `crm.add.relations` }) },
-                    )}
-                    renderItem={(crm, checked, checkbox) => (
-                      <Box key={crm.id} className={clsx(classes.row, { [classes.rowChecked]: checked }, 'crm-row')}>
-                        {checkbox}
-                        <Box component="span" className={classes.rowItem}>
-                          <Box
-                            className={classes.itemButton}
-                            onClick={() => push(AppRoute.crmRelationsDetails.replace(':id', crm.id))}
-                          >
-                            <CrmListItem
-                              crm={crm}
-                              renderAction={(item: CrmItem) => (
-                                <RelationsMenu
-                                  item={item}
-                                  onMerge={id => push(`${AppRoute.crm}/merge/${id}`)}
-                                  onMove={() => {
-                                    open('move-crm-relation');
-                                  }}
-                                  onUpdateStatus={onUpdateItemStatus}
-                                  onDelete={() => setDeleteItem(item)}
-                                />
-                              )}
-                            />
-                          </Box>
-                        </Box>
-                      </Box>
-                    )}
-                    pagination={pagination}
-                    sortOptions={sorting.sortOptions}
-                    onSort={sorting.onSort}
-                    selectedItems={selectedItems}
-                    onSelectItems={onSelectItems}
-                    onBulk={onBulk}
-                    onBulkOpen={onBulkOpen}
-                    bulkTitle={formatMessage({ id: 'crm.bulk.title' })}
-                    bulkData={bulkData}
-                    bulkSubmitText={formatMessage({ id: 'crm.bulk.submit' })}
-                    bulkActions={[
-                      {
-                        key: BulkField.Status,
-                        title: formatMessage({ id: 'crm.bulk.status.title' }),
-                        content: (
-                          <FieldChange
-                            fieldLabelId="crm.bulk.status.label"
-                            fieldName={BulkField.Status}
-                            fieldPlaceholderId="crm.bulk.status.placeholder"
-                            valuesFieldName={'status'}
-                            valuesLabel={formatMessage({ id: 'crm.bulk.status.values_title' })}
-                            radioOptions={CrmStatusOptions.map(s => ({
-                              ...s,
-                              label: formatMessage({ id: `dictionaries.status.${s.label}` }),
-                            }))}
-                            xs={6}
-                            type="radiogroup"
-                          />
-                        ),
-                      },
-                    ]}
-                    onOperation={onOperation}
-                  />
-                )}
-              </Box>
-            </CardContent>
-          </Card>
-        </Grid>
+      <PageWithListsCard<CrmItem, CrmStatus, ListCrmFilters>
+        isLoading={!!loading}
+        optionsMenu={{
+          onDelete: item => onOperation(BulkOperations.Delete, [item]),
+          onEdit: item => push(AppRoute.crmRelationsDetails.replace(':id', item.id)),
+          renderChildren: optionMenuItems,
+        }}
+        baseRoute={AppRoute.crmRelationsDetails}
+        header={{
+          addButtonTextId: `crm.add.${CrmType.Relation}`,
+          onAdd: () => open('add-relation'),
+          titleId: 'crm.title',
+        }}
+        cardTitleId={'crm.type.relations'}
+        views={createCrmViewsDict(headerCells)}
+        filters={{
+          activeFilters: activeFilters,
+          availableFilters: CrmsFilters,
+          onDelete: onFilter,
+        }}
+        actionTabs={{ tabs: createActionTabsDict(amounts), onStatusChange, status }}
+        tableHeader={{
+          sortKey: 'firstName',
+          cells: headerCells,
+          columns: movableHeaderCells,
+          setColumns: columns => changeHeaderCells(columns),
+        }}
+        list={{
+          className: 'crm-list',
+          items: crmItemsFiltered as CrmItem[],
+          itemIndex: 'id',
+          emptyTitle: formatMessage({ id: 'crm.list.empty_title' }),
+          emptyDescription: formatMessage(
+            { id: 'crm.list.empty_description' },
+            { buttonName: formatMessage({ id: `crm.add.relations` }) },
+          ),
 
-        {deleteItem && (
-          <ConfirmModal
-            isOpened={!!deleteItem}
-            onCancel={() => setDeleteItem(null)}
-            onConfirm={() => {
-              setDeleteItem(null);
-              onOperation(BulkOperations.Delete, [deleteItem]);
-            }}
-            messageLineFirst={formatMessage(
-              { id: 'bulk_actions.delete.message_line_1' },
-              {
-                count: 1,
-                name: `${deleteItem.firstName} ${deleteItem.lastName}`,
-                span: msg => (
-                  <Typography component="span" color="secondary">
-                    {msg}
-                  </Typography>
-                ),
-              },
-            )}
-            messageLineSecond={formatMessage({ id: 'bulk_actions.delete.message_line_2' })}
-            cancelText={formatMessage({ id: 'bulk_actions.delete.cancel' })}
-            confirmText={formatMessage({ id: 'bulk_actions.delete.confirm' }, { count: 1 })}
-            title={formatMessage({ id: 'bulk_actions.delete.title' }, { count: 1 })}
-            emoji={'😬'}
-            confirmButtonType={ConfirmButtonType.ERROR}
-          />
-        )}
+          pagination,
+          sortOptions: sorting.sortOptions,
+          onSort: sorting.onSort,
+          onSelectItems,
+          selectedItems,
+          onOperation,
+        }}
+      />
 
-        <MoveCrmRelationContainer />
-      </Page>
+      <MoveCrmRelationContainer />
     </>
   );
 };
