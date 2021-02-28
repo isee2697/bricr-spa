@@ -12,4 +12,9 @@ export type ProfileItemProps = {
   button?: ReactNode;
   onClick?: VoidFunction;
   inActive?: boolean;
+  classes?: ProfileItemClasses;
+};
+
+export type ProfileItemClasses = {
+  avatar?: string;
 };

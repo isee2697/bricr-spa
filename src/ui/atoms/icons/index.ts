@@ -126,3 +126,4 @@ export * from './attach/AttachIcon';
 export * from './photoCamera/PhotoCameraIcon';
 export * from './roundBusinessCenter/RoundBusinessCenterIcon';
 export * from './phone/PhoneIcon';
+export * from './disconnect/DisconnectIcon';
