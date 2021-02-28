@@ -137,6 +137,16 @@ export const CrmRelationsDetails = ({ crm, breadcrumbs, path, entityType }: CrmR
                   render={() => <FinancialProfileContainer />}
                 />
                 <Route
+                  path={`${path}/personal_information_business_contacts`}
+                  render={() => (
+                    <LinkedBusinessesContainer
+                      path={`${path}/personal_information_business_contacts`}
+                      onSidebarOpen={handleSidebarOpen}
+                      isSidebarVisible={isSidebarVisible}
+                    />
+                  )}
+                />
+                <Route
                   path={`${path}/sales`}
                   render={() => (
                     <DashboardContainer
@@ -232,16 +242,6 @@ export const CrmRelationsDetails = ({ crm, breadcrumbs, path, entityType }: CrmR
                   render={() => (
                     <MarketingCrossSellContainer
                       path={`${path}/marketing_cross_sell`}
-                      onSidebarOpen={handleSidebarOpen}
-                      isSidebarVisible={isSidebarVisible}
-                    />
-                  )}
-                />
-                <Route
-                  path={`${path}/linked_businesses`}
-                  render={() => (
-                    <LinkedBusinessesContainer
-                      path={`${path}/orders`}
                       onSidebarOpen={handleSidebarOpen}
                       isSidebarVisible={isSidebarVisible}
                     />
