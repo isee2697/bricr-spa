@@ -27,9 +27,10 @@ export const Pension = () => {
               id: 'crm.details.personal_information_financial_profile.income_information.pension.gross_aow_benefit',
             })}
             className={classes.formField}
-            name="pension.grossAowBenefit"
+            name="pensionIncome.aowBenefit"
             placeholder="crm.details.personal_information_financial_profile.income_information.pension.gross_aow_benefit.placeholder"
             InputProps={{ endAdornment: <EuroIcon /> }}
+            type="number"
           />
         </Grid>
         <Grid item xs={8}>
@@ -37,7 +38,7 @@ export const Pension = () => {
             items={periods}
             placeholder={formatMessage({ id: 'common.month' })}
             label={formatMessage({ id: 'common.period' })}
-            name="pension.grossAowBenefitPeriod"
+            name="pensionIncome.aowBenefitPeriod"
             margin="dense"
           />
         </Grid>
@@ -50,9 +51,10 @@ export const Pension = () => {
                 'crm.details.personal_information_financial_profile.income_information.pension.gross_pre_retirement_benefit',
             })}
             className={classes.formField}
-            name="pension.grossPreRetirementBenefit"
+            name="pensionIncome.retirementBenefit"
             placeholder="crm.details.personal_information_financial_profile.income_information.pension.gross_pre_retirement_benefit.placeholder"
             InputProps={{ endAdornment: <EuroIcon /> }}
+            type="number"
           />
         </Grid>
         <Grid item xs={8}>
@@ -60,7 +62,7 @@ export const Pension = () => {
             items={periods}
             placeholder={formatMessage({ id: 'common.month' })}
             label={formatMessage({ id: 'common.period' })}
-            name="pension.grossPreRetirementBenefitPeriod"
+            name="pensionIncome.retirementBenefitPeriod"
             margin="dense"
           />
         </Grid>
@@ -72,7 +74,7 @@ export const Pension = () => {
               id: 'crm.details.personal_information_financial_profile.income_information.pension.extra_information',
             })}
             className={classes.formField}
-            name="pension.extraInformation"
+            name="information"
             placeholder="crm.details.personal_information_financial_profile.income_information.pension.extra_information.placeholder"
           />
         </Grid>

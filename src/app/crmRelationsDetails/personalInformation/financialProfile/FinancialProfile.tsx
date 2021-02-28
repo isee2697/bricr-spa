@@ -7,14 +7,12 @@ import { NavBreadcrumb } from 'ui/atoms';
 import { joinUrlParams } from 'routing/AppRoute.utils';
 import { Page } from 'ui/templates';
 
-import { useStyles } from './FinancialProfile.styles';
 import { IncomeInformation } from './incomeInformation/IncomeInformation';
 import { BankAccounts } from './bankAccounts/BankAccounts';
-import { FinancialObligations } from './financialObligations/FInancialObligations';
+import { FinancialObligations } from './financialObligations/FinancialObligations';
 import { FinancialProfileProps } from './FinancialProfile.types';
 
-export const FinancialProfile = ({ onSave }: FinancialProfileProps) => {
-  const classes = useStyles();
+export const FinancialProfile = ({ data, onSave }: FinancialProfileProps) => {
   const { formatMessage } = useLocale();
   const { baseUrl } = useEntityType();
   const urlParams = useParams();
@@ -29,13 +27,14 @@ export const FinancialProfile = ({ onSave }: FinancialProfileProps) => {
       <Page
         title={formatMessage({ id: 'crm.details.personal_information_financial_profile.title' })}
         titleActions={<></>}
-        name="notes"
+        name="financialInfo"
+        initialValues={data}
         placeholder="crm.details.personal_information_financial_profile.description_placeholder"
         onSave={onSave}
       >
-        <IncomeInformation />
-        <FinancialObligations />
-        <BankAccounts />
+        <IncomeInformation data={data} onSave={onSave} />
+        <FinancialObligations data={data} onSave={onSave} />
+        <BankAccounts data={data} onSave={onSave} />
       </Page>
     </>
   );

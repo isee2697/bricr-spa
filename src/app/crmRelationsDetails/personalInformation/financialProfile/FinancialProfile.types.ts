@@ -1,7 +1,9 @@
+import { CrmFinancial, UpdateCrmFinancialInput } from 'api/types';
 import { PromiseFunction } from 'app/shared/types';
 
 export type FinancialProfileProps = {
-  onSave: PromiseFunction<void>;
+  data?: CrmFinancial;
+  onSave: PromiseFunction<UpdateCrmFinancialInput>;
 };
 
 export enum PeriodType {

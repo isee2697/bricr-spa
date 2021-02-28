@@ -1,20 +1,20 @@
 import React from 'react';
 
 import { useLocale } from 'hooks/useLocale/useLocale';
-import { IncomeInformationType } from '../incomeInformation/IncomeInformation.types';
 import { SquareIcon } from 'ui/atoms/icons';
 import { FormModal } from 'ui/organisms';
 import { RadioGroupField } from 'form/fields';
+import { IncomeType } from 'api/types';
 
 import { AddNewIncomeInformationModalProps } from './AddNewIncomeInformationModal.types';
 
 export const AddNewIncomeInformationModal = ({ isOpened, onSubmit, onClose }: AddNewIncomeInformationModalProps) => {
   const { formatMessage } = useLocale();
 
-  const incomeInformationItems = Object.keys(IncomeInformationType).map(incomeInformationType => ({
-    label: `dictionaries.financial_profile.income_information.${incomeInformationType}`,
+  const incomeInformationItems = Object.keys(IncomeType).map(key => ({
+    label: `dictionaries.financial_profile.income_information.${key}`,
     icon: <SquareIcon />,
-    value: incomeInformationType,
+    value: key,
   }));
 
   return (
@@ -24,7 +24,7 @@ export const AddNewIncomeInformationModal = ({ isOpened, onSubmit, onClose }: Ad
       onSubmit={onSubmit}
       title={formatMessage({ id: 'crm.details.personal_information_financial_profile.income_information.title' })}
     >
-      <RadioGroupField name="incomeInformationType" options={incomeInformationItems} />
+      <RadioGroupField name="incomeType" options={incomeInformationItems} />
     </FormModal>
   );
 };

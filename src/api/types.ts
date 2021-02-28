@@ -339,10 +339,14 @@ export type Mutation = {
   updateCadastreMap?: Maybe<Pim>;
   updateCompanyDetails: Company;
   updateCost: CostResult;
+  updateCrmBankAccount?: Maybe<CrmBankAccount>;
   updateCrmContactInformation?: Maybe<CrmContactInformation>;
   updateCrmFamilyContacts?: Maybe<CrmFamilyContacts>;
+  updateCrmFinancial?: Maybe<CrmFinancial>;
+  updateCrmFinancialObligation?: Maybe<CrmFinancialObligation>;
   updateCrmGeneral?: Maybe<CrmGeneral>;
   updateCrmHomeSituation?: Maybe<CrmHomeSituation>;
+  updateCrmIncome?: Maybe<CrmIncome>;
   updateDescription?: Maybe<Scalars['String']>;
   updateEmail?: Maybe<Email>;
   updateEmailAddress: Profile;
@@ -878,6 +882,11 @@ export type MutationUpdateCostArgs = {
   input: UpdateCostInput;
 };
 
+export type MutationUpdateCrmBankAccountArgs = {
+  id: Scalars['ID'];
+  input: CrmBankAccountInput;
+};
+
 export type MutationUpdateCrmContactInformationArgs = {
   input: UpdateCrmContactInformationInput;
 };
@@ -886,12 +895,26 @@ export type MutationUpdateCrmFamilyContactsArgs = {
   input: UpdateCrmFamilyContactsInput;
 };
 
+export type MutationUpdateCrmFinancialArgs = {
+  input: UpdateCrmFinancialInput;
+};
+
+export type MutationUpdateCrmFinancialObligationArgs = {
+  id: Scalars['ID'];
+  input: CrmFinancialObligationInput;
+};
+
 export type MutationUpdateCrmGeneralArgs = {
   input: UpdateCrmGeneralInput;
 };
 
 export type MutationUpdateCrmHomeSituationArgs = {
   input: UpdateCrmHomeSituationInput;
+};
+
+export type MutationUpdateCrmIncomeArgs = {
+  id: Scalars['ID'];
+  input: CrmIncomeInput;
 };
 
 export type MutationUpdateDescriptionArgs = {
@@ -1199,6 +1222,7 @@ export type Query = {
   getCompanyDetails: Company;
   getCrmContactInformation?: Maybe<CrmContactInformation>;
   getCrmFamilyContacts?: Maybe<CrmFamilyContacts>;
+  getCrmFinancial?: Maybe<CrmFinancial>;
   getCrmGeneral?: Maybe<CrmGeneral>;
   getCrmHomeSituation?: Maybe<CrmHomeSituation>;
   getCrmWithSameInfo: CrmListSearchResult;
@@ -1307,6 +1331,10 @@ export type QueryGetCrmContactInformationArgs = {
 };
 
 export type QueryGetCrmFamilyContactsArgs = {
+  id: Scalars['ID'];
+};
+
+export type QueryGetCrmFinancialArgs = {
   id: Scalars['ID'];
 };
 
@@ -2258,6 +2286,253 @@ export type UpdateCrmFamilyContactsInput = {
 export type CrmContactInput = {
   type: Scalars['String'];
   contactId: Scalars['ID'];
+};
+
+export enum IncomeType {
+  Employer = 'Employer',
+  Equity = 'Equity',
+  Pension = 'Pension',
+  SocialBenefit = 'SocialBenefit',
+  Entrepreneur = 'Entrepreneur',
+}
+
+export enum PeriodType {
+  PerMonth = 'PerMonth',
+  PerWeek = 'PerWeek',
+  PerFourWeeks = 'PerFourWeeks',
+  PerYear = 'PerYear',
+}
+
+export enum EmploymentType {
+  FixedTerm = 'FixedTerm',
+  Indefinitely = 'Indefinitely',
+}
+
+export enum SocialBenefitType {
+  SocialBenefit = 'SocialBenefit',
+  Wajong = 'Wajong',
+  WiaWao = 'WiaWao',
+  IoawIow = 'IoawIow',
+}
+
+export enum EntrepreneurType {
+  IbEntrepreneur = 'IbEntrepreneur',
+  Dga = 'Dga',
+}
+
+export enum FinancialObligationType {
+  Obligation1 = 'Obligation1',
+  Obligation2 = 'Obligation2',
+  Obligation3 = 'Obligation3',
+}
+
+export enum BankType {
+  Ing = 'Ing',
+  Rabobank = 'Rabobank',
+  AbnAmro = 'AbnAmro',
+}
+
+export enum BankAccountPurposeType {
+  AutomaticIncasso = 'AutomaticIncasso',
+  ServiceCosts = 'ServiceCosts',
+  FirstInvoice = 'FirstInvoice',
+}
+
+export enum EmployerIncomeProfession {
+  Designer = 'Designer',
+}
+
+export type CrmFinancial = {
+  __typename?: 'CrmFinancial';
+  id: Scalars['ID'];
+  financialInfo?: Maybe<Scalars['String']>;
+  income?: Maybe<Array<CrmIncome>>;
+  financialObligations?: Maybe<Array<CrmFinancialObligation>>;
+  bankAccounts?: Maybe<Array<CrmBankAccount>>;
+};
+
+export type UpdateCrmFinancialInput = {
+  id: Scalars['ID'];
+  financialInfo?: Maybe<Scalars['String']>;
+  income?: Maybe<Array<CrmIncomeInput>>;
+  financialObligations?: Maybe<Array<CrmFinancialObligationInput>>;
+  bankAccounts?: Maybe<Array<CrmBankAccountInput>>;
+};
+
+export type CrmIncome = {
+  __typename?: 'CrmIncome';
+  id: Scalars['ID'];
+  type: IncomeType;
+  information?: Maybe<Scalars['String']>;
+  employerIncome?: Maybe<CrmEmployerIncome>;
+  equityIncome?: Maybe<CrmEquityIncome>;
+  pensionIncome?: Maybe<CrmPensionIncome>;
+  socialBenefitIncome?: Maybe<CrmSocialBenefitIncome>;
+  entrepreneurIncome?: Maybe<CrmEntrepreneurIncome>;
+};
+
+export type CrmEmployerInformation = {
+  __typename?: 'CrmEmployerInformation';
+  name?: Maybe<Scalars['String']>;
+  street?: Maybe<Scalars['String']>;
+  houseNumber?: Maybe<Scalars['Int']>;
+  addition?: Maybe<Scalars['String']>;
+  zipcode?: Maybe<Scalars['String']>;
+  city?: Maybe<Scalars['String']>;
+  country?: Maybe<Scalars['String']>;
+};
+
+export type CrmEmployerIncome = {
+  __typename?: 'CrmEmployerIncome';
+  profession?: Maybe<EmployerIncomeProfession>;
+  employer?: Maybe<LinkedCrm>;
+  employerInformation?: Maybe<CrmEmployerInformation>;
+  employmentType?: Maybe<Scalars['String']>;
+  grossIncome?: Maybe<Scalars['Int']>;
+  grossIncomePeriod?: Maybe<PeriodType>;
+  holidayBonus?: Maybe<Scalars['Boolean']>;
+  fixedThirteenthMonth?: Maybe<Scalars['Boolean']>;
+  irregularityAllowance?: Maybe<Scalars['Int']>;
+  irregularityAllowancePeriod?: Maybe<PeriodType>;
+  profitDistribution?: Maybe<Scalars['Int']>;
+  profitDistributionPeriod?: Maybe<PeriodType>;
+  commission?: Maybe<Scalars['Int']>;
+  commissionPeriod?: Maybe<PeriodType>;
+  overtime?: Maybe<Scalars['Int']>;
+  overtimePeriod?: Maybe<PeriodType>;
+};
+
+export type CrmEquityIncome = {
+  __typename?: 'CrmEquityIncome';
+  income?: Maybe<Scalars['Int']>;
+};
+
+export type CrmPensionIncome = {
+  __typename?: 'CrmPensionIncome';
+  aowBenefit?: Maybe<Scalars['Int']>;
+  aowBenefitPeriod?: Maybe<PeriodType>;
+  retirementBenefit?: Maybe<Scalars['Int']>;
+  retirementBenefitPeriod?: Maybe<PeriodType>;
+};
+
+export type CrmSocialBenefitIncome = {
+  __typename?: 'CrmSocialBenefitIncome';
+  income?: Maybe<Scalars['Int']>;
+  incomePeriod?: Maybe<PeriodType>;
+  socialBenefitType?: Maybe<Scalars['String']>;
+};
+
+export type CrmEntrepreneurIncome = {
+  __typename?: 'CrmEntrepreneurIncome';
+  entrepreneurType?: Maybe<EntrepreneurType>;
+  companyCar?: Maybe<Scalars['Boolean']>;
+  companyBike?: Maybe<Scalars['Boolean']>;
+  pastPensionAge?: Maybe<Scalars['Boolean']>;
+  smeProfitExemption?: Maybe<Scalars['Boolean']>;
+  incomePerYear?: Maybe<Scalars['Int']>;
+  workingHoursPerMonth?: Maybe<Scalars['Int']>;
+  yearsAsIndependent?: Maybe<Scalars['Int']>;
+};
+
+export type CrmFinancialObligation = {
+  __typename?: 'CrmFinancialObligation';
+  id: Scalars['ID'];
+  type: Scalars['String'];
+  financialObligation?: Maybe<Scalars['Int']>;
+  information?: Maybe<Scalars['String']>;
+};
+
+export type CrmBankAccount = {
+  __typename?: 'CrmBankAccount';
+  id: Scalars['ID'];
+  type: Scalars['String'];
+  accountNumber?: Maybe<Scalars['String']>;
+  bic?: Maybe<Scalars['String']>;
+  iban?: Maybe<Scalars['String']>;
+  swift?: Maybe<Scalars['String']>;
+  purpose?: Maybe<Scalars['String']>;
+};
+
+export type CrmIncomeInput = {
+  type: IncomeType;
+  information?: Maybe<Scalars['String']>;
+  employerIncome?: Maybe<CrmEmployerIncomeInput>;
+  equityIncome?: Maybe<CrmEquityIncomeInput>;
+  pensionIncome?: Maybe<CrmPensionIncomeInput>;
+  socialBenefitIncome?: Maybe<CrmSocialBenefitIncomeInput>;
+  entrepreneurIncome?: Maybe<CrmEntrepreneurIncomeInput>;
+};
+
+export type CrmEmployerInformationInput = {
+  name?: Maybe<Scalars['String']>;
+  street?: Maybe<Scalars['String']>;
+  houseNumber?: Maybe<Scalars['Int']>;
+  addition?: Maybe<Scalars['String']>;
+  zipcode?: Maybe<Scalars['String']>;
+  city?: Maybe<Scalars['String']>;
+  country?: Maybe<Scalars['String']>;
+};
+
+export type CrmEmployerIncomeInput = {
+  profession?: Maybe<EmployerIncomeProfession>;
+  employerId?: Maybe<Scalars['ID']>;
+  employerInformation?: Maybe<CrmEmployerInformationInput>;
+  employmentType?: Maybe<Scalars['String']>;
+  grossIncome?: Maybe<Scalars['Int']>;
+  grossIncomePeriod?: Maybe<PeriodType>;
+  holidayBonus?: Maybe<Scalars['Boolean']>;
+  fixedThirteenthMonth?: Maybe<Scalars['Boolean']>;
+  irregularityAllowance?: Maybe<Scalars['Int']>;
+  irregularityAllowancePeriod?: Maybe<PeriodType>;
+  profitDistribution?: Maybe<Scalars['Int']>;
+  profitDistributionPeriod?: Maybe<PeriodType>;
+  commission?: Maybe<Scalars['Int']>;
+  commissionPeriod?: Maybe<PeriodType>;
+  overtime?: Maybe<Scalars['Int']>;
+  overtimePeriod?: Maybe<PeriodType>;
+};
+
+export type CrmEquityIncomeInput = {
+  income?: Maybe<Scalars['Int']>;
+};
+
+export type CrmPensionIncomeInput = {
+  aowBenefit?: Maybe<Scalars['Int']>;
+  aowBenefitPeriod?: Maybe<PeriodType>;
+  retirementBenefit?: Maybe<Scalars['Int']>;
+  retirementBenefitPeriod?: Maybe<PeriodType>;
+};
+
+export type CrmSocialBenefitIncomeInput = {
+  income?: Maybe<Scalars['Int']>;
+  incomePeriod?: Maybe<PeriodType>;
+  socialBenefitType?: Maybe<Scalars['String']>;
+};
+
+export type CrmEntrepreneurIncomeInput = {
+  entrepreneurType?: Maybe<EntrepreneurType>;
+  companyCar?: Maybe<Scalars['Boolean']>;
+  companyBike?: Maybe<Scalars['Boolean']>;
+  pastPensionAge?: Maybe<Scalars['Boolean']>;
+  smeProfitExemption?: Maybe<Scalars['Boolean']>;
+  incomePerYear?: Maybe<Scalars['Int']>;
+  workingHoursPerMonth?: Maybe<Scalars['Int']>;
+  yearsAsIndependent?: Maybe<Scalars['Int']>;
+};
+
+export type CrmFinancialObligationInput = {
+  type: Scalars['String'];
+  financialObligation?: Maybe<Scalars['Int']>;
+  information?: Maybe<Scalars['String']>;
+};
+
+export type CrmBankAccountInput = {
+  type: Scalars['String'];
+  accountNumber?: Maybe<Scalars['String']>;
+  bic?: Maybe<Scalars['String']>;
+  iban?: Maybe<Scalars['String']>;
+  swift?: Maybe<Scalars['String']>;
+  purpose?: Maybe<Scalars['String']>;
 };
 
 export enum CrmType {
@@ -9355,12 +9630,20 @@ export type UpdateCrmFamilyContactsMutation = { __typename?: 'Mutation' } & {
   >;
 };
 
+export type UpdateCrmFinancialMutationVariables = Exact<{
+  input: UpdateCrmFinancialInput;
+}>;
+
+export type UpdateCrmFinancialMutation = { __typename?: 'Mutation' } & {
+  updateCrmFinancial?: Maybe<{ __typename?: 'CrmFinancial' } & Pick<CrmFinancial, 'id'>>;
+};
+
 export type CreateCrmMutationVariables = Exact<{
   input: CreateCrmInput;
 }>;
 
 export type CreateCrmMutation = { __typename?: 'Mutation' } & {
-  createCrm: { __typename?: 'CrmGeneral' } & Pick<CrmGeneral, 'id'>;
+  createCrm: { __typename?: 'CrmGeneral' } & Pick<CrmGeneral, 'id' | 'firstName' | 'initials' | 'lastName'>;
 };
 
 export type UpdateCrmGeneralMutationVariables = Exact<{
@@ -11350,6 +11633,97 @@ export type GetCrmFamilyContactsQuery = { __typename?: 'Query' } & {
             { __typename?: 'CrmContact' } & Pick<CrmContact, 'type'> & {
                 contact: { __typename?: 'LinkedCrm' } & Pick<LinkedCrm, 'id'>;
               }
+          >
+        >;
+      }
+  >;
+};
+
+export type GetCrmFinancialQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+export type GetCrmFinancialQuery = { __typename?: 'Query' } & {
+  getCrmFinancial?: Maybe<
+    { __typename?: 'CrmFinancial' } & Pick<CrmFinancial, 'id' | 'financialInfo'> & {
+        income?: Maybe<
+          Array<
+            { __typename?: 'CrmIncome' } & Pick<CrmIncome, 'id' | 'type' | 'information'> & {
+                employerIncome?: Maybe<
+                  { __typename?: 'CrmEmployerIncome' } & Pick<
+                    CrmEmployerIncome,
+                    | 'profession'
+                    | 'employmentType'
+                    | 'grossIncome'
+                    | 'grossIncomePeriod'
+                    | 'holidayBonus'
+                    | 'fixedThirteenthMonth'
+                    | 'irregularityAllowance'
+                    | 'irregularityAllowancePeriod'
+                    | 'profitDistribution'
+                    | 'profitDistributionPeriod'
+                    | 'commission'
+                    | 'commissionPeriod'
+                    | 'overtime'
+                    | 'overtimePeriod'
+                  > & {
+                      employer?: Maybe<
+                        { __typename?: 'LinkedCrm' } & Pick<
+                          LinkedCrm,
+                          'id' | 'firstName' | 'extraNames' | 'initials' | 'lastName' | 'email' | 'phoneNumber'
+                        > & { avatar?: Maybe<{ __typename?: 'File' } & Pick<File, 'id' | 'url'>> }
+                      >;
+                      employerInformation?: Maybe<
+                        { __typename?: 'CrmEmployerInformation' } & Pick<
+                          CrmEmployerInformation,
+                          'name' | 'street' | 'houseNumber' | 'addition' | 'zipcode' | 'city' | 'country'
+                        >
+                      >;
+                    }
+                >;
+                equityIncome?: Maybe<{ __typename?: 'CrmEquityIncome' } & Pick<CrmEquityIncome, 'income'>>;
+                pensionIncome?: Maybe<
+                  { __typename?: 'CrmPensionIncome' } & Pick<
+                    CrmPensionIncome,
+                    'aowBenefit' | 'aowBenefitPeriod' | 'retirementBenefit' | 'retirementBenefitPeriod'
+                  >
+                >;
+                socialBenefitIncome?: Maybe<
+                  { __typename?: 'CrmSocialBenefitIncome' } & Pick<
+                    CrmSocialBenefitIncome,
+                    'income' | 'incomePeriod' | 'socialBenefitType'
+                  >
+                >;
+                entrepreneurIncome?: Maybe<
+                  { __typename?: 'CrmEntrepreneurIncome' } & Pick<
+                    CrmEntrepreneurIncome,
+                    | 'entrepreneurType'
+                    | 'companyCar'
+                    | 'companyBike'
+                    | 'pastPensionAge'
+                    | 'smeProfitExemption'
+                    | 'incomePerYear'
+                    | 'workingHoursPerMonth'
+                    | 'yearsAsIndependent'
+                  >
+                >;
+              }
+          >
+        >;
+        financialObligations?: Maybe<
+          Array<
+            { __typename?: 'CrmFinancialObligation' } & Pick<
+              CrmFinancialObligation,
+              'id' | 'type' | 'financialObligation' | 'information'
+            >
+          >
+        >;
+        bankAccounts?: Maybe<
+          Array<
+            { __typename?: 'CrmBankAccount' } & Pick<
+              CrmBankAccount,
+              'id' | 'type' | 'accountNumber' | 'bic' | 'iban' | 'swift' | 'purpose'
+            >
           >
         >;
       }
@@ -15388,10 +15762,34 @@ export type UpdateCrmFamilyContactsMutationOptions = ApolloReactCommon.BaseMutat
   UpdateCrmFamilyContactsMutation,
   UpdateCrmFamilyContactsMutationVariables
 >;
+export const UpdateCrmFinancialDocument = gql`
+  mutation UpdateCrmFinancial($input: UpdateCrmFinancialInput!) {
+    updateCrmFinancial(input: $input) {
+      id
+    }
+  }
+`;
+export function useUpdateCrmFinancialMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateCrmFinancialMutation, UpdateCrmFinancialMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<UpdateCrmFinancialMutation, UpdateCrmFinancialMutationVariables>(
+    UpdateCrmFinancialDocument,
+    baseOptions,
+  );
+}
+export type UpdateCrmFinancialMutationHookResult = ReturnType<typeof useUpdateCrmFinancialMutation>;
+export type UpdateCrmFinancialMutationResult = ApolloReactCommon.MutationResult<UpdateCrmFinancialMutation>;
+export type UpdateCrmFinancialMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateCrmFinancialMutation,
+  UpdateCrmFinancialMutationVariables
+>;
 export const CreateCrmDocument = gql`
   mutation CreateCrm($input: CreateCrmInput!) {
     createCrm(input: $input) {
       id
+      firstName
+      initials
+      lastName
     }
   }
 `;
@@ -19699,6 +20097,118 @@ export type GetCrmFamilyContactsLazyQueryHookResult = ReturnType<typeof useGetCr
 export type GetCrmFamilyContactsQueryResult = ApolloReactCommon.QueryResult<
   GetCrmFamilyContactsQuery,
   GetCrmFamilyContactsQueryVariables
+>;
+export const GetCrmFinancialDocument = gql`
+  query GetCrmFinancial($id: ID!) {
+    getCrmFinancial(id: $id) {
+      id
+      financialInfo
+      income {
+        id
+        type
+        information
+        employerIncome {
+          profession
+          employer {
+            id
+            firstName
+            extraNames
+            initials
+            lastName
+            email
+            phoneNumber
+            avatar {
+              id
+              url
+            }
+          }
+          employerInformation {
+            name
+            street
+            houseNumber
+            addition
+            zipcode
+            city
+            country
+          }
+          employmentType
+          grossIncome
+          grossIncomePeriod
+          holidayBonus
+          fixedThirteenthMonth
+          irregularityAllowance
+          irregularityAllowancePeriod
+          profitDistribution
+          profitDistributionPeriod
+          commission
+          commissionPeriod
+          overtime
+          overtimePeriod
+        }
+        equityIncome {
+          income
+        }
+        pensionIncome {
+          aowBenefit
+          aowBenefitPeriod
+          retirementBenefit
+          retirementBenefitPeriod
+        }
+        socialBenefitIncome {
+          income
+          incomePeriod
+          socialBenefitType
+        }
+        entrepreneurIncome {
+          entrepreneurType
+          companyCar
+          companyBike
+          pastPensionAge
+          smeProfitExemption
+          incomePerYear
+          workingHoursPerMonth
+          yearsAsIndependent
+        }
+      }
+      financialObligations {
+        id
+        type
+        financialObligation
+        information
+      }
+      bankAccounts {
+        id
+        type
+        accountNumber
+        bic
+        iban
+        swift
+        purpose
+      }
+    }
+  }
+`;
+export function useGetCrmFinancialQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<GetCrmFinancialQuery, GetCrmFinancialQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<GetCrmFinancialQuery, GetCrmFinancialQueryVariables>(
+    GetCrmFinancialDocument,
+    baseOptions,
+  );
+}
+export function useGetCrmFinancialLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetCrmFinancialQuery, GetCrmFinancialQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<GetCrmFinancialQuery, GetCrmFinancialQueryVariables>(
+    GetCrmFinancialDocument,
+    baseOptions,
+  );
+}
+export type GetCrmFinancialQueryHookResult = ReturnType<typeof useGetCrmFinancialQuery>;
+export type GetCrmFinancialLazyQueryHookResult = ReturnType<typeof useGetCrmFinancialLazyQuery>;
+export type GetCrmFinancialQueryResult = ApolloReactCommon.QueryResult<
+  GetCrmFinancialQuery,
+  GetCrmFinancialQueryVariables
 >;
 export const GetCrmGeneralDocument = gql`
   query getCrmGeneral($id: ID!) {

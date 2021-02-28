@@ -4,45 +4,48 @@ import { Grid, Box, Button, Typography, Avatar, Emoji } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { DropdownField, GenericField, RadioGroupField } from 'form/fields';
 import { InfoSection } from 'ui/molecules';
-import { EditIcon, LinkIcon, SquareIcon } from 'ui/atoms/icons';
-import { EmployerProps, IncomeInformationTypeOfEmployment } from '../IncomeInformation.types';
+import { EditIcon, LinkIcon, PdfIcon } from 'ui/atoms/icons';
+import { EmployerIncomeProfession, EmploymentType } from 'api/types';
+import { useModalDispatch } from 'hooks';
+import { LinkBusinessModalContainer } from 'app/shared/linkBusinessModal/LinkBusinessModalContainer';
 
 import { useStyles } from './Employer.styles';
 
-export const Employer = ({ isEditing }: EmployerProps) => {
+export const Employer = () => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
   const [isEmployeeLinked, setIsEmployeeLinked] = useState(false);
+  const { open } = useModalDispatch();
 
-  const Professions = [
-    {
-      label: formatMessage({ id: 'dictionaries.profession.designer' }),
-      value: 'Designer',
-    },
-  ];
-
-  const typeOfEmployments = Object.keys(IncomeInformationTypeOfEmployment).map(type => ({
+  const typeOfEmployments = Object.keys(EmploymentType).map(type => ({
     label: `dictionaries.type_of_employment.${type}`,
-    icon: <SquareIcon />,
+    icon: <PdfIcon />,
     value: type,
   }));
 
   const avatar = 'https://source.unsplash.com/featured/?person';
   const name = 'Ikea';
 
+  const handleLinkBusiness = async () => {
+    return undefined;
+  };
+
   return (
     <>
       <Grid container>
         <Grid item xs={4}>
           <DropdownField
-            items={Professions}
+            items={Object.keys(EmployerIncomeProfession).map(key => ({
+              label: formatMessage({ id: `dictionaries.employer_income_profession.${key}` }),
+              value: key,
+            }))}
             placeholder="crm.details.personal_information_financial_profile.income_information.profession"
             label="crm.details.personal_information_financial_profile.income_information.profession"
-            name="employer.profession"
-            disabled={!isEditing}
+            name="employerIncome.profession"
           />
         </Grid>
       </Grid>
+      <Box mt={4} />
       {isEmployeeLinked && (
         <Box display="flex" className={classes.employerRow}>
           <Box>
@@ -83,140 +86,120 @@ export const Employer = ({ isEditing }: EmployerProps) => {
         </Box>
       )}
       {!isEmployeeLinked && (
-        <>
-          <InfoSection emoji="🤔" className={classes.infoSection}>
-            <Typography variant="h3">
-              {formatMessage({
-                id:
-                  'crm.details.personal_information_financial_profile.income_information.employer.want_to_link_employee',
-              })}
-            </Typography>
-            <Button
-              color="primary"
-              variant="contained"
-              onClick={() => setIsEmployeeLinked(true)}
-              startIcon={<LinkIcon color="inherit" />}
-              size="small"
-              className={classes.marginTopTwo}
-              disabled={!isEditing}
-            >
-              {formatMessage({
-                id: 'crm.details.personal_information_financial_profile.income_information.employer.link_business',
-              })}
-            </Button>
-          </InfoSection>
-          <Box className={classes.marginTopFour}>
-            <Typography variant="h5">
-              {formatMessage({
-                id: 'crm.details.personal_information_financial_profile.income_information.employer.employer',
-              })}
-            </Typography>
-            <GenericField
-              className={classes.formField}
-              name="employer.employer"
-              placeholder="crm.details.personal_information_financial_profile.income_information.employer.employer.placeholder"
-              disabled={!isEditing}
-            />
-          </Box>
-          <Grid container spacing={1} className={classes.marginTopFour}>
-            <Grid item xs={4}>
-              <Typography variant="h5">
-                {formatMessage({
-                  id: 'crm.details.personal_information_financial_profile.income_information.employer.country',
-                })}
-              </Typography>
-              <GenericField
-                className={classes.formField}
-                name="employer.country"
-                placeholder="crm.details.personal_information_financial_profile.income_information.employer.country.placeholder"
-                disabled={!isEditing}
-              />
-            </Grid>
-            <Grid item xs={5}>
-              <Typography variant="h5">
-                {formatMessage({
-                  id: 'crm.details.personal_information_financial_profile.income_information.employer.city',
-                })}
-              </Typography>
-              <GenericField
-                className={classes.formField}
-                name="employer.city"
-                placeholder="crm.details.personal_information_financial_profile.income_information.employer.city.placeholder"
-                disabled={!isEditing}
-              />
-            </Grid>
-            <Grid item xs={3}>
-              <Typography variant="h5">
-                {formatMessage({
-                  id: 'crm.details.personal_information_financial_profile.income_information.employer.zip_code',
-                })}
-              </Typography>
-              <GenericField
-                className={classes.formField}
-                name="employer.zipCode"
-                placeholder="crm.details.personal_information_financial_profile.income_information.employer.zip_code.placeholder"
-                disabled={!isEditing}
-              />
-            </Grid>
-          </Grid>
-          <Grid container spacing={1} className={classes.marginTopFour}>
-            <Grid item xs={6}>
-              <Typography variant="h5">
-                {formatMessage({
-                  id: 'crm.details.personal_information_financial_profile.income_information.employer.street',
-                })}
-              </Typography>
-              <GenericField
-                className={classes.formField}
-                name="employer.street"
-                placeholder="crm.details.personal_information_financial_profile.income_information.employer.street.placeholder"
-                disabled={!isEditing}
-              />
-            </Grid>
-            <Grid item xs={5}>
-              <Typography variant="h5">
-                {formatMessage({
-                  id: 'crm.details.personal_information_financial_profile.income_information.employer.house_number',
-                })}
-              </Typography>
-              <GenericField
-                className={classes.formField}
-                name="employer.houseNumber"
-                placeholder="crm.details.personal_information_financial_profile.income_information.employer.house_number.placeholder"
-                disabled={!isEditing}
-              />
-            </Grid>
-            <Grid item xs={3}>
-              <Typography variant="h5">
-                {formatMessage({
-                  id: 'crm.details.personal_information_financial_profile.income_information.employer.addition',
-                })}
-              </Typography>
-              <GenericField
-                className={classes.formField}
-                name="employer.addition"
-                placeholder="crm.details.personal_information_financial_profile.income_information.employer.addition.placeholder"
-                disabled={!isEditing}
-              />
-            </Grid>
-          </Grid>
-        </>
-      )}
-      <Box className={classes.marginTopFour}>
-        <Box display="flex" justifyContent="space-between" alignItems="center" className={classes.marginBottomTwo}>
+        <InfoSection emoji="🤔" className={classes.infoSection}>
           <Typography variant="h3">
             {formatMessage({
-              id: 'crm.details.personal_information_financial_profile.income_information.employer.type_of_employment',
+              id:
+                'crm.details.personal_information_financial_profile.income_information.employer.want_to_link_employee',
             })}
           </Typography>
-          <Typography variant="h5" className={classes.gray}>
+          <Button
+            color="primary"
+            variant="contained"
+            onClick={() => {
+              open('link-business');
+              setIsEmployeeLinked(true);
+            }}
+            startIcon={<LinkIcon color="inherit" />}
+            size="small"
+            className={classes.marginTopTwo}
+          >
             {formatMessage({
-              id: 'common.choose_one_option_below',
+              id: 'crm.details.personal_information_financial_profile.income_information.employer.link_business',
             })}
-          </Typography>
-        </Box>
-        <RadioGroupField name="employer.typeOfEmployment" options={typeOfEmployments} disabled={!isEditing} />
+          </Button>
+        </InfoSection>
+      )}
+      <Box mt={4}>
+        <GenericField
+          className={classes.formField}
+          label={formatMessage({
+            id: 'crm.details.personal_information_financial_profile.income_information.employer.employer',
+          })}
+          name="employerIncome.employerInformation.name"
+          placeholder="crm.details.personal_information_financial_profile.income_information.employer.employer.placeholder"
+        />
       </Box>
+      <Grid container spacing={1}>
+        <Grid item xs={4}>
+          <GenericField
+            className={classes.formField}
+            label={formatMessage({
+              id: 'crm.details.personal_information_financial_profile.income_information.employer.country',
+            })}
+            name="employerIncome.employerInformation.country"
+            placeholder="crm.details.personal_information_financial_profile.income_information.employer.country.placeholder"
+          />
+        </Grid>
+        <Grid item xs={5}>
+          <GenericField
+            className={classes.formField}
+            label={formatMessage({
+              id: 'crm.details.personal_information_financial_profile.income_information.employer.city',
+            })}
+            name="employerIncome.employerInformation.city"
+            placeholder="crm.details.personal_information_financial_profile.income_information.employer.city.placeholder"
+          />
+        </Grid>
+        <Grid item xs={3}>
+          <GenericField
+            className={classes.formField}
+            label={formatMessage({
+              id: 'crm.details.personal_information_financial_profile.income_information.employer.zip_code',
+            })}
+            name="employerIncome.employerInformation.zipcode"
+            placeholder="crm.details.personal_information_financial_profile.income_information.employer.zip_code.placeholder"
+          />
+        </Grid>
+      </Grid>
+      <Grid container spacing={1}>
+        <Grid item xs={6}>
+          <GenericField
+            className={classes.formField}
+            label={formatMessage({
+              id: 'crm.details.personal_information_financial_profile.income_information.employer.street',
+            })}
+            name="employerIncome.employerInformation.street"
+            placeholder="crm.details.personal_information_financial_profile.income_information.employer.street.placeholder"
+          />
+        </Grid>
+        <Grid item xs={5}>
+          <GenericField
+            className={classes.formField}
+            label={formatMessage({
+              id: 'crm.details.personal_information_financial_profile.income_information.employer.house_number',
+            })}
+            name="employerIncome.employerInformation.houseNumber"
+            placeholder="crm.details.personal_information_financial_profile.income_information.employer.house_number.placeholder"
+            type="number"
+          />
+        </Grid>
+        <Grid item xs={3}>
+          <GenericField
+            className={classes.formField}
+            label={formatMessage({
+              id: 'crm.details.personal_information_financial_profile.income_information.employer.addition',
+            })}
+            name="employerIncome.employerInformation.addition"
+            placeholder="crm.details.personal_information_financial_profile.income_information.employer.addition.placeholder"
+          />
+        </Grid>
+      </Grid>
+      <Box display="flex" justifyContent="space-between" alignItems="center">
+        <Typography variant="h3">
+          {formatMessage({
+            id: 'crm.details.personal_information_financial_profile.income_information.employer.type_of_employment',
+          })}
+        </Typography>
+        <Typography variant="h5" className={classes.gray}>
+          {formatMessage({
+            id: 'common.choose_one_option_below',
+          })}
+        </Typography>
+      </Box>
+      <RadioGroupField name="employerIncome.employmentType" options={typeOfEmployments} />
+      <Box mb={4} />
+      <LinkBusinessModalContainer onSubmit={handleLinkBusiness} />
     </>
   );
 };
