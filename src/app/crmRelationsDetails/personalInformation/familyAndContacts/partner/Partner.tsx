@@ -14,7 +14,7 @@ import {
 } from 'ui/atoms';
 import { AddIcon, LinkIcon } from 'ui/atoms/icons';
 import { InfoSection } from 'ui/molecules';
-import { LinkedCrm } from 'api/types';
+import { CrmPartner, CrmPartnerInput } from 'api/types';
 import { useModalDispatch } from 'hooks';
 import { LinkPartnerModalContainer } from 'app/shared/linkPartnerModal/LinkPartnerModalContainer';
 
@@ -27,12 +27,48 @@ export const Partner = ({ data, onSave }: PartnerProps) => {
   const { open, close } = useModalDispatch();
   const { formatMessage } = useLocale();
   const [isEditing, setIsEditing] = useState(false);
-  const [partner] = useState<LinkedCrm | undefined>(data.partner ? data.partner : undefined);
+  const [partners] = useState<CrmPartner[] | undefined>(data.partners ? data.partners : undefined);
 
-  const handleAddNewPartner = async (partnerId: string | null) => {
+  const handleAddNewPartner = async (partnerIds: string[]) => {
     close('link-partner');
 
-    return await onSave({ id: data.id, partnerId });
+    let partners: CrmPartnerInput[] = data.partners?.map(partner => ({ id: partner.partner.id })) || [];
+    partners = [...partners, ...partnerIds.map(id => ({ id }))];
+
+    return await onSave({ id: data.id, partners });
+  };
+
+  const handleUpdatePartner = async (updated: CrmPartner) => {
+    const partners: CrmPartnerInput[] =
+      data.partners?.map(partner => ({
+        id: partner.partner.id,
+        isPassedAway: partner.partner.isPassedAway,
+        dateOfDeath: partner.partner.dateOfDeath,
+        isDivorced: partner.isDivorced,
+      })) || [];
+    const index = partners.findIndex(item => item.id === updated.partner.id);
+
+    if (index !== -1) {
+      partners[index].isPassedAway = updated.partner.isPassedAway;
+      partners[index].dateOfDeath = updated.partner.dateOfDeath;
+      partners[index].isDivorced = updated.isDivorced;
+
+      await onSave({ id: data.id, partners });
+    }
+
+    return undefined;
+  };
+
+  const handleDeletePartner = async (partnerId: string) => {
+    const partners = data.partners?.map(partner => ({ id: partner.partner.id })) || [];
+    const index = partners.findIndex(partner => partner.id === partnerId);
+
+    if (index !== -1) {
+      partners.splice(index, 1);
+      await onSave({ id: data.id, partners });
+    }
+
+    return undefined;
   };
 
   return (
@@ -56,7 +92,7 @@ export const Partner = ({ data, onSave }: PartnerProps) => {
       />
       <CardContent>
         <Grid item xs={12}>
-          {partner === undefined && (
+          {!partners?.length ? (
             <InfoSection emoji="🤔" className={classes.content}>
               <Typography variant="h3">
                 {formatMessage({
@@ -79,8 +115,16 @@ export const Partner = ({ data, onSave }: PartnerProps) => {
                 {formatMessage({ id: 'crm.details.personal_information_family_and_contacts.partner.link_user' })}
               </Button>
             </InfoSection>
+          ) : (
+            partners.map(partner => (
+              <PartnerItem
+                className={classes.partnerItem}
+                partner={partner}
+                onUpdate={handleUpdatePartner}
+                onDelete={() => handleDeletePartner(partner.partner.id)}
+              />
+            ))
           )}
-          {partner && <PartnerItem className={classes.partnerItem} partner={partner} />}
         </Grid>
       </CardContent>
     </Card>

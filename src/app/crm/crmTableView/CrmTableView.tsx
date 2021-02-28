@@ -40,7 +40,7 @@ const MOVABLE_HEADER_COLUMNS: HeaderColumnItemType[] = [
     hidden: true,
   },
   {
-    value: 'partner',
+    value: 'partners',
     hidden: true,
   },
   {
@@ -133,8 +133,8 @@ export const CrmTableView = ({
 
   const renderCell = useCallback(
     (crm: CrmItem, cell: CrmTableFixedHeader | CrmTableMovableHeader) => {
-      if (cell === 'partner' || cell === 'manager') {
-        return `${crm.partner?.firstName} ${crm.partner?.lastName}`;
+      if (cell === 'partners' || cell === 'manager') {
+        return `${crm.partners?.[0].partner.firstName} ${crm.partners?.[0].partner.lastName}`;
       }
 
       if (cell === 'status') {

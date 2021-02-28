@@ -28,7 +28,7 @@ export const CreateRelationStep = ({ handleGoTo, valid }: AddCrmRelationStepProp
             />
           </Grid>
           <Grid item xs={3}>
-            <GenericField name="insertion" label="crm.relations.middle_name" validate={[letterValidator]} />
+            <GenericField name="initials" label="crm.relations.middle_name" validate={[letterValidator]} />
           </Grid>
           <Grid item xs={6}>
             <GenericField

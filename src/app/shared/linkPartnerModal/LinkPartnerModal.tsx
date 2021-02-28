@@ -73,6 +73,7 @@ export const LinkPartnerModal = ({ isOpened, onClose, onSubmit, crmList }: LinkP
                 size="large"
                 color="primary"
                 variant="outlined"
+                disabled={!values.partner?.length}
               >
                 {formatMessage({ id: 'crm.relation.link_profile' })}
               </SubmitButton>
