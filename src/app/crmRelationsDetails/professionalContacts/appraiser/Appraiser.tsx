@@ -15,7 +15,7 @@ import { ListOptionsMenuItem } from 'ui/molecules/listOptionsMenu/menuItem/ListO
 
 import { AppraiserProps, LinkedAppraiser } from './Appraiser.types';
 import { useStyles } from './Appraiser.styles';
-import { AppraiserItem } from './purchaseItem/AppraiserItem';
+import { AppraiserItem } from './appraiserItem/AppraiserItem';
 
 export const Appraiser = ({ onSidebarOpen, isSidebarVisible, items }: AppraiserProps) => {
   const { formatMessage } = useLocale();
@@ -58,7 +58,7 @@ export const Appraiser = ({ onSidebarOpen, isSidebarVisible, items }: AppraiserP
       >
         <Card>
           <CardHeader
-            title={formatMessage({ id: 'crm.details.professional_contacts_appraiser.linked_purchase' })}
+            title={formatMessage({ id: 'crm.details.professional_contacts_appraiser.linked_appraiser' })}
             action={
               <IconButton size="small" color="primary" onClick={() => open('link-partner')}>
                 <AddIcon />
@@ -95,15 +95,15 @@ export const Appraiser = ({ onSidebarOpen, isSidebarVisible, items }: AppraiserP
                 renderItem={(item, isEditing, checkbox) => (
                   <>
                     <AppraiserItem partner={item.notary} />
-                    {item.items.map(purchaseItem => (
+                    {item.items.map(appraiserItem => (
                       <Box ml={10}>
                         <ProfileItem
-                          onClick={() => goToItem(purchaseItem.id, true)}
-                          name={`${purchaseItem.firstName} ${purchaseItem.lastName}`}
-                          avatar={purchaseItem?.image?.url ?? ''}
-                          email={purchaseItem.email ?? ''}
-                          teamNames={purchaseItem?.teams?.filter(team => !!team.name).map(team => team?.name ?? '')}
-                          phone={purchaseItem?.phoneNumbers?.[0].phoneNumber ?? undefined}
+                          onClick={() => goToItem(appraiserItem.id, true)}
+                          name={`${appraiserItem.firstName} ${appraiserItem.lastName}`}
+                          avatar={appraiserItem?.image?.url ?? ''}
+                          email={appraiserItem.email ?? ''}
+                          teamNames={appraiserItem?.teams?.filter(team => !!team.name).map(team => team?.name ?? '')}
+                          phone={appraiserItem?.phoneNumbers?.[0].phoneNumber ?? undefined}
                           button={
                             <ListOptionsMenu hideDeleteButton onEditClick={() => {}}>
                               <ListOptionsMenuItem

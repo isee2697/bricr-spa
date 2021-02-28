@@ -15,7 +15,7 @@ import { ListOptionsMenuItem } from 'ui/molecules/listOptionsMenu/menuItem/ListO
 
 import { OthersProps, LinkedOthers } from './Others.types';
 import { useStyles } from './Others.styles';
-import { OthersItem } from './purchaseItem/OthersItem';
+import { OthersItem } from './othersItem/OthersItem';
 
 export const Others = ({ onSidebarOpen, isSidebarVisible, items }: OthersProps) => {
   const { formatMessage } = useLocale();
@@ -58,7 +58,7 @@ export const Others = ({ onSidebarOpen, isSidebarVisible, items }: OthersProps) 
       >
         <Card>
           <CardHeader
-            title={formatMessage({ id: 'crm.details.professional_contacts_others.linked_purchase' })}
+            title={formatMessage({ id: 'crm.details.professional_contacts_others.linked_others' })}
             action={
               <IconButton size="small" color="primary" onClick={() => open('link-partner')}>
                 <AddIcon />
@@ -95,15 +95,15 @@ export const Others = ({ onSidebarOpen, isSidebarVisible, items }: OthersProps) 
                 renderItem={(item, isEditing, checkbox) => (
                   <>
                     <OthersItem partner={item.notary} />
-                    {item.items.map(purchaseItem => (
+                    {item.items.map(othersItem => (
                       <Box ml={10}>
                         <ProfileItem
-                          onClick={() => goToItem(purchaseItem.id, true)}
-                          name={`${purchaseItem.firstName} ${purchaseItem.lastName}`}
-                          avatar={purchaseItem?.image?.url ?? ''}
-                          email={purchaseItem.email ?? ''}
-                          teamNames={purchaseItem?.teams?.filter(team => !!team.name).map(team => team?.name ?? '')}
-                          phone={purchaseItem?.phoneNumbers?.[0].phoneNumber ?? undefined}
+                          onClick={() => goToItem(othersItem.id, true)}
+                          name={`${othersItem.firstName} ${othersItem.lastName}`}
+                          avatar={othersItem?.image?.url ?? ''}
+                          email={othersItem.email ?? ''}
+                          teamNames={othersItem?.teams?.filter(team => !!team.name).map(team => team?.name ?? '')}
+                          phone={othersItem?.phoneNumbers?.[0].phoneNumber ?? undefined}
                           button={
                             <ListOptionsMenu hideDeleteButton onEditClick={() => {}}>
                               <ListOptionsMenuItem
