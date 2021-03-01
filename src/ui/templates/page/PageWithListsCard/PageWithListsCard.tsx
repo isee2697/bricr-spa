@@ -37,6 +37,9 @@ export const PageWithListsCard: <V, A, F>(
   const isTable = views[activeView]?.isTable;
   const classes = useStyles(isTable);
 
+  const tableSortKey = tableHeader?.sortKey?.split('_')[0];
+  const tableSortDirection = tableHeader?.sortKey?.split('_')[1];
+
   const buttons = views.map((view, key) => {
     return (
       <IconButton
@@ -97,10 +100,9 @@ export const PageWithListsCard: <V, A, F>(
                 <Box flexGrow={1}>
                   <ListTableItem
                     isHeader
-                    onSort={() => {
-                      /* handle sorting */
-                    }}
-                    sortKey={tableHeader.sortKey}
+                    onSort={tableHeader.onSort}
+                    sortKey={tableSortKey}
+                    sortDirection={tableSortDirection === 'down' ? 'down' : 'up'}
                     headerCells={tableHeader.cells}
                   />
                 </Box>

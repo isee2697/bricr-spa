@@ -1,5 +1,3 @@
-import { ReactNode } from 'react';
-
 export type ListTableCell<T> = {
   field: keyof T;
   label?: string;
@@ -12,7 +10,7 @@ export type ListTableItemProps<T> = {
   isHeader?: true;
   renderCell?: (fieldName: keyof T, item?: T) => string;
   item?: T;
-  onSort?: (key: keyof T) => void;
-  sortKey?: keyof T;
+  onSort?: (key: string) => void;
+  sortKey?: string;
   sortDirection?: 'up' | 'down';
 };

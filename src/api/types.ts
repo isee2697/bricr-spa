@@ -9360,7 +9360,7 @@ export type CreateCrmMutationVariables = Exact<{
 }>;
 
 export type CreateCrmMutation = { __typename?: 'Mutation' } & {
-  createCrm: { __typename?: 'CrmGeneral' } & Pick<CrmGeneral, 'id'>;
+  createCrm: { __typename?: 'CrmGeneral' } & Pick<CrmGeneral, 'id' | 'firstName' | 'initials' | 'lastName'>;
 };
 
 export type UpdateCrmGeneralMutationVariables = Exact<{
@@ -15392,6 +15392,9 @@ export const CreateCrmDocument = gql`
   mutation CreateCrm($input: CreateCrmInput!) {
     createCrm(input: $input) {
       id
+      firstName
+      initials
+      lastName
     }
   }
 `;
