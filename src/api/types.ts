@@ -233,6 +233,7 @@ export type Mutation = {
   addCadastre?: Maybe<PimWithNewCadastre>;
   addCadastreMaps?: Maybe<Pim>;
   addCost: CostResult;
+  addCrmLabel: Label;
   addFiles: Array<File>;
   addFloorToPim: PimWithNewFloor;
   addIdentificationNumberNcp: NcpWithNewIdentificationNumber;
@@ -308,6 +309,7 @@ export type Mutation = {
   reactivateProfile: Profile;
   readNotification?: Maybe<Scalars['Boolean']>;
   removeAllocationCriteria: Pim;
+  removeCrmLabel: Scalars['Boolean'];
   removeFiles: Array<Maybe<File>>;
   removeInspection: Pim;
   removeLabel: Scalars['Boolean'];
@@ -446,6 +448,10 @@ export type MutationAddCadastreMapsArgs = {
 
 export type MutationAddCostArgs = {
   input: AddCostInput;
+};
+
+export type MutationAddCrmLabelArgs = {
+  input: LabelInput;
 };
 
 export type MutationAddFilesArgs = {
@@ -749,6 +755,10 @@ export type MutationReadNotificationArgs = {
 };
 
 export type MutationRemoveAllocationCriteriaArgs = {
+  id: Scalars['ID'];
+};
+
+export type MutationRemoveCrmLabelArgs = {
   id: Scalars['ID'];
 };
 
@@ -1201,6 +1211,7 @@ export type Query = {
   getCrmFamilyContacts?: Maybe<CrmFamilyContacts>;
   getCrmGeneral?: Maybe<CrmGeneral>;
   getCrmHomeSituation?: Maybe<CrmHomeSituation>;
+  getCrmLabels?: Maybe<Array<Label>>;
   getCrmWithSameInfo: CrmListSearchResult;
   getEmail?: Maybe<Email>;
   getKikSettings?: Maybe<KikSettings>;
@@ -1316,6 +1327,11 @@ export type QueryGetCrmGeneralArgs = {
 
 export type QueryGetCrmHomeSituationArgs = {
   id: Scalars['ID'];
+};
+
+export type QueryGetCrmLabelsArgs = {
+  parentId: Scalars['ID'];
+  properties?: Maybe<Array<LabelProperty>>;
 };
 
 export type QueryGetCrmWithSameInfoArgs = {
@@ -2964,6 +2980,7 @@ export enum LabelProperty {
   MaintenanceInspection = 'MaintenanceInspection',
   Cost = 'Cost',
   Task = 'Task',
+  ReasonToMove = 'ReasonToMove',
 }
 
 export type Label = {
@@ -9360,7 +9377,7 @@ export type CreateCrmMutationVariables = Exact<{
 }>;
 
 export type CreateCrmMutation = { __typename?: 'Mutation' } & {
-  createCrm: { __typename?: 'CrmGeneral' } & Pick<CrmGeneral, 'id'>;
+  createCrm: { __typename?: 'CrmGeneral' } & Pick<CrmGeneral, 'id' | 'firstName' | 'initials' | 'lastName'>;
 };
 
 export type UpdateCrmGeneralMutationVariables = Exact<{
@@ -9554,6 +9571,14 @@ export type AddLabelMutationVariables = Exact<{
 
 export type AddLabelMutation = { __typename?: 'Mutation' } & {
   addLabel: { __typename?: 'Label' } & Pick<Label, 'id' | 'property' | 'text' | 'icon'>;
+};
+
+export type AddCrmLabelMutationVariables = Exact<{
+  input: LabelInput;
+}>;
+
+export type AddCrmLabelMutation = { __typename?: 'Mutation' } & {
+  addCrmLabel: { __typename?: 'Label' } & Pick<Label, 'id' | 'property' | 'text' | 'icon'>;
 };
 
 export type AddMatchProfileMutationVariables = Exact<{
@@ -11574,6 +11599,15 @@ export type GetLabelsQueryVariables = Exact<{
 
 export type GetLabelsQuery = { __typename?: 'Query' } & {
   getLabels?: Maybe<Array<{ __typename?: 'Label' } & Pick<Label, 'id' | 'property' | 'icon' | 'text'>>>;
+};
+
+export type GetCrmLabelsQueryVariables = Exact<{
+  id: Scalars['ID'];
+  properties?: Maybe<Array<LabelProperty>>;
+}>;
+
+export type GetCrmLabelsQuery = { __typename?: 'Query' } & {
+  getCrmLabels?: Maybe<Array<{ __typename?: 'Label' } & Pick<Label, 'id' | 'property' | 'icon' | 'text'>>>;
 };
 
 export type CountPimsByParamsQueryVariables = Exact<{
@@ -15392,6 +15426,9 @@ export const CreateCrmDocument = gql`
   mutation CreateCrm($input: CreateCrmInput!) {
     createCrm(input: $input) {
       id
+      firstName
+      initials
+      lastName
     }
   }
 `;
@@ -15857,6 +15894,30 @@ export type AddLabelMutationResult = ApolloReactCommon.MutationResult<AddLabelMu
 export type AddLabelMutationOptions = ApolloReactCommon.BaseMutationOptions<
   AddLabelMutation,
   AddLabelMutationVariables
+>;
+export const AddCrmLabelDocument = gql`
+  mutation AddCrmLabel($input: LabelInput!) {
+    addCrmLabel(input: $input) {
+      id
+      property
+      text
+      icon
+    }
+  }
+`;
+export function useAddCrmLabelMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<AddCrmLabelMutation, AddCrmLabelMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<AddCrmLabelMutation, AddCrmLabelMutationVariables>(
+    AddCrmLabelDocument,
+    baseOptions,
+  );
+}
+export type AddCrmLabelMutationHookResult = ReturnType<typeof useAddCrmLabelMutation>;
+export type AddCrmLabelMutationResult = ApolloReactCommon.MutationResult<AddCrmLabelMutation>;
+export type AddCrmLabelMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  AddCrmLabelMutation,
+  AddCrmLabelMutationVariables
 >;
 export const AddMatchProfileDocument = gql`
   mutation AddMatchProfile($input: AddMatchProfileInput!) {
@@ -20157,6 +20218,32 @@ export function useGetLabelsLazyQuery(
 export type GetLabelsQueryHookResult = ReturnType<typeof useGetLabelsQuery>;
 export type GetLabelsLazyQueryHookResult = ReturnType<typeof useGetLabelsLazyQuery>;
 export type GetLabelsQueryResult = ApolloReactCommon.QueryResult<GetLabelsQuery, GetLabelsQueryVariables>;
+export const GetCrmLabelsDocument = gql`
+  query GetCrmLabels($id: ID!, $properties: [LabelProperty!]) {
+    getCrmLabels(parentId: $id, properties: $properties) {
+      id
+      property
+      icon
+      text
+    }
+  }
+`;
+export function useGetCrmLabelsQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<GetCrmLabelsQuery, GetCrmLabelsQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<GetCrmLabelsQuery, GetCrmLabelsQueryVariables>(GetCrmLabelsDocument, baseOptions);
+}
+export function useGetCrmLabelsLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetCrmLabelsQuery, GetCrmLabelsQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<GetCrmLabelsQuery, GetCrmLabelsQueryVariables>(
+    GetCrmLabelsDocument,
+    baseOptions,
+  );
+}
+export type GetCrmLabelsQueryHookResult = ReturnType<typeof useGetCrmLabelsQuery>;
+export type GetCrmLabelsLazyQueryHookResult = ReturnType<typeof useGetCrmLabelsLazyQuery>;
+export type GetCrmLabelsQueryResult = ApolloReactCommon.QueryResult<GetCrmLabelsQuery, GetCrmLabelsQueryVariables>;
 export const CountPimsByParamsDocument = gql`
   query CountPimsByParams($filters: ListPimsFilters) {
     listPims(filters: $filters) {
