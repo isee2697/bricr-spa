@@ -8,6 +8,8 @@ import { FormSection } from 'ui/organisms';
 import { DatePickerField, DropdownField, GenericField, RadioGroupField } from 'form/fields';
 import { EuroIcon } from 'ui/atoms/icons';
 import { PaymentFrequencyTypes, RentalPeriodTypes } from '../dictionaries';
+import { numberValidator } from 'form/validators/numberValidator/numberValidator';
+import { dateValidator } from 'form/validators';
 
 export const Pricing = () => {
   const { formatMessage } = useLocale();
@@ -31,6 +33,7 @@ export const Pricing = () => {
           <Grid container spacing={1}>
             <Grid item xs={4}>
               <GenericField
+                validate={[numberValidator]}
                 name="pricing.buyFrom"
                 label={formatMessage({
                   id: 'crm.details.personal_information_match_profile.pricing.buy_from',
@@ -42,6 +45,7 @@ export const Pricing = () => {
             </Grid>
             <Grid item xs={4}>
               <GenericField
+                validate={[numberValidator]}
                 name="pricing.buyTo"
                 label={formatMessage({
                   id: 'crm.details.personal_information_match_profile.pricing.buy_to',
@@ -116,6 +120,7 @@ export const Pricing = () => {
           <Grid container spacing={1}>
             <Grid item xs={4}>
               <DatePickerField
+                validate={[dateValidator]}
                 name="pricing.preferredStartDate"
                 label={formatMessage({
                   id: 'crm.details.personal_information_match_profile.pricing.preferred_start_date',
