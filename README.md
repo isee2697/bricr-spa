@@ -30,6 +30,12 @@ REACT_APP_FILE_URL=http://localhost:1338/dev
 - has [styleguide](./docs/styleguide.md) 
 - uses React Context API along with React hooks to manage global states
 
+### Development:
+-  follow styleguide
+-  We always write unit tests for all in the ui folder.
+-  Add this items to styleguidist
+-  Write e2e tests for critical parts and new entities.
+
 ## CI
 
 We use bitbucket pipelines as CI. Configuration is in `bitbucket-pipelines.yml`. There are few pipelines: 
