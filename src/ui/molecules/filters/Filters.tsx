@@ -14,7 +14,7 @@ import { CheckboxGroupField, GenericField, RadioGroupField } from 'form/fields';
 import { FilterSideMenu } from './filterSideMenu/FilterSideMenu';
 import { Range } from './range/Range';
 import { DateRange } from './dateRange/DateRange';
-import { FilterProps, FiltersTypes, Types } from './Filters.types';
+import { CheckboxDataType, FilterProps, FiltersTypes, Types } from './Filters.types';
 import { FilterTabPanel } from './filterTabPanel/FilterTabPanel';
 import { useStyles } from './Filters.styles';
 
@@ -56,19 +56,21 @@ export const Filters = ({
     /* NOTE: updating state is breaking the entire app
      * I have no Idea why
      */
-    // const filtersCopy = JSON.parse(JSON.stringify(filters));
-    // let newFilters = [];
-    // if (filtersCopy) {
-    //   newFilters = filtersCopy.map((filter: FiltersTypes) => {
-    //     if (filter.options && filter.key === targetFilter.key) {
-    //       filter.options = filter.options.filter((item: CheckboxDataType) =>
-    //         item.label.toLowerCase().includes(searchValue),
-    //       );
-    //     }
-    //     return filter;
-    //   });
-    //   setDefaultFilters(newFilters);
-    // }
+    const filtersCopy = JSON.parse(JSON.stringify(filters));
+    let newFilters = [];
+
+    if (filtersCopy) {
+      newFilters = filtersCopy.map((filter: FiltersTypes) => {
+        if (filter.options && filter.key === targetFilter.key) {
+          filter.options = filter.options.filter((item: CheckboxDataType) =>
+            item.label.toLowerCase().includes(searchValue),
+          );
+        }
+
+        return filter;
+      });
+      setDefaultFilters(newFilters);
+    }
   };
 
   return (
