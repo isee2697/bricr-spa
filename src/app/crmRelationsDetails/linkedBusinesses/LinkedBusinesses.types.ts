@@ -16,7 +16,9 @@ export type LinkedBusinessItem = {
   id: string;
   name: string;
   image: string;
-  office: string;
+  street: string;
+  postalCode: string;
+  city: string;
   phone: string;
   email: string;
   linkType: LinkBusinessType;

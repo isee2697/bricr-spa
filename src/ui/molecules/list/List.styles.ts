@@ -66,6 +66,10 @@ export const useStyles = makeStyles(theme => ({
   checkbox: {
     padding,
   },
+  listIndex: {
+    marginLeft: theme.spacing(7.5),
+    display: 'flex',
+  },
   pagination: {
     padding: theme.spacing(2.5),
   },

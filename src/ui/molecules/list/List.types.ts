@@ -9,6 +9,7 @@ export type SortOption = {
   name: string;
   key: string;
 };
+export type BaseListType = { id: string };
 
 type RenderItem<T> = (item: T, isSelected: boolean, checkbox: ReactElement) => ReactElement;
 
@@ -37,6 +38,7 @@ export type ListProps<T> = {
   bulkTitle?: string;
   bulkSubmitText?: string;
   isShowHeader?: boolean;
+  listIndexHeader?: ReactNode;
 };
 
 export type ListHeaderProps = {

@@ -42,7 +42,6 @@ export const CrmListItem = ({ crm, renderAction }: CrmListItemProps) => {
     avatar,
     property,
     partner,
-    manager: { image: managerAvatar, firstName: managerFirstName, lastName: managerLastName },
     meta: { matches, interests, viewings, biddings, candidate, optant },
     completeness = 0,
   } = crm;
@@ -81,6 +80,7 @@ export const CrmListItem = ({ crm, renderAction }: CrmListItemProps) => {
       flexDirection="column"
       className={clsx(classes.cursor, crm.status === CrmStatus.Inactive && classes.inactive)}
       onClick={() => push(AppRoute.crmRelationsDetails.replace(':id', crm.id))}
+      pb={2}
     >
       <Box display="flex" mb={3}>
         <Box>
@@ -104,12 +104,29 @@ export const CrmListItem = ({ crm, renderAction }: CrmListItemProps) => {
                 </Typography>
               </Box>
               <Box display="flex">
-                <Box mr={4}>
-                  <PhoneIcon className={classes.verticalAlignTop} /> {phoneNumber}
-                </Box>
                 <Box>
-                  <MailIcon className={classes.verticalAlignTop} /> {email}
+                  <Box mr={4}>
+                    <PhoneIcon className={classes.verticalAlignTop} /> {phoneNumber}
+                  </Box>
+                  <Box>
+                    <MailIcon className={classes.verticalAlignTop} /> {email}
+                  </Box>
                 </Box>
+                {partner && (
+                  <Box mr={2}>
+                    <Typography variant="h6" className={classes.label}>
+                      {formatMessage({ id: 'crm.item.partner' })}
+                    </Typography>
+                    <Box display="flex" alignItems="center" className={classes.avatarWithName}>
+                      <UserAvatar
+                        name={`${partner.firstName} ${partner.lastName}`}
+                        avatar={partner.avatar?.url || undefined}
+                        className={classes.avatarIcon}
+                      />{' '}
+                      {partner.firstName} {partner.lastName}
+                    </Box>
+                  </Box>
+                )}
               </Box>
             </Box>
             <Box>{renderAction?.(crm)}</Box>
@@ -122,39 +139,6 @@ export const CrmListItem = ({ crm, renderAction }: CrmListItemProps) => {
               <Box className={classes.inlineBlock}>
                 <Box display="flex" alignItems="center" mb={1} className={classes.avatarWithName}>
                   <UserAvatar name={property} avatar={avatar?.url || ''} className={classes.avatarIcon} /> {property}
-                </Box>
-              </Box>
-              <br />
-              <Box className={classes.inlineBlock}>
-                <Box display="flex">
-                  {partner && (
-                    <Box mr={2}>
-                      <Typography variant="h6" className={classes.label}>
-                        {formatMessage({ id: 'crm.item.partner' })}
-                      </Typography>
-                      <Box display="flex" alignItems="center" className={classes.avatarWithName}>
-                        <UserAvatar
-                          name={`${partner.firstName} ${partner.lastName}`}
-                          avatar={partner.avatar?.url || undefined}
-                          className={classes.avatarIcon}
-                        />{' '}
-                        {partner.firstName} {partner.lastName}
-                      </Box>
-                    </Box>
-                  )}
-                  <Box>
-                    <Typography variant="h6" className={classes.label}>
-                      {formatMessage({ id: 'crm.item.manager' })}
-                    </Typography>
-                    <Box display="flex" alignItems="center" className={classes.avatarWithName}>
-                      <UserAvatar
-                        name={`${managerFirstName} ${managerLastName}`}
-                        avatar={managerAvatar?.url || undefined}
-                        className={classes.avatarIcon}
-                      />{' '}
-                      {managerFirstName} {managerLastName}
-                    </Box>
-                  </Box>
                 </Box>
               </Box>
             </Box>

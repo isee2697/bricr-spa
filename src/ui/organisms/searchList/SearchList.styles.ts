@@ -7,7 +7,7 @@ export const useStyles = makeStyles(({ spacing }) => ({
   },
   list: {
     maxHeight: spacing(28),
-    overflow: 'scroll',
+    overflowY: 'auto',
     '& > .MuiBox-root:last-child': {
       marginBottom: 0,
     },
