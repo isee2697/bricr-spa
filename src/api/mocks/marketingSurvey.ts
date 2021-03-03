@@ -1,3 +1,8 @@
+import {
+  MarketingSurveyDetailsStepType,
+  MarketingSurveyDetailsType,
+  MarketingSurveyType,
+} from 'app/crmMarketingSurveyDetails/MarketingSurveyDetails.types';
 import { SurveyCategory, SurveyItem, SurveyType } from 'app/crmRelationsDetails/marketingSurvey/MarketingSurvey.types';
 
 export const MARKETING_SURVEYS: SurveyItem[] = [
@@ -38,3 +43,30 @@ export const MARKETING_SURVEYS: SurveyItem[] = [
     score: 6,
   },
 ];
+
+export const MARKETING_SURVEY_DETAIL_STEPS: MarketingSurveyDetailsType = {
+  id: '0001',
+  name: 'Name enquete',
+  steps: [
+    {
+      id: '0001',
+      title: 'General',
+      type: MarketingSurveyDetailsStepType.General,
+      surveyType: MarketingSurveyType.Rent,
+      score: 8,
+      approved: 12,
+      declined: 0,
+      modifiedAt: new Date().toLocaleString(),
+    },
+    {
+      id: '0002',
+      title: 'Group 1',
+      type: MarketingSurveyDetailsStepType.Branding,
+      recommendation: 9,
+      score: 10,
+      approved: 12,
+      declined: 0,
+      modifiedAt: new Date().toLocaleString(),
+    },
+  ],
+};
