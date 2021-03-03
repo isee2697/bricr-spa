@@ -97,9 +97,7 @@ export const PageWithListsCard: <V, A, F>(
                 <Box flexGrow={1}>
                   <ListTableItem
                     isHeader
-                    onSort={() => {
-                      /* handle sorting */
-                    }}
+                    onSort={(key: unknown) => (!!list.onSort ? list.onSort(key as string) : {})}
                     sortKey={tableHeader.sortKey}
                     headerCells={tableHeader.cells}
                   />

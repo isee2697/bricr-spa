@@ -70,8 +70,6 @@ export const Relations = ({
     ]);
   };
 
-  const crmItemsFiltered = crms.filter(crmItem => crmItem.status === status);
-
   const optionMenuItems = (item: CrmItem) => (
     <RelationMenuItems
       item={item}
@@ -112,7 +110,7 @@ export const Relations = ({
         }}
         list={{
           className: 'crm-list',
-          items: crmItemsFiltered as CrmItem[],
+          items: crms as CrmItem[],
           itemIndex: 'id',
           emptyTitle: formatMessage({ id: 'crm.list.empty_title' }),
           emptyDescription: formatMessage(

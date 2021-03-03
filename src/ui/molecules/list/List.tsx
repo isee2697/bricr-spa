@@ -145,7 +145,7 @@ export const List: <T>(p: ListProps<T>) => React.ReactElement<ListProps<T>> = ({
           onArchive={() => handleOperation(BulkOperations.Archive)}
           onDelete={() => handleOperation(BulkOperations.Delete)}
           onBulk={handleBulk}
-          onSort={!!onSort ? onSort : () => {}}
+          onSort={(key: string) => (!!onSort ? onSort(key) : () => {})}
         />
       )}
       {!loading && !!listIndexHeader && <Box className={classes.listIndex}>{listIndexHeader}</Box>}
