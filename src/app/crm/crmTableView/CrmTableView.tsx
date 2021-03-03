@@ -91,8 +91,8 @@ export const ListTableRow = ({
 };
 
 export const renderCell = (fieldName: keyof CrmItem, item?: CrmItem) => {
-  if (fieldName === 'partner' || fieldName === 'manager') {
-    return `${item?.partner?.firstName} ${item?.partner?.lastName}`;
+  if (fieldName === 'partners' || fieldName === 'manager') {
+    return `${item?.partners?.[0]?.partner.firstName} ${item?.partners?.[0]?.partner?.lastName}`;
   }
 
   if (fieldName === 'status') {
