@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { ReactNode, useCallback, useState } from 'react';
 import classnames from 'classnames';
 import clsx from 'clsx';
 
@@ -21,7 +21,7 @@ import { useStyles } from './CrmTableView.styles';
 import { HeaderFilterModal } from './headerFilterModal/HeaderFilterModal';
 import { HeaderColumnItemType } from './headerFilterModal/HeaderFilterModal.types';
 
-const FIXED_HEADER_COLUMNS: CrmTableFixedHeader[] = [];
+const FIXED_HEADER_COLUMNS: CrmTableFixedHeader[] = ['firstName', 'lastName'];
 const MOVABLE_HEADER_COLUMNS: HeaderColumnItemType[] = [
   {
     value: 'firstName',
@@ -64,6 +64,43 @@ const MOVABLE_HEADER_COLUMNS: HeaderColumnItemType[] = [
     hidden: true,
   },
 ];
+export const ListTableRow = ({
+  children,
+  headerCells,
+  className,
+  isHeader,
+}: {
+  children?: ReactNode;
+  className?: string;
+  headerCells: CrmTableHeaderCell[];
+  isHeader?: true;
+}) => {
+  const width = `${100 / (headerCells.length + 1)}%`;
+
+  return (
+    <Box className={className} display="flex" alignItems="center" pt={1} pb={1} pr={2}>
+      <Box flexGrow={1} display="flex">
+        {headerCells.map((cell, index) => (
+          <Box minWidth={width} width={width} key={index}>
+            {children ?? cell.label}
+          </Box>
+        ))}
+      </Box>
+    </Box>
+  );
+};
+
+export const renderCell = (fieldName: keyof CrmItem, item?: CrmItem) => {
+  if (fieldName === 'partner' || fieldName === 'manager') {
+    return `${item?.partner?.firstName} ${item?.partner?.lastName}`;
+  }
+
+  if (fieldName === 'status') {
+    return `dictionaries.crm_status.${item?.status}`;
+  }
+
+  return item?.[fieldName] as string;
+};
 
 export const CrmTableView = ({
   items,

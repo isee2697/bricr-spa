@@ -1,7 +1,8 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 
 import { Grid } from 'ui/atoms';
+import { useLayout } from 'context/layout';
 
 import { CrmProps } from './Crm.types';
 import { useStyles } from './Crm.style';
@@ -12,24 +13,20 @@ import { MergeCrmRelationContainer } from './mergeRelation/MergeCrmRelationConta
 
 export const Crm = ({ path, status, onStatusChange }: CrmProps) => {
   const classes = useStyles();
-  const [isSidebarVisible, setSidebarVisibility] = useState(true);
-
-  const handleSidebarHide = useCallback(() => {
-    setSidebarVisibility(false);
-  }, []);
+  const { isSidebarMenuVisible, setSidebarMenuVisible } = useLayout();
 
   const handleSidebarOpen = useCallback(() => {
-    setSidebarVisibility(true);
-  }, []);
+    setSidebarMenuVisible(true);
+  }, [setSidebarMenuVisible]);
 
   return (
     <Grid container>
-      <CrmSidebarMenu onHide={handleSidebarHide} isVisible={isSidebarVisible} />
+      <CrmSidebarMenu onHide={() => setSidebarMenuVisible(false)} isVisible={isSidebarMenuVisible} />
       <Grid
         item
-        xs={isSidebarVisible ? false : 12}
-        md={isSidebarVisible ? 9 : 12}
-        lg={isSidebarVisible ? 10 : 12}
+        xs={isSidebarMenuVisible ? false : 12}
+        md={isSidebarMenuVisible ? 9 : 12}
+        lg={isSidebarMenuVisible ? 10 : 12}
         className={classes.content}
       >
         <Grid container spacing={3} className={classes.content}>
@@ -37,25 +34,18 @@ export const Crm = ({ path, status, onStatusChange }: CrmProps) => {
             <Route
               path={`${path}/merge/:id`}
               render={() => (
-                <MergeCrmRelationContainer isSidebarVisible={isSidebarVisible} onSidebarOpen={handleSidebarOpen} />
+                <MergeCrmRelationContainer isSidebarVisible={isSidebarMenuVisible} onSidebarOpen={handleSidebarOpen} />
               )}
             />
             <Route
               path={`${path}/relations`}
-              render={() => (
-                <RelationsContainer
-                  isSidebarVisible={isSidebarVisible}
-                  onSidebarOpen={handleSidebarOpen}
-                  onStatusChange={onStatusChange}
-                  status={status}
-                />
-              )}
+              render={() => <RelationsContainer onStatusChange={onStatusChange} status={status} />}
             />
             <Route
               path={`${path}/businesses`}
               render={() => (
                 <BusinessesContainer
-                  isSidebarVisible={isSidebarVisible}
+                  isSidebarVisible={isSidebarMenuVisible}
                   onSidebarOpen={handleSidebarOpen}
                   onStatusChange={onStatusChange}
                   status={status}
