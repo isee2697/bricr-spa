@@ -19,6 +19,7 @@ import { PageWithListsCardProps } from './PageWithListsCard.types';
 export const PageWithListsCard: <V, A, F>(
   p: PageWithListsCardProps<V, A, F>,
 ) => ReactElement<PageWithListsCardProps<V, A, F>> = ({
+  withoutHeader = false,
   header,
   cardTitleId,
   views,
@@ -59,7 +60,7 @@ export const PageWithListsCard: <V, A, F>(
 
   return (
     <Grid xs={12}>
-      <PageWithListsHeader {...header} />
+      {!withoutHeader && <PageWithListsHeader {...header} />}
       <FormSection
         buttons={
           <>
@@ -77,13 +78,15 @@ export const PageWithListsCard: <V, A, F>(
         title={formatMessage({ id: cardTitleId })}
         isEditable={false}
       >
-        <ActionTabs
-          {...actionTabs}
-          tabs={actionTabs?.tabs?.map(tab => ({
-            ...tab,
-            label: formatMessage({ id: tab.label, defaultMessage: tab.label }),
-          }))}
-        />
+        {actionTabs && (
+          <ActionTabs
+            {...actionTabs}
+            tabs={actionTabs?.tabs?.map(tab => ({
+              ...tab,
+              label: formatMessage({ id: tab.label, defaultMessage: tab.label }),
+            }))}
+          />
+        )}
         {filters && hasActiveFilters(filters?.activeFilters) && (
           <ActiveFilters className={classes.filters} {...filters} />
         )}

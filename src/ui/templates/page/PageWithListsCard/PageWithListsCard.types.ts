@@ -17,6 +17,7 @@ export type ListView<T> = {
 };
 
 export type PageWithListsCardProps<V, A, F> = {
+  withoutHeader?: boolean;
   header: PageWithListsHeaderProps;
   cardTitleId?: string;
   baseRoute?: AppRoute | string;
@@ -25,7 +26,7 @@ export type PageWithListsCardProps<V, A, F> = {
   filters?: ActiveFiltersProps<F> & {
     availableFilters: FiltersTypes[];
   };
-  actionTabs: ActionTabsProps<A>;
+  actionTabs?: ActionTabsProps<A>;
   list: Omit<ListProps<V>, 'renderItem' | 'listIndexHeader' | 'loading' | 'loadingItem'>;
   tableHeader?: {
     cells: ListTableCell<V>[];
