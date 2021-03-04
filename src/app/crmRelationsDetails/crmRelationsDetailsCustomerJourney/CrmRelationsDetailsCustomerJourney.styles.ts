@@ -20,6 +20,7 @@ export const useStyles = makeStyles(theme => ({
   badge: {
     '& .MuiBadge-badge': {
       right: -theme.spacing(1.25),
+      width: 'fit-content',
       minWidth: theme.spacing(1),
       padding: theme.spacing(0.25, 0.5, 0, 0.5),
       height: theme.spacing(2),

@@ -12,6 +12,7 @@ export type CrmRelationsDetailsCustomerJourneyProps = {
   crm: CrmItem;
   items: CrmRelationsDetailsCustomerJourneyType[];
   status: CrmRelationsDetailsCustomerJourneyTab;
+  isOwner?: boolean;
   onStatusChange: (status: CrmRelationsDetailsCustomerJourneyTab) => void;
 };
 
@@ -22,6 +23,9 @@ export enum CrmRelationsDetailsCustomerJourneyTab {
   Biddings = 'biddings',
   Candidate = 'candidate',
   Optant = 'optant',
+  Buyer = 'buyer',
+  Tenant = 'tenant',
+  Owner = 'owner',
 }
 
 export enum CrmRelationsCustomerJourneyProperty {
@@ -29,6 +33,8 @@ export enum CrmRelationsCustomerJourneyProperty {
   Balcony = 'balcony',
   Terrace = 'terrace',
   Garden = 'garden',
+  SalePrice = 'salePrice',
+  RentPrice = 'rentPrice',
 }
 
 export type CrmRelationsDetailsCustomerJourneyType = {
@@ -38,6 +44,7 @@ export type CrmRelationsDetailsCustomerJourneyType = {
   size: number;
   rooms: number;
   properties: CrmRelationsCustomerJourneyProperty[];
+  propertyRelatedItems?: CrmRelationsCustomerJourneyProperty[];
   price: number;
   matchStrength: number;
   dateCreated: DateTime;
@@ -45,6 +52,19 @@ export type CrmRelationsDetailsCustomerJourneyType = {
   counters?: CrmRelationsDetailsCustomerJourneyCounter[];
   candidates?: CrmRelationsDetailsCustomerJourneyCandidate[];
   optants?: CrmRelationsDetailsCustomerJourneyOptant[];
+  finalPrice?: number;
+  finalPriceUpdated?: DateTime;
+  conditions?: {
+    takeOverListOfCases: boolean;
+    technicalBuildingInspection: boolean;
+    reservationOfFunding: boolean;
+  };
+  requiredDocuments?: {
+    salesContract: boolean;
+    driverLicense: boolean;
+    employmentConfirmation: boolean;
+  };
+  status?: string;
 };
 
 export type CrmRelationsDetailsCustomerJourneyBrokerage = {
