@@ -18,7 +18,13 @@ export const AddNewBankAccountModalContainer = ({ id, data }: AddNewBankAccountM
           input: {
             id,
             bankAccounts: [
-              ...(data?.bankAccounts || []),
+              ...(data?.bankAccounts || []).map(item =>
+                JSON.parse(
+                  JSON.stringify(item, (key, value) =>
+                    value === null || key === '__typename' || key === 'id' ? undefined : value,
+                  ),
+                ),
+              ),
               {
                 type: values.type,
               },

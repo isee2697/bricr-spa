@@ -7,7 +7,7 @@ import { EuroIcon } from 'ui/atoms/icons';
 
 import { useStyles } from './IncomeEquity.styles';
 
-export const IncomeEquity = () => {
+export const IncomeEquity = ({ isEditing }: { isEditing: boolean }) => {
   const { formatMessage } = useLocale();
   const classes = useStyles();
 
@@ -23,6 +23,7 @@ export const IncomeEquity = () => {
           placeholder="crm.details.personal_information_financial_profile.income_information.incomeEquity.income.placeholder"
           InputProps={{ endAdornment: <EuroIcon /> }}
           type="number"
+          disabled={!isEditing}
         />
       </Grid>
       <Grid item xs={8}>
@@ -33,6 +34,7 @@ export const IncomeEquity = () => {
           })}
           name="information"
           placeholder="crm.details.personal_information_financial_profile.income_information.incomeEquity.extra_information.placeholder"
+          disabled={!isEditing}
         />
       </Grid>
     </Grid>

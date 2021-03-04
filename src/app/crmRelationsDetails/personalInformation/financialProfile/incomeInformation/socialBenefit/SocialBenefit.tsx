@@ -11,7 +11,7 @@ import { SocialBenefitType } from 'api/types';
 
 import { useStyles } from './SocialBenefit.styles';
 
-export const SocialBenefit = () => {
+export const SocialBenefit = ({ isEditing }: { isEditing: boolean }) => {
   const { formatMessage } = useLocale();
   const classes = useStyles();
 
@@ -39,6 +39,7 @@ export const SocialBenefit = () => {
             placeholder="crm.details.personal_information_financial_profile.income_information.social_benefit.gross_income.placeholder"
             InputProps={{ endAdornment: <EuroIcon /> }}
             type="number"
+            disabled={!isEditing}
           />
         </Grid>
         <Grid item xs={8}>
@@ -48,6 +49,7 @@ export const SocialBenefit = () => {
             label={formatMessage({ id: 'common.period' })}
             name="socialBenefitIncome.incomePeriod"
             margin="dense"
+            disabled={!isEditing}
           />
         </Grid>
       </Grid>
@@ -61,12 +63,17 @@ export const SocialBenefit = () => {
             className={classes.formField}
             name="information"
             placeholder="crm.details.personal_information_financial_profile.income_information.social_benefit.extra_information.placeholder"
+            disabled={!isEditing}
           />
         </Grid>
       </Grid>
       <Grid container spacing={1}>
         <Grid item xs={12}>
-          <RadioGroupField name="socialBenefitIncome.socialBenefitType" options={typeOfSocialBenefits} />
+          <RadioGroupField
+            name="socialBenefitIncome.socialBenefitType"
+            options={typeOfSocialBenefits}
+            disabled={!isEditing}
+          />
         </Grid>
       </Grid>
     </>

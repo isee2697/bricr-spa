@@ -11,7 +11,7 @@ import { LinkBusinessModalContainer } from 'app/shared/linkBusinessModal/LinkBus
 
 import { useStyles } from './Employer.styles';
 
-export const Employer = () => {
+export const Employer = ({ isEditing }: { isEditing: boolean }) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
   const [isEmployeeLinked, setIsEmployeeLinked] = useState(false);
@@ -42,6 +42,7 @@ export const Employer = () => {
             placeholder="crm.details.personal_information_financial_profile.income_information.profession"
             label="crm.details.personal_information_financial_profile.income_information.profession"
             name="employerIncome.profession"
+            disabled={!isEditing}
           />
         </Grid>
       </Grid>
@@ -118,6 +119,7 @@ export const Employer = () => {
           })}
           name="employerIncome.employerInformation.name"
           placeholder="crm.details.personal_information_financial_profile.income_information.employer.employer.placeholder"
+          disabled={!isEditing}
         />
       </Box>
       <Grid container spacing={1}>
@@ -129,6 +131,7 @@ export const Employer = () => {
             })}
             name="employerIncome.employerInformation.country"
             placeholder="crm.details.personal_information_financial_profile.income_information.employer.country.placeholder"
+            disabled={!isEditing}
           />
         </Grid>
         <Grid item xs={5}>
@@ -139,6 +142,7 @@ export const Employer = () => {
             })}
             name="employerIncome.employerInformation.city"
             placeholder="crm.details.personal_information_financial_profile.income_information.employer.city.placeholder"
+            disabled={!isEditing}
           />
         </Grid>
         <Grid item xs={3}>
@@ -149,6 +153,7 @@ export const Employer = () => {
             })}
             name="employerIncome.employerInformation.zipcode"
             placeholder="crm.details.personal_information_financial_profile.income_information.employer.zip_code.placeholder"
+            disabled={!isEditing}
           />
         </Grid>
       </Grid>
@@ -161,6 +166,7 @@ export const Employer = () => {
             })}
             name="employerIncome.employerInformation.street"
             placeholder="crm.details.personal_information_financial_profile.income_information.employer.street.placeholder"
+            disabled={!isEditing}
           />
         </Grid>
         <Grid item xs={5}>
@@ -172,6 +178,7 @@ export const Employer = () => {
             name="employerIncome.employerInformation.houseNumber"
             placeholder="crm.details.personal_information_financial_profile.income_information.employer.house_number.placeholder"
             type="number"
+            disabled={!isEditing}
           />
         </Grid>
         <Grid item xs={3}>
@@ -182,6 +189,7 @@ export const Employer = () => {
             })}
             name="employerIncome.employerInformation.addition"
             placeholder="crm.details.personal_information_financial_profile.income_information.employer.addition.placeholder"
+            disabled={!isEditing}
           />
         </Grid>
       </Grid>
@@ -197,7 +205,7 @@ export const Employer = () => {
           })}
         </Typography>
       </Box>
-      <RadioGroupField name="employerIncome.employmentType" options={typeOfEmployments} />
+      <RadioGroupField name="employerIncome.employmentType" options={typeOfEmployments} disabled={!isEditing} />
       <Box mb={4} />
       <LinkBusinessModalContainer onSubmit={handleLinkBusiness} />
     </>

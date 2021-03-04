@@ -102,7 +102,7 @@ export const FinancialObligations = ({ data, onSave }: FinancialObligationsProps
           title: formatMessage({ id: `dictionaries.contact_information.kind_of_obligation.${socialMedia.type}` }),
         }))}
         onSave={handleSave}
-        onAdd={() => open('add-new-social-media')}
+        onAdd={() => open('add-new-financial-obligation')}
         isInitExpanded
         isInitEditing
         isEditable

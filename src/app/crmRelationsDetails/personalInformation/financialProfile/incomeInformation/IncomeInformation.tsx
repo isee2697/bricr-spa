@@ -50,13 +50,13 @@ export const IncomeInformation = ({ data, onSave }: IncomeInformationProps) => {
           id: 'crm.details.personal_information_contact_information.addresses.empty_description',
         })}
         emoji="🙌"
-        renderItem={(item: CrmIncome) => (
+        renderItem={(item: CrmIncome, isEditing: boolean) => (
           <>
-            {item.type === IncomeType.Employer && <Employer />}
-            {item.type === IncomeType.Equity && <IncomeEquity />}
-            {item.type === IncomeType.Pension && <Pension />}
-            {item.type === IncomeType.SocialBenefit && <SocialBenefit />}
-            {item.type === IncomeType.Entrepreneur && <Entrepreneur />}
+            {item.type === IncomeType.Employer && <Employer isEditing={isEditing} />}
+            {item.type === IncomeType.Equity && <IncomeEquity isEditing={isEditing} />}
+            {item.type === IncomeType.Pension && <Pension isEditing={isEditing} />}
+            {item.type === IncomeType.SocialBenefit && <SocialBenefit isEditing={isEditing} />}
+            {item.type === IncomeType.Entrepreneur && <Entrepreneur isEditing={isEditing} />}
           </>
         )}
         items={(data?.income || []).map(item => ({

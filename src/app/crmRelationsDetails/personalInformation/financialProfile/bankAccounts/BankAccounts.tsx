@@ -125,7 +125,7 @@ export const BankAccounts = ({ data, onSave }: BankAccountsProps) => {
           title: formatMessage({ id: `dictionaries.contact_information.kind_of_obligation.${bankAccount.type}` }),
         }))}
         onSave={handleSave}
-        onAdd={() => open('add-new-social-media')}
+        onAdd={() => open('add-new-bank-account')}
         isInitExpanded
         isInitEditing
         isEditable

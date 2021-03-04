@@ -9,7 +9,7 @@ import { PeriodType } from '../../FinancialProfile.types';
 
 import { useStyles } from './Pension.styles';
 
-export const Pension = () => {
+export const Pension = ({ isEditing }: { isEditing: boolean }) => {
   const { formatMessage } = useLocale();
   const classes = useStyles();
 
@@ -31,6 +31,7 @@ export const Pension = () => {
             placeholder="crm.details.personal_information_financial_profile.income_information.pension.gross_aow_benefit.placeholder"
             InputProps={{ endAdornment: <EuroIcon /> }}
             type="number"
+            disabled={!isEditing}
           />
         </Grid>
         <Grid item xs={8}>
@@ -40,6 +41,7 @@ export const Pension = () => {
             label={formatMessage({ id: 'common.period' })}
             name="pensionIncome.aowBenefitPeriod"
             margin="dense"
+            disabled={!isEditing}
           />
         </Grid>
       </Grid>
@@ -55,6 +57,7 @@ export const Pension = () => {
             placeholder="crm.details.personal_information_financial_profile.income_information.pension.gross_pre_retirement_benefit.placeholder"
             InputProps={{ endAdornment: <EuroIcon /> }}
             type="number"
+            disabled={!isEditing}
           />
         </Grid>
         <Grid item xs={8}>
@@ -64,6 +67,7 @@ export const Pension = () => {
             label={formatMessage({ id: 'common.period' })}
             name="pensionIncome.retirementBenefitPeriod"
             margin="dense"
+            disabled={!isEditing}
           />
         </Grid>
       </Grid>
@@ -76,6 +80,7 @@ export const Pension = () => {
             className={classes.formField}
             name="information"
             placeholder="crm.details.personal_information_financial_profile.income_information.pension.extra_information.placeholder"
+            disabled={!isEditing}
           />
         </Grid>
       </Grid>

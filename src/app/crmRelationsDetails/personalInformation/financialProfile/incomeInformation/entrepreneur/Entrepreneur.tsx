@@ -10,7 +10,7 @@ import { FormSubSectionHeader } from 'ui/molecules';
 
 import { useStyles } from './Entrepreneur.styles';
 
-export const Entrepreneur = () => {
+export const Entrepreneur = ({ isEditing }: { isEditing: boolean }) => {
   const { formatMessage } = useLocale();
   const classes = useStyles();
 
@@ -31,6 +31,7 @@ export const Entrepreneur = () => {
         placeholder="crm.details.personal_information_financial_profile.income_information.entrepreneur.income_from_business.placeholder"
         InputProps={{ endAdornment: <EuroIcon /> }}
         type="number"
+        disabled={!isEditing}
       />
       <Grid container spacing={1}>
         <Grid item xs={4}>
@@ -43,6 +44,7 @@ export const Entrepreneur = () => {
             name="entrepreneurIncome.workingHoursPerMonth"
             placeholder="crm.details.personal_information_financial_profile.income_information.entrepreneur.working_hours_per_month.placeholder"
             type="number"
+            disabled={!isEditing}
           />
         </Grid>
         <Grid item xs={4}>
@@ -55,6 +57,7 @@ export const Entrepreneur = () => {
             name="entrepreneurIncome.yearsAsIndependent"
             placeholder="crm.details.personal_information_financial_profile.income_information.entrepreneur.years_as_independent.placeholder"
             type="number"
+            disabled={!isEditing}
           />
         </Grid>
       </Grid>
@@ -65,30 +68,35 @@ export const Entrepreneur = () => {
         className={classes.formField}
         name="information"
         placeholder="crm.details.personal_information_financial_profile.income_information.entrepreneur.extra_information.placeholder"
+        disabled={!isEditing}
       />
       <CheckboxField
         name="entrepreneurIncome.companyCar"
         label={formatMessage({
           id: 'crm.details.personal_information_financial_profile.income_information.entrepreneur.company_car',
         })}
+        disabled={!isEditing}
       />
       <CheckboxField
         name="entrepreneurIncome.companyBike"
         label={formatMessage({
           id: 'crm.details.personal_information_financial_profile.income_information.entrepreneur.company_bike',
         })}
+        disabled={!isEditing}
       />
       <CheckboxField
         name="entrepreneurIncome.pastPensionAge"
         label={formatMessage({
           id: 'crm.details.personal_information_financial_profile.income_information.entrepreneur.past_pension_age',
         })}
+        disabled={!isEditing}
       />
       <CheckboxField
         name="entrepreneurIncome.smeProfitExemption"
         label={formatMessage({
           id: 'crm.details.personal_information_financial_profile.income_information.entrepreneur.sme_profit_exemption',
         })}
+        disabled={!isEditing}
       />
       <FormSubSectionHeader
         title={formatMessage({
@@ -97,7 +105,7 @@ export const Entrepreneur = () => {
         subtitle={formatMessage({ id: 'common.choose_one_option_below' })}
         noBorder
       />
-      <RadioGroupField name="entrepreneurIncome.entrepreneurType" options={typeOfEntrepeneurs} />
+      <RadioGroupField name="entrepreneurIncome.entrepreneurType" options={typeOfEntrepeneurs} disabled={!isEditing} />
     </>
   );
 };
