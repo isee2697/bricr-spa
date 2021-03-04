@@ -34,9 +34,6 @@ export const useStyles = makeStyles(theme => ({
     paddingRight: 0,
     paddingLeft: 0,
   },
-  marginRightTwo: {
-    marginRight: theme.spacing(2),
-  },
   row: {
     display: 'flex',
     alignItems: 'flex-start',

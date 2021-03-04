@@ -5,9 +5,12 @@ import { Badge, Box, Card, CardContent, CardHeader, IconButton, NavBreadcrumb, T
 import { List, PropertyItemPlaceholder } from 'ui/molecules';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { Page } from 'ui/templates';
-import { AddIcon, CardsIcon, LocationIcon, ManageIcon } from 'ui/atoms/icons';
+import { AddIcon, CardsIcon, LocationIcon } from 'ui/atoms/icons';
 import { joinUrlParams } from 'routing/AppRoute.utils';
 import { useEntityType } from 'app/shared/entityType';
+import { FiltersButton } from 'ui/molecules/filters/FiltersButton';
+import { ActiveFilters } from 'ui/molecules/filters/activeFilters/ActiveFilters';
+import { ListPimsFilters } from 'api/types';
 
 import {
   CrmRelationsCustomerJourneyProperty,
@@ -17,11 +20,14 @@ import {
 import { useStyles } from './CrmRelationsDetailsCustomerJourney.styles';
 import { ListItem } from './listItem/ListItem';
 import { ListItemBuyer } from './listItem/listItemBuyer/ListItemBuyer';
+import { CrmRelationsCustomerJourneyFilters } from './dictionaries';
 
 export const CrmRelationsDetailsCustomerJourney = ({
   items,
   status,
   onStatusChange,
+  activeFilters,
+  onFilter,
   isOwner,
 }: CrmRelationsDetailsCustomerJourneyProps) => {
   const customerJourneyTabs = [
@@ -84,25 +90,29 @@ export const CrmRelationsDetailsCustomerJourney = ({
           <CardHeader
             title={formatMessage({ id: 'crm.details.customer_journey.title' })}
             action={
-              <>
-                <IconButton
-                  variant="rounded"
-                  size="small"
-                  onClick={() => setMapView(!isMapView)}
-                  className={classes.marginRightTwo}
-                >
-                  <CardsIcon color={isMapView ? 'primary' : 'inherit'} />
-                </IconButton>
-                <IconButton variant="rounded" size="small" onClick={() => {}} className={classes.marginRightTwo}>
-                  <LocationIcon />
-                </IconButton>
-                <IconButton variant="rounded" size="small" onClick={() => {}} className={classes.marginRightTwo}>
-                  <ManageIcon />
-                </IconButton>
+              <Box display="flex">
+                <Box mr={2}>
+                  <IconButton variant="rounded" size="small" onClick={() => setMapView(!isMapView)}>
+                    <CardsIcon color={isMapView ? 'primary' : 'inherit'} />
+                  </IconButton>
+                </Box>
+                <Box mr={2}>
+                  <IconButton variant="rounded" size="small" onClick={() => {}}>
+                    <LocationIcon />
+                  </IconButton>
+                </Box>
+                <Box mr={2}>
+                  <FiltersButton
+                    variant="rounded"
+                    data={activeFilters}
+                    getActiveFilters={onFilter}
+                    filters={CrmRelationsCustomerJourneyFilters}
+                  />
+                </Box>
                 <IconButton aria-label="add" color="primary" size="small" onClick={() => {}}>
                   <AddIcon color="inherit" />
                 </IconButton>
-              </>
+              </Box>
             }
           />
           <CardContent className={classes.noMargin}>
@@ -132,6 +142,11 @@ export const CrmRelationsDetailsCustomerJourney = ({
                   />
                 ))}
               </Tabs>
+              {Object.keys(activeFilters).length > 0 && (
+                <Box mt={-2}>
+                  <ActiveFilters<ListPimsFilters> activeFilters={activeFilters} onDelete={onFilter} />
+                </Box>
+              )}
               <List
                 items={items.map((item, index) => ({ ...item, index }))}
                 itemIndex={'id'}

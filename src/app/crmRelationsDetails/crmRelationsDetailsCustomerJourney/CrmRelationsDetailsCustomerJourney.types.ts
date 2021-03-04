@@ -1,5 +1,6 @@
 import { DateTime } from 'luxon';
 
+import { ListPimsFilters } from 'api/types';
 import { CrmItem } from '../../crm/Crm.types';
 
 export type CrmRelationsDetailsCustomerJourneyContainerProps = {
@@ -12,8 +13,10 @@ export type CrmRelationsDetailsCustomerJourneyProps = {
   crm: CrmItem;
   items: CrmRelationsDetailsCustomerJourneyType[];
   status: CrmRelationsDetailsCustomerJourneyTab;
-  isOwner?: boolean;
   onStatusChange: (status: CrmRelationsDetailsCustomerJourneyTab) => void;
+  activeFilters: ListPimsFilters;
+  onFilter: (filters: ListPimsFilters) => void;
+  isOwner?: boolean;
 };
 
 export enum CrmRelationsDetailsCustomerJourneyTab {

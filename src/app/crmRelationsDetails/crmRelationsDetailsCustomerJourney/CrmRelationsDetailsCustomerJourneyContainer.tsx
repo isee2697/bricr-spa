@@ -14,6 +14,7 @@ import {
 import { CrmRelationsDetailsHeader } from '../crmRelationsDetailsHeader/CrmRelationsDetailsHeader';
 import { Grid, Typography } from 'ui/atoms';
 import { AppRoute } from 'routing/AppRoute.enum';
+import { ListPimsFilters } from 'api/types';
 
 import {
   CrmRelationsDetailsCustomerJourneyContainerProps,
@@ -32,6 +33,7 @@ export const CrmRelationsDetailsCustomerJourneyContainer = ({
   const { status, setStatus } = useCrmRelationsCustomerJourneyQueryParams({
     status: CrmRelationsDetailsCustomerJourneyTab.Buyer,
   });
+  const [activeFilters, setActiveFilters] = useState<ListPimsFilters>({});
   const [data, setData] = useState<CrmRelationsDetailsCustomerJourneyType[]>(CRM_RELATIONS_CUSTOMER_JOURNEY_MATCHING);
   const [isOwner] = useState(true);
 
@@ -84,6 +86,8 @@ export const CrmRelationsDetailsCustomerJourneyContainer = ({
               crm={crm}
               status={status}
               onStatusChange={setStatus}
+              onFilter={filters => setActiveFilters(filters)}
+              activeFilters={activeFilters}
               items={data}
               isOwner={isOwner}
             />

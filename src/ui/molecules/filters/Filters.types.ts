@@ -57,6 +57,7 @@ export type FilterButtonProps = {
   data?: AnyObject;
   getActiveFilters?: (filters: AnyObject) => void;
   color?: 'primary' | 'secondary' | 'default' | 'error';
+  variant?: 'rounded' | 'circle' | 'roundedContained' | 'circleContained';
   filters: FiltersTypes[];
   teams?: Team[];
   accountManagers?: Profile[];
