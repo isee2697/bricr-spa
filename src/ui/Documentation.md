@@ -429,6 +429,7 @@ import {
   StatusIcon,
   PdfIcon,
   BenefitIcon,
+  MobileIcon,
 } from "./atoms/icons";
 import { useTheme } from "@material-ui/core/styles";
 import { Box } from "ui/atoms";
@@ -536,6 +537,7 @@ const wrapperStyle = {
     <HelpIcon color="disabled" />
     <PdfIcon color="disabled" />
     <BenefitIcon color="disabled" />
+    <MobileIcon color="disabled" />
   </div>
 </>;
 ```

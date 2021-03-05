@@ -49,7 +49,7 @@ enum CrmStatus {
   Active, Inactive
 }
 
-type CrmGeneral {
+type CrmGeneral implements LastUpdated {
   id: ID!
   description: String
   firstName: String
@@ -75,6 +75,10 @@ type CrmGeneral {
   preferredTitleInformation: String
   identificationNumbers: [CrmIdentificationNumber!]
   status: CrmStatus
+  dateCreated: Date!
+  lastEditedBy: LastUpdatedProfile
+  dateUpdated: Date
+  completeness: Float!
 }
 
 type CrmIdentificationNumber {
