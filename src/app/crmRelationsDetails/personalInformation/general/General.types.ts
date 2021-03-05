@@ -24,6 +24,8 @@ export type PersonalInformationGeneralProps = {
     | 'preferredLetterSalutation'
     | 'preferredTitleInformation'
     | 'status'
+    | 'dateCreated'
+    | 'completeness'
   >;
   onSave(values: unknown): Promise<undefined | { error: boolean }>;
 };

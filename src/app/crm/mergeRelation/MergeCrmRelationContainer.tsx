@@ -17,6 +17,7 @@ const matches: CrmDetailItem[] = [
     ...mockCrm,
     id: uuid.v4(),
     address: {
+      id: uuid.v4(),
       type: ContactAddressType.HomeAddress,
       street: 'Isenburgstraat 36 bis',
       houseNumber: 4811,
@@ -30,6 +31,7 @@ const matches: CrmDetailItem[] = [
     ...mockCrm,
     id: uuid.v4(),
     address: {
+      id: uuid.v4(),
       type: ContactAddressType.HomeAddress,
       street: 'Isenburgstraat 11 bis',
       houseNumber: 4814,
@@ -63,6 +65,7 @@ export const MergeCrmRelationContainer = (props: MergeCrmRelationContainerProps)
     lastName,
     avatar,
     address: {
+      id: uuid.v4(),
       type: ContactAddressType.HomeAddress,
       street: 'Isenburgstraat 12 bis',
       houseNumber: 4811,

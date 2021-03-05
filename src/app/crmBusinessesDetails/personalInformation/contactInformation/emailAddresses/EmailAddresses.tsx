@@ -30,6 +30,7 @@ export const EmailAddresses = ({ onSave }: EmailAddressesProps) => {
       setEmailAddresses([
         ...emailAddresses,
         {
+          id: uuid.v4(),
           key: uuid.v4(),
           type: emailAddressType,
           email: '',
