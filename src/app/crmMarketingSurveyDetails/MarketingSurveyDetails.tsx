@@ -8,6 +8,7 @@ import { Page } from 'ui/templates';
 import { CrmRelationsDetailsHeader } from 'app/crmRelationsDetails/crmRelationsDetailsHeader/CrmRelationsDetailsHeader';
 import { ExitIcon } from 'ui/atoms/icons';
 import { AppRoute } from 'routing/AppRoute.enum';
+import { useLayout } from 'context/layout';
 
 import { MarketingSurveyDetailsProps, MarketingSurveyDetailsStepType } from './MarketingSurveyDetails.types';
 import { SidebarMenu } from './sidebarMenu/SidebarMenu';
@@ -17,17 +18,17 @@ import { Branding } from './sections/branding/Branding';
 export const MarketingSurveyDetails = ({ path, data, breadcrumbs }: MarketingSurveyDetailsProps) => {
   const { formatMessage } = useLocale();
   const urlParams = useParams();
-  const [isSidebarVisible, setSidebarVisibility] = useState(true);
+  const { isSidebarMenuVisible, setSidebarMenuVisible } = useLayout();
   const [currentStep, setCurrentStep] = useState(1);
   const { push } = useHistory();
 
   const handleSidebarHide = useCallback(() => {
-    setSidebarVisibility(false);
-  }, []);
+    setSidebarMenuVisible(!isSidebarMenuVisible);
+  }, [isSidebarMenuVisible, setSidebarMenuVisible]);
 
   const handleSidebarOpen = useCallback(() => {
-    setSidebarVisibility(true);
-  }, []);
+    setSidebarMenuVisible(!isSidebarMenuVisible);
+  }, [isSidebarMenuVisible, setSidebarMenuVisible]);
 
   const { name } = data;
 
@@ -36,7 +37,7 @@ export const MarketingSurveyDetails = ({ path, data, breadcrumbs }: MarketingSur
       {breadcrumbs}
       <Grid container spacing={0}>
         <SidebarMenu
-          isVisible={isSidebarVisible}
+          isVisible={isSidebarMenuVisible}
           onHide={handleSidebarHide}
           data={data}
           activeItem={currentStep}
@@ -50,13 +51,13 @@ export const MarketingSurveyDetails = ({ path, data, breadcrumbs }: MarketingSur
         <Grid
           item
           xs={12}
-          sm={isSidebarVisible ? 8 : 12}
-          md={isSidebarVisible ? 9 : 12}
-          lg={isSidebarVisible ? 10 : 12}
+          sm={isSidebarMenuVisible ? 8 : 12}
+          md={isSidebarMenuVisible ? 9 : 12}
+          lg={isSidebarMenuVisible ? 10 : 12}
         >
           <Box width="100%" pl={3} pr={3} pt={4}>
             <CrmRelationsDetailsHeader
-              isSidebarVisible={isSidebarVisible}
+              isSidebarVisible={isSidebarMenuVisible}
               onSidebarOpen={handleSidebarOpen}
               actions={
                 <IconButton
