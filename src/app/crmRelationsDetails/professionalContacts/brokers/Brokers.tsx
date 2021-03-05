@@ -8,7 +8,7 @@ import { joinUrlParams } from 'routing/AppRoute.utils';
 import { PageWithListsCard } from 'ui/templates';
 import { CrmRelationsDetailsHeader } from 'app/crmRelationsDetails/crmRelationsDetailsHeader/CrmRelationsDetailsHeader';
 import { AddIcon, DisconnectIcon, HamburgerIcon } from 'ui/atoms/icons';
-import { ListOptionsMenu, ProfileItem } from 'ui/molecules';
+import { ProfileItem } from 'ui/molecules';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { LinkPartnerModalContainer } from 'app/shared/linkPartnerModal/LinkPartnerModalContainer';
 import { ListOptionsMenuItem } from 'ui/molecules/listOptionsMenu/menuItem/ListOptionsMenuItem';
