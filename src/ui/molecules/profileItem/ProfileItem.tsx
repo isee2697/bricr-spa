@@ -19,6 +19,7 @@ export const ProfileItem = ({
   functionDescription,
   onClick,
   inActive,
+  hideMenuButton = false,
   classes: passedClasses,
 }: ProfileItemProps) => {
   const classes = useStyles();
@@ -83,9 +84,11 @@ export const ProfileItem = ({
           </Grid>
         )}
       </Grid>
-      <Grid xs={1} lg="auto" className={classes.right} item>
-        {button ?? <MenuIcon />}
-      </Grid>
+      {!hideMenuButton && (
+        <Grid xs={1} lg="auto" className={classes.right} item>
+          {button ?? <MenuIcon />}
+        </Grid>
+      )}
     </Grid>
   );
 };

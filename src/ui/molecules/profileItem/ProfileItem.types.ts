@@ -13,6 +13,7 @@ export type ProfileItemProps = {
   onClick?: VoidFunction;
   inActive?: boolean;
   classes?: ProfileItemClasses;
+  hideMenuButton?: boolean;
 };
 
 export type ProfileItemClasses = {
