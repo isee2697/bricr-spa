@@ -15,6 +15,8 @@ REACT_APP_API_URL=http://localhost:1337/graphql
 REACT_APP_SECURITY_URL=http://localhost:50050/api
 REACT_APP_FILE_URL=http://localhost:1338/dev
 ```
+- add the following line to your hosts file to work locally with files:
+127.0.0.1   localstack
 
 ## Quick info about project
 - was bootstrapped with [Create React App](https://github.com/facebook/create-react-app)
