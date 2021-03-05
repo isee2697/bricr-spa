@@ -127,3 +127,8 @@ export * from './photoCamera/PhotoCameraIcon';
 export * from './roundBusinessCenter/RoundBusinessCenterIcon';
 export * from './phone/PhoneIcon';
 export * from './disconnect/DisconnectIcon';
+export * from './thumbUp/ThumbUpIcon';
+export * from './thumbDown/ThumbDownIcon';
+export * from './socialMedia/SocialMediaIcon';
+export * from './mobile/MobileIcon';
+export * from './simpleLocation/SimpleLocationIcon';

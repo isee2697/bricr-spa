@@ -19,6 +19,7 @@ export const ContactInformationContainer = ({ onSidebarOpen, isSidebarVisible }:
         variables: {
           input: {
             id,
+            contactInfoDescription: input.contactInfoDescription,
             addresses: input.addresses,
             emailAddresses: input.emailAddresses,
             phoneNumbers: input.phoneNumbers,

@@ -36,6 +36,14 @@ export const GET_CRM_GENERAL = gql`
         url
       }
       status
+      completeness
+      dateCreated
+      lastEditedBy {
+        id
+        firstName
+        lastName
+      }
+      dateUpdated
     }
   }
 `;
