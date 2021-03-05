@@ -40,7 +40,7 @@ export const ListTableItem: <T>(p: ListTableItemProps<T>) => ReactElement<ListTa
               width={width}
               key={index}
             >
-              {label && formatMessage({ id: label, defaultMessage: label })}
+              {label && typeof label === 'string' ? formatMessage({ id: label, defaultMessage: label }) : label}
               {!!onSort && cell.sortable && (sortDirection === 'down' ? <ArrowUpIcon /> : <ArrowDownIcon />)}
             </Box>
           );

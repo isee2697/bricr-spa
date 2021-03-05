@@ -8,7 +8,7 @@ export const useStyles = makeStyles(theme => ({
     marginRight: theme.spacing(3),
   },
   phoneNumberHeader: {
-    marginBottom: theme.spacing(3),
+    marginBottom: theme.spacing(2),
     borderBottom: `2px solid ${theme.palette.gray.light}`,
   },
   phoneNumberIndex: {
@@ -24,13 +24,6 @@ export const useStyles = makeStyles(theme => ({
   phoneNumberTitle: {
     marginLeft: theme.spacing(1),
     flex: 1,
-  },
-  phoneNumberFormFields: {
-    marginBottom: theme.spacing(4),
-
-    '&:last-of-type': {
-      marginBottom: 0,
-    },
   },
   formField: {
     marginTop: theme.spacing(1),

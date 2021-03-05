@@ -30,6 +30,7 @@ export const Addresses = ({ onSave }: AddressesProps) => {
       setAddresses([
         ...addresses,
         {
+          id: uuid.v4(),
           key: uuid.v4(),
           type: addressType,
         },

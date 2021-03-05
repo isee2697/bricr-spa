@@ -109,6 +109,7 @@ export const CrmRelationsDetailsSidebarMenu = ({ onHide, isVisible, crm }: CrmRe
           { key: 'marketing_news_letter', hideIcon: true },
           { key: 'marketing_target_groups', hideIcon: true },
           { key: 'marketing_cross_sell', hideIcon: true },
+          { key: 'marketing_open_house', hideIcon: true },
         ],
       },
     ],

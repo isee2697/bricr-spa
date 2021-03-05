@@ -128,3 +128,8 @@ export * from './roundBusinessCenter/RoundBusinessCenterIcon';
 export * from './phone/PhoneIcon';
 export * from './compass/CompassIcon';
 export * from './tag/TagIcon';
+export * from './thumbUp/ThumbUpIcon';
+export * from './thumbDown/ThumbDownIcon';
+export * from './socialMedia/SocialMediaIcon';
+export * from './mobile/MobileIcon';
+export * from './simpleLocation/SimpleLocationIcon';
