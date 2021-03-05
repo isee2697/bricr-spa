@@ -1,4 +1,5 @@
 import React from 'react';
+import _ from 'lodash';
 
 import { useModalDispatch, useModalState } from 'hooks';
 import { GetCrmFinancialDocument, useUpdateCrmFinancialMutation } from 'api/types';
@@ -18,13 +19,7 @@ export const AddNewBankAccountModalContainer = ({ id, data }: AddNewBankAccountM
           input: {
             id,
             bankAccounts: [
-              ...(data?.bankAccounts || []).map(item =>
-                JSON.parse(
-                  JSON.stringify(item, (key, value) =>
-                    value === null || key === '__typename' || key === 'id' ? undefined : value,
-                  ),
-                ),
-              ),
+              ...(data?.bankAccounts || []).map(bankAccount => _.omit(bankAccount, '__typename', 'id')),
               {
                 type: values.type,
               },

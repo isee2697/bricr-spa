@@ -1,4 +1,5 @@
 import React from 'react';
+import _ from 'lodash';
 
 import { useModalDispatch, useModalState } from 'hooks';
 import { GetCrmFinancialDocument, useUpdateCrmFinancialMutation } from 'api/types';
@@ -21,11 +22,18 @@ export const AddNewIncomeInformationModalContainer = ({ id, data }: AddNewIncome
           input: {
             id,
             income: [
-              ...(data?.income || []).map(item =>
-                JSON.parse(
-                  JSON.stringify(item, (key, value) =>
-                    value === null || key === '__typename' || key === 'id' ? undefined : value,
-                  ),
+              ...(data?.income || []).map(income =>
+                _.omit(
+                  income,
+                  'id',
+                  '__typename',
+                  'equityIncome.__typename',
+                  'pensionIncome.__typename',
+                  'socialBenefitIncome.__typename',
+                  'employerIncome.__typename',
+                  'employerIncome.employerInformation.__typename',
+                  'entrepreneurIncome.__typename',
+                  'employerIncome.employer',
                 ),
               ),
               {

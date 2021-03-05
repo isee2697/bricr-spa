@@ -90,22 +90,22 @@ type CrmEmployerInformation {
 }
 
 type CrmEmployerIncome {
- profession: EmployerIncomeProfession
- employer: LinkedCrm
- employerInformation: CrmEmployerInformation
- employmentType: String @uuidOrEnum(enum: ["EmploymentType"])
- grossIncome: Int
- grossIncomePeriod: PeriodType
- holidayBonus: Boolean
- fixedThirteenthMonth: Boolean
- irregularityAllowance: Int
- irregularityAllowancePeriod: PeriodType
- profitDistribution: Int
- profitDistributionPeriod: PeriodType
- commission: Int
- commissionPeriod: PeriodType
- overtime: Int
- overtimePeriod: PeriodType
+  profession: EmployerIncomeProfession
+  employer: LinkedCrm
+  employerInformation: CrmEmployerInformation
+  employmentType: String @uuidOrEnum(enum: ["EmploymentType"])
+  grossIncome: Int
+  grossIncomePeriod: PeriodType
+  holidayBonus: Boolean
+  fixedThirteenthMonth: Boolean
+  irregularityAllowance: Int
+  irregularityAllowancePeriod: PeriodType
+  profitDistribution: Int
+  profitDistributionPeriod: PeriodType
+  commission: Int
+  commissionPeriod: PeriodType
+  overtime: Int
+  overtimePeriod: PeriodType
 }
 
 type CrmEquityIncome {
