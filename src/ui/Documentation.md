@@ -428,6 +428,7 @@ import {
   FollowUpRectangleIcon,
   StatusIcon,
   MobileIcon,
+  CompassIcon,
 } from "./atoms/icons";
 import { useTheme } from "@material-ui/core/styles";
 import { Box } from "ui/atoms";
@@ -534,6 +535,7 @@ const wrapperStyle = {
     <StatusIcon color="disabled" />
     <HelpIcon color="disabled" />
     <MobileIcon color="disabled" />
+    <CompassIcon color="disabled" />
   </div>
 </>;
 ```
