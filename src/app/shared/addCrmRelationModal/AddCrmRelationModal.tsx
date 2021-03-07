@@ -1,20 +1,30 @@
-import React, { useState } from 'react';
-import { Form } from 'react-final-form';
+import React, { useEffect, useState } from 'react';
+import { Form, useForm } from 'react-final-form';
 
 import { Modal } from 'ui/molecules';
 import { useLocale } from 'hooks';
-import { CreateCrmInput } from 'api/types';
+import { CreateCrmInput, CrmType } from 'api/types';
 
 import { AddCrmRelationModalProps } from './AddCrmRelationModal.types';
 import { RequestInformationStep } from './requestInformationStep/RequestInformationStep';
 import { useStyles } from './AddCrmRelationModal.styles';
 import { CreateRelationStep } from './createRelationStep/CreateRelationStep';
 import { ConflictStep } from './conflictStep/ConflictStep';
+import { SelectTypeStep } from './selectTypeStep/SelectTypeStep';
+import { CreateBusinessStep } from './createBusinessStep/CreateBusinessStep';
 
 const steps = [
   {
+    name: 'selectType',
+    component: SelectTypeStep,
+  },
+  {
     name: 'createRelation',
     component: CreateRelationStep,
+  },
+  {
+    name: 'createBusiness',
+    component: CreateBusinessStep,
   },
   {
     name: 'requestInformation',
@@ -31,11 +41,20 @@ export const AddCrmRelationModal = ({
   onClose,
   onCreateNewRelation,
   onRequestBricrData,
+  crmType,
 }: AddCrmRelationModalProps) => {
   const { formatMessage } = useLocale();
   const classes = useStyles();
-  const [step, setStep] = useState(0);
+  const [step, setStep] = useState(!!crmType ? (crmType === CrmType.Relation ? 1 : 2) : 0);
   const currentStep = steps[step];
+
+  useEffect(() => {
+    if (!!crmType && crmType === CrmType.Relation) {
+      setStep(1);
+    } else if (!!crmType && crmType === CrmType.Business) {
+      setStep(2);
+    }
+  }, [crmType]);
 
   const handleGoTo = (step: number) => {
     setStep(step);
@@ -49,7 +68,7 @@ export const AddCrmRelationModal = ({
     }
 
     if (response.error) {
-      handleGoTo(2);
+      handleGoTo(3);
     }
 
     if (!response.error) {
@@ -65,7 +84,25 @@ export const AddCrmRelationModal = ({
   };
 
   return (
-    <Form onSubmit={handleAddCrmRelation}>
+    <Form
+      onSubmit={handleAddCrmRelation}
+      validate={values => {
+        if (
+          (values.type === CrmType.Relation || (!!crmType && crmType === CrmType.Relation)) &&
+          !values.email &&
+          !values.phoneNumber
+        ) {
+          return {
+            email: {
+              id: 'add_crm.error.email_or_phone_required',
+            },
+            phoneNumber: {
+              id: 'add_crm.error.email_or_phone_required',
+            },
+          };
+        }
+      }}
+    >
       {({ handleSubmit, submitErrors, values, valid }) => (
         <Modal
           fullWidth
@@ -87,6 +124,7 @@ export const AddCrmRelationModal = ({
               onRequestBricrData,
               valid,
               onClose: handleClose,
+              crmType,
             })}
           </form>
         </Modal>

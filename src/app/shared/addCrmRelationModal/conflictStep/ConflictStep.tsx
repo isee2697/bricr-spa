@@ -4,8 +4,9 @@ import { useFormState } from 'react-final-form';
 import { useLocale } from 'hooks';
 import { AddCrmRelationStepProps } from '../AddCrmRelationModal.types';
 import { ConflictInfo } from 'ui/organisms';
+import { CrmType } from 'api/types';
 
-export const ConflictStep = ({ handleGoTo }: AddCrmRelationStepProps) => {
+export const ConflictStep = ({ handleGoTo, crmType }: AddCrmRelationStepProps) => {
   const { formatMessage } = useLocale();
   const { submitErrors, submitting, submitSucceeded } = useFormState({
     subscription: { submitErrors: true, submitting: true, submitSucceeded: true },
@@ -28,7 +29,7 @@ export const ConflictStep = ({ handleGoTo }: AddCrmRelationStepProps) => {
         { count: conflictsCount, strong: msg => <strong>{msg}</strong> },
       )}
       messageLineSecond={formatMessage({ id: 'add_crm_relation.conflict.are_you_sure' })}
-      onCancel={() => handleGoTo(0)}
+      onCancel={() => handleGoTo(!!crmType ? (crmType === CrmType.Relation ? 1 : 2) : 0)}
     />
   );
 };

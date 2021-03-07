@@ -1,10 +1,11 @@
-import { CreateCrmInput } from 'api/types';
+import { CreateCrmInput, CrmType } from 'api/types';
 
 export type AddCrmRelationModalProps = {
   isOpened: boolean;
   onClose: VoidFunction;
   onCreateNewRelation: AddCrmSubmit;
   onRequestBricrData: VoidFunction;
+  crmType?: CrmType;
 };
 
 export type AddCrmRelationStepProps = {
@@ -12,6 +13,7 @@ export type AddCrmRelationStepProps = {
   onRequestBricrData: () => void;
   onClose: () => void;
   valid: boolean;
+  crmType?: CrmType;
 };
 
 export type AddCrmSubmit<T = CreateCrmInput & { forceAdd?: boolean }> = (
