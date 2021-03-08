@@ -3,7 +3,7 @@ import React from 'react';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { useModalDispatch } from 'hooks/useModalDispatch/useModalDispatch';
 import { RadioGroupField } from 'form/fields';
-import { SquareIcon } from 'ui/atoms/icons';
+import { MailIcon } from 'ui/atoms/icons';
 import { FormModal } from 'ui/organisms';
 import { ContactEmailAddressType } from 'api/types';
 
@@ -19,7 +19,7 @@ export const AddNewEmailAddressModal = ({ isOpened, onSubmit }: AddNewEmailAddre
 
   const addressTypes = Object.keys(ContactEmailAddressType).map(addressType => ({
     label: `dictionaries.contact_information.email_address_type.${addressType}`,
-    icon: <SquareIcon />,
+    icon: <MailIcon />,
     value: addressType,
   }));
 

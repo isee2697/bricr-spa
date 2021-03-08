@@ -4,7 +4,9 @@ export const GET_CRM_CONTACT_INFORMATION = gql`
   query GetCrmContactInformation($id: ID!) {
     getCrmContactInformation(id: $id) {
       id
+      contactInfoDescription
       addresses {
+        id
         type
         street
         houseNumber
@@ -17,12 +19,14 @@ export const GET_CRM_CONTACT_INFORMATION = gql`
         note
       }
       emailAddresses {
+        id
         type
         email
         availableFrom
         note
       }
       phoneNumbers {
+        id
         type
         countryCode
         phoneNumber
@@ -30,9 +34,17 @@ export const GET_CRM_CONTACT_INFORMATION = gql`
         note
       }
       socialMedia {
+        id
         type
         url
       }
+      dateCreated
+      lastEditedBy {
+        id
+        firstName
+        lastName
+      }
+      dateUpdated
     }
   }
 `;

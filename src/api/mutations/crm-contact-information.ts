@@ -4,6 +4,7 @@ export const CRM_CONTACT_INFORMATION = gql`
   mutation UpdateCrmContactInformation($input: UpdateCrmContactInformationInput!) {
     updateCrmContactInformation(input: $input) {
       id
+      contactInfoDescription
       addresses {
         type
         street
@@ -33,6 +34,13 @@ export const CRM_CONTACT_INFORMATION = gql`
         type
         url
       }
+      dateCreated
+      lastEditedBy {
+        id
+        firstName
+        lastName
+      }
+      dateUpdated
     }
   }
 `;

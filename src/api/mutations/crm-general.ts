@@ -5,8 +5,10 @@ export const CREATE_CRM = gql`
     createCrm(input: $input) {
       id
       firstName
-      insertion
+      initials
       lastName
+      dateCreated
+      completeness
     }
   }
 `;

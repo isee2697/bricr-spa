@@ -28,6 +28,9 @@ import { AcquisitionsContainer } from './sales/acquisitions/AcquisitionsContaine
 import { QuotationsContainer } from './sales/quotations/QuotationsContainer';
 import { InvoicesContainer } from './sales/invoices/InvoicesContainer';
 import { OrdersContainer as SalesOrdersContainer } from './sales/orders/OrdersContainer';
+import { MarketingOpenHouseContainer } from './marketingOpenHouse/MarketingOpenHouseContainer';
+import { MarketingOpenHouseVisitedContainer } from './marketingOpenHouseVisited/MarketingOpenHouseVisitedContainer';
+import { MarketingOpenHouseOrganizedContainer } from './marketingOpenHouseOrganized/MarketingOpenHouseOrganizedContainer';
 
 export const CrmRelationsDetails = ({ crm, breadcrumbs, path, entityType }: CrmRelationsDetailsProps) => {
   const classes = useStyles();
@@ -244,6 +247,38 @@ export const CrmRelationsDetails = ({ crm, breadcrumbs, path, entityType }: CrmR
                     />
                   )}
                 />
+                <Route
+                  exact
+                  path={`${path}/marketing_open_house`}
+                  render={() => (
+                    <MarketingOpenHouseContainer
+                      path={`${path}/marketing_open_house`}
+                      onSidebarOpen={handleSidebarOpen}
+                      isSidebarVisible={isSidebarVisible}
+                    />
+                  )}
+                />
+                <Route
+                  path={`${path}/marketing_open_house/visited/:openHouseId`}
+                  render={() => (
+                    <MarketingOpenHouseVisitedContainer
+                      title={`${crm.firstName} ${crm.lastName}`}
+                      onSidebarOpen={handleSidebarOpen}
+                      isSidebarVisible={isSidebarVisible}
+                    />
+                  )}
+                />
+                <Route
+                  path={`${path}/marketing_open_house/organized/:openHouseId`}
+                  render={() => (
+                    <MarketingOpenHouseOrganizedContainer
+                      path={`${path}/marketing_open_house/organized/:openHouseId`}
+                      onSidebarOpen={handleSidebarOpen}
+                      isSidebarVisible={isSidebarVisible}
+                    />
+                  )}
+                />
+                <Route path={`${path}/marketing_open_house/organized/:openHouseId`} render={() => <>Organized</>} />
                 <Redirect to={{ pathname: `${path}/dashboard`, state }} />
               </Switch>
             )}
