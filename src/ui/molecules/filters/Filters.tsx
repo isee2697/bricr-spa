@@ -31,7 +31,7 @@ export const Filters = ({
 }: FilterProps) => {
   const { formatMessage } = useLocale();
   const classes = useStyles();
-  const [searchFilters, setSearchFiters] = useState<FiltersTypes[]>(filters);
+  const [searchFilters, setSearchFilters] = useState<FiltersTypes[]>(filters);
   const AmountChip =
     filterAmount && filterAmount > 0 ? (
       <Chip label={filterAmount} size="small" color="primary" className={classes.titleBadge} />
@@ -59,7 +59,7 @@ export const Filters = ({
 
       return filter;
     });
-    setSearchFiters(newFilters);
+    setSearchFilters(newFilters);
   };
 
   return (
@@ -117,14 +117,12 @@ export const Filters = ({
                           onDeleteFilter={() => handleDeleteFilter(filter, values)}
                           onSearch={options => handleSearch(filter, options)}
                         >
-                          <>
-                            <CheckboxGroupField
-                              options={filter.options}
-                              name={filter.key}
-                              orientation="horizontal"
-                              xs={filter.size}
-                            />
-                          </>
+                          <CheckboxGroupField
+                            options={filter.options}
+                            name={filter.key}
+                            orientation="horizontal"
+                            xs={filter.size}
+                          />
                         </FilterTabPanel>
                       );
                     } else if (filter.type === Types.RadioButton && filter.options && filter.size) {

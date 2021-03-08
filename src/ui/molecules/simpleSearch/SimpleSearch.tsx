@@ -14,6 +14,7 @@ export const SimpleSearch = ({ value, className, onChange, placeholderId = 'comm
 
   return (
     <Input
+      data-testid="simple-search"
       className={clsx(classes.input, className || '')}
       onChange={onChange}
       placeholder={formatMessage({ id: placeholderId })}
