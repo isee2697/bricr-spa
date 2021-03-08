@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useLocale } from 'hooks';
 import { Grid } from 'ui/atoms';
 import { useStyles } from '../Filters.styles';
-import { CheckboxDataType, FiltersTypes, FilterTabPanelProps } from '../Filters.types';
+import { CheckboxDataType, FilterTabPanelProps } from '../Filters.types';
 import { SimpleSearch } from 'ui/molecules/simpleSearch/SimpleSearch';
 
 export const FilterTabPanel = ({
