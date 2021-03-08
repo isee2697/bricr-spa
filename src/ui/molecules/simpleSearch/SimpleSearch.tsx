@@ -14,7 +14,6 @@ export const SimpleSearch = ({ value, className, onChange, placeholderId = 'comm
 
   return (
     <Input
-      inputProps={{ 'data-testid': 'content-input' }}
       className={clsx(classes.input, className || '')}
       onChange={onChange}
       placeholder={formatMessage({ id: placeholderId })}
