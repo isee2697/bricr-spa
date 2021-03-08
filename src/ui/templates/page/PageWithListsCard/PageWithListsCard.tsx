@@ -45,6 +45,8 @@ export const PageWithListsCard: <V, A, F>(
   const isTable = views[activeView]?.isTable;
   const classes = useStyles(isTable);
 
+  const tableSortKey = tableHeader?.sortKey?.split('_')[0];
+  const tableSortDirection = tableHeader?.sortKey?.split('_')[1];
   const field = name && (
     <GenericField placeholder={placeholder} name={name ?? ''} id={name} className={classes.inputField} />
   );
@@ -125,8 +127,9 @@ export const PageWithListsCard: <V, A, F>(
                 <Box flexGrow={1}>
                   <ListTableItem
                     isHeader
-                    onSort={(key: unknown) => (!!list.onSort ? list.onSort(key as string) : {})}
-                    sortKey={tableHeader.sortKey}
+                    onSort={tableHeader.onSort}
+                    sortKey={tableSortKey}
+                    sortDirection={tableSortDirection === 'down' ? 'down' : 'up'}
                     headerCells={tableHeader.cells}
                   />
                 </Box>

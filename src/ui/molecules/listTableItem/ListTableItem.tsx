@@ -35,11 +35,15 @@ export const ListTableItem: <T>(p: ListTableItemProps<T>) => ReactElement<ListTa
               className={classnames(
                 isHeader ? classes.header : undefined,
                 cell.field === sortKey ? classes.active : undefined,
+                cell.sortable && classes.sortable,
               )}
               minWidth={width}
               width={width}
               key={index}
-              onClick={() => onSort && onSort(cell.field)}
+              onClick={() =>
+                cell.sortable &&
+                onSort?.(`${cell.field}_${cell.field === sortKey && sortDirection === 'up' ? 'down' : 'up'}`)
+              }
             >
               {label && typeof label === 'string' ? formatMessage({ id: label, defaultMessage: label }) : label}
               {!!onSort &&
