@@ -5,7 +5,7 @@ import { useHistory } from 'react-router-dom';
 
 import { PageWithListsHeader } from 'ui/templates/page/PageWithListsCard/PageWithListsHeader';
 import { Box, Grid, IconButton } from 'ui/atoms';
-import { FormSection } from 'ui/organisms';
+import { AutosaveForm, FormSection } from 'ui/organisms';
 import { useLocale } from 'hooks';
 import { useStyles } from 'ui/templates/page/PageWithListsCard/PageWithListsCard.styles';
 import { FiltersButton } from 'ui/molecules/filters/FiltersButton';
@@ -13,6 +13,7 @@ import { ActiveFilters, hasActiveFilters } from 'ui/molecules/filters/activeFilt
 import { ActionTabs, List, ListOptionsMenu, PropertyItemPlaceholder, ColumnModal, ListTableItem } from 'ui/molecules';
 import { BaseListType } from 'ui/molecules/list/List.types';
 import { SettingsIcon } from 'ui/atoms/icons';
+import { GenericField } from 'form/fields';
 
 import { PageWithListsCardProps } from './PageWithListsCard.types';
 
@@ -20,7 +21,12 @@ export const PageWithListsCard: <V, A, F>(
   p: PageWithListsCardProps<V, A, F>,
 ) => ReactElement<PageWithListsCardProps<V, A, F>> = ({
   withoutHeader = false,
+  name,
+  onSave,
+  initialValues,
+  placeholder,
   header,
+  formButtons,
   cardTitleId,
   views,
   filters,
@@ -29,6 +35,8 @@ export const PageWithListsCard: <V, A, F>(
   baseRoute,
   optionsMenu,
   isLoading,
+  isShowActionTabs = true,
+  isShowItemCheckbox = true,
   tableHeader,
 }) => {
   const [activeView, setActiveView] = useState(views.findIndex(view => view.isActive) ?? 0);
@@ -37,6 +45,18 @@ export const PageWithListsCard: <V, A, F>(
   const { formatMessage } = useLocale();
   const isTable = views[activeView]?.isTable;
   const classes = useStyles(isTable);
+
+  const field = name && (
+    <GenericField placeholder={placeholder} name={name ?? ''} id={name} className={classes.inputField} />
+  );
+
+  const autosaveForm = onSave ? (
+    <AutosaveForm onSave={onSave} initialValues={initialValues ?? {}}>
+      {field}
+    </AutosaveForm>
+  ) : (
+    field
+  );
 
   const buttons = views.map((view, key) => {
     return (
@@ -61,6 +81,11 @@ export const PageWithListsCard: <V, A, F>(
   return (
     <Grid xs={12}>
       {!withoutHeader && <PageWithListsHeader {...header} />}
+      {name && (
+        <Box mt={-1} width="100%">
+          {autosaveForm}
+        </Box>
+      )}
       <FormSection
         buttons={
           <>
@@ -73,15 +98,16 @@ export const PageWithListsCard: <V, A, F>(
                 getActiveFilters={handleFilterChange}
               />
             )}
+            {formButtons}
           </>
         }
         title={formatMessage({ id: cardTitleId })}
         isEditable={false}
       >
-        {actionTabs && (
+        {isShowActionTabs && actionTabs && (
           <ActionTabs
             {...actionTabs}
-            tabs={actionTabs?.tabs?.map(tab => ({
+            tabs={actionTabs.tabs?.map(tab => ({
               ...tab,
               label: formatMessage({ id: tab.label, defaultMessage: tab.label }),
             }))}
@@ -122,7 +148,7 @@ export const PageWithListsCard: <V, A, F>(
                 key={baseItem.id}
                 className={clsx(classes.row, { [classes.rowChecked]: checked }, 'list-row')}
               >
-                {checkbox}
+                {isShowItemCheckbox && checkbox}
                 <Box
                   flexGrow={1}
                   className={classes.rowItem}

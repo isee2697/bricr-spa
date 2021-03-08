@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { DndProvider } from 'react-dnd';
 
@@ -22,7 +22,11 @@ export const ColumnModal: <T>(p: ColumnModalProps<T>) => React.ReactElement<Colu
   const classes = useStyles();
 
   const [update, setUpdate] = useState(false);
-  const [headerColumns] = useState(columns);
+  const [headerColumns, setHeaderColumns] = useState(columns);
+
+  useEffect(() => {
+    setHeaderColumns(columns);
+  }, [columns]);
 
   const selectedCount = headerColumns.filter(item => !item.hidden).length;
 

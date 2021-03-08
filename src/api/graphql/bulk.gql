@@ -4,6 +4,7 @@ enum BulkField {
   RentPrice
   SalePrice
   Security
+  Result
 }
 
 enum BulkEntities {

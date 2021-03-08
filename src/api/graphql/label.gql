@@ -20,6 +20,7 @@ enum LabelProperty {
   MaintenanceInspection
   Cost
   Task
+  ReasonToMove
 }
 
 type Label {
@@ -40,8 +41,11 @@ input LabelInput {
 extend type Mutation {
   addLabel(input: LabelInput!): Label! @auth
   removeLabel(id: ID!): Boolean! @auth
+  addCrmLabel(input: LabelInput!): Label! @auth
+  removeCrmLabel(id: ID!): Boolean! @auth
 }
 
 extend type Query {
   getLabels(parentId: ID!, properties: [LabelProperty!]): [Label!] @auth
+  getCrmLabels(parentId: ID!, properties: [LabelProperty!]): [Label!] @auth
 }
