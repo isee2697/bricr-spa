@@ -68,7 +68,7 @@ export const Meta = () => {
   ];
 
   return (
-    <ScrollableHorizontal width="100%" maxWidth="100%" height={theme.spacing(12)}>
+    <ScrollableHorizontal width="100%" maxWidth="100%" height={theme.spacing(10)}>
       <Box className={classes.metaWrapper}>
         {metaAsArray.map((meta, index) => (
           <MetaBox key={index} item={meta} />
