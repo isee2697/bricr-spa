@@ -10,3 +10,14 @@ export const GET_LABELS = gql`
     }
   }
 `;
+
+export const GET_CRM_LABELS = gql`
+  query GetCrmLabels($id: ID!, $properties: [LabelProperty!]) {
+    getCrmLabels(parentId: $id, properties: $properties) {
+      id
+      property
+      icon
+      text
+    }
+  }
+`;

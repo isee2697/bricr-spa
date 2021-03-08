@@ -1,11 +1,13 @@
 import React, { useMemo } from 'react';
 
 import {
+  GetCrmLabelsQuery,
   GetLabelsQuery,
   GetNcpLabelsQuery,
   GetObjectTypeLabelsQuery,
   GetTaskLabelsQuery,
   LabelProperty,
+  useGetCrmLabelsQuery,
   useGetLabelsQuery,
   useGetNcpLabelsQuery,
   useGetObjectTypeLabelsQuery,
@@ -29,6 +31,8 @@ const getQuery = (entityType: EntityType) => {
       return useGetTaskLabelsQuery;
     case EntityType.ObjectType:
       return useGetObjectTypeLabelsQuery;
+    case EntityType.CrmRelations:
+      return useGetCrmLabelsQuery;
     default:
       throw new Error('There is no such EnitityType');
   }
@@ -53,7 +57,8 @@ export const useCustomLabels = (
         (data as GetLabelsQuery)?.getLabels ||
         (data as GetNcpLabelsQuery)?.getNcpLabels ||
         (data as GetTaskLabelsQuery)?.getTaskLabels ||
-        (data as GetObjectTypeLabelsQuery)?.getObjectTypeLabels
+        (data as GetObjectTypeLabelsQuery)?.getObjectTypeLabels ||
+        (data as GetCrmLabelsQuery)?.getCrmLabels
       )?.map(
         (label): CustomRadioDataType => ({
           icon: iconPickerIcons.find(icon => icon.name === label.icon)?.icon ?? <SquareIcon color="inherit" />,

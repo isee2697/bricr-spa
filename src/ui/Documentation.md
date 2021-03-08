@@ -427,6 +427,7 @@ import {
   LockRectangleIcon,
   FollowUpRectangleIcon,
   StatusIcon,
+  ComplexHomeIcon,
   MobileIcon,
   DivorcedIcon,
   PassedAwayIcon,
@@ -536,6 +537,7 @@ const wrapperStyle = {
   <div style={ wrapperStyle }>
     <StatusIcon color="disabled" />
     <HelpIcon color="disabled" />
+    <ComplexHomeIcon color="disabled" />
     <MobileIcon color="disabled" />
     <DivorcedIcon color="disabled" />
     <PassedAwayIcon color="disabled" />
