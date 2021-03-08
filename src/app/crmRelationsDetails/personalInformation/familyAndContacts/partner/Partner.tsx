@@ -118,6 +118,7 @@ export const Partner = ({ data, onSave }: PartnerProps) => {
           ) : (
             partners.map(partner => (
               <PartnerItem
+                key={partner.partner.id}
                 className={classes.partnerItem}
                 partner={partner}
                 onUpdate={handleUpdatePartner}

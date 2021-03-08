@@ -28,6 +28,14 @@ import { AcquisitionsContainer } from './sales/acquisitions/AcquisitionsContaine
 import { QuotationsContainer } from './sales/quotations/QuotationsContainer';
 import { InvoicesContainer } from './sales/invoices/InvoicesContainer';
 import { OrdersContainer as SalesOrdersContainer } from './sales/orders/OrdersContainer';
+import { BrokersContainer } from './professionalContacts/brokers/BrokersContainer';
+import { NotaryContainer } from './professionalContacts/notary/NotaryContainer';
+import { PurchaseContainer } from './professionalContacts/purchase/PurchaseContainer';
+import { AppraiserContainer } from './professionalContacts/appraiser/AppraiserContainer';
+import { OthersContainer } from './professionalContacts/others/OthersContainer';
+import { MarketingOpenHouseContainer } from './marketingOpenHouse/MarketingOpenHouseContainer';
+import { MarketingOpenHouseVisitedContainer } from './marketingOpenHouseVisited/MarketingOpenHouseVisitedContainer';
+import { MarketingOpenHouseOrganizedContainer } from './marketingOpenHouseOrganized/MarketingOpenHouseOrganizedContainer';
 
 export const CrmRelationsDetails = ({ crm, breadcrumbs, path, entityType }: CrmRelationsDetailsProps) => {
   const classes = useStyles();
@@ -244,6 +252,88 @@ export const CrmRelationsDetails = ({ crm, breadcrumbs, path, entityType }: CrmR
                     />
                   )}
                 />
+                <Route
+                  path={`${path}/professional_contacts_brokers`}
+                  render={() => (
+                    <BrokersContainer
+                      path={`${path}/professional_contacts_brokers`}
+                      onSidebarOpen={handleSidebarOpen}
+                      isSidebarVisible={isSidebarVisible}
+                    />
+                  )}
+                />
+                <Route
+                  exact
+                  path={`${path}/marketing_open_house`}
+                  render={() => (
+                    <MarketingOpenHouseContainer
+                      path={`${path}/marketing_open_house`}
+                      onSidebarOpen={handleSidebarOpen}
+                      isSidebarVisible={isSidebarVisible}
+                    />
+                  )}
+                />
+                <Route
+                  path={`${path}/professional_contacts_notary`}
+                  render={() => (
+                    <NotaryContainer
+                      path={`${path}/professional_contacts_notary`}
+                      onSidebarOpen={handleSidebarOpen}
+                      isSidebarVisible={isSidebarVisible}
+                    />
+                  )}
+                />
+                <Route
+                  path={`${path}/marketing_open_house/visited/:openHouseId`}
+                  render={() => (
+                    <MarketingOpenHouseVisitedContainer
+                      title={`${crm.firstName} ${crm.lastName}`}
+                      onSidebarOpen={handleSidebarOpen}
+                      isSidebarVisible={isSidebarVisible}
+                    />
+                  )}
+                />
+                <Route
+                  path={`${path}/professional_contacts_purchase`}
+                  render={() => (
+                    <PurchaseContainer
+                      path={`${path}/professional_contacts_purchase`}
+                      onSidebarOpen={handleSidebarOpen}
+                      isSidebarVisible={isSidebarVisible}
+                    />
+                  )}
+                />
+                <Route
+                  path={`${path}/professional_contacts_appraiser`}
+                  render={() => (
+                    <AppraiserContainer
+                      path={`${path}/professional_contacts_appraiser`}
+                      onSidebarOpen={handleSidebarOpen}
+                      isSidebarVisible={isSidebarVisible}
+                    />
+                  )}
+                />
+                <Route
+                  path={`${path}/professional_contacts_others`}
+                  render={() => (
+                    <OthersContainer
+                      path={`${path}/professional_contacts_others`}
+                      onSidebarOpen={handleSidebarOpen}
+                      isSidebarVisible={isSidebarVisible}
+                    />
+                  )}
+                />
+                <Route
+                  path={`${path}/marketing_open_house/organized/:openHouseId`}
+                  render={() => (
+                    <MarketingOpenHouseOrganizedContainer
+                      path={`${path}/marketing_open_house/organized/:openHouseId`}
+                      onSidebarOpen={handleSidebarOpen}
+                      isSidebarVisible={isSidebarVisible}
+                    />
+                  )}
+                />
+                <Route path={`${path}/marketing_open_house/organized/:openHouseId`} render={() => <>Organized</>} />
                 <Redirect to={{ pathname: `${path}/dashboard`, state }} />
               </Switch>
             )}
