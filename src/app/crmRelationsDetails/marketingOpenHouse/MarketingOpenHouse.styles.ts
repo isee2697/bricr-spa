@@ -1,4 +1,4 @@
-import makeStyles from '@material-ui/core/styles/makeStyles';
+import { makeStyles } from '@material-ui/core/styles';
 
 export const useStyles = makeStyles(theme => ({
   header: {
@@ -10,5 +10,11 @@ export const useStyles = makeStyles(theme => ({
   },
   marginRightTwo: {
     marginRight: theme.spacing(2),
+  },
+  success: {
+    color: theme.palette.success.main,
+  },
+  error: {
+    color: theme.palette.error.main,
   },
 }));

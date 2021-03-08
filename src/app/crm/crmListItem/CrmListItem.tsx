@@ -41,7 +41,7 @@ export const CrmListItem = ({ crm, renderAction }: CrmListItemProps) => {
     phoneNumber,
     avatar,
     property,
-    partner,
+    partners,
     meta: { matches, interests, viewings, biddings, candidate, optant },
     completeness = 0,
   } = crm;
@@ -112,18 +112,18 @@ export const CrmListItem = ({ crm, renderAction }: CrmListItemProps) => {
                     <MailIcon className={classes.verticalAlignTop} /> {email}
                   </Box>
                 </Box>
-                {partner && (
+                {partners?.length && (
                   <Box mr={2}>
                     <Typography variant="h6" className={classes.label}>
                       {formatMessage({ id: 'crm.item.partner' })}
                     </Typography>
                     <Box display="flex" alignItems="center" className={classes.avatarWithName}>
                       <UserAvatar
-                        name={`${partner.firstName} ${partner.lastName}`}
-                        avatar={partner.avatar?.url || undefined}
+                        name={`${partners[0].partner.firstName} ${partners[0].partner.lastName}`}
+                        avatar={partners[0].partner.avatar?.url || undefined}
                         className={classes.avatarIcon}
                       />{' '}
-                      {partner.firstName} {partner.lastName}
+                      {partners[0].partner.firstName} {partners[0].partner.lastName}
                     </Box>
                   </Box>
                 )}

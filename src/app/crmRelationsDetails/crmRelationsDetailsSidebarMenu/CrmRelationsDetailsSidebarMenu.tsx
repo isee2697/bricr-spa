@@ -110,6 +110,18 @@ export const CrmRelationsDetailsSidebarMenu = ({ onHide, isVisible, crm }: CrmRe
           { key: 'marketing_target_groups', hideIcon: true },
           { key: 'marketing_cross_sell', hideIcon: true },
           { key: 'marketing_survey', hideIcon: true },
+          { key: 'marketing_open_house', hideIcon: true },
+        ],
+      },
+      {
+        isCollapsable: true,
+        key: 'crm.details.menu.professional_contacts',
+        items: [
+          { key: 'professional_contacts_brokers', hideIcon: true, count: 2 },
+          { key: 'professional_contacts_notary', hideIcon: true, count: 0 },
+          { key: 'professional_contacts_purchase', hideIcon: true, count: 2 },
+          { key: 'professional_contacts_appraiser', hideIcon: true, count: 0 },
+          { key: 'professional_contacts_others', hideIcon: true, count: 2 },
         ],
       },
     ],

@@ -39,6 +39,9 @@ export const List: <T>(p: ListProps<T>) => React.ReactElement<ListProps<T>> = ({
   bulkTitle,
   isShowHeader = true,
   listIndexHeader,
+  hideArchive = false,
+  hideDelete = false,
+  hideBulkActions = false,
 }) => {
   const classes = useStyles();
   const [isActionModalOpened, setActionModalOpened] = useState(false);
@@ -142,10 +145,10 @@ export const List: <T>(p: ListProps<T>) => React.ReactElement<ListProps<T>> = ({
           checkAllStatus={checkAllStatus}
           disabled={disabled}
           onCheckAll={handleCheckAll}
-          onArchive={() => handleOperation(BulkOperations.Archive)}
-          onDelete={() => handleOperation(BulkOperations.Delete)}
-          onBulk={handleBulk}
-          onSort={(key: string) => (!!onSort ? onSort(key) : () => {})}
+          onArchive={!hideArchive ? () => handleOperation(BulkOperations.Archive) : undefined}
+          onDelete={!hideDelete ? () => handleOperation(BulkOperations.Delete) : undefined}
+          onBulk={!hideBulkActions ? handleBulk : undefined}
+          onSort={!!onSort ? onSort : () => {}}
         />
       )}
       {!loading && !!listIndexHeader && <Box className={classes.listIndex}>{listIndexHeader}</Box>}
