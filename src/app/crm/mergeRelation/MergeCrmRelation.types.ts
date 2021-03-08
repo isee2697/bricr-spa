@@ -21,7 +21,7 @@ export type DataFieldType =
   | 'city'
   | 'phoneNumber'
   | 'email'
-  | 'partner';
+  | 'partners';
 
 export type MatchProfileType = {
   id: string;

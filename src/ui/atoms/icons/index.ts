@@ -126,6 +126,8 @@ export * from './attach/AttachIcon';
 export * from './photoCamera/PhotoCameraIcon';
 export * from './roundBusinessCenter/RoundBusinessCenterIcon';
 export * from './phone/PhoneIcon';
+export * from './passedAway/PassedAwayIcon';
+export * from './divorced/DivorcedIcon';
 export * from './disconnect/DisconnectIcon';
 export * from './thumbUp/ThumbUpIcon';
 export * from './thumbDown/ThumbDownIcon';

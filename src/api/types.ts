@@ -2232,12 +2232,20 @@ export type LinkedCrm = {
   email?: Maybe<Scalars['String']>;
   phoneNumber?: Maybe<Scalars['String']>;
   avatar?: Maybe<File>;
+  isPassedAway?: Maybe<Scalars['Boolean']>;
+  dateOfDeath?: Maybe<Scalars['Date']>;
 };
 
 export type CrmContact = {
   __typename?: 'CrmContact';
   type: Scalars['String'];
   contact: LinkedCrm;
+};
+
+export type CrmPartner = {
+  __typename?: 'CrmPartner';
+  isDivorced?: Maybe<Scalars['Boolean']>;
+  partner: LinkedCrm;
 };
 
 export type CrmFamilyContacts = {
@@ -2249,7 +2257,7 @@ export type CrmFamilyContacts = {
   familyCompositionChildren?: Maybe<Scalars['Int']>;
   familyCompositionAdults?: Maybe<Scalars['Int']>;
   familyCompositionInformation?: Maybe<Scalars['String']>;
-  partner?: Maybe<LinkedCrm>;
+  partners?: Maybe<Array<CrmPartner>>;
   contacts?: Maybe<Array<CrmContact>>;
 };
 
@@ -2261,13 +2269,20 @@ export type UpdateCrmFamilyContactsInput = {
   familyCompositionChildren?: Maybe<Scalars['Int']>;
   familyCompositionAdults?: Maybe<Scalars['Int']>;
   familyCompositionInformation?: Maybe<Scalars['String']>;
-  partnerId?: Maybe<Scalars['ID']>;
+  partners?: Maybe<Array<CrmPartnerInput>>;
   contacts?: Maybe<Array<CrmContactInput>>;
 };
 
 export type CrmContactInput = {
   type: Scalars['String'];
   contactId: Scalars['ID'];
+};
+
+export type CrmPartnerInput = {
+  id: Scalars['ID'];
+  isDivorced?: Maybe<Scalars['Boolean']>;
+  isPassedAway?: Maybe<Scalars['Boolean']>;
+  dateOfDeath?: Maybe<Scalars['Date']>;
 };
 
 export enum CrmType {
@@ -2472,7 +2487,7 @@ export type CrmListItem = {
   familyCompositionChildren?: Maybe<Scalars['Int']>;
   familyCompositionAdults?: Maybe<Scalars['Int']>;
   currentHomeSituation?: Maybe<Scalars['String']>;
-  partner?: Maybe<LinkedCrm>;
+  partners?: Maybe<Array<CrmPartner>>;
   phoneNumber?: Maybe<Scalars['String']>;
   addresses?: Maybe<Array<CrmAddress>>;
   email?: Maybe<Scalars['String']>;
@@ -9363,7 +9378,16 @@ export type UpdateCrmFamilyContactsMutation = { __typename?: 'Mutation' } & {
       | 'familyCompositionAdults'
       | 'familyCompositionInformation'
     > & {
-        partner?: Maybe<{ __typename?: 'LinkedCrm' } & Pick<LinkedCrm, 'id'>>;
+        partners?: Maybe<
+          Array<
+            { __typename?: 'CrmPartner' } & Pick<CrmPartner, 'isDivorced'> & {
+                partner: { __typename?: 'LinkedCrm' } & Pick<
+                  LinkedCrm,
+                  'id' | 'firstName' | 'initials' | 'lastName' | 'email' | 'isPassedAway' | 'dateOfDeath'
+                > & { avatar?: Maybe<{ __typename?: 'File' } & Pick<File, 'url'>> };
+              }
+          >
+        >;
         contacts?: Maybe<
           Array<
             { __typename?: 'CrmContact' } & Pick<CrmContact, 'type'> & {
@@ -11375,10 +11399,15 @@ export type GetCrmFamilyContactsQuery = { __typename?: 'Query' } & {
       | 'familyCompositionAdults'
       | 'familyCompositionInformation'
     > & {
-        partner?: Maybe<
-          { __typename?: 'LinkedCrm' } & Pick<LinkedCrm, 'id' | 'firstName' | 'initials' | 'lastName' | 'email'> & {
-              avatar?: Maybe<{ __typename?: 'File' } & Pick<File, 'url'>>;
-            }
+        partners?: Maybe<
+          Array<
+            { __typename?: 'CrmPartner' } & Pick<CrmPartner, 'isDivorced'> & {
+                partner: { __typename?: 'LinkedCrm' } & Pick<
+                  LinkedCrm,
+                  'id' | 'firstName' | 'initials' | 'lastName' | 'email' | 'isPassedAway' | 'dateOfDeath'
+                > & { avatar?: Maybe<{ __typename?: 'File' } & Pick<File, 'url'>> };
+              }
+          >
         >;
         contacts?: Maybe<
           Array<
@@ -11493,10 +11522,14 @@ export type CrmListQuery = { __typename?: 'Query' } & {
           | 'dateUpdated'
           | 'completeness'
         > & {
-            partner?: Maybe<
-              { __typename?: 'LinkedCrm' } & Pick<LinkedCrm, 'id' | 'firstName' | 'lastName'> & {
-                  avatar?: Maybe<{ __typename?: 'File' } & Pick<File, 'url'>>;
+            partners?: Maybe<
+              Array<
+                { __typename?: 'CrmPartner' } & {
+                  partner: { __typename?: 'LinkedCrm' } & Pick<LinkedCrm, 'id' | 'firstName' | 'lastName'> & {
+                      avatar?: Maybe<{ __typename?: 'File' } & Pick<File, 'url'>>;
+                    };
                 }
+              >
             >;
             addresses?: Maybe<Array<{ __typename?: 'CrmAddress' } & Pick<CrmAddress, 'city'>>>;
             avatar?: Maybe<{ __typename?: 'File' } & Pick<File, 'url'>>;
@@ -15408,8 +15441,20 @@ export const UpdateCrmFamilyContactsDocument = gql`
       familyCompositionChildren
       familyCompositionAdults
       familyCompositionInformation
-      partner {
-        id
+      partners {
+        isDivorced
+        partner {
+          id
+          firstName
+          initials
+          lastName
+          email
+          avatar {
+            url
+          }
+          isPassedAway
+          dateOfDeath
+        }
       }
       contacts {
         type
@@ -19725,14 +19770,19 @@ export const GetCrmFamilyContactsDocument = gql`
       familyCompositionChildren
       familyCompositionAdults
       familyCompositionInformation
-      partner {
-        id
-        firstName
-        initials
-        lastName
-        email
-        avatar {
-          url
+      partners {
+        isDivorced
+        partner {
+          id
+          firstName
+          initials
+          lastName
+          email
+          avatar {
+            url
+          }
+          isPassedAway
+          dateOfDeath
         }
       }
       contacts {
@@ -19895,12 +19945,14 @@ export const CrmListDocument = gql`
         familyCompositionChildren
         familyCompositionAdults
         currentHomeSituation
-        partner {
-          id
-          firstName
-          lastName
-          avatar {
-            url
+        partners {
+          partner {
+            id
+            firstName
+            lastName
+            avatar {
+              url
+            }
           }
         }
         phoneNumber
