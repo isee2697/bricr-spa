@@ -2,7 +2,7 @@ import React from 'react';
 
 import { render, fireEvent } from 'tests';
 import { BuildingIcon } from '../../../atoms/icons';
-import { SimpleSearch } from '../../simpleSearch/SimpleSearch';
+import { CheckboxGroupField } from '../../../../form/fields';
 
 import { FilterTabPanel } from './FilterTabPanel';
 
@@ -11,7 +11,7 @@ describe('FilterTabPanel', () => {
     const onDeleteFilter = jest.fn();
     const onSearch = jest.fn();
 
-    const { find } = render(
+    const { findByText } = render(
       <FilterTabPanel
         filterType={'checkbox'}
         activeTab={2}
@@ -26,9 +26,20 @@ describe('FilterTabPanel', () => {
         ]}
         onDeleteFilter={onDeleteFilter}
         onSearch={onSearch}
-        children={<></>}
+        children={
+          <CheckboxGroupField
+            name={'propertyTypes'}
+            options={[
+              { icon: <BuildingIcon />, label: 'Apartment', value: 'Apartment' },
+              { icon: <BuildingIcon />, label: 'House', value: 'House' },
+              { icon: <BuildingIcon />, label: 'Commercial', value: 'Commercial' },
+              { icon: <BuildingIcon />, label: 'Agricultural', value: 'Agricultural' },
+              { icon: <BuildingIcon />, label: 'ParkingLot', value: 'ParkingLot' },
+              { icon: <BuildingIcon />, label: 'BuildingPlot', value: 'BuildingPlot' },
+            ]}
+          />
+        }
       />,
     );
-    const filter = findField('House');
   });
 });
