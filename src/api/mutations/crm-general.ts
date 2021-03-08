@@ -7,6 +7,8 @@ export const CREATE_CRM = gql`
       firstName
       initials
       lastName
+      dateCreated
+      completeness
     }
   }
 `;

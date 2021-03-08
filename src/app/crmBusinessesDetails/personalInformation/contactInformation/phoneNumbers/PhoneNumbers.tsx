@@ -44,6 +44,7 @@ export const PhoneNumbers = ({ onSave }: PhoneNumbersProps) => {
       setPhoneNumbers([
         ...phoneNumbers,
         {
+          id: uuid.v4(),
           key: uuid.v4(),
           type: phoneNumberType,
           countryCode: '',

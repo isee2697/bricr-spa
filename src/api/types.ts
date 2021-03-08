@@ -1652,6 +1652,7 @@ export enum BulkField {
   RentPrice = 'RentPrice',
   SalePrice = 'SalePrice',
   Security = 'Security',
+  Result = 'Result',
 }
 
 export enum BulkEntities {
@@ -2130,17 +2131,22 @@ export enum ContactSocialMediaType {
   Custom = 'Custom',
 }
 
-export type CrmContactInformation = {
+export type CrmContactInformation = LastUpdated & {
   __typename?: 'CrmContactInformation';
   id: Scalars['ID'];
+  contactInfoDescription?: Maybe<Scalars['String']>;
   addresses?: Maybe<Array<CrmAddress>>;
   phoneNumbers?: Maybe<Array<CrmPhoneNumber>>;
   emailAddresses?: Maybe<Array<CrmEmailAddress>>;
   socialMedia?: Maybe<Array<CrmSocialMedia>>;
+  dateCreated: Scalars['Date'];
+  lastEditedBy?: Maybe<LastUpdatedProfile>;
+  dateUpdated?: Maybe<Scalars['Date']>;
 };
 
 export type UpdateCrmContactInformationInput = {
   id: Scalars['ID'];
+  contactInfoDescription?: Maybe<Scalars['String']>;
   addresses?: Maybe<Array<CrmAddressInput>>;
   phoneNumbers?: Maybe<Array<CrmPhoneNumberInput>>;
   emailAddresses?: Maybe<Array<CrmEmailAddressInput>>;
@@ -2149,6 +2155,7 @@ export type UpdateCrmContactInformationInput = {
 
 export type CrmAddress = {
   __typename?: 'CrmAddress';
+  id: Scalars['ID'];
   type: ContactAddressType;
   street?: Maybe<Scalars['String']>;
   houseNumber?: Maybe<Scalars['Int']>;
@@ -2163,25 +2170,28 @@ export type CrmAddress = {
 
 export type CrmPhoneNumber = {
   __typename?: 'CrmPhoneNumber';
+  id: Scalars['ID'];
   type: ContactPhoneNumberType;
-  countryCode: Scalars['String'];
-  phoneNumber: Scalars['String'];
+  countryCode?: Maybe<Scalars['String']>;
+  phoneNumber?: Maybe<Scalars['String']>;
   availableFrom?: Maybe<Scalars['Date']>;
   note?: Maybe<Scalars['String']>;
 };
 
 export type CrmEmailAddress = {
   __typename?: 'CrmEmailAddress';
+  id: Scalars['ID'];
   type: ContactEmailAddressType;
-  email: Scalars['String'];
+  email?: Maybe<Scalars['String']>;
   availableFrom?: Maybe<Scalars['Date']>;
   note?: Maybe<Scalars['String']>;
 };
 
 export type CrmSocialMedia = {
   __typename?: 'CrmSocialMedia';
+  id: Scalars['ID'];
   type: ContactSocialMediaType;
-  url: Scalars['String'];
+  url?: Maybe<Scalars['String']>;
 };
 
 export type CrmAddressInput = {
@@ -2199,22 +2209,22 @@ export type CrmAddressInput = {
 
 export type CrmPhoneNumberInput = {
   type: ContactPhoneNumberType;
-  countryCode: Scalars['String'];
-  phoneNumber: Scalars['String'];
+  countryCode?: Maybe<Scalars['String']>;
+  phoneNumber?: Maybe<Scalars['String']>;
   availableFrom?: Maybe<Scalars['Date']>;
   note?: Maybe<Scalars['String']>;
 };
 
 export type CrmEmailAddressInput = {
   type: ContactEmailAddressType;
-  email: Scalars['String'];
+  email?: Maybe<Scalars['String']>;
   availableFrom?: Maybe<Scalars['Date']>;
   note?: Maybe<Scalars['String']>;
 };
 
 export type CrmSocialMediaInput = {
   type: ContactSocialMediaType;
-  url: Scalars['String'];
+  url?: Maybe<Scalars['String']>;
 };
 
 export enum MaritalStatusType {
@@ -2328,7 +2338,7 @@ export enum CrmStatus {
   Inactive = 'Inactive',
 }
 
-export type CrmGeneral = {
+export type CrmGeneral = LastUpdated & {
   __typename?: 'CrmGeneral';
   id: Scalars['ID'];
   description?: Maybe<Scalars['String']>;
@@ -2355,6 +2365,10 @@ export type CrmGeneral = {
   preferredTitleInformation?: Maybe<Scalars['String']>;
   identificationNumbers?: Maybe<Array<CrmIdentificationNumber>>;
   status?: Maybe<CrmStatus>;
+  dateCreated: Scalars['Date'];
+  lastEditedBy?: Maybe<LastUpdatedProfile>;
+  dateUpdated?: Maybe<Scalars['Date']>;
+  completeness: Scalars['Float'];
 };
 
 export type CrmIdentificationNumber = {
@@ -9310,7 +9324,10 @@ export type UpdateCrmContactInformationMutationVariables = Exact<{
 
 export type UpdateCrmContactInformationMutation = { __typename?: 'Mutation' } & {
   updateCrmContactInformation?: Maybe<
-    { __typename?: 'CrmContactInformation' } & Pick<CrmContactInformation, 'id'> & {
+    { __typename?: 'CrmContactInformation' } & Pick<
+      CrmContactInformation,
+      'id' | 'contactInfoDescription' | 'dateCreated' | 'dateUpdated'
+    > & {
         addresses?: Maybe<
           Array<
             { __typename?: 'CrmAddress' } & Pick<
@@ -9340,6 +9357,9 @@ export type UpdateCrmContactInformationMutation = { __typename?: 'Mutation' } & 
           >
         >;
         socialMedia?: Maybe<Array<{ __typename?: 'CrmSocialMedia' } & Pick<CrmSocialMedia, 'type' | 'url'>>>;
+        lastEditedBy?: Maybe<
+          { __typename?: 'LastUpdatedProfile' } & Pick<LastUpdatedProfile, 'id' | 'firstName' | 'lastName'>
+        >;
       }
   >;
 };
@@ -9377,7 +9397,10 @@ export type CreateCrmMutationVariables = Exact<{
 }>;
 
 export type CreateCrmMutation = { __typename?: 'Mutation' } & {
-  createCrm: { __typename?: 'CrmGeneral' } & Pick<CrmGeneral, 'id' | 'firstName' | 'initials' | 'lastName'>;
+  createCrm: { __typename?: 'CrmGeneral' } & Pick<
+    CrmGeneral,
+    'id' | 'firstName' | 'initials' | 'lastName' | 'dateCreated' | 'completeness'
+  >;
 };
 
 export type UpdateCrmGeneralMutationVariables = Exact<{
@@ -11315,11 +11338,15 @@ export type GetCrmContactInformationQueryVariables = Exact<{
 
 export type GetCrmContactInformationQuery = { __typename?: 'Query' } & {
   getCrmContactInformation?: Maybe<
-    { __typename?: 'CrmContactInformation' } & Pick<CrmContactInformation, 'id'> & {
+    { __typename?: 'CrmContactInformation' } & Pick<
+      CrmContactInformation,
+      'id' | 'contactInfoDescription' | 'dateCreated' | 'dateUpdated'
+    > & {
         addresses?: Maybe<
           Array<
             { __typename?: 'CrmAddress' } & Pick<
               CrmAddress,
+              | 'id'
               | 'type'
               | 'street'
               | 'houseNumber'
@@ -11334,17 +11361,25 @@ export type GetCrmContactInformationQuery = { __typename?: 'Query' } & {
           >
         >;
         emailAddresses?: Maybe<
-          Array<{ __typename?: 'CrmEmailAddress' } & Pick<CrmEmailAddress, 'type' | 'email' | 'availableFrom' | 'note'>>
+          Array<
+            { __typename?: 'CrmEmailAddress' } & Pick<
+              CrmEmailAddress,
+              'id' | 'type' | 'email' | 'availableFrom' | 'note'
+            >
+          >
         >;
         phoneNumbers?: Maybe<
           Array<
             { __typename?: 'CrmPhoneNumber' } & Pick<
               CrmPhoneNumber,
-              'type' | 'countryCode' | 'phoneNumber' | 'availableFrom' | 'note'
+              'id' | 'type' | 'countryCode' | 'phoneNumber' | 'availableFrom' | 'note'
             >
           >
         >;
-        socialMedia?: Maybe<Array<{ __typename?: 'CrmSocialMedia' } & Pick<CrmSocialMedia, 'type' | 'url'>>>;
+        socialMedia?: Maybe<Array<{ __typename?: 'CrmSocialMedia' } & Pick<CrmSocialMedia, 'id' | 'type' | 'url'>>>;
+        lastEditedBy?: Maybe<
+          { __typename?: 'LastUpdatedProfile' } & Pick<LastUpdatedProfile, 'id' | 'firstName' | 'lastName'>
+        >;
       }
   >;
 };
@@ -11411,11 +11446,17 @@ export type GetCrmGeneralQuery = { __typename?: 'Query' } & {
       | 'preferredLetterSalutation'
       | 'preferredTitleInformation'
       | 'status'
+      | 'completeness'
+      | 'dateCreated'
+      | 'dateUpdated'
     > & {
         identificationNumbers?: Maybe<
           Array<{ __typename?: 'CrmIdentificationNumber' } & Pick<CrmIdentificationNumber, 'type' | 'number' | 'name'>>
         >;
         avatar?: Maybe<{ __typename?: 'File' } & Pick<File, 'id' | 'key' | 'fileName' | 'url'>>;
+        lastEditedBy?: Maybe<
+          { __typename?: 'LastUpdatedProfile' } & Pick<LastUpdatedProfile, 'id' | 'firstName' | 'lastName'>
+        >;
       }
   >;
 };
@@ -15332,6 +15373,7 @@ export const UpdateCrmContactInformationDocument = gql`
   mutation UpdateCrmContactInformation($input: UpdateCrmContactInformationInput!) {
     updateCrmContactInformation(input: $input) {
       id
+      contactInfoDescription
       addresses {
         type
         street
@@ -15361,6 +15403,13 @@ export const UpdateCrmContactInformationDocument = gql`
         type
         url
       }
+      dateCreated
+      lastEditedBy {
+        id
+        firstName
+        lastName
+      }
+      dateUpdated
     }
   }
 `;
@@ -15429,6 +15478,8 @@ export const CreateCrmDocument = gql`
       firstName
       initials
       lastName
+      dateCreated
+      completeness
     }
   }
 `;
@@ -19650,7 +19701,9 @@ export const GetCrmContactInformationDocument = gql`
   query GetCrmContactInformation($id: ID!) {
     getCrmContactInformation(id: $id) {
       id
+      contactInfoDescription
       addresses {
+        id
         type
         street
         houseNumber
@@ -19663,12 +19716,14 @@ export const GetCrmContactInformationDocument = gql`
         note
       }
       emailAddresses {
+        id
         type
         email
         availableFrom
         note
       }
       phoneNumbers {
+        id
         type
         countryCode
         phoneNumber
@@ -19676,9 +19731,17 @@ export const GetCrmContactInformationDocument = gql`
         note
       }
       socialMedia {
+        id
         type
         url
       }
+      dateCreated
+      lastEditedBy {
+        id
+        firstName
+        lastName
+      }
+      dateUpdated
     }
   }
 `;
@@ -19797,6 +19860,14 @@ export const GetCrmGeneralDocument = gql`
         url
       }
       status
+      completeness
+      dateCreated
+      lastEditedBy {
+        id
+        firstName
+        lastName
+      }
+      dateUpdated
     }
   }
 `;

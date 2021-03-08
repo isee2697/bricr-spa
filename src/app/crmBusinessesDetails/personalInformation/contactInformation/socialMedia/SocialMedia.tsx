@@ -30,6 +30,7 @@ export const SocialMedia = ({ onSave }: SocialMediaProps) => {
       setSocialMedias([
         ...socialMedias,
         {
+          id: uuid.v4(),
           key: uuid.v4(),
           type: socialMediaType,
           url: '',

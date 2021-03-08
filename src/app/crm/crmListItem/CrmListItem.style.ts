@@ -47,9 +47,13 @@ export const useStyles = makeStyles(theme => ({
   },
   metaCount: {
     textAlign: 'center',
+    fontWeight: theme.typography.fontWeightBold,
+    color: theme.palette.black.main,
   },
   metaLabel: {
     textAlign: 'center',
+    fontWeight: theme.typography.fontWeightMedium,
+    color: theme.palette.silver.main,
   },
   infoProgress: {
     display: 'flex',

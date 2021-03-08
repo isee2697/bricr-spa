@@ -3,7 +3,7 @@ import React from 'react';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { useModalDispatch } from 'hooks/useModalDispatch/useModalDispatch';
 import { RadioGroupField } from 'form/fields';
-import { SquareIcon } from 'ui/atoms/icons';
+import { MobileIcon } from 'ui/atoms/icons';
 import { FormModal } from 'ui/organisms';
 import { ContactPhoneNumberType } from 'api/types';
 
@@ -19,7 +19,7 @@ export const AddNewPhoneNumberModal = ({ isOpened, onSubmit }: AddNewPhoneNumber
 
   const phoneNumberTypes = Object.keys(ContactPhoneNumberType).map(phoneNumberType => ({
     label: `dictionaries.contact_information.phone_number_type.${phoneNumberType}`,
-    icon: <SquareIcon />,
+    icon: <MobileIcon />,
     value: phoneNumberType,
   }));
 
