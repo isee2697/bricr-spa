@@ -10,9 +10,9 @@ export type ListTableItemProps<T> = {
   className?: string;
   headerCells: ListTableCell<T>[];
   isHeader?: true;
-  renderCell?: (fieldName: keyof T, item?: T) => string;
+  renderCell?: (fieldName: keyof T, item?: T) => string | ReactNode;
   item?: T;
-  onSort?: (key: keyof T) => void;
-  sortKey?: keyof T;
+  onSort?: (key: string) => void;
+  sortKey?: string;
   sortDirection?: 'up' | 'down';
 };

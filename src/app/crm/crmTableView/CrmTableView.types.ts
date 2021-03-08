@@ -13,7 +13,7 @@ export type CrmTableMovableHeader =
   | 'lastName'
   | 'email'
   | 'phoneNumber'
-  | 'partner'
+  | 'partners'
   | 'manager'
   | 'property'
   | 'status'

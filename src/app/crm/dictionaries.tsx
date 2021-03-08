@@ -99,7 +99,7 @@ export const MOVABLE_HEADER_COLUMNS: HeaderColumnItemType<CrmItem>[] = [
     hidden: true,
   },
   {
-    value: 'partner',
+    value: 'partners',
     hidden: true,
   },
   {

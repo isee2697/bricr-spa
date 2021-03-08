@@ -1,6 +1,8 @@
-import { LinkedCrm } from 'api/types';
+import { CrmPartner } from 'api/types';
 
 export type PartnerItemProps = {
   className: string;
-  partner: LinkedCrm;
+  partner: CrmPartner;
+  onUpdate?: (partner: CrmPartner) => Promise<void>;
+  onDelete?: VoidFunction;
 };

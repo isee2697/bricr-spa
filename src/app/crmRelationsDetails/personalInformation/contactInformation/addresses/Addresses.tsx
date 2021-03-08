@@ -1,283 +1,210 @@
-import * as uuid from 'uuid';
-import React, { useState } from 'react';
+import _ from 'lodash';
+import React from 'react';
+import { useParams } from 'react-router-dom';
 
 import { useLocale } from 'hooks/useLocale/useLocale';
-import { Card, CardHeader, CardContent, FormControlLabel, Switch, Grid, IconButton, Typography, Box } from 'ui/atoms';
-import { AutosaveForm, FormSubSection } from 'ui/organisms';
-import { AddIcon, SquareIcon } from 'ui/atoms/icons';
-import { DatePickerField, GenericField, RadioGroupField } from 'form/fields';
-import { AddNewAddressModal } from '../addNewAddressModal/AddNewAddressModal';
-import { AddNewAddressBody } from '../addNewAddressModal/AddNewAddressModal.types';
-import { useModalState } from 'hooks/useModalState/useModalState';
+import { Grid, Box } from 'ui/atoms';
+import { SimpleLocationIcon } from 'ui/atoms/icons';
+import { DatePickerField, DropdownField, GenericField, RadioGroupField } from 'form/fields';
 import { useModalDispatch } from 'hooks/useModalDispatch/useModalDispatch';
-import { PromiseFunction } from 'app/shared/types';
-import { FormSubSectionHeader, InfoSection } from 'ui/molecules';
-import { ContactAddressType } from 'api/types';
+import { FormSubSectionHeader } from 'ui/molecules';
+import { ContactAddressType, CrmAddress } from 'api/types';
+import { AddNewAddressModalContainer } from '../addNewAddressModal/AddNewAddressModalContainer';
+import { CardWithList } from 'ui/templates';
+import { useCountries } from 'hooks';
+import { letterValidator, requireValidator } from 'form/validators';
 
-import { AddressesProps, AddressItem } from './Addresses.types';
+import { AddressesProps } from './Addresses.types';
 import { useStyles } from './Addresses.styles';
 
 export const Addresses = ({ data, onSave }: AddressesProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
-  const [isEditing, setIsEditing] = useState(false);
-  const { open, close } = useModalDispatch();
-  const { isOpen: isModalOpen } = useModalState('add-new-address');
-  const [addresses, setAddresses] = useState<AddressItem[]>(
-    (data.addresses || []).map(address => ({ ...address, key: uuid.v4() })),
-  );
+  const { open } = useModalDispatch();
+  const { id } = useParams<{ id: string }>();
+  const { countryOptions } = useCountries();
 
-  const handleAddNewAddress: PromiseFunction<AddNewAddressBody> = async ({ addressType }) => {
+  const handleSave = async (values: CrmAddress) => {
     try {
-      setAddresses([
-        ...addresses,
-        {
-          key: uuid.v4(),
-          type: addressType,
-        },
-      ]);
-
-      close('add-new-address');
+      await onSave({
+        id,
+        addresses: (data.addresses || []).map(item =>
+          JSON.parse(
+            JSON.stringify(item.id === values.id ? _.omit(values, ['title']) : item, (key, value) =>
+              value === null || key === '__typename' || key === 'id' ? undefined : value,
+            ),
+          ),
+        ),
+      });
 
       return undefined;
     } catch (error) {
-      return {
-        error: true,
-      };
+      return { error: true };
     }
-  };
-
-  const initialValues = addresses.reduce((accu, currentValue) => {
-    return {
-      ...accu,
-      [currentValue.key]: {
-        ...currentValue,
-      },
-    };
-  }, {});
-
-  const handleSave = async (values: Record<string, AddressItem>) => {
-    const removeKeyAndAddType = (key: string, value: AddressItem) => {
-      const { key: myKey, ...rest } = value;
-
-      return { ...rest, type: addresses.find(address => address.key === key)?.type };
-    };
-    const newData = { addresses: Object.entries(values).map(([key, value]) => removeKeyAndAddType(key, value)) };
-
-    return await onSave(newData);
   };
 
   const addressTypes = Object.keys(ContactAddressType).map(addressType => ({
     label: `dictionaries.contact_information.address_type.${addressType}`,
-    icon: <SquareIcon />,
+    icon: <SimpleLocationIcon />,
     value: addressType,
   }));
 
   return (
-    <Card className={classes.root}>
-      <CardHeader
-        title={formatMessage({ id: 'crm.details.personal_information_contact_information.addresses.title' })}
-        action={
+    <>
+      <CardWithList<CrmAddress>
+        title={formatMessage({ id: 'crm.details.personal_information_contact_information.social_medias.title' })}
+        emptyStateTextFirst={formatMessage({
+          id: 'crm.details.personal_information_contact_information.social_medias.empty_title',
+        })}
+        emptyStateTextSecond={formatMessage({
+          id: 'crm.details.personal_information_contact_information.social_medias.empty_description',
+        })}
+        emoji="🙌"
+        renderItem={(item: CrmAddress, isEditing: boolean) => (
           <>
-            <FormControlLabel
-              control={<Switch checked={isEditing} onChange={() => setIsEditing(!isEditing)} color="primary" />}
-              label={formatMessage({ id: 'form_section.edit_mode' })}
-              labelPlacement="start"
-              className={classes.editSwitcher}
+            <FormSubSectionHeader
+              title={''}
+              subtitle={formatMessage({ id: 'common.choose_one_option_below' })}
+              noBorder
             />
-            <IconButton aria-label="add" color="primary" size="small" onClick={() => open('add-new-address')}>
-              <AddIcon color="inherit" />
-            </IconButton>
+            <RadioGroupField
+              spacing={1}
+              disabled={!isEditing}
+              xs={4}
+              md={3}
+              lg={2}
+              name={'type'}
+              options={addressTypes}
+            />
+            <Box mb={2} />
+            <Grid container spacing={1}>
+              <Grid item xs={4}>
+                <Box mt={-1} />
+                <DropdownField
+                  validate={[requireValidator]}
+                  items={countryOptions}
+                  placeholder="crm.details.personal_information_contact_information.addresses.country.placeholder"
+                  name="country"
+                  label="crm.details.personal_information_contact_information.addresses.country"
+                  disabled={!isEditing}
+                />
+              </Grid>
+              <Grid item xs={5}>
+                <GenericField
+                  className={classes.formField}
+                  label={formatMessage({ id: 'crm.details.personal_information_contact_information.addresses.city' })}
+                  name={'city'}
+                  disabled={!isEditing}
+                  placeholder="crm.details.personal_information_contact_information.addresses.placeholder"
+                  validate={[letterValidator]}
+                />
+              </Grid>
+              <Grid item xs={3}>
+                <GenericField
+                  className={classes.formField}
+                  label={formatMessage({
+                    id: 'crm.details.personal_information_contact_information.addresses.zip_code',
+                  })}
+                  name={'zipcode'}
+                  disabled={!isEditing}
+                  placeholder="crm.details.personal_information_contact_information.addresses.placeholder"
+                />
+              </Grid>
+            </Grid>
+            <Box mb={2} />
+            <Grid container spacing={1}>
+              <Grid item xs={6}>
+                <GenericField
+                  className={classes.formField}
+                  label={formatMessage({
+                    id: 'crm.details.personal_information_contact_information.addresses.street',
+                  })}
+                  name={'street'}
+                  disabled={!isEditing}
+                  placeholder="crm.details.personal_information_contact_information.addresses.placeholder"
+                  validate={[letterValidator]}
+                />
+              </Grid>
+              <Grid item xs={3}>
+                <GenericField
+                  className={classes.formField}
+                  type="number"
+                  label={formatMessage({
+                    id: 'crm.details.personal_information_contact_information.addresses.house_number',
+                  })}
+                  name={'houseNumber'}
+                  disabled={!isEditing}
+                  placeholder="crm.details.personal_information_contact_information.addresses.placeholder"
+                />
+              </Grid>
+              <Grid item xs={3}>
+                <GenericField
+                  className={classes.formField}
+                  label={formatMessage({
+                    id: 'crm.details.personal_information_contact_information.addresses.addition',
+                  })}
+                  name={'addition'}
+                  disabled={!isEditing}
+                  placeholder="crm.details.personal_information_contact_information.addresses.placeholder"
+                />
+              </Grid>
+            </Grid>
+            <Box mb={2} />
+            <Grid container spacing={1}>
+              <Grid item xs={12}>
+                <GenericField
+                  className={classes.formField}
+                  label={formatMessage({
+                    id: 'crm.details.personal_information_contact_information.addresses.extra_address_information',
+                  })}
+                  name={'extraInformation'}
+                  disabled={!isEditing}
+                  placeholder="crm.details.personal_information_contact_information.addresses.put_information_here"
+                />
+              </Grid>
+            </Grid>
+            <Box mb={2} />
+            <Grid container spacing={1}>
+              <Grid item xs={4}>
+                <DatePickerField
+                  className={classes.formField}
+                  label={formatMessage({
+                    id: 'crm.details.personal_information_contact_information.addresses.address_available_from',
+                  })}
+                  disabled={!isEditing}
+                  name={'availableFrom'}
+                  placeholder="crm.details.personal_information_contact_information.addresses.placeholder"
+                />
+              </Grid>
+            </Grid>
+            <Box mb={2} />
+            <Grid container spacing={1}>
+              <Grid item xs={12}>
+                <GenericField
+                  className={classes.formField}
+                  label={formatMessage({
+                    id: 'crm.details.personal_information_contact_information.addresses.note_about_the_address',
+                  })}
+                  name={'note'}
+                  disabled={!isEditing}
+                  placeholder="crm.details.personal_information_contact_information.addresses.put_information_here"
+                />
+              </Grid>
+            </Grid>
           </>
-        }
+        )}
+        items={(data.addresses || []).map(address => ({
+          ...address,
+          title: formatMessage({ id: `dictionaries.contact_information.address_type.${address.type}` }),
+        }))}
+        onSave={handleSave}
+        onAdd={() => open('add-new-address')}
+        isInitExpanded
+        isInitEditing
+        isEditable
+        isExpandable={false}
       />
-      <CardContent>
-        <AutosaveForm onSave={handleSave} initialValues={initialValues}>
-          <Grid item xs={12}>
-            {addresses.length === 0 && (
-              <InfoSection emoji="🤔">
-                <Typography variant="h3">
-                  {formatMessage({
-                    id: 'crm.details.personal_information_contact_information.addresses.empty_title',
-                  })}
-                </Typography>
-                <Typography variant="h3">
-                  {formatMessage({
-                    id: 'crm.details.personal_information_contact_information.addresses.empty_description',
-                  })}
-                </Typography>
-              </InfoSection>
-            )}
-            {addresses.length > 0 &&
-              addresses.map((address, index) => (
-                <FormSubSection
-                  key={index}
-                  title={
-                    <>
-                      <Typography variant="h5" className={classes.addressIndex}>
-                        {index + 1}
-                      </Typography>
-                      <Typography variant="h3" className={classes.addressTitle}>
-                        {formatMessage({ id: `dictionaries.contact_information.address_type.${address.type}` })}
-                      </Typography>
-                    </>
-                  }
-                  onOptionsClick={() => {}}
-                  initiallyOpened={false}
-                >
-                  <Grid container spacing={1} className={classes.addressFormFields}>
-                    <Grid item xs={4}>
-                      <Typography variant="h5">
-                        {formatMessage({
-                          id: 'crm.details.personal_information_contact_information.addresses.country',
-                        })}
-                      </Typography>
-                      <GenericField
-                        className={classes.formField}
-                        name={`${address.key}.country`}
-                        disabled={!isEditing}
-                        placeholder="crm.details.personal_information_contact_information.addresses.placeholder"
-                      />
-                    </Grid>
-                    <Grid item xs={5}>
-                      <Typography variant="h5">
-                        {formatMessage({ id: 'crm.details.personal_information_contact_information.addresses.city' })}
-                      </Typography>
-                      <GenericField
-                        className={classes.formField}
-                        name={`${address.key}.city`}
-                        disabled={!isEditing}
-                        placeholder="crm.details.personal_information_contact_information.addresses.placeholder"
-                      />
-                    </Grid>
-                    <Grid item xs={3}>
-                      <Typography variant="h5">
-                        {formatMessage({
-                          id: 'crm.details.personal_information_contact_information.addresses.zip_code',
-                        })}
-                      </Typography>
-                      <GenericField
-                        className={classes.formField}
-                        name={`${address.key}.zipcode`}
-                        disabled={!isEditing}
-                        placeholder="crm.details.personal_information_contact_information.addresses.placeholder"
-                      />
-                    </Grid>
-                  </Grid>
-                  <Grid container spacing={1} className={classes.addressFormFields}>
-                    <Grid item xs={6}>
-                      <Typography variant="h5">
-                        {formatMessage({ id: 'crm.details.personal_information_contact_information.addresses.street' })}
-                      </Typography>
-                      <GenericField
-                        className={classes.formField}
-                        name={`${address.key}.street`}
-                        disabled={!isEditing}
-                        placeholder="crm.details.personal_information_contact_information.addresses.placeholder"
-                      />
-                    </Grid>
-                    <Grid item xs={3}>
-                      <Typography variant="h5">
-                        {formatMessage({
-                          id: 'crm.details.personal_information_contact_information.addresses.house_number',
-                        })}
-                      </Typography>
-                      <GenericField
-                        className={classes.formField}
-                        type="number"
-                        name={`${address.key}.houseNumber`}
-                        disabled={!isEditing}
-                        placeholder="crm.details.personal_information_contact_information.addresses.placeholder"
-                      />
-                    </Grid>
-                    <Grid item xs={3}>
-                      <Typography variant="h5">
-                        {formatMessage({
-                          id: 'crm.details.personal_information_contact_information.addresses.addition',
-                        })}
-                      </Typography>
-                      <GenericField
-                        className={classes.formField}
-                        name={`${address.key}.addition`}
-                        disabled={!isEditing}
-                        placeholder="crm.details.personal_information_contact_information.addresses.placeholder"
-                      />
-                    </Grid>
-                  </Grid>
-                  <Grid container spacing={1} className={classes.addressFormFields}>
-                    <Grid item xs={12}>
-                      <Typography variant="h5">
-                        {formatMessage({
-                          id:
-                            'crm.details.personal_information_contact_information.addresses.extra_address_information',
-                        })}
-                      </Typography>
-                      <GenericField
-                        className={classes.formField}
-                        name={`${address.key}.extraAddressInformation`}
-                        disabled={!isEditing}
-                        placeholder="crm.details.personal_information_contact_information.addresses.put_information_here"
-                      />
-                    </Grid>
-                  </Grid>
-                  <FormSubSectionHeader
-                    title={formatMessage({
-                      id: 'crm.details.personal_information_contact_information.addresses.type_of_address',
-                    })}
-                    subtitle={formatMessage({ id: 'common.choose_one_option_below' })}
-                    noBorder
-                  />
-                  <Box mb={2} />
-                  <RadioGroupField
-                    spacing={1}
-                    disabled={!isEditing}
-                    xs={4}
-                    md={3}
-                    lg={2}
-                    name={`${address.key}.type`}
-                    options={addressTypes}
-                  />
-                  <Box mb={2} />
-                  <Grid container spacing={1} className={classes.addressFormFields}>
-                    <Grid item xs={4}>
-                      <Typography variant="h5">
-                        {formatMessage({
-                          id: 'crm.details.personal_information_contact_information.addresses.address_available_from',
-                        })}
-                      </Typography>
-                      <DatePickerField
-                        className={classes.formField}
-                        disabled={!isEditing}
-                        name={`${address.key}.addressAvailableDate`}
-                        placeholder="crm.details.personal_information_contact_information.addresses.placeholder"
-                      />
-                    </Grid>
-                  </Grid>
-                  <Grid container spacing={1} className={classes.addressFormFields}>
-                    <Grid item xs={12}>
-                      <Typography variant="h5">
-                        {formatMessage({
-                          id: 'crm.details.personal_information_contact_information.addresses.note_about_the_address',
-                        })}
-                      </Typography>
-                      <GenericField
-                        className={classes.formField}
-                        name={`${address.key}.note`}
-                        disabled={!isEditing}
-                        placeholder="crm.details.personal_information_contact_information.addresses.put_information_here"
-                      />
-                    </Grid>
-                  </Grid>
-                </FormSubSection>
-              ))}
-          </Grid>
-        </AutosaveForm>
-        <AddNewAddressModal
-          onSubmit={handleAddNewAddress}
-          isOpened={isModalOpen}
-          onClose={() => close('add-new-address')}
-        />
-      </CardContent>
-    </Card>
+      <AddNewAddressModalContainer id={id} data={data} />
+    </>
   );
 };
