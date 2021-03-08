@@ -39,7 +39,8 @@ export type PageWithListsCardProps<V, A, F> = {
     cells: ListTableCell<V>[];
     columns?: HeaderColumnItemType<V>[];
     setColumns?: (column: HeaderColumnItemType<V>[]) => void;
-    sortKey: keyof V;
+    sortKey: string;
+    onSort?: (cellKey: string) => void;
   };
   optionsMenu: Omit<ListOptionsMenuProps, 'onDeleteClick' | 'onEditClick' | 'children'> & {
     onDelete?: (item: V) => void;
