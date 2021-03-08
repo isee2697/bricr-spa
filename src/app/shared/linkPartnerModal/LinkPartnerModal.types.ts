@@ -2,7 +2,7 @@ import { CrmListItem, CrmType } from 'api/types';
 export type LinkPartnerModalCrmListItem = Pick<CrmListItem, 'id' | 'firstName' | 'lastName'>;
 
 export type LinkPartnerModalContainerProps = {
-  onSubmit: (partnerId: string | null) => Promise<undefined | { error: boolean }>;
+  onSubmit: (partnerIds: string[]) => Promise<undefined | { error: boolean }>;
   type?: CrmType;
 };
 

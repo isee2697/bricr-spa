@@ -233,6 +233,7 @@ export type Mutation = {
   addCadastre?: Maybe<PimWithNewCadastre>;
   addCadastreMaps?: Maybe<Pim>;
   addCost: CostResult;
+  addCrmLabel: Label;
   addFiles: Array<File>;
   addFloorToPim: PimWithNewFloor;
   addIdentificationNumberNcp: NcpWithNewIdentificationNumber;
@@ -308,6 +309,7 @@ export type Mutation = {
   reactivateProfile: Profile;
   readNotification?: Maybe<Scalars['Boolean']>;
   removeAllocationCriteria: Pim;
+  removeCrmLabel: Scalars['Boolean'];
   removeFiles: Array<Maybe<File>>;
   removeInspection: Pim;
   removeLabel: Scalars['Boolean'];
@@ -446,6 +448,10 @@ export type MutationAddCadastreMapsArgs = {
 
 export type MutationAddCostArgs = {
   input: AddCostInput;
+};
+
+export type MutationAddCrmLabelArgs = {
+  input: LabelInput;
 };
 
 export type MutationAddFilesArgs = {
@@ -749,6 +755,10 @@ export type MutationReadNotificationArgs = {
 };
 
 export type MutationRemoveAllocationCriteriaArgs = {
+  id: Scalars['ID'];
+};
+
+export type MutationRemoveCrmLabelArgs = {
   id: Scalars['ID'];
 };
 
@@ -1201,6 +1211,7 @@ export type Query = {
   getCrmFamilyContacts?: Maybe<CrmFamilyContacts>;
   getCrmGeneral?: Maybe<CrmGeneral>;
   getCrmHomeSituation?: Maybe<CrmHomeSituation>;
+  getCrmLabels?: Maybe<Array<Label>>;
   getCrmWithSameInfo: CrmListSearchResult;
   getEmail?: Maybe<Email>;
   getKikSettings?: Maybe<KikSettings>;
@@ -1316,6 +1327,11 @@ export type QueryGetCrmGeneralArgs = {
 
 export type QueryGetCrmHomeSituationArgs = {
   id: Scalars['ID'];
+};
+
+export type QueryGetCrmLabelsArgs = {
+  parentId: Scalars['ID'];
+  properties?: Maybe<Array<LabelProperty>>;
 };
 
 export type QueryGetCrmWithSameInfoArgs = {
@@ -1636,6 +1652,7 @@ export enum BulkField {
   RentPrice = 'RentPrice',
   SalePrice = 'SalePrice',
   Security = 'Security',
+  Result = 'Result',
 }
 
 export enum BulkEntities {
@@ -2114,17 +2131,22 @@ export enum ContactSocialMediaType {
   Custom = 'Custom',
 }
 
-export type CrmContactInformation = {
+export type CrmContactInformation = LastUpdated & {
   __typename?: 'CrmContactInformation';
   id: Scalars['ID'];
+  contactInfoDescription?: Maybe<Scalars['String']>;
   addresses?: Maybe<Array<CrmAddress>>;
   phoneNumbers?: Maybe<Array<CrmPhoneNumber>>;
   emailAddresses?: Maybe<Array<CrmEmailAddress>>;
   socialMedia?: Maybe<Array<CrmSocialMedia>>;
+  dateCreated: Scalars['Date'];
+  lastEditedBy?: Maybe<LastUpdatedProfile>;
+  dateUpdated?: Maybe<Scalars['Date']>;
 };
 
 export type UpdateCrmContactInformationInput = {
   id: Scalars['ID'];
+  contactInfoDescription?: Maybe<Scalars['String']>;
   addresses?: Maybe<Array<CrmAddressInput>>;
   phoneNumbers?: Maybe<Array<CrmPhoneNumberInput>>;
   emailAddresses?: Maybe<Array<CrmEmailAddressInput>>;
@@ -2133,6 +2155,7 @@ export type UpdateCrmContactInformationInput = {
 
 export type CrmAddress = {
   __typename?: 'CrmAddress';
+  id: Scalars['ID'];
   type: ContactAddressType;
   street?: Maybe<Scalars['String']>;
   houseNumber?: Maybe<Scalars['Int']>;
@@ -2147,25 +2170,28 @@ export type CrmAddress = {
 
 export type CrmPhoneNumber = {
   __typename?: 'CrmPhoneNumber';
+  id: Scalars['ID'];
   type: ContactPhoneNumberType;
-  countryCode: Scalars['String'];
-  phoneNumber: Scalars['String'];
+  countryCode?: Maybe<Scalars['String']>;
+  phoneNumber?: Maybe<Scalars['String']>;
   availableFrom?: Maybe<Scalars['Date']>;
   note?: Maybe<Scalars['String']>;
 };
 
 export type CrmEmailAddress = {
   __typename?: 'CrmEmailAddress';
+  id: Scalars['ID'];
   type: ContactEmailAddressType;
-  email: Scalars['String'];
+  email?: Maybe<Scalars['String']>;
   availableFrom?: Maybe<Scalars['Date']>;
   note?: Maybe<Scalars['String']>;
 };
 
 export type CrmSocialMedia = {
   __typename?: 'CrmSocialMedia';
+  id: Scalars['ID'];
   type: ContactSocialMediaType;
-  url: Scalars['String'];
+  url?: Maybe<Scalars['String']>;
 };
 
 export type CrmAddressInput = {
@@ -2183,22 +2209,22 @@ export type CrmAddressInput = {
 
 export type CrmPhoneNumberInput = {
   type: ContactPhoneNumberType;
-  countryCode: Scalars['String'];
-  phoneNumber: Scalars['String'];
+  countryCode?: Maybe<Scalars['String']>;
+  phoneNumber?: Maybe<Scalars['String']>;
   availableFrom?: Maybe<Scalars['Date']>;
   note?: Maybe<Scalars['String']>;
 };
 
 export type CrmEmailAddressInput = {
   type: ContactEmailAddressType;
-  email: Scalars['String'];
+  email?: Maybe<Scalars['String']>;
   availableFrom?: Maybe<Scalars['Date']>;
   note?: Maybe<Scalars['String']>;
 };
 
 export type CrmSocialMediaInput = {
   type: ContactSocialMediaType;
-  url: Scalars['String'];
+  url?: Maybe<Scalars['String']>;
 };
 
 export enum MaritalStatusType {
@@ -2222,12 +2248,20 @@ export type LinkedCrm = {
   email?: Maybe<Scalars['String']>;
   phoneNumber?: Maybe<Scalars['String']>;
   avatar?: Maybe<File>;
+  isPassedAway?: Maybe<Scalars['Boolean']>;
+  dateOfDeath?: Maybe<Scalars['Date']>;
 };
 
 export type CrmContact = {
   __typename?: 'CrmContact';
   type: Scalars['String'];
   contact: LinkedCrm;
+};
+
+export type CrmPartner = {
+  __typename?: 'CrmPartner';
+  isDivorced?: Maybe<Scalars['Boolean']>;
+  partner: LinkedCrm;
 };
 
 export type CrmFamilyContacts = {
@@ -2239,7 +2273,7 @@ export type CrmFamilyContacts = {
   familyCompositionChildren?: Maybe<Scalars['Int']>;
   familyCompositionAdults?: Maybe<Scalars['Int']>;
   familyCompositionInformation?: Maybe<Scalars['String']>;
-  partner?: Maybe<LinkedCrm>;
+  partners?: Maybe<Array<CrmPartner>>;
   contacts?: Maybe<Array<CrmContact>>;
 };
 
@@ -2251,13 +2285,20 @@ export type UpdateCrmFamilyContactsInput = {
   familyCompositionChildren?: Maybe<Scalars['Int']>;
   familyCompositionAdults?: Maybe<Scalars['Int']>;
   familyCompositionInformation?: Maybe<Scalars['String']>;
-  partnerId?: Maybe<Scalars['ID']>;
+  partners?: Maybe<Array<CrmPartnerInput>>;
   contacts?: Maybe<Array<CrmContactInput>>;
 };
 
 export type CrmContactInput = {
   type: Scalars['String'];
   contactId: Scalars['ID'];
+};
+
+export type CrmPartnerInput = {
+  id: Scalars['ID'];
+  isDivorced?: Maybe<Scalars['Boolean']>;
+  isPassedAway?: Maybe<Scalars['Boolean']>;
+  dateOfDeath?: Maybe<Scalars['Date']>;
 };
 
 export enum CrmType {
@@ -2312,7 +2353,7 @@ export enum CrmStatus {
   Inactive = 'Inactive',
 }
 
-export type CrmGeneral = {
+export type CrmGeneral = LastUpdated & {
   __typename?: 'CrmGeneral';
   id: Scalars['ID'];
   description?: Maybe<Scalars['String']>;
@@ -2339,6 +2380,10 @@ export type CrmGeneral = {
   preferredTitleInformation?: Maybe<Scalars['String']>;
   identificationNumbers?: Maybe<Array<CrmIdentificationNumber>>;
   status?: Maybe<CrmStatus>;
+  dateCreated: Scalars['Date'];
+  lastEditedBy?: Maybe<LastUpdatedProfile>;
+  dateUpdated?: Maybe<Scalars['Date']>;
+  completeness: Scalars['Float'];
 };
 
 export type CrmIdentificationNumber = {
@@ -2458,7 +2503,7 @@ export type CrmListItem = {
   familyCompositionChildren?: Maybe<Scalars['Int']>;
   familyCompositionAdults?: Maybe<Scalars['Int']>;
   currentHomeSituation?: Maybe<Scalars['String']>;
-  partner?: Maybe<LinkedCrm>;
+  partners?: Maybe<Array<CrmPartner>>;
   phoneNumber?: Maybe<Scalars['String']>;
   addresses?: Maybe<Array<CrmAddress>>;
   email?: Maybe<Scalars['String']>;
@@ -2964,6 +3009,7 @@ export enum LabelProperty {
   MaintenanceInspection = 'MaintenanceInspection',
   Cost = 'Cost',
   Task = 'Task',
+  ReasonToMove = 'ReasonToMove',
 }
 
 export type Label = {
@@ -9293,7 +9339,10 @@ export type UpdateCrmContactInformationMutationVariables = Exact<{
 
 export type UpdateCrmContactInformationMutation = { __typename?: 'Mutation' } & {
   updateCrmContactInformation?: Maybe<
-    { __typename?: 'CrmContactInformation' } & Pick<CrmContactInformation, 'id'> & {
+    { __typename?: 'CrmContactInformation' } & Pick<
+      CrmContactInformation,
+      'id' | 'contactInfoDescription' | 'dateCreated' | 'dateUpdated'
+    > & {
         addresses?: Maybe<
           Array<
             { __typename?: 'CrmAddress' } & Pick<
@@ -9323,6 +9372,9 @@ export type UpdateCrmContactInformationMutation = { __typename?: 'Mutation' } & 
           >
         >;
         socialMedia?: Maybe<Array<{ __typename?: 'CrmSocialMedia' } & Pick<CrmSocialMedia, 'type' | 'url'>>>;
+        lastEditedBy?: Maybe<
+          { __typename?: 'LastUpdatedProfile' } & Pick<LastUpdatedProfile, 'id' | 'firstName' | 'lastName'>
+        >;
       }
   >;
 };
@@ -9343,7 +9395,16 @@ export type UpdateCrmFamilyContactsMutation = { __typename?: 'Mutation' } & {
       | 'familyCompositionAdults'
       | 'familyCompositionInformation'
     > & {
-        partner?: Maybe<{ __typename?: 'LinkedCrm' } & Pick<LinkedCrm, 'id'>>;
+        partners?: Maybe<
+          Array<
+            { __typename?: 'CrmPartner' } & Pick<CrmPartner, 'isDivorced'> & {
+                partner: { __typename?: 'LinkedCrm' } & Pick<
+                  LinkedCrm,
+                  'id' | 'firstName' | 'initials' | 'lastName' | 'email' | 'isPassedAway' | 'dateOfDeath'
+                > & { avatar?: Maybe<{ __typename?: 'File' } & Pick<File, 'url'>> };
+              }
+          >
+        >;
         contacts?: Maybe<
           Array<
             { __typename?: 'CrmContact' } & Pick<CrmContact, 'type'> & {
@@ -9360,7 +9421,10 @@ export type CreateCrmMutationVariables = Exact<{
 }>;
 
 export type CreateCrmMutation = { __typename?: 'Mutation' } & {
-  createCrm: { __typename?: 'CrmGeneral' } & Pick<CrmGeneral, 'id'>;
+  createCrm: { __typename?: 'CrmGeneral' } & Pick<
+    CrmGeneral,
+    'id' | 'firstName' | 'initials' | 'lastName' | 'dateCreated' | 'completeness'
+  >;
 };
 
 export type UpdateCrmGeneralMutationVariables = Exact<{
@@ -9554,6 +9618,14 @@ export type AddLabelMutationVariables = Exact<{
 
 export type AddLabelMutation = { __typename?: 'Mutation' } & {
   addLabel: { __typename?: 'Label' } & Pick<Label, 'id' | 'property' | 'text' | 'icon'>;
+};
+
+export type AddCrmLabelMutationVariables = Exact<{
+  input: LabelInput;
+}>;
+
+export type AddCrmLabelMutation = { __typename?: 'Mutation' } & {
+  addCrmLabel: { __typename?: 'Label' } & Pick<Label, 'id' | 'property' | 'text' | 'icon'>;
 };
 
 export type AddMatchProfileMutationVariables = Exact<{
@@ -11290,11 +11362,15 @@ export type GetCrmContactInformationQueryVariables = Exact<{
 
 export type GetCrmContactInformationQuery = { __typename?: 'Query' } & {
   getCrmContactInformation?: Maybe<
-    { __typename?: 'CrmContactInformation' } & Pick<CrmContactInformation, 'id'> & {
+    { __typename?: 'CrmContactInformation' } & Pick<
+      CrmContactInformation,
+      'id' | 'contactInfoDescription' | 'dateCreated' | 'dateUpdated'
+    > & {
         addresses?: Maybe<
           Array<
             { __typename?: 'CrmAddress' } & Pick<
               CrmAddress,
+              | 'id'
               | 'type'
               | 'street'
               | 'houseNumber'
@@ -11309,17 +11385,25 @@ export type GetCrmContactInformationQuery = { __typename?: 'Query' } & {
           >
         >;
         emailAddresses?: Maybe<
-          Array<{ __typename?: 'CrmEmailAddress' } & Pick<CrmEmailAddress, 'type' | 'email' | 'availableFrom' | 'note'>>
+          Array<
+            { __typename?: 'CrmEmailAddress' } & Pick<
+              CrmEmailAddress,
+              'id' | 'type' | 'email' | 'availableFrom' | 'note'
+            >
+          >
         >;
         phoneNumbers?: Maybe<
           Array<
             { __typename?: 'CrmPhoneNumber' } & Pick<
               CrmPhoneNumber,
-              'type' | 'countryCode' | 'phoneNumber' | 'availableFrom' | 'note'
+              'id' | 'type' | 'countryCode' | 'phoneNumber' | 'availableFrom' | 'note'
             >
           >
         >;
-        socialMedia?: Maybe<Array<{ __typename?: 'CrmSocialMedia' } & Pick<CrmSocialMedia, 'type' | 'url'>>>;
+        socialMedia?: Maybe<Array<{ __typename?: 'CrmSocialMedia' } & Pick<CrmSocialMedia, 'id' | 'type' | 'url'>>>;
+        lastEditedBy?: Maybe<
+          { __typename?: 'LastUpdatedProfile' } & Pick<LastUpdatedProfile, 'id' | 'firstName' | 'lastName'>
+        >;
       }
   >;
 };
@@ -11340,10 +11424,15 @@ export type GetCrmFamilyContactsQuery = { __typename?: 'Query' } & {
       | 'familyCompositionAdults'
       | 'familyCompositionInformation'
     > & {
-        partner?: Maybe<
-          { __typename?: 'LinkedCrm' } & Pick<LinkedCrm, 'id' | 'firstName' | 'initials' | 'lastName' | 'email'> & {
-              avatar?: Maybe<{ __typename?: 'File' } & Pick<File, 'url'>>;
-            }
+        partners?: Maybe<
+          Array<
+            { __typename?: 'CrmPartner' } & Pick<CrmPartner, 'isDivorced'> & {
+                partner: { __typename?: 'LinkedCrm' } & Pick<
+                  LinkedCrm,
+                  'id' | 'firstName' | 'initials' | 'lastName' | 'email' | 'isPassedAway' | 'dateOfDeath'
+                > & { avatar?: Maybe<{ __typename?: 'File' } & Pick<File, 'url'>> };
+              }
+          >
         >;
         contacts?: Maybe<
           Array<
@@ -11386,11 +11475,17 @@ export type GetCrmGeneralQuery = { __typename?: 'Query' } & {
       | 'preferredLetterSalutation'
       | 'preferredTitleInformation'
       | 'status'
+      | 'completeness'
+      | 'dateCreated'
+      | 'dateUpdated'
     > & {
         identificationNumbers?: Maybe<
           Array<{ __typename?: 'CrmIdentificationNumber' } & Pick<CrmIdentificationNumber, 'type' | 'number' | 'name'>>
         >;
         avatar?: Maybe<{ __typename?: 'File' } & Pick<File, 'id' | 'key' | 'fileName' | 'url'>>;
+        lastEditedBy?: Maybe<
+          { __typename?: 'LastUpdatedProfile' } & Pick<LastUpdatedProfile, 'id' | 'firstName' | 'lastName'>
+        >;
       }
   >;
 };
@@ -11452,10 +11547,14 @@ export type CrmListQuery = { __typename?: 'Query' } & {
           | 'dateUpdated'
           | 'completeness'
         > & {
-            partner?: Maybe<
-              { __typename?: 'LinkedCrm' } & Pick<LinkedCrm, 'id' | 'firstName' | 'lastName'> & {
-                  avatar?: Maybe<{ __typename?: 'File' } & Pick<File, 'url'>>;
+            partners?: Maybe<
+              Array<
+                { __typename?: 'CrmPartner' } & {
+                  partner: { __typename?: 'LinkedCrm' } & Pick<LinkedCrm, 'id' | 'firstName' | 'lastName'> & {
+                      avatar?: Maybe<{ __typename?: 'File' } & Pick<File, 'url'>>;
+                    };
                 }
+              >
             >;
             addresses?: Maybe<Array<{ __typename?: 'CrmAddress' } & Pick<CrmAddress, 'city'>>>;
             avatar?: Maybe<{ __typename?: 'File' } & Pick<File, 'url'>>;
@@ -11574,6 +11673,15 @@ export type GetLabelsQueryVariables = Exact<{
 
 export type GetLabelsQuery = { __typename?: 'Query' } & {
   getLabels?: Maybe<Array<{ __typename?: 'Label' } & Pick<Label, 'id' | 'property' | 'icon' | 'text'>>>;
+};
+
+export type GetCrmLabelsQueryVariables = Exact<{
+  id: Scalars['ID'];
+  properties?: Maybe<Array<LabelProperty>>;
+}>;
+
+export type GetCrmLabelsQuery = { __typename?: 'Query' } & {
+  getCrmLabels?: Maybe<Array<{ __typename?: 'Label' } & Pick<Label, 'id' | 'property' | 'icon' | 'text'>>>;
 };
 
 export type CountPimsByParamsQueryVariables = Exact<{
@@ -15298,6 +15406,7 @@ export const UpdateCrmContactInformationDocument = gql`
   mutation UpdateCrmContactInformation($input: UpdateCrmContactInformationInput!) {
     updateCrmContactInformation(input: $input) {
       id
+      contactInfoDescription
       addresses {
         type
         street
@@ -15327,6 +15436,13 @@ export const UpdateCrmContactInformationDocument = gql`
         type
         url
       }
+      dateCreated
+      lastEditedBy {
+        id
+        firstName
+        lastName
+      }
+      dateUpdated
     }
   }
 `;
@@ -15359,8 +15475,20 @@ export const UpdateCrmFamilyContactsDocument = gql`
       familyCompositionChildren
       familyCompositionAdults
       familyCompositionInformation
-      partner {
-        id
+      partners {
+        isDivorced
+        partner {
+          id
+          firstName
+          initials
+          lastName
+          email
+          avatar {
+            url
+          }
+          isPassedAway
+          dateOfDeath
+        }
       }
       contacts {
         type
@@ -15392,6 +15520,11 @@ export const CreateCrmDocument = gql`
   mutation CreateCrm($input: CreateCrmInput!) {
     createCrm(input: $input) {
       id
+      firstName
+      initials
+      lastName
+      dateCreated
+      completeness
     }
   }
 `;
@@ -15857,6 +15990,30 @@ export type AddLabelMutationResult = ApolloReactCommon.MutationResult<AddLabelMu
 export type AddLabelMutationOptions = ApolloReactCommon.BaseMutationOptions<
   AddLabelMutation,
   AddLabelMutationVariables
+>;
+export const AddCrmLabelDocument = gql`
+  mutation AddCrmLabel($input: LabelInput!) {
+    addCrmLabel(input: $input) {
+      id
+      property
+      text
+      icon
+    }
+  }
+`;
+export function useAddCrmLabelMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<AddCrmLabelMutation, AddCrmLabelMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<AddCrmLabelMutation, AddCrmLabelMutationVariables>(
+    AddCrmLabelDocument,
+    baseOptions,
+  );
+}
+export type AddCrmLabelMutationHookResult = ReturnType<typeof useAddCrmLabelMutation>;
+export type AddCrmLabelMutationResult = ApolloReactCommon.MutationResult<AddCrmLabelMutation>;
+export type AddCrmLabelMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  AddCrmLabelMutation,
+  AddCrmLabelMutationVariables
 >;
 export const AddMatchProfileDocument = gql`
   mutation AddMatchProfile($input: AddMatchProfileInput!) {
@@ -19589,7 +19746,9 @@ export const GetCrmContactInformationDocument = gql`
   query GetCrmContactInformation($id: ID!) {
     getCrmContactInformation(id: $id) {
       id
+      contactInfoDescription
       addresses {
+        id
         type
         street
         houseNumber
@@ -19602,12 +19761,14 @@ export const GetCrmContactInformationDocument = gql`
         note
       }
       emailAddresses {
+        id
         type
         email
         availableFrom
         note
       }
       phoneNumbers {
+        id
         type
         countryCode
         phoneNumber
@@ -19615,9 +19776,17 @@ export const GetCrmContactInformationDocument = gql`
         note
       }
       socialMedia {
+        id
         type
         url
       }
+      dateCreated
+      lastEditedBy {
+        id
+        firstName
+        lastName
+      }
+      dateUpdated
     }
   }
 `;
@@ -19659,14 +19828,19 @@ export const GetCrmFamilyContactsDocument = gql`
       familyCompositionChildren
       familyCompositionAdults
       familyCompositionInformation
-      partner {
-        id
-        firstName
-        initials
-        lastName
-        email
-        avatar {
-          url
+      partners {
+        isDivorced
+        partner {
+          id
+          firstName
+          initials
+          lastName
+          email
+          avatar {
+            url
+          }
+          isPassedAway
+          dateOfDeath
         }
       }
       contacts {
@@ -19736,6 +19910,14 @@ export const GetCrmGeneralDocument = gql`
         url
       }
       status
+      completeness
+      dateCreated
+      lastEditedBy {
+        id
+        firstName
+        lastName
+      }
+      dateUpdated
     }
   }
 `;
@@ -19821,12 +20003,14 @@ export const CrmListDocument = gql`
         familyCompositionChildren
         familyCompositionAdults
         currentHomeSituation
-        partner {
-          id
-          firstName
-          lastName
-          avatar {
-            url
+        partners {
+          partner {
+            id
+            firstName
+            lastName
+            avatar {
+              url
+            }
           }
         }
         phoneNumber
@@ -20157,6 +20341,32 @@ export function useGetLabelsLazyQuery(
 export type GetLabelsQueryHookResult = ReturnType<typeof useGetLabelsQuery>;
 export type GetLabelsLazyQueryHookResult = ReturnType<typeof useGetLabelsLazyQuery>;
 export type GetLabelsQueryResult = ApolloReactCommon.QueryResult<GetLabelsQuery, GetLabelsQueryVariables>;
+export const GetCrmLabelsDocument = gql`
+  query GetCrmLabels($id: ID!, $properties: [LabelProperty!]) {
+    getCrmLabels(parentId: $id, properties: $properties) {
+      id
+      property
+      icon
+      text
+    }
+  }
+`;
+export function useGetCrmLabelsQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<GetCrmLabelsQuery, GetCrmLabelsQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<GetCrmLabelsQuery, GetCrmLabelsQueryVariables>(GetCrmLabelsDocument, baseOptions);
+}
+export function useGetCrmLabelsLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetCrmLabelsQuery, GetCrmLabelsQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<GetCrmLabelsQuery, GetCrmLabelsQueryVariables>(
+    GetCrmLabelsDocument,
+    baseOptions,
+  );
+}
+export type GetCrmLabelsQueryHookResult = ReturnType<typeof useGetCrmLabelsQuery>;
+export type GetCrmLabelsLazyQueryHookResult = ReturnType<typeof useGetCrmLabelsLazyQuery>;
+export type GetCrmLabelsQueryResult = ApolloReactCommon.QueryResult<GetCrmLabelsQuery, GetCrmLabelsQueryVariables>;
 export const CountPimsByParamsDocument = gql`
   query CountPimsByParams($filters: ListPimsFilters) {
     listPims(filters: $filters) {

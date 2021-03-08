@@ -39,6 +39,9 @@ export type ListProps<T> = {
   bulkSubmitText?: string;
   isShowHeader?: boolean;
   listIndexHeader?: ReactNode;
+  hideArchive?: boolean;
+  hideDelete?: boolean;
+  hideBulkActions?: boolean;
 };
 
 export type ListHeaderProps = {
