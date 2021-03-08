@@ -4,9 +4,10 @@ import arrayMutators from 'final-form-arrays';
 
 import { useLocale } from 'hooks';
 import { Modal, SubmitButton } from 'ui/molecules';
-import { Button, DialogActions, DialogContent, Typography, Box, TileCheckbox } from 'ui/atoms';
+import { DialogActions, DialogContent, Typography, Box, TileCheckbox } from 'ui/atoms';
 import { AddIcon, BogIcon } from 'ui/atoms/icons';
 import { SearchList } from 'ui/organisms';
+import { CancelButton } from 'ui/molecules';
 
 import { useStyles } from './LinkPartnerModal.styles';
 import { LinkPartnerModalCrmListItem, LinkPartnerModalProps } from './LinkPartnerModal.types';
@@ -64,15 +65,15 @@ export const LinkPartnerModal = ({ isOpened, onClose, onSubmit, crmList }: LinkP
               </Field>
             </DialogContent>
             <DialogActions className={classes.actions}>
-              <Button color="ghost" size="small" onClick={onClose}>
+              <CancelButton variant="outlined" onClick={onClose}>
                 {formatMessage({ id: 'common.cancel' })}
-              </Button>
+              </CancelButton>
               <SubmitButton
                 startIcon={<AddIcon color="inherit" />}
                 type="submit"
                 size="large"
                 color="primary"
-                variant="outlined"
+                variant="contained"
               >
                 {formatMessage({ id: 'crm.relation.link_profile' })}
               </SubmitButton>
