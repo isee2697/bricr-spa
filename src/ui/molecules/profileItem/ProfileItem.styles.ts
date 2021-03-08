@@ -43,10 +43,6 @@ export const useStyles = makeStyles(theme => ({
       fill: theme.palette.red.main,
     },
   },
-  info: {
-    fontSize: theme.typography.h5.fontSize,
-    color: theme.palette.gray.main,
-  },
   chip: {
     backgroundColor: theme.palette.gray.main,
     color: theme.palette.white.main,

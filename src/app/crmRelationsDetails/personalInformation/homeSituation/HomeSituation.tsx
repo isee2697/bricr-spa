@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { Form } from 'react-final-form';
 
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { useEntityType } from 'app/shared/entityType';
-import { Grid, IconButton, NavBreadcrumb, Typography } from 'ui/atoms';
+import { Grid, NavBreadcrumb, Typography, Box } from 'ui/atoms';
 import { joinUrlParams } from 'routing/AppRoute.utils';
 import { Page } from 'ui/templates';
-import { HelpIcon, MenuIcon } from 'ui/atoms/icons';
+import { GenericField } from 'form/fields';
 
 import { useStyles } from './HomeSituation.styles';
 import { CurrentSituation } from './currentSituation/CurrentSituation';
@@ -17,6 +18,13 @@ export const HomeSituation = ({ data, onSave }: HomeSituationProps) => {
   const { formatMessage } = useLocale();
   const { baseUrl } = useEntityType();
   const urlParams = useParams();
+
+  const [aboutRelation, setAboutRelation] = useState<string>(localStorage.getItem('aboutRelation') || '');
+
+  const handleChangeAboutRelation = (text: string) => {
+    localStorage.setItem('aboutRelation', text);
+    setAboutRelation(text);
+  };
 
   return (
     <>
@@ -30,15 +38,23 @@ export const HomeSituation = ({ data, onSave }: HomeSituationProps) => {
           <Typography variant="h1" className={classes.title}>
             {formatMessage({ id: 'crm.details.personal_information_home_situation.title' })}
           </Typography>
-
-          <IconButton variant="rounded" size="small" onClick={() => {}} className={classes.marginRightTwo}>
-            <HelpIcon />
-          </IconButton>
-
-          <IconButton variant="rounded" size="small" onClick={() => {}}>
-            <MenuIcon />
-          </IconButton>
         </Grid>
+
+        <Box width="100%">
+          <Form onSubmit={() => {}}>
+            {({ handleSubmit, submitErrors, values }) => (
+              <form onSubmit={handleSubmit}>
+                <GenericField
+                  name="aboutRelation"
+                  placeholder={formatMessage({ id: 'crm.details.personal_information_home_situation.placeholder' })}
+                  value={aboutRelation}
+                  onChange={e => handleChangeAboutRelation(e.target.value)}
+                  fullWidth
+                />
+              </form>
+            )}
+          </Form>
+        </Box>
 
         <CurrentSituation data={data} onSave={onSave} />
       </Page>
