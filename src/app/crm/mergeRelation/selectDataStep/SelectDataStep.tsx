@@ -20,7 +20,7 @@ const fields: DataFieldType[] = [
   'city',
   'phoneNumber',
   'email',
-  'partner',
+  'partners',
 ];
 
 export const SelectDataStep = ({ onPrev, onNext, onUpdate, objects, results }: MergeDataStepProps) => {
@@ -30,8 +30,8 @@ export const SelectDataStep = ({ onPrev, onNext, onUpdate, objects, results }: M
   const [newCrm, setNewCrm] = useState<CrmDetailItem>(results.crm);
 
   const getField = (crm: CrmDetailItem, field: DataFieldType) => {
-    if (field === 'partner') {
-      return `${crm.partner?.firstName} ${crm.partner?.lastName}`;
+    if (field === 'partners') {
+      return `${crm.partners?.[0].partner.firstName} ${crm.partners?.[0].partner.lastName}`;
     } else if (
       field === 'street' ||
       field === 'houseNumber' ||
@@ -65,7 +65,14 @@ export const SelectDataStep = ({ onPrev, onNext, onUpdate, objects, results }: M
     ) {
       setNewCrm({ ...newCrm, [field]: updateCrm.address?.[field] });
     } else if (field === 'initials') {
-      setNewCrm({ ...newCrm, partner: { ...(newCrm.partner as LinkedCrm), initials: updateCrm.partner?.initials } });
+      setNewCrm({
+        ...newCrm,
+        partners:
+          newCrm.partners?.map(item => ({
+            ...item,
+            partner: { ...(item.partner as LinkedCrm), initials: updateCrm.partners?.[0].partner.initials },
+          })) || [],
+      });
     } else {
       setNewCrm({ ...newCrm, [field]: updateCrm[field] });
     }
