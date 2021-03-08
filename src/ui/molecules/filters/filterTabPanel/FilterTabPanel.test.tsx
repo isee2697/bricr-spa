@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { render, fireEvent } from 'tests';
+import { render } from 'tests';
 import { BuildingIcon } from '../../../atoms/icons';
 import { CheckboxGroupField } from '../../../../form/fields';
 
