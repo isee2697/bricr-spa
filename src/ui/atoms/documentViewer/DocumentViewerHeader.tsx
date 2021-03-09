@@ -1,6 +1,5 @@
 import { IHeaderOverride } from 'react-doc-viewer';
 import React from 'react';
-import { IMainState } from 'react-doc-viewer/build/state/reducer';
 
 import { Grid, IconButton, Typography } from 'ui/atoms/index';
 import { ArrowLeftIcon, ArrowRightIcon } from 'ui/atoms/icons';

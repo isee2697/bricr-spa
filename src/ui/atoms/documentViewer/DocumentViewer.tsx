@@ -1,5 +1,5 @@
 import React from 'react';
-import DocViewer, { DocViewerProps, DocViewerRenderers } from 'react-doc-viewer';
+import DocViewer, { DocViewerRenderers } from 'react-doc-viewer';
 
 import { DocumentViewerHeaderOverride } from 'ui/atoms/documentViewer/DocumentViewerHeader';
 
