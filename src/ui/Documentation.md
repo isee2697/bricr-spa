@@ -429,7 +429,10 @@ import {
   StatusIcon,
   PdfIcon,
   BenefitIcon,
+  ComplexHomeIcon,
   MobileIcon,
+  DivorcedIcon,
+  PassedAwayIcon,
 } from "./atoms/icons";
 import { useTheme } from "@material-ui/core/styles";
 import { Box } from "ui/atoms";
@@ -532,12 +535,19 @@ const wrapperStyle = {
     <LockRectangleIcon />
     <FollowUpRectangleIcon />
   </div>
-  <div style={ wrapperStyle }>
+  <br />
+  <div style={wrapperStyle}>
     <StatusIcon color="disabled" />
     <HelpIcon color="disabled" />
     <PdfIcon color="disabled" />
     <BenefitIcon color="disabled" />
+    <ComplexHomeIcon color="disabled" />
     <MobileIcon color="disabled" />
+  </div>
+  <br />
+  <div style={{ ...wrapperStyle, color: "orange" }}>
+    <DivorcedIcon color="inherit" />
+    <PassedAwayIcon color="inherit" />
   </div>
 </>;
 ```

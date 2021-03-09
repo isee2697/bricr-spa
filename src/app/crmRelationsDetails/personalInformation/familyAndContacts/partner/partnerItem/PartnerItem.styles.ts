@@ -1,6 +1,26 @@
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
 export const useStyles = makeStyles(theme => ({
+  inactive: {
+    mixBlendMode: 'luminosity',
+  },
+  chipWrapper: {
+    position: 'absolute',
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    bottom: theme.spacing(2),
+  },
+  inactiveChip: {
+    maxWidth: theme.spacing(15),
+    height: theme.spacing(3),
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    color: theme.palette.gray.main,
+    border: `1px solid ${theme.palette.gray.main}`,
+    background: theme.palette.white.main,
+  },
   image: {
     borderTopLeftRadius: theme.spacing(1),
     borderBottomLeftRadius: theme.spacing(1),
