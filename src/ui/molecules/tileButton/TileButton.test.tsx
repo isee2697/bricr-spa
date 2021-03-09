@@ -27,7 +27,12 @@ describe('TileButton', () => {
       <TileButton title={'Tile button'} onClick={onClick} className={'passedClassname'} isDisabled />,
     );
 
-    fireEvent.click(getByText('Tile button'));
+    const tileButton = getByText('Tile button');
+    const parent = tileButton.parentElement;
+
+    expect(parent).toBeTruthy();
+
+    fireEvent.click(parent!);
 
     expect(onClick).not.toBeCalled();
   });
