@@ -280,6 +280,7 @@ export type Mutation = {
   bulk: BulkOperationResult;
   bulkDeleteNotifications?: Maybe<Scalars['Boolean']>;
   bulkReadNotifications?: Maybe<Scalars['Boolean']>;
+  cloneMatchProfile?: Maybe<MatchProfile>;
   confirmAppointment: Appointment;
   confirmProfileInvite: Profile;
   createCompany: Company;
@@ -639,6 +640,10 @@ export type MutationBulkDeleteNotificationsArgs = {
 
 export type MutationBulkReadNotificationsArgs = {
   input: BulkReadNotificationsInput;
+};
+
+export type MutationCloneMatchProfileArgs = {
+  input: CloneMatchProfileInput;
 };
 
 export type MutationConfirmAppointmentArgs = {
@@ -3349,6 +3354,8 @@ export type MatchProfile = {
   exploitation?: Maybe<IntRange>;
   requirements?: Maybe<Array<MatchRequirement>>;
   locations?: Maybe<Array<MatchProfileLocation>>;
+  isActive: Scalars['Boolean'];
+  createdAt: Scalars['Date'];
 };
 
 export type MatchRevenueAndExploitation = {
@@ -3479,6 +3486,10 @@ export type AddMatchProfileInput = {
   locations?: Maybe<Array<MatchProfileLocationInput>>;
 };
 
+export type CloneMatchProfileInput = {
+  id: Scalars['ID'];
+};
+
 export type UpdateMatchProfileInput = {
   propertyType?: Maybe<MatchPropertyType>;
   startDate?: Maybe<Scalars['Date']>;
@@ -3499,6 +3510,7 @@ export type UpdateMatchProfileInput = {
   exploitation?: Maybe<IntRangeInput>;
   requirements?: Maybe<Array<MatchRequirementInput>>;
   locations?: Maybe<Array<MatchProfileLocationInput>>;
+  isActive?: Maybe<Scalars['Boolean']>;
 };
 
 export type MatchCharacteristicsInput = {
@@ -9649,6 +9661,110 @@ export type AddMatchProfileMutation = { __typename?: 'Mutation' } & {
       | 'conditions'
       | 'services'
       | 'tags'
+      | 'isActive'
+      | 'createdAt'
+    > & {
+        matchDuration?: Maybe<{ __typename?: 'MatchProfileDateRange' } & Pick<MatchProfileDateRange, 'from' | 'to'>>;
+        characteristics?: Maybe<
+          { __typename?: 'MatchCharacteristics' } & Pick<MatchCharacteristics, 'general'> & {
+              property?: Maybe<
+                { __typename?: 'MatchCharacteristicsProperty' } & Pick<
+                  MatchCharacteristicsProperty,
+                  | 'minAmountRooms'
+                  | 'minAmountBedrooms'
+                  | 'residentialLayerFrom'
+                  | 'residentialLayerTo'
+                  | 'constructionYearFrom'
+                  | 'constructionYearTo'
+                  | 'maintenanceQuality'
+                >
+              >;
+            }
+        >;
+        commercialCharacteristics?: Maybe<
+          { __typename?: 'MatchCommercialCharacteristics' } & Pick<MatchCommercialCharacteristics, 'general'> & {
+              property?: Maybe<
+                { __typename?: 'MatchCommercialCharacteristicsProperty' } & Pick<
+                  MatchCommercialCharacteristicsProperty,
+                  | 'minFreeHeight'
+                  | 'minFreeSpan'
+                  | 'minFloorLoad'
+                  | 'minAmountOfFloors'
+                  | 'minParkingLots'
+                  | 'engergyLabel'
+                  | 'constructionYearFrom'
+                  | 'constructionYearTo'
+                  | 'maintenanceQuality'
+                >
+              >;
+            }
+        >;
+        pricing?: Maybe<
+          { __typename?: 'MatchPricing' } & Pick<
+            MatchPricing,
+            'buyFrom' | 'buyTo' | 'rentFrom' | 'rentTo' | 'rentFrequency' | 'rentalPeriod' | 'preferredStartDate'
+          >
+        >;
+        outside?: Maybe<{ __typename?: 'MatchOutsidePricing' } & Pick<MatchOutsidePricing, 'minGarage'>>;
+        garden?: Maybe<
+          { __typename?: 'MatchGarden' } & Pick<
+            MatchGarden,
+            'situation' | 'outdoorSpacesMin' | 'outdoorSpacesMax' | 'volumeMin' | 'volumeMax'
+          >
+        >;
+        measurements?: Maybe<
+          { __typename?: 'MatchMeasurements' } & Pick<
+            MatchMeasurements,
+            | 'surfaceFromMin'
+            | 'surfaceToMin'
+            | 'livingAreaFromMin'
+            | 'livingAreaToMin'
+            | 'businessSpaceSurfaceFromMin'
+            | 'businessSpaceSurfaceToMin'
+            | 'practiceRoomSurfaceToMax'
+            | 'practiceRoomSurfaceToMin'
+            | 'plotSurfaceFromMin'
+            | 'plotSurfaceToMin'
+          >
+        >;
+        revenue?: Maybe<{ __typename?: 'IntRange' } & Pick<IntRange, 'from' | 'to'>>;
+        exploitation?: Maybe<{ __typename?: 'IntRange' } & Pick<IntRange, 'from' | 'to'>>;
+        requirements?: Maybe<Array<{ __typename?: 'MatchRequirement' } & Pick<MatchRequirement, 'key' | 'status'>>>;
+        locations?: Maybe<
+          Array<
+            { __typename?: 'MatchProfileLocation' } & Pick<
+              MatchProfileLocation,
+              'latitude' | 'longitude' | 'street' | 'houseNumber' | 'radius'
+            >
+          >
+        >;
+      }
+  >;
+};
+
+export type CloneMatchProfileMutationVariables = Exact<{
+  input: CloneMatchProfileInput;
+}>;
+
+export type CloneMatchProfileMutation = { __typename?: 'Mutation' } & {
+  cloneMatchProfile?: Maybe<
+    { __typename?: 'MatchProfile' } & Pick<
+      MatchProfile,
+      | 'id'
+      | 'crmId'
+      | 'companyId'
+      | 'propertyType'
+      | 'startDate'
+      | 'endDate'
+      | 'matchWith'
+      | 'description'
+      | 'estateType'
+      | 'commercialEstateType'
+      | 'conditions'
+      | 'services'
+      | 'tags'
+      | 'isActive'
+      | 'createdAt'
     > & {
         matchDuration?: Maybe<{ __typename?: 'MatchProfileDateRange' } & Pick<MatchProfileDateRange, 'from' | 'to'>>;
         characteristics?: Maybe<
@@ -9750,6 +9866,8 @@ export type UpdateMatchProfileMutation = { __typename?: 'Mutation' } & {
       | 'conditions'
       | 'services'
       | 'tags'
+      | 'isActive'
+      | 'createdAt'
     > & {
         matchDuration?: Maybe<{ __typename?: 'MatchProfileDateRange' } & Pick<MatchProfileDateRange, 'from' | 'to'>>;
         characteristics?: Maybe<
@@ -11798,6 +11916,8 @@ export type GetMatchProfileQuery = { __typename?: 'Query' } & {
       | 'conditions'
       | 'services'
       | 'tags'
+      | 'isActive'
+      | 'createdAt'
     > & {
         matchDuration?: Maybe<{ __typename?: 'MatchProfileDateRange' } & Pick<MatchProfileDateRange, 'from' | 'to'>>;
         characteristics?: Maybe<
@@ -11899,6 +12019,8 @@ export type ListMatchProfilesQuery = { __typename?: 'Query' } & {
         | 'conditions'
         | 'services'
         | 'tags'
+        | 'isActive'
+        | 'createdAt'
       > & {
           matchDuration?: Maybe<{ __typename?: 'MatchProfileDateRange' } & Pick<MatchProfileDateRange, 'from' | 'to'>>;
           characteristics?: Maybe<
@@ -16112,6 +16234,8 @@ export const AddMatchProfileDocument = gql`
         houseNumber
         radius
       }
+      isActive
+      createdAt
     }
   }
 `;
@@ -16128,6 +16252,122 @@ export type AddMatchProfileMutationResult = ApolloReactCommon.MutationResult<Add
 export type AddMatchProfileMutationOptions = ApolloReactCommon.BaseMutationOptions<
   AddMatchProfileMutation,
   AddMatchProfileMutationVariables
+>;
+export const CloneMatchProfileDocument = gql`
+  mutation CloneMatchProfile($input: CloneMatchProfileInput!) {
+    cloneMatchProfile(input: $input)
+      @rest(type: "CloneMatchResponse", path: "/clone-match", method: "POST", endpoint: "default") {
+      id
+      crmId
+      companyId
+      propertyType
+      startDate
+      endDate
+      matchDuration {
+        from
+        to
+      }
+      matchWith
+      description
+      estateType
+      commercialEstateType
+      characteristics {
+        general
+        property {
+          minAmountRooms
+          minAmountBedrooms
+          residentialLayerFrom
+          residentialLayerTo
+          constructionYearFrom
+          constructionYearTo
+          maintenanceQuality
+        }
+      }
+      commercialCharacteristics {
+        general
+        property {
+          minFreeHeight
+          minFreeSpan
+          minFloorLoad
+          minAmountOfFloors
+          minParkingLots
+          engergyLabel
+          constructionYearFrom
+          constructionYearTo
+          maintenanceQuality
+        }
+      }
+      pricing {
+        buyFrom
+        buyTo
+        rentFrom
+        rentTo
+        rentFrequency
+        rentalPeriod
+        preferredStartDate
+      }
+      outside {
+        minGarage
+      }
+      garden {
+        situation
+        outdoorSpacesMin
+        outdoorSpacesMax
+        volumeMin
+        volumeMax
+      }
+      conditions
+      services
+      tags
+      measurements {
+        surfaceFromMin
+        surfaceToMin
+        livingAreaFromMin
+        livingAreaToMin
+        businessSpaceSurfaceFromMin
+        businessSpaceSurfaceToMin
+        practiceRoomSurfaceToMax
+        practiceRoomSurfaceToMin
+        plotSurfaceFromMin
+        plotSurfaceToMin
+      }
+      revenue {
+        from
+        to
+      }
+      exploitation {
+        from
+        to
+      }
+      requirements {
+        key
+        status
+      }
+      locations {
+        latitude
+        longitude
+        street
+        houseNumber
+        radius
+      }
+      isActive
+      createdAt
+    }
+  }
+`;
+export function useCloneMatchProfileMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<CloneMatchProfileMutation, CloneMatchProfileMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<CloneMatchProfileMutation, CloneMatchProfileMutationVariables>(
+    CloneMatchProfileDocument,
+    baseOptions,
+  );
+}
+export type CloneMatchProfileMutationHookResult = ReturnType<typeof useCloneMatchProfileMutation>;
+export type CloneMatchProfileMutationResult = ApolloReactCommon.MutationResult<CloneMatchProfileMutation>;
+export type CloneMatchProfileMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  CloneMatchProfileMutation,
+  CloneMatchProfileMutationVariables
 >;
 export const UpdateMatchProfileDocument = gql`
   mutation UpdateMatchProfile($id: ID!, $input: UpdateMatchProfileInput!) {
@@ -16226,6 +16466,8 @@ export const UpdateMatchProfileDocument = gql`
         houseNumber
         radius
       }
+      isActive
+      createdAt
     }
   }
 `;
@@ -16244,14 +16486,14 @@ export type UpdateMatchProfileMutationOptions = ApolloReactCommon.BaseMutationOp
   UpdateMatchProfileMutationVariables
 >;
 export const DeleteMatchProfileDocument = gql`
-  mutation DeleteMatchProfile($id: ID!)
-    @rest(
-      type: "DeleteMatchProfileResponse"
-      path: "/delete-match?id={args.id}"
-      method: "DELETE"
-      endpoint: "default"
-    ) {
+  mutation DeleteMatchProfile($id: ID!) {
     deleteMatchProfile(id: $id)
+      @rest(
+        type: "DeleteMatchProfileResponse"
+        path: "/delete-match?id={args.id}"
+        method: "DELETE"
+        endpoint: "default"
+      )
   }
 `;
 export function useDeleteMatchProfileMutation(
@@ -20636,6 +20878,8 @@ export const GetMatchProfileDocument = gql`
         houseNumber
         radius
       }
+      isActive
+      createdAt
     }
   }
 `;
@@ -20763,6 +21007,8 @@ export const ListMatchProfilesDocument = gql`
         houseNumber
         radius
       }
+      isActive
+      createdAt
     }
   }
 `;

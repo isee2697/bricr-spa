@@ -7,6 +7,8 @@ import { useLocale } from 'hooks';
 import { Box, Grid } from 'ui/atoms';
 import { DatePickerField, DropdownField, GenericField, QuantityField } from 'form/fields';
 import { CharacteristicsMaintenanceQualityTypes } from '../dictionaries';
+import { numberValidator } from 'form/validators/numberValidator/numberValidator';
+import { dateValidator } from 'form/validators';
 
 export const CharacteristicsProperty = () => {
   const { formatMessage } = useLocale();
@@ -75,6 +77,7 @@ export const CharacteristicsProperty = () => {
           <Grid container spacing={1}>
             <Grid item xs={4}>
               <GenericField
+                validate={[numberValidator]}
                 name="characteristics.property.residentialLayerFrom"
                 label={formatMessage({
                   id: 'crm.details.personal_information_match_profile.characteristics_property.residential_layer_from',
@@ -85,6 +88,7 @@ export const CharacteristicsProperty = () => {
             </Grid>
             <Grid item xs={4}>
               <GenericField
+                validate={[numberValidator]}
                 name="characteristics.property.residentialLayerTo"
                 label={formatMessage({
                   id: 'crm.details.personal_information_match_profile.characteristics_property.residential_layer_to',
@@ -104,6 +108,7 @@ export const CharacteristicsProperty = () => {
           <Grid container spacing={1}>
             <Grid item xs={4}>
               <DatePickerField
+                validate={[dateValidator]}
                 name="characteristics.property.constructionYearFrom"
                 label={formatMessage({
                   id: 'crm.details.personal_information_match_profile.characteristics_property.construction_from',
@@ -113,6 +118,7 @@ export const CharacteristicsProperty = () => {
             </Grid>
             <Grid item xs={4}>
               <DatePickerField
+                validate={[dateValidator]}
                 name="characteristics.property.constructionYearTo"
                 label={formatMessage({
                   id: 'crm.details.personal_information_match_profile.characteristics_property.construction_to',

@@ -429,6 +429,7 @@ import {
   StatusIcon,
   ComplexHomeIcon,
   MobileIcon,
+  CompassIcon,
   DivorcedIcon,
   PassedAwayIcon,
 } from "./atoms/icons";
@@ -539,6 +540,7 @@ const wrapperStyle = {
     <HelpIcon color="disabled" />
     <ComplexHomeIcon color="disabled" />
     <MobileIcon color="disabled" />
+    <CompassIcon color="disabled" />
     <DivorcedIcon color="disabled" />
     <PassedAwayIcon color="disabled" />
   </div>
