@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 
 export type CardWithBodyProps = {
   titleId?: string;
-  titleNode?: ReactNode;
+  titleAmount?: number | string;
   titleActions?: ReactNode;
   children: ReactNode;
   bodyClass?: string;

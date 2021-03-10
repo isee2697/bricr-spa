@@ -1,16 +1,19 @@
-import React, { useState, ReactNode, useCallback } from 'react';
+import React, { ReactNode, useCallback, useState } from 'react';
 import { Typography } from '@material-ui/core';
 
 import { DmsFolderIcon } from 'app/dms/dmsPims/dmsFolders/dmsFolderIcon/DmsFolderIcon';
-import { Box, Grid, Card, CardHeader, CardContent, IconButton } from 'ui/atoms';
+import { Box, Card, CardContent, CardHeader, Grid, IconButton } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { PropertyItemPlaceholder, Search } from 'ui/molecules';
 import { DocumentListViewContainer } from '../documentListView/DocumentListViewContainer';
 import { DocumentFolderType } from '../Documents.types';
 import { CrmRelationsDetailsHeader } from 'app/crmRelationsDetails/crmRelationsDetailsHeader/CrmRelationsDetailsHeader';
-import { Page } from 'ui/templates';
+import { CardWithFileList, Page } from 'ui/templates';
 import { ArrowDownIcon, ArrowUpIcon } from 'ui/atoms/icons';
 import { DmsAddFolderDialog } from 'app/dms/dmsPims/dmsFolders/dmsAddFolderDialog/DmsAddFolderDialog';
+import { ListPimsFilters } from 'api/types';
+import { FileType, FileTypeView } from 'ui/templates/cards/cardWithFileList/CardWithFileList.types';
+import { EMAILS } from 'api/mocks/email';
 
 import { useStyles } from './DocumentFolders.styles';
 import { DocumentFoldersProps } from './DocumentFolders.types';
@@ -155,6 +158,16 @@ export const DocumentFolders = ({
                 documents={selectedFolder.documents}
                 path={path}
                 onUploadFiles={files => handleUploadFiles(selectedFolder, files)}
+              />
+              <CardWithFileList<ListPimsFilters>
+                onAdd={() => {}}
+                titleId={selectedFolder.name}
+                titleAmount={(selectedFolder.isEmailFolder ? EMAILS.length : selectedFolder.documents?.length) ?? 0}
+                view={selectedFolder.isEmailFolder ? FileTypeView.Email : FileTypeView.File}
+                files={
+                  (selectedFolder.isEmailFolder ? (EMAILS as FileType[]) : (selectedFolder.documents as FileType[])) ??
+                  []
+                }
               />
             </Box>
           )}

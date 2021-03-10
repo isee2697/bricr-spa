@@ -13,7 +13,7 @@ export const DocumentViewModal = ({
   const classes = useStyles();
 
   return (
-    <Modal title={'common.files.preview.title'} {...props} maxWidth="xl" fullWidth>
+    <Modal title={'common.files.preview.title'} {...props} maxWidth="lg" fullWidth>
       <DocumentViewer documents={documents} className={classes.viewer} />
     </Modal>
   );

@@ -9,4 +9,4 @@ export { PageWithList } from './page/CardPages/PageWithList';
 export { AutosaveCard } from './cards/autosaveCard/AutosaveCard';
 export { PageWithListsCard } from './page/PageWithListsCard/PageWithListsCard';
 export { CardWithBody } from './cards/cardWithBody/CardWithBody';
-// export { FileListCard } from './cards/fileListCard/FileListCard';
+export { CardWithFileList } from './cards/cardWithFileList/CardWithFileList';

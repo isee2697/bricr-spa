@@ -3,7 +3,7 @@ import { useHistory } from 'react-router';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 
-import { Box, Chip } from 'ui/atoms';
+import { Box } from 'ui/atoms';
 import { ListPimsFilters, PropertyType } from 'api/types';
 import { UploadModalField } from 'ui/organisms';
 import { useLocale } from 'hooks';
@@ -63,12 +63,8 @@ export const DocumentListViewContainer = ({
   return (
     <CardWithBody
       bodyClass={classes.listContainer}
-      titleNode={
-        <>
-          {folder.name}
-          <Chip size="small" label={documents?.length || 0} className={classes.documentsCount} />
-        </>
-      }
+      titleId={folder.name}
+      titleAmount={documents?.length ?? 0}
       titleActions={
         <ListViewTabs
           activeFilters={activeFilters}

@@ -413,7 +413,7 @@ export const CRM_DOCUMENT_FOLDERS: DocumentFolderType[] = [
       {
         id: '0001',
         name: 'Wojciech’s Drivers Licence',
-        image: 'https://www.africau.edu/images/default/sample.pdf',
+        uri: 'https://www.adobe.com/support/products/enterprise/knowledgecenter/media/c4611_sample_explain.pdf',
         dateCreated: DateTime.local(),
         stepsCompleted: [
           {
@@ -435,7 +435,7 @@ export const CRM_DOCUMENT_FOLDERS: DocumentFolderType[] = [
       {
         id: '0002',
         name: 'Wojciech’s Passport',
-        image: 'https://placeimg.com/104/152/arch',
+        uri: 'https://placeimg.com/104/152/arch',
         dateCreated: DateTime.local(),
         stepsCompleted: [
           {
@@ -453,7 +453,7 @@ export const CRM_DOCUMENT_FOLDERS: DocumentFolderType[] = [
       {
         id: '0003',
         name: 'Wojciech’s Drivers Licence',
-        image: 'https://bricr-ui-web.s3-eu-west-1.amazonaws.com/Test-word-doc.docx',
+        uri: 'https://bricr-ui-web.s3-eu-west-1.amazonaws.com/Test-word-doc.docx',
         dateCreated: DateTime.local(),
         stepsCompleted: [
           {
@@ -495,7 +495,7 @@ export const CRM_DOCUMENT_FOLDERS: DocumentFolderType[] = [
       {
         id: '0001',
         name: 'Wojciech’s Drivers Licence',
-        image: 'https://placeimg.com/104/152/arch',
+        uri: 'https://placeimg.com/104/152/arch',
         dateCreated: DateTime.local(),
         stepsCompleted: [
           {
@@ -523,7 +523,7 @@ export const CRM_DOCUMENTS: Document[] = [
   {
     id: '0001',
     name: 'Wojciech’s Drivers Licence',
-    image: 'https://placeimg.com/104/152/arch',
+    uri: 'https://placeimg.com/104/152/arch',
     dateCreated: DateTime.local(),
     stepsCompleted: [
       {
@@ -545,7 +545,7 @@ export const CRM_DOCUMENTS: Document[] = [
   {
     id: '0002',
     name: 'Wojciech’s Passport',
-    image: 'https://placeimg.com/104/152/arch',
+    uri: 'https://placeimg.com/104/152/arch',
     dateCreated: DateTime.local(),
     stepsCompleted: [
       {
@@ -563,7 +563,7 @@ export const CRM_DOCUMENTS: Document[] = [
   {
     id: '0003',
     name: 'Wojciech’s Drivers Licence',
-    image: 'https://placeimg.com/104/152/arch',
+    uri: 'https://placeimg.com/104/152/arch',
     dateCreated: DateTime.local(),
     stepsCompleted: [
       {
