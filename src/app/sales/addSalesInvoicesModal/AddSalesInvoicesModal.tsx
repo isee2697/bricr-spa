@@ -53,7 +53,7 @@ export const AddSalesInvoicesModal = ({ isOpened, onClose, onAddNewSalesLead }: 
           <GenericField name="firstName" label={formatMessage({ id: 'common.first_name' })} />
         </Grid>
         <Grid item xs={3}>
-          <GenericField name="insertion" label={formatMessage({ id: 'common.insertion' })} />
+          <GenericField name="initials" label={formatMessage({ id: 'common.initials' })} />
         </Grid>
         <Grid item xs={6}>
           <GenericField name="lastName" label={formatMessage({ id: 'common.last_name' })} />
@@ -72,7 +72,7 @@ export const AddSalesInvoicesModal = ({ isOpened, onClose, onAddNewSalesLead }: 
             <GenericField name="partnerFirstName" label={formatMessage({ id: 'common.first_name' })} />
           </Grid>
           <Grid item xs={3}>
-            <GenericField name="partnerInsertion" label={formatMessage({ id: 'common.insertion' })} />
+            <GenericField name="partnerInitials" label={formatMessage({ id: 'common.initials' })} />
           </Grid>
           <Grid item xs={6}>
             <GenericField name="partnerLastName" label={formatMessage({ id: 'common.last_name' })} />

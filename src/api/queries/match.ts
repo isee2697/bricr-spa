@@ -97,6 +97,8 @@ export const GET_MATCH_PROFILE = gql`
         houseNumber
         radius
       }
+      isActive
+      createdAt
     }
   }
 `;
@@ -203,6 +205,8 @@ export const LIST_MATCH_PROFILES = gql`
         houseNumber
         radius
       }
+      isActive
+      createdAt
     }
   }
 `;

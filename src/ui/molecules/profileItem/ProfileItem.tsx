@@ -1,8 +1,8 @@
 import React from 'react';
 import classNames from 'classnames';
 
-import { Avatar, Chip, Grid, Typography } from 'ui/atoms';
-import { MailIcon, MenuIcon, WarningIcon } from 'ui/atoms/icons';
+import { Avatar, Box, Chip, Grid, Typography } from 'ui/atoms';
+import { MailIcon, MenuIcon, PhoneIcon, WarningIcon } from 'ui/atoms/icons';
 
 import { ProfileItemProps } from './ProfileItem.types';
 import { useStyles } from './ProfileItem.styles';
@@ -19,13 +19,15 @@ export const ProfileItem = ({
   functionDescription,
   onClick,
   inActive,
+  hideMenuButton = false,
+  classes: passedClasses,
 }: ProfileItemProps) => {
   const classes = useStyles();
 
   return (
     <Grid className={classNames(classes.root, !!inActive && classes.inActive)} container spacing={3}>
       <Grid onClick={() => onClick && onClick()} className={classes.avatarContainer} item>
-        <Avatar className={classes.avatar} src={avatar} />
+        <Avatar className={classNames(classes.avatar, passedClasses?.avatar)} src={avatar} />
         {functionDescription && (
           <Chip
             className={classes.function}
@@ -46,14 +48,22 @@ export const ProfileItem = ({
         </Grid>
         <Grid className={classes.infoContainer} container alignItems="center">
           {phone && (
-            <>
-              <WarningIcon /> <Typography className={classes.info}>{phone}</Typography>
-            </>
+            <Box display="flex" alignItems="center" mr={4}>
+              <PhoneIcon />
+              <Box ml={0.5} />
+              <Typography variant="h5" color="textSecondary">
+                {phone}
+              </Typography>
+            </Box>
           )}
           {email && (
-            <>
-              <MailIcon /> <Typography className={classes.info}>{email}</Typography>
-            </>
+            <Box display="flex" alignItems="center">
+              <MailIcon />
+              <Box ml={0.5} />
+              <Typography variant="h5" color="textSecondary">
+                {email}
+              </Typography>
+            </Box>
           )}
         </Grid>
         <Grid container className={classes.infoContainer}>
@@ -74,9 +84,11 @@ export const ProfileItem = ({
           </Grid>
         )}
       </Grid>
-      <Grid xs={1} lg="auto" className={classes.right} item>
-        {button ?? <MenuIcon />}
-      </Grid>
+      {!hideMenuButton && (
+        <Grid xs={1} lg="auto" className={classes.right} item>
+          {button ?? <MenuIcon />}
+        </Grid>
+      )}
     </Grid>
   );
 };

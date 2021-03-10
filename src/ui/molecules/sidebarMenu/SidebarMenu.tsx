@@ -180,7 +180,7 @@ export const SidebarMenu = ({
               )}
             </Box>
 
-            <Scrollable width="100%" height={`calc(100vh - ${spacing(27)}px`}>
+            <Scrollable width="100%" height={`calc(100vh - ${spacing(33)}px`}>
               <SideMenu disablePadding>
                 {menu.groups.map((group, index) => (
                   <Box
