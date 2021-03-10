@@ -29,6 +29,6 @@ describe('ImageHolder', () => {
 
     const element = container.querySelector('.MuiGrid-root');
 
-    expect(element).toHaveStyle(`background-image: url("undefined")`);
+    expect(element).toHaveStyle(`background-image: url()`);
   });
 });
