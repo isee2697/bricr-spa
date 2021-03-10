@@ -40,6 +40,30 @@ export const DmsDetailsSidebarMenu = ({ onHide, isVisible, type, configureItems 
 
   window.addEventListener('resize', handleWindowResize);
 
+  const menu = [
+    {
+      key: 'general',
+      icon: <DocIcon color="inherit" />,
+      title: formatMessage({ id: 'dms.templates.general' }),
+    },
+    {
+      key: 'configureSettings',
+      icon: <TriggerIcon color="inherit" />,
+      title: formatMessage({ id: `dms.templates.configure_${type.toLowerCase()}` }),
+      configureItems,
+    },
+    {
+      key: 'security',
+      icon: <LockIcon color="inherit" />,
+      title: formatMessage({ id: 'dms.templates.security' }),
+    },
+    {
+      key: 'compose',
+      icon: <FilesIcon color="inherit" />,
+      title: formatMessage({ id: 'dms.templates.compose' }),
+    },
+  ];
+
   useEffect(() => {
     const timeout = setTimeout(() => {
       if (width !== ref?.current?.clientWidth) {
@@ -76,41 +100,24 @@ export const DmsDetailsSidebarMenu = ({ onHide, isVisible, type, configureItems 
 
             <Scrollable width="100%" height={`calc(100vh - ${spacing(33)}px`}>
               <SideMenu disablePadding>
-                <SideMenuItem
-                  icon={<DocIcon />}
-                  title={formatMessage({ id: 'dms.templates.general' })}
-                  selected={itemSelected('general')}
-                  className={classes.sideMenuItem}
-                  onClick={() => push(`${url}/general`)}
-                />
-                <>
-                  <SideMenuItem
-                    icon={<TriggerIcon />}
-                    title={formatMessage({ id: 'dms.templates.configure_settings' }, { type })}
-                    selected={itemSelected('configureSettings')}
-                    className={classes.sideMenuItem}
-                    onClick={() => push(`${url}/configureSettings`)}
-                    rightIcon={pathname.endsWith('/configureSettings') ? <ArrowUpIcon /> : <ArrowDownIcon />}
-                  />
-                  {!!pathname.endsWith('/configureSettings') && <Box ml={2}>{configureItems}</Box>}
-                </>
-                <SideMenuItem
-                  icon={<LockIcon />}
-                  title={formatMessage({ id: 'dms.templates.security' })}
-                  selected={itemSelected('security')}
-                  className={classes.sideMenuItem}
-                  onClick={() => push(`${url}/security`)}
-                />
-                <>
-                  <SideMenuItem
-                    icon={<FilesIcon />}
-                    title={formatMessage({ id: 'dms.templates.compose' })}
-                    selected={itemSelected('compose')}
-                    className={classes.sideMenuItem}
-                    onClick={() => push(`${url}/compose`)}
-                    rightIcon={pathname.endsWith('/compose') ? <ArrowUpIcon /> : <ArrowDownIcon />}
-                  />
-                </>
+                {menu.map(menuItem => (
+                  <>
+                    <SideMenuItem
+                      icon={menuItem.icon}
+                      title={menuItem.title}
+                      selected={itemSelected(menuItem.key)}
+                      className={classes.sideMenuItem}
+                      onClick={() => push(`${url}/${menuItem.key}`)}
+                      rightIcon={
+                        menuItem.configureItems &&
+                        (pathname.endsWith(menuItem.key) ? <ArrowUpIcon /> : <ArrowDownIcon />)
+                      }
+                    />
+                    {menuItem.configureItems && pathname.endsWith(menuItem.key) && (
+                      <Box ml={2}>{menuItem.configureItems}</Box>
+                    )}
+                  </>
+                ))}
               </SideMenu>
             </Scrollable>
           </div>
