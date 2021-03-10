@@ -8,7 +8,7 @@ import { PropertyItemPlaceholder, Search } from 'ui/molecules';
 import { DmsFolderIcon } from '../dmsFolderIcon/DmsFolderIcon';
 import { DmsFolderType } from 'app/dms/Dms.types';
 import { DmsListViewContainer } from '../dmsListView/DmsListViewContainer';
-import { DirectoryIcon } from 'ui/atoms/icons';
+import { FolderIcon } from 'ui/atoms/icons';
 import { DmsAddFolderDialog } from 'app/dms/dmsPims/dmsFolders/dmsAddFolderDialog/DmsAddFolderDialog';
 
 import { useStyles } from './DmsSecondaryFolder.styles';
@@ -67,7 +67,7 @@ export const DmsSecondaryFolder = ({ name, foldersData, isLoading, onAddFolder }
                 )
               }
             >
-              <DirectoryIcon id={'back_primary'} variant="primary" weight={2} className={classes.backBtn} />
+              <FolderIcon id={'back_primary'} variant="purple" weight={2} className={classes.backBtn} />
               <Box className={classes.backBtnIcon}>
                 <ArrowBack />
               </Box>

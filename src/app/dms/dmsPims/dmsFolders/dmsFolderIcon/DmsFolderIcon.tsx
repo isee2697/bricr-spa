@@ -2,14 +2,7 @@ import React, { useRef, useState, ReactNode, useEffect, useCallback } from 'reac
 import clsx from 'clsx';
 
 import { Badge, Box, Typography } from 'ui/atoms';
-import {
-  AddIcon,
-  CloseIcon,
-  DirectoryBorderedIcon,
-  DirectoryIcon,
-  DirectoryOpenedIcon,
-  FolderIcon,
-} from 'ui/atoms/icons';
+import { AddIcon, CloseIcon, DirectoryBorderedIcon, DirectoryOpenedIcon, FolderIcon } from 'ui/atoms/icons';
 import { ConfirmModal } from 'ui/molecules';
 import { ConfirmButtonType } from 'ui/molecules/confirmModal/ConfirmModal.types';
 import { useLocale } from 'hooks';
