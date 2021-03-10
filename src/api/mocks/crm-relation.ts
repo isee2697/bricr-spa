@@ -495,7 +495,7 @@ export const CRM_DOCUMENT_FOLDERS: DocumentFolderType[] = [
       {
         id: '0001',
         name: 'Wojciech’s Drivers Licence',
-        image: 'http://placeimg.com/104/152/arch',
+        image: 'https://placeimg.com/104/152/arch',
         dateCreated: DateTime.local(),
         stepsCompleted: [
           {
@@ -523,7 +523,7 @@ export const CRM_DOCUMENTS: Document[] = [
   {
     id: '0001',
     name: 'Wojciech’s Drivers Licence',
-    image: 'http://placeimg.com/104/152/arch',
+    image: 'https://placeimg.com/104/152/arch',
     dateCreated: DateTime.local(),
     stepsCompleted: [
       {
@@ -545,7 +545,7 @@ export const CRM_DOCUMENTS: Document[] = [
   {
     id: '0002',
     name: 'Wojciech’s Passport',
-    image: 'http://placeimg.com/104/152/arch',
+    image: 'https://placeimg.com/104/152/arch',
     dateCreated: DateTime.local(),
     stepsCompleted: [
       {
@@ -563,7 +563,7 @@ export const CRM_DOCUMENTS: Document[] = [
   {
     id: '0003',
     name: 'Wojciech’s Drivers Licence',
-    image: 'http://placeimg.com/104/152/arch',
+    image: 'https://placeimg.com/104/152/arch',
     dateCreated: DateTime.local(),
     stepsCompleted: [
       {

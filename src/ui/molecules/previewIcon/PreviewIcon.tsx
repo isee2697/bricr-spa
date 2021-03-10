@@ -29,7 +29,7 @@ export const PreviewIcon = ({ uri, onClick }: { uri: string; onClick?: VoidFunct
         anchorEl={anchorEl}
         anchorOrigin={{
           vertical: 'bottom',
-          horizontal: 'left',
+          horizontal: 'right',
         }}
         transformOrigin={{
           vertical: 'top',
