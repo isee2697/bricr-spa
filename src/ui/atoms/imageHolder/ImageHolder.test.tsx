@@ -23,4 +23,12 @@ describe('ImageHolder', () => {
 
     expect(elements[0]).toHaveStyle(`border: 1px ${palette.gray.main} solid`);
   });
+
+  it('render without uri', () => {
+    const { container } = render(<ImageHolder src={''} withBorder />);
+
+    const element = container.querySelector('.MuiGrid-root');
+
+    expect(element).toHaveStyle(`background-image: url("undefined")`);
+  });
 });
