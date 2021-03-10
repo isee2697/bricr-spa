@@ -10,6 +10,7 @@ import { ColumnModal, List, ListOptionsMenu, ListTableItem } from 'ui/molecules'
 import { useLocale } from 'hooks';
 import { UploadModalField } from 'ui/organisms';
 import { HeaderColumnItemType } from 'ui/molecules/columnModal/ColumnModal.types';
+import { ListTableCell } from 'ui/molecules/listTableItem/ListTableItem.types';
 
 import { FileTypeView, CardWithFileListProps, FileType } from './CardWithFileList.types';
 import { fileHeaderCells, renderCardListCell } from './CardWithFileList.helper';
@@ -23,6 +24,7 @@ export const CardWithFileList: <F>(p: CardWithFileListProps<F>) => React.ReactEl
   ...props
 }) => {
   const classes = useStyles();
+  const { formatMessage } = useLocale();
   const [headerCells, setHeaderCells] = useState(fileHeaderCells({ view }));
   const [activeFilters, setActiveFilters] = useState({});
   const [modalOpen, setModalOpen] = useState(false);
@@ -30,19 +32,18 @@ export const CardWithFileList: <F>(p: CardWithFileListProps<F>) => React.ReactEl
     headerCells.map(cell => ({ value: cell.field, hidden: !!cell.defaultHidden })),
   );
 
+  const activeHeaderCells = activeColumns
+    .map(column => headerCells.find(cell => column.value === cell.field && !column.hidden))
+    .filter(field => !!field) as ListTableCell<FileType>[];
+
   useEffect(() => {
     const cells = fileHeaderCells({ view });
     setHeaderCells(cells);
     setActiveColumns(cells.map(cell => ({ value: cell.field, hidden: !!cell.defaultHidden })));
   }, [view]);
 
-  const activeHeaderCells = headerCells.filter(
-    cell => !!activeColumns.find(column => column.value === cell.field && !column.hidden),
-  );
-  const { formatMessage } = useLocale();
-
   return (
-    <div key={view}>
+    <>
       <CardWithBody
         titleActions={
           files.length > 0 && (
@@ -134,6 +135,6 @@ export const CardWithFileList: <F>(p: CardWithFileListProps<F>) => React.ReactEl
         isOpened={modalOpen}
         onClose={() => setModalOpen(false)}
       />
-    </div>
+    </>
   );
 };
