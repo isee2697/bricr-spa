@@ -195,6 +195,14 @@ export const palette: PaletteOptions = {
     '500': blue500,
     '600': blue600,
   },
+  purpleGradients: {
+    '100': `linear-gradient(180deg, ${aqua100} 0%, ${aqua200} 50%, #364CE510 100%)`,
+    '200': purple,
+    '300': purple,
+    '400': purple,
+    '500': purple,
+    '600': purple,
+  },
   chartColors: {
     '100': '#40C4FF',
     '200': '#FF5252',
