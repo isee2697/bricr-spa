@@ -78,10 +78,6 @@ export const Dms = ({ dms, breadcrumbs, path, entityType }: DmsProps) => {
                 <Switch>
                   <Route path={`${path}/dashboard`} render={() => <DmsDashboard dms={dms} />} />
                   <Route path={`${path}/pim/:type`} render={() => <DmsPims dms={dms} />} />
-                  <Route path={`${path}/templates/:type`} render={() => <DmsTemplatesList />} />
-                  <Route exact path={`${path}/contentBlocks/:type`} render={() => <DmsContentBlocksContainer />} />
-                  <Route path={`${path}/contentBlocks/:type/:id`} render={() => <DmsContentBlockDetailsContainer />} />
-                  <Route path={`${path}/imageLibrary`} render={() => <DmsImageLibrary />} />
                   <Route
                     path={`${path}/templates/:type/:category/:id`}
                     render={() => (
@@ -93,6 +89,10 @@ export const Dms = ({ dms, breadcrumbs, path, entityType }: DmsProps) => {
                       />
                     )}
                   />
+                  <Route path={`${path}/templates/:type`} render={() => <DmsTemplatesList />} />
+                  <Route exact path={`${path}/contentBlocks/:type`} render={() => <DmsContentBlocksContainer />} />
+                  <Route path={`${path}/contentBlocks/:type/:id`} render={() => <DmsContentBlockDetailsContainer />} />
+                  <Route path={`${path}/imageLibrary`} render={() => <DmsImageLibrary />} />
                   <Redirect to={{ pathname: `${path}/dashboard`, state }} />
                 </Switch>
               )}
