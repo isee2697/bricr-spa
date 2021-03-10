@@ -7,7 +7,17 @@ import { ActionTabs, AdvancedSearch, SidebarMenu } from 'ui/molecules';
 import { Link, Typography, Box, Card, CardContent, Collapse, Grid, UserAvatar, Button, Avatar } from 'ui/atoms';
 import { SidebarMenuType } from 'ui/molecules/sidebarMenu/SidebarMenu.types';
 import { ActionTab } from 'ui/molecules/actionTabs/ActionTabs.types';
-import { AddIcon, ArrowDownIcon, ArrowUpIcon, AttachIcon, DashboardIcon } from 'ui/atoms/icons';
+import {
+  AddIcon,
+  ArrowDownIcon,
+  ArrowUpIcon,
+  AttachIcon,
+  DashboardIcon,
+  DocIcon,
+  FilesIcon,
+  LockIcon,
+  TriggerIcon,
+} from 'ui/atoms/icons';
 
 import {
   DmsDetailsSidebarMenuProps,
@@ -41,16 +51,25 @@ export const DmsDetailsSidebarMenu = ({
     groups: [
       {
         items: [
-          { key: 'general', hideIcon: true, title: `1. ${formatMessage({ id: 'dms.templates.general' })}` },
+          {
+            key: 'general',
+            icon: <DocIcon color="inherit" />,
+            title: formatMessage({ id: 'dms.templates.general' }),
+          },
           {
             key: 'configureSettings',
-            hideIcon: true,
-            title: `2. ${formatMessage({ id: 'dms.templates.configure_settings' })}`,
+            icon: <TriggerIcon color="inherit" />,
+            title: formatMessage({ id: 'dms.templates.configure_contract' }),
           },
           {
             key: 'editor',
-            hideIcon: true,
-            title: `3. ${formatMessage({ id: 'dms.templates.editor' })}`,
+            icon: <LockIcon color="inherit" />,
+            title: formatMessage({ id: 'dms.templates.security' }),
+          },
+          {
+            key: 'compose',
+            icon: <FilesIcon color="inherit" />,
+            title: formatMessage({ id: 'dms.templates.security' }),
           },
         ],
       },
