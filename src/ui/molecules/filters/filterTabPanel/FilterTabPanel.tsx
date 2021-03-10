@@ -3,13 +3,14 @@ import React, { useState } from 'react';
 import { useLocale } from 'hooks';
 import { Grid } from 'ui/atoms';
 import { useStyles } from '../Filters.styles';
-import { FilterTabPanelProps } from '../Filters.types';
+import { CheckboxDataType, FilterTabPanelProps } from '../Filters.types';
 import { SimpleSearch } from 'ui/molecules/simpleSearch/SimpleSearch';
 
 export const FilterTabPanel = ({
   children,
   activeTab,
   id,
+  options,
   filterType,
   onDeleteFilter,
   onSearch,
@@ -17,16 +18,21 @@ export const FilterTabPanel = ({
   const classes = useStyles();
   const { formatMessage } = useLocale();
   const [search, updateSearch] = useState('');
-
+  const [searchOptions] = useState<CheckboxDataType[] | undefined>(options);
   const handleLinkedSelector = async () => {};
 
   const handleSearch = (event: React.ChangeEvent<{ value: string }>) => {
     const { value } = event.target;
 
-    if (onSearch) {
-      onSearch(value);
-    }
     updateSearch(value);
+
+    if (options) {
+      const newOptions = [...options].filter((option: CheckboxDataType) => option.label.toLowerCase().includes(value));
+
+      if (onSearch) {
+        onSearch(newOptions.length > 0 && value.length > 0 ? newOptions : searchOptions);
+      }
+    }
   };
 
   return (

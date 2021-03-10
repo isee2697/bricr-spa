@@ -3,6 +3,7 @@ import { Redirect, Route, Switch, useLocation } from 'react-router-dom';
 
 import { Grid, Box } from 'ui/atoms';
 import { EntityTypeProvider } from 'app/shared/entityType';
+import { DmsDetailsSidebarMenu } from 'app/shared/dms/sideBarMenu/SideBarMenu';
 
 import { DmsProps } from './Dms.types';
 import { useStyles } from './Dms.styles';
@@ -12,7 +13,6 @@ import { DmsDashboard } from './dmsDashboard/DmsDashboard';
 import { DmsContentBlocksContainer } from './dmsContentBlocks/DmsContentBlocksContainer';
 import { DmsImageLibrary } from './dmsImageLibrary/DmsImageLibrary';
 import { DmsTemplateDetailsContainer } from './dmsTemplateDetails/DmsTemplateDetailsContainer';
-import { DmsDetailsSidebarMenu } from './dmsDetailsSidebarMenu/dmsDetailsSidebarMenu';
 import { DmsContentBlockDetailsContainer } from './dmsContentBlockDetails/DmsContentBlockDetailsContainer';
 import { DmsPims } from './dmsPims/DmsPims';
 import { DmsTemplatesList } from './dmsTemplates/DmsTemplatesList';
@@ -53,8 +53,8 @@ export const Dms = ({ dms, breadcrumbs, path, entityType }: DmsProps) => {
               <DmsDetailsSidebarMenu
                 onHide={handleSidebarHide}
                 isVisible={isSidebarVisible}
-                showImages={showImages}
-                showAttachments={showAttachments}
+                type={'LVZ'}
+                configureItems={<>LVZ</>}
               />
             )}
           />

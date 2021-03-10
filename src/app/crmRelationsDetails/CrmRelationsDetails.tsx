@@ -12,7 +12,6 @@ import { CrmRelationsDetailsSummary } from './crmRelationsDetailsSummary/CrmRela
 import { CrmRelationsDetailsTimeline } from './crmRelationsDetailsTimeline/CrmRelationsDetailsTimeline';
 import { CrmRelationsDetailsCustomerJourneyContainer } from './crmRelationsDetailsCustomerJourney/CrmRelationsDetailsCustomerJourneyContainer';
 import { FamilyAndContactsContainer } from './personalInformation/familyAndContacts/FamilyAndContactsContainer';
-import { FinancialProfile } from './personalInformation/financialProfile/FinancialProfile';
 import { HomeSituationContainer } from './personalInformation/homeSituation/HomeSituationContainer';
 import { PersonalInformationGeneralContainer } from './personalInformation/general/GeneralContainer';
 import { ContactInformationContainer } from './personalInformation/contactInformation/ContactInformationContainer';
@@ -28,6 +27,7 @@ import { AcquisitionsContainer } from './sales/acquisitions/AcquisitionsContaine
 import { QuotationsContainer } from './sales/quotations/QuotationsContainer';
 import { InvoicesContainer } from './sales/invoices/InvoicesContainer';
 import { OrdersContainer as SalesOrdersContainer } from './sales/orders/OrdersContainer';
+import { FinancialProfileContainer } from './personalInformation/financialProfile/FinancialProfileContainer';
 import { BrokersContainer } from './professionalContacts/brokers/BrokersContainer';
 import { NotaryContainer } from './professionalContacts/notary/NotaryContainer';
 import { PurchaseContainer } from './professionalContacts/purchase/PurchaseContainer';
@@ -140,7 +140,10 @@ export const CrmRelationsDetails = ({ crm, breadcrumbs, path, entityType }: CrmR
                     />
                   )}
                 />
-                <Route path={`${path}/personal_information_financial_profile`} render={() => <FinancialProfile />} />
+                <Route
+                  path={`${path}/personal_information_financial_profile`}
+                  render={() => <FinancialProfileContainer />}
+                />
                 <Route
                   path={`${path}/personal_information_business_contacts`}
                   render={() => (
