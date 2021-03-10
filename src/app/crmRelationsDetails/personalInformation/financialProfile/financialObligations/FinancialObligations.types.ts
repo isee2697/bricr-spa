@@ -1,4 +1,10 @@
-export type FinancialObligationsProps = {};
+import { CrmFinancial, FinancialObligationType, UpdateCrmFinancialInput } from 'api/types';
+import { PromiseFunction } from 'app/shared/types';
+
+export type FinancialObligationsProps = {
+  data?: CrmFinancial;
+  onSave: PromiseFunction<UpdateCrmFinancialInput>;
+};
 
 export type FinancialObligation = {
   type: FinancialObligationType;
@@ -30,10 +36,4 @@ export enum KindOfObligation {
   Alimony = 'Alimony',
   GroundLease = 'GroundLease',
   MortgageWithoutInterestDeduction = 'MortgageWithoutInterestDeduction',
-}
-
-export enum FinancialObligationType {
-  Obbl1 = 'Obbl1',
-  Obbl2 = 'Obbl2',
-  Obbl3 = 'Obbl3',
 }

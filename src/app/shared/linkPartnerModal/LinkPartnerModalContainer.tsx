@@ -20,7 +20,7 @@ export const LinkPartnerModalContainer = ({ onSubmit, type }: LinkPartnerModalCo
   const crmList = data?.crmList.items || [];
 
   const handleSubmit = async (input: LinkPartnerModalForm) => {
-    return onSubmit(input.partner?.[0] || null);
+    return onSubmit(input.partner || []);
   };
 
   return (

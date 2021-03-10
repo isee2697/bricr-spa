@@ -18,11 +18,18 @@ type LinkedCrm {
   email: String
   phoneNumber: String
   avatar: File
+  isPassedAway: Boolean
+  dateOfDeath: Date
 }
 
 type CrmContact {
     type: String!
     contact: LinkedCrm!
+}
+
+type CrmPartner {
+  isDivorced: Boolean
+  partner: LinkedCrm!
 }
 
 type CrmFamilyContacts {
@@ -33,7 +40,7 @@ type CrmFamilyContacts {
   familyCompositionChildren: Int
   familyCompositionAdults: Int
   familyCompositionInformation: String
-  partner: LinkedCrm
+  partners: [CrmPartner!]
   contacts: [CrmContact!]
 }
 
@@ -45,13 +52,20 @@ input UpdateCrmFamilyContactsInput {
   familyCompositionChildren: Int
   familyCompositionAdults: Int
   familyCompositionInformation: String
-  partnerId: ID
+  partners: [CrmPartnerInput!]
   contacts: [CrmContactInput!]
 }
 
 input CrmContactInput {
-    type: String!
-    contactId: ID!
+  type: String!
+  contactId: ID!
+}
+
+input CrmPartnerInput {
+  id: ID!
+  isDivorced: Boolean
+  isPassedAway: Boolean
+  dateOfDeath: Date
 }
 
 extend type Mutation {

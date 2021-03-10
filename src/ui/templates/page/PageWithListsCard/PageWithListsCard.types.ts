@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import { AnyObject } from 'react-final-form';
 
 import { ActionTabsProps } from 'ui/molecules/actionTabs/ActionTabs.types';
 import { ListProps } from 'ui/molecules/list/List.types';
@@ -17,21 +18,30 @@ export type ListView<T> = {
 };
 
 export type PageWithListsCardProps<V, A, F> = {
+  withoutHeader?: boolean;
   header: PageWithListsHeaderProps;
+  onSave?(values: unknown): Promise<undefined | { error: boolean }>;
+  initialValues?: AnyObject;
+  name?: string;
+  placeholder?: string;
   cardTitleId?: string;
   baseRoute?: AppRoute | string;
   isLoading: boolean;
+  formButtons?: ReactNode;
   views: ListView<V>[];
   filters?: ActiveFiltersProps<F> & {
     availableFilters: FiltersTypes[];
   };
-  actionTabs: ActionTabsProps<A>;
+  actionTabs?: ActionTabsProps<A>;
   list: Omit<ListProps<V>, 'renderItem' | 'listIndexHeader' | 'loading' | 'loadingItem'>;
+  isShowActionTabs?: boolean;
+  isShowItemCheckbox?: boolean;
   tableHeader?: {
     cells: ListTableCell<V>[];
     columns?: HeaderColumnItemType<V>[];
     setColumns?: (column: HeaderColumnItemType<V>[]) => void;
-    sortKey: keyof V;
+    sortKey: string;
+    onSort?: (cellKey: string) => void;
   };
   optionsMenu: Omit<ListOptionsMenuProps, 'onDeleteClick' | 'onEditClick' | 'children'> & {
     onDelete?: (item: V) => void;

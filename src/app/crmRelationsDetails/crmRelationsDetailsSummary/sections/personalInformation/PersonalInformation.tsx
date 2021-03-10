@@ -7,14 +7,14 @@ import { PersonalInformationProps } from './PersonalInformation.types';
 import { PersonalInformationItem } from './personalInformationItem/PersonalInformationItem';
 
 export const PersonalInformation = ({ crm }: PersonalInformationProps) => {
-  const { partner } = crm;
+  const { partners } = crm;
 
   return (
     <CardWithBody titleId={'crm.details.summary.personal_information'}>
       <PersonalInformationItem {...crm} />
-      {partner && (
+      {partners?.length && (
         <Box mt={2}>
-          <PersonalInformationItem {...partner} />
+          <PersonalInformationItem {...partners[0].partner} />
         </Box>
       )}
     </CardWithBody>
