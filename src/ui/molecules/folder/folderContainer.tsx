@@ -13,7 +13,7 @@ import { FolderContainerProps } from './folderContiner.types';
 export const FolderContainer = ({
   id,
   name,
-  type: defaultType,
+  type,
   childCount: defaultChildCount,
   isOpened,
   isAdd,
@@ -23,7 +23,7 @@ export const FolderContainer = ({
 }: FolderContainerProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
-  const type = 'purple';
+  const variant = type === 'primary' ? 'aqua' : 'purple';
   const childCount = defaultChildCount || 0;
   const [dialog, setDialog] = useState<ReactNode | null>(null);
   const [isRenaming, setIsRenaming] = useState(false);
@@ -115,7 +115,7 @@ export const FolderContainer = ({
           </>
         ) : (
           <>
-            <FolderIcon id={id + '_' + type} variant={type} weight={childCount} className={classes.icon} />
+            <FolderIcon id={id + '_' + type} variant={variant} weight={childCount} className={classes.icon} />
             <Box className={clsx(classes.iconBadge, type)}>{childCount || '-'}</Box>
           </>
         )}
