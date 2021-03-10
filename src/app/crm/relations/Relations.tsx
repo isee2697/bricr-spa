@@ -52,6 +52,8 @@ export const Relations = ({
     })),
   ]);
 
+  const [tableSortKey, setTableSortKey] = useState<string>('firstName_down');
+
   const changeHeaderCells = (headerCells: HeaderColumnItemType<CrmItem>[]) => {
     setMovableHeaderCells([...headerCells]);
     setHeaderCells([
@@ -93,7 +95,7 @@ export const Relations = ({
         baseRoute={AppRoute.crmRelationsDetails}
         header={{
           addButtonTextId: `crm.add.${CrmType.Relation}`,
-          onAdd: () => open('add-relation'),
+          onAdd: () => open('add-relation', { crmType: CrmType.Relation }),
           titleId: 'crm.title',
         }}
         cardTitleId={'crm.type.relations'}
@@ -105,10 +107,14 @@ export const Relations = ({
         }}
         actionTabs={{ tabs: createActionTabsDict(amounts), onStatusChange, status }}
         tableHeader={{
-          sortKey: 'firstName',
           cells: headerCells,
           columns: movableHeaderCells,
           setColumns: columns => changeHeaderCells(columns),
+          sortKey: tableSortKey,
+          onSort: (key: string) => {
+            setTableSortKey(key);
+            sorting.onSort?.(key);
+          },
         }}
         list={{
           className: 'crm-list',

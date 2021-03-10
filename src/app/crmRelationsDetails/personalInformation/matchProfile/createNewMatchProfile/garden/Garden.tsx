@@ -8,6 +8,7 @@ import { FormSection } from 'ui/organisms';
 import { CheckboxGroupField, GenericField } from 'form/fields';
 import { SquareMeterIcon } from 'ui/atoms/icons';
 import { GardenSituationTypes } from '../dictionaries';
+import { numberValidator } from 'form/validators/numberValidator/numberValidator';
 
 export const Garden = () => {
   const { formatMessage } = useLocale();
@@ -48,6 +49,7 @@ export const Garden = () => {
           <Grid container spacing={1}>
             <Grid item xs={4}>
               <GenericField
+                validate={[numberValidator]}
                 name="garden.outdoorSpacesMin"
                 label={formatMessage({
                   id: 'crm.details.personal_information_match_profile.garden.minimal_amount_of_outdoor_spaces',
@@ -58,6 +60,7 @@ export const Garden = () => {
             </Grid>
             <Grid item xs={4}>
               <GenericField
+                validate={[numberValidator]}
                 name="garden.volumeMin"
                 label={formatMessage({
                   id: 'crm.details.personal_information_match_profile.garden.minimal_volume',
@@ -69,6 +72,7 @@ export const Garden = () => {
             </Grid>
             <Grid item xs={4}>
               <GenericField
+                validate={[numberValidator]}
                 name="garden.volumeMax"
                 label={formatMessage({
                   id: 'crm.details.personal_information_match_profile.garden.maximal_volume',
