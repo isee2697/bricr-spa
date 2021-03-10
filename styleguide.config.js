@@ -32,6 +32,10 @@ module.exports = {
       name: 'Form Components',
       components: 'src/form/fields/**/*.tsx',
     },
+    {
+      name: 'Shared Components',
+      components: 'src/app/shared/**/*.tsx',
+    },
   ],
   template: {
     head: {
