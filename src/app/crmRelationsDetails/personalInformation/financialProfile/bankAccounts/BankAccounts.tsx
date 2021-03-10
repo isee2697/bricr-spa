@@ -30,13 +30,7 @@ export const BankAccounts = ({ data, onSave }: BankAccountsProps) => {
     try {
       await onSave({
         id,
-        bankAccounts: (data?.bankAccounts || []).map(item =>
-          JSON.parse(
-            JSON.stringify(item.id === values.id ? _.omit(values, ['title']) : item, (key, value) =>
-              value === null || key === '__typename' || key === 'id' ? undefined : value,
-            ),
-          ),
-        ),
+        bankAccounts: (data?.bankAccounts || []).map(bankAccount => _.omit(bankAccount, '__typename', 'id')),
       });
 
       return undefined;
