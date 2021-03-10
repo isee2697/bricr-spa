@@ -413,7 +413,7 @@ export const CRM_DOCUMENT_FOLDERS: DocumentFolderType[] = [
       {
         id: '0001',
         name: 'Wojciech’s Drivers Licence',
-        image: 'http://placeimg.com/104/152/arch',
+        image: 'http://www.africau.edu/images/default/sample.pdf',
         dateCreated: DateTime.local(),
         stepsCompleted: [
           {
@@ -447,13 +447,13 @@ export const CRM_DOCUMENT_FOLDERS: DocumentFolderType[] = [
             date: DateTime.local(),
           },
         ],
-        type: 'pdf',
+        type: 'jpg',
         size: 32000,
       },
       {
         id: '0003',
         name: 'Wojciech’s Drivers Licence',
-        image: 'http://placeimg.com/104/152/arch',
+        image: 'https://bricr-ui-web.s3-eu-west-1.amazonaws.com/Test-word-doc.docx',
         dateCreated: DateTime.local(),
         stepsCompleted: [
           {
