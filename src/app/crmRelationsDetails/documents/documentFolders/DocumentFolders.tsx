@@ -159,7 +159,7 @@ export const DocumentFolders = ({
                 path={path}
                 onUploadFiles={files => handleUploadFiles(selectedFolder, files)}
               />
-              <CardWithFileList<ListPimsFilters>
+              <CardWithFileList
                 onAdd={() => {}}
                 titleId={selectedFolder.name}
                 titleAmount={(selectedFolder.isEmailFolder ? EMAILS.length : selectedFolder.documents?.length) ?? 0}

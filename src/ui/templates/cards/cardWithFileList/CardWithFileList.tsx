@@ -16,13 +16,13 @@ import { FileTypeView, CardWithFileListProps, FileType } from './CardWithFileLis
 import { fileHeaderCells, renderCardListCell } from './CardWithFileList.helper';
 import { useStyles } from './CardWithFileList.styles';
 
-export const CardWithFileList: <F>(p: CardWithFileListProps<F>) => React.ReactElement<CardWithFileListProps<F>> = ({
+export const CardWithFileList = ({
   onAdd,
   view = FileTypeView.File,
   onUploadFiles,
   files,
   ...props
-}) => {
+}: CardWithFileListProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
   const [headerCells, setHeaderCells] = useState(fileHeaderCells({ view }));

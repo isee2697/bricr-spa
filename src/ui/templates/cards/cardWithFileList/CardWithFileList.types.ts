@@ -14,7 +14,7 @@ export type FileType = FileTypeBase & {
   preview?: string;
 };
 
-export type CardWithFileListProps<F> = Omit<CardWithBodyProps, 'children' | 'titleActions'> & {
+export type CardWithFileListProps = Omit<CardWithBodyProps, 'children' | 'titleActions'> & {
   disableUpload?: boolean;
   onAdd: VoidFunction;
   view?: FileTypeView;
