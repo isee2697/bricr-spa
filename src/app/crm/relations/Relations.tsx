@@ -95,7 +95,7 @@ export const Relations = ({
         baseRoute={AppRoute.crmRelationsDetails}
         header={{
           addButtonTextId: `crm.add.${CrmType.Relation}`,
-          onAdd: () => open('add-relation'),
+          onAdd: () => open('add-relation', { crmType: CrmType.Relation }),
           titleId: 'crm.title',
         }}
         cardTitleId={'crm.type.relations'}

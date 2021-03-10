@@ -431,6 +431,7 @@ import {
   BenefitIcon,
   ComplexHomeIcon,
   MobileIcon,
+  CompassIcon,
   DivorcedIcon,
   PassedAwayIcon,
 } from "./atoms/icons";
@@ -548,6 +549,7 @@ const wrapperStyle = {
   <div style={{ ...wrapperStyle, color: "orange" }}>
     <DivorcedIcon color="inherit" />
     <PassedAwayIcon color="inherit" />
+    <CompassIcon color="inherit" />
   </div>
 </>;
 ```

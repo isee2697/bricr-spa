@@ -180,6 +180,8 @@ type MatchProfile {
   exploitation: IntRange
   requirements: [MatchRequirement!]
   locations: [MatchProfileLocation!]
+  isActive: Boolean!
+  createdAt: Date!
 }
 
 type MatchRevenueAndExploitation {
@@ -298,6 +300,10 @@ input AddMatchProfileInput {
   locations: [MatchProfileLocationInput!]
 }
 
+input CloneMatchProfileInput {
+  id: ID!
+}
+
 input UpdateMatchProfileInput {
   propertyType: MatchPropertyType
   startDate: Date
@@ -318,6 +324,7 @@ input UpdateMatchProfileInput {
   exploitation: IntRangeInput
   requirements: [MatchRequirementInput!]
   locations: [MatchProfileLocationInput!]
+  isActive: Boolean
 }
 
 input MatchCharacteristicsInput {
@@ -414,6 +421,7 @@ input MatchRequirementInput {
 extend type Mutation {
   addMatchProfile(input: AddMatchProfileInput!): MatchProfile @auth
   updateMatchProfile(id: ID!, input: UpdateMatchProfileInput!): MatchProfile @auth
+  cloneMatchProfile(input: CloneMatchProfileInput!): MatchProfile @auth
   deleteMatchProfile(id: ID!): Boolean @auth
 }
 

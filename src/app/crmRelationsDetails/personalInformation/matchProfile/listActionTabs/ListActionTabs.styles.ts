@@ -27,4 +27,7 @@ export const useStyles = makeStyles(theme => ({
   badgeCount: {
     width: 'auto',
   },
+  fontWeightBold: {
+    fontWeight: theme.typography.fontWeightBold,
+  },
 }));
