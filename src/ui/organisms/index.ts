@@ -20,5 +20,5 @@ export { FormModal } from './formModal/FormModal';
 
 export { LocaleSwitch } from './localeSwitch/LocaleSwitch';
 export { AllDayPanel } from './calendar/allDayPanel/AllDayPanel';
-export { FileListCard } from './fileListCard/FileListCard';
+
 export * from './calendar';

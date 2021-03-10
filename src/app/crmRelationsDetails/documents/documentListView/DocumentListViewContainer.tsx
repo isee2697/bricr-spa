@@ -3,7 +3,7 @@ import { useHistory } from 'react-router';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 
-import { Box, Card, CardContent, CardHeader, Chip, Grid } from 'ui/atoms';
+import { Box, Chip } from 'ui/atoms';
 import { ListPimsFilters, PropertyType } from 'api/types';
 import { UploadModalField } from 'ui/organisms';
 import { useLocale } from 'hooks';
@@ -12,6 +12,7 @@ import { EmailTable } from 'app/email/emailTable/EmailTable';
 import { EMAILS } from 'api/mocks/email';
 import { ListHeader } from 'ui/molecules/list/listHeader/ListHeader';
 import { ListOptionsMenu } from 'ui/molecules';
+import { CardWithBody } from 'ui/templates';
 
 import { DocumentListViewContainerProps } from './DocumentListViewContainer.types';
 import { ListViewTabs } from './listViewTabs/ListViewTabs';
@@ -60,92 +61,88 @@ export const DocumentListViewContainer = ({
   };
 
   return (
-    <Grid item xs={12}>
-      <Card>
-        <CardHeader
-          title={
-            <>
-              {folder.name}
-              <Chip size="small" label={documents?.length || 0} className={classes.documentsCount} />
-            </>
-          }
-          action={
-            <ListViewTabs
-              activeFilters={activeFilters}
-              onFilter={handleFilterChange}
-              onAdd={handleUpload}
-              isExpanded={isExpanded}
-              onToggleExpand={() => setIsExpanded(!isExpanded)}
-            />
-          }
+    <CardWithBody
+      bodyClass={classes.listContainer}
+      titleNode={
+        <>
+          {folder.name}
+          <Chip size="small" label={documents?.length || 0} className={classes.documentsCount} />
+        </>
+      }
+      titleActions={
+        <ListViewTabs
+          activeFilters={activeFilters}
+          onFilter={handleFilterChange}
+          onAdd={handleUpload}
+          isExpanded={isExpanded}
+          onToggleExpand={() => setIsExpanded(!isExpanded)}
         />
-        <CardContent className={classes.listContainer}>
-          {isExpanded && (
-            <>
-              <ActiveFilters<ListPimsFilters> activeFilters={activeFilters} onDelete={handleFilterChange} />
-              <Box width="100%" display="flex" flexDirection="column" px={2} pt={2}>
-                <ListHeader
-                  sortOptions={[]}
-                  onSort={() => {}}
-                  checkedKeys={selectedDocs}
-                  checkAllStatus={{
-                    checked: documents?.length === selectedDocs.length,
-                    indeterminate: documents?.length !== selectedDocs.length && selectedDocs.length > 0,
+      }
+    >
+      {isExpanded && (
+        <>
+          <ActiveFilters<ListPimsFilters> activeFilters={activeFilters} onDelete={handleFilterChange} />
+          <Box width="100%" display="flex" flexDirection="column" px={2} pt={2}>
+            <ListHeader
+              sortOptions={[]}
+              onSort={() => {}}
+              checkedKeys={selectedDocs}
+              checkAllStatus={{
+                checked: documents?.length === selectedDocs.length,
+                indeterminate: documents?.length !== selectedDocs.length && selectedDocs.length > 0,
+              }}
+              onCheckAll={handleSelectAllDoc}
+              bulkComponent={
+                <Box ml={0.5} mr={1.5}>
+                  <ListOptionsMenu onEditClick={() => {}} onDeleteClick={() => {}} />
+                </Box>
+              }
+            />
+            {!folder.isEmailFolder && (
+              <>
+                <Box mt={1.5} />
+                <UploadModalField
+                  onFileParse={parsedFiles => {
+                    onUploadFiles(parsedFiles);
                   }}
-                  onCheckAll={handleSelectAllDoc}
-                  bulkComponent={
-                    <Box ml={0.5} mr={1.5}>
-                      <ListOptionsMenu onEditClick={() => {}} onDeleteClick={() => {}} />
-                    </Box>
+                  onSetError={() => {}}
+                  title={
+                    <>
+                      <strong>
+                        {formatMessage({
+                          id: 'crm.details.documents.add_documents',
+                        })}
+                      </strong>{' '}
+                      {formatMessage({
+                        id: 'upload_modal.or_drag_and_drop',
+                      })}
+                    </>
                   }
                 />
-                {!folder.isEmailFolder && (
-                  <>
-                    <Box mt={1.5} />
-                    <UploadModalField
-                      onFileParse={parsedFiles => {
-                        onUploadFiles(parsedFiles);
-                      }}
-                      onSetError={() => {}}
-                      title={
-                        <>
-                          <strong>
-                            {formatMessage({
-                              id: 'crm.details.documents.add_documents',
-                            })}
-                          </strong>{' '}
-                          {formatMessage({
-                            id: 'upload_modal.or_drag_and_drop',
-                          })}
-                        </>
-                      }
-                    />
-                  </>
-                )}
-                <Box mt={1} />
-                {folder.isEmailFolder ? (
-                  <DndProvider backend={HTML5Backend}>
-                    <EmailTable
-                      emails={EMAILS}
-                      checkedItems={selectedDocs}
-                      onCheckItem={handleSelectDoc}
-                      onCheckAllItems={handleSelectAllDoc}
-                    />
-                  </DndProvider>
-                ) : (
-                  <DocumentTableView
-                    documents={documents || []}
-                    onClick={handleNavigateDetail}
-                    selected={selectedDocs}
-                    onSelectDoc={handleSelectDoc}
-                    onSelectAllDoc={handleSelectAllDoc}
-                  />
-                )}
-              </Box>
-            </>
-          )}
-        </CardContent>
-      </Card>
-    </Grid>
+              </>
+            )}
+            <Box mt={1} />
+            {folder.isEmailFolder ? (
+              <DndProvider backend={HTML5Backend}>
+                <EmailTable
+                  emails={EMAILS}
+                  checkedItems={selectedDocs}
+                  onCheckItem={handleSelectDoc}
+                  onCheckAllItems={handleSelectAllDoc}
+                />
+              </DndProvider>
+            ) : (
+              <DocumentTableView
+                documents={documents || []}
+                onClick={handleNavigateDetail}
+                selected={selectedDocs}
+                onSelectDoc={handleSelectDoc}
+                onSelectAllDoc={handleSelectAllDoc}
+              />
+            )}
+          </Box>
+        </>
+      )}
+    </CardWithBody>
   );
 };

@@ -5,13 +5,20 @@ import { Card, CardContent, CardHeader } from 'ui/atoms';
 
 import { CardWithBodyProps } from './CardWithBody.types';
 
-export const CardWithBody = ({ titleId, titleActions, children }: CardWithBodyProps) => {
+export const CardWithBody = ({
+  titleId,
+  titleNode,
+  titleActions,
+  children,
+  bodyClass,
+  titleClass,
+}: CardWithBodyProps) => {
   const { formatMessage } = useLocale();
 
   return (
     <Card>
-      <CardHeader title={formatMessage({ id: titleId })} action={titleActions} />
-      <CardContent>{children}</CardContent>
+      <CardHeader className={titleClass} title={titleNode ?? formatMessage({ id: titleId })} action={titleActions} />
+      <CardContent className={bodyClass}>{children}</CardContent>
     </Card>
   );
 };
