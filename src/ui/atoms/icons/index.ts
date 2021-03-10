@@ -127,6 +127,8 @@ export * from './attach/AttachIcon';
 export * from './photoCamera/PhotoCameraIcon';
 export * from './roundBusinessCenter/RoundBusinessCenterIcon';
 export * from './phone/PhoneIcon';
+export * from './pdf/PdfIcon';
+export * from './benefit/BenefitIcon';
 export * from './compass/CompassIcon';
 export * from './tag/TagIcon';
 export * from './passedAway/PassedAwayIcon';

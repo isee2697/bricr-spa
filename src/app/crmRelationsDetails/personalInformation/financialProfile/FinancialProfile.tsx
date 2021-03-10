@@ -3,18 +3,16 @@ import { useParams } from 'react-router-dom';
 
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { useEntityType } from 'app/shared/entityType';
-import { Grid, IconButton, NavBreadcrumb, Typography } from 'ui/atoms';
+import { NavBreadcrumb } from 'ui/atoms';
 import { joinUrlParams } from 'routing/AppRoute.utils';
 import { Page } from 'ui/templates';
-import { HelpIcon, MenuIcon } from 'ui/atoms/icons';
 
-import { useStyles } from './FinancialProfile.styles';
 import { IncomeInformation } from './incomeInformation/IncomeInformation';
 import { BankAccounts } from './bankAccounts/BankAccounts';
-import { FinancialObligations } from './financialObligations/FInancialObligations';
+import { FinancialObligations } from './financialObligations/FinancialObligations';
+import { FinancialProfileProps } from './FinancialProfile.types';
 
-export const FinancialProfile = () => {
-  const classes = useStyles();
+export const FinancialProfile = ({ data, onSave }: FinancialProfileProps) => {
   const { formatMessage } = useLocale();
   const { baseUrl } = useEntityType();
   const urlParams = useParams();
@@ -26,24 +24,17 @@ export const FinancialProfile = () => {
         to="/personal_information_financial_profile"
         urlBase={joinUrlParams(baseUrl, urlParams)}
       />
-      <Page withoutHeader>
-        <Grid xs={12} item container className={classes.header}>
-          <Typography variant="h1" className={classes.title}>
-            {formatMessage({ id: 'crm.details.personal_information_financial_profile.title' })}
-          </Typography>
-
-          <IconButton variant="rounded" size="small" onClick={() => {}} className={classes.marginRightTwo}>
-            <HelpIcon />
-          </IconButton>
-
-          <IconButton variant="rounded" size="small" onClick={() => {}}>
-            <MenuIcon />
-          </IconButton>
-        </Grid>
-
-        <IncomeInformation />
-        <FinancialObligations />
-        <BankAccounts />
+      <Page
+        title={formatMessage({ id: 'crm.details.personal_information_financial_profile.title' })}
+        titleActions={<></>}
+        name="financialInfo"
+        initialValues={data}
+        placeholder="crm.details.personal_information_financial_profile.description_placeholder"
+        onSave={onSave}
+      >
+        <IncomeInformation data={data} onSave={onSave} />
+        <FinancialObligations data={data} onSave={onSave} />
+        <BankAccounts data={data} onSave={onSave} />
       </Page>
     </>
   );
