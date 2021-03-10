@@ -73,6 +73,7 @@ export type FilterTabPanelProps = {
   children: ReactNode;
   activeTab: number;
   id: number;
+  options?: CheckboxDataType[];
   onDeleteFilter?: () => void;
-  onSearch?: (value: string) => void;
+  onSearch?: (options: CheckboxDataType[] | undefined) => void;
 };
