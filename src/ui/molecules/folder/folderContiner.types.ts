@@ -1,6 +1,6 @@
 export type DmsFolderIconType = 'primary' | 'secondary';
 
-export type DmsFolderIconProps = {
+export type FolderContainerProps = {
   id: string;
   name: string;
   type?: DmsFolderIconType;

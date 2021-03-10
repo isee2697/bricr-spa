@@ -5,7 +5,7 @@ import { useHistory } from 'react-router-dom';
 import { Box, Grid, Card, CardHeader, CardContent } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { PropertyItemPlaceholder, Search } from 'ui/molecules';
-import { DmsFolderIcon } from '../dmsFolderIcon/DmsFolderIcon';
+import { FolderContainer } from '../../../../../ui/molecules/folder/folderContainer';
 import { DmsFolderType } from 'app/dms/Dms.types';
 import { DmsListViewContainer } from '../dmsListView/DmsListViewContainer';
 import { FolderIcon } from 'ui/atoms/icons';
@@ -94,7 +94,7 @@ export const DmsSecondaryFolder = ({ name, foldersData, isLoading, onAddFolder }
               ) : foldersData?.length ? (
                 foldersData.map((item, index) => (
                   <Grid item key={index} className={classes.listItem} xs={6} sm={4} lg={2}>
-                    <DmsFolderIcon
+                    <FolderContainer
                       id={item.id}
                       name={item.name}
                       childCount={item.documents?.length || 0}
@@ -108,7 +108,7 @@ export const DmsSecondaryFolder = ({ name, foldersData, isLoading, onAddFolder }
                 ))
               ) : null}
               <Grid item className={classes.listItem} xs={6} sm={4} lg={2}>
-                <DmsFolderIcon
+                <FolderContainer
                   id="add_folder"
                   name={formatMessage({ id: 'dms.documents.add_folder' })}
                   onClick={() => {

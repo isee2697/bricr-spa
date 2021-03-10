@@ -379,7 +379,7 @@ import {
   DashboardIcon,
   DocIcon,
   FilesIcon,
-  FolderIcon,
+  FolderContainer,
   GraphIcon,
   GraphArrowIcon,
   HelpIcon,
@@ -463,7 +463,7 @@ const wrapperStyle = {
   </div>
   <br />
   <div style={{ ...wrapperStyle, color: theme.palette.green.main }}>
-    <FolderIcon color="inherit" />
+    <FolderContainer color="inherit" />
     <GraphIcon color="inherit" />
     <GraphArrowIcon color="inherit" />
     <HourglassIcon color="inherit" />
