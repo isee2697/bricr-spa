@@ -24,4 +24,16 @@ describe('Modal', () => {
 
     expect(onClose).toHaveBeenCalled();
   });
+
+  test('invisible when isOpened false', () => {
+    const onClose = jest.fn();
+
+    const { queryByText } = render(
+      <Modal isOpened={false} title="Test Modal" onClose={onClose}>
+        Test Content
+      </Modal>,
+    );
+
+    expect(queryByText('Test Content')).toBeNull();
+  });
 });

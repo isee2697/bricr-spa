@@ -16,6 +16,10 @@ export const useStyles = (isTable?: boolean) =>
         fill: 'inherit',
       },
     },
+    inputField: {
+      marginBottom: spacing(2),
+      marginTop: 0,
+    },
     filters: {
       margin: spacing(-2, -2, 0, -2),
     },
@@ -49,7 +53,6 @@ export const useStyles = (isTable?: boolean) =>
     rowChecked: {
       background: `${palette.primary.main}08`,
     },
-
     rowItem: {
       width: '100%',
       cursor: 'pointer',

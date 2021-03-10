@@ -2,9 +2,9 @@ import React from 'react';
 
 import { useLocale, useModalDispatch } from 'hooks';
 import { SquareIcon } from 'ui/atoms/icons';
-import { BankAccountType } from '../bankAccounts/BankAccounts.types';
 import { FormModal } from 'ui/organisms';
 import { RadioGroupField } from 'form/fields';
+import { BankType } from 'api/types';
 
 import { AddNewBankAccountModalProps } from './AddNewBankAccountModal.types';
 
@@ -16,7 +16,7 @@ export const AddNewBankAccountModal = ({ isOpened, onSubmit }: AddNewBankAccount
     close('add-new-address');
   };
 
-  const bankAccountTypes = Object.keys(BankAccountType).map(bankAccountType => ({
+  const bankAccountTypes = Object.keys(BankType).map(bankAccountType => ({
     label: `dictionaries.financial_profile.bank_account_type.${bankAccountType}`,
     icon: <SquareIcon />,
     value: bankAccountType,
@@ -31,7 +31,7 @@ export const AddNewBankAccountModal = ({ isOpened, onSubmit }: AddNewBankAccount
         id: 'crm.details.personal_information_financial_profile.bank_accounts.add_new_bank_account.title',
       })}
     >
-      <RadioGroupField name="bankAccountType" options={bankAccountTypes} />
+      <RadioGroupField name="type" options={bankAccountTypes} />
     </FormModal>
   );
 };

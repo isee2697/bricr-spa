@@ -1,7 +1,13 @@
 import React, { useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { LabelInput, useAddLabelMutation, useAddNcpLabelMutation, useAddObjectTypeLabelMutation } from 'api/types';
+import {
+  LabelInput,
+  useAddLabelMutation,
+  useAddNcpLabelMutation,
+  useAddObjectTypeLabelMutation,
+  useAddCrmLabelMutation,
+} from 'api/types';
 import { EntityType } from 'app/shared/entityType';
 
 import { AddCustomPropertyModalContainerProps } from './AddCustomPropertyModal.types';
@@ -20,6 +26,7 @@ export const AddCustomPropertyModalContainer = ({
   const [addLabel] = useAddLabelMutation({ refetchQueries: ['GetLabels'] });
   const [addNcpLabel] = useAddNcpLabelMutation({ refetchQueries: ['GetNcpLabels'] });
   const [addObjectTypeLabel] = useAddObjectTypeLabelMutation({ refetchQueries: ['GetObjectTypeLabels'] });
+  const [addCrmLabel] = useAddCrmLabelMutation({ refetchQueries: ['GetCrmLabels'] });
 
   const handleSubmit = useCallback(
     async (input: Pick<LabelInput, 'text' | 'icon'>) => {
@@ -75,9 +82,25 @@ export const AddCustomPropertyModalContainer = ({
         }
       }
 
+      if (entityType === EntityType.CrmRelations) {
+        const { errors, data } = await addCrmLabel({
+          variables: {
+            input: {
+              ...input,
+              parentId: id,
+              property,
+            },
+          },
+        });
+
+        if (errors || !data?.addCrmLabel) {
+          throw new Error();
+        }
+      }
+
       onClose();
     },
-    [entityType, onClose, addLabel, id, property, addNcpLabel, addObjectTypeLabel],
+    [entityType, onClose, addLabel, addCrmLabel, id, property, addNcpLabel, addObjectTypeLabel],
   );
 
   return (
