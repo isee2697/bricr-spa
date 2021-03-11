@@ -2,9 +2,9 @@ import React, { useCallback, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 
 import { useLocale } from 'hooks';
-import { Box, Card, CardContent, CardHeader, Grid, IconButton, NavBreadcrumb } from 'ui/atoms';
+import { Box, Grid, IconButton, NavBreadcrumb } from 'ui/atoms';
 import { joinUrlParams } from 'routing/AppRoute.utils';
-import { Page } from 'ui/templates';
+import { CardWithBody, Page } from 'ui/templates';
 import { CrmRelationsDetailsHeader } from 'app/crmRelationsDetails/crmRelationsDetailsHeader/CrmRelationsDetailsHeader';
 import { ExitIcon } from 'ui/atoms/icons';
 import { AppRoute } from 'routing/AppRoute.enum';
@@ -71,21 +71,14 @@ export const MarketingSurveyDetails = ({ path, data, breadcrumbs }: MarketingSur
             />
             <Page title={name} titleActions={<></>}>
               {data.steps[currentStep] && (
-                <Card>
-                  <CardHeader
-                    title={formatMessage({
-                      id: `dictionaries.marketing_survey_step_type.${data.steps[currentStep].type}`,
-                    })}
-                  />
-                  <CardContent>
-                    {data.steps[currentStep].type === MarketingSurveyDetailsStepType.General && (
-                      <General data={data.steps[currentStep]} />
-                    )}
-                    {data.steps[currentStep].type === MarketingSurveyDetailsStepType.Branding && (
-                      <Branding data={data.steps[currentStep]} />
-                    )}
-                  </CardContent>
-                </Card>
+                <CardWithBody titleId={`dictionaries.marketing_survey_step_type.${data.steps[currentStep].type}`}>
+                  {data.steps[currentStep].type === MarketingSurveyDetailsStepType.General && (
+                    <General data={data.steps[currentStep]} />
+                  )}
+                  {data.steps[currentStep].type === MarketingSurveyDetailsStepType.Branding && (
+                    <Branding data={data.steps[currentStep]} />
+                  )}
+                </CardWithBody>
               )}
             </Page>
           </Box>
