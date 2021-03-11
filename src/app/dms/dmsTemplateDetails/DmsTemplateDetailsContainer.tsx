@@ -6,9 +6,10 @@ import { Loader, NavBreadcrumb } from 'ui/atoms';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { Templates } from 'api/mocks/dms';
 import { GeneralPageSettings } from 'app/shared/dms/generalPageSettings/GeneralPageSettings';
+import { Security } from 'app/shared/dms/security/Security';
+import { DMS_TEMPLATE_RIGHTS as documentRightsMockData } from 'api/mocks/dms-templates';
 
 import { DmsTemplateConfigureSettingsDetails } from './dmsTemplateConfigureSettingsDetails/DmsTemplateConfigureSettingsDetails';
-import { DmsTemplateEditor } from './dmsTemplateEditor/DmsTemplateEditor';
 import { DmsTemplateDetailsContainerProps, DocumentType } from './DmsTemplateDetailsContainer.types';
 
 export const DmsTemplateDetailsContainer = (props: DmsTemplateDetailsContainerProps) => {
@@ -21,6 +22,10 @@ export const DmsTemplateDetailsContainer = (props: DmsTemplateDetailsContainerPr
   }
 
   const handleSubmit = async () => {
+    return undefined;
+  };
+
+  const handleSave = async () => {
     return undefined;
   };
 
@@ -39,8 +44,8 @@ export const DmsTemplateDetailsContainer = (props: DmsTemplateDetailsContainerPr
           render={() => <DmsTemplateConfigureSettingsDetails template={data} />}
         />
         <Route
-          path={`${AppRoute.dms}/templates/:type/:category/${id}/editor`}
-          render={() => <DmsTemplateEditor template={data} {...props} />}
+          path={`${AppRoute.dms}/templates/:type/:category/${id}/security`}
+          render={() => <Security title={data.name} onSave={handleSave} data={documentRightsMockData} />}
         />
         <Redirect to={`${AppRoute.dms}/templates/:type/:category/${id}/general`} />
       </Switch>
