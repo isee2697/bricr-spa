@@ -54,6 +54,13 @@ export const DmsTemplates = ({ templates, onAdd, onUpdate, category }: DmsTempla
     });
   };
 
+  const handleAdd = async (values: { name: string }) => {
+    setModalVisible(false);
+    await onAdd(values);
+
+    return undefined;
+  };
+
   return (
     <Box flex={1}>
       <Grid container spacing={3}>
@@ -169,7 +176,7 @@ export const DmsTemplates = ({ templates, onAdd, onUpdate, category }: DmsTempla
         </Grid>
       </Grid>
       {isModalVisible && (
-        <DmsAddTemplateDialog isOpened={isModalVisible} onClose={() => setModalVisible(false)} onSubmit={onAdd} />
+        <DmsAddTemplateDialog isOpened={isModalVisible} onClose={() => setModalVisible(false)} onSubmit={handleAdd} />
       )}
     </Box>
   );

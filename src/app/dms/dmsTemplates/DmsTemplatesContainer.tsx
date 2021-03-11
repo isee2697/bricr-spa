@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useHistory, useLocation } from 'react-router';
 
 import { Templates } from 'api/mocks/dms';
 
@@ -8,8 +9,12 @@ import { DmsTemplatesContainerProps } from './DmsTemplatesContainer.types';
 
 export const DmsTemplatesContainer = ({ category }: DmsTemplatesContainerProps) => {
   const [templates, setTemplates] = useState<DmsTemplateItem[]>(Templates);
+  const { push } = useHistory();
+  const { pathname } = useLocation();
 
   const handleAddTemplate = async () => {
+    push(`${pathname}/${Templates[0].id}/general`);
+
     return undefined;
   };
 
