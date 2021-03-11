@@ -1,11 +1,11 @@
 import React from 'react';
 
+import { ActionFunctionObject, FileType } from '../CardWithTable.types';
 import { Box, MenuItem } from 'ui/atoms';
 import { useLocale } from 'hooks';
-import { ActionFunctionObject, FileType } from 'ui/templates/cards/cardWithFileList/CardWithFileList.types';
 import { ListOptionsMenu } from 'ui/molecules';
 
-export const CardWithFileListActions: <F extends FileType>(p: {
+export const CardWithTableActions: <F extends FileType>(p: {
   actions: ActionFunctionObject<F>;
   item: F;
 }) => React.ReactElement<{ actions: ActionFunctionObject<F>; item: F }> = ({ actions, item }) => {

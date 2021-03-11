@@ -23,7 +23,7 @@ export const ListTableItem: <T>(p: ListTableItemProps<T>) => ReactElement<ListTa
   const width = `${100 / (headerCells.length + 1)}%`;
 
   return (
-    <Box className={className} display="flex" alignItems="center" pt={1} pb={1} pr={2}>
+    <Box data-testid="list-table-item" className={className} display="flex" alignItems="center" pt={1} pb={1} pr={2}>
       <Box flexGrow={1} display="flex">
         {headerCells.map((cell, index) => {
           const label = isHeader ? cell.label : renderCell?.(cell.field, item);

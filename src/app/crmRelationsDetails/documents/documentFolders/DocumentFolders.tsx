@@ -1,16 +1,16 @@
 import React, { ReactNode, useCallback, useState } from 'react';
 import { Typography } from '@material-ui/core';
 
+import { FileType, FileTypeView } from 'ui/templates/cards/cardWithTable/CardWithTable.types';
 import { DmsFolderIcon } from 'app/dms/dmsPims/dmsFolders/dmsFolderIcon/DmsFolderIcon';
 import { Box, Card, CardContent, CardHeader, Grid, IconButton } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { PropertyItemPlaceholder, Search } from 'ui/molecules';
 import { DocumentFolderType } from '../Documents.types';
 import { CrmRelationsDetailsHeader } from 'app/crmRelationsDetails/crmRelationsDetailsHeader/CrmRelationsDetailsHeader';
-import { CardWithFileList, Page } from 'ui/templates';
+import { CardWithTable, Page } from 'ui/templates';
 import { ArrowDownIcon, ArrowUpIcon, ClockIcon, HomeIcon } from 'ui/atoms/icons';
 import { DmsAddFolderDialog } from 'app/dms/dmsPims/dmsFolders/dmsAddFolderDialog/DmsAddFolderDialog';
-import { FileType, FileTypeView } from 'ui/templates/cards/cardWithFileList/CardWithFileList.types';
 import { EMAILS } from 'api/mocks/email';
 
 import { useStyles } from './DocumentFolders.styles';
@@ -162,7 +162,7 @@ export const DocumentFolders = ({
 
           {selectedFolder && (
             <Box mt={3.5}>
-              <CardWithFileList<FileType>
+              <CardWithTable<FileType>
                 onAdd={() => {}}
                 titleId={selectedFolder.name}
                 titleAmount={(selectedFolder.isEmailFolder ? EMAILS.length : selectedFolder.documents?.length) ?? 0}

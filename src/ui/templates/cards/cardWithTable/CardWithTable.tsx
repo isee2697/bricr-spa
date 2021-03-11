@@ -9,15 +9,15 @@ import { ActiveFilters, hasActiveFilters } from 'ui/molecules/filters/activeFilt
 import { List, ListTableItem } from 'ui/molecules';
 import { useLocale } from 'hooks';
 import { UploadModalField } from 'ui/organisms';
-import { CardListViewModals } from 'ui/templates/cards/cardWithFileList/modals/CardListViewModals';
 import { AppRoute } from 'routing/AppRoute.enum';
-import { CardWithFileListActions } from 'ui/templates/cards/cardWithFileList/actions/CardWithfileListActions';
 
-import { CardWithFileListProps, FileType, FileTypeView } from './CardWithFileList.types';
-import { renderCardListCell, useCardWithListState } from './CardWithFileList.helper';
-import { useStyles } from './CardWithFileList.styles';
+import { CardWithTableActions } from './actions/CardWithTableActions';
+import { CardTableModals } from './modals/CardTableModals';
+import { CardWithFileListProps, FileType, FileTypeView } from './CardWithTable.types';
+import { renderCardListCell, useCardWithTableState } from './CardWithTable.helper';
+import { useStyles } from './CardWithTable.styles';
 
-export const CardWithFileList: <F extends FileType>(
+export const CardWithTable: <F extends FileType>(
   p: CardWithFileListProps<F>,
 ) => React.ReactElement<CardWithFileListProps<F>> = ({
   onAdd,
@@ -43,7 +43,7 @@ export const CardWithFileList: <F extends FileType>(
     isPreviewModalOpen,
     setUploadModalOpen,
     isUploadModalOpen,
-  } = useCardWithListState(view);
+  } = useCardWithTableState(view);
 
   return (
     <>
@@ -120,7 +120,7 @@ export const CardWithFileList: <F extends FileType>(
                     item={item}
                   />
                 </Box>
-                <CardWithFileListActions item={item} actions={actions} />
+                <CardWithTableActions item={item} actions={actions} />
               </Box>
             )}
           />
@@ -128,7 +128,7 @@ export const CardWithFileList: <F extends FileType>(
           <Typography>{formatMessage({ id: 'files.details.no.files.upload.title' })}</Typography>
         )}
       </CardWithBody>
-      <CardListViewModals
+      <CardTableModals
         columns={{
           columns: activeColumns ?? [],
           onApply: setActiveColumns,

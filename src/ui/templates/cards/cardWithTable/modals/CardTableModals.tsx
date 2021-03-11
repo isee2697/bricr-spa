@@ -1,12 +1,12 @@
 import React from 'react';
 
 import { ColumnModal, DocumentViewModal } from 'ui/molecules';
-import { FileType } from 'ui/templates/cards/cardWithFileList/CardWithFileList.types';
+import { FileType } from '../CardWithTable.types';
 import { UploadModal } from 'ui/organisms';
 
-import { CardListViewModalsProps } from './CardListViewModals.types';
+import { CardListViewModalsProps } from './CardTableModals.types';
 
-export const CardListViewModals = ({ viewer, columns, upload }: CardListViewModalsProps) => {
+export const CardTableModals = ({ viewer, columns, upload }: CardListViewModalsProps) => {
   return (
     <>
       <ColumnModal<FileType>

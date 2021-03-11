@@ -1,7 +1,7 @@
 import { IDocument } from 'react-doc-viewer/build/types';
 
 import { HeaderColumnItemType } from 'ui/molecules/columnModal/ColumnModal.types';
-import { FileType } from '../CardWithFileList.types';
+import { FileType } from '../CardWithTable.types';
 
 type ModalListProps = {
   isOpened: boolean;

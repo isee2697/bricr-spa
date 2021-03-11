@@ -1,15 +1,15 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { DateTime } from 'luxon';
 
-import { FileTypeView, FileType } from 'ui/templates/cards/cardWithFileList/CardWithFileList.types';
 import { PreviewIcon } from 'ui/molecules';
 import { Chip, Typography, Box, UserAvatar } from 'ui/atoms';
 import { ListTableCell } from 'ui/molecules/listTableItem/ListTableItem.types';
 import { LinkIcon, PinIcon } from 'ui/atoms/icons';
 import { HeaderColumnItemType } from 'ui/molecules/columnModal/ColumnModal.types';
-import { EmailFilters, FileFilters } from 'ui/templates/cards/cardWithFileList/Dictionary';
 
-import { FileHeaderProps } from './CardWithFileList.types';
+import { EmailFilters, FileFilters } from './Dictionary';
+import { FileTypeView, FileType } from './CardWithTable.types';
+import { FileHeaderProps } from './CardWithTable.types';
 
 const filesPreviewClassName = 'files-previewer';
 
@@ -140,7 +140,7 @@ const getFiltersForView = (view: FileTypeView) => (view === FileTypeView.File ? 
 const mapCellsToColumns = (cells: ListTableCell<FileType>[]): HeaderColumnItemType<FileType>[] =>
   cells.map(cell => ({ value: cell.field, hidden: !!cell.defaultHidden }));
 
-export const useCardWithListState = (view: FileTypeView) => {
+export const useCardWithTableState = (view: FileTypeView) => {
   const [baseHeaderCells, setHeaderCells] = useState(fileHeaderCells({ view }));
   const [filters, setFilters] = useState(getFiltersForView(view));
   const [activeFilters, setActiveFilters] = useState({});
