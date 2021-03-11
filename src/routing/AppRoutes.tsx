@@ -40,6 +40,9 @@ const CrmBusinessesDetailsContainer = lazy(() => import('app/crmBusinessesDetail
 const CrmDocumentDetailsContainer = lazy(() =>
   import('app/crmRelationsDetails/documents/documentDetails/DocumentDetailsContainer'),
 );
+const MarketingSurveyDetailsContainer = lazy(() =>
+  import('app/crmMarketingSurveyDetails/MarketingSurveyDetailsContainer'),
+);
 const PimDocumentDetailsContainer = lazy(() =>
   import('app/pimDetails/sections/documents/documentDetails/DocumentDetailsContainer'),
 );
@@ -106,6 +109,10 @@ export const AppRoutes = () => {
                   <AuthorizedRoute path={AppRoute.objectTypeDetails} component={ObjectTypeDetailsContainer} />
                   <AuthorizedRoute path={AppRoute.projectDetails} component={ProjectDetailsContainer} />
                   <AuthorizedRoute path={AppRoute.crm} component={CrmContainer} />
+                  <AuthorizedRoute
+                    path={AppRoute.crmRelationsMarketingSurvey}
+                    render={() => <MarketingSurveyDetailsContainer path={AppRoute.crmRelationsMarketingSurvey} />}
+                  />
                   <AuthorizedRoute
                     path={AppRoute.crmRelationsDocumentDetails}
                     render={() => <CrmDocumentDetailsContainer path={AppRoute.crmRelationsDetails} />}
