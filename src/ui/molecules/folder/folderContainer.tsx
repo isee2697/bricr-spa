@@ -3,27 +3,27 @@ import clsx from 'clsx';
 
 import { Badge, Box, Typography } from 'ui/atoms';
 import { AddIcon, CloseIcon, DirectoryBorderedIcon, DirectoryOpenedIcon, FolderIcon } from 'ui/atoms/icons';
-import { ConfirmModal } from 'ui/molecules';
+import { ConfirmModal } from 'ui/molecules/index';
 import { ConfirmButtonType } from 'ui/molecules/confirmModal/ConfirmModal.types';
 import { useLocale } from 'hooks';
 
-import { useStyles } from './DmsFolderIcon.styles';
-import { DmsFolderIconProps } from './DmsFolderIcon.types';
+import { useStyles } from './folderContainer.styles';
+import { FolderContainerProps } from './folderContiner.types';
 
-export const DmsFolderIcon = ({
+export const FolderContainer = ({
   id,
   name,
-  type: defaultType,
+  type,
   childCount: defaultChildCount,
   isOpened,
   isAdd,
   onClick,
   onRemove,
   onRename,
-}: DmsFolderIconProps) => {
+}: FolderContainerProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
-  const type = 'purple';
+  const variant = type === 'primary' ? 'aqua' : 'purple';
   const childCount = defaultChildCount || 0;
   const [dialog, setDialog] = useState<ReactNode | null>(null);
   const [isRenaming, setIsRenaming] = useState(false);
@@ -115,12 +115,7 @@ export const DmsFolderIcon = ({
           </>
         ) : (
           <>
-            <FolderIcon
-              id={id + '_' + type}
-              variant={type}
-              weight={Math.floor(childCount / 10)}
-              className={classes.icon}
-            />
+            <FolderIcon id={id + '_' + type} variant={variant} weight={childCount} className={classes.icon} />
             <Box className={clsx(classes.iconBadge, type)}>{childCount || '-'}</Box>
           </>
         )}
