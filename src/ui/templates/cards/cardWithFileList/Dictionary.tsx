@@ -1,7 +1,6 @@
 import React from 'react';
 
-import { DevelopmentType, PricingType, PropertyType } from 'api/types';
-import { BuildingIcon, EuroIcon, NewConstructionIcon } from 'ui/atoms/icons';
+import { BuildingIcon } from 'ui/atoms/icons';
 import { FiltersSizes, FiltersTypes, Types } from 'ui/molecules/filters/Filters.types';
 
 export const FileFilters: FiltersTypes[] = [
@@ -39,15 +38,12 @@ export const EmailFilters: FiltersTypes[] = [
     ],
   },
   {
-    key: 'fileType',
+    key: 'from',
     type: Types.Checkbox,
     size: FiltersSizes.M,
     options: [
-      { label: 'pdf', value: PropertyType.Apartment, icon: <BuildingIcon /> },
-      { label: 'png', value: PropertyType.House, icon: <BuildingIcon /> },
-      { label: 'jpg', value: PropertyType.Commercial, icon: <BuildingIcon /> },
-      { label: 'docx', value: PropertyType.Agricultural, icon: <BuildingIcon /> },
-      { label: 'xlsx', value: PropertyType.ParkingLot, icon: <BuildingIcon /> },
+      { label: 'name', value: 'from.name', icon: <BuildingIcon /> },
+      { label: 'email', value: 'from.email', icon: <BuildingIcon /> },
     ],
   },
 ];

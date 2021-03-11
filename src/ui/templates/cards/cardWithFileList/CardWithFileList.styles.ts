@@ -1,18 +1,15 @@
 import { makeStyles } from '@material-ui/core';
-import React from 'react';
 
-import { Box } from 'ui/atoms';
-
-export const useStyles = makeStyles(theme => ({
+export const useStyles = makeStyles(({ spacing, palette, typography }) => ({
   count: {
-    marginLeft: theme.spacing(2),
+    marginLeft: spacing(2),
     padding: 0,
-    color: theme.palette.gray.main,
-    background: theme.palette.gray.light,
+    color: palette.gray.main,
+    background: palette.gray.light,
 
     '& > .MuiChip-label': {
-      padding: theme.spacing(0, 1.5),
-      fontSize: theme.typography.h4.fontSize,
+      padding: spacing(0, 1.5),
+      fontSize: typography.h4.fontSize,
     },
   },
   list: {
@@ -22,7 +19,12 @@ export const useStyles = makeStyles(theme => ({
       width: '100%',
     },
     '& .card-file-list:nth-child(odd)': {
-      backgroundColor: theme.palette.gray.light,
+      backgroundColor: palette.gray.light,
+    },
+    '& .MuiChip-root': {
+      borderColor: palette.gray.main,
+      color: palette.gray.main,
+      backgroundColor: palette.white.main,
     },
   },
 }));

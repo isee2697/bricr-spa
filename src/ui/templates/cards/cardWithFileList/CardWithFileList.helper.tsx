@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { DateTime } from 'luxon';
 
 import { FileTypeView, FileType } from 'ui/templates/cards/cardWithFileList/CardWithFileList.types';
@@ -6,15 +6,19 @@ import { PreviewIcon } from 'ui/molecules';
 import { Chip, Typography, Box, UserAvatar } from 'ui/atoms';
 import { ListTableCell } from 'ui/molecules/listTableItem/ListTableItem.types';
 import { LinkIcon, PinIcon } from 'ui/atoms/icons';
+import { HeaderColumnItemType } from 'ui/molecules/columnModal/ColumnModal.types';
+import { EmailFilters, FileFilters } from 'ui/templates/cards/cardWithFileList/Dictionary';
 
 import { FileHeaderProps } from './CardWithFileList.types';
+
+const filesPreviewClassName = 'files-previewer';
 
 export const renderCardListCell = (fieldName: keyof FileType, item?: FileType) => {
   const checkItem = Object.assign(item ?? {});
 
   switch (fieldName) {
     case 'preview':
-      return <PreviewIcon uri={checkItem?.uri} />;
+      return <PreviewIcon className={filesPreviewClassName} uri={checkItem?.uri} />;
     case 'type':
       return <Chip size="small" variant="outlined" label={checkItem?.type} />;
     case 'from':
@@ -130,4 +134,56 @@ export const fileHeaderCells = ({ view }: FileHeaderProps): ListTableCell<FileTy
   }
 
   return options;
+};
+
+const getFiltersForView = (view: FileTypeView) => (view === FileTypeView.File ? FileFilters : EmailFilters);
+const mapCellsToColumns = (cells: ListTableCell<FileType>[]): HeaderColumnItemType<FileType>[] =>
+  cells.map(cell => ({ value: cell.field, hidden: !!cell.defaultHidden }));
+
+export const useCardWithListState = (view: FileTypeView) => {
+  const [baseHeaderCells, setHeaderCells] = useState(fileHeaderCells({ view }));
+  const [filters, setFilters] = useState(getFiltersForView(view));
+  const [activeFilters, setActiveFilters] = useState({});
+  const [isColumnModalOpen, setColumnModalOpen] = useState(false);
+  const [isPreviewModalOpen, setPreviewModalOpen] = useState(false);
+  const [isUploadModalOpen, setUploadModalOpen] = useState(false);
+
+  const [activeColumns, setActiveColumns] = useState(mapCellsToColumns(baseHeaderCells));
+
+  const listener = useCallback(() => setPreviewModalOpen(true), [setPreviewModalOpen]);
+
+  const headerCells = activeColumns
+    .map(column => baseHeaderCells.find(cell => column.value === cell.field && !column.hidden))
+    .filter(field => !!field) as ListTableCell<FileType>[];
+
+  useEffect(() => {
+    const cells = fileHeaderCells({ view });
+    setHeaderCells(cells);
+    setActiveColumns(mapCellsToColumns(cells));
+    setActiveFilters({});
+    setFilters(getFiltersForView(view));
+  }, [view]);
+
+  useEffect(() => {
+    document.querySelector(`.${filesPreviewClassName}`)?.addEventListener('click', listener);
+
+    return () => {
+      document.querySelector(`.${filesPreviewClassName}`)?.removeEventListener('click', listener);
+    };
+  }, [baseHeaderCells, listener]);
+
+  return {
+    headerCells,
+    activeFilters,
+    setActiveFilters,
+    activeColumns,
+    setActiveColumns,
+    filters,
+    isColumnModalOpen,
+    setColumnModalOpen,
+    setPreviewModalOpen,
+    isPreviewModalOpen,
+    setUploadModalOpen,
+    isUploadModalOpen,
+  };
 };

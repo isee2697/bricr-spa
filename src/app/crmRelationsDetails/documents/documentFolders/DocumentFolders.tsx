@@ -5,13 +5,11 @@ import { DmsFolderIcon } from 'app/dms/dmsPims/dmsFolders/dmsFolderIcon/DmsFolde
 import { Box, Card, CardContent, CardHeader, Grid, IconButton } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { PropertyItemPlaceholder, Search } from 'ui/molecules';
-import { DocumentListViewContainer } from '../documentListView/DocumentListViewContainer';
 import { DocumentFolderType } from '../Documents.types';
 import { CrmRelationsDetailsHeader } from 'app/crmRelationsDetails/crmRelationsDetailsHeader/CrmRelationsDetailsHeader';
 import { CardWithFileList, Page } from 'ui/templates';
-import { ArrowDownIcon, ArrowUpIcon } from 'ui/atoms/icons';
+import { ArrowDownIcon, ArrowUpIcon, ClockIcon, HomeIcon } from 'ui/atoms/icons';
 import { DmsAddFolderDialog } from 'app/dms/dmsPims/dmsFolders/dmsAddFolderDialog/DmsAddFolderDialog';
-import { ListPimsFilters } from 'api/types';
 import { FileType, FileTypeView } from 'ui/templates/cards/cardWithFileList/CardWithFileList.types';
 import { EMAILS } from 'api/mocks/email';
 
@@ -25,10 +23,21 @@ const documentFoldersOptions = [
   { title: 'adriaanse', type: '', value: 'adriaanse', icon: 'CH' },
 ];
 
+const actions = {
+  onReply: { exec: () => {}, icon: <HomeIcon /> },
+  replyToAll: { exec: () => {}, icon: <ClockIcon /> },
+  forWard: { exec: () => {}, icon: <ClockIcon /> },
+  markAsUnread: { exec: () => {}, icon: <ClockIcon /> },
+  addAsRelation: { exec: () => {}, icon: <ClockIcon /> },
+  linkToSales: { exec: () => {}, icon: <ClockIcon /> },
+  linkToPim: { exec: () => {}, icon: <ClockIcon /> },
+  linkToCalendar: { exec: () => {}, icon: <ClockIcon /> },
+  archive: { exec: () => {}, icon: <ClockIcon /> },
+};
+
 export const DocumentFolders = ({
   onSidebarOpen,
   isSidebarVisible,
-  path,
   foldersData,
   isLoading,
   onAddFolder,
@@ -153,13 +162,7 @@ export const DocumentFolders = ({
 
           {selectedFolder && (
             <Box mt={3.5}>
-              <DocumentListViewContainer
-                folder={selectedFolder}
-                documents={selectedFolder.documents}
-                path={path}
-                onUploadFiles={files => handleUploadFiles(selectedFolder, files)}
-              />
-              <CardWithFileList
+              <CardWithFileList<FileType>
                 onAdd={() => {}}
                 titleId={selectedFolder.name}
                 titleAmount={(selectedFolder.isEmailFolder ? EMAILS.length : selectedFolder.documents?.length) ?? 0}
@@ -168,6 +171,12 @@ export const DocumentFolders = ({
                   (selectedFolder.isEmailFolder ? (EMAILS as FileType[]) : (selectedFolder.documents as FileType[])) ??
                   []
                 }
+                onUploadFiles={files => handleUploadFiles(selectedFolder, files)}
+                actions={{
+                  onEdit: { exec: () => {} },
+                  onDelete: { exec: () => {} },
+                  ...(selectedFolder.isEmailFolder ? actions : {}),
+                }}
               />
             </Box>
           )}
