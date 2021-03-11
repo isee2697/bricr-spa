@@ -116,7 +116,7 @@ export const FolderContainer = ({
         ) : (
           <>
             <FolderIcon id={id + '_' + type} variant={variant} weight={childCount} className={classes.icon} />
-            <Box className={clsx(classes.iconBadge, type)}>{childCount || '-'}</Box>
+            <Box className={clsx(classes.iconBadge, variant)}>{childCount || '-'}</Box>
           </>
         )}
       </Box>

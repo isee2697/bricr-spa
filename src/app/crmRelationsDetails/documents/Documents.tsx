@@ -7,6 +7,7 @@ import { useEntityType } from 'app/shared/entityType';
 import { Loader, NavBreadcrumb } from 'ui/atoms';
 import { joinUrlParams } from 'routing/AppRoute.utils';
 import { CardWithFolder } from '../../../ui/templates/cards/cardWithFolder/CardWithFolder';
+import { PageWithFolderListCard } from '../../../ui/templates/page/PageWithCardFolderList/PageWithFolderListCard';
 
 import { DocumentsProps } from './Documents.types';
 import { ChecklistContainer } from './checklist/ChecklistContainer';
@@ -35,12 +36,10 @@ export const Documents = (props: DocumentsProps) => {
         <Route
           path={`${path}/folders`}
           render={() => (
-            <CardWithFolder
+            <PageWithFolderListCard
               {...props}
               path={`${path}/folders`}
-              foldersData={documents}
-              isLoading={false}
-              isError={false}
+              folders={documents}
               onAddFolder={onAddFolder}
               onDeleteFolder={onDeleteFolder}
               onUpdateFolder={onUpdateFolder}
