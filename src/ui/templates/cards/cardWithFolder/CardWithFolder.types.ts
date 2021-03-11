@@ -1,4 +1,4 @@
-import { DocumentFolderType, DocumentsProps } from '../Documents.types';
+import { DocumentFolderType, DocumentsProps } from '../../../../app/crmRelationsDetails/documents/Documents.types';
 
 export type DocumentFoldersProps = DocumentsProps & {
   isLoading: boolean;
