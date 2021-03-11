@@ -2,7 +2,7 @@ Example of Property Item component
 
 ```jsx harmony
 import { Tabs, Tab, Box, Chip } from 'ui/atoms';
-import { Order, PropertyItem } from 'ui/molecules';
+import { Order, PropertyItem, ListOptionsMenu } from 'ui/molecules';
 import { useTheme } from '@material-ui/core/styles';
 
 const theme = useTheme();
@@ -39,12 +39,14 @@ const propertyData = {
     salePrice={propertyData.salePrice}
     rentPrice={propertyData.rentPrice}
     alert="No more house view scheduling"
-    onMenuClick={() => {}}
     completeness={0.6}
     status="Wait for owner"
     categories={['Sale', 'Order']}
     stageItems={propertyStageItems}
     stageIndex={2}
+    actionsMenu={
+      <ListOptionsMenu id={`test-menu`} />
+    }
   />
 </>;
 ```
@@ -84,7 +86,6 @@ const propertyData = {
     salePrice={propertyData.salePrice}
     rentPrice={propertyData.rentPrice}
     isArchived={true}
-    onMenuClick={() => {}}
     status="04-11-2019"
     categories={['Sold']}
     formerOwners="G. De Gracht | W. Van Hoof"

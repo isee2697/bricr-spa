@@ -9,7 +9,7 @@ import { AddCrmRelationStepProps } from '../AddCrmRelationModal.types';
 import { GenericField } from 'form/fields';
 import { emailValidator, letterValidator, phoneNumberValidator, requireValidator } from 'form/validators';
 
-export const CreateRelationStep = ({ handleGoTo, valid }: AddCrmRelationStepProps) => {
+export const CreateRelationStep = ({ handleGoTo, valid, crmType, onClose }: AddCrmRelationStepProps) => {
   const { formatMessage } = useLocale();
   const classes = useStyles();
   const { submitting } = useFormState({
@@ -20,15 +20,12 @@ export const CreateRelationStep = ({ handleGoTo, valid }: AddCrmRelationStepProp
     <>
       <DialogContent>
         <Grid container spacing={1}>
-          <Grid item xs={3}>
+          <Grid item xs={6}>
             <GenericField
               name="firstName"
               label="crm.relations.first_name"
               validate={[requireValidator, letterValidator]}
             />
-          </Grid>
-          <Grid item xs={3}>
-            <GenericField name="insertion" label="crm.relations.middle_name" validate={[letterValidator]} />
           </Grid>
           <Grid item xs={6}>
             <GenericField
@@ -38,11 +35,7 @@ export const CreateRelationStep = ({ handleGoTo, valid }: AddCrmRelationStepProp
             />
           </Grid>
           <Grid item xs={6}>
-            <GenericField
-              name="email"
-              label="crm.relations.email_address"
-              validate={[requireValidator, emailValidator]}
-            />
+            <GenericField name="email" label="crm.relations.email_address" validate={[emailValidator]} />
           </Grid>
           <Grid item xs={6}>
             <GenericField name="phoneNumber" label="crm.relations.phone_number" validate={[phoneNumberValidator]} />
@@ -50,9 +43,16 @@ export const CreateRelationStep = ({ handleGoTo, valid }: AddCrmRelationStepProp
         </Grid>
       </DialogContent>
       <DialogActions className={classes.actions}>
-        <Button color="ghost" size="small" onClick={() => handleGoTo(0)}>
-          {formatMessage({ id: 'common.previous_step' })}
-        </Button>
+        {!crmType && (
+          <Button color="ghost" size="small" onClick={() => handleGoTo(0)}>
+            {formatMessage({ id: 'common.previous_step' })}
+          </Button>
+        )}
+        {!!crmType && (
+          <Button color="ghost" size="small" onClick={() => onClose()}>
+            {formatMessage({ id: 'common.cancel' })}
+          </Button>
+        )}
         <SubmitButton
           type="submit"
           size="large"

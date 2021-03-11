@@ -3,7 +3,7 @@ import React from 'react';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { useModalDispatch } from 'hooks/useModalDispatch/useModalDispatch';
 import { RadioGroupField } from 'form/fields';
-import { SquareIcon } from 'ui/atoms/icons';
+import { SimpleLocationIcon } from 'ui/atoms/icons';
 import { FormModal } from 'ui/organisms';
 import { ContactAddressType } from 'api/types';
 
@@ -19,7 +19,7 @@ export const AddNewAddressModal = ({ isOpened, onSubmit }: AddNewAddressModalPro
 
   const addressTypes = Object.keys(ContactAddressType).map(addressType => ({
     label: `dictionaries.contact_information.address_type.${addressType}`,
-    icon: <SquareIcon />,
+    icon: <SimpleLocationIcon />,
     value: addressType,
   }));
 
