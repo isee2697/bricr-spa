@@ -3,7 +3,7 @@ import clsx from 'classnames';
 import { useHistory, useParams } from 'react-router-dom';
 
 import { Page } from 'ui/templates';
-import { useLocale } from 'hooks';
+import { useLocale, useModalDispatch } from 'hooks';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { Card, CardContent, Grid, Box, Typography, CardHeader } from 'ui/atoms';
 import { AddIcon } from 'ui/atoms/icons';
@@ -11,17 +11,17 @@ import { List, PropertyItemPlaceholder } from 'ui/molecules';
 import { ActiveFilters } from 'ui/molecules/filters/activeFilters/ActiveFilters';
 import { ListPimsFilters } from 'api/types';
 import { FiltersButton } from 'ui/molecules/filters/FiltersButton';
+import { AddTemplateDialog } from 'app/shared/dms/addTemplateDialog/AddTemplateDialog';
 
 import { ActiveTabStatus, DmsTemplateItem, DmsTemplatesProps } from './DmsTemplates.types';
 import { useStyles } from './DmsTemplates.styles';
 import { DmsTemplatesTabs } from './dmsTemplatesTabs/DmsTemplatesTabs';
 import { DmsTemplatesItem } from './dmsTemplatesItem/DmsTemplatesItem';
-import { DmsAddTemplateDialog } from './dmsAddTemplateDialog/DmsAddTemplateDialog';
 import { DmsTemplatesFilters } from './dictionaries';
 
 export const DmsTemplates = ({ templates, onAdd, onUpdate, category }: DmsTemplatesProps) => {
   const { formatMessage } = useLocale();
-  const [isModalVisible, setModalVisible] = useState(false);
+  const { open } = useModalDispatch();
   const classes = useStyles();
   const { push } = useHistory();
   const [status, setStatus] = useState<ActiveTabStatus>('active');
@@ -67,7 +67,7 @@ export const DmsTemplates = ({ templates, onAdd, onUpdate, category }: DmsTempla
                       id: 'dms.templates.create_template',
                     }),
                     actionIcon: <AddIcon color="inherit" />,
-                    onAction: () => setModalVisible(true),
+                    onAction: () => open('dms-add-template'),
                   }
                 : undefined
             }
@@ -168,9 +168,7 @@ export const DmsTemplates = ({ templates, onAdd, onUpdate, category }: DmsTempla
           </Page>
         </Grid>
       </Grid>
-      {isModalVisible && (
-        <DmsAddTemplateDialog isOpened={isModalVisible} onClose={() => setModalVisible(false)} onSubmit={onAdd} />
-      )}
+      <AddTemplateDialog onSubmit={onAdd} />
     </Box>
   );
 };
