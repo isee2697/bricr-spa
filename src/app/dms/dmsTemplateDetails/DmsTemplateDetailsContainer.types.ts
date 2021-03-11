@@ -4,3 +4,8 @@ export type DmsTemplateDetailsContainerProps = {
   showAttachments: boolean;
   onChangeShowAttachments: VoidFunction;
 };
+
+export enum DocumentType {
+  Sale = 'Sale',
+  Rent = 'Rent',
+}

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Field } from 'react-final-form';
 
 import { useLocale } from 'hooks';
 import { AddIcon } from 'ui/atoms/icons';
@@ -16,19 +17,23 @@ export const DmsAddTemplateDialog = ({ isOpened, onClose, onSubmit, name }: DmsA
       onClose={onClose}
       onSubmit={onSubmit}
       title={formatMessage({
-        id: 'dms.templates.create_template.title',
+        id: 'dms.templates.create_template',
       })}
       initialValues={{ name: name || '' }}
-      addText={formatMessage({ id: 'dms.templates.create_template' })}
+      addText={formatMessage({ id: 'dms.templates.add_template' })}
       addIcon={<AddIcon color="inherit" />}
     >
-      <GenericField
-        name="templateName"
-        placeholder={formatMessage({
-          id: 'dms.templates.create_template.placeholder',
-        })}
-        label={formatMessage({ id: 'dms.templates.template_name' })}
-      />
+      <Field name="templateName" validate={value => (value ? undefined : 'common.required')}>
+        {({ input }) => (
+          <GenericField
+            placeholder={formatMessage({
+              id: 'dms.templates.create_template.placeholder',
+            })}
+            label={formatMessage({ id: 'dms.templates.template_name' })}
+            {...input}
+          />
+        )}
+      </Field>
     </FormModal>
   );
 };

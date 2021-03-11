@@ -9,7 +9,7 @@ import { GeneralPageSettings } from 'app/shared/dms/generalPageSettings/GeneralP
 
 import { DmsTemplateConfigureSettingsDetails } from './dmsTemplateConfigureSettingsDetails/DmsTemplateConfigureSettingsDetails';
 import { DmsTemplateEditor } from './dmsTemplateEditor/DmsTemplateEditor';
-import { DmsTemplateDetailsContainerProps } from './DmsTemplateDetailsContainer.types';
+import { DmsTemplateDetailsContainerProps, DocumentType } from './DmsTemplateDetailsContainer.types';
 
 export const DmsTemplateDetailsContainer = (props: DmsTemplateDetailsContainerProps) => {
   const { formatMessage } = useLocale();
@@ -30,7 +30,9 @@ export const DmsTemplateDetailsContainer = (props: DmsTemplateDetailsContainerPr
       <Switch>
         <Route
           path={`${AppRoute.dms}/templates/:type/:category/${id}/general`}
-          render={() => <GeneralPageSettings title={data.name} onSave={handleSubmit} />}
+          render={() => (
+            <GeneralPageSettings types={Object.keys(DocumentType)} title={data.name} onSave={handleSubmit} />
+          )}
         />
         <Route
           path={`${AppRoute.dms}/templates/:type/:category/${id}/configureSettings`}
