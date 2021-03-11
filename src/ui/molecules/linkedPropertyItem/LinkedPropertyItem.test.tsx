@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { render } from 'tests';
+import { fireEvent, render } from 'tests';
 
 import { LinkedPropertyItem } from './LinkedPropertyItem';
 
@@ -38,5 +38,11 @@ describe('LinkedPropertyItem', () => {
     expect(getByText('Wojciech Dobry')).toBeInTheDocument();
     expect(getByText('Plot number')).toBeInTheDocument();
     expect(getByText('Pim attention')).toBeInTheDocument();
+
+    const editButton = container.querySelector('button');
+
+    fireEvent.click(editButton!);
+
+    expect(onEditClick).toBeCalled();
   });
 });
