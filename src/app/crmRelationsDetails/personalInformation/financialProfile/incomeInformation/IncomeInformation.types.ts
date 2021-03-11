@@ -1,7 +1,13 @@
-import { Profile } from 'api/types';
+import { CrmFinancial, IncomeType, Profile, UpdateCrmFinancialInput } from 'api/types';
+import { PromiseFunction } from 'app/shared/types';
+
+export type IncomeInformationProps = {
+  data?: CrmFinancial;
+  onSave: PromiseFunction<UpdateCrmFinancialInput>;
+};
 
 export type IncomeInformationItem = {
-  type: IncomeInformationType;
+  type: IncomeType;
   employer?: {
     profession: string;
     user: Profile;
@@ -86,12 +92,4 @@ export enum EntrepreneurOption {
 export enum IncomeInformationTypeOfEmployment {
   FixedTermEmployment = 'FixedTermEmployment',
   SalariedEmploymentIndefinitely = 'SalariedEmploymentIndefinitely',
-}
-
-export enum IncomeInformationType {
-  Employer = 'Employer',
-  IncomeFromEquity = 'IncomeFromEquity',
-  Pension = 'Pension',
-  SocialBenefit = 'SocialBenefit',
-  Entrepreneur = 'Entrepreneur',
 }
