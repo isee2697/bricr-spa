@@ -2,7 +2,7 @@ import React, { useRef, useState, ReactNode, useEffect, useCallback } from 'reac
 import clsx from 'clsx';
 
 import { Badge, Box, Typography } from 'ui/atoms';
-import { AddIcon, CloseIcon, DirectoryBorderedIcon, DirectoryIcon, DirectoryOpenedIcon } from 'ui/atoms/icons';
+import { AddIcon, CloseIcon, DirectoryBorderedIcon, DirectoryOpenedIcon, FolderIcon } from 'ui/atoms/icons';
 import { ConfirmModal } from 'ui/molecules';
 import { ConfirmButtonType } from 'ui/molecules/confirmModal/ConfirmModal.types';
 import { useLocale } from 'hooks';
@@ -23,7 +23,7 @@ export const DmsFolderIcon = ({
 }: DmsFolderIconProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
-  const type = isOpened ? 'primary' : defaultType;
+  const type = 'purple';
   const childCount = defaultChildCount || 0;
   const [dialog, setDialog] = useState<ReactNode | null>(null);
   const [isRenaming, setIsRenaming] = useState(false);
@@ -115,7 +115,7 @@ export const DmsFolderIcon = ({
           </>
         ) : (
           <>
-            <DirectoryIcon
+            <FolderIcon
               id={id + '_' + type}
               variant={type}
               weight={Math.floor(childCount / 10)}
