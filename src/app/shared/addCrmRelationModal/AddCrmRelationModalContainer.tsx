@@ -18,7 +18,7 @@ import { AddCrmSubmit } from './AddCrmRelationModal.types';
 
 export const AddCrmRelationModalContainer = () => {
   const { close } = useModalDispatch();
-  const { isOpen: isModalOpened } = useModalState('add-relation');
+  const { isOpen: isModalOpened, options } = useModalState('add-relation');
   const [createCrm] = useCreateCrmMutation();
   const { push } = useHistory();
   const apiClient = useApolloClient();
@@ -84,6 +84,7 @@ export const AddCrmRelationModalContainer = () => {
       onClose={() => close('add-relation')}
       onCreateNewRelation={createNewRelation}
       onRequestBricrData={() => {}}
+      crmType={options?.crmType}
     />
   );
 };

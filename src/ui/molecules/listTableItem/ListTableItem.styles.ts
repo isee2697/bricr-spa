@@ -8,4 +8,7 @@ export const useStyles = makeStyles(({ palette, typography }) => ({
   active: {
     color: palette.blue.dark,
   },
+  sortable: {
+    cursor: 'pointer',
+  },
 }));

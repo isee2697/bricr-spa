@@ -1,0 +1,244 @@
+enum IncomeType {
+  Employer,
+  Equity,
+  Pension,
+  SocialBenefit,
+  Entrepreneur
+}
+
+enum PeriodType {
+  PerMonth,
+  PerWeek,
+  PerFourWeeks,
+  PerYear
+}
+
+enum EmploymentType {
+  FixedTerm,
+  Indefinitely
+}
+
+enum SocialBenefitType {
+  SocialBenefit,
+  Wajong,
+  WiaWao,
+  IoawIow
+}
+
+enum EntrepreneurType {
+  IbEntrepreneur,
+  Dga
+}
+
+enum FinancialObligationType {
+  Obligation1,
+  Obligation2,
+  Obligation3
+}
+
+enum BankType {
+  Ing,
+  Rabobank,
+  AbnAmro
+}
+
+enum BankAccountPurposeType {
+  AutomaticIncasso,
+  ServiceCosts,
+  FirstInvoice
+}
+
+enum EmployerIncomeProfession {
+  Designer
+}
+
+type CrmFinancial {
+  id: ID!
+  financialInfo: String
+  income: [CrmIncome!]
+  financialObligations: [CrmFinancialObligation!]
+  bankAccounts: [CrmBankAccount!]
+}
+
+input UpdateCrmFinancialInput {
+  id: ID!
+  financialInfo: String
+  income: [CrmIncomeInput!]
+  financialObligations: [CrmFinancialObligationInput!]
+  bankAccounts: [CrmBankAccountInput!]
+}
+
+type CrmIncome {
+  id: ID!
+  type: IncomeType!
+  information: String
+  employerIncome: CrmEmployerIncome
+  equityIncome: CrmEquityIncome
+  pensionIncome: CrmPensionIncome
+  socialBenefitIncome: CrmSocialBenefitIncome 
+  entrepreneurIncome: CrmEntrepreneurIncome
+}
+
+type CrmEmployerInformation {
+  name: String
+  street: String
+  houseNumber: Int
+  addition: String
+  zipcode: String
+  city: String
+  country: String
+}
+
+type CrmEmployerIncome {
+  profession: EmployerIncomeProfession
+  employer: LinkedCrm
+  employerInformation: CrmEmployerInformation
+  employmentType: String @uuidOrEnum(enum: ["EmploymentType"])
+  grossIncome: Int
+  grossIncomePeriod: PeriodType
+  holidayBonus: Boolean
+  fixedThirteenthMonth: Boolean
+  irregularityAllowance: Int
+  irregularityAllowancePeriod: PeriodType
+  profitDistribution: Int
+  profitDistributionPeriod: PeriodType
+  commission: Int
+  commissionPeriod: PeriodType
+  overtime: Int
+  overtimePeriod: PeriodType
+}
+
+type CrmEquityIncome {
+  income: Int
+}
+
+type CrmPensionIncome {
+  aowBenefit: Int
+  aowBenefitPeriod: PeriodType
+  retirementBenefit: Int
+  retirementBenefitPeriod: PeriodType
+}
+
+type CrmSocialBenefitIncome {
+  income: Int
+  incomePeriod: PeriodType
+  socialBenefitType: String @uuidOrEnum(enum: ["SocialBenefitType"])
+}
+
+type CrmEntrepreneurIncome {
+  entrepreneurType: EntrepreneurType
+  companyCar: Boolean
+  companyBike: Boolean
+  pastPensionAge: Boolean
+  smeProfitExemption: Boolean
+  incomePerYear: Int
+  workingHoursPerMonth: Int
+  yearsAsIndependent: Int
+}
+
+type CrmFinancialObligation {
+  id: ID!
+  type: String! @uuidOrEnum(enum: ["FinancialObligationType"])
+  financialObligation: Int
+  information: String
+}
+
+type CrmBankAccount {
+  id: ID!
+  type: String! @uuidOrEnum(enum: ["BankType"])
+  accountNumber: String
+  bic: String
+  iban: String
+  swift: String
+  purpose: String @uuidOrEnum(enum: ["BankAccountPurposeType"])
+}
+
+input CrmIncomeInput {
+  type: IncomeType!
+  information: String
+  employerIncome: CrmEmployerIncomeInput
+  equityIncome: CrmEquityIncomeInput
+  pensionIncome: CrmPensionIncomeInput
+  socialBenefitIncome: CrmSocialBenefitIncomeInput
+  entrepreneurIncome: CrmEntrepreneurIncomeInput
+}
+
+input CrmEmployerInformationInput {
+  name: String
+  street: String
+  houseNumber: Int
+  addition: String
+  zipcode: String
+  city: String
+  country: String
+}
+
+input CrmEmployerIncomeInput {
+ profession: EmployerIncomeProfession
+ employerId: ID
+ employerInformation: CrmEmployerInformationInput
+ employmentType: String @uuidOrEnum(enum: ["EmploymentType"])
+ grossIncome: Int
+ grossIncomePeriod: PeriodType
+ holidayBonus: Boolean
+ fixedThirteenthMonth: Boolean
+ irregularityAllowance: Int
+ irregularityAllowancePeriod: PeriodType
+ profitDistribution: Int
+ profitDistributionPeriod: PeriodType
+ commission: Int
+ commissionPeriod: PeriodType
+ overtime: Int
+ overtimePeriod: PeriodType
+}
+
+input CrmEquityIncomeInput {
+  income: Int
+}
+
+input CrmPensionIncomeInput {
+  aowBenefit: Int
+  aowBenefitPeriod: PeriodType
+  retirementBenefit: Int
+  retirementBenefitPeriod: PeriodType
+}
+
+input CrmSocialBenefitIncomeInput {
+  income: Int
+  incomePeriod: PeriodType
+  socialBenefitType: String @uuidOrEnum(enum: ["SocialBenefitType"])
+}
+
+input CrmEntrepreneurIncomeInput {
+  entrepreneurType: EntrepreneurType
+  companyCar: Boolean
+  companyBike: Boolean
+  pastPensionAge: Boolean
+  smeProfitExemption: Boolean
+  incomePerYear: Int
+  workingHoursPerMonth: Int
+  yearsAsIndependent: Int
+}
+
+input CrmFinancialObligationInput {
+  type: String! @uuidOrEnum(enum: ["FinancialObligationTuype"])
+  financialObligation: Int
+  information: String
+}
+
+input CrmBankAccountInput {
+  type: String! @uuidOrEnum(enum: ["BankType"])
+  accountNumber: String
+  bic: String
+  iban: String
+  swift: String
+  purpose: String @uuidOrEnum(enum: ["BankAccountPurposeType"])
+}
+
+extend type Mutation {
+  updateCrmFinancial(input: UpdateCrmFinancialInput!): CrmFinancial @auth
+}
+
+extend type Query {
+  getCrmFinancial(id: ID!): CrmFinancial @auth
+}
