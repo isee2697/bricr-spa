@@ -28,7 +28,6 @@ import { QuotationsContainer } from './sales/quotations/QuotationsContainer';
 import { InvoicesContainer } from './sales/invoices/InvoicesContainer';
 import { OrdersContainer as SalesOrdersContainer } from './sales/orders/OrdersContainer';
 import { MarketingSurveyContainer } from './marketingSurvey/MarketingSurveyContainer';
-import { MarketingSurveyDetailsContainer } from './marketingSurveyDetails/MarketingSurveyDetailsContainer';
 import { FinancialProfileContainer } from './personalInformation/financialProfile/FinancialProfileContainer';
 import { BrokersContainer } from './professionalContacts/brokers/BrokersContainer';
 import { NotaryContainer } from './professionalContacts/notary/NotaryContainer';
@@ -334,16 +333,6 @@ export const CrmRelationsDetails = ({ crm, breadcrumbs, path, entityType }: CrmR
                   render={() => (
                     <OthersContainer
                       path={`${path}/professional_contacts_others`}
-                      onSidebarOpen={handleSidebarOpen}
-                      isSidebarVisible={isSidebarVisible}
-                    />
-                  )}
-                />
-                <Route
-                  path={`${path}/marketing_survey/:surveyId`}
-                  render={() => (
-                    <MarketingSurveyDetailsContainer
-                      path={`${path}/marketing_survey/:surveyId`}
                       onSidebarOpen={handleSidebarOpen}
                       isSidebarVisible={isSidebarVisible}
                     />
