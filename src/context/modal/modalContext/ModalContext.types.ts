@@ -25,6 +25,7 @@ export type ModalStateOptions = {
   id?: number;
   appointment?: Appointment;
   crmType?: CrmType;
+  name?: string;
 };
 
 export type ModalStateType = {
