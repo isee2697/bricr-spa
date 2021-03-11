@@ -22,7 +22,7 @@ export const TileButton = ({
   return (
     <Box
       className={classNames(className, classes.root, { [classes.preventClick]: isDisabled })}
-      onClick={onClick}
+      onClick={!isDisabled ? onClick : undefined}
       {...props}
     >
       <Box className={classNames(classes.tile, { [classes.disabled]: isDisabled })}>

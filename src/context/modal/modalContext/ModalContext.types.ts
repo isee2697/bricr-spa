@@ -29,6 +29,7 @@ export type ModalStateOptions = {
   surveyType?: SurveyType;
   availableSurveyTypes?: SurveyType[];
   crmType?: CrmType;
+  name?: string;
 };
 
 export type ModalStateType = {

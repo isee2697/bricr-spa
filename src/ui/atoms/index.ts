@@ -103,4 +103,5 @@ export { RankingIcon } from './rankingIcon/RankingIcon';
 export { LinearProgress } from './linearProgress/LinearProgress';
 export { DatePicker } from './datePicker/DatePicker';
 export { TimePicker } from './timePicker/TimePicker';
+export { CircledNumber } from './circledNumber/CircledNumber';
 export { DocumentViewer } from './documentViewer/DocumentViewer';
