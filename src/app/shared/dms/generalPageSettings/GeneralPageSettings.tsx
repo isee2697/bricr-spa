@@ -11,7 +11,7 @@ import { DocIcon } from 'ui/atoms/icons';
 
 import { GeneralPageSettingsProps, Languages } from './GeneralPageSettings.types';
 
-export const GeneralPageSettings = ({ title, onSave }: GeneralPageSettingsProps) => {
+export const GeneralPageSettings = ({ title, types, onSave, updatedBy, dateUpdated }: GeneralPageSettingsProps) => {
   const { formatMessage } = useLocale();
 
   const languageDropdownItems: DropdownItem[] = Object.values(Languages).map(key => ({
@@ -19,28 +19,9 @@ export const GeneralPageSettings = ({ title, onSave }: GeneralPageSettingsProps)
     value: key,
   }));
 
-  const DocumentTypes = [
-    {
-      value: 'sale',
-      label: 'dictionaries.documentTypes.sale',
-      icon: <DocIcon />,
-    },
-    {
-      value: 'rent',
-      label: 'dictionaries.documentTypes.rent',
-      icon: <DocIcon />,
-    },
-  ];
-
   return (
     <>
-      <Page
-        showHeader
-        title={title}
-        titleActions={[]}
-        updatedBy={{ id: '0001', firstName: 'John', lastName: 'Doe' }}
-        dateUpdated={new Date().toISOString()}
-      >
+      <Page showHeader title={title} titleActions={[]} updatedBy={updatedBy} dateUpdated={dateUpdated}>
         <FormSection title={formatMessage({ id: 'dms.general_page_settings.title' })} isExpandable isInitExpanded>
           {editing => (
             <AutosaveForm onSave={onSave}>
@@ -87,9 +68,10 @@ export const GeneralPageSettings = ({ title, onSave }: GeneralPageSettingsProps)
               <RadioGroupField
                 disabled={!editing}
                 name="type"
-                options={DocumentTypes.map(type => ({
-                  ...type,
-                  label: formatMessage({ id: type.label }),
+                options={types.map(type => ({
+                  value: type,
+                  label: formatMessage({ id: `dictionaries.dms_type.${type}` }),
+                  icon: <DocIcon />,
                 }))}
                 actionElement={<TileButton isDisabled={!editing} onClick={() => {}} />}
               />
