@@ -24,9 +24,9 @@ export const GeneralPageSettings = ({ title, types, onSave, updatedBy, dateUpdat
       <Page showHeader title={title} titleActions={[]} updatedBy={updatedBy} dateUpdated={dateUpdated}>
         <FormSection title={formatMessage({ id: 'dms.general_page_settings.title' })} isExpandable isInitExpanded>
           {editing => (
-            <AutosaveForm onSave={onSave}>
+            <AutosaveForm onSave={onSave} initialValues={{ name: title }}>
               <GenericField
-                name="fileName"
+                name="name"
                 label="dms.general_page_settings.file_name"
                 placeholder="dms.general_page_settings.file_name.placeholder"
                 size="medium"
