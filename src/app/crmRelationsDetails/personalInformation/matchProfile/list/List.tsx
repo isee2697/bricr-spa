@@ -4,21 +4,30 @@ import { useHistory, useParams } from 'react-router-dom';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { Page } from 'ui/templates';
 import { IconButton, Typography, Card, CardHeader, CardContent, Box, Button } from 'ui/atoms';
-import { ListIcon, LocationIcon, SearchIcon, ManageIcon, SettingsIcon, AddIcon } from 'ui/atoms/icons';
+import { ListIcon, LocationIcon, SearchIcon, ManageIcon, SettingsIcon, AddIcon, HomeIcon } from 'ui/atoms/icons';
 import { ListActionTabs } from '../listActionTabs/ListActionTabs';
-import { InfoSection, List, PropertyItemPlaceholder } from 'ui/molecules';
+import { InfoSection, List, ListOptionsMenu, PropertyItemPlaceholder } from 'ui/molecules';
 import { SortOption } from 'ui/molecules/list/List.types';
 import { CrmRelationsDetailsHeader } from 'app/crmRelationsDetails/crmRelationsDetailsHeader/CrmRelationsDetailsHeader';
 import { joinUrlParams } from 'routing/AppRoute.utils';
 import { useEntityType } from 'app/shared/entityType';
 import { MatchProfileMatch } from '../MatchProfile.types';
 import { CRM_RELATIONS_MATCH_PROFILES_MATCHES } from 'api/mocks/crm-relation';
+import { ListOptionsMenuItem } from 'ui/molecules/listOptionsMenu/menuItem/ListOptionsMenuItem';
 
 import { useStyles } from './List.styles';
 import { ListItem } from './listItem/ListItem';
 import { ListProps } from './List.types';
 
-export const MatchProfileList = ({ crm, path, isSidebarVisible, onSidebarOpen, matchProfiles }: ListProps) => {
+export const MatchProfileList = ({
+  crm,
+  path,
+  isSidebarVisible,
+  onSidebarOpen,
+  matchProfiles,
+  onCloneMatchProfile,
+  onDeleteMatchProfile,
+}: ListProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
   const [selectedProfile, setSelectedProfile] = useState<string>();
@@ -34,7 +43,13 @@ export const MatchProfileList = ({ crm, path, isSidebarVisible, onSidebarOpen, m
   }, [matchProfiles, setSelectedProfile]);
 
   const sortOptions: SortOption[] = [
-    { key: 'last_edited', name: formatMessage({ id: 'common.sort_option.last_edited' }) },
+    { key: 'match_strength', name: formatMessage({ id: 'common.sort_option.match_strength' }) },
+    { key: 'newest', name: formatMessage({ id: 'common.sort_option.newest' }) },
+    { key: 'latest', name: formatMessage({ id: 'common.sort_option.latest' }) },
+    { key: 'highest_price_sale', name: formatMessage({ id: 'common.sort_option.highest_price_sale' }) },
+    { key: 'highest_price_rent', name: formatMessage({ id: 'common.sort_option.highest_price_rent' }) },
+    { key: 'lowest_price_sale', name: formatMessage({ id: 'common.sort_option.newest' }) },
+    { key: 'lowest_price_rent', name: formatMessage({ id: 'common.sort_option.lowest_price_rent' }) },
   ];
 
   const handleAddNew = () => {
@@ -105,24 +120,44 @@ export const MatchProfileList = ({ crm, path, isSidebarVisible, onSidebarOpen, m
                   <Box
                     display="flex"
                     alignItems="center"
+                    justifyContent="space-between"
                     ml={4}
+                    mr={2}
                     mt={1.5}
                     mb={1.5}
-                    onClick={() =>
-                      push(
-                        joinUrlParams(`${path}/:profileId/edit`, {
-                          ...urlParams,
-                          profileId: selectedProfile as string,
-                        }),
-                      )
-                    }
-                    className={classes.settingRow}
                   >
-                    <SettingsIcon className={classes.settingIcon} />
-                    <Box ml={1.5} />
-                    <Typography variant="h5" color="textSecondary">
-                      {formatMessage({ id: 'crm.details.personal_information_match_profile.matches.matchprofile' })}
-                    </Typography>
+                    <Box
+                      display="flex"
+                      alignItems="center"
+                      onClick={() =>
+                        push(
+                          joinUrlParams(`${path}/:profileId/edit`, {
+                            ...urlParams,
+                            profileId: selectedProfile as string,
+                          }),
+                        )
+                      }
+                      className={classes.settingRow}
+                    >
+                      <SettingsIcon className={classes.settingIcon} />
+                      <Box ml={1.5} />
+                      <Typography variant="h5" color="textSecondary">
+                        {formatMessage({ id: 'crm.details.personal_information_match_profile.matches.matchprofile' })}
+                      </Typography>
+                    </Box>
+                    <ListOptionsMenu
+                      id="crm-match-profile-menu"
+                      hideEditButton
+                      onDeleteClick={() => onDeleteMatchProfile(selectedProfile!)}
+                    >
+                      <ListOptionsMenuItem
+                        title={formatMessage({
+                          id: 'crm.details.personal_information_match_profile.matches.clone',
+                        })}
+                        icon={<HomeIcon />}
+                        onClick={() => onCloneMatchProfile(selectedProfile!)}
+                      />
+                    </ListOptionsMenu>
                   </Box>
                   <List
                     loadingItem={<PropertyItemPlaceholder />}

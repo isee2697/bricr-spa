@@ -1,7 +1,7 @@
 import { Layout } from 'react-grid-layout';
 
 import { PropertyCategory } from 'app/shared/addPimModal/AddPimModal.types';
-import { Appointment, ProjectType, PropertyType } from 'api/types';
+import { Appointment, CrmType, ProjectType, PropertyType } from 'api/types';
 import { SalesItemType } from 'app/shared/addSalesItemModal/AddSalesItemModal.types';
 import { SurveyCategory, SurveyType } from 'app/crmRelationsDetails/marketingSurvey/MarketingSurvey.types';
 
@@ -28,6 +28,7 @@ export type ModalStateOptions = {
   surveyCategory?: SurveyCategory;
   surveyType?: SurveyType;
   availableSurveyTypes?: SurveyType[];
+  crmType?: CrmType;
 };
 
 export type ModalStateType = {

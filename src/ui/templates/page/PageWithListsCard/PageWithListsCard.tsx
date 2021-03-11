@@ -20,6 +20,7 @@ import { PageWithListsCardProps } from './PageWithListsCard.types';
 export const PageWithListsCard: <V, A, F>(
   p: PageWithListsCardProps<V, A, F>,
 ) => ReactElement<PageWithListsCardProps<V, A, F>> = ({
+  withoutHeader = false,
   name,
   onSave,
   initialValues,
@@ -81,7 +82,7 @@ export const PageWithListsCard: <V, A, F>(
 
   return (
     <Grid xs={12}>
-      <PageWithListsHeader {...header} />
+      {!withoutHeader && <PageWithListsHeader {...header} />}
       {name && (
         <Box mt={-1} width="100%">
           {autosaveForm}
@@ -105,10 +106,10 @@ export const PageWithListsCard: <V, A, F>(
         title={formatMessage({ id: cardTitleId })}
         isEditable={false}
       >
-        {isShowActionTabs && (
+        {isShowActionTabs && actionTabs && (
           <ActionTabs
             {...actionTabs}
-            tabs={actionTabs?.tabs?.map(tab => ({
+            tabs={actionTabs.tabs?.map(tab => ({
               ...tab,
               label: formatMessage({ id: tab.label, defaultMessage: tab.label }),
             }))}
