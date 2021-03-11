@@ -1,7 +1,7 @@
 import { makeStyles } from '@material-ui/core';
 
 export const useStyles = makeStyles(theme => ({
-  documentsCount: {
+  count: {
     marginLeft: theme.spacing(2),
     padding: 0,
     color: theme.palette.gray.main,
@@ -11,9 +11,5 @@ export const useStyles = makeStyles(theme => ({
       padding: theme.spacing(0, 1.5),
       fontSize: theme.typography.h4.fontSize,
     },
-  },
-
-  listContainer: {
-    padding: theme.spacing(0),
   },
 }));
