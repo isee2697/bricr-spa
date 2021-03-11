@@ -14,7 +14,7 @@ export const DocumentListItem = ({ rowIndex, checkbox, checked, item }: Document
   const classes = useStyles();
   const { formatMessage } = useLocale();
 
-  const { image, name, stepsCompleted } = item;
+  const { uri, name, stepsCompleted } = item;
 
   const documentRequestStatuses = [
     DocumentRequestStatus.Request,
@@ -58,8 +58,8 @@ export const DocumentListItem = ({ rowIndex, checkbox, checked, item }: Document
           <Box display="flex" flexDirection="column" width="100%">
             <Box display="flex" width="100%">
               <Box>
-                <Avatar variant="rounded" src={image} className={classes.image}>
-                  {!image && <Emoji>{'📷'}</Emoji>}
+                <Avatar variant="rounded" src={uri} className={classes.image}>
+                  {!uri && <Emoji>{'📷'}</Emoji>}
                 </Avatar>
               </Box>
               <Box width="100%">
