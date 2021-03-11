@@ -18,6 +18,7 @@ export type ListView<T> = {
 };
 
 export type PageWithListsCardProps<V, A, F> = {
+  withoutHeader?: boolean;
   header: PageWithListsHeaderProps;
   onSave?(values: unknown): Promise<undefined | { error: boolean }>;
   initialValues?: AnyObject;
@@ -31,7 +32,7 @@ export type PageWithListsCardProps<V, A, F> = {
   filters?: ActiveFiltersProps<F> & {
     availableFilters: FiltersTypes[];
   };
-  actionTabs: ActionTabsProps<A>;
+  actionTabs?: ActionTabsProps<A>;
   list: Omit<ListProps<V>, 'renderItem' | 'listIndexHeader' | 'loading' | 'loadingItem'>;
   isShowActionTabs?: boolean;
   isShowItemCheckbox?: boolean;

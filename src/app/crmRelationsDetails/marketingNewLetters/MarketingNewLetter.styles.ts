@@ -11,4 +11,11 @@ export const useStyles = makeStyles(theme => ({
   marginRightTwo: {
     marginRight: theme.spacing(2),
   },
+  rowFilter: {
+    width: theme.spacing(2),
+    marginRight: theme.spacing(3.5),
+  },
+  tableActionCell: {
+    cursor: 'pointer',
+  },
 }));
