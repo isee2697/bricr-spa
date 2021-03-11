@@ -13,6 +13,7 @@ export interface DmsTemplateMeta {
 
 export interface DmsTemplateItem {
   id: string;
+  type: string;
   name: string;
   avatar?: string;
   createdAt: string;

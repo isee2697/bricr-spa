@@ -5,11 +5,11 @@ import { useLocale } from 'hooks/useLocale/useLocale';
 import { Loader, NavBreadcrumb } from 'ui/atoms';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { Templates } from 'api/mocks/dms';
+import { GeneralPageSettings } from 'app/shared/dms/generalPageSettings/GeneralPageSettings';
 
-import { DmsTemplateGeneralDetails } from './dmsTemplateGeneralDetails/DmsTemplateGeneralDetails';
 import { DmsTemplateConfigureSettingsDetails } from './dmsTemplateConfigureSettingsDetails/DmsTemplateConfigureSettingsDetails';
 import { DmsTemplateEditor } from './dmsTemplateEditor/DmsTemplateEditor';
-import { DmsTemplateDetailsContainerProps } from './DmsTemplateDetailsContainer.types';
+import { DmsTemplateDetailsContainerProps, DocumentType } from './DmsTemplateDetailsContainer.types';
 
 export const DmsTemplateDetailsContainer = (props: DmsTemplateDetailsContainerProps) => {
   const { formatMessage } = useLocale();
@@ -20,13 +20,19 @@ export const DmsTemplateDetailsContainer = (props: DmsTemplateDetailsContainerPr
     return <Loader />;
   }
 
+  const handleSubmit = async () => {
+    return undefined;
+  };
+
   return (
     <>
       <NavBreadcrumb title={formatMessage({ id: 'dms.templates.title' })} to={AppRoute.dms + '/templates'} />
       <Switch>
         <Route
           path={`${AppRoute.dms}/templates/:type/:category/${id}/general`}
-          render={() => <DmsTemplateGeneralDetails template={data} />}
+          render={() => (
+            <GeneralPageSettings types={Object.keys(DocumentType)} title={data.name} onSave={handleSubmit} />
+          )}
         />
         <Route
           path={`${AppRoute.dms}/templates/:type/:category/${id}/configureSettings`}

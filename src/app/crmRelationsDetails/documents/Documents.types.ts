@@ -42,7 +42,7 @@ export type DocumentFolderType = {
 
 export type Document = {
   id: string;
-  image: string;
+  uri: string;
   dateCreated: DateTime;
   name: string;
   stepsCompleted: DocumentRequestStep[];

@@ -26,7 +26,7 @@ export type ActiveFiltersProps<T> = {
 
 export const hasActiveFilters = (activeFilters: AnyObject): boolean =>
   Object.values(activeFilters ?? {}).filter(item => {
-    return (Array.isArray(item) && !!item.length) || item !== undefined;
+    return Array.isArray(item) && !!item.length;
   }).length > 0;
 
 const ChipComponent = ({ index, filter, onDelete }: ChipProps) => {
