@@ -2,9 +2,9 @@ import React from 'react';
 
 import { useLocale } from 'hooks';
 import { SquareIcon } from 'ui/atoms/icons';
-import { FinancialObligationType } from '../financialObligations/FinancialObligations.types';
 import { FormModal } from 'ui/organisms';
 import { RadioGroupField } from 'form/fields';
+import { FinancialObligationType } from 'api/types';
 
 import { AddNewFinancialObligationModalProps } from './AddNewFinancialObligationModal.types';
 

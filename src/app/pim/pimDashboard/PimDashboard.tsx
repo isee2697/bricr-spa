@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Box, Grid, NavBreadcrumbs, Typography } from 'ui/atoms';
+import { Box, Grid, NavBreadcrumbs, Typography, DocumentViewer } from 'ui/atoms';
 import { PimDashBoardProps } from 'app/pim/pimDashboard/PimDashboard.types';
 import { useLocale } from 'hooks';
 import { ActiveFilters } from 'ui/molecules/filters/activeFilters/ActiveFilters';
@@ -45,6 +45,13 @@ export const PimDashboard = ({ breadcrumbs, activeFilters, onFilter }: PimDashBo
           <PimDashboardMetaHeader />
         </Box>
         <Box mt={3}>
+          <DocumentViewer
+            documents={[
+              { uri: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf' },
+              { uri: 'https://bricr-ui-web.s3-eu-west-1.amazonaws.com/Test-word-doc.docx' },
+            ]}
+            // config={{ header: { disableFileName: true } }}
+          />
           <NewInterestsContainer />
         </Box>
         <Box mt={3}>

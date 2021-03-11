@@ -1,124 +1,76 @@
-import React, { useState } from 'react';
-import arrayMutators from 'final-form-arrays';
+import React from 'react';
+import _ from 'lodash';
+import { useParams } from 'react-router-dom';
 
-import { Box, Grid, Typography } from 'ui/atoms';
-import { AddNewIncomeInformationModal } from '../addNewIncomeInformationModal/AddNewIncomeInformationModal';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { useModalDispatch } from 'hooks/useModalDispatch/useModalDispatch';
-import { useModalState } from 'hooks/useModalState/useModalState';
-import { PromiseFunction } from 'app/shared/types';
-import { AddNewIncomeInformationBody } from '../addNewIncomeInformationModal/AddNewIncomeInformationModal.types';
-import { AutosaveForm, FormSection, FormSubSection } from 'ui/organisms';
-import { InfoSection } from 'ui/molecules';
+import { CrmIncome, IncomeType } from 'api/types';
+import { AddNewIncomeInformationModalContainer } from '../addNewIncomeInformationModal/AddNewIncomeInformationModalContainer';
+import { CardWithList } from 'ui/templates';
 
-import { useStyles } from './IncomeInformation.styles';
-import { IncomeInformationItem, IncomeInformationType } from './IncomeInformation.types';
+import { IncomeInformationProps } from './IncomeInformation.types';
 import { Employer } from './employer/Employer';
 import { IncomeEquity } from './incomeEquity/IncomeEquity';
 import { Pension } from './pension/Pension';
 import { Entrepreneur } from './entrepreneur/Entrepreneur';
 import { SocialBenefit } from './socialBenefit/SocialBenefit';
 
-export const IncomeInformation = () => {
-  const classes = useStyles();
+export const IncomeInformation = ({ data, onSave }: IncomeInformationProps) => {
   const { formatMessage } = useLocale();
-  const { open, close } = useModalDispatch();
-  const { isOpen: isModalOpen } = useModalState('add-new-income-information');
-  const [incomeInformationItems, setIncomeInformationItems] = useState<IncomeInformationItem[]>([]);
+  const { open } = useModalDispatch();
+  const { id } = useParams<{ id: string }>();
 
-  const handleAddNewIncomeInformation: PromiseFunction<AddNewIncomeInformationBody> = async ({
-    incomeInformationType,
-  }) => {
+  const handleSave = async (values: CrmIncome) => {
     try {
-      setIncomeInformationItems([
-        ...incomeInformationItems,
-        {
-          type: incomeInformationType,
-        },
-      ]);
-
-      close('add-new-income-information');
+      await onSave({
+        id,
+        income: (data?.income || []).map(item =>
+          JSON.parse(
+            JSON.stringify(item.id === values.id ? _.omit(values, ['title']) : item, (key, value) =>
+              value === null || key === '__typename' || key === 'id' ? undefined : value,
+            ),
+          ),
+        ),
+      });
 
       return undefined;
     } catch (error) {
-      return {
-        error: true,
-      };
+      return { error: true };
     }
-  };
-
-  const initialValues = incomeInformationItems.reduce((accu, currentValue) => {
-    return {
-      ...accu,
-      [currentValue.type]: {
-        ...currentValue,
-      },
-    };
-  }, {});
-
-  const onSave = async (values: unknown) => {
-    return { error: false };
   };
 
   return (
     <>
-      <FormSection
+      <CardWithList<CrmIncome>
         title={formatMessage({ id: 'crm.details.personal_information_financial_profile.income_information.title' })}
-        isEditable
-        onAdd={() => open('add-new-income-information')}
-      >
-        {isEditing => (
-          <AutosaveForm onSave={onSave} initialValues={initialValues} mutators={{ ...arrayMutators }}>
-            <Grid item xs={12}>
-              {incomeInformationItems.length === 0 && (
-                <InfoSection emoji="🤔">
-                  <Typography variant="h3">
-                    {formatMessage({
-                      id: 'crm.details.personal_information_contact_information.addresses.empty_title',
-                    })}
-                  </Typography>
-                  <Typography variant="h3">
-                    {formatMessage({
-                      id: 'crm.details.personal_information_contact_information.addresses.empty_description',
-                    })}
-                  </Typography>
-                </InfoSection>
-              )}
-              {incomeInformationItems.length > 0 &&
-                incomeInformationItems.map((incomeInformation, index) => (
-                  <FormSubSection
-                    title={
-                      <>
-                        <Typography variant="h5" className={classes.incomeInformationIndex}>
-                          {index + 1}
-                        </Typography>
-                        <Typography variant="h3" className={classes.incomeInformationTitle}>
-                          {formatMessage({
-                            id: `dictionaries.financial_profile.income_information.${incomeInformation.type}`,
-                          })}
-                        </Typography>
-                      </>
-                    }
-                    onOptionsClick={() => {}}
-                  >
-                    <Box>
-                      {incomeInformation.type === IncomeInformationType.Employer && <Employer isEditing={isEditing} />}
-                      {incomeInformation.type === IncomeInformationType.IncomeFromEquity && <IncomeEquity />}
-                      {incomeInformation.type === IncomeInformationType.Pension && <Pension />}
-                      {incomeInformation.type === IncomeInformationType.SocialBenefit && <SocialBenefit />}
-                      {incomeInformation.type === IncomeInformationType.Entrepreneur && <Entrepreneur />}
-                    </Box>
-                  </FormSubSection>
-                ))}
-            </Grid>
-          </AutosaveForm>
+        emptyStateTextFirst={formatMessage({
+          id: 'crm.details.personal_information_contact_information.addresses.empty_title',
+        })}
+        emptyStateTextSecond={formatMessage({
+          id: 'crm.details.personal_information_contact_information.addresses.empty_description',
+        })}
+        emoji="🙌"
+        renderItem={(item: CrmIncome, isEditing: boolean) => (
+          <>
+            {item.type === IncomeType.Employer && <Employer isEditing={isEditing} />}
+            {item.type === IncomeType.Equity && <IncomeEquity isEditing={isEditing} />}
+            {item.type === IncomeType.Pension && <Pension isEditing={isEditing} />}
+            {item.type === IncomeType.SocialBenefit && <SocialBenefit isEditing={isEditing} />}
+            {item.type === IncomeType.Entrepreneur && <Entrepreneur isEditing={isEditing} />}
+          </>
         )}
-      </FormSection>
-      <AddNewIncomeInformationModal
-        isOpened={isModalOpen}
-        onClose={() => close('add-new-income-information')}
-        onSubmit={handleAddNewIncomeInformation}
+        items={(data?.income || []).map(item => ({
+          ...item,
+          title: formatMessage({ id: `dictionaries.financial_profile.income_information.${item.type}` }),
+        }))}
+        onSave={handleSave}
+        onAdd={() => open('add-new-income-information')}
+        isInitExpanded
+        isInitEditing
+        isEditable
+        isExpandable
       />
+      <AddNewIncomeInformationModalContainer id={id} data={data} />
     </>
   );
 };
