@@ -21,7 +21,7 @@ export const DocumentTableView = ({
   const { formatMessage } = useLocale();
   const classes = useStyles();
 
-  const [passDocuments] = useState(documents.map(document => ({ uri: document.image })));
+  const [passDocuments] = useState(documents.map(document => ({ uri: document.uri })));
   const [sortColumn, setSortColumn] = useState<string | null>(null);
   const [sortDirection, setSortDirection] = useState<'ascending' | 'descending' | null>(null);
   const [isPreviewModalOpen, openPreviewModal] = useState(false);
@@ -49,7 +49,7 @@ export const DocumentTableView = ({
     {
       field: 'type',
       label: formatMessage({ id: 'crm.details.documents.preview' }),
-      renderer: doc => <PreviewIcon onClick={() => openPreviewModal(true)} uri={doc.image} />,
+      renderer: doc => <PreviewIcon onClick={() => openPreviewModal(true)} uri={doc.uri} />,
       sorter: () => {
         onSort('type');
       },
