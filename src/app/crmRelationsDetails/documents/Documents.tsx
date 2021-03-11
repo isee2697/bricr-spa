@@ -37,7 +37,6 @@ export const Documents = (props: DocumentsProps) => {
           render={() => (
             <DocumentFolders
               {...props}
-              path={`${path}/folders`}
               foldersData={documents}
               isLoading={false}
               isError={false}
