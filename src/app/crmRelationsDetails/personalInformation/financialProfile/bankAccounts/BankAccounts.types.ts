@@ -1,4 +1,10 @@
-export type BankAccountsProps = {};
+import { CrmFinancial, UpdateCrmFinancialInput } from 'api/types';
+import { PromiseFunction } from 'app/shared/types';
+
+export type BankAccountsProps = {
+  data?: CrmFinancial;
+  onSave: PromiseFunction<UpdateCrmFinancialInput>;
+};
 
 export type BankAccount = {
   type: BankAccountType;
