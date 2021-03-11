@@ -5,7 +5,7 @@ import { fireEvent, render } from 'tests';
 import { Pagination } from './Pagination';
 
 describe('Pagination', () => {
-  it('render correctly', () => {
+  it('render correctly', async () => {
     const onPerPageChange = jest.fn();
 
     const { getByText } = render(
@@ -22,10 +22,12 @@ describe('Pagination', () => {
     expect(prevButton).toBeInTheDocument();
     expect(nextButton).toBeInTheDocument();
 
+    expect(getByText('1')).toHaveAttribute('aria-current', 'true');
+
     fireEvent.click(nextButton);
     expect(getByText('2')).toHaveAttribute('aria-current', 'true');
 
-    fireEvent.click(prevButton);
-    expect(getByText('1')).toHaveAttribute('aria-current', 'true');
+    fireEvent.click(getByText('3'));
+    expect(getByText('3')).toHaveAttribute('aria-current', 'true');
   });
 });
