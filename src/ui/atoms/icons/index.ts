@@ -140,3 +140,4 @@ export * from './socialMedia/SocialMediaIcon';
 export * from './mobile/MobileIcon';
 export * from './simpleLocation/SimpleLocationIcon';
 export * from './keyboardBackspace/KeyboardBackspaceIcon';
+export * from './emptyFilter/EmptyFilterIcon';
