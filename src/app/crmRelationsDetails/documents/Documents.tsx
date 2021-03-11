@@ -6,7 +6,6 @@ import { useLocale } from 'hooks';
 import { useEntityType } from 'app/shared/entityType';
 import { Loader, NavBreadcrumb } from 'ui/atoms';
 import { joinUrlParams } from 'routing/AppRoute.utils';
-import { CardWithFolder } from '../../../ui/templates/cards/cardWithFolder/CardWithFolder';
 import { PageWithFolderListCard } from '../../../ui/templates/page/PageWithCardFolderList/PageWithFolderListCard';
 
 import { DocumentsProps } from './Documents.types';

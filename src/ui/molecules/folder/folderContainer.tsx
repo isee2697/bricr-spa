@@ -95,7 +95,7 @@ export const FolderContainer = ({
     <Box display="flex" flexDirection="column" alignItems="center" className={classes.root}>
       {isOpened && <DirectoryOpenedIcon className={classes.openedWrapper} />}
       <Box className={clsx(classes.iconWrapper, isAdd && classes.addWrapper)} onClick={onClick}>
-        {onRemove && (
+        {onRemove && type === 'secondary' && (
           <Badge
             className={classes.removeBadge}
             onClick={e => {
