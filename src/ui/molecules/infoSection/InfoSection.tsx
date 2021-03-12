@@ -18,7 +18,13 @@ export const InfoSection = ({
 
   return (
     <Box className={classNames(classes.box, color, className, noPadding && 'noPadding')}>
-      {!!emoji ? <Emoji className={classNames(classes.emoji, emojiClassName)}>{emoji}</Emoji> : null}
+      {!!emoji ? (
+        typeof emoji === 'string' ? (
+          <Emoji className={classNames(classes.emoji, emojiClassName)}>{emoji}</Emoji>
+        ) : (
+          emoji
+        )
+      ) : null}
       {children}
     </Box>
   );

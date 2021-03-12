@@ -2,16 +2,18 @@ import React from 'react';
 
 import { DocumentViewer, Popover } from 'ui/atoms';
 import { SeeIcon } from 'ui/atoms/icons';
+import { PreviewIconProps } from 'ui/molecules/previewIcon/PreviewIcon.types';
 
 import { useStyles } from './PreviewIcon.styles';
 
-export const PreviewIcon = ({ uri, onClick }: { uri: string; onClick?: VoidFunction }) => {
+export const PreviewIcon = ({ uri, onClick, className }: PreviewIconProps) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState<SVGElement | null>(null);
 
   return (
     <>
       <SeeIcon
+        className={className}
         aria-owns={!!anchorEl ? 'mouse-over-popover' : undefined}
         aria-haspopup="true"
         onMouseEnter={event => setAnchorEl(event.currentTarget)}
@@ -29,7 +31,7 @@ export const PreviewIcon = ({ uri, onClick }: { uri: string; onClick?: VoidFunct
         anchorEl={anchorEl}
         anchorOrigin={{
           vertical: 'bottom',
-          horizontal: 'left',
+          horizontal: 'right',
         }}
         transformOrigin={{
           vertical: 'top',

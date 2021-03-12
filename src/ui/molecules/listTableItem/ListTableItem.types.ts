@@ -2,8 +2,9 @@ import { ReactNode } from 'react';
 
 export type ListTableCell<T> = {
   field: keyof T;
-  label?: string;
+  label?: ReactNode;
   sortable?: boolean;
+  defaultHidden?: boolean;
 };
 
 export type ListTableItemProps<T> = {
