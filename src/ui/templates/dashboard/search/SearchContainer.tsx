@@ -49,6 +49,9 @@ export const SearchContainer = () => {
       case Entities.Team:
         route = AppRoute.teams;
         break;
+      case Entities.Users:
+        route = AppRoute.userDetails;
+        break;
     }
 
     if (route) {

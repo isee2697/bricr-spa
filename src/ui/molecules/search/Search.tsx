@@ -66,7 +66,7 @@ export const Search = ({
       setSearchTimeout(
         setTimeout(() => {
           onSearch?.(searchString);
-        }, 200),
+        }, 250),
       );
     } else if (isNewString && searchString.length > 0) {
       onSearch?.(searchString);
