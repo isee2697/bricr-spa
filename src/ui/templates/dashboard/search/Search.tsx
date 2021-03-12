@@ -248,7 +248,7 @@ export const Search = ({ results, onSearch, loading, onClick }: SearchProps) => 
     <BaseSearch
       hasFocus={hasFocus}
       setFocus={setFocus}
-      onChangeCapture={(e: React.ChangeEvent<HTMLInputElement>) => onSearch(e.target.value)}
+      onSearch={onSearch}
       options={getFormattedResults(results)}
       loading={loading}
       loadingText={<Loader />}

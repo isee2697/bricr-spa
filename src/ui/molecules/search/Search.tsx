@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import clsx from 'clsx';
 
 import {
@@ -47,12 +47,33 @@ export const Search = ({
   endAdornment,
   classes: passedClasses,
   loading = false,
+  onSearch,
   ...props
 }: SearchProps) => {
   const [hasFocus, setFocus] = useState(!!hasFocusProp);
   const [value, setValue] = useState(props.inputValue ? props.inputValue : '');
   const { formatMessage } = useLocale();
+  const ref = useRef<HTMLInputElement>(null);
   const classes = useStyles();
+  const [searchTimeout, setSearchTimeout] = useState<NodeJS.Timeout>();
+
+  const handleType = (searchString: string) => {
+    const isNewString = value !== searchString;
+
+    if ((isNewString && searchString.length === 1) || Math.abs(searchString.length - value.length) < 3) {
+      searchTimeout && clearTimeout(searchTimeout) && setSearchTimeout(undefined);
+
+      setSearchTimeout(
+        setTimeout(() => {
+          onSearch?.(searchString);
+        }, 200),
+      );
+    } else if (isNewString && searchString.length > 0) {
+      onSearch?.(searchString);
+    }
+
+    setValue(searchString);
+  };
 
   useEffect(() => {
     if (setFocusProp) {
@@ -109,7 +130,7 @@ export const Search = ({
         <Grid
           onClick={() => {
             if (option.onClick) {
-              // setFocus(false);
+              ref?.current?.blur();
               option.onClick();
             }
           }}
@@ -144,7 +165,8 @@ export const Search = ({
             setFocus(false);
             setValue('');
           }}
-          onChange={e => setValue(e.target.value)}
+          inputRef={ref}
+          onChange={e => handleType(e.target.value)}
           placeholder={formatMessage({ id: placeholder || 'common.search' })}
           className={`${classes.textField} ${hasFocus ? classes.hasFocus : ''} ${passedClasses?.input}`}
           variant="outlined"

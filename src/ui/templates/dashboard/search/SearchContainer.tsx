@@ -28,7 +28,7 @@ export const SearchContainer = () => {
     switch (type) {
       case Entities.Pim:
         route = AppRoute.pimDetails;
-
+        break;
       case Entities.Crm:
         const crm = data?.search?.crms?.find(crm => crm.id === id);
         route = AppRoute.crmRelationsDetails;
@@ -37,14 +37,18 @@ export const SearchContainer = () => {
           route = AppRoute.crmBusinessesDetails;
         }
 
+        break;
       case Entities.Sales:
         const sale = data?.search?.sales?.find(s => s.id === id);
         route = AppRoute.salesDetails;
         route.replace(':type', sale?.type ?? '');
+        break;
       case Entities.Ncp:
         route = AppRoute.projectDetails;
+        break;
       case Entities.Team:
         route = AppRoute.teams;
+        break;
     }
 
     if (route) {
