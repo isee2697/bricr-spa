@@ -96,6 +96,24 @@ export const DmsSidebarMenu = ({ onHide, isVisible, onAddFolder }: DmsSidebarMen
             icon: <FolderIcon />,
             hideIcon: false,
             title: 'dms.menu.sales',
+            onClick: () => push(`${AppRoute.dms}/sales/leads`),
+            subItems: [
+              {
+                id: 'leads',
+                title: 'dms.menu.leads',
+                icon: <Box width={theme.spacing(3)} />,
+              },
+              {
+                id: 'orders',
+                title: 'dms.menu.orders',
+                icon: <Box width={theme.spacing(3)} />,
+              },
+              {
+                id: 'invoices',
+                title: 'dms.menu.invoices',
+                icon: <Box width={theme.spacing(3)} />,
+              },
+            ],
           },
           {
             key: 'addFolder',

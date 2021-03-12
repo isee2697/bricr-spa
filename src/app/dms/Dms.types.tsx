@@ -47,3 +47,9 @@ export type DmsProps = {
   path: string;
   entityType: EntityType;
 };
+
+export type DmsDocumentType = {
+  [key: string]: {
+    [key: string]: string[];
+  };
+};
