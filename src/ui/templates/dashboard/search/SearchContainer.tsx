@@ -1,16 +1,16 @@
 import React from 'react';
 
-import { useAdvancedSearchLazyQuery } from 'api/types';
+import { useSearchLazyQuery } from 'api/types';
 
 import { Search } from './Search';
 
 export const SearchContainer = () => {
-  const [advancedSearch, { data, loading }] = useAdvancedSearchLazyQuery({
+  const [search, { data, loading }] = useSearchLazyQuery({
     fetchPolicy: 'no-cache',
   });
 
   const handleSearch = async (keyword: string) => {
-    advancedSearch({
+    search({
       variables: {
         input: {
           keyword,
@@ -21,7 +21,7 @@ export const SearchContainer = () => {
 
   return (
     <Search
-      results={data?.advancedSearch || { users: [], crms: [], pims: [], emails: [], teams: [] }}
+      results={data?.search || { users: [], crms: [], pims: [], emails: [], teams: [] }}
       onSearch={handleSearch}
       loading={loading}
     />

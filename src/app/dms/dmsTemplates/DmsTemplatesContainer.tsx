@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { useHistory, useLocation } from 'react-router';
+import { useHistory, useParams } from 'react-router-dom';
 
 import { Templates } from 'api/mocks/dms';
-import { useModalDispatch } from 'hooks';
+import { AppRoute } from 'routing/AppRoute.enum';
 
 import { DmsTemplates } from './DmsTemplates';
 import { DmsTemplateItem } from './DmsTemplates.types';
@@ -11,14 +11,11 @@ import { DmsTemplatesContainerProps } from './DmsTemplatesContainer.types';
 export const DmsTemplatesContainer = ({ category }: DmsTemplatesContainerProps) => {
   const [templates, setTemplates] = useState<DmsTemplateItem[]>(Templates);
   const { push } = useHistory();
-  const { close } = useModalDispatch();
-  const { pathname } = useLocation();
+  const { type } = useParams<{ type: string }>();
 
   const handleAddTemplate = async () => {
-    close('dms-add-template');
-
-    // TODO: Connect to Backend and use id coming from backend here
-    push(`${pathname}/0001/general`);
+    const { id } = await new Promise(resolve => setTimeout(() => resolve({ id: 'dms-template-3' }), 2000));
+    push(`${AppRoute.dms}/templates/${type}/custom/${id}/general`);
 
     return undefined;
   };
