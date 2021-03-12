@@ -51,7 +51,7 @@ export const DmsDetailsSidebarMenu = ({ onHide, isVisible, configureItems }: Dms
     {
       key: 'configureSettings',
       icon: <TriggerIcon color="inherit" />,
-      title: formatMessage({ id: `dms.templates.configure_${type.toLowerCase()}` }),
+      title: formatMessage({ id: `dms.templates.configure_${type?.toLowerCase()}` }),
       configureItems,
     },
     {
