@@ -12,7 +12,7 @@ export const DocumentsContainer = ({ path, ...props }: DocumentsContainerProps) 
 
   const handleAddFolder = useCallback(
     async (name: string) => {
-      documents.push({ id: String(Math.floor(Math.random() * 10000)), name });
+      documents.push({ id: String(Math.floor(Math.random() * 10000)), name, isUserFolder: true });
       setDocuments([...documents]);
     },
     [documents],

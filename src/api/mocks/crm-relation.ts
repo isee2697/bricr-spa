@@ -477,16 +477,19 @@ export const CRM_DOCUMENT_FOLDERS: DocumentFolderType[] = [
         size: 4000,
       },
     ],
+    isUserFolder: false,
   },
   {
     id: 'folder-2',
     name: 'Sales order',
     documents: [],
+    isUserFolder: false,
   },
   {
     id: 'folder-3',
     name: 'Contracts',
     documents: [],
+    isUserFolder: false,
   },
   {
     id: 'folder-4',

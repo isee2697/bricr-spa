@@ -95,7 +95,7 @@ export const FolderContainer = ({
     <Box display="flex" flexDirection="column" alignItems="center" className={classes.root}>
       {isOpened && <DirectoryOpenedIcon className={classes.openedWrapper} />}
       <Box className={clsx(classes.iconWrapper, isAdd && classes.addWrapper)} onClick={onClick}>
-        {onRemove && (
+        {onRemove && type === 'secondary' && (
           <Badge
             className={classes.removeBadge}
             onClick={e => {
@@ -116,7 +116,7 @@ export const FolderContainer = ({
         ) : (
           <>
             <FolderIcon id={id + '_' + type} variant={variant} weight={childCount} className={classes.icon} />
-            <Box className={clsx(classes.iconBadge, type)}>{childCount || '-'}</Box>
+            <Box className={clsx(classes.iconBadge, variant)}>{childCount || '-'}</Box>
           </>
         )}
       </Box>

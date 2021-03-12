@@ -1,0 +1,70 @@
+import { Typography } from '@material-ui/core';
+import React, { useCallback, useState } from 'react';
+
+import { CrmRelationsDetailsHeader } from '../../../../app/crmRelationsDetails/crmRelationsDetailsHeader/CrmRelationsDetailsHeader';
+import { Page } from '../Page';
+import { Box, Grid } from '../../../atoms';
+import { DocumentListViewContainer } from '../../../../app/crmRelationsDetails/documents/documentListView/DocumentListViewContainer';
+import { CardWithFolder } from '../../cards/cardWithFolder/CardWithFolder';
+import { useLocale } from '../../../../hooks';
+import { DocumentFolderType } from '../../../../app/crmRelationsDetails/documents/Documents.types';
+
+import { PageWithFolderListCardProps } from './PageWithFolderListCard.types';
+
+export const PageWithFolderListCard = ({
+  onSidebarOpen,
+  isSidebarVisible,
+  path,
+  folders,
+  onAddFolder,
+  onDeleteFolder,
+  onUpdateFolder,
+  onUploadFiles,
+}: PageWithFolderListCardProps) => {
+  const { formatMessage } = useLocale();
+
+  const [selectedFolder, setSelectedFolder] = useState<DocumentFolderType | null>(null);
+
+  const handleUploadFiles = useCallback(
+    (folder: DocumentFolderType, files: File[]) => {
+      onUploadFiles?.(folder, files);
+    },
+    [onUploadFiles],
+  );
+
+  return (
+    <>
+      <CrmRelationsDetailsHeader onSidebarOpen={onSidebarOpen} isSidebarVisible={isSidebarVisible} />
+      <Page withoutHeader>
+        <Grid xs={12} item>
+          <Box display="flex" alignItems="center">
+            <Typography variant="h1">{formatMessage({ id: 'crm.details.documents.document_folders' })}</Typography>
+          </Box>
+        </Grid>
+        <Grid item xs={12}>
+          <CardWithFolder
+            path={`${path}/folders`}
+            foldersData={folders}
+            isLoading={false}
+            isError={false}
+            setSelectedFolder={setSelectedFolder}
+            onAddFolder={onAddFolder}
+            onDeleteFolder={onDeleteFolder}
+            onUpdateFolder={onUpdateFolder}
+            onUploadFiles={onUploadFiles}
+          />
+          {selectedFolder && (
+            <Box mt={3.5}>
+              <DocumentListViewContainer
+                folder={selectedFolder}
+                documents={selectedFolder.documents}
+                path={path}
+                onUploadFiles={files => handleUploadFiles(selectedFolder, files)}
+              />
+            </Box>
+          )}
+        </Grid>
+      </Page>
+    </>
+  );
+};
