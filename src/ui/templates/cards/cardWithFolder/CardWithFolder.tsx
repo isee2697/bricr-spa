@@ -5,15 +5,15 @@ import { FolderContainer } from 'ui/molecules/folder/folderContainer';
 import { Box, Grid, Card, CardHeader, CardContent, IconButton } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { PropertyItemPlaceholder, Search } from 'ui/molecules';
-import { DocumentListViewContainer } from '../documentListView/DocumentListViewContainer';
-import { DocumentFolderType } from '../Documents.types';
+import { DocumentListViewContainer } from '../../../../app/crmRelationsDetails/documents/documentListView/DocumentListViewContainer';
+import { DocumentFolderType } from '../../../../app/crmRelationsDetails/documents/Documents.types';
 import { CrmRelationsDetailsHeader } from 'app/crmRelationsDetails/crmRelationsDetailsHeader/CrmRelationsDetailsHeader';
-import { Page } from 'ui/templates';
+import { Page } from 'ui/templates/index';
 import { ArrowDownIcon, ArrowUpIcon } from 'ui/atoms/icons';
 import { DmsAddFolderDialog } from 'app/dms/dmsPims/dmsFolders/dmsAddFolderDialog/DmsAddFolderDialog';
 
-import { useStyles } from './DocumentFolders.styles';
-import { DocumentFoldersProps } from './DocumentFolders.types';
+import { useStyles } from './CardWithFolder.styles';
+import { DocumentFoldersProps } from './CardWithFolder.types';
 
 const documentFoldersOptions = [
   { title: 'Adriaan van Bergenstraat', type: '', value: 'Adriaan van Bergenstraat', icon: 'CH' },
@@ -22,7 +22,7 @@ const documentFoldersOptions = [
   { title: 'adriaanse', type: '', value: 'adriaanse', icon: 'CH' },
 ];
 
-export const DocumentFolders = ({
+export const CardWithFolder = ({
   onSidebarOpen,
   isSidebarVisible,
   path,
@@ -119,7 +119,7 @@ export const DocumentFolders = ({
                             id={item.id}
                             name={item.name}
                             childCount={item.documents?.length || 0}
-                            type="secondary"
+                            type="primary"
                             isOpened={item.id === selectedFolder?.id}
                             onClick={() => {
                               setSelectedFolder(item.id === selectedFolder?.id ? null : item);

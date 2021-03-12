@@ -6,9 +6,9 @@ import { useLocale } from 'hooks';
 import { useEntityType } from 'app/shared/entityType';
 import { Loader, NavBreadcrumb } from 'ui/atoms';
 import { joinUrlParams } from 'routing/AppRoute.utils';
+import { CardWithFolder } from '../../../ui/templates/cards/cardWithFolder/CardWithFolder';
 
 import { DocumentsProps } from './Documents.types';
-import { DocumentFolders } from './documentFolders/DocumentFolders';
 import { ChecklistContainer } from './checklist/ChecklistContainer';
 import { ChecklistListContainer } from './checklistList/ChecklistListContainer';
 import { CheckListItemDetailsContainer } from './checkListItemDetails/CheckListItemDetailsContainer';
@@ -35,7 +35,7 @@ export const Documents = (props: DocumentsProps) => {
         <Route
           path={`${path}/folders`}
           render={() => (
-            <DocumentFolders
+            <CardWithFolder
               {...props}
               path={`${path}/folders`}
               foldersData={documents}
