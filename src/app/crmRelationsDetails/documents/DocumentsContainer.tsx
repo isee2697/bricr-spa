@@ -43,7 +43,7 @@ export const DocumentsContainer = ({ path, ...props }: DocumentsContainerProps) 
         ...folder.documents,
         ...files.map(item => ({
           id: uuid.v4(),
-          image: '',
+          uri: '',
           dateCreated: DateTime.fromJSDate(new Date()),
           name: item.name,
           stepsCompleted: [],

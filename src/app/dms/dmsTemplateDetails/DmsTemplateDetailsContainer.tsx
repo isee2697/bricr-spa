@@ -5,9 +5,9 @@ import { useLocale } from 'hooks/useLocale/useLocale';
 import { Loader, NavBreadcrumb } from 'ui/atoms';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { Templates } from 'api/mocks/dms';
-import { GeneralPageSettings } from 'app/shared/dms/generalPageSettings/GeneralPageSettings';
 import { Security } from 'app/shared/dms/security/Security';
 import { DMS_TEMPLATE_RIGHTS as documentRightsMockData } from 'api/mocks/dms-templates';
+import { GeneralPageSettings } from 'app/shared/dms/generalPageSettings/GeneralPageSettings';
 
 import { DmsTemplateConfigureSettingsDetails } from './dmsTemplateConfigureSettingsDetails/DmsTemplateConfigureSettingsDetails';
 import { DmsTemplateDetailsContainerProps, DocumentType } from './DmsTemplateDetailsContainer.types';
@@ -21,10 +21,6 @@ export const DmsTemplateDetailsContainer = (props: DmsTemplateDetailsContainerPr
     return <Loader />;
   }
 
-  const handleSubmit = async () => {
-    return undefined;
-  };
-
   const handleSave = async () => {
     return undefined;
   };
@@ -35,9 +31,7 @@ export const DmsTemplateDetailsContainer = (props: DmsTemplateDetailsContainerPr
       <Switch>
         <Route
           path={`${AppRoute.dms}/templates/:type/:category/${id}/general`}
-          render={() => (
-            <GeneralPageSettings types={Object.keys(DocumentType)} title={data.name} onSave={handleSubmit} />
-          )}
+          render={() => <GeneralPageSettings types={Object.keys(DocumentType)} title={data.name} onSave={handleSave} />}
         />
         <Route
           path={`${AppRoute.dms}/templates/:type/:category/${id}/configureSettings`}

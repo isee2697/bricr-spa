@@ -1,9 +1,9 @@
 import { ReactNode } from 'react';
 
-import { AdvancedSearchResult } from 'api/types';
+import { SearchResult } from 'api/types';
 
 export type SearchProps = {
-  results?: AdvancedSearchResult;
+  results?: SearchResult;
   onSearch: (keyword: string) => Promise<void>;
   loading: boolean;
 };
