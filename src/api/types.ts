@@ -3200,6 +3200,8 @@ export enum Entities {
   AddOn = 'addOn',
   TiaraMutation = 'tiaraMutation',
   Email = 'email',
+  Users = 'users',
+  Sales = 'sales',
 }
 
 export enum IdentificationNumberType {

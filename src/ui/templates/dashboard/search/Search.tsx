@@ -1,16 +1,29 @@
 import React, { useState, useEffect } from 'react';
+import { Person } from '@material-ui/icons';
 
 import { Search as BaseSearch } from 'ui/molecules';
 import { useOverlayDispatch } from 'hooks/useOverlayDispatch/useOverlayDispatch';
-import { SearchResult, CrmType, ProjectType, PropertyType, SalesLabel } from 'api/types';
+import { SearchResult, CrmType, ProjectType, PropertyType, SalesLabel, Entities } from 'api/types';
 import { useLocale } from 'hooks';
-import { BuildingIcon, MailIcon, NoteIcon, UserIcon } from 'ui/atoms/icons';
+import {
+  AogIcon,
+  BuildingIcon,
+  CrmIcon,
+  MailIcon,
+  NcRentIcon,
+  NcSaleIcon,
+  NewConstructionIcon,
+  NoteIcon,
+  RoundBusinessCenterIcon,
+  SaleIcon,
+  UserIcon,
+} from 'ui/atoms/icons';
 import { Box, Loader } from 'ui/atoms';
 
 import { FormattedAdvancedSearchResult, SearchProps } from './Search.types';
 import { useStyles } from './Search.styles';
 
-export const Search = ({ results, onSearch, loading }: SearchProps) => {
+export const Search = ({ results, onSearch, loading, onClick }: SearchProps) => {
   const [hasFocus, setFocus] = useState(false);
   const setOverlay = useOverlayDispatch();
   const { formatMessage } = useLocale();
@@ -25,8 +38,15 @@ export const Search = ({ results, onSearch, loading }: SearchProps) => {
       ...(result?.emails || []).map(email => ({
         title: email.email,
         type: formatMessage({ id: 'search.email' }),
+        onClick: () => onClick?.(Entities.Email, email.id),
         icon: (
-          <Box display="flex" alignItems="center" justifyContent="center" className={classes.icon}>
+          <Box
+            onClick={() => onClick?.(Entities.Email, email.id)}
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+            className={classes.icon}
+          >
             <MailIcon />
           </Box>
         ),
@@ -34,6 +54,7 @@ export const Search = ({ results, onSearch, loading }: SearchProps) => {
       ...(result?.users || []).map(user => ({
         title: `${user.firstName} ${user.lastName}`,
         type: formatMessage({ id: 'search.contact' }),
+        onClick: () => onClick?.(Entities.Users, user.id),
         icon: (
           <Box display="flex" alignItems="center" justifyContent="center" className={classes.icon}>
             <UserIcon />
@@ -45,9 +66,10 @@ export const Search = ({ results, onSearch, loading }: SearchProps) => {
         .map(crm => ({
           title: `${crm.firstName || ''} ${crm.lastName}`,
           type: formatMessage({ id: 'search.crm.relation' }),
+          onClick: () => onClick?.(Entities.Crm, crm.id),
           icon: (
             <Box display="flex" alignItems="center" justifyContent="center" className={classes.icon}>
-              <NoteIcon />
+              <CrmIcon />
             </Box>
           ),
         })),
@@ -56,6 +78,7 @@ export const Search = ({ results, onSearch, loading }: SearchProps) => {
         .map(crm => ({
           title: `${crm.firstName || ''} ${crm.lastName}`,
           type: formatMessage({ id: 'search.crm.business' }),
+          onClick: () => onClick?.(Entities.Crm, crm.id),
           icon: (
             <Box display="flex" alignItems="center" justifyContent="center" className={classes.icon}>
               <NoteIcon />
@@ -67,9 +90,10 @@ export const Search = ({ results, onSearch, loading }: SearchProps) => {
         .map(pim => ({
           title: `${pim.street || ''} ${pim.houseNumber || ''}, ${pim.city}`,
           type: formatMessage({ id: 'search.pim.residential' }),
+          onClick: () => onClick?.(Entities.Pim, pim.id),
           icon: (
             <Box display="flex" alignItems="center" justifyContent="center" className={classes.icon}>
-              <MailIcon />
+              <BuildingIcon />
             </Box>
           ),
         })),
@@ -78,9 +102,10 @@ export const Search = ({ results, onSearch, loading }: SearchProps) => {
         .map(pim => ({
           title: `${pim.street || ''} ${pim.houseNumber || ''}, ${pim.city}`,
           type: formatMessage({ id: 'search.pim.commercial' }),
+          onClick: () => onClick?.(Entities.Pim, pim.id),
           icon: (
             <Box display="flex" alignItems="center" justifyContent="center" className={classes.icon}>
-              <MailIcon />
+              <RoundBusinessCenterIcon />
             </Box>
           ),
         })),
@@ -89,9 +114,10 @@ export const Search = ({ results, onSearch, loading }: SearchProps) => {
         .map(pim => ({
           title: `${pim.street || ''} ${pim.houseNumber || ''}, ${pim.city}`,
           type: formatMessage({ id: 'search.pim.agricultural' }),
+          onClick: () => onClick?.(Entities.Pim, pim.id),
           icon: (
             <Box display="flex" alignItems="center" justifyContent="center" className={classes.icon}>
-              <MailIcon />
+              <AogIcon />
             </Box>
           ),
         })),
@@ -100,9 +126,10 @@ export const Search = ({ results, onSearch, loading }: SearchProps) => {
         .map(pim => ({
           title: `${pim.street || ''} ${pim.houseNumber || ''}, ${pim.city}`,
           type: formatMessage({ id: 'search.pim.parking_lot' }),
+          onClick: () => onClick?.(Entities.Pim, pim.id),
           icon: (
             <Box display="flex" alignItems="center" justifyContent="center" className={classes.icon}>
-              <MailIcon />
+              <BuildingIcon />
             </Box>
           ),
         })),
@@ -111,9 +138,10 @@ export const Search = ({ results, onSearch, loading }: SearchProps) => {
         .map(pim => ({
           title: `${pim.street || ''} ${pim.houseNumber || ''}, ${pim.city}`,
           type: formatMessage({ id: 'search.pim.building_plot' }),
+          onClick: () => onClick?.(Entities.Pim, pim.id),
           icon: (
             <Box display="flex" alignItems="center" justifyContent="center" className={classes.icon}>
-              <MailIcon />
+              <BuildingIcon />
             </Box>
           ),
         })),
@@ -122,9 +150,10 @@ export const Search = ({ results, onSearch, loading }: SearchProps) => {
         .map(ncp => ({
           title: ncp.name || '',
           type: formatMessage({ id: 'search.ncp.new_construction' }),
+          onClick: () => onClick?.(Entities.Ncp, ncp.id),
           icon: (
             <Box display="flex" alignItems="center" justifyContent="center" className={classes.icon}>
-              <MailIcon />
+              <NewConstructionIcon />
             </Box>
           ),
         })),
@@ -133,9 +162,10 @@ export const Search = ({ results, onSearch, loading }: SearchProps) => {
         .map(ncp => ({
           title: ncp.name || '',
           type: formatMessage({ id: 'search.ncp.relet' }),
+          onClick: () => onClick?.(Entities.Ncp, ncp.id),
           icon: (
             <Box display="flex" alignItems="center" justifyContent="center" className={classes.icon}>
-              <MailIcon />
+              <NcRentIcon />
             </Box>
           ),
         })),
@@ -144,9 +174,10 @@ export const Search = ({ results, onSearch, loading }: SearchProps) => {
         .map(ncp => ({
           title: ncp.name || '',
           type: formatMessage({ id: 'search.ncp.commercial' }),
+          onClick: () => onClick?.(Entities.Ncp, ncp.id),
           icon: (
             <Box display="flex" alignItems="center" justifyContent="center" className={classes.icon}>
-              <MailIcon />
+              <NcSaleIcon />
             </Box>
           ),
         })),
@@ -155,9 +186,10 @@ export const Search = ({ results, onSearch, loading }: SearchProps) => {
         .map(sales => ({
           title: sales.extraInfo || '',
           type: formatMessage({ id: 'search.sales.acquisition' }),
+          onClick: () => onClick?.(Entities.Sales, sales.id),
           icon: (
             <Box display="flex" alignItems="center" justifyContent="center" className={classes.icon}>
-              <BuildingIcon />
+              <SaleIcon />
             </Box>
           ),
         })),
@@ -166,9 +198,10 @@ export const Search = ({ results, onSearch, loading }: SearchProps) => {
         .map(sales => ({
           title: sales.extraInfo || '',
           type: formatMessage({ id: 'search.sales.lead' }),
+          onClick: () => onClick?.(Entities.Sales, sales.id),
           icon: (
             <Box display="flex" alignItems="center" justifyContent="center" className={classes.icon}>
-              <BuildingIcon />
+              <SaleIcon />
             </Box>
           ),
         })),
@@ -177,9 +210,10 @@ export const Search = ({ results, onSearch, loading }: SearchProps) => {
         .map(sales => ({
           title: sales.extraInfo || '',
           type: formatMessage({ id: 'search.sales.order' }),
+          onClick: () => onClick?.(Entities.Sales, sales.id),
           icon: (
             <Box display="flex" alignItems="center" justifyContent="center" className={classes.icon}>
-              <BuildingIcon />
+              <SaleIcon />
             </Box>
           ),
         })),
@@ -188,12 +222,23 @@ export const Search = ({ results, onSearch, loading }: SearchProps) => {
         .map(sales => ({
           title: sales.extraInfo || '',
           type: formatMessage({ id: 'search.sales.quotation' }),
+          onClick: () => onClick?.(Entities.Sales, sales.id),
           icon: (
             <Box display="flex" alignItems="center" justifyContent="center" className={classes.icon}>
-              <BuildingIcon />
+              <SaleIcon />
             </Box>
           ),
         })),
+      ...(result?.teams || []).map(team => ({
+        title: `${team.name}`,
+        type: formatMessage({ id: 'search.pim.building_plot' }),
+        onClick: () => onClick?.(Entities.Team, team.id),
+        icon: (
+          <Box display="flex" alignItems="center" justifyContent="center" className={classes.icon}>
+            <Person />
+          </Box>
+        ),
+      })),
     ];
 
     return formattedResults;

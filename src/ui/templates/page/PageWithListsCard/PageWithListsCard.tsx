@@ -60,19 +60,24 @@ export const PageWithListsCard: <V, A, F>(
     field
   );
 
-  const buttons = views.map((view, key) => {
-    return (
-      <IconButton
-        className={key === activeView ? classes.activeList : undefined}
-        key={key}
-        onClick={() => setActiveView(key)}
-        variant="rounded"
-        size="small"
-      >
-        {view.viewIcon}
-      </IconButton>
+  const buttons =
+    views.length > 1 ? (
+      views.map((view, key) => {
+        return (
+          <IconButton
+            className={key === activeView ? classes.activeList : undefined}
+            key={key}
+            onClick={() => setActiveView(key)}
+            variant="rounded"
+            size="small"
+          >
+            {view.viewIcon}
+          </IconButton>
+        );
+      })
+    ) : (
+      <></>
     );
-  });
 
   const handleFilterChange = (newFilters: AnyObject) => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
@@ -81,7 +86,7 @@ export const PageWithListsCard: <V, A, F>(
   };
 
   return (
-    <Grid xs={12}>
+    <Box>
       {!withoutHeader && <PageWithListsHeader {...header} />}
       {name && (
         <Box mt={-1} width="100%">
@@ -178,6 +183,6 @@ export const PageWithListsCard: <V, A, F>(
         isOpened={!!tableHeader?.setColumns && columnModalOpen}
         onClose={() => setColumnModalOpen(false)}
       />
-    </Grid>
+    </Box>
   );
 };

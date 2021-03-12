@@ -1,12 +1,15 @@
 import { ReactNode } from 'react';
 import { AutocompleteProps } from '@material-ui/lab/Autocomplete';
 
+import { Entities } from 'api/types';
+
 export type Search = {
   title: string;
   type: string;
   subline?: string;
   date?: Date;
   icon?: ReactNode;
+  onClick?: VoidFunction;
 };
 
 export type SearchClasses = {

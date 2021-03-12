@@ -106,7 +106,17 @@ export const Search = ({
       PaperComponent={Results}
       open={hasFocus}
       renderOption={(option: SearchType) => (
-        <Grid container alignItems="center" spacing={2}>
+        <Grid
+          onClick={() => {
+            if (option.onClick) {
+              // setFocus(false);
+              option.onClick();
+            }
+          }}
+          container
+          alignItems="center"
+          spacing={2}
+        >
           <Grid item>{option.icon ?? <Avatar variant="rounded">{getIcon(option.type)}</Avatar>}</Grid>
           <Grid item>
             {highlightString(option.title)}
