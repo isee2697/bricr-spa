@@ -120,16 +120,20 @@ export const FolderContainer = ({
           </>
         )}
       </Box>
+
       <Box>
-        <input
-          className={clsx(classes.editBox, !isRenaming && classes.hidden)}
-          ref={inputRef}
-          defaultValue={name}
-          onKeyDown={handleChange}
-          onClick={e => e.stopPropagation()}
-        />
+        {type !== 'primary' && (
+          <input
+            className={clsx(classes.editBox, !isRenaming && classes.hidden)}
+            ref={inputRef}
+            defaultValue={name}
+            onKeyDown={handleChange}
+            onClick={e => e.stopPropagation()}
+          />
+        )}
+
         <Typography
-          className={clsx(isRenaming && classes.hidden)}
+          className={clsx(type !== 'primary' && isRenaming && classes.hidden)}
           variant="h6"
           align="center"
           onClick={e => {
