@@ -60,7 +60,7 @@ export const CardWithFolder = ({
   ]);
 
   return (
-    <Card className={classes.root}>
+    <Card data-testid="card-with-folder" className={classes.root}>
       <CardHeader
         title={
           <Box display="flex" flexDirection="column" alignItems="center" className={classes.searchBoxWrapper}>

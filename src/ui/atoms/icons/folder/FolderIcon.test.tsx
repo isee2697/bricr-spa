@@ -21,7 +21,7 @@ describe('Folder', () => {
 
     expect(element).toHaveAttribute('fill', '#97dcfd');
   });
-  test('renderd purple color', () => {
+  test('renders purple color', () => {
     const { getByTestId } = render(
       <FolderIcon id={'folder-3_primary'} variant={'purple'} weight={1} className={'makeStyles-icon-2457'} />,
     );
