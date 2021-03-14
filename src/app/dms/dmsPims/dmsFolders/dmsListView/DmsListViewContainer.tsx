@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 
-import { ListPimsFilters, PropertyType } from 'api/types';
+import { ListPimsFilters } from 'api/types';
 import { EmailList } from 'app/shared/emailList/EmailList';
 import { EMAILS } from 'api/mocks/email';
 import { Box } from 'ui/atoms';
+import { GeneralList } from 'app/shared/dms/generalList/GeneralList';
+import { DMS_GENERAL_LIST_ITEMS as dmsGeneralListItems } from 'api/mocks/dms';
 
 import { DmsListViewContainerProps } from './DmsListViewContainer.types';
 import { DmsViewTabs } from './dmsViewTabs/DmsViewTabs';
@@ -21,9 +23,7 @@ export const DmsListViewContainer = ({
   isError,
   data,
 }: DmsListViewContainerProps) => {
-  const [activeFilters, setActiveFilters] = useState<ListPimsFilters>({
-    propertyTypes: [PropertyType.Apartment, PropertyType.House],
-  });
+  const [activeFilters, setActiveFilters] = useState<ListPimsFilters>({});
   const [view, setView] = useState<DmsViewType>('detail');
 
   return (
@@ -40,6 +40,15 @@ export const DmsListViewContainer = ({
           ]}
           onAdd={() => {}}
           count={EMAILS.length}
+        />
+      )}
+      {category === 'crm' && folderType !== 'emails' && (
+        <GeneralList
+          activeFilters={activeFilters}
+          onFilter={setActiveFilters}
+          items={dmsGeneralListItems}
+          onAdd={() => {}}
+          count={3}
         />
       )}
       {category !== 'crm' && (

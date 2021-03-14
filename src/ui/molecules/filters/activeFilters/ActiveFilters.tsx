@@ -111,6 +111,8 @@ export const ActiveFilters: <T>(p: ActiveFiltersProps<T>) => React.ReactElement<
     return filters;
   };
 
+  console.log('Debugging: ', activeFilters);
+
   return (
     <Box className={`${classes.root} ${hasActiveFilters(activeFilters) ? classes.hasfilters : ''} ${className}`} p={2}>
       {generateFilters()}

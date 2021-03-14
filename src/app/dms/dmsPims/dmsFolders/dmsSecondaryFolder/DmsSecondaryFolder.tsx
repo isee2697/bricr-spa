@@ -1,4 +1,5 @@
 import React, { useState, ReactNode } from 'react';
+import { useHistory } from 'react-router';
 
 import { Box, Grid, Card, CardContent, IconButton } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
@@ -11,6 +12,7 @@ import { DmsAddFolderDialog } from 'app/dms/dmsPims/dmsFolders/dmsAddFolderDialo
 import { GeneralPageSettings } from 'app/shared/dms/generalPageSettings/GeneralPageSettings';
 import { DmsDocumentTypes } from 'app/dms/dictionaires';
 import { Page } from 'ui/templates';
+import { AppRoute } from 'routing/AppRoute.enum';
 
 import { useStyles } from './DmsSecondaryFolder.styles';
 import { DmsSecondaryFolderProps } from './DmsSecondaryFolder.types';
@@ -25,6 +27,7 @@ export const DmsSecondaryFolder = ({
 }: DmsSecondaryFolderProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
+  const { push } = useHistory();
 
   const [dialog, setDialog] = useState<ReactNode | null>(null);
   const [selectedFolder, setSelectedFolder] = useState<DmsFolderType | null>(null);
@@ -80,12 +83,11 @@ export const DmsSecondaryFolder = ({
   return (
     <Page
       showHeader
-      withoutHeader
       title={formatMessage({ id: `dms.folders.${type}` })}
       titleActions={[]}
       headerProps={{
         customAction: (
-          <IconButton size="small" variant="rounded" onClick={() => setSelectedDocument(null)}>
+          <IconButton size="small" variant="rounded" onClick={() => push(`${AppRoute.dms}/${category}/${type}`)}>
             <ExitIcon />
           </IconButton>
         ),

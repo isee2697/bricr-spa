@@ -6,6 +6,7 @@ import { DocumentRequestStatus } from 'app/crmRelationsDetails/documents/Documen
 import { DmsTemplateItem } from 'app/dms/dmsTemplates/DmsTemplates.types';
 import { DmsBlockItem } from 'app/dms/dmsContentBlocks/DmsContentBlocks.types';
 import { DmsImageItem } from 'app/dms/dmsImageLibrary/DmsImages.types';
+import { DocumentItem, DocumentType } from 'app/shared/dms/generalList/GeneralList.types';
 
 export const DMSDocuments: DmsDocument[] = [
   {
@@ -845,5 +846,26 @@ export const Images: DmsImageItem[] = [
     status: 'active',
     createdAt: '2020/09/21',
     url: 'http://placeimg.com/104/152/arch',
+  },
+];
+
+export const DMS_GENERAL_LIST_ITEMS: DocumentItem[] = [
+  {
+    id: '0001',
+    name: 'SO-003-Isenburgstraat-36',
+    extension: 'pdf',
+    documentType: DocumentType.RentalAgreement,
+    isCreatedByBricr: false,
+    dateCreated: new Date().toISOString(),
+    dateUpdated: new Date().toISOString(),
+  },
+  {
+    id: '0002',
+    name: 'OTD-basis-verkoop_1',
+    extension: 'doc',
+    documentType: DocumentType.Otd,
+    isCreatedByBricr: true,
+    dateCreated: new Date().toISOString(),
+    dateUpdated: new Date().toISOString(),
   },
 ];
