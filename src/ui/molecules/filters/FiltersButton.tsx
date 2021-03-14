@@ -29,6 +29,7 @@ export const FiltersButton = ({ color = 'primary', data, getActiveFilters, filte
       let filterAmount = 0;
 
       const updateFilterAmount = (value: string[]) => {
+        console.log('Debugging: ', value);
         value.forEach((filter: string) => {
           filterAmount += 1;
         });

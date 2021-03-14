@@ -90,6 +90,19 @@ export const DmsSidebarMenu = ({ onHide, isVisible, onAddFolder }: DmsSidebarMen
             icon: <FolderIcon />,
             hideIcon: false,
             title: 'dms.menu.crm',
+            onClick: () => push(`${AppRoute.dms}/crm/relations`),
+            subItems: [
+              {
+                id: 'relations',
+                title: 'dms.menu.crm_relations',
+                icon: <Box width={theme.spacing(3)} />,
+              },
+              {
+                id: 'businesses',
+                title: 'dms.menu.crm_businesses',
+                icon: <Box width={theme.spacing(3)} />,
+              },
+            ],
           },
           {
             key: 'sales',
