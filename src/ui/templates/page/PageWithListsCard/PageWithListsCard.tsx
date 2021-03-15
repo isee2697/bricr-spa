@@ -4,7 +4,7 @@ import { AnyObject } from 'final-form';
 import { useHistory } from 'react-router-dom';
 
 import { PageWithListsHeader } from 'ui/templates/page/PageWithListsCard/PageWithListsHeader';
-import { Box, Grid, IconButton } from 'ui/atoms';
+import { Box, IconButton } from 'ui/atoms';
 import { AutosaveForm, FormSection } from 'ui/organisms';
 import { useLocale } from 'hooks';
 import { useStyles } from 'ui/templates/page/PageWithListsCard/PageWithListsCard.styles';

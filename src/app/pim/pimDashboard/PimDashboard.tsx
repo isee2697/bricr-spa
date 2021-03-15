@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Box, Grid, NavBreadcrumbs, Typography, DocumentViewer } from 'ui/atoms';
+import { Box, Grid, NavBreadcrumbs, Typography } from 'ui/atoms';
 import { PimDashBoardProps } from 'app/pim/pimDashboard/PimDashboard.types';
 import { useLocale } from 'hooks';
 import { ActiveFilters } from 'ui/molecules/filters/activeFilters/ActiveFilters';
