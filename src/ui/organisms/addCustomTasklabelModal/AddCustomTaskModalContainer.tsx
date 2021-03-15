@@ -4,17 +4,17 @@ import { useParams } from 'react-router-dom';
 import { LabelInput, useAddLabelMutation, useAddNcpLabelMutation, useAddObjectTypeLabelMutation } from 'api/types';
 import { EntityType } from 'app/shared/entityType';
 
-import { AddCustomPropertyModalContainerProps } from './AddCustomPropertyModal.types';
-import { AddCustomPropertyModal } from './AddCustomPropertyModal';
+import { AddCustomTaskModalContainerProps } from './AddCustomTaskModal.types';
+import { AddCustomTaskModal } from './AddCustomTaskModal';
 
-export const AddCustomPropertyModalContainer = ({
+export const AddCustomTaskModalContainer = ({
   isOpened,
   onClose,
   property,
   title,
   labelId,
   entityType = EntityType.Property,
-}: AddCustomPropertyModalContainerProps) => {
+}: AddCustomTaskModalContainerProps) => {
   const { id } = useParams<{ id: string }>();
 
   const [addLabel] = useAddLabelMutation({ refetchQueries: ['GetLabels'] });
@@ -81,12 +81,6 @@ export const AddCustomPropertyModalContainer = ({
   );
 
   return (
-    <AddCustomPropertyModal
-      isOpened={isOpened}
-      onClose={onClose}
-      onSubmit={handleSubmit}
-      title={title}
-      labelId={labelId}
-    />
+    <AddCustomTaskModal isOpened={isOpened} onClose={onClose} onSubmit={handleSubmit} title={title} labelId={labelId} />
   );
 };

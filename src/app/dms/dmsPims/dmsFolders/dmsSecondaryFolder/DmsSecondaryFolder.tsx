@@ -1,17 +1,17 @@
 import React, { useState, ReactNode } from 'react';
 import { useHistory } from 'react-router';
 
-import { Box, Grid, Card, CardContent, IconButton } from 'ui/atoms';
+import { Box, Grid, IconButton } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { PropertyItemPlaceholder } from 'ui/molecules';
-import { DmsFolderIcon } from '../dmsFolderIcon/DmsFolderIcon';
+import { FolderContainer } from 'ui/molecules/folder/folderContainer';
 import { DmsDocument, DmsFolderType } from 'app/dms/Dms.types';
 import { DmsListViewContainer } from '../dmsListView/DmsListViewContainer';
 import { ExitIcon, SeeIcon } from 'ui/atoms/icons';
 import { DmsAddFolderDialog } from 'app/dms/dmsPims/dmsFolders/dmsAddFolderDialog/DmsAddFolderDialog';
 import { GeneralPageSettings } from 'app/shared/dms/generalPageSettings/GeneralPageSettings';
 import { DmsDocumentTypes } from 'app/dms/dictionaires';
-import { Page } from 'ui/templates';
+import { CardWithBody, Page } from 'ui/templates';
 import { AppRoute } from 'routing/AppRoute.enum';
 
 import { useStyles } from './DmsSecondaryFolder.styles';
@@ -95,45 +95,43 @@ export const DmsSecondaryFolder = ({
       classes={{ container: classes.page }}
     >
       <Grid item xs={12}>
-        <Card>
-          <CardContent>
-            <Box mt={4}>
-              <Grid container>
-                {isLoading ? (
-                  <Grid item xs={12}>
-                    <PropertyItemPlaceholder />
-                  </Grid>
-                ) : foldersData?.length ? (
-                  foldersData.map((item, index) => (
-                    <Grid item key={index} className={classes.listItem} xs={6} sm={4} lg={2}>
-                      <DmsFolderIcon
-                        id={item.id}
-                        name={item.name}
-                        childCount={item.documents?.length || 0}
-                        type="secondary"
-                        onClick={() => {
-                          setSelectedFolder(item.id === selectedFolder?.id ? null : item);
-                        }}
-                        isOpened={item.id === selectedFolder?.id}
-                      />
-                    </Grid>
-                  ))
-                ) : null}
-
-                <Grid item className={classes.listItem} xs={6} sm={4} lg={2}>
-                  <DmsFolderIcon
-                    id="add_folder"
-                    name={formatMessage({ id: 'dms.documents.add_folder' })}
-                    onClick={() => {
-                      handleAdd();
-                    }}
-                    isAdd
-                  />
+        <CardWithBody>
+          <Box mt={4}>
+            <Grid container>
+              {isLoading ? (
+                <Grid item xs={12}>
+                  <PropertyItemPlaceholder />
                 </Grid>
+              ) : foldersData?.length ? (
+                foldersData.map((item, index) => (
+                  <Grid item key={index} className={classes.listItem} xs={6} sm={4} lg={2}>
+                    <FolderContainer
+                      id={item.id}
+                      name={item.name}
+                      childCount={item.documents?.length || 0}
+                      type="secondary"
+                      onClick={() => {
+                        setSelectedFolder(item.id === selectedFolder?.id ? null : item);
+                      }}
+                      isOpened={item.id === selectedFolder?.id}
+                    />
+                  </Grid>
+                ))
+              ) : null}
+
+              <Grid item className={classes.listItem} xs={6} sm={4} lg={2}>
+                <FolderContainer
+                  id="add_folder"
+                  name={formatMessage({ id: 'dms.documents.add_folder' })}
+                  onClick={() => {
+                    handleAdd();
+                  }}
+                  isAdd
+                />
               </Grid>
-            </Box>
-          </CardContent>
-        </Card>
+            </Grid>
+          </Box>
+        </CardWithBody>
 
         {selectedFolder && (
           <Box mt={4}>
