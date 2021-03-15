@@ -14,15 +14,4 @@ describe('CardWithFolder', () => {
     const element = getByTestId('card-with-folder');
     expect(element).toBeInTheDocument();
   });
-
-  test('CardWithTable is in document', () => {
-    const onSideBarOpen = jest.fn();
-
-    const { getByTestId } = render(
-      <PageWithFolderListCard path={'/path'} onSidebarOpen={onSideBarOpen} isSidebarVisible={true} title={'test'} />,
-    );
-
-    const element = getByTestId('card-with-table');
-    expect(element).toBeInTheDocument();
-  });
 });
