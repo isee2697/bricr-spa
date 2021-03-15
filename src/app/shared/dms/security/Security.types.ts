@@ -1,9 +1,12 @@
+import { LastUpdatedProfile } from 'api/types';
 import { PromiseFunction } from 'app/shared/types';
 
 export type SecurityProps = {
   title: string;
   onSave: PromiseFunction<void>;
   data: SecurityData;
+  updatedBy?: LastUpdatedProfile | null;
+  dateUpdated?: string | null;
 };
 
 export type PermissionsInTemplates = {
