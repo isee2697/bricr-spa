@@ -4,7 +4,7 @@ import { useTheme } from '@material-ui/core';
 
 import { SidebarMenu } from 'ui/molecules';
 import { Box } from 'ui/atoms';
-import { FolderIcon, AddIcon, GraphArrowIcon } from 'ui/atoms/icons';
+import { FolderSvgIcon, AddIcon, GraphArrowIcon } from 'ui/atoms/icons';
 import { SidebarMenuType } from 'ui/molecules/sidebarMenu/SidebarMenu.types';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { useLocale } from 'hooks';
@@ -38,7 +38,7 @@ export const DmsSidebarMenu = ({ onHide, isVisible, onAddFolder }: DmsSidebarMen
         items: [
           {
             key: 'pim',
-            icon: <FolderIcon />,
+            icon: <FolderSvgIcon />,
             hideIcon: false,
             title: 'dms.menu.pim',
             onClick: () => push(`${AppRoute.dms}/pim/residential`),
@@ -87,13 +87,26 @@ export const DmsSidebarMenu = ({ onHide, isVisible, onAddFolder }: DmsSidebarMen
           },
           {
             key: 'crm',
-            icon: <FolderIcon />,
+            icon: <FolderSvgIcon />,
             hideIcon: false,
             title: 'dms.menu.crm',
+            onClick: () => push(`${AppRoute.dms}/crm/relations`),
+            subItems: [
+              {
+                id: 'relations',
+                title: 'dms.menu.crm_relations',
+                icon: <Box width={theme.spacing(3)} />,
+              },
+              {
+                id: 'businesses',
+                title: 'dms.menu.crm_businesses',
+                icon: <Box width={theme.spacing(3)} />,
+              },
+            ],
           },
           {
             key: 'sales',
-            icon: <FolderIcon />,
+            icon: <FolderSvgIcon />,
             hideIcon: false,
             title: 'dms.menu.sales',
           },
@@ -306,7 +319,7 @@ export const DmsSidebarMenu = ({ onHide, isVisible, onAddFolder }: DmsSidebarMen
         translationPrefix="dms.menu"
         menu={menu}
         menuTitle={formatMessage({ id: 'dms.title' })}
-        menuTitleIcon={<FolderIcon color="inherit" />}
+        menuTitleIcon={<FolderSvgIcon color="inherit" />}
       />
     </>
   );

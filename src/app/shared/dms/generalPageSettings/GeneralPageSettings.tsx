@@ -11,7 +11,15 @@ import { DocIcon } from 'ui/atoms/icons';
 
 import { GeneralPageSettingsProps, Languages } from './GeneralPageSettings.types';
 
-export const GeneralPageSettings = ({ title, types, onSave, updatedBy, dateUpdated }: GeneralPageSettingsProps) => {
+export const GeneralPageSettings = ({
+  title,
+  titleActions,
+  headerProps,
+  types,
+  onSave,
+  updatedBy,
+  dateUpdated,
+}: GeneralPageSettingsProps) => {
   const { formatMessage } = useLocale();
 
   const languageDropdownItems: DropdownItem[] = Object.values(Languages).map(key => ({
@@ -21,7 +29,14 @@ export const GeneralPageSettings = ({ title, types, onSave, updatedBy, dateUpdat
 
   return (
     <>
-      <Page showHeader title={title} titleActions={[]} updatedBy={updatedBy} dateUpdated={dateUpdated}>
+      <Page
+        showHeader
+        title={title}
+        titleActions={titleActions}
+        headerProps={headerProps}
+        updatedBy={updatedBy}
+        dateUpdated={dateUpdated}
+      >
         <FormSection title={formatMessage({ id: 'dms.general_page_settings.title' })} isExpandable isInitExpanded>
           {editing => (
             <AutosaveForm onSave={onSave} initialValues={{ name: title }}>

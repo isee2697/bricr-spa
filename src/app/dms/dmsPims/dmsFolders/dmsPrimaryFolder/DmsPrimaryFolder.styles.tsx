@@ -1,9 +1,6 @@
 import { makeStyles } from '@material-ui/core';
 
 export const useStyles = makeStyles(theme => ({
-  root: {
-    height: '100%',
-  },
   searchBoxWrapper: {
     position: 'relative',
   },
@@ -15,5 +12,8 @@ export const useStyles = makeStyles(theme => ({
   },
   listItem: {
     marginBottom: theme.spacing(2.5),
+  },
+  page: {
+    height: '100%',
   },
 }));

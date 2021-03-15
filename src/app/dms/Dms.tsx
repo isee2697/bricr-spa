@@ -16,6 +16,7 @@ import { DmsTemplateDetailsContainer } from './dmsTemplateDetails/DmsTemplateDet
 import { DmsContentBlockDetailsContainer } from './dmsContentBlockDetails/DmsContentBlockDetailsContainer';
 import { DmsPims } from './dmsPims/DmsPims';
 import { DmsTemplatesList } from './dmsTemplates/DmsTemplatesList';
+import { DmsCrms } from './dmsCrms/DmsCrms';
 
 export const Dms = ({ dms, breadcrumbs, path, entityType }: DmsProps) => {
   const classes = useStyles();
@@ -82,6 +83,7 @@ export const Dms = ({ dms, breadcrumbs, path, entityType }: DmsProps) => {
                       />
                     )}
                   />
+                  <Route path={`${path}/crm/:type`} render={() => <DmsCrms dms={dms} />} />
                   <Route path={`${path}/templates/:type`} render={() => <DmsTemplatesList />} />
                   <Route exact path={`${path}/contentBlocks/:type`} render={() => <DmsContentBlocksContainer />} />
                   <Route path={`${path}/contentBlocks/:type/:id`} render={() => <DmsContentBlockDetailsContainer />} />
