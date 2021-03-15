@@ -49,14 +49,7 @@ export const Dms = ({ dms, breadcrumbs, path, entityType }: DmsProps) => {
         <Switch>
           <Route
             path={[`${path}/templates/:type/:category/:id`, `${path}/contentBlocks/:type/:id`]}
-            render={() => (
-              <DmsDetailsSidebarMenu
-                onHide={handleSidebarHide}
-                isVisible={isSidebarVisible}
-                type={'LVZ'}
-                configureItems={<>LVZ</>}
-              />
-            )}
+            render={() => <DmsDetailsSidebarMenu onHide={handleSidebarHide} isVisible={isSidebarVisible} />}
           />
           <Route
             render={() => (

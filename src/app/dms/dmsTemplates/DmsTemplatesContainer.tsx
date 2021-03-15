@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useHistory, useLocation } from 'react-router';
+import { useHistory, useLocation } from 'react-router-dom';
 
 import { Templates } from 'api/mocks/dms';
 import { useModalDispatch } from 'hooks';
