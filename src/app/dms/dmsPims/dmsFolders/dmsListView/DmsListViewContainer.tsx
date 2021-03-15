@@ -5,7 +5,6 @@ import { EMAILS } from 'api/mocks/email';
 import { Box } from 'ui/atoms';
 import { CardWithTable } from 'ui/templates';
 import { FileType, FileTypeView } from 'ui/templates/cards/cardWithTable/CardWithTable.types';
-import { GeneralList } from 'app/shared/dms/generalList/GeneralList';
 import { DMS_GENERAL_LIST_ITEMS as dmsGeneralListItems } from 'api/mocks/dms';
 
 import { DmsListViewContainerProps } from './DmsListViewContainer.types';
@@ -49,22 +48,17 @@ export const DmsListViewContainer = ({
           titleAmount={EMAILS.length}
         />
       )}
-      {category === 'crm' && folderType !== 'emails' && (
-        <GeneralList
-          activeFilters={activeFilters}
-          onFilter={setActiveFilters}
-          items={dmsGeneralListItems}
+      {((category === 'crm' && folderType !== 'emails') || category === 'pim') && (
+        <CardWithTable<FileType>
+          titleId={`common.${type}`}
           onAdd={() => {}}
-          count={3}
-        />
-      )}
-      {category === 'pim' && (
-        <GeneralList
-          activeFilters={activeFilters}
-          onFilter={setActiveFilters}
-          items={dmsGeneralListItems}
-          onAdd={() => {}}
-          count={3}
+          view={FileTypeView.File}
+          files={dmsGeneralListItems as FileType[]}
+          actions={{
+            onEdit: { exec: () => {} },
+            onDelete: { exec: () => {} },
+          }}
+          titleAmount={dmsGeneralListItems.length}
         />
       )}
       {category !== 'crm' && category !== 'pim' && (

@@ -106,7 +106,7 @@ export const DmsPrimaryFolder = ({
                         childCount={item.folders?.length || 0}
                         type="primary"
                         onClick={() => {
-                          push(`${AppRoute.dms}/pim/${type}/${item.id}`);
+                          push(`${AppRoute.dms}/${category}/${type}/${item.id}`);
                         }}
                       />
                     </Grid>
