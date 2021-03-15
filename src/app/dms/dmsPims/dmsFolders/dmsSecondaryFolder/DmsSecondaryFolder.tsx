@@ -3,7 +3,7 @@ import React, { useState, ReactNode } from 'react';
 import { Box, Grid, IconButton } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { PropertyItemPlaceholder } from 'ui/molecules';
-import { DmsFolderIcon } from '../dmsFolderIcon/DmsFolderIcon';
+import { FolderContainer } from 'ui/molecules/folder/folderContainer';
 import { DmsDocument, DmsFolderType } from 'app/dms/Dms.types';
 import { DmsListViewContainer } from '../dmsListView/DmsListViewContainer';
 import { ExitIcon, SeeIcon } from 'ui/atoms/icons';
@@ -103,7 +103,7 @@ export const DmsSecondaryFolder = ({
               ) : foldersData?.length ? (
                 foldersData.map((item, index) => (
                   <Grid item key={index} className={classes.listItem} xs={6} sm={4} lg={2}>
-                    <DmsFolderIcon
+                    <FolderContainer
                       id={item.id}
                       name={item.name}
                       childCount={item.documents?.length || 0}
@@ -118,7 +118,7 @@ export const DmsSecondaryFolder = ({
               ) : null}
 
               <Grid item className={classes.listItem} xs={6} sm={4} lg={2}>
-                <DmsFolderIcon
+                <FolderContainer
                   id="add_folder"
                   name={formatMessage({ id: 'dms.documents.add_folder' })}
                   onClick={() => {

@@ -7,7 +7,7 @@ import { useLocale } from 'hooks/useLocale/useLocale';
 import { FiltersButton } from 'ui/molecules/filters/FiltersButton';
 import { ActiveFilters } from 'ui/molecules/filters/activeFilters/ActiveFilters';
 import { PropertyItemPlaceholder, Search, InfoSection } from 'ui/molecules';
-import { DmsFolderIcon } from '../dmsFolderIcon/DmsFolderIcon';
+import { FolderContainer } from 'ui/molecules/folder/folderContainer';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { SearchIcon } from 'ui/atoms/icons';
 import { Page } from 'ui/templates';
@@ -100,13 +100,13 @@ export const DmsPrimaryFolder = ({
                 ) : foldersData?.length ? (
                   foldersData.map((item, index) => (
                     <Grid item key={index} className={classes.listItem} xs={6} sm={4} lg={2}>
-                      <DmsFolderIcon
+                      <FolderContainer
                         id={item.id}
                         name={item.name}
                         childCount={item.folders?.length || 0}
                         type="primary"
                         onClick={() => {
-                          push(`${AppRoute.dms}/${category}/${type}/${item.id}`);
+                          push(`${AppRoute.dms}/pim/${type}/${item.id}`);
                         }}
                       />
                     </Grid>
