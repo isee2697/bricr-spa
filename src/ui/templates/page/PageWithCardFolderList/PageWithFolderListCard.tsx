@@ -56,7 +56,7 @@ export const PageWithFolderListCard = ({
             <Typography variant="h1">{formatMessage({ id: 'crm.details.documents.document_folders' })}</Typography>
           </Box>
         </Grid>
-        <Grid item xs={12}>
+        <Grid data-testid={'card-with-folder'} item xs={12}>
           <CardWithFolder
             path={`${path}/folders`}
             foldersData={folders}
@@ -69,7 +69,7 @@ export const PageWithFolderListCard = ({
             onUploadFiles={onUploadFiles}
           />
           {selectedFolder && (
-            <Box mt={3.5}>
+            <Box data-testid={'card-with-table'} mt={3.5}>
               <CardWithTable<FileType>
                 onAdd={() => {}}
                 titleId={selectedFolder.name}

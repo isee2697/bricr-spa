@@ -92,7 +92,13 @@ export const FolderContainer = ({
   }, [handleEndRenaming]);
 
   return (
-    <Box display="flex" flexDirection="column" alignItems="center" className={classes.root}>
+    <Box
+      data-testid="folder-container"
+      display="flex"
+      flexDirection="column"
+      alignItems="center"
+      className={classes.root}
+    >
       {isOpened && <DirectoryOpenedIcon className={classes.openedWrapper} />}
       <Box className={clsx(classes.iconWrapper, isAdd && classes.addWrapper)} onClick={onClick}>
         {onRemove && type === 'secondary' && (
@@ -108,7 +114,7 @@ export const FolderContainer = ({
         )}
         {isAdd ? (
           <>
-            <DirectoryBorderedIcon className={classes.icon} />
+            <DirectoryBorderedIcon data-testid={'bordered-icon'} className={classes.icon} />
             <Box className={classes.addIcon}>
               <AddIcon />
             </Box>
