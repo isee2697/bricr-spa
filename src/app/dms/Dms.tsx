@@ -3,7 +3,6 @@ import { Redirect, Route, Switch, useLocation } from 'react-router-dom';
 
 import { Grid, Box } from 'ui/atoms';
 import { EntityTypeProvider } from 'app/shared/entityType';
-import { DmsDetailsSidebarMenu } from 'app/shared/dms/sideBarMenu/SideBarMenu';
 
 import { DmsProps } from './Dms.types';
 import { useStyles } from './Dms.styles';
@@ -16,6 +15,7 @@ import { DmsTemplateDetailsContainer } from './dmsTemplateDetails/DmsTemplateDet
 import { DmsContentBlockDetailsContainer } from './dmsContentBlockDetails/DmsContentBlockDetailsContainer';
 import { DmsPims } from './dmsPims/DmsPims';
 import { DmsTemplatesList } from './dmsTemplates/DmsTemplatesList';
+import { DetailsSidebarMenu as DmsDetailsSidebarMenu } from './dmsDetailsSidebarMenu/DmsDetailsSidebarMenu';
 
 export const Dms = ({ dms, breadcrumbs, path, entityType }: DmsProps) => {
   const classes = useStyles();
