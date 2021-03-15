@@ -20,16 +20,18 @@ export const CardWithBody = ({
 
   return (
     <Card>
-      <CardHeader
-        className={titleClass}
-        action={titleActions}
-        title={
-          <>
-            {formatMessage({ id: titleId, defaultMessage: titleId })}
-            {titleAmount && <Chip size="small" label={titleAmount} className={classes.count} />}
-          </>
-        }
-      />
+      {titleId && (
+        <CardHeader
+          className={titleClass}
+          action={titleActions}
+          title={
+            <>
+              {formatMessage({ id: titleId, defaultMessage: titleId })}
+              {titleAmount && <Chip size="small" label={titleAmount} className={classes.count} />}
+            </>
+          }
+        />
+      )}
       <CardContent className={bodyClass}>{children}</CardContent>
     </Card>
   );

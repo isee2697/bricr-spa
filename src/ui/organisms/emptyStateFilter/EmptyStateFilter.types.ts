@@ -1,6 +1,6 @@
-import { Entities } from 'api/types';
+import { FileTypeView } from 'ui/templates/cards/cardWithTable/CardWithTable.types';
 
 export type EmptyStateFilterProps = {
-  type: Entities;
+  type: FileTypeView;
   isFiltered?: boolean;
 };

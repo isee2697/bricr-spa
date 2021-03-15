@@ -9,7 +9,7 @@ import { Modal } from '../modal/Modal';
 import { CancelButton } from '../cancelButton/CancelButton.styles';
 import { SubmitButton } from '../submitButton/SubmitButton';
 import { useLocale } from 'hooks';
-import { CheckboxGroupField, GenericField, RadioGroupField } from 'form/fields';
+import { CheckboxGroupField, DatePickerField, GenericField, RadioGroupField } from 'form/fields';
 
 import { FilterSideMenu } from './filterSideMenu/FilterSideMenu';
 import { Range } from './range/Range';
@@ -164,6 +164,19 @@ export const Filters = ({
                           onDeleteFilter={() => handleDeleteFilter(filter, values)}
                         >
                           <DateRange name={filter.key} />
+                        </FilterTabPanel>
+                      );
+                    } else if (filter.type === Types.Date) {
+                      return (
+                        <FilterTabPanel
+                          filterType={filter.type}
+                          key={filter.key}
+                          activeTab={activeTab}
+                          id={i}
+                          options={filter.options}
+                          onDeleteFilter={() => handleDeleteFilter(filter, values)}
+                        >
+                          <DatePickerField name={filter.key} label={formatMessage({ id: `filters.${filter.key}` })} />
                         </FilterTabPanel>
                       );
                     }
