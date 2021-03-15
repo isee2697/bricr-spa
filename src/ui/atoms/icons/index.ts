@@ -27,7 +27,7 @@ export * from './euro/EuroIcon';
 export * from './files/FilesIcon';
 export * from './filter/FilterIcon';
 export * from './folder/FolderIcon';
-export * from './directory/DirectoryIcon';
+export * from './folder/FolderSvgIcon';
 export * from './directoryOpened/DirectoryOpenedIcon';
 export * from './directoryBordered/DirectoryBorderedIcon';
 export * from './graph/GraphIcon';

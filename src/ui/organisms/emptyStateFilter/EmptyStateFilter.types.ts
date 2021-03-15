@@ -1,6 +1,4 @@
-import { Entities } from 'api/types';
-
 export type EmptyStateFilterProps = {
-  type: Entities;
+  type: string;
   isFiltered?: boolean;
 };

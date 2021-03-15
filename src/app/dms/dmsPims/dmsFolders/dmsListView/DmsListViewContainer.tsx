@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 
 import { ListPimsFilters } from 'api/types';
-import { EmailList } from 'app/shared/emailList/EmailList';
 import { EMAILS } from 'api/mocks/email';
 import { Box } from 'ui/atoms';
+import { CardWithTable } from 'ui/templates';
+import { FileType, FileTypeView } from 'ui/templates/cards/cardWithTable/CardWithTable.types';
 import { GeneralList } from 'app/shared/dms/generalList/GeneralList';
 import { DMS_GENERAL_LIST_ITEMS as dmsGeneralListItems } from 'api/mocks/dms';
+import { DocumentItem } from 'app/shared/dms/generalList/GeneralList.types';
 
 import { DmsListViewContainerProps } from './DmsListViewContainer.types';
 import { DmsViewTabs } from './dmsViewTabs/DmsViewTabs';
@@ -29,26 +31,36 @@ export const DmsListViewContainer = ({
   return (
     <>
       {category === 'crm' && folderType === 'emails' && (
-        <EmailList
-          activeFilters={activeFilters}
-          onFilter={setActiveFilters}
-          items={[
-            ...EMAILS.map(email => ({
-              ...email,
-              body: '',
-            })),
-          ]}
+        <CardWithTable<FileType>
+          titleId={'common.emails'}
           onAdd={() => {}}
-          count={EMAILS.length}
+          view={FileTypeView.Email}
+          files={
+            [
+              ...EMAILS.map(email => ({
+                ...email,
+                body: '',
+              })),
+            ] as FileType[]
+          }
+          actions={{
+            onEdit: { exec: () => {} },
+            onDelete: { exec: () => {} },
+          }}
+          titleAmount={EMAILS.length}
         />
       )}
       {category === 'crm' && folderType !== 'emails' && (
-        <GeneralList
-          activeFilters={activeFilters}
-          onFilter={setActiveFilters}
-          items={dmsGeneralListItems}
+        <CardWithTable<FileType>
+          titleId={`common.${type}`}
           onAdd={() => {}}
-          count={3}
+          view={FileTypeView.File}
+          files={dmsGeneralListItems as FileType[]}
+          actions={{
+            onEdit: { exec: () => {} },
+            onDelete: { exec: () => {} },
+          }}
+          titleAmount={dmsGeneralListItems.length}
         />
       )}
       {category !== 'crm' && (
