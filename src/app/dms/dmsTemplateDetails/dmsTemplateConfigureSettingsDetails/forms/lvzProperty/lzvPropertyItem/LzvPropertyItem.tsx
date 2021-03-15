@@ -58,7 +58,7 @@ export const LzvPropertyItem = ({ group }: LzvPropertyItemProps) => {
                 label={formatMessage({ id: 'form_section.edit_mode' })}
                 labelPlacement="start"
               />
-              <Box ml={1} />
+              <Box ml={1.5} />
               <IconButton
                 aria-label="add"
                 color="primary"
@@ -67,16 +67,22 @@ export const LzvPropertyItem = ({ group }: LzvPropertyItemProps) => {
               >
                 <AddIcon color="inherit" />
               </IconButton>
-              <Box ml={1} />
+              <Box ml={1.5} />
               <ListOptionsMenu id={`lvz-property-item-${id}`} onDeleteClick={() => {}} hideEditButton>
                 <ListOptionsMenuItem
                   title={formatMessage({
-                    id: 'common.copy',
+                    id: 'dms.templates.clone',
+                  })}
+                  icon={<ClockIcon />}
+                />
+                <ListOptionsMenuItem
+                  title={formatMessage({
+                    id: 'dms.templates.inactive',
                   })}
                   icon={<ClockIcon />}
                 />
               </ListOptionsMenu>
-              <Box ml={1} />
+              <Box ml={1.5} />
               <IconButton size="small" variant="roundedContained" onClick={() => setIsExpanded(!isExpanded)}>
                 {isExpanded ? <ArrowUpIcon /> : <ArrowDownIcon />}
               </IconButton>

@@ -68,7 +68,7 @@ export const QuestionnaireItem = ({ group }: QuestionnaireItemProps) => {
                 label={formatMessage({ id: 'form_section.edit_mode' })}
                 labelPlacement="start"
               />
-              <Box ml={1} />
+              <Box ml={1.5} />
               <IconButton
                 aria-label="add"
                 color="primary"
@@ -77,16 +77,22 @@ export const QuestionnaireItem = ({ group }: QuestionnaireItemProps) => {
               >
                 <AddIcon color="inherit" />
               </IconButton>
-              <Box ml={1} />
+              <Box ml={1.5} />
               <ListOptionsMenu id={`questionnaire-property-item-${id}`} onDeleteClick={() => {}} hideEditButton>
                 <ListOptionsMenuItem
                   title={formatMessage({
-                    id: 'common.copy',
+                    id: 'dms.templates.clone',
+                  })}
+                  icon={<ClockIcon />}
+                />
+                <ListOptionsMenuItem
+                  title={formatMessage({
+                    id: 'dms.templates.inactive',
                   })}
                   icon={<ClockIcon />}
                 />
               </ListOptionsMenu>
-              <Box ml={1} />
+              <Box ml={1.5} />
               <IconButton size="small" variant="roundedContained" onClick={() => setIsExpanded(!isExpanded)}>
                 {isExpanded ? <ArrowUpIcon /> : <ArrowDownIcon />}
               </IconButton>
@@ -107,7 +113,10 @@ export const QuestionnaireItem = ({ group }: QuestionnaireItemProps) => {
                   disabled={!isEditing}
                 />
                 {questionnaireItems.map((item, index) => (
-                  <QuestionnaireItemSubItem index={index} item={item} onSave={handleSaveSubItem} />
+                  <>
+                    {index > 0 && <Box mt={2} />}
+                    <QuestionnaireItemSubItem index={index} item={item} onSave={handleSaveSubItem} />
+                  </>
                 ))}
               </Grid>
             </AutosaveForm>

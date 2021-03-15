@@ -4,7 +4,7 @@ import { AutosaveForm, FormSubSection } from 'ui/organisms';
 import { FormSubSectionHeader } from 'ui/molecules';
 import { CheckboxField, GenericField, RadioGroupField } from 'form/fields';
 import { questionTypes } from '../../addQuestionnaireGroupItemModal/dictionaries';
-import { Grid } from 'ui/atoms';
+import { Grid, Box } from 'ui/atoms';
 import { QuestionnaireItemAnswers } from '../questionnaireItemAnswers/QuestionnaireItemAnswers';
 import { useLocale } from 'hooks';
 import { QuestionnaireGroupItem } from '../QuestionnaireItem.types';
@@ -72,6 +72,7 @@ export const QuestionnaireItemSubItem = ({
         </Grid>
         <GenericField name="question" label={formatMessage({ id: 'dms.templates.questionnaire.question' })} />
         <QuestionnaireItemAnswers answers={multipleChoiceAnswers} />
+        <Box mt={2} />
         <FormSubSectionHeader
           title={formatMessage({ id: 'dms.templates.questionnaire.question_only_for_type_of_object' })}
           subtitle={formatMessage({ id: 'common.choose_one_option_below' })}
