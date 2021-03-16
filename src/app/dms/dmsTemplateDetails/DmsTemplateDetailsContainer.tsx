@@ -31,7 +31,19 @@ export const DmsTemplateDetailsContainer = (props: DmsTemplateDetailsContainerPr
       <Switch>
         <Route
           path={`${AppRoute.dms}/templates/:type/:category/${id}/general`}
-          render={() => <GeneralPageSettings types={Object.keys(DocumentType)} title={data.name} onSave={handleSave} />}
+          render={() => (
+            <GeneralPageSettings
+              types={Object.keys(DocumentType)}
+              title={data.name}
+              onSave={handleSave}
+              updatedBy={{
+                id: '0001',
+                firstName: 'Christian',
+                lastName: 'van Gils',
+              }}
+              dateUpdated={new Date().toISOString()}
+            />
+          )}
         />
         <Route
           path={`${AppRoute.dms}/templates/:type/:category/${id}/configureSettings`}
@@ -39,7 +51,19 @@ export const DmsTemplateDetailsContainer = (props: DmsTemplateDetailsContainerPr
         />
         <Route
           path={`${AppRoute.dms}/templates/:type/:category/${id}/security`}
-          render={() => <Security title={data.name} onSave={handleSave} data={documentRightsMockData} />}
+          render={() => (
+            <Security
+              title={data.name}
+              onSave={handleSave}
+              data={documentRightsMockData}
+              updatedBy={{
+                id: '0001',
+                firstName: 'Christian',
+                lastName: 'van Gils',
+              }}
+              dateUpdated={new Date().toISOString()}
+            />
+          )}
         />
         <Redirect to={`${AppRoute.dms}/templates/:type/:category/${id}/general`} />
       </Switch>
