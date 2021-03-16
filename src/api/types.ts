@@ -9289,7 +9289,7 @@ export type RemoveUserFromTeamInput = {
 };
 
 export type QuestionaireInput = {
-  questionaireName?: Maybe<Scalars['String']>;
+  questionaireName: Scalars['String'];
   isAdmin?: Maybe<Scalars['Boolean']>;
   published?: Maybe<Scalars['Boolean']>;
   copyFromId?: Maybe<Scalars['String']>;
