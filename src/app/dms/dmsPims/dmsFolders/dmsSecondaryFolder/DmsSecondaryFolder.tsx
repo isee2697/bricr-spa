@@ -3,7 +3,7 @@ import React, { useState, ReactNode } from 'react';
 import { Box, Grid, IconButton } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { PropertyItemPlaceholder } from 'ui/molecules';
-import { FolderContainer } from 'ui/molecules/folder/folderContainer';
+import { FolderContainer } from 'ui/molecules/folder/FolderContainer';
 import { DmsDocument, DmsFolderType } from 'app/dms/Dms.types';
 import { DmsListViewContainer } from '../dmsListView/DmsListViewContainer';
 import { ExitIcon, SeeIcon } from 'ui/atoms/icons';

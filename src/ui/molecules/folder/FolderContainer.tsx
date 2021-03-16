@@ -7,8 +7,8 @@ import { ConfirmModal } from 'ui/molecules/index';
 import { ConfirmButtonType } from 'ui/molecules/confirmModal/ConfirmModal.types';
 import { useLocale } from 'hooks';
 
-import { useStyles } from './folderContainer.styles';
-import { FolderContainerProps } from './folderContiner.types';
+import { useStyles } from './FolderContainer.styles';
+import { FolderContainerProps } from './FolderContiner.types';
 
 export const FolderContainer = ({
   id,

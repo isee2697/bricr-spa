@@ -7,7 +7,7 @@ import { useLocale } from 'hooks/useLocale/useLocale';
 import { FiltersButton } from 'ui/molecules/filters/FiltersButton';
 import { ActiveFilters } from 'ui/molecules/filters/activeFilters/ActiveFilters';
 import { PropertyItemPlaceholder, Search, InfoSection } from 'ui/molecules';
-import { FolderContainer } from 'ui/molecules/folder/folderContainer';
+import { FolderContainer } from 'ui/molecules/folder/FolderContainer';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { SearchIcon } from 'ui/atoms/icons';
 import { Page } from 'ui/templates';

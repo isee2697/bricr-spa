@@ -4,7 +4,7 @@ import { Box, Grid, Card, CardContent, IconButton, Collapse } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { PropertyItemPlaceholder, Search } from 'ui/molecules';
 import { AddFolderDialog } from '../addFolderDialog/AddFolderDialog';
-import { FolderContainer } from 'ui/molecules/folder/folderContainer';
+import { FolderContainer } from 'ui/molecules/folder/FolderContainer';
 import { ArrowUpIcon, ArrowDownIcon } from 'ui/atoms/icons';
 import { DocumentListViewContainer } from '../documentListView/DocumentListViewContainer';
 import { DocumentKind } from '../General.types';
