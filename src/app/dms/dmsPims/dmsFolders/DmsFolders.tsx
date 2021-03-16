@@ -8,6 +8,7 @@ import { AppRoute } from 'routing/AppRoute.enum';
 import { NavBreadcrumb } from 'ui/atoms/navBreadcrumb/NavBreadcrumb';
 import { ListPimsFilters } from 'api/types';
 import { PimTypes } from 'app/pim/dictionaries';
+import { FolderContainer } from 'ui/molecules';
 
 import { DmsFoldersProps } from './DmsFolders.types';
 import { DmsPrimaryFolder } from './dmsPrimaryFolder/DmsPrimaryFolder';
@@ -47,15 +48,17 @@ export const DmsFolders = ({ data, category, type }: DmsFoldersProps) => {
             const item = data.folders?.find(item => item.id === path.match.params.childId);
 
             return item ? (
-              <DmsSecondaryFolder
-                id={item.id}
-                name={item.name}
-                isLoading={false}
-                isError={false}
-                foldersData={item.folders}
-                type={type}
-                category={category}
-              />
+              <>
+                <DmsSecondaryFolder
+                  id={item.id}
+                  name={item.name}
+                  isLoading={false}
+                  isError={false}
+                  foldersData={item.folders}
+                  type={type}
+                  category={category}
+                />
+              </>
             ) : (
               <Redirect to={folderPath} />
             );
@@ -64,17 +67,19 @@ export const DmsFolders = ({ data, category, type }: DmsFoldersProps) => {
         <Route
           path={folderPath}
           render={() => (
-            <DmsPrimaryFolder
-              id={data.id}
-              name={data.name}
-              onFilter={handleFilterChange}
-              activeFilters={activeFilters}
-              isLoading={false}
-              isError={false}
-              foldersData={data.folders}
-              type={type}
-              category={category}
-            />
+            <>
+              <DmsPrimaryFolder
+                id={data.id}
+                name={data.name}
+                onFilter={handleFilterChange}
+                activeFilters={activeFilters}
+                isLoading={false}
+                isError={false}
+                foldersData={data.folders}
+                type={type}
+                category={category}
+              />
+            </>
           )}
         />
       </Switch>

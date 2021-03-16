@@ -7,10 +7,10 @@ import { MailIcon } from 'ui/atoms/icons/mail/MailIcon';
 import { CalendarIcon } from 'ui/atoms/icons/calendar/CalendarIcon';
 import { TasksIcon } from 'ui/atoms/icons/tasks/TasksIcon';
 import { GraphArrowIcon } from 'ui/atoms/icons/graphArrow/GraphArrowIcon';
-import { FolderIcon } from 'ui/atoms/icons/folder/FolderIcon';
 import { SettingsIcon } from 'ui/atoms/icons/settings/SettingsIcon';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { useLayout } from 'context/layout';
+import { FolderSvgIcon } from 'ui/atoms/icons';
 
 import { DashboardProps } from './Dashboard.types';
 import { useStyles } from './Dashboard.styles';
@@ -122,7 +122,7 @@ export const Dashboard = ({ children }: DashboardProps) => {
               </Badge>
             </IconButton>
             <IconButton variant="rounded" size="small" aria-label="dms" onClick={handleDMSClick} selected={isOnDMSPage}>
-              <FolderIcon />
+              <FolderSvgIcon />
             </IconButton>
             <Sidebar.Divider />
             <IconButton
