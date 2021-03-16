@@ -11,6 +11,7 @@ export enum FiltersSizes {
 
 export enum Types {
   Text = 'label',
+  Date = 'date',
   Range = 'range',
   Checkbox = 'checkbox',
   RadioButton = 'radioButton',
