@@ -19,7 +19,7 @@ describe('Folder', () => {
     );
     const element = getByTestId('folder-icon-path');
 
-    expect(element).toHaveAttribute('fill', '#97dcfd');
+    expect(element).toHaveAttribute('fill', '#97DCFD');
   });
   test('renders purple color', () => {
     const { getByTestId } = render(
@@ -27,6 +27,6 @@ describe('Folder', () => {
     );
     const element = getByTestId('folder-icon-path');
 
-    expect(element).toHaveAttribute('fill', '#d7dbfa');
+    expect(element).toHaveAttribute('fill', '#D7DBFA');
   });
 });
