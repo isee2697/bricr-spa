@@ -7,8 +7,7 @@ import { DashboardHeader } from './DashboardHeader';
 
 describe('DashboardHeader', () => {
   test('renders', () => {
-    const onFilterClick = jest.fn();
-    const { getByText } = render(<DashboardHeader onFilterClick={onFilterClick}>Welcome</DashboardHeader>);
+    const { getByText } = render(<DashboardHeader>Welcome</DashboardHeader>);
 
     const element = getByText('Welcome');
 
@@ -16,8 +15,7 @@ describe('DashboardHeader', () => {
   });
 
   test('render emoji', () => {
-    const onFilterClick = jest.fn();
-    const { getByAltText } = render(<DashboardHeader onFilterClick={onFilterClick}>🤔</DashboardHeader>);
+    const { getByAltText } = render(<DashboardHeader>🤔</DashboardHeader>);
 
     const element = getByAltText('🤔');
 
@@ -25,10 +23,9 @@ describe('DashboardHeader', () => {
   });
 
   test('render date time correctly', () => {
-    const onFilterClick = jest.fn();
-    const { getByAltText } = render(<DashboardHeader onFilterClick={onFilterClick}>🤔</DashboardHeader>);
+    const { getByText } = render(<DashboardHeader>🤔</DashboardHeader>);
 
-    const element = getByAltText(DateTime.local().toLocaleString(DateTime.DATE_HUGE));
+    const element = getByText(DateTime.local().toLocaleString(DateTime.DATE_HUGE));
 
     expect(element).toBeInTheDocument();
   });
