@@ -9,7 +9,6 @@ import { useLocale } from 'hooks';
 import {
   CalendarIcon,
   CrmIcon,
-  FolderIcon,
   FolderSvgIcon,
   GraphIcon,
   HomeIcon,
