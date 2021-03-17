@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import { useHistory, useLocation, useParams } from 'react-router-dom';
 
 import { Templates } from 'api/mocks/dms';
-import { AppRoute } from 'routing/AppRoute.enum';
+import { useModalDispatch } from 'hooks';
 import { useCreateQuestionaireMutation } from '../../../api/types';
 
 import { DmsTemplates } from './DmsTemplates';
@@ -14,8 +14,12 @@ export const DmsTemplatesContainer = ({ category }: DmsTemplatesContainerProps) 
   const [createQuestionaire] = useCreateQuestionaireMutation();
   const { push } = useHistory();
   const { type } = useParams<{ type: string }>();
+  const { close } = useModalDispatch();
+  const { pathname } = useLocation();
 
   const handleAddTemplate = async (values: { name: string }) => {
+    close('dms-add-template');
+
     switch (type) {
       case 'questionnaire':
         await createQuestionaire({
@@ -32,8 +36,8 @@ export const DmsTemplatesContainer = ({ category }: DmsTemplatesContainerProps) 
         });
     }
 
-    const { id } = await new Promise(resolve => setTimeout(() => resolve({ id: 'dms-template-3' }), 2000));
-    push(`${AppRoute.dms}/templates/${type}/custom/${id}/general`);
+    const { id } = await new Promise(resolve => setTimeout(() => resolve({ id: '0001' }), 2000));
+    push(`${pathname}/${id}/general`);
 
     return undefined;
   };

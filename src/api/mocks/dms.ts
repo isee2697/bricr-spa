@@ -713,7 +713,7 @@ export const DMSTimelineItems: Timeline[] = [
 
 export const Templates: DmsTemplateItem[] = [
   {
-    id: 'dms-template-1',
+    id: '0001',
     type: 'email',
     name: 'Contract for Sale',
     labels: ['Residential', 'BOG'],
@@ -731,7 +731,7 @@ export const Templates: DmsTemplateItem[] = [
     },
   },
   {
-    id: 'dms-template-2',
+    id: '0002',
     type: 'email',
     name: 'Contract for Rent',
     labels: ['Residential', 'BOG'],
@@ -749,7 +749,7 @@ export const Templates: DmsTemplateItem[] = [
     },
   },
   {
-    id: 'dms-template-3',
+    id: '0003',
     type: 'email',
     name: 'Key transfer',
     labels: ['Residential', 'BOG'],

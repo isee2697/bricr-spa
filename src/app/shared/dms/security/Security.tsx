@@ -8,11 +8,11 @@ import { CheckboxField } from 'form/fields';
 
 import { SecurityProps } from './Security.types';
 
-export const Security = ({ title, onSave, data }: SecurityProps) => {
+export const Security = ({ title, onSave, data, updatedBy, dateUpdated }: SecurityProps) => {
   const { formatMessage } = useLocale();
 
   return (
-    <Page title={title} titleActions={<></>}>
+    <Page title={title} titleActions={<></>} updatedBy={updatedBy} dateUpdated={dateUpdated}>
       <FormSection
         title={formatMessage({ id: 'dms.security.document_rights' })}
         isEditable
@@ -22,6 +22,29 @@ export const Security = ({ title, onSave, data }: SecurityProps) => {
       >
         {editing => (
           <>
+            <Box mt={2} mb={1}>
+              <Grid container alignItems="center">
+                <Grid item xs={4} lg={3} />
+                <Grid item xs={2} lg={1}>
+                  <Typography variant="body2">
+                    {formatMessage({ id: 'dictionaries.settings.rights.Create' })}
+                  </Typography>
+                </Grid>
+                <Grid item xs={2} lg={1}>
+                  <Typography variant="body2">{formatMessage({ id: 'dictionaries.settings.rights.Read' })}</Typography>
+                </Grid>
+                <Grid item xs={2} lg={1}>
+                  <Typography variant="body2">
+                    {formatMessage({ id: 'dictionaries.settings.rights.Update' })}
+                  </Typography>
+                </Grid>
+                <Grid item xs={2} lg={1}>
+                  <Typography variant="body2">
+                    {formatMessage({ id: 'dictionaries.settings.rights.Delete' })}
+                  </Typography>
+                </Grid>
+              </Grid>
+            </Box>
             {data.documentRights.map((item, index) => (
               <AutosaveForm onSave={onSave} initialValues={item}>
                 <Grid container alignItems="center">
