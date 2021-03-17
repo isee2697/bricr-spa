@@ -103,8 +103,7 @@ export const DmsPrimaryFolder = ({
                       <FolderContainer
                         id={item.id}
                         name={item.name}
-                        childCount={item.folders?.length || 0}
-                        type="primary"
+                        type="main"
                         onClick={() => {
                           push(`${AppRoute.dms}/pim/${type}/${item.id}`);
                         }}
