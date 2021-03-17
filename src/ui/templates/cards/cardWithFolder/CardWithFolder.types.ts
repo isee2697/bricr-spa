@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, ReactNode, SetStateAction } from 'react';
 
 import { DocumentFolderType } from '../../../../app/crmRelationsDetails/documents/Documents.types';
 
@@ -12,4 +12,5 @@ export type CardWithFolderProps = {
   onUploadFiles?: (folder: DocumentFolderType, files: File[]) => void;
   setSelectedFolder: Dispatch<SetStateAction<DocumentFolderType | null>>;
   path: string;
+  title?: ReactNode;
 };

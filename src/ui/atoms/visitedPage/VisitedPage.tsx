@@ -9,7 +9,7 @@ import { useLocale } from 'hooks';
 import {
   CalendarIcon,
   CrmIcon,
-  FolderIcon,
+  FolderSvgIcon,
   GraphIcon,
   HomeIcon,
   MailIcon,
@@ -26,7 +26,7 @@ const getCategoryIcon = (pageCategory: PageType) => {
     case PageType.CRM:
       return <CrmIcon color="inherit" />;
     case PageType.Documents:
-      return <FolderIcon color="inherit" />;
+      return <FolderSvgIcon color="inherit" />;
     case PageType.Email:
       return <MailIcon color="inherit" />;
     case PageType.Pim:
