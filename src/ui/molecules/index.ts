@@ -40,3 +40,4 @@ export { ListTableItem } from './listTableItem/ListTableItem';
 export { ColumnModal } from './columnModal/ColumnModal';
 export { PreviewIcon } from './previewIcon/PreviewIcon';
 export { DocumentViewModal } from './documentViewModal/DocumentViewModal';
+export { FolderContainer } from './folder/folderContainer';
