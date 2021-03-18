@@ -30,6 +30,7 @@ declare module '@material-ui/core/styles/createPalette' {
     aquaGradients: createPalette.ColorPartial;
     blueGradients: createPalette.ColorPartial;
     chartColors: createPalette.ColorPartial;
+    purpleGradients: createPalette.ColorPartial;
   }
 
   export interface Palette {
@@ -60,6 +61,7 @@ declare module '@material-ui/core/styles/createPalette' {
     overlay: createPalette.SimplePaletteColorOptions;
     aquaGradients: createPalette.ColorPartial;
     blueGradients: createPalette.ColorPartial;
+    purpleGradients: createPalette.ColorPartial;
     chartColors: createPalette.ColorPartial;
   }
 }

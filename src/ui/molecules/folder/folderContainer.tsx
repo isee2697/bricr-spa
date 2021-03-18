@@ -2,28 +2,28 @@ import React, { useRef, useState, ReactNode, useEffect, useCallback } from 'reac
 import clsx from 'clsx';
 
 import { Badge, Box, Typography } from 'ui/atoms';
-import { AddIcon, CloseIcon, DirectoryBorderedIcon, DirectoryIcon, DirectoryOpenedIcon } from 'ui/atoms/icons';
-import { ConfirmModal } from 'ui/molecules';
+import { AddIcon, CloseIcon, DirectoryBorderedIcon, DirectoryOpenedIcon, FolderIcon } from 'ui/atoms/icons';
+import { ConfirmModal } from 'ui/molecules/index';
 import { ConfirmButtonType } from 'ui/molecules/confirmModal/ConfirmModal.types';
 import { useLocale } from 'hooks';
 
-import { useStyles } from './DmsFolderIcon.styles';
-import { DmsFolderIconProps } from './DmsFolderIcon.types';
+import { useStyles } from './folderContainer.styles';
+import { FolderContainerProps } from './folderContiner.types';
 
-export const DmsFolderIcon = ({
+export const FolderContainer = ({
   id,
   name,
-  type: defaultType,
+  type,
   childCount: defaultChildCount,
   isOpened,
   isAdd,
   onClick,
   onRemove,
   onRename,
-}: DmsFolderIconProps) => {
+}: FolderContainerProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
-  const type = isOpened ? 'primary' : defaultType;
+  const variant = type === 'main' ? 'darkblue' : type === 'primary' ? 'aqua' : 'purple';
   const childCount = defaultChildCount || 0;
   const [dialog, setDialog] = useState<ReactNode | null>(null);
   const [isRenaming, setIsRenaming] = useState(false);
@@ -95,7 +95,7 @@ export const DmsFolderIcon = ({
     <Box display="flex" flexDirection="column" alignItems="center" className={classes.root}>
       {isOpened && <DirectoryOpenedIcon className={classes.openedWrapper} />}
       <Box className={clsx(classes.iconWrapper, isAdd && classes.addWrapper)} onClick={onClick}>
-        {onRemove && (
+        {onRemove && type === 'secondary' && (
           <Badge
             className={classes.removeBadge}
             onClick={e => {
@@ -115,26 +115,32 @@ export const DmsFolderIcon = ({
           </>
         ) : (
           <>
-            <DirectoryIcon
+            <FolderIcon
               id={id + '_' + type}
-              variant={type}
-              weight={Math.floor(childCount / 10)}
+              variant={isOpened ? 'darkblue' : variant}
+              weight={variant === 'darkblue' || isOpened ? undefined : childCount}
               className={classes.icon}
             />
-            <Box className={clsx(classes.iconBadge, type)}>{childCount || '-'}</Box>
+            <Box className={clsx(classes.iconBadge, isOpened ? 'darkblue' : variant)}>
+              {variant !== 'darkblue' ? childCount || '-' : null}
+            </Box>
           </>
         )}
       </Box>
+
       <Box>
-        <input
-          className={clsx(classes.editBox, !isRenaming && classes.hidden)}
-          ref={inputRef}
-          defaultValue={name}
-          onKeyDown={handleChange}
-          onClick={e => e.stopPropagation()}
-        />
+        {type !== 'primary' && (
+          <input
+            className={clsx(classes.editBox, !isRenaming && classes.hidden)}
+            ref={inputRef}
+            defaultValue={name}
+            onKeyDown={handleChange}
+            onClick={e => e.stopPropagation()}
+          />
+        )}
+
         <Typography
-          className={clsx(isRenaming && classes.hidden)}
+          className={clsx(type !== 'primary' && isRenaming && classes.hidden)}
           variant="h6"
           align="center"
           onClick={e => {

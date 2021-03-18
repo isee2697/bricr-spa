@@ -1,4 +1,4 @@
-type AdvancedSearchResult {
+type SearchResult {
   users: [Profile!]
   emails: [Profile!]
   crms: [CrmListItem!]
@@ -8,13 +8,13 @@ type AdvancedSearchResult {
   sales: [Sales!]
 }
 
-input AdvancedSearchInput {
+input SearchInput {
   keyword: String!
-  type: [Entities!]
+  types: [Entities!]
   page: Int
   size: Int
 }
 
 extend type Query {
-  advancedSearch(input: AdvancedSearchInput!): AdvancedSearchResult
+  search(input: SearchInput!): SearchResult
 }

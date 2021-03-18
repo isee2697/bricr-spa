@@ -52,12 +52,16 @@ export const useStyles = makeStyles(theme => ({
     padding: `0px ${theme.spacing(0.5)}px`,
     ...theme.typography.h6,
 
-    '&.primary': {
+    '&.blue': {
       background: theme.palette.blueGradients[600],
     },
 
-    '&.secondary': {
+    '&.aqua': {
       background: theme.palette.aquaGradients[500],
+    },
+
+    '&.purple': {
+      background: theme.palette.purpleGradients[500],
     },
   },
   addIcon: {
@@ -69,6 +73,12 @@ export const useStyles = makeStyles(theme => ({
     top: theme.spacing(-0.5),
     width: theme.spacing(10),
     height: theme.spacing(7),
+    '&.purple path': {
+      stroke: theme.palette.purpleGradients[500],
+    },
+    '&.aqua path': {
+      stroke: theme.palette.aquaGradients[500],
+    },
   },
   editBox: {
     width: theme.spacing(11),

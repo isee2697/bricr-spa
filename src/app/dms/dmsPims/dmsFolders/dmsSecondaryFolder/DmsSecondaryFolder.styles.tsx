@@ -1,9 +1,6 @@
 import { makeStyles } from '@material-ui/core';
 
 export const useStyles = makeStyles(theme => ({
-  root: {
-    height: '100%',
-  },
   backBtnWrapper: {
     position: 'relative',
     width: theme.spacing(5.25),
@@ -37,5 +34,11 @@ export const useStyles = makeStyles(theme => ({
   },
   listItem: {
     marginBottom: theme.spacing(2.5),
+  },
+  page: {
+    height: '100%',
+  },
+  noMargin: {
+    margin: 0,
   },
 }));
