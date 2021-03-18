@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useHistory, useLocation } from 'react-router';
+import { useHistory, useLocation } from 'react-router-dom';
 
 import { Templates } from 'api/mocks/dms';
 import { useModalDispatch } from 'hooks';
@@ -18,7 +18,8 @@ export const DmsTemplatesContainer = ({ category }: DmsTemplatesContainerProps) 
     close('dms-add-template');
 
     // TODO: Connect to Backend and use id coming from backend here
-    push(`${pathname}/0001/general`);
+    const { id } = await new Promise(resolve => setTimeout(() => resolve({ id: '0001' }), 2000));
+    push(`${pathname}/${id}/general`);
 
     return undefined;
   };

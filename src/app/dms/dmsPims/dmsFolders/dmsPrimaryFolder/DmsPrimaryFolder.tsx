@@ -7,7 +7,7 @@ import { useLocale } from 'hooks/useLocale/useLocale';
 import { FiltersButton } from 'ui/molecules/filters/FiltersButton';
 import { ActiveFilters } from 'ui/molecules/filters/activeFilters/ActiveFilters';
 import { PropertyItemPlaceholder, Search, InfoSection } from 'ui/molecules';
-import { DmsFolderIcon } from '../dmsFolderIcon/DmsFolderIcon';
+import { FolderContainer } from 'ui/molecules/folder/folderContainer';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { SearchIcon } from 'ui/atoms/icons';
 import { Page } from 'ui/templates';
@@ -30,8 +30,8 @@ export const DmsPrimaryFolder = ({
   onFilter,
   foldersData,
   isLoading,
-  category,
   type,
+  category,
 }: DmsPrimaryFolderProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
@@ -47,7 +47,7 @@ export const DmsPrimaryFolder = ({
       classes={{ container: classes.page }}
     >
       <Grid item xs={12}>
-        <Card className={classes.root}>
+        <Card>
           <CardHeader
             className="dms-primary-folder-header"
             title={[formatMessage({ id: 'dms.documents.pim' }), formatMessage({ id: `dms.documents.${type}` })].join(
@@ -88,7 +88,9 @@ export const DmsPrimaryFolder = ({
             }
           />
           <CardContent>
-            <ActiveFilters<ListPimsFilters> activeFilters={activeFilters} onDelete={onFilter} />
+            {Object.keys(activeFilters).length > 0 && (
+              <ActiveFilters<ListPimsFilters> activeFilters={activeFilters} onDelete={onFilter} />
+            )}
             <Box my={2} p={4}>
               <Grid container>
                 {isLoading ? (
@@ -98,7 +100,7 @@ export const DmsPrimaryFolder = ({
                 ) : foldersData?.length ? (
                   foldersData.map((item, index) => (
                     <Grid item key={index} className={classes.listItem} xs={6} sm={4} lg={2}>
-                      <DmsFolderIcon
+                      <FolderContainer
                         id={item.id}
                         name={item.name}
                         childCount={item.folders?.length || 0}

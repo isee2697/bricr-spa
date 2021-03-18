@@ -120,4 +120,8 @@ export const DmsDocumentTypes: DmsDocumentType = {
   sales: {
     leads: Object.keys(DmsSalesLeadsDocumentType),
   },
+  crms: {
+    relations: Object.keys(DmsSalesLeadsDocumentType),
+    businesses: Object.keys(DmsSalesLeadsDocumentType),
+  },
 };

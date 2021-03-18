@@ -25,6 +25,7 @@ export type DmsDocument = {
 
 export type DmsFolderType = {
   id: string;
+  type?: string;
   name: string;
   folders?: DmsFolderType[];
   documents?: DmsDocument[];

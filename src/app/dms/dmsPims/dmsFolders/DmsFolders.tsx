@@ -53,8 +53,8 @@ export const DmsFolders = ({ data, category, type }: DmsFoldersProps) => {
                 isLoading={false}
                 isError={false}
                 foldersData={item.folders}
-                category={category}
                 type={type}
+                category={category}
               />
             ) : (
               <Redirect to={folderPath} />
@@ -62,7 +62,7 @@ export const DmsFolders = ({ data, category, type }: DmsFoldersProps) => {
           }}
         />
         <Route
-          path={`${folderPath}`}
+          path={folderPath}
           render={() => (
             <DmsPrimaryFolder
               id={data.id}
@@ -72,8 +72,8 @@ export const DmsFolders = ({ data, category, type }: DmsFoldersProps) => {
               isLoading={false}
               isError={false}
               foldersData={data.folders}
-              category={category}
               type={type}
+              category={category}
             />
           )}
         />

@@ -1,6 +1,8 @@
-import { DocumentFolderType, DocumentsProps } from '../Documents.types';
+import { Dispatch, SetStateAction } from 'react';
 
-export type DocumentFoldersProps = DocumentsProps & {
+import { DocumentFolderType } from '../../../../app/crmRelationsDetails/documents/Documents.types';
+
+export type CardWithFolderProps = {
   isLoading: boolean;
   isError: boolean;
   foldersData?: DocumentFolderType[];
@@ -8,4 +10,6 @@ export type DocumentFoldersProps = DocumentsProps & {
   onDeleteFolder?: (id: string) => void;
   onUpdateFolder?: (folder: DocumentFolderType) => void;
   onUploadFiles?: (folder: DocumentFolderType, files: File[]) => void;
+  setSelectedFolder: Dispatch<SetStateAction<DocumentFolderType | null>>;
+  path: string;
 };
