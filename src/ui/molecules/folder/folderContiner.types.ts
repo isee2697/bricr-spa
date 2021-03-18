@@ -1,4 +1,4 @@
-export type IconType = 'primary' | 'secondary';
+export type IconType = 'primary' | 'secondary' | 'main';
 
 export type FolderContainerProps = {
   id: string;

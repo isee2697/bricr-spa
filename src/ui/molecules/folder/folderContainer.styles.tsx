@@ -73,6 +73,12 @@ export const useStyles = makeStyles(theme => ({
     top: theme.spacing(-0.5),
     width: theme.spacing(10),
     height: theme.spacing(7),
+    '&.purple path': {
+      stroke: theme.palette.purpleGradients[500],
+    },
+    '&.aqua path': {
+      stroke: theme.palette.aquaGradients[500],
+    },
   },
   editBox: {
     width: theme.spacing(11),

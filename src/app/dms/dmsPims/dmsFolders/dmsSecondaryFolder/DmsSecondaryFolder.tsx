@@ -109,7 +109,7 @@ export const DmsSecondaryFolder = ({
                       id={item.id}
                       name={item.name}
                       childCount={item.documents?.length || 0}
-                      type="secondary"
+                      type={item.isCustom ? 'secondary' : 'primary'}
                       onClick={() => {
                         setSelectedFolder(item.id === selectedFolder?.id ? null : item);
                       }}

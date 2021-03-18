@@ -188,6 +188,79 @@ export const DMSStats: DmsStats = {
                 id: 'folder_1_4',
                 name: 'Brochures',
               },
+              {
+                id: 'folder_1_5',
+                name: 'My Custom',
+                isCustom: true,
+                documents: [
+                  {
+                    id: 'doc_1',
+                    name: 'Akte van levering.pdf',
+                    dateCreated: DateTime.fromJSDate(new Date('2020/09/22')),
+                    size: 34223,
+                    type: 'pdf',
+                    avatar: 'http://placeimg.com/104/152/arch',
+                    stepsCompleted: [
+                      {
+                        status: DocumentRequestStatus.Request,
+                        date: DateTime.local(),
+                      },
+                      {
+                        status: DocumentRequestStatus.UserNotified,
+                        date: DateTime.local(),
+                      },
+                      {
+                        status: DocumentRequestStatus.Uploaded,
+                        date: DateTime.local(),
+                      },
+                    ],
+                  },
+                  {
+                    id: 'doc_2',
+                    name: 'Bewijs van inschrijving.pdf',
+                    dateCreated: DateTime.fromJSDate(new Date('2020/09/23')),
+                    size: 32223,
+                    type: 'pdf',
+                    avatar: 'http://placeimg.com/104/152/arch',
+                    stepsCompleted: [
+                      {
+                        status: DocumentRequestStatus.Request,
+                        date: DateTime.local(),
+                      },
+                      {
+                        status: DocumentRequestStatus.RequestRejected,
+                        date: DateTime.local(),
+                      },
+                    ],
+                  },
+                  {
+                    id: 'doc_3',
+                    name: 'Inschrijfformulier.docx',
+                    dateCreated: DateTime.fromJSDate(new Date('2010/09/16')),
+                    size: 4223,
+                    type: 'docx',
+                    avatar: 'http://placeimg.com/104/152/arch',
+                    stepsCompleted: [
+                      {
+                        status: DocumentRequestStatus.Request,
+                        date: DateTime.local(),
+                      },
+                      {
+                        status: DocumentRequestStatus.UserNotified,
+                        date: DateTime.local(),
+                      },
+                      {
+                        status: DocumentRequestStatus.Uploaded,
+                        date: DateTime.local(),
+                      },
+                      {
+                        status: DocumentRequestStatus.Accepted,
+                        date: DateTime.local(),
+                      },
+                    ],
+                  },
+                ],
+              },
             ],
           },
           {
@@ -714,7 +787,7 @@ export const DMSTimelineItems: Timeline[] = [
 
 export const Templates: DmsTemplateItem[] = [
   {
-    id: 'dms-template-1',
+    id: '0001',
     type: 'email',
     name: 'Contract for Sale',
     labels: ['Residential', 'BOG'],
@@ -732,7 +805,7 @@ export const Templates: DmsTemplateItem[] = [
     },
   },
   {
-    id: 'dms-template-2',
+    id: '0002',
     type: 'email',
     name: 'Contract for Rent',
     labels: ['Residential', 'BOG'],
@@ -750,7 +823,7 @@ export const Templates: DmsTemplateItem[] = [
     },
   },
   {
-    id: 'dms-template-3',
+    id: '0003',
     type: 'email',
     name: 'Key transfer',
     labels: ['Residential', 'BOG'],

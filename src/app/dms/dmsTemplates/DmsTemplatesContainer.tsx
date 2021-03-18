@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import { useHistory, useLocation, useParams } from 'react-router-dom';
 
 import { Templates } from 'api/mocks/dms';
-import { AppRoute } from 'routing/AppRoute.enum';
+import { useModalDispatch } from 'hooks';
+import { useCreateQuestionaireMutation } from '../../../api/types';
 
 import { DmsTemplates } from './DmsTemplates';
 import { DmsTemplateItem } from './DmsTemplates.types';
@@ -10,12 +11,33 @@ import { DmsTemplatesContainerProps } from './DmsTemplatesContainer.types';
 
 export const DmsTemplatesContainer = ({ category }: DmsTemplatesContainerProps) => {
   const [templates, setTemplates] = useState<DmsTemplateItem[]>(Templates);
+  const [createQuestionaire] = useCreateQuestionaireMutation();
   const { push } = useHistory();
   const { type } = useParams<{ type: string }>();
+  const { close } = useModalDispatch();
+  const { pathname } = useLocation();
 
-  const handleAddTemplate = async () => {
-    const { id } = await new Promise(resolve => setTimeout(() => resolve({ id: 'dms-template-3' }), 2000));
-    push(`${AppRoute.dms}/templates/${type}/custom/${id}/general`);
+  const handleAddTemplate = async (values: { name: string }) => {
+    close('dms-add-template');
+
+    switch (type) {
+      case 'questionnaire':
+        await createQuestionaire({
+          variables: {
+            input: {
+              questionaireName: values.name,
+              entity: {
+                type: type,
+              },
+              isAdmin: true,
+              published: false,
+            },
+          },
+        });
+    }
+
+    const { id } = await new Promise(resolve => setTimeout(() => resolve({ id: '0001' }), 2000));
+    push(`${pathname}/${id}/general`);
 
     return undefined;
   };
