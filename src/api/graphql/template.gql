@@ -1,0 +1,32 @@
+input QuestionaireInput {
+    questionaireName: String!
+    isAdmin: Boolean
+    published: Boolean
+    copyFromId: String
+    entity: EntityInput
+}
+
+input EntityInput {
+    type: String
+    subType: String
+}
+
+type Questionaire {
+    id: ID!
+    companyId: String!
+    questionaireName: String
+    isAdmin: Boolean
+    published: Boolean
+    copyFromId: String
+    entity: Entity
+}
+
+type Entity {
+    type: String
+    subType: String
+}
+
+extend type Mutation {
+    createQuestionaire(input: QuestionaireInput!): Questionaire
+}
+
