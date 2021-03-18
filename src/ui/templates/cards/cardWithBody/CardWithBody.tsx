@@ -7,6 +7,7 @@ import { CardWithBodyProps } from './CardWithBody.types';
 import { useStyles } from './CardWithBody.styles';
 
 export const CardWithBody = ({
+  title,
   titleId,
   titleAmount,
   titleActions,
@@ -20,13 +21,13 @@ export const CardWithBody = ({
 
   return (
     <Card>
-      {titleId && (
+      {(titleId || title) && (
         <CardHeader
           className={titleClass}
           action={titleActions}
           title={
             <>
-              {formatMessage({ id: titleId, defaultMessage: titleId })}
+              {titleId ? formatMessage({ id: titleId, defaultMessage: titleId }) : title}
               {titleAmount && <Chip size="small" label={titleAmount} className={classes.count} />}
             </>
           }
