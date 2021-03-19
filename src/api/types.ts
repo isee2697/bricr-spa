@@ -292,6 +292,7 @@ export type Mutation = {
   createPhoneNumber: Profile;
   createPim?: Maybe<Pim>;
   createProfile: Profile;
+  createQuestionaire?: Maybe<Questionaire>;
   createSocialMediaLink: Profile;
   createTask: Task;
   deactivateProfile: Profile;
@@ -690,6 +691,10 @@ export type MutationCreatePimArgs = {
 
 export type MutationCreateProfileArgs = {
   input: CreateProfileInput;
+};
+
+export type MutationCreateQuestionaireArgs = {
+  input: QuestionaireInput;
 };
 
 export type MutationCreateSocialMediaLinkArgs = {
@@ -3200,6 +3205,8 @@ export enum Entities {
   AddOn = 'addOn',
   TiaraMutation = 'tiaraMutation',
   Email = 'email',
+  Users = 'users',
+  Sales = 'sales',
 }
 
 export enum IdentificationNumberType {
@@ -9283,6 +9290,36 @@ export type RemoveUserFromTeamInput = {
   userId: Scalars['ID'];
 };
 
+export type QuestionaireInput = {
+  questionaireName: Scalars['String'];
+  isAdmin?: Maybe<Scalars['Boolean']>;
+  published?: Maybe<Scalars['Boolean']>;
+  copyFromId?: Maybe<Scalars['String']>;
+  entity?: Maybe<EntityInput>;
+};
+
+export type EntityInput = {
+  type?: Maybe<Scalars['String']>;
+  subType?: Maybe<Scalars['String']>;
+};
+
+export type Questionaire = {
+  __typename?: 'Questionaire';
+  id: Scalars['ID'];
+  companyId: Scalars['String'];
+  questionaireName?: Maybe<Scalars['String']>;
+  isAdmin?: Maybe<Scalars['Boolean']>;
+  published?: Maybe<Scalars['Boolean']>;
+  copyFromId?: Maybe<Scalars['String']>;
+  entity?: Maybe<Entity>;
+};
+
+export type Entity = {
+  __typename?: 'Entity';
+  type?: Maybe<Scalars['String']>;
+  subType?: Maybe<Scalars['String']>;
+};
+
 export enum TiaraMessageType {
   Aanmelden = 'Aanmelden',
   Wijzigen = 'Wijzigen',
@@ -11459,6 +11496,19 @@ export type UpdateUserInTeamMutationVariables = Exact<{
 
 export type UpdateUserInTeamMutation = { __typename?: 'Mutation' } & {
   updateUserInTeam?: Maybe<{ __typename?: 'Team' } & Pick<Team, 'id'>>;
+};
+
+export type CreateQuestionaireMutationVariables = Exact<{
+  input: QuestionaireInput;
+}>;
+
+export type CreateQuestionaireMutation = { __typename?: 'Mutation' } & {
+  createQuestionaire?: Maybe<
+    { __typename?: 'Questionaire' } & Pick<
+      Questionaire,
+      'questionaireName' | 'isAdmin' | 'published' | 'copyFromId'
+    > & { entity?: Maybe<{ __typename?: 'Entity' } & Pick<Entity, 'type' | 'subType'>> }
+  >;
 };
 
 export type TiaraSendMessageMutationVariables = Exact<{
@@ -19916,6 +19966,35 @@ export type UpdateUserInTeamMutationResult = ApolloReactCommon.MutationResult<Up
 export type UpdateUserInTeamMutationOptions = ApolloReactCommon.BaseMutationOptions<
   UpdateUserInTeamMutation,
   UpdateUserInTeamMutationVariables
+>;
+export const CreateQuestionaireDocument = gql`
+  mutation CreateQuestionaire($input: QuestionaireInput!) {
+    createQuestionaire(input: $input)
+      @rest(type: "Questionaire", path: "/questionaire", method: "POST", endpoint: "default") {
+      questionaireName
+      isAdmin
+      published
+      copyFromId
+      entity {
+        type
+        subType
+      }
+    }
+  }
+`;
+export function useCreateQuestionaireMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<CreateQuestionaireMutation, CreateQuestionaireMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<CreateQuestionaireMutation, CreateQuestionaireMutationVariables>(
+    CreateQuestionaireDocument,
+    baseOptions,
+  );
+}
+export type CreateQuestionaireMutationHookResult = ReturnType<typeof useCreateQuestionaireMutation>;
+export type CreateQuestionaireMutationResult = ApolloReactCommon.MutationResult<CreateQuestionaireMutation>;
+export type CreateQuestionaireMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  CreateQuestionaireMutation,
+  CreateQuestionaireMutationVariables
 >;
 export const TiaraSendMessageDocument = gql`
   mutation TiaraSendMessage($input: TiaraSendMessageInput!) {

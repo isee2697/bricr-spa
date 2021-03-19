@@ -1,9 +1,10 @@
 import React, { useState, ReactNode } from 'react';
+import { useHistory } from 'react-router';
 
 import { Box, Grid, IconButton } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { PropertyItemPlaceholder } from 'ui/molecules';
-import { FolderContainer } from 'ui/molecules/folder/folderContainer';
+import { FolderContainer } from 'ui/molecules/folder/FolderContainer';
 import { DmsDocument, DmsFolderType } from 'app/dms/Dms.types';
 import { DmsListViewContainer } from '../dmsListView/DmsListViewContainer';
 import { ExitIcon, SeeIcon } from 'ui/atoms/icons';
@@ -11,6 +12,7 @@ import { DmsAddFolderDialog } from 'app/dms/dmsPims/dmsFolders/dmsAddFolderDialo
 import { GeneralPageSettings } from 'app/shared/dms/generalPageSettings/GeneralPageSettings';
 import { DmsDocumentTypes } from 'app/dms/dictionaires';
 import { CardWithBody, Page } from 'ui/templates';
+import { AppRoute } from 'routing/AppRoute.enum';
 
 import { useStyles } from './DmsSecondaryFolder.styles';
 import { DmsSecondaryFolderProps } from './DmsSecondaryFolder.types';
@@ -25,6 +27,7 @@ export const DmsSecondaryFolder = ({
 }: DmsSecondaryFolderProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
+  const { push } = useHistory();
 
   const [dialog, setDialog] = useState<ReactNode | null>(null);
   const [selectedFolder, setSelectedFolder] = useState<DmsFolderType | null>(null);
@@ -85,7 +88,7 @@ export const DmsSecondaryFolder = ({
       titleActions={[]}
       headerProps={{
         customAction: (
-          <IconButton size="small" variant="rounded" onClick={() => setSelectedDocument(null)}>
+          <IconButton size="small" variant="rounded" onClick={() => push(`${AppRoute.dms}/${category}/${type}`)}>
             <ExitIcon />
           </IconButton>
         ),
@@ -107,7 +110,7 @@ export const DmsSecondaryFolder = ({
                       id={item.id}
                       name={item.name}
                       childCount={item.documents?.length || 0}
-                      type="secondary"
+                      type={item.isCustom ? 'secondary' : 'primary'}
                       onClick={() => {
                         setSelectedFolder(item.id === selectedFolder?.id ? null : item);
                       }}
