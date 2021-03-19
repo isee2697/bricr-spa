@@ -6,7 +6,7 @@ import { UserIcon } from 'ui/atoms/icons/user/UserIcon';
 import { FilesIcon } from 'ui/atoms/icons/files/FilesIcon';
 import { LinkIcon } from 'ui/atoms/icons/link/LinkIcon';
 import { DocIcon } from 'ui/atoms/icons/doc/DocIcon';
-import { FolderContainer } from 'ui/atoms/icons/folder/FolderContainer';
+import { FolderContainer } from 'ui/molecules/folder/folderContainer';
 import { useTheme } from '@material-ui/core/styles';
 
 const theme = useTheme();
