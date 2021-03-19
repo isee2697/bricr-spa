@@ -1,6 +1,6 @@
 import React, { useState, ReactNode, useCallback } from 'react';
 
-import { FolderContainer } from 'ui/molecules/folder/folderContainer';
+import { FolderContainer } from 'ui/molecules/folder/FolderContainer';
 import { Box, Grid, Card, CardHeader, CardContent, IconButton } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { PropertyItemPlaceholder } from 'ui/molecules';
