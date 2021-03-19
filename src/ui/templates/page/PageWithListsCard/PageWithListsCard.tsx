@@ -4,7 +4,7 @@ import { AnyObject } from 'final-form';
 import { useHistory } from 'react-router-dom';
 
 import { PageWithListsHeader } from 'ui/templates/page/PageWithListsCard/PageWithListsHeader';
-import { Box, Grid, IconButton } from 'ui/atoms';
+import { Box, IconButton } from 'ui/atoms';
 import { AutosaveForm, FormSection } from 'ui/organisms';
 import { useLocale } from 'hooks';
 import { useStyles } from 'ui/templates/page/PageWithListsCard/PageWithListsCard.styles';
@@ -60,19 +60,24 @@ export const PageWithListsCard: <V, A, F>(
     field
   );
 
-  const buttons = views.map((view, key) => {
-    return (
-      <IconButton
-        className={key === activeView ? classes.activeList : undefined}
-        key={key}
-        onClick={() => setActiveView(key)}
-        variant="rounded"
-        size="small"
-      >
-        {view.viewIcon}
-      </IconButton>
+  const buttons =
+    views.length > 1 ? (
+      views.map((view, key) => {
+        return (
+          <IconButton
+            className={key === activeView ? classes.activeList : undefined}
+            key={key}
+            onClick={() => setActiveView(key)}
+            variant="rounded"
+            size="small"
+          >
+            {view.viewIcon}
+          </IconButton>
+        );
+      })
+    ) : (
+      <></>
     );
-  });
 
   const handleFilterChange = (newFilters: AnyObject) => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
@@ -81,7 +86,7 @@ export const PageWithListsCard: <V, A, F>(
   };
 
   return (
-    <Grid xs={12}>
+    <Box>
       {!withoutHeader && <PageWithListsHeader {...header} />}
       {name && (
         <Box mt={-1} width="100%">
@@ -178,6 +183,6 @@ export const PageWithListsCard: <V, A, F>(
         isOpened={!!tableHeader?.setColumns && columnModalOpen}
         onClose={() => setColumnModalOpen(false)}
       />
-    </Grid>
+    </Box>
   );
 };
