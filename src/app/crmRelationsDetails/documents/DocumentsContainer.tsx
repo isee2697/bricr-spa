@@ -12,7 +12,7 @@ export const DocumentsContainer = ({ path, ...props }: DocumentsContainerProps) 
 
   const handleAddFolder = useCallback(
     async (name: string) => {
-      documents.push({ id: String(Math.floor(Math.random() * 10000)), name });
+      documents.push({ id: String(Math.floor(Math.random() * 10000)), name, isUserFolder: true });
       setDocuments([...documents]);
     },
     [documents],
@@ -43,7 +43,7 @@ export const DocumentsContainer = ({ path, ...props }: DocumentsContainerProps) 
         ...folder.documents,
         ...files.map(item => ({
           id: uuid.v4(),
-          image: '',
+          uri: '',
           dateCreated: DateTime.fromJSDate(new Date()),
           name: item.name,
           stepsCompleted: [],
