@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 
-import { ListPimsFilters, PropertyType } from 'api/types';
+import { ListPimsFilters } from 'api/types';
 import { EMAILS } from 'api/mocks/email';
 import { Box } from 'ui/atoms';
 import { CardWithTable } from 'ui/templates';
 import { FileType, FileTypeView } from 'ui/templates/cards/cardWithTable/CardWithTable.types';
+import { DMS_GENERAL_LIST_ITEMS as dmsGeneralListItems } from 'api/mocks/dms';
 
 import { DmsListViewContainerProps } from './DmsListViewContainer.types';
 import { DmsViewTabs } from './dmsViewTabs/DmsViewTabs';
@@ -22,9 +23,7 @@ export const DmsListViewContainer = ({
   isError,
   data,
 }: DmsListViewContainerProps) => {
-  const [activeFilters, setActiveFilters] = useState<ListPimsFilters>({
-    propertyTypes: [PropertyType.Apartment, PropertyType.House],
-  });
+  const [activeFilters, setActiveFilters] = useState<ListPimsFilters>({});
   const [view, setView] = useState<DmsViewType>('detail');
 
   return (
@@ -47,6 +46,19 @@ export const DmsListViewContainer = ({
             onDelete: { exec: () => {} },
           }}
           titleAmount={EMAILS.length}
+        />
+      )}
+      {category === 'crm' && folderType !== 'emails' && (
+        <CardWithTable<FileType>
+          titleId={`common.${type}`}
+          onAdd={() => {}}
+          view={FileTypeView.File}
+          files={dmsGeneralListItems as FileType[]}
+          actions={{
+            onEdit: { exec: () => {} },
+            onDelete: { exec: () => {} },
+          }}
+          titleAmount={dmsGeneralListItems.length}
         />
       )}
       {category !== 'crm' && (

@@ -7,6 +7,7 @@ export const useStyles = makeStyles((theme: Theme) =>
       justifyContent: 'flex-start',
       marginTop: theme.spacing(2.5),
       overflowX: 'auto',
+
       '& .MuiChip-root.MuiChip-outlined': {
         margin: theme.spacing(1),
         backgroundColor: 'white',

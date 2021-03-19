@@ -83,7 +83,6 @@ export const DmsSecondaryFolder = ({
   return (
     <Page
       showHeader
-      withoutHeader
       title={formatMessage({ id: `dms.folders.${type}` })}
       titleActions={[]}
       headerProps={{

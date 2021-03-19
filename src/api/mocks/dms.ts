@@ -6,6 +6,7 @@ import { DocumentRequestStatus } from 'app/crmRelationsDetails/documents/Documen
 import { DmsTemplateItem } from 'app/dms/dmsTemplates/DmsTemplates.types';
 import { DmsBlockItem } from 'app/dms/dmsContentBlocks/DmsContentBlocks.types';
 import { DmsImageItem } from 'app/dms/dmsImageLibrary/DmsImages.types';
+import { Document } from 'app/crmRelationsDetails/documents/Documents.types';
 
 export const DMSDocuments: DmsDocument[] = [
   {
@@ -1162,5 +1163,24 @@ export const Images: DmsImageItem[] = [
     status: 'active',
     createdAt: '2020/09/21',
     url: 'http://placeimg.com/104/152/arch',
+  },
+];
+
+export const DMS_GENERAL_LIST_ITEMS: Document[] = [
+  {
+    id: '0001',
+    name: 'SO-003-Isenburgstraat-36',
+    uri: 'http://localhost',
+    type: '.pdf',
+    dateCreated: DateTime.local(),
+    stepsCompleted: [],
+  },
+  {
+    id: '0002',
+    name: 'SO-003-Isenburgstraat-36',
+    uri: 'http://localhost',
+    type: '.doc',
+    dateCreated: DateTime.local(),
+    stepsCompleted: [],
   },
 ];
