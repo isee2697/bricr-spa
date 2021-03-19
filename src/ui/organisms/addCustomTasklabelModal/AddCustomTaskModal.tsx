@@ -8,10 +8,10 @@ import { iconPickerIcons, useLocale } from 'hooks';
 import { AddIcon } from 'ui/atoms/icons';
 import { requireValidator } from 'form/validators';
 
-import { AddCustomPropertyModalProps } from './AddCustomPropertyModal.types';
-import { useStyles } from './AddCustomPropertyModal.styles';
+import { AddCustomTaskModalProps } from './AddCustomTaskModal.types';
+import { useStyles } from './AddCustomTaskModal.styles';
 
-export const AddCustomPropertyModal = ({
+export const AddCustomTaskModal = ({
   isOpened,
   onClose,
   onSubmit,
@@ -20,7 +20,7 @@ export const AddCustomPropertyModal = ({
   iconPickerSelectedTheme,
   placeholderId,
   addText,
-}: AddCustomPropertyModalProps) => {
+}: AddCustomTaskModalProps) => {
   const { formatMessage } = useLocale();
   const classes = useStyles();
 

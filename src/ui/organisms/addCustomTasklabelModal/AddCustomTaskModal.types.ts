@@ -2,7 +2,7 @@ import { LabelInput, LabelProperty } from 'api/types';
 import { EntityType } from 'app/shared/entityType';
 import { IconSelectedTheme } from 'ui/molecules/iconPicker/IconPicker.types';
 
-export type AddCustomPropertyModalContainerProps = {
+export type AddCustomTaskModalContainerProps = {
   isOpened: boolean;
   onClose: VoidFunction;
   property: LabelProperty;
@@ -14,6 +14,6 @@ export type AddCustomPropertyModalContainerProps = {
   addText?: string;
 };
 
-export type AddCustomPropertyModalProps = Omit<AddCustomPropertyModalContainerProps, 'property'> & {
+export type AddCustomTaskModalProps = Omit<AddCustomTaskModalContainerProps, 'property'> & {
   onSubmit: (input: Pick<LabelInput, 'text' | 'icon'>) => {};
 };

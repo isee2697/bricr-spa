@@ -9,5 +9,6 @@ export type DmsPrimaryFolderProps = {
   isLoading: boolean;
   isError: boolean;
   foldersData?: DmsFolderType[];
+  category: string;
   type: string;
 };

@@ -25,6 +25,7 @@ export type DmsDocument = {
 
 export type DmsFolderType = {
   id: string;
+  type?: string;
   name: string;
   folders?: DmsFolderType[];
   documents?: DmsDocument[];
@@ -46,4 +47,10 @@ export type DmsProps = {
   breadcrumbs: ReactNode;
   path: string;
   entityType: EntityType;
+};
+
+export type DmsDocumentType = {
+  [key: string]: {
+    [key: string]: string[];
+  };
 };
