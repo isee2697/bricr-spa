@@ -7,7 +7,7 @@ import { PageHeaderProps } from 'ui/templates/page/header/PageHeader.types';
 import { BaseCardListItemType, CardWithListProps } from 'ui/templates/cards/cardWithList/CardWithList.types';
 
 type BasePageProps = {
-  title?: string;
+  title?: string | ReactNode;
   onSave?(values: unknown): Promise<undefined | { error: boolean }>;
   initialValues?: AnyObject;
   name?: string;

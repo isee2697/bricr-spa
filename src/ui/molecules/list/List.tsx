@@ -23,6 +23,7 @@ export const List: <T>(p: ListProps<T>) => React.ReactElement<ListProps<T>> = ({
   loadingItem,
   emptyTitle,
   emptyDescription,
+  emptyPlaceholder,
   className,
   checkboxProps,
   selectedItems = [],
@@ -94,6 +95,10 @@ export const List: <T>(p: ListProps<T>) => React.ReactElement<ListProps<T>> = ({
         <Typography variant="h3">{emptyDescription}</Typography>
       </InfoSection>
     );
+  }
+
+  if (!loading && !items.length && emptyPlaceholder) {
+    return <>{emptyPlaceholder}</>;
   }
 
   const handleOperation = (operation: BulkOperations) => {

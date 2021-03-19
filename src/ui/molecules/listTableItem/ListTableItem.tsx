@@ -23,7 +23,15 @@ export const ListTableItem: <T>(p: ListTableItemProps<T>) => ReactElement<ListTa
   const width = `${100 / (headerCells.length + 1)}%`;
 
   return (
-    <Box className={className} display="flex" alignItems="center" pt={1} pb={1} pr={2}>
+    <Box
+      data-testid={`list-table-item${isHeader ? '-header' : ''}`}
+      className={className}
+      display="flex"
+      alignItems="center"
+      pt={1}
+      pb={1}
+      pr={2}
+    >
       <Box flexGrow={1} display="flex">
         {headerCells.map((cell, index) => {
           const label = isHeader ? cell.label : renderCell?.(cell.field, item);
@@ -46,7 +54,10 @@ export const ListTableItem: <T>(p: ListTableItemProps<T>) => ReactElement<ListTa
               }
             >
               {label && typeof label === 'string' ? formatMessage({ id: label, defaultMessage: label }) : label}
-              {!!onSort && cell.sortable && (sortDirection === 'down' ? <ArrowUpIcon /> : <ArrowDownIcon />)}
+              {!!onSort &&
+                cell.sortable &&
+                cell.field === sortKey &&
+                (sortDirection === 'down' ? <ArrowUpIcon /> : <ArrowDownIcon />)}
             </Box>
           );
         })}

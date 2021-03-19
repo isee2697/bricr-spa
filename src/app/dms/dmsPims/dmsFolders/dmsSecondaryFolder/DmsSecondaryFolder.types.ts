@@ -5,6 +5,8 @@ export type DmsSecondaryFolderProps = {
   name: string;
   isLoading: boolean;
   isError: boolean;
+  category: string;
+  type: string;
   foldersData?: DmsFolderType[];
   onAddFolder?: (folderName: string) => void;
 };

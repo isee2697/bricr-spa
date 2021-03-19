@@ -23,6 +23,7 @@ export type ListProps<T> = {
   loadingItem?: ReactElement;
   emptyTitle?: string;
   emptyDescription?: string;
+  emptyPlaceholder?: ReactNode;
   className?: string;
   checkboxProps?: CheckboxProps;
   disabled?: boolean;

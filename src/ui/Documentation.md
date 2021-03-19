@@ -379,7 +379,7 @@ import {
   DashboardIcon,
   DocIcon,
   FilesIcon,
-  FolderIcon,
+  FolderContainer,
   GraphIcon,
   GraphArrowIcon,
   HelpIcon,
@@ -427,8 +427,11 @@ import {
   LockRectangleIcon,
   FollowUpRectangleIcon,
   StatusIcon,
+  PdfIcon,
+  BenefitIcon,
   ComplexHomeIcon,
   MobileIcon,
+  CompassIcon,
   DivorcedIcon,
   PassedAwayIcon,
 } from "./atoms/icons";
@@ -463,7 +466,7 @@ const wrapperStyle = {
   </div>
   <br />
   <div style={{ ...wrapperStyle, color: theme.palette.green.main }}>
-    <FolderIcon color="inherit" />
+    <FolderContainer color="inherit" />
     <GraphIcon color="inherit" />
     <GraphArrowIcon color="inherit" />
     <HourglassIcon color="inherit" />
@@ -534,13 +537,19 @@ const wrapperStyle = {
     <FollowUpRectangleIcon />
   </div>
   <br />
-  <div style={ wrapperStyle }>
+  <div style={wrapperStyle}>
     <StatusIcon color="disabled" />
     <HelpIcon color="disabled" />
+    <PdfIcon color="disabled" />
+    <BenefitIcon color="disabled" />
     <ComplexHomeIcon color="disabled" />
     <MobileIcon color="disabled" />
-    <DivorcedIcon color="disabled" />
-    <PassedAwayIcon color="disabled" />
+  </div>
+  <br />
+  <div style={{ ...wrapperStyle, color: "orange" }}>
+    <DivorcedIcon color="inherit" />
+    <PassedAwayIcon color="inherit" />
+    <CompassIcon color="inherit" />
   </div>
 </>;
 ```

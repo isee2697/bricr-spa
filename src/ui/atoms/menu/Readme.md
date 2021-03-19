@@ -6,7 +6,7 @@ import { UserIcon } from 'ui/atoms/icons/user/UserIcon';
 import { FilesIcon } from 'ui/atoms/icons/files/FilesIcon';
 import { LinkIcon } from 'ui/atoms/icons/link/LinkIcon';
 import { DocIcon } from 'ui/atoms/icons/doc/DocIcon';
-import { FolderIcon } from 'ui/atoms/icons/folder/FolderIcon';
+import { FolderContainer } from 'ui/molecules/folder/FolderContainer';
 import { useTheme } from '@material-ui/core/styles';
 
 const theme = useTheme();
@@ -136,7 +136,7 @@ if (placement === 'left' || placement === 'left-start' || placement === 'left-en
         <Box display="flex" alignItems="center">
           <Avatar variant="rounded" bgcolor={theme.palette.yellow.light}>
             <Box color={theme.palette.yellow.main}>
-              <FolderIcon color="inherit"/>
+              <FolderContainer color="inherit"/>
             </Box>
           </Avatar>
           <Box ml={2}>
