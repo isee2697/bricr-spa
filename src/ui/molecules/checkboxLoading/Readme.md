@@ -6,6 +6,6 @@ import { Box } from 'ui/atoms';
 
 <Box display="flex" alignItems="center">
   <CheckboxLoading isLoading />
-  <CheckboxLoading />
+  <CheckboxLoading isLoading={false} />
 </Box>
 ```

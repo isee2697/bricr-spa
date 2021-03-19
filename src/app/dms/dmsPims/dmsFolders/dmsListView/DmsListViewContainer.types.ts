@@ -10,3 +10,13 @@ export type DmsListViewContainerProps = {
   isError?: boolean;
   data?: DmsDocument[];
 };
+
+export type DocumentItem = {
+  id: string;
+  name: string;
+  extension: string;
+  documentType: DocumentType;
+  isCreatedByBricr: boolean;
+  dateCreated: string;
+  dateUpdated: string;
+};
