@@ -16,6 +16,7 @@ import { DmsTemplateDetailsContainer } from './dmsTemplateDetails/DmsTemplateDet
 import { DmsContentBlockDetailsContainer } from './dmsContentBlockDetails/DmsContentBlockDetailsContainer';
 import { DmsPims } from './dmsPims/DmsPims';
 import { DmsTemplatesList } from './dmsTemplates/DmsTemplatesList';
+import { DmsSales } from './dmsSales/DmsSales';
 import { DmsCrms } from './dmsCrms/DmsCrms';
 
 export const Dms = ({ dms, breadcrumbs, path, entityType }: DmsProps) => {
@@ -72,6 +73,7 @@ export const Dms = ({ dms, breadcrumbs, path, entityType }: DmsProps) => {
                 <Switch>
                   <Route path={`${path}/dashboard`} render={() => <DmsDashboard dms={dms} />} />
                   <Route path={`${path}/pim/:type`} render={() => <DmsPims dms={dms} />} />
+                  <Route path={`${path}/sales/:type`} render={() => <DmsSales dms={dms} />} />
                   <Route
                     path={`${path}/templates/:type/:category/:id`}
                     render={() => (
