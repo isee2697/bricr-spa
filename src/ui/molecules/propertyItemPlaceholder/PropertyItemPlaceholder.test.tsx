@@ -9,5 +9,6 @@ describe('PropertyItemPlaceholder', () => {
     const { container } = render(<PropertyItemPlaceholder />);
 
     expect(container).toBeInTheDocument();
+    expect(container.querySelectorAll('.MuiSkeleton-root').length).toEqual(13);
   });
 });

@@ -7,6 +7,7 @@ import { FormSubSectionHeader } from 'ui/molecules';
 import { Box, Grid } from 'ui/atoms';
 import { GenericField } from 'form/fields';
 import { SquareMeterIcon } from 'ui/atoms/icons';
+import { numberValidator } from 'form/validators/numberValidator/numberValidator';
 
 export const Measurements = () => {
   const { formatMessage } = useLocale();
@@ -28,6 +29,7 @@ export const Measurements = () => {
           <Grid container spacing={1}>
             <Grid item xs={4}>
               <GenericField
+                validate={[numberValidator]}
                 name="measurements.surfaceFromMin"
                 label={formatMessage({
                   id: 'crm.details.personal_information_match_profile.measurements.minimal_surface_from',
@@ -39,6 +41,7 @@ export const Measurements = () => {
             </Grid>
             <Grid item xs={4}>
               <GenericField
+                validate={[numberValidator]}
                 name="measurements.surfaceToMin"
                 label={formatMessage({
                   id: 'crm.details.personal_information_match_profile.measurements.minimal_surface_to',
@@ -57,6 +60,7 @@ export const Measurements = () => {
           <Grid container spacing={1}>
             <Grid item xs={4}>
               <GenericField
+                validate={[numberValidator]}
                 name="measurements.livingAreaFromMin"
                 label={formatMessage({
                   id: 'crm.details.personal_information_match_profile.measurements.minimal_living_area_from',
@@ -68,6 +72,7 @@ export const Measurements = () => {
             </Grid>
             <Grid item xs={4}>
               <GenericField
+                validate={[numberValidator]}
                 name="measurements.livingAreaToMin"
                 label={formatMessage({
                   id: 'crm.details.personal_information_match_profile.measurements.minimal_living_area_to',

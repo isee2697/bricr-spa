@@ -19,12 +19,49 @@ import {
   PaymentPeriod,
   MatchService,
 } from 'api/types';
-import { GraphArrowIcon, SquareIcon } from 'ui/atoms/icons';
+import {
+  AogIcon,
+  BogIcon,
+  ClockIcon,
+  CompassIcon,
+  GraphArrowIcon,
+  MutationIcon,
+  NcSaleIcon,
+  SaleIcon,
+  SquareIcon,
+  TagIcon,
+} from 'ui/atoms/icons';
 
-export const PropertyTypes = Object.keys(MatchPropertyType).map(key => ({
-  value: key,
-  icon: <SquareIcon />,
-}));
+export const PropertyTypes = [
+  {
+    value: MatchPropertyType.Residential,
+    icon: <SaleIcon />,
+  },
+  {
+    value: MatchPropertyType.NewConstruction,
+    icon: <NcSaleIcon />,
+  },
+  {
+    value: MatchPropertyType.Relet,
+    icon: <MutationIcon />,
+  },
+  {
+    value: MatchPropertyType.Commercial,
+    icon: <BogIcon />,
+  },
+  {
+    value: MatchPropertyType.Agriculture,
+    icon: <AogIcon />,
+  },
+  {
+    value: MatchPropertyType.ParkingLot,
+    icon: <AogIcon />,
+  },
+  {
+    value: MatchPropertyType.BuildingPlot,
+    icon: <AogIcon />,
+  },
+];
 
 export const CharacteristicsGeneralTypes = Object.keys(MatchCharacteristicsGeneralType).map(key => ({
   value: key,
@@ -50,7 +87,7 @@ export const CommercialCharacteristicsGeneralTypes = Object.keys(MatchCommercial
 
 export const RentalPeriodTypes = Object.keys(MatchRentalPeriodType).map(key => ({
   value: key,
-  icon: <SquareIcon />,
+  icon: <ClockIcon />,
 }));
 
 export const ProfileWithTypes = Object.keys(MatchProfileWith).map(key => ({
@@ -80,12 +117,12 @@ export const PaymentPeriodTypes = Object.keys(PaymentPeriod).map(key => ({
 
 export const GardenSituationTypes = Object.keys(MatchGardenSituation).map(key => ({
   value: key,
-  icon: <SquareIcon />,
+  icon: <CompassIcon />,
 }));
 
 export const TagTypes = Object.keys(MatchTags).map(key => ({
   value: key,
-  icon: <SquareIcon />,
+  icon: <TagIcon />,
 }));
 
 export const RequirementTypes = Object.keys(MatchRequirementType).map(key => ({

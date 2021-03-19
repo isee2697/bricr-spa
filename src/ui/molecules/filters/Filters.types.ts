@@ -11,6 +11,7 @@ export enum FiltersSizes {
 
 export enum Types {
   Text = 'label',
+  Date = 'date',
   Range = 'range',
   Checkbox = 'checkbox',
   RadioButton = 'radioButton',
@@ -73,6 +74,7 @@ export type FilterTabPanelProps = {
   children: ReactNode;
   activeTab: number;
   id: number;
+  options?: CheckboxDataType[];
   onDeleteFilter?: () => void;
-  onSearch?: (value: string) => void;
+  onSearch?: (options: CheckboxDataType[] | undefined) => void;
 };

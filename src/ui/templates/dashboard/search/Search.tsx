@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import { Search as BaseSearch } from 'ui/molecules';
 import { useOverlayDispatch } from 'hooks/useOverlayDispatch/useOverlayDispatch';
-import { AdvancedSearchResult, CrmType, ProjectType, PropertyType, SalesLabel } from 'api/types';
+import { SearchResult, CrmType, ProjectType, PropertyType, SalesLabel } from 'api/types';
 import { useLocale } from 'hooks';
 import { BuildingIcon, MailIcon, NoteIcon, UserIcon } from 'ui/atoms/icons';
 import { Box, Loader } from 'ui/atoms';
@@ -20,7 +20,7 @@ export const Search = ({ results, onSearch, loading }: SearchProps) => {
     setOverlay(hasFocus);
   }, [hasFocus, setOverlay]);
 
-  const getFormattedResults = (result?: AdvancedSearchResult): FormattedAdvancedSearchResult[] => {
+  const getFormattedResults = (result?: SearchResult): FormattedAdvancedSearchResult[] => {
     const formattedResults: FormattedAdvancedSearchResult[] = [
       ...(result?.emails || []).map(email => ({
         title: email.email,

@@ -11,5 +11,5 @@ export const DmsPims = ({ dms }: DmsPimsProps) => {
 
   const data = dms.folders?.find(item => item.data.id === 'pim');
 
-  return <DmsFolders data={data?.data as DmsFolderType} type={type} />;
+  return <DmsFolders data={data?.data as DmsFolderType} category={'pim'} type={type} />;
 };

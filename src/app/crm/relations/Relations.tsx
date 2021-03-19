@@ -72,8 +72,6 @@ export const Relations = ({
     ]);
   };
 
-  const crmItemsFiltered = crms.filter(crmItem => crmItem.status === status);
-
   const optionMenuItems = (item: CrmItem) => (
     <RelationMenuItems
       item={item}
@@ -95,7 +93,7 @@ export const Relations = ({
         baseRoute={AppRoute.crmRelationsDetails}
         header={{
           addButtonTextId: `crm.add.${CrmType.Relation}`,
-          onAdd: () => open('add-relation'),
+          onAdd: () => open('add-relation', { crmType: CrmType.Relation }),
           titleId: 'crm.title',
         }}
         cardTitleId={'crm.type.relations'}
@@ -118,7 +116,7 @@ export const Relations = ({
         }}
         list={{
           className: 'crm-list',
-          items: crmItemsFiltered as CrmItem[],
+          items: crms as CrmItem[],
           itemIndex: 'id',
           emptyTitle: formatMessage({ id: 'crm.list.empty_title' }),
           emptyDescription: formatMessage(
