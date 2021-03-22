@@ -1,40 +1,48 @@
 import React from 'react';
+import { ThemeProvider } from '@material-ui/styles';
 
-import { useSnackbar } from 'hooks';
-import { render } from 'tests';
+import { queryByText, render } from 'tests';
 import { Button, Snackbar } from 'ui/atoms';
-import { AppProviders } from 'providers/AppProviders';
+import { SnackbarContext } from 'context/snackbar/snackbarContext/SnackbarContext';
+import { Theme } from 'theme/Theme';
 
 describe('Snackbar', () => {
-  const { open: openSnackbar } = useSnackbar();
+  test('render correct contents', () => {
+    const changeSnackbarState = jest.fn();
 
-  const renderComponent = () => {
-    return (
-      <AppProviders>
-        <Button
-          size="small"
-          onClick={() =>
-            openSnackbar({
-              severity: 'success',
-              message: 'Test snackbar message',
-              modalTitle: 'Test snackbar',
-              modalContent: <></>,
-              onUndo: () => {},
-            })
-          }
-        >
+    const { queryByText } = render(
+      <>
+        <Button size="small" onClick={() => jest.fn()}>
           Open Snackbar
         </Button>
         <Snackbar />
-      </AppProviders>
+      </>,
+      {
+        wrapper: ({ children }) => (
+          <Theme>
+            <SnackbarContext.Provider
+              value={{
+                setSnackbarState: changeSnackbarState,
+                snackbarState: {
+                  isOpen: true,
+                  props: {
+                    severity: 'success',
+                    message: 'Test snackbar message',
+                    modalTitle: 'Test snackbar',
+                    modalContent: <></>,
+                  },
+                },
+              }}
+            >
+              {children}
+            </SnackbarContext.Provider>
+          </Theme>
+        ),
+      },
     );
-  };
 
-  test('render correct contents', () => {
-    const { open: openSnackbar } = useSnackbar();
+    const message = queryByText('Test snackbar message');
 
-    const { container, getByText } = render(renderComponent());
-
-    const button = getByText('Open Snackbar');
+    expect(message).not.toBeInTheDocument();
   });
 });
