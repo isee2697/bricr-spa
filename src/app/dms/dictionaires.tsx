@@ -12,6 +12,8 @@ import {
   MutationIcon,
 } from 'ui/atoms/icons';
 
+import { DmsDocumentType } from './Dms.types';
+
 export const TemplateTypes = [
   {
     value: 'house',
@@ -105,3 +107,21 @@ export const ContentBlockRights = [
     icon: <ComplexBuildingIcon />,
   },
 ];
+
+export enum DmsSalesLeadsDocumentType {
+  Brochure = 'Brochure',
+  TitleDeed = 'TitleDeed',
+  MunicipalCharges = 'MunicipalCharges',
+  SignedDeedOfPurchase = 'SignedDeedOfPurchase',
+  CadastralMap = 'CadastralMap',
+}
+
+export const DmsDocumentTypes: DmsDocumentType = {
+  sales: {
+    leads: Object.keys(DmsSalesLeadsDocumentType),
+  },
+  crms: {
+    relations: Object.keys(DmsSalesLeadsDocumentType),
+    businesses: Object.keys(DmsSalesLeadsDocumentType),
+  },
+};

@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useRouteMatch, Link as RouterLink, useLocation, useHistory } from 'react-router-dom';
 import { useTheme } from '@material-ui/core';
+import { useParams } from 'react-router';
 
 import { useLocale } from 'hooks';
 import { Box, Grid, Link, Scrollable, SidebarHideButton, SideMenuItem, Slide, Typography } from 'ui/atoms';
@@ -18,10 +19,11 @@ import { SideMenu } from 'ui/molecules';
 import { useStyles } from './SideBarMenu.styles';
 import { DmsDetailsSideBarMenuProps } from './SideBarMenu.types';
 
-export const DmsDetailsSidebarMenu = ({ onHide, isVisible, type, configureItems }: DmsDetailsSideBarMenuProps) => {
+export const DmsDetailsSidebarMenu = ({ onHide, isVisible, configureItems }: DmsDetailsSideBarMenuProps) => {
   const { formatMessage } = useLocale();
   const { url } = useRouteMatch();
   const { pathname } = useLocation();
+  const { type } = useParams<{ type: string }>();
   const urlPath = url.split('/');
   urlPath.pop();
   const parentUrl = urlPath.join('/');
@@ -49,7 +51,7 @@ export const DmsDetailsSidebarMenu = ({ onHide, isVisible, type, configureItems 
     {
       key: 'configureSettings',
       icon: <TriggerIcon color="inherit" />,
-      title: formatMessage({ id: `dms.templates.configure_${type.toLowerCase()}` }),
+      title: formatMessage({ id: `dms.templates.configure_${type?.toLowerCase()}` }),
       configureItems,
     },
     {

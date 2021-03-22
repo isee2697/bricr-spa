@@ -3,7 +3,6 @@ import { Redirect, Route, Switch, useLocation } from 'react-router-dom';
 
 import { Grid, Box } from 'ui/atoms';
 import { EntityTypeProvider } from 'app/shared/entityType';
-import { DmsDetailsSidebarMenu } from 'app/shared/dms/sideBarMenu/SideBarMenu';
 
 import { DmsProps } from './Dms.types';
 import { useStyles } from './Dms.styles';
@@ -16,6 +15,9 @@ import { DmsTemplateDetailsContainer } from './dmsTemplateDetails/DmsTemplateDet
 import { DmsContentBlockDetailsContainer } from './dmsContentBlockDetails/DmsContentBlockDetailsContainer';
 import { DmsPims } from './dmsPims/DmsPims';
 import { DmsTemplatesList } from './dmsTemplates/DmsTemplatesList';
+import { DetailsSidebarMenu as DmsDetailsSidebarMenu } from './dmsDetailsSidebarMenu/DmsDetailsSidebarMenu';
+import { DmsSales } from './dmsSales/DmsSales';
+import { DmsCrms } from './dmsCrms/DmsCrms';
 
 export const Dms = ({ dms, breadcrumbs, path, entityType }: DmsProps) => {
   const classes = useStyles();
@@ -49,14 +51,7 @@ export const Dms = ({ dms, breadcrumbs, path, entityType }: DmsProps) => {
         <Switch>
           <Route
             path={[`${path}/templates/:type/:category/:id`, `${path}/contentBlocks/:type/:id`]}
-            render={() => (
-              <DmsDetailsSidebarMenu
-                onHide={handleSidebarHide}
-                isVisible={isSidebarVisible}
-                type={'LVZ'}
-                configureItems={<>LVZ</>}
-              />
-            )}
+            render={() => <DmsDetailsSidebarMenu onHide={handleSidebarHide} isVisible={isSidebarVisible} />}
           />
           <Route
             render={() => (
@@ -78,6 +73,7 @@ export const Dms = ({ dms, breadcrumbs, path, entityType }: DmsProps) => {
                 <Switch>
                   <Route path={`${path}/dashboard`} render={() => <DmsDashboard dms={dms} />} />
                   <Route path={`${path}/pim/:type`} render={() => <DmsPims dms={dms} />} />
+                  <Route path={`${path}/sales/:type`} render={() => <DmsSales dms={dms} />} />
                   <Route
                     path={`${path}/templates/:type/:category/:id`}
                     render={() => (
@@ -89,6 +85,7 @@ export const Dms = ({ dms, breadcrumbs, path, entityType }: DmsProps) => {
                       />
                     )}
                   />
+                  <Route path={`${path}/crm/:type`} render={() => <DmsCrms dms={dms} />} />
                   <Route path={`${path}/templates/:type`} render={() => <DmsTemplatesList />} />
                   <Route exact path={`${path}/contentBlocks/:type`} render={() => <DmsContentBlocksContainer />} />
                   <Route path={`${path}/contentBlocks/:type/:id`} render={() => <DmsContentBlockDetailsContainer />} />

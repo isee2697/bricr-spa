@@ -2,14 +2,16 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import { ListPimsFilters } from 'api/types';
-import { Box, Grid, Card, CardHeader, CardContent, Typography, IconButton, ClickAwayListener } from 'ui/atoms';
+import { Box, Grid, Typography, IconButton, ClickAwayListener } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
+import { CardWithBody } from 'ui/templates';
 import { FiltersButton } from 'ui/molecules/filters/FiltersButton';
 import { ActiveFilters } from 'ui/molecules/filters/activeFilters/ActiveFilters';
 import { PropertyItemPlaceholder, Search, InfoSection } from 'ui/molecules';
-import { DmsFolderIcon } from '../dmsFolderIcon/DmsFolderIcon';
+import { FolderContainer } from 'ui/molecules/folder/FolderContainer';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { SearchIcon } from 'ui/atoms/icons';
+import { Page } from 'ui/templates';
 
 import { useStyles } from './DmsPrimaryFolder.styles';
 import { DmsPrimaryFolderProps } from './DmsPrimaryFolder.types';
@@ -30,6 +32,7 @@ export const DmsPrimaryFolder = ({
   foldersData,
   isLoading,
   type,
+  category,
 }: DmsPrimaryFolderProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
@@ -37,12 +40,17 @@ export const DmsPrimaryFolder = ({
   const [showSearchBar, setShowSearchBar] = useState(false);
 
   return (
-    <Grid item xs={12}>
-      <Card className={classes.root}>
-        <CardHeader
-          className="dms-primary-folder-header"
+    <Page
+      showHeader
+      withoutHeader
+      title={formatMessage({ id: `dms.folders.${type}` })}
+      titleActions={[]}
+      classes={{ container: classes.page }}
+    >
+      <Grid item xs={12}>
+        <CardWithBody
           title={[formatMessage({ id: 'dms.documents.pim' }), formatMessage({ id: `dms.documents.${type}` })].join(' ')}
-          action={
+          titleActions={
             <Box display="flex">
               <Box mr={3} className={classes.searchBoxWrapper}>
                 <ClickAwayListener
@@ -75,9 +83,10 @@ export const DmsPrimaryFolder = ({
               </Box>
             </Box>
           }
-        />
-        <CardContent>
-          <ActiveFilters<ListPimsFilters> activeFilters={activeFilters} onDelete={onFilter} />
+        >
+          {Object.keys(activeFilters).length > 0 && (
+            <ActiveFilters<ListPimsFilters> activeFilters={activeFilters} onDelete={onFilter} />
+          )}
           <Box my={2} p={4}>
             <Grid container>
               {isLoading ? (
@@ -87,13 +96,12 @@ export const DmsPrimaryFolder = ({
               ) : foldersData?.length ? (
                 foldersData.map((item, index) => (
                   <Grid item key={index} className={classes.listItem} xs={6} sm={4} lg={2}>
-                    <DmsFolderIcon
+                    <FolderContainer
                       id={item.id}
                       name={item.name}
-                      childCount={item.folders?.length || 0}
-                      type="primary"
+                      type={'main'}
                       onClick={() => {
-                        push(`${AppRoute.dms}/pim/${type}/${item.id}`);
+                        push(`${AppRoute.dms}/${category}/${type}/${item.id}`);
                       }}
                     />
                   </Grid>
@@ -110,8 +118,8 @@ export const DmsPrimaryFolder = ({
               )}
             </Grid>
           </Box>
-        </CardContent>
-      </Card>
-    </Grid>
+        </CardWithBody>
+      </Grid>
+    </Page>
   );
 };

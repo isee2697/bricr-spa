@@ -90,5 +90,7 @@ enum Entities {
   crmMatchProfile,
   addOn,
   tiaraMutation,
-  email
+  email,
+  users,
+  sales,
 }

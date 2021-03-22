@@ -38,11 +38,12 @@ export type DocumentFolderType = {
   name: string;
   documents?: Document[];
   isEmailFolder?: boolean;
+  isUserFolder?: boolean;
 };
 
 export type Document = {
   id: string;
-  image: string;
+  uri: string;
   dateCreated: DateTime;
   name: string;
   stepsCompleted: DocumentRequestStep[];

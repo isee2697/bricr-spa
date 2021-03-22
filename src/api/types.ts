@@ -292,6 +292,7 @@ export type Mutation = {
   createPhoneNumber: Profile;
   createPim?: Maybe<Pim>;
   createProfile: Profile;
+  createQuestionaire?: Maybe<Questionaire>;
   createSocialMediaLink: Profile;
   createTask: Task;
   deactivateProfile: Profile;
@@ -690,6 +691,10 @@ export type MutationCreatePimArgs = {
 
 export type MutationCreateProfileArgs = {
   input: CreateProfileInput;
+};
+
+export type MutationCreateQuestionaireArgs = {
+  input: QuestionaireInput;
 };
 
 export type MutationCreateSocialMediaLinkArgs = {
@@ -1206,7 +1211,6 @@ export type MutationVerifyUserArgs = {
 export type Query = {
   __typename?: 'Query';
   _?: Maybe<Scalars['Boolean']>;
-  advancedSearch?: Maybe<AdvancedSearchResult>;
   checkCompanyRegistered: CheckRegisteredResponse;
   crmList: CrmListSearchResult;
   dictionary?: Maybe<Scalars['Dictionary']>;
@@ -1286,10 +1290,7 @@ export type Query = {
   listObjectTypes: ObjectTypeListSearchResult;
   listPims: PimListSearchResult;
   me?: Maybe<Profile>;
-};
-
-export type QueryAdvancedSearchArgs = {
-  input: AdvancedSearchInput;
+  search?: Maybe<SearchResult>;
 };
 
 export type QueryCheckCompanyRegisteredArgs = {
@@ -1600,6 +1601,10 @@ export type QueryListPimsArgs = {
   filters?: Maybe<ListPimsFilters>;
   pagination?: Maybe<Pagination>;
   sort?: Maybe<Array<Sort>>;
+};
+
+export type QuerySearchArgs = {
+  input: SearchInput;
 };
 
 export type LoginInput = {
@@ -3200,6 +3205,8 @@ export enum Entities {
   AddOn = 'addOn',
   TiaraMutation = 'tiaraMutation',
   Email = 'email',
+  Users = 'users',
+  Sales = 'sales',
 }
 
 export enum IdentificationNumberType {
@@ -8864,8 +8871,8 @@ export type Pagination = {
   searchAfter?: Maybe<Array<Scalars['String']>>;
 };
 
-export type AdvancedSearchResult = {
-  __typename?: 'AdvancedSearchResult';
+export type SearchResult = {
+  __typename?: 'SearchResult';
   users?: Maybe<Array<Profile>>;
   emails?: Maybe<Array<Profile>>;
   crms?: Maybe<Array<CrmListItem>>;
@@ -8875,9 +8882,9 @@ export type AdvancedSearchResult = {
   sales?: Maybe<Array<Sales>>;
 };
 
-export type AdvancedSearchInput = {
+export type SearchInput = {
   keyword: Scalars['String'];
-  type?: Maybe<Array<Entities>>;
+  types?: Maybe<Array<Entities>>;
   page?: Maybe<Scalars['Int']>;
   size?: Maybe<Scalars['Int']>;
 };
@@ -9281,6 +9288,36 @@ export type UpdateUserInTeamInput = {
 export type RemoveUserFromTeamInput = {
   teamId: Scalars['ID'];
   userId: Scalars['ID'];
+};
+
+export type QuestionaireInput = {
+  questionaireName: Scalars['String'];
+  isAdmin?: Maybe<Scalars['Boolean']>;
+  published?: Maybe<Scalars['Boolean']>;
+  copyFromId?: Maybe<Scalars['String']>;
+  entity?: Maybe<EntityInput>;
+};
+
+export type EntityInput = {
+  type?: Maybe<Scalars['String']>;
+  subType?: Maybe<Scalars['String']>;
+};
+
+export type Questionaire = {
+  __typename?: 'Questionaire';
+  id: Scalars['ID'];
+  companyId: Scalars['String'];
+  questionaireName?: Maybe<Scalars['String']>;
+  isAdmin?: Maybe<Scalars['Boolean']>;
+  published?: Maybe<Scalars['Boolean']>;
+  copyFromId?: Maybe<Scalars['String']>;
+  entity?: Maybe<Entity>;
+};
+
+export type Entity = {
+  __typename?: 'Entity';
+  type?: Maybe<Scalars['String']>;
+  subType?: Maybe<Scalars['String']>;
 };
 
 export enum TiaraMessageType {
@@ -11459,6 +11496,19 @@ export type UpdateUserInTeamMutationVariables = Exact<{
 
 export type UpdateUserInTeamMutation = { __typename?: 'Mutation' } & {
   updateUserInTeam?: Maybe<{ __typename?: 'Team' } & Pick<Team, 'id'>>;
+};
+
+export type CreateQuestionaireMutationVariables = Exact<{
+  input: QuestionaireInput;
+}>;
+
+export type CreateQuestionaireMutation = { __typename?: 'Mutation' } & {
+  createQuestionaire?: Maybe<
+    { __typename?: 'Questionaire' } & Pick<
+      Questionaire,
+      'questionaireName' | 'isAdmin' | 'published' | 'copyFromId'
+    > & { entity?: Maybe<{ __typename?: 'Entity' } & Pick<Entity, 'type' | 'subType'>> }
+  >;
 };
 
 export type TiaraSendMessageMutationVariables = Exact<{
@@ -15260,13 +15310,13 @@ export type GetSalesListQuery = { __typename?: 'Query' } & {
   >;
 };
 
-export type AdvancedSearchQueryVariables = Exact<{
-  input: AdvancedSearchInput;
+export type SearchQueryVariables = Exact<{
+  input: SearchInput;
 }>;
 
-export type AdvancedSearchQuery = { __typename?: 'Query' } & {
-  advancedSearch?: Maybe<
-    { __typename?: 'AdvancedSearchResult' } & {
+export type SearchQuery = { __typename?: 'Query' } & {
+  search?: Maybe<
+    { __typename?: 'SearchResult' } & {
       users?: Maybe<
         Array<
           { __typename?: 'Profile' } & Pick<
@@ -19916,6 +19966,35 @@ export type UpdateUserInTeamMutationResult = ApolloReactCommon.MutationResult<Up
 export type UpdateUserInTeamMutationOptions = ApolloReactCommon.BaseMutationOptions<
   UpdateUserInTeamMutation,
   UpdateUserInTeamMutationVariables
+>;
+export const CreateQuestionaireDocument = gql`
+  mutation CreateQuestionaire($input: QuestionaireInput!) {
+    createQuestionaire(input: $input)
+      @rest(type: "Questionaire", path: "/questionaire", method: "POST", endpoint: "default") {
+      questionaireName
+      isAdmin
+      published
+      copyFromId
+      entity {
+        type
+        subType
+      }
+    }
+  }
+`;
+export function useCreateQuestionaireMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<CreateQuestionaireMutation, CreateQuestionaireMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<CreateQuestionaireMutation, CreateQuestionaireMutationVariables>(
+    CreateQuestionaireDocument,
+    baseOptions,
+  );
+}
+export type CreateQuestionaireMutationHookResult = ReturnType<typeof useCreateQuestionaireMutation>;
+export type CreateQuestionaireMutationResult = ApolloReactCommon.MutationResult<CreateQuestionaireMutation>;
+export type CreateQuestionaireMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  CreateQuestionaireMutation,
+  CreateQuestionaireMutationVariables
 >;
 export const TiaraSendMessageDocument = gql`
   mutation TiaraSendMessage($input: TiaraSendMessageInput!) {
@@ -25688,9 +25767,9 @@ export function useGetSalesListLazyQuery(
 export type GetSalesListQueryHookResult = ReturnType<typeof useGetSalesListQuery>;
 export type GetSalesListLazyQueryHookResult = ReturnType<typeof useGetSalesListLazyQuery>;
 export type GetSalesListQueryResult = ApolloReactCommon.QueryResult<GetSalesListQuery, GetSalesListQueryVariables>;
-export const AdvancedSearchDocument = gql`
-  query AdvancedSearch($input: AdvancedSearchInput!) {
-    advancedSearch(input: $input) {
+export const SearchDocument = gql`
+  query Search($input: SearchInput!) {
+    search(input: $input) @rest(type: "Search", path: "/search", method: "POST", endpoint: "default") {
       users {
         id
         firstName
@@ -25815,28 +25894,17 @@ export const AdvancedSearchDocument = gql`
     }
   }
 `;
-export function useAdvancedSearchQuery(
-  baseOptions?: ApolloReactHooks.QueryHookOptions<AdvancedSearchQuery, AdvancedSearchQueryVariables>,
-) {
-  return ApolloReactHooks.useQuery<AdvancedSearchQuery, AdvancedSearchQueryVariables>(
-    AdvancedSearchDocument,
-    baseOptions,
-  );
+export function useSearchQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<SearchQuery, SearchQueryVariables>) {
+  return ApolloReactHooks.useQuery<SearchQuery, SearchQueryVariables>(SearchDocument, baseOptions);
 }
-export function useAdvancedSearchLazyQuery(
-  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<AdvancedSearchQuery, AdvancedSearchQueryVariables>,
+export function useSearchLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<SearchQuery, SearchQueryVariables>,
 ) {
-  return ApolloReactHooks.useLazyQuery<AdvancedSearchQuery, AdvancedSearchQueryVariables>(
-    AdvancedSearchDocument,
-    baseOptions,
-  );
+  return ApolloReactHooks.useLazyQuery<SearchQuery, SearchQueryVariables>(SearchDocument, baseOptions);
 }
-export type AdvancedSearchQueryHookResult = ReturnType<typeof useAdvancedSearchQuery>;
-export type AdvancedSearchLazyQueryHookResult = ReturnType<typeof useAdvancedSearchLazyQuery>;
-export type AdvancedSearchQueryResult = ApolloReactCommon.QueryResult<
-  AdvancedSearchQuery,
-  AdvancedSearchQueryVariables
->;
+export type SearchQueryHookResult = ReturnType<typeof useSearchQuery>;
+export type SearchLazyQueryHookResult = ReturnType<typeof useSearchLazyQuery>;
+export type SearchQueryResult = ApolloReactCommon.QueryResult<SearchQuery, SearchQueryVariables>;
 export const SettingInfoDocument = gql`
   query SettingInfo {
     getTeams {
