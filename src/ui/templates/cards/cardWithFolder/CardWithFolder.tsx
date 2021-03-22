@@ -1,22 +1,15 @@
 import React, { useState, ReactNode, useCallback } from 'react';
 
-import { FolderContainer } from 'ui/molecules/folder/folderContainer';
+import { FolderContainer } from 'ui/molecules/folder/FolderContainer';
 import { Box, Grid, Card, CardHeader, CardContent, IconButton } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
-import { PropertyItemPlaceholder, Search } from 'ui/molecules';
+import { PropertyItemPlaceholder } from 'ui/molecules';
 import { DocumentFolderType } from '../../../../app/crmRelationsDetails/documents/Documents.types';
 import { ArrowDownIcon, ArrowUpIcon } from 'ui/atoms/icons';
 import { DmsAddFolderDialog } from 'app/dms/dmsPims/dmsFolders/dmsAddFolderDialog/DmsAddFolderDialog';
 
 import { useStyles } from './CardWithFolder.styles';
 import { CardWithFolderProps } from './CardWithFolder.types';
-
-const documentFoldersOptions = [
-  { title: 'Adriaan van Bergenstraat', type: '', value: 'Adriaan van Bergenstraat', icon: 'CH' },
-  { title: 'Adriaan van Hils', type: '', value: 'Adriaan van Hils', icon: 'CH' },
-  { title: 'Adriaan van Bils', type: '', value: 'Adriaan van Bils', icon: 'CH' },
-  { title: 'adriaanse', type: '', value: 'adriaanse', icon: 'CH' },
-];
 
 export const CardWithFolder = ({
   foldersData,
@@ -25,6 +18,7 @@ export const CardWithFolder = ({
   onDeleteFolder,
   onUpdateFolder,
   setSelectedFolder,
+  title,
 }: CardWithFolderProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
@@ -62,18 +56,7 @@ export const CardWithFolder = ({
   return (
     <Card className={classes.root}>
       <CardHeader
-        title={
-          <Box display="flex" flexDirection="column" alignItems="center" className={classes.searchBoxWrapper}>
-            <Search
-              options={documentFoldersOptions}
-              endAdornment={<></>}
-              classes={{
-                root: classes.searchBox,
-                input: classes.searchBox,
-              }}
-            />
-          </Box>
-        }
+        title={title}
         action={
           <IconButton size="small" variant="roundedContained" onClick={() => setIsExpanded(!isExpanded)}>
             {isExpanded ? <ArrowUpIcon /> : <ArrowDownIcon />}

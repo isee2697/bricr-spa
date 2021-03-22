@@ -4,7 +4,7 @@ import { useHistory } from 'react-router';
 import { Box, Grid, IconButton } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { PropertyItemPlaceholder } from 'ui/molecules';
-import { FolderContainer } from 'ui/molecules/folder/folderContainer';
+import { FolderContainer } from 'ui/molecules/folder/FolderContainer';
 import { DmsDocument, DmsFolderType } from 'app/dms/Dms.types';
 import { DmsListViewContainer } from '../dmsListView/DmsListViewContainer';
 import { ExitIcon, SeeIcon } from 'ui/atoms/icons';
@@ -109,7 +109,7 @@ export const DmsSecondaryFolder = ({
                       id={item.id}
                       name={item.name}
                       childCount={item.documents?.length || 0}
-                      type="secondary"
+                      type={item.isCustom ? 'secondary' : 'primary'}
                       onClick={() => {
                         setSelectedFolder(item.id === selectedFolder?.id ? null : item);
                       }}

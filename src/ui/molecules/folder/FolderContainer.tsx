@@ -7,8 +7,8 @@ import { ConfirmModal } from 'ui/molecules/index';
 import { ConfirmButtonType } from 'ui/molecules/confirmModal/ConfirmModal.types';
 import { useLocale } from 'hooks';
 
-import { useStyles } from './folderContainer.styles';
-import { FolderContainerProps } from './folderContiner.types';
+import { useStyles } from './FolderContainer.styles';
+import { FolderContainerProps } from './FolderContiner.types';
 
 export const FolderContainer = ({
   id,
@@ -23,7 +23,7 @@ export const FolderContainer = ({
 }: FolderContainerProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
-  const variant = type === 'primary' ? 'aqua' : 'purple';
+  const variant = type === 'main' ? 'darkblue' : type === 'primary' ? 'aqua' : 'purple';
   const childCount = defaultChildCount || 0;
   const [dialog, setDialog] = useState<ReactNode | null>(null);
   const [isRenaming, setIsRenaming] = useState(false);
@@ -115,8 +115,15 @@ export const FolderContainer = ({
           </>
         ) : (
           <>
-            <FolderIcon id={id + '_' + type} variant={variant} weight={childCount} className={classes.icon} />
-            <Box className={clsx(classes.iconBadge, variant)}>{childCount || '-'}</Box>
+            <FolderIcon
+              id={id + '_' + type}
+              variant={isOpened ? 'darkblue' : variant}
+              weight={variant === 'darkblue' || isOpened ? undefined : childCount}
+              className={classes.icon}
+            />
+            <Box className={clsx(classes.iconBadge, isOpened ? 'darkblue' : variant)}>
+              {variant !== 'darkblue' ? childCount || '-' : null}
+            </Box>
           </>
         )}
       </Box>
