@@ -1,12 +1,15 @@
 Example of Filters component
 
 ```jsx harmony
-import React from 'react';
+import React, { useState } from 'react';
 
-import { FiltersButton } from 'ui/molecules';
-import { FiltersSizes, FiltersTypes, Types } from 'ui/molecules/filters/Filters.types';
+import { Box } from 'ui/atoms';
 
-const filters: FiltersTypes[] = [
+import { FiltersButton } from './FiltersButton';
+import { ActiveFilters } from './activeFilters/ActiveFilters';
+import { FiltersSizes, Types } from './Filters.types';
+
+const filters = [
   {
     key: 'city',
     type: Types.Text,
@@ -14,5 +17,10 @@ const filters: FiltersTypes[] = [
   },
 ];
 
-<FiltersButton color="primary" data={[]} getActiveFilters={() => {}} filters={filters} />;
+const [activeFilters, setActiveFilters] = useState();
+
+<Box>
+  <FiltersButton color="primary" data={[]} getActiveFilters={setActiveFilters} filters={filters} />
+  <ActiveFilters activeFilters={activeFilters} onDelete={setActiveFilters} />
+</Box>
 ```

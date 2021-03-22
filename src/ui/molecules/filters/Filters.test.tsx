@@ -1,12 +1,12 @@
 import React from 'react';
 import { GridSize } from '@material-ui/core';
-import { act } from 'react-dom/test-utils';
 import userEvent from '@testing-library/user-event';
 
-import { render, fireEvent } from 'tests';
+import { render } from 'tests';
 import { BuildingIcon } from '../../atoms/icons';
 
 import { Filters } from './Filters';
+import { ActiveFilters } from './activeFilters/ActiveFilters';
 
 describe('Filter', () => {
   test('filter option not found', async () => {
@@ -51,6 +51,7 @@ describe('Filter', () => {
 
     expect(filter).not.toBeInTheDocument();
   });
+
   test('filter option found', async () => {
     const onClose = jest.fn();
     const onDeleteFilter = jest.fn();
@@ -92,5 +93,11 @@ describe('Filter', () => {
     await userEvent.type(getByPlaceholderText('common.search'), 'h');
 
     expect(filter).toBeInTheDocument();
+  });
+
+  test('onDelete called', () => {
+    const onDelete = jest.fn();
+
+    const { getByText } = render(<ActiveFilters activeFilters={{ city: 'Amsterdam' }} onDelete={onDelete} />);
   });
 });
