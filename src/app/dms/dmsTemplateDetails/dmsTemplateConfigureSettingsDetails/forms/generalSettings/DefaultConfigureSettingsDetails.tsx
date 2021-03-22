@@ -13,7 +13,7 @@ export const DefaultConfigureSettingsDetails = ({ template }: DefaultConfigureSe
 
   return (
     <>
-      <Page showHeader title={template.name} titleActions={[]}>
+      <Page showHeader title={template.questionaireName} titleActions={[]}>
         <Box display="flex" flexDirection="column" width="100%">
           <Box mt={1}>
             <FormSection

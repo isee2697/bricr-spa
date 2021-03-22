@@ -30,3 +30,7 @@ extend type Mutation {
     createQuestionaire(input: QuestionaireInput!): Questionaire
 }
 
+extend type Query {
+    getQuestionaires(pagination: Pagination, search: String): [Questionaire!] @auth
+    getQuestionaire(id: ID!): Questionaire @auth
+}

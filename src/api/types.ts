@@ -1267,6 +1267,8 @@ export type Query = {
   getProfile?: Maybe<Profile>;
   getProjectPhases: ProjectPhaseSearchResult;
   getPropertyTypes: Array<Scalars['String']>;
+  getQuestionaire?: Maybe<Questionaire>;
+  getQuestionaires?: Maybe<Array<Questionaire>>;
   getSalesCrmsList: LinkSalesCrmsListResult;
   getSalesList?: Maybe<SalesSearchResult>;
   getSalesPimsList: LinkSalesPimsListResult;
@@ -1498,6 +1500,15 @@ export type QueryGetProfileArgs = {
 export type QueryGetProjectPhasesArgs = {
   filters?: Maybe<ProjectPhaseFilters>;
   pagination: Pagination;
+};
+
+export type QueryGetQuestionaireArgs = {
+  id: Scalars['ID'];
+};
+
+export type QueryGetQuestionairesArgs = {
+  pagination?: Maybe<Pagination>;
+  search?: Maybe<Scalars['String']>;
 };
 
 export type QueryGetSalesCrmsListArgs = {
@@ -11506,7 +11517,7 @@ export type CreateQuestionaireMutation = { __typename?: 'Mutation' } & {
   createQuestionaire?: Maybe<
     { __typename?: 'Questionaire' } & Pick<
       Questionaire,
-      'questionaireName' | 'isAdmin' | 'published' | 'copyFromId'
+      'id' | 'questionaireName' | 'isAdmin' | 'published' | 'copyFromId'
     > & { entity?: Maybe<{ __typename?: 'Entity' } & Pick<Entity, 'type' | 'subType'>> }
   >;
 };
@@ -15599,6 +15610,19 @@ export type GetTeamDetailsQuery = { __typename?: 'Query' } & {
           >
         >;
       }
+  >;
+};
+
+export type GetQuestionaireQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+export type GetQuestionaireQuery = { __typename?: 'Query' } & {
+  getQuestionaire?: Maybe<
+    { __typename?: 'Questionaire' } & Pick<
+      Questionaire,
+      'id' | 'questionaireName' | 'isAdmin' | 'published' | 'copyFromId'
+    > & { entity?: Maybe<{ __typename?: 'Entity' } & Pick<Entity, 'type' | 'subType'>> }
   >;
 };
 
@@ -19971,6 +19995,7 @@ export const CreateQuestionaireDocument = gql`
   mutation CreateQuestionaire($input: QuestionaireInput!) {
     createQuestionaire(input: $input)
       @rest(type: "Questionaire", path: "/questionaire", method: "POST", endpoint: "default") {
+      id
       questionaireName
       isAdmin
       published
@@ -26214,6 +26239,44 @@ export type GetTeamDetailsLazyQueryHookResult = ReturnType<typeof useGetTeamDeta
 export type GetTeamDetailsQueryResult = ApolloReactCommon.QueryResult<
   GetTeamDetailsQuery,
   GetTeamDetailsQueryVariables
+>;
+export const GetQuestionaireDocument = gql`
+  query GetQuestionaire($id: ID!) {
+    getQuestionaire(id: $id)
+      @rest(type: "Questionaire", path: "/questionaire/{args.id}", method: "POST", endpoint: "default") {
+      id
+      questionaireName
+      isAdmin
+      published
+      copyFromId
+      entity {
+        type
+        subType
+      }
+    }
+  }
+`;
+export function useGetQuestionaireQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<GetQuestionaireQuery, GetQuestionaireQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<GetQuestionaireQuery, GetQuestionaireQueryVariables>(
+    GetQuestionaireDocument,
+    baseOptions,
+  );
+}
+export function useGetQuestionaireLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetQuestionaireQuery, GetQuestionaireQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<GetQuestionaireQuery, GetQuestionaireQueryVariables>(
+    GetQuestionaireDocument,
+    baseOptions,
+  );
+}
+export type GetQuestionaireQueryHookResult = ReturnType<typeof useGetQuestionaireQuery>;
+export type GetQuestionaireLazyQueryHookResult = ReturnType<typeof useGetQuestionaireLazyQuery>;
+export type GetQuestionaireQueryResult = ApolloReactCommon.QueryResult<
+  GetQuestionaireQuery,
+  GetQuestionaireQueryVariables
 >;
 export const GetTiaraMutationsDocument = gql`
   query GetTiaraMutations($entityId: ID!, $entity: TiaraEntities!) {

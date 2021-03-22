@@ -16,7 +16,7 @@ export const Contract = ({ template }: ContractProps) => {
   );
 
   return (
-    <Page showHeader title={template.name} titleActions={[]}>
+    <Page showHeader title={template.questionaireName} titleActions={[]}>
       <Card>
         <CardHeader title={formatMessage({ id: 'dms.templates.activate_cards_contract' })} />
         <CardContent>
