@@ -48,7 +48,7 @@ export const DmsListViewContainer = ({
           titleAmount={EMAILS.length}
         />
       )}
-      {category === 'crm' && folderType !== 'emails' && (
+      {((category === 'crm' && folderType !== 'emails') || category === 'pim') && (
         <CardWithTable<FileType>
           titleId={`common.${type}`}
           onAdd={() => {}}
@@ -59,15 +59,6 @@ export const DmsListViewContainer = ({
             onDelete: { exec: () => {} },
           }}
           titleAmount={dmsGeneralListItems.length}
-        />
-      )}
-      {category === 'pim' && (
-        <GeneralList
-          activeFilters={activeFilters}
-          onFilter={setActiveFilters}
-          items={dmsGeneralListItems}
-          onAdd={() => {}}
-          count={3}
         />
       )}
       {category !== 'crm' && category !== 'pim' && (
