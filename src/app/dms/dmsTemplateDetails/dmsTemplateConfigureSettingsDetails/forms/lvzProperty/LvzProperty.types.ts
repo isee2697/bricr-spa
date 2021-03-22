@@ -1,8 +1,7 @@
 import { PromiseFunction } from 'app/shared/types';
+import { TemplateItem } from '../../DmsTemplateConfigureSettingsDetails.types';
 
 import { AddLvzPropertyGroupBody } from './addLvzPropertyGroupModal/AddLvzPropertyGroupModal.types';
-
-import { TemplateItem } from '../../DmsTemplateConfigureSettingsDetails.types';
 
 export type LvzPropertyContainerProps = {
   template: TemplateItem;
