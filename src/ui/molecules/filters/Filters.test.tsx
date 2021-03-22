@@ -2,7 +2,7 @@ import React from 'react';
 import { GridSize } from '@material-ui/core';
 import userEvent from '@testing-library/user-event';
 
-import { render } from 'tests';
+import { fireEvent, render } from 'tests';
 import { BuildingIcon } from '../../atoms/icons';
 
 import { Filters } from './Filters';
@@ -98,6 +98,10 @@ describe('Filter', () => {
   test('onDelete called', () => {
     const onDelete = jest.fn();
 
-    const { getByText } = render(<ActiveFilters activeFilters={{ city: 'Amsterdam' }} onDelete={onDelete} />);
+    const { container } = render(<ActiveFilters activeFilters={{ city: 'Amsterdam' }} onDelete={onDelete} />);
+
+    fireEvent.click(container.querySelector('.MuiChip-deleteIcon')!);
+
+    expect(onDelete).toBeCalled();
   });
 });

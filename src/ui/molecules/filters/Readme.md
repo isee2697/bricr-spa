@@ -17,10 +17,10 @@ const filters = [
   },
 ];
 
-const [activeFilters, setActiveFilters] = useState();
+const [activeFilters, setActiveFilters] = useState({});
 
 <Box>
-  <FiltersButton color="primary" data={[]} getActiveFilters={setActiveFilters} filters={filters} />
+  <FiltersButton color="primary" data={activeFilters} getActiveFilters={setActiveFilters} filters={filters} />
   <ActiveFilters activeFilters={activeFilters} onDelete={setActiveFilters} />
 </Box>
 ```
