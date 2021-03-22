@@ -3,6 +3,7 @@ import { Form } from 'react-final-form';
 import { act } from 'react-test-renderer';
 
 import { fireEvent, render, wait } from 'tests';
+import { palette } from 'theme/palette';
 import {
   AddIcon,
   BellIcon,
@@ -116,6 +117,7 @@ describe('IconPicker', () => {
     });
 
     wait(() => {
+      expect(iconsList[0].parentElement?.parentElement).toHaveStyle(`border: 1px solid ${palette.blue.main}`);
       expect(onSubmit).toBeCalledWith({
         icon: 'add',
       });
