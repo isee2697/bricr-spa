@@ -19,10 +19,11 @@ export const DmsTemplatesContainer = ({ category }: DmsTemplatesContainerProps) 
 
   const handleAddTemplate = async (values: { name: string }) => {
     close('dms-add-template');
+    let id: string | undefined;
 
     switch (type) {
       case 'questionnaire':
-        await createQuestionaire({
+        const response = await createQuestionaire({
           variables: {
             input: {
               questionaireName: values.name,
@@ -34,10 +35,13 @@ export const DmsTemplatesContainer = ({ category }: DmsTemplatesContainerProps) 
             },
           },
         });
-    }
 
-    const { id } = await new Promise(resolve => setTimeout(() => resolve({ id: '0001' }), 2000));
-    push(`${pathname}/${id}/general`);
+        id = response?.data?.createQuestionaire?.id;
+
+        push(`${pathname}/${id}/general`, { newlyAdded: true, data: response?.data?.createQuestionaire });
+
+        break;
+    }
 
     return undefined;
   };

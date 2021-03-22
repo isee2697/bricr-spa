@@ -12,7 +12,7 @@ import { DocIcon } from 'ui/atoms/icons';
 import { GeneralPageSettingsProps, Languages } from './GeneralPageSettings.types';
 
 export const GeneralPageSettings = ({
-  title,
+  data,
   titleActions,
   headerProps,
   types,
@@ -31,7 +31,7 @@ export const GeneralPageSettings = ({
     <>
       <Page
         showHeader
-        title={title}
+        title={data?.questionaireName ?? ''}
         titleActions={titleActions}
         headerProps={headerProps}
         updatedBy={updatedBy}
@@ -39,9 +39,9 @@ export const GeneralPageSettings = ({
       >
         <FormSection title={formatMessage({ id: 'dms.general_page_settings.title' })} isExpandable isInitExpanded>
           {editing => (
-            <AutosaveForm onSave={onSave} initialValues={{ name: title }}>
+            <AutosaveForm onSave={onSave} initialValues={{ ...data }}>
               <GenericField
-                name="name"
+                name="questionaireName"
                 label="dms.general_page_settings.file_name"
                 placeholder="dms.general_page_settings.file_name.placeholder"
                 size="medium"

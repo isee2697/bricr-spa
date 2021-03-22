@@ -1,13 +1,13 @@
-import { DmsTemplateItem } from '../../../../dmsTemplates/DmsTemplates.types';
+import { TemplateItem } from '../../DmsTemplateConfigureSettingsDetails.types';
 
 export type ContractStepCheckType = {
   [key: string]: boolean;
 };
 
 export type ContractContainerProps = {
-  template: DmsTemplateItem;
+  template: TemplateItem;
 };
 
 export type ContractProps = {
-  template: DmsTemplateItem;
+  template: TemplateItem;
 };

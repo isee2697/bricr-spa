@@ -1,5 +1,6 @@
-import { DmsTemplateItem } from '../../dmsTemplates/DmsTemplates.types';
+import { Questionaire } from 'api/types';
 
+export type TemplateItem = Questionaire;
 export type DmsTemplateConfigureSettingsDetailsProps = {
-  template: DmsTemplateItem;
+  template: TemplateItem;
 };

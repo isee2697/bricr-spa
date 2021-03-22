@@ -4,10 +4,11 @@ import { Switch, useParams, Route, Redirect } from 'react-router-dom';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { Loader, NavBreadcrumb } from 'ui/atoms';
 import { AppRoute } from 'routing/AppRoute.enum';
-import { Templates } from 'api/mocks/dms';
 import { Security } from 'app/shared/dms/security/Security';
 import { DMS_TEMPLATE_RIGHTS as documentRightsMockData } from 'api/mocks/dms-templates';
 import { GeneralPageSettings } from 'app/shared/dms/generalPageSettings/GeneralPageSettings';
+import { useStateQuery } from '../../../hooks/useStateQuery/useStateQuery';
+import { Questionaire, useGetQuestionaireQuery } from '../../../api/types';
 
 import { DmsTemplateConfigureSettingsDetails } from './dmsTemplateConfigureSettingsDetails/DmsTemplateConfigureSettingsDetails';
 import { DmsTemplateDetailsContainerProps, DocumentType } from './DmsTemplateDetailsContainer.types';
@@ -15,9 +16,14 @@ import { DmsTemplateDetailsContainerProps, DocumentType } from './DmsTemplateDet
 export const DmsTemplateDetailsContainer = (props: DmsTemplateDetailsContainerProps) => {
   const { formatMessage } = useLocale();
   const { id } = useParams<{ id: string }>();
-  const data = Templates.find(item => item.id === id);
+  const { loading, data: loadedData } = useStateQuery({
+    query: useGetQuestionaireQuery,
+    variables: { id },
+  });
 
-  if (!data) {
+  const data = loadedData as Questionaire;
+
+  if (loading) {
     return <Loader />;
   }
 
@@ -34,7 +40,7 @@ export const DmsTemplateDetailsContainer = (props: DmsTemplateDetailsContainerPr
           render={() => (
             <GeneralPageSettings
               types={Object.keys(DocumentType)}
-              title={data.name}
+              data={data}
               onSave={handleSave}
               updatedBy={{
                 id: '0001',
@@ -53,7 +59,7 @@ export const DmsTemplateDetailsContainer = (props: DmsTemplateDetailsContainerPr
           path={`${AppRoute.dms}/templates/:type/:category/${id}/security`}
           render={() => (
             <Security
-              title={data.name}
+              title={data.questionaireName ?? ''}
               onSave={handleSave}
               data={documentRightsMockData}
               updatedBy={{
