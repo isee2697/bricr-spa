@@ -4,12 +4,11 @@ import { Switch, useParams, Route, Redirect } from 'react-router-dom';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { Loader, NavBreadcrumb } from 'ui/atoms';
 import { AppRoute } from 'routing/AppRoute.enum';
-import { Templates } from 'api/mocks/dms';
 import { Security } from 'app/shared/dms/security/Security';
 import { DMS_TEMPLATE_RIGHTS as documentRightsMockData } from 'api/mocks/dms-templates';
 import { GeneralPageSettings } from 'app/shared/dms/generalPageSettings/GeneralPageSettings';
 import { useStateQuery } from '../../../hooks/useStateQuery/useStateQuery';
-import { Questionaire, useGetQuestionaireQuery, usePimOverallInfoQuery } from '../../../api/types';
+import { Questionaire, useGetQuestionaireQuery } from '../../../api/types';
 
 import { DmsTemplateConfigureSettingsDetails } from './dmsTemplateConfigureSettingsDetails/DmsTemplateConfigureSettingsDetails';
 import { DmsTemplateDetailsContainerProps, DocumentType } from './DmsTemplateDetailsContainer.types';
