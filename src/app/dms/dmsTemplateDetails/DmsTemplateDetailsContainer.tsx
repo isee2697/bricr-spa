@@ -22,7 +22,6 @@ export const DmsTemplateDetailsContainer = (props: DmsTemplateDetailsContainerPr
     variables: { id },
   });
 
-  console.log(loadedData);
   const data = loadedData as Questionaire;
 
   if (loading) {
