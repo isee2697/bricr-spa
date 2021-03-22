@@ -1,11 +1,12 @@
 import { ReactNode } from 'react';
 
-import { SearchResult } from 'api/types';
+import { Entities, SearchResult } from 'api/types';
 
 export type SearchProps = {
   results?: SearchResult;
   onSearch: (keyword: string) => Promise<void>;
   loading: boolean;
+  onClick?: (type: Entities, id: string) => void;
 };
 
 export type FormattedAdvancedSearchResult = {
