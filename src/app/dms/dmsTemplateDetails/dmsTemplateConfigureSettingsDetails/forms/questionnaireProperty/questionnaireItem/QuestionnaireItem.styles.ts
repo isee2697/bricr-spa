@@ -1,9 +1,7 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 export const useStyles = makeStyles(theme => ({
-  root: {
-    marginBottom: theme.spacing(4),
-  },
+  root: {},
   itemRow: {
     borderBottom: `2px solid ${theme.palette.gray.light}`,
     paddingBottom: theme.spacing(0.5),
