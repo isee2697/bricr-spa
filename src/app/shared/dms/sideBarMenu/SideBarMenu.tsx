@@ -23,7 +23,7 @@ export const DmsDetailsSidebarMenu = ({ onHide, isVisible, configureItems }: Dms
   const { formatMessage } = useLocale();
   const { url } = useRouteMatch();
   const { pathname } = useLocation();
-  const { type } = useParams();
+  const { type } = useParams<{ type: string }>();
   const urlPath = url.split('/');
   urlPath.pop();
   const parentUrl = urlPath.join('/');
