@@ -61,7 +61,16 @@ export const DmsListViewContainer = ({
           titleAmount={dmsGeneralListItems.length}
         />
       )}
-      {category !== 'crm' && (
+      {category === 'pim' && (
+        <GeneralList
+          activeFilters={activeFilters}
+          onFilter={setActiveFilters}
+          items={dmsGeneralListItems}
+          onAdd={() => {}}
+          count={3}
+        />
+      )}
+      {category !== 'crm' && category !== 'pim' && (
         <Box width="100%" display="flex" flexDirection="column">
           <Box ml="auto" mr={1.5}>
             <DmsViewTabs
