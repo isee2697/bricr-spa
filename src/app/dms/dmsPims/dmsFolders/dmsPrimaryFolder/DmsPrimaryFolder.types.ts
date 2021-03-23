@@ -1,4 +1,4 @@
-import { ListPimsFilters } from 'api/types';
+import { DmsEntityType, ListPimsFilters } from 'api/types';
 import { DmsFolderType } from 'app/dms/Dms.types';
 
 export type DmsPrimaryFolderProps = {
@@ -9,6 +9,6 @@ export type DmsPrimaryFolderProps = {
   isLoading: boolean;
   isError: boolean;
   foldersData?: DmsFolderType[];
-  category: string;
+  entityType: DmsEntityType;
   type: string;
 };

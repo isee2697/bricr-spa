@@ -1,3 +1,4 @@
+import { DmsEntityType } from 'api/types';
 import { DmsDocument } from 'app/dms/Dms.types';
 
 export type DmsListViewContainerProps = {
@@ -5,7 +6,7 @@ export type DmsListViewContainerProps = {
   name: string;
   folderType: string;
   type: string;
-  category: string;
+  entityType: DmsEntityType;
   isLoading?: boolean;
   isError?: boolean;
   data?: DmsDocument[];

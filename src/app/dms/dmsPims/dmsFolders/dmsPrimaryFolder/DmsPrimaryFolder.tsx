@@ -32,7 +32,7 @@ export const DmsPrimaryFolder = ({
   foldersData,
   isLoading,
   type,
-  category,
+  entityType,
 }: DmsPrimaryFolderProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
@@ -101,7 +101,7 @@ export const DmsPrimaryFolder = ({
                       name={item.name}
                       type={'main'}
                       onClick={() => {
-                        push(`${AppRoute.dms}/${category}/${type}/${item.id}`);
+                        push(`${AppRoute.dms}/${entityType}/${type}/${item.id}`);
                       }}
                     />
                   </Grid>

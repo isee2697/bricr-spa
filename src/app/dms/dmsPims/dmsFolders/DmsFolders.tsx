@@ -17,11 +17,11 @@ const getPimFilterVariables = (type: string): ListPimsFilters => {
   return { propertyTypes: PimTypes.find(pimType => pimType.name === type)?.types };
 };
 
-export const DmsFolders = ({ data, category, type }: DmsFoldersProps) => {
+export const DmsFolders = ({ data, entityType, type, onAddFolder }: DmsFoldersProps) => {
   const { formatMessage } = useLocale();
   const { baseUrl } = useEntityType();
   const urlParams = useParams();
-  const folderPath = `${AppRoute.dms}/${category}/${type}`;
+  const folderPath = `${AppRoute.dms}/${entityType}/${type}`;
 
   const [activeFilters, setActiveFilters] = useState<ListPimsFilters>(getPimFilterVariables(type));
 
@@ -42,9 +42,9 @@ export const DmsFolders = ({ data, category, type }: DmsFoldersProps) => {
       />
       <Switch>
         <Route
-          path={`${folderPath}/:childId`}
+          path={`${folderPath}/:entityId`}
           render={path => {
-            const item = data.folders?.find(item => item.id === path.match.params.childId);
+            const item = data.folders?.find(item => item.id === path.match.params.entityId);
 
             return item ? (
               <DmsSecondaryFolder
@@ -54,7 +54,8 @@ export const DmsFolders = ({ data, category, type }: DmsFoldersProps) => {
                 isError={false}
                 foldersData={item.folders}
                 type={type}
-                category={category}
+                entityType={entityType}
+                onAddFolder={onAddFolder}
               />
             ) : (
               <Redirect to={folderPath} />
@@ -73,7 +74,7 @@ export const DmsFolders = ({ data, category, type }: DmsFoldersProps) => {
               isError={false}
               foldersData={data.folders}
               type={type}
-              category={category}
+              entityType={entityType}
             />
           )}
         />

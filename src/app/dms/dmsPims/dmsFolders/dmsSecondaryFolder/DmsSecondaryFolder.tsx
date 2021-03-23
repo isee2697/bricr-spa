@@ -1,5 +1,5 @@
 import React, { useState, ReactNode } from 'react';
-import { useHistory } from 'react-router';
+import { useHistory, useParams } from 'react-router';
 
 import { Box, Grid, IconButton } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
@@ -13,21 +13,24 @@ import { GeneralPageSettings } from 'app/shared/dms/generalPageSettings/GeneralP
 import { DmsDocumentTypes } from 'app/dms/dictionaires';
 import { CardWithBody, Page } from 'ui/templates';
 import { AppRoute } from 'routing/AppRoute.enum';
+import { DmsFolderType as FolderType } from 'api/types';
 
 import { useStyles } from './DmsSecondaryFolder.styles';
 import { DmsSecondaryFolderProps } from './DmsSecondaryFolder.types';
 
 export const DmsSecondaryFolder = ({
+  id,
   name,
   foldersData,
   isLoading,
   type,
-  category,
+  entityType,
   onAddFolder,
 }: DmsSecondaryFolderProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
   const { push } = useHistory();
+  const { entityId } = useParams<{ entityId: string }>();
 
   const [dialog, setDialog] = useState<ReactNode | null>(null);
   const [selectedFolder, setSelectedFolder] = useState<DmsFolderType | null>(null);
@@ -41,10 +44,16 @@ export const DmsSecondaryFolder = ({
         onClose={() => {
           setDialog(null);
         }}
-        onSubmit={({ folderName }) => {
+        onSubmit={async ({ folderName }) => {
           if (onAddFolder) {
-            onAddFolder(folderName);
+            await onAddFolder({
+              entityId,
+              entityType,
+              foldername: folderName,
+              type: FolderType.Custom,
+            });
           }
+
           setSelectedDocument(foldersData?.[0].documents?.[0]!);
           setDialog(null);
 
@@ -61,8 +70,8 @@ export const DmsSecondaryFolder = ({
   if (selectedDocument) {
     return (
       <GeneralPageSettings
-        title={formatMessage({ id: `dms.documents.${category}_documents` })}
-        types={DmsDocumentTypes[category]?.[type] || []}
+        title={formatMessage({ id: `dms.documents.${entityType}_documents` })}
+        types={DmsDocumentTypes[entityType]?.[type] || []}
         onSave={handleSave}
         titleActions={
           <IconButton size="small" variant="rounded">
@@ -87,7 +96,7 @@ export const DmsSecondaryFolder = ({
       titleActions={[]}
       headerProps={{
         customAction: (
-          <IconButton size="small" variant="rounded" onClick={() => push(`${AppRoute.dms}/${category}/${type}`)}>
+          <IconButton size="small" variant="rounded" onClick={() => push(`${AppRoute.dms}/${entityType}/${type}`)}>
             <ExitIcon />
           </IconButton>
         ),
@@ -140,7 +149,7 @@ export const DmsSecondaryFolder = ({
               name={selectedFolder.name}
               folderType={selectedFolder.type!}
               type={type}
-              category={category}
+              entityType={entityType}
               data={selectedFolder.documents}
             />
           </Box>

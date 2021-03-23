@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { ListPimsFilters } from 'api/types';
+import { DmsEntityType, ListPimsFilters } from 'api/types';
 import { EMAILS } from 'api/mocks/email';
 import { Box } from 'ui/atoms';
 import { CardWithTable } from 'ui/templates';
@@ -18,7 +18,7 @@ export const DmsListViewContainer = ({
   name,
   folderType,
   type,
-  category,
+  entityType,
   isLoading,
   isError,
   data,
@@ -28,7 +28,7 @@ export const DmsListViewContainer = ({
 
   return (
     <>
-      {category === 'crm' && folderType === 'emails' && (
+      {entityType === DmsEntityType.Crm && folderType === 'emails' && (
         <CardWithTable<FileType>
           titleId={'common.emails'}
           onAdd={() => {}}
@@ -48,7 +48,7 @@ export const DmsListViewContainer = ({
           titleAmount={EMAILS.length}
         />
       )}
-      {((category === 'crm' && folderType !== 'emails') || category === 'pim') && (
+      {((entityType === DmsEntityType.Crm && folderType !== 'emails') || entityType === DmsEntityType.Pim) && (
         <CardWithTable<FileType>
           titleId={`common.${type}`}
           onAdd={() => {}}
@@ -61,7 +61,7 @@ export const DmsListViewContainer = ({
           titleAmount={dmsGeneralListItems.length}
         />
       )}
-      {category !== 'crm' && category !== 'pim' && (
+      {entityType !== DmsEntityType.Crm && entityType !== DmsEntityType.Pim && (
         <Box width="100%" display="flex" flexDirection="column">
           <Box ml="auto" mr={1.5}>
             <DmsViewTabs

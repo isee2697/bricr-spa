@@ -53,17 +53,7 @@ export const Dms = ({ dms, breadcrumbs, path, entityType }: DmsProps) => {
             path={[`${path}/templates/:type/:category/:id`, `${path}/contentBlocks/:type/:id`]}
             render={() => <DmsDetailsSidebarMenu onHide={handleSidebarHide} isVisible={isSidebarVisible} />}
           />
-          <Route
-            render={() => (
-              <DmsSidebarMenu
-                onHide={handleSidebarHide}
-                isVisible={isSidebarVisible}
-                onAddFolder={(name: string) => {
-                  // TODO: add new folder
-                }}
-              />
-            )}
-          />
+          <Route render={() => <DmsSidebarMenu onHide={handleSidebarHide} isVisible={isSidebarVisible} />} />
         </Switch>
         <Box flex={1}>
           <Grid container className={classes.contentWrapper}>
@@ -74,6 +64,7 @@ export const Dms = ({ dms, breadcrumbs, path, entityType }: DmsProps) => {
                   <Route path={`${path}/dashboard`} render={() => <DmsDashboard dms={dms} />} />
                   <Route path={`${path}/pim/:type`} render={() => <DmsPims dms={dms} />} />
                   <Route path={`${path}/sales/:type`} render={() => <DmsSales dms={dms} />} />
+                  <Route path={`${path}/crm/:type`} render={() => <DmsCrms dms={dms} />} />
                   <Route
                     path={`${path}/templates/:type/:category/:id`}
                     render={() => (
@@ -85,7 +76,6 @@ export const Dms = ({ dms, breadcrumbs, path, entityType }: DmsProps) => {
                       />
                     )}
                   />
-                  <Route path={`${path}/crm/:type`} render={() => <DmsCrms dms={dms} />} />
                   <Route path={`${path}/templates/:type`} render={() => <DmsTemplatesList />} />
                   <Route exact path={`${path}/contentBlocks/:type`} render={() => <DmsContentBlocksContainer />} />
                   <Route path={`${path}/contentBlocks/:type/:id`} render={() => <DmsContentBlockDetailsContainer />} />

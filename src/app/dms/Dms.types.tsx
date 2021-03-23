@@ -3,6 +3,7 @@ import { DateTime } from 'luxon';
 
 import { EntityType } from 'app/shared/entityType';
 import { DocumentRequestStep } from 'app/crmRelationsDetails/documents/Documents.types';
+import { DmsEntityType } from 'api/types';
 
 export type DmsMeta = {
   forApproval: number;
@@ -26,6 +27,7 @@ export type DmsDocument = {
 export type DmsFolderType = {
   id: string;
   type?: string;
+  entityType?: DmsEntityType;
   name: string;
   folders?: DmsFolderType[];
   documents?: DmsDocument[];
