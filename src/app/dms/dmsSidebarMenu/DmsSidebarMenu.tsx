@@ -4,14 +4,14 @@ import { useTheme } from '@material-ui/core';
 
 import { SidebarMenu } from 'ui/molecules';
 import { Box } from 'ui/atoms';
-import { FolderSvgIcon, AddIcon, GraphArrowIcon } from 'ui/atoms/icons';
+import { FolderSvgIcon, GraphArrowIcon } from 'ui/atoms/icons';
 import { SidebarMenuType } from 'ui/molecules/sidebarMenu/SidebarMenu.types';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { useLocale } from 'hooks';
 
 import { DmsSidebarMenuProps } from './DmsSidebarMenu.types';
 
-export const DmsSidebarMenu = ({ onHide, isVisible, onAddFolder }: DmsSidebarMenuProps) => {
+export const DmsSidebarMenu = ({ onHide, isVisible }: DmsSidebarMenuProps) => {
   const { url } = useRouteMatch();
   const theme = useTheme();
   const { formatMessage } = useLocale();
@@ -127,13 +127,6 @@ export const DmsSidebarMenu = ({ onHide, isVisible, onAddFolder }: DmsSidebarMen
                 icon: <Box width={theme.spacing(3)} />,
               },
             ],
-          },
-          {
-            key: 'addFolder',
-            icon: <AddIcon />,
-            hideIcon: false,
-            title: 'dms.menu.add_folder',
-            onClick: () => {},
           },
         ],
       },
@@ -330,15 +323,14 @@ export const DmsSidebarMenu = ({ onHide, isVisible, onAddFolder }: DmsSidebarMen
   };
 
   return (
-    <>
-      <SidebarMenu
-        onHide={onHide}
-        isVisible={isVisible}
-        translationPrefix="dms.menu"
-        menu={menu}
-        menuTitle={formatMessage({ id: 'dms.title' })}
-        menuTitleIcon={<FolderSvgIcon color="inherit" />}
-      />
-    </>
+    <SidebarMenu
+      onHide={onHide}
+      isVisible={isVisible}
+      translationPrefix="dms.menu"
+      menu={menu}
+      menuTitle={formatMessage({ id: 'dms.title' })}
+      menuTitleIcon={<FolderSvgIcon color="inherit" />}
+      actionHeight={20}
+    />
   );
 };

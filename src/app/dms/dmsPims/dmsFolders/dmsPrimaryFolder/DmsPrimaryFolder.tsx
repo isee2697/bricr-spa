@@ -1,17 +1,20 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import classNames from 'classnames';
 
 import { ListPimsFilters } from 'api/types';
-import { Box, Grid, Typography, IconButton, ClickAwayListener } from 'ui/atoms';
+import { Box, Grid, IconButton, ClickAwayListener, Select, MenuItem, Pagination } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { CardWithBody } from 'ui/templates';
 import { FiltersButton } from 'ui/molecules/filters/FiltersButton';
 import { ActiveFilters } from 'ui/molecules/filters/activeFilters/ActiveFilters';
-import { PropertyItemPlaceholder, Search, InfoSection } from 'ui/molecules';
+import { PropertyItemPlaceholder, Search } from 'ui/molecules';
 import { FolderContainer } from 'ui/molecules/folder/FolderContainer';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { SearchIcon } from 'ui/atoms/icons';
 import { Page } from 'ui/templates';
+import { SortOption } from 'ui/molecules/list/List.types';
+import { EmptyStateFilter } from 'ui/organisms/emptyStateFilter/EmptyStateFilter';
 
 import { useStyles } from './DmsPrimaryFolder.styles';
 import { DmsPrimaryFolderProps } from './DmsPrimaryFolder.types';
@@ -33,11 +36,26 @@ export const DmsPrimaryFolder = ({
   isLoading,
   type,
   category,
+  onSort,
 }: DmsPrimaryFolderProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
   const { push } = useHistory();
   const [showSearchBar, setShowSearchBar] = useState(false);
+
+  const sortOptions: SortOption[] = [
+    {
+      key: 'newest',
+      name: formatMessage({ id: 'common.sort_option.newest' }),
+    },
+    { key: 'oldest', name: formatMessage({ id: 'common.sort_option.oldest' }) },
+    { key: 'alphabeticalUp', name: formatMessage({ id: 'common.sort_option.alphabetical_up' }) },
+    { key: 'alphabeticalDown', name: formatMessage({ id: 'common.sort_option.alphabetical_down' }) },
+    { key: 'mostFiles', name: formatMessage({ id: 'common.sort_option.most_files' }) },
+    { key: 'lessFiles', name: formatMessage({ id: 'common.sort_option.less_files' }) },
+  ];
+
+  const [sorting, setSorting] = useState(sortOptions.length > 0 ? sortOptions[0].key : '');
 
   return (
     <Page
@@ -85,35 +103,58 @@ export const DmsPrimaryFolder = ({
           }
         >
           {Object.keys(activeFilters).length > 0 && (
-            <ActiveFilters<ListPimsFilters> activeFilters={activeFilters} onDelete={onFilter} />
+            <Box ml={-2} mr={-2}>
+              <ActiveFilters<ListPimsFilters> activeFilters={activeFilters} onDelete={onFilter} />
+            </Box>
           )}
-          <Box my={2} p={4}>
+          <Box my={2}>
             <Grid container>
               {isLoading ? (
                 <Grid item xs={12}>
                   <PropertyItemPlaceholder />
                 </Grid>
               ) : foldersData?.length ? (
-                foldersData.map((item, index) => (
-                  <Grid item key={index} className={classes.listItem} xs={6} sm={4} lg={2}>
-                    <FolderContainer
-                      id={item.id}
-                      name={item.name}
-                      type={'main'}
-                      onClick={() => {
-                        push(`${AppRoute.dms}/${category}/${type}/${item.id}`);
+                <Grid item xs={12}>
+                  <Box width="100%" textAlign="right" mb={4} pr={4}>
+                    <Select
+                      className={classNames(classes.sorting, 'sort-select')}
+                      variant="outlined"
+                      value={sorting}
+                      onChange={event => {
+                        const value = event?.target.value as string;
+                        setSorting(value);
+
+                        if (onSort) onSort(value);
                       }}
-                    />
+                    >
+                      {sortOptions.map(({ key, name }) => (
+                        <MenuItem key={key} value={key}>
+                          {name}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </Box>
+                  <Grid container>
+                    {foldersData.map((item, index) => (
+                      <Grid item key={index} className={classes.listItem} xs={6} sm={4} lg={2}>
+                        <FolderContainer
+                          id={item.id}
+                          name={item.name}
+                          type={'main'}
+                          onClick={() => {
+                            push(`${AppRoute.dms}/${category}/${type}/${item.id}`);
+                          }}
+                        />
+                      </Grid>
+                    ))}
                   </Grid>
-                ))
+                  <Box mt={7}>
+                    <Pagination />
+                  </Box>
+                </Grid>
               ) : (
                 <Grid item xs={12}>
-                  <InfoSection emoji="🤔">
-                    <Typography variant="h3">{formatMessage({ id: 'dms.documents.primary.empty.title' })}</Typography>
-                    <Typography variant="h3">
-                      {formatMessage({ id: 'dms.documents.primary.empty.description' })}
-                    </Typography>
-                  </InfoSection>
+                  <EmptyStateFilter type="documents" isFiltered={Object.keys(activeFilters).length > 0} />
                 </Grid>
               )}
             </Grid>

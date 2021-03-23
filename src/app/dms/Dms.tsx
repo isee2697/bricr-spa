@@ -53,17 +53,7 @@ export const Dms = ({ dms, breadcrumbs, path, entityType }: DmsProps) => {
             path={[`${path}/templates/:type/:category/:id`, `${path}/contentBlocks/:type/:id`]}
             render={() => <DmsDetailsSidebarMenu onHide={handleSidebarHide} isVisible={isSidebarVisible} />}
           />
-          <Route
-            render={() => (
-              <DmsSidebarMenu
-                onHide={handleSidebarHide}
-                isVisible={isSidebarVisible}
-                onAddFolder={(name: string) => {
-                  // TODO: add new folder
-                }}
-              />
-            )}
-          />
+          <Route render={() => <DmsSidebarMenu onHide={handleSidebarHide} isVisible={isSidebarVisible} />} />
         </Switch>
         <Box flex={1}>
           <Grid container className={classes.contentWrapper}>

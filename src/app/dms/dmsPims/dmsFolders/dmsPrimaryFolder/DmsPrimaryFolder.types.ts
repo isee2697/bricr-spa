@@ -11,4 +11,5 @@ export type DmsPrimaryFolderProps = {
   foldersData?: DmsFolderType[];
   category: string;
   type: string;
+  onSort?: (key: string) => void;
 };
