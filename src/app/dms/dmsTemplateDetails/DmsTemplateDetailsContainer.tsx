@@ -26,7 +26,6 @@ export const DmsTemplateDetailsContainer = (props: DmsTemplateDetailsContainerPr
     variables: { id },
   });
 
-  console.log('Loaded', loadedData);
   const [updateGeneral] = useUpdateTemplateGeneralMutation();
 
   const data = loadedData as Questionaire;
