@@ -11,7 +11,7 @@ export const useStateQuery: <T>(p: StateQueryProps<T>) => ReturnStateQuery<T> = 
     skip,
   });
 
-  let data = response;
+  let data: object | undefined = {};
 
   if (skip) {
     data = Object.assign(state?.data);
@@ -19,9 +19,12 @@ export const useStateQuery: <T>(p: StateQueryProps<T>) => ReturnStateQuery<T> = 
     window.history.replaceState({}, document.title);
   }
 
-  if (!skip && response) {
-    const [first] = Object.values(response);
-    data = first;
+  if (!state?.newlyAdded && response) {
+    Object.values(response).map(part => {
+      data = { ...data, ...part };
+
+      return data;
+    });
   }
 
   return { error, loading, data };
