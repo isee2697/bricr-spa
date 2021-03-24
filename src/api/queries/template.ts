@@ -3,12 +3,13 @@ import { gql } from 'apollo-boost';
 export const GET_QUESTIONAIRE = gql`
   query GetQuestionaire($id: ID!) {
     getQuestionaire(id: $id)
-      @rest(type: "Questionaire", path: "/questionaire/{args.id}", method: "POST", endpoint: "default") {
+      @rest(type: "Questionaire", path: "/template/{args.id}", method: "POST", endpoint: "default") {
       id
-      questionaireName
+      templateName
       isAdmin
       published
       copyFromId
+      isActive
       entity {
         type
         subType
@@ -29,10 +30,15 @@ export const GET_QUESTIONAIRES = gql`
     )
       @rest(type: "Questionaire", path: "/questionaires", method: "GET", endpoint: "default") {
       id
-      questionaireName
+      templateName
       isAdmin
+      isActive
       published
       copyFromId
+      type
+      meta {
+        createdAt
+      }
       entity {
         type
         subType

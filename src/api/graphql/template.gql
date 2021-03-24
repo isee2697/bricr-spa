@@ -1,9 +1,43 @@
 input QuestionaireInput {
-    questionaireName: String!
+    templateName: String
+    type: QuestionaireType
     isAdmin: Boolean
     published: Boolean
     copyFromId: String
     entity: EntityInput
+    isActive: Boolean
+}
+
+input QuestionInput { 
+    order: Int
+    type: QuestionType
+    name: String
+    required: Boolean
+    commentEnabled: Boolean
+    showOn: String   
+    options: [OptionsInput]
+    entity: EntityInput
+}
+
+input GroupsInput {
+    groupName: String
+    order: Int
+    entity: EntityInput
+}
+
+input AnswersInput {     
+    templateId: String
+    date: Date
+    entities: [EntityInput]
+}
+
+input OptionsInput {
+    name: String    
+}
+
+input AnswerInput {
+    options: [OptionsInput]
+    comment: String 
 }
 
 input EntityInput {
@@ -11,20 +45,89 @@ input EntityInput {
     subType: String
 }
 
+type TemplateMeta {
+    createdAt: Date!
+    deletedAt: Date
+}
+
 type Questionaire {
-    id: ID!
-    companyId: String
-    questionaireName: String
+    id: ID! 
+    companyId: String!
+    type: QuestionaireType
+    templateName: String
     isAdmin: Boolean
     published: Boolean
     copyFromId: String
     entity: Entity
+    isActive: Boolean
+    meta: TemplateMeta!
+}
+
+type Groups { 
+    id: ID!
+    templateId: String
+    groupName: String
+    copyFromId: String
+    order: Int
+    entity: Entity
+}
+
+type Question {
+    id: ID!
+    groupId: String
+    order: Int
+    type: QuestionType
+    name: String
+    required: Boolean
+    commentEnabled: Boolean
+    showOn: String   
+    options: [Options]
+    entity: Entity
+}
+
+type Answers { 
+    id: ID!
+    templateId: String
+    date: Date
+    entities: [Entity]
+}
+
+type Answer {
+    id: ID! 
+    answersId: String    
+    questionId: String  
+    options: [Options]
+    comment: String 
+}
+
+type Options {
+    name: String    
+}
+
+enum QuestionType {
+    text
+    radio
+    checkbox
+    multiplechoice
+    number
+    email
+    price
+    singlelinetext
+    multiplelinetext
+}
+
+enum QuestionaireType {
+    questionaire
+    contract
+    lvz
 }
 
 type Entity {
     type: String
     subType: String
 }
+
+
 
 extend type Mutation {
     createQuestionaire(input: QuestionaireInput!): Questionaire

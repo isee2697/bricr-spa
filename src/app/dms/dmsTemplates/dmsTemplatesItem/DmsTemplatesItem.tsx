@@ -10,11 +10,12 @@ import { useStyles } from './DmsTemplatesItem.styles';
 
 export const DmsTemplatesItem = ({ template, onStatusChange, category }: DmsTemplatesItemProps) => {
   const { formatMessage } = useLocale();
-  const intl = useIntl();
+  // const intl = useIntl();
   const classes = useStyles(template);
 
   //  const { id, name, createdAt, avatar, labels, meta, status } = template;
-  const { id, questionaireName, published } = template;
+  
+  const { id, templateName, published,isAdmin,copyFromId,entity,isActive,meta } = template
   
   return (
     <Box display="flex" width="100%" flexDirection="column">
@@ -41,7 +42,7 @@ export const DmsTemplatesItem = ({ template, onStatusChange, category }: DmsTemp
                 })} */}
                 {Date()}
               </Typography>
-              <Typography className={classes.title}>{questionaireName}</Typography>
+              <Typography className={classes.title}>{templateName}</Typography>
               <Box mt={2}>
                 {/* {labels.length
                   ? labels.map(label => (

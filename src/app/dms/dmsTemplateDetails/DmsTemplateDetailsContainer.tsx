@@ -59,7 +59,7 @@ export const DmsTemplateDetailsContainer = (props: DmsTemplateDetailsContainerPr
           path={`${AppRoute.dms}/templates/:type/:category/${id}/security`}
           render={() => (
             <Security
-              title={data.questionaireName ?? ''}
+              title={data.templateName ?? ''}
               onSave={handleSave}
               data={documentRightsMockData}
               updatedBy={{

@@ -31,7 +31,7 @@ export const GeneralPageSettings = ({
     <>
       <Page
         showHeader
-        title={data?.questionaireName ?? ''}
+        title={data?.templateName ?? ''}
         titleActions={titleActions}
         headerProps={headerProps}
         updatedBy={updatedBy}
