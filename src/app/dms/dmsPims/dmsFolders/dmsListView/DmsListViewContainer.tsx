@@ -48,7 +48,7 @@ export const DmsListViewContainer = ({
           titleAmount={EMAILS.length}
         />
       )}
-      {category === 'crm' && folderType !== 'emails' && (
+      {((category === 'crm' && folderType !== 'emails') || category === 'pim') && (
         <CardWithTable<FileType>
           titleId={`common.${type}`}
           onAdd={() => {}}
@@ -61,7 +61,7 @@ export const DmsListViewContainer = ({
           titleAmount={dmsGeneralListItems.length}
         />
       )}
-      {category !== 'crm' && (
+      {category !== 'crm' && category !== 'pim' && (
         <Box width="100%" display="flex" flexDirection="column">
           <Box ml="auto" mr={1.5}>
             <DmsViewTabs

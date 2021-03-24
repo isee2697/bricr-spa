@@ -5,7 +5,7 @@ import { useLocale } from 'hooks';
 import { FormModal } from 'ui/organisms';
 import { FormSubSectionHeader } from 'ui/molecules';
 import { CheckboxField, GenericField, RadioGroupField } from 'form/fields';
-import { Grid, IconButton } from 'ui/atoms';
+import { Grid, IconButton, Box } from 'ui/atoms';
 import { AddIcon } from 'ui/atoms/icons';
 
 import { AddQuestionnaireGroupItemModalProps } from './AddQuestionnaireGroupItemModal.types';
@@ -72,6 +72,7 @@ export const AddQuestionnaireGroupItemModal = ({
       >
         <AddIcon />
       </IconButton>
+      <Box mb={2} />
       <FormSubSectionHeader
         title={formatMessage({ id: 'dms.templates.questionnaire.question_only_for_type_of_object' })}
         subtitle={formatMessage({ id: 'common.choose_one_option_below' })}
