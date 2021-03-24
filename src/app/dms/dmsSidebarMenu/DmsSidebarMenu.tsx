@@ -9,6 +9,7 @@ import { SidebarMenuType } from 'ui/molecules/sidebarMenu/SidebarMenu.types';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { useLocale } from 'hooks';
 import { DmsEntityType } from 'api/types';
+import { PimTypes } from 'app/pim/dictionaries';
 
 import { DmsSidebarMenuProps } from './DmsSidebarMenu.types';
 
@@ -43,48 +44,11 @@ export const DmsSidebarMenu = ({ onHide, isVisible }: DmsSidebarMenuProps) => {
             hideIcon: false,
             title: `dms.menu.${DmsEntityType.Pim}`,
             onClick: () => push(`${AppRoute.dms}/${DmsEntityType.Pim}/residential`),
-            subItems: [
-              {
-                id: 'residential',
-                title: 'dms.menu.residential',
-                icon: <Box width={theme.spacing(3)} />,
-              },
-              {
-                id: 'new_construction',
-                title: 'dms.menu.new_construction',
-                icon: <Box width={theme.spacing(3)} />,
-              },
-              {
-                id: 'relet',
-                title: 'dms.menu.relet',
-                icon: <Box width={theme.spacing(3)} />,
-              },
-              {
-                id: 'commercial',
-                title: 'dms.menu.commercial',
-                icon: <Box width={theme.spacing(3)} />,
-              },
-              {
-                id: 'building_commercial',
-                title: 'dms.menu.building_commercial',
-                icon: <Box width={theme.spacing(3)} />,
-              },
-              {
-                id: 'agriculture',
-                title: 'dms.menu.agriculture',
-                icon: <Box width={theme.spacing(3)} />,
-              },
-              {
-                id: 'parkinglot',
-                title: 'dms.menu.parkinglot',
-                icon: <Box width={theme.spacing(3)} />,
-              },
-              {
-                id: 'building_plot',
-                title: 'dms.menu.building_plot',
-                icon: <Box width={theme.spacing(3)} />,
-              },
-            ],
+            subItems: PimTypes.map(item => ({
+              id: item.name,
+              title: `dms.menu.${item.name}`,
+              icon: <Box width={theme.spacing(3)} />,
+            })),
           },
           {
             key: DmsEntityType.Crm,

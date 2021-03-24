@@ -1,21 +1,18 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
 
 import { DmsEntityType } from 'api/types';
 import { FoldersContainer } from 'app/shared/dms/folders/FoldersContainer';
 
-import { DmsSalesProps } from './DmsSales.types';
+import { DmsNcpsProps } from './DmsNcps.types';
 
-export const DmsSales = ({ sales, isLoading }: DmsSalesProps) => {
-  const { type } = useParams<{ type: string }>();
-
+export const DmsNcps = ({ ncps, type, isLoading }: DmsNcpsProps) => {
   return (
     <FoldersContainer
-      entityItems={sales.map(item => ({
+      entityItems={ncps.map(item => ({
         id: item.id,
         name: item.name ?? '',
       }))}
-      entityType={DmsEntityType.Sales}
+      entityType={DmsEntityType.Pim}
       type={type}
       isLoading={isLoading}
     />
