@@ -1,4 +1,5 @@
 import { PromiseFunction } from 'app/shared/types';
+import { TemplateItem } from '../dmsTemplateDetails/dmsTemplateConfigureSettingsDetails/DmsTemplateConfigureSettingsDetails.types';
 
 export type ActiveTabStatus = 'active' | 'inactive';
 
@@ -22,10 +23,10 @@ export interface DmsTemplateItem {
   meta: DmsTemplateMeta;
   file?: string;
 }
-
+//onGet:(template: DmsTemplateItem)=>void;
 export type DmsTemplatesProps = {
-  templates: DmsTemplateItem[];
+  templates: TemplateItem[];
   onAdd: PromiseFunction<{ name: string }>;
-  onUpdate: (template: DmsTemplateItem) => void;
+  onUpdate: (template: TemplateItem) => void;
   category: string;
 };

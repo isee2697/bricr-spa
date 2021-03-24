@@ -1,22 +1,24 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
 
-import { Templates } from 'api/mocks/dms';
+
 import { useModalDispatch } from 'hooks';
-import { useCreateQuestionaireMutation } from '../../../api/types';
+import { useCreateQuestionaireMutation, useGetQuestionairesQuery } from '../../../api/types';
 
 import { DmsTemplates } from './DmsTemplates';
-import { DmsTemplateItem } from './DmsTemplates.types';
 import { DmsTemplatesContainerProps } from './DmsTemplatesContainer.types';
+import { TemplateItem } from '../dmsTemplateDetails/dmsTemplateConfigureSettingsDetails/DmsTemplateConfigureSettingsDetails.types';
 
-export const DmsTemplatesContainer = ({ category }: DmsTemplatesContainerProps) => {
-  const [templates, setTemplates] = useState<DmsTemplateItem[]>(Templates);
+export const DmsTemplatesContainer = ({ category }:DmsTemplatesContainerProps) => {
   const [createQuestionaire] = useCreateQuestionaireMutation();
+
   const { push } = useHistory();
   const { type } = useParams<{ type: string }>();
   const { close } = useModalDispatch();
   const { pathname } = useLocation();
-
+  const response  = useGetQuestionairesQuery();
+  console.log("response")
+  console.log(response)
   const handleAddTemplate = async (values: { name: string }) => {
     close('dms-add-template');
     let id: string | undefined;
@@ -35,7 +37,8 @@ export const DmsTemplatesContainer = ({ category }: DmsTemplatesContainerProps) 
             },
           },
         });
-
+        console.log("getQuestionaires")
+        // console.log(getQuestionaires)
         id = response?.data?.createQuestionaire?.id;
 
         push(`${pathname}/${id}/general`, { newlyAdded: true, data: response?.data?.createQuestionaire });
@@ -45,14 +48,18 @@ export const DmsTemplatesContainer = ({ category }: DmsTemplatesContainerProps) 
 
     return undefined;
   };
-
-  const handleUpdateTemplate = async (template: DmsTemplateItem) => {
-    const index = templates.findIndex(item => item.id === template.id);
-    templates[index] = template;
-    setTemplates([...templates]);
+  const handleUpdateTemplate = async (template: TemplateItem) => {
+  
   };
 
+   
   return (
-    <DmsTemplates category={category} templates={templates} onAdd={handleAddTemplate} onUpdate={handleUpdateTemplate} />
+    <div>
+       <DmsTemplates category={category} templates={response.data?.getQuestionaires ?? []} 
+       onAdd={handleAddTemplate} 
+       onUpdate={handleUpdateTemplate} 
+       />
+    </div>
+    
   );
 };

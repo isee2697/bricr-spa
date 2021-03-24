@@ -13,11 +13,12 @@ import { ListPimsFilters } from 'api/types';
 import { FiltersButton } from 'ui/molecules/filters/FiltersButton';
 import { AddTemplateDialog } from 'app/shared/dms/addTemplateDialog/AddTemplateDialog';
 
-import { ActiveTabStatus, DmsTemplateItem, DmsTemplatesProps } from './DmsTemplates.types';
+import { ActiveTabStatus, DmsTemplatesProps } from './DmsTemplates.types';
 import { useStyles } from './DmsTemplates.styles';
 import { DmsTemplatesTabs } from './dmsTemplatesTabs/DmsTemplatesTabs';
 import { DmsTemplatesItem } from './dmsTemplatesItem/DmsTemplatesItem';
 import { DmsTemplatesFilters } from './dictionaries';
+import { TemplateItem } from '../dmsTemplateDetails/dmsTemplateConfigureSettingsDetails/DmsTemplateConfigureSettingsDetails.types';
 
 export const DmsTemplates = ({ templates, onAdd, onUpdate, category }: DmsTemplatesProps) => {
   const { formatMessage } = useLocale();
@@ -39,16 +40,16 @@ export const DmsTemplates = ({ templates, onAdd, onUpdate, category }: DmsTempla
     setActiveFilters(filters);
   };
 
-  const activeTemplates = templates.filter(item => item.status === 'active');
-  const inactiveTemplates = templates.filter(item => item.status === 'inactive');
+  const activeTemplates = templates.filter(item => !!item.published);
+  const inactiveTemplates = templates.filter(item => !item.published);
 
-  const sortedItems = (items: DmsTemplateItem[]) => {
+  const sortedItems = (items: TemplateItem[]) => {
     return items.sort((item1, item2) => {
-      if (sort === 'lastEdited') {
-        return item1.createdAt < item2.createdAt ? 1 : -1;
-      } else if (sort === 'firstEdited') {
-        return item1.createdAt > item2.createdAt ? 1 : -1;
-      }
+      // if (sort === 'lastEdited') {
+      //   return item1.createdAt < item2.createdAt ? 1 : -1;
+      // } else if (sort === 'firstEdited') {
+      //   return item1.createdAt > item2.createdAt ? 1 : -1;
+      // }
 
       return 1;
     });
@@ -142,9 +143,9 @@ export const DmsTemplates = ({ templates, onAdd, onUpdate, category }: DmsTempla
                             <Box
                               className={classes.itemButton}
                               onClick={() => {
-                                if (template.status === 'active') {
+                                if (template.published) {
                                   push(`${AppRoute.dms}/templates/${type}/${category}/${template.id}`, {
-                                    name: template.name,
+                                    name: template.id,
                                   });
                                 }
                               }}
@@ -152,7 +153,7 @@ export const DmsTemplates = ({ templates, onAdd, onUpdate, category }: DmsTempla
                               <DmsTemplatesItem
                                 template={template}
                                 onStatusChange={status => {
-                                  onUpdate({ ...template, status });
+                                  onUpdate({ ...template, published: status === 'active' });
                                 }}
                                 category={category}
                               />

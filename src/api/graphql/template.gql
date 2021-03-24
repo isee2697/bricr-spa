@@ -13,7 +13,7 @@ input EntityInput {
 
 type Questionaire {
     id: ID!
-    companyId: String!
+    companyId: String
     questionaireName: String
     isAdmin: Boolean
     published: Boolean

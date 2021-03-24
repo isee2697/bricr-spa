@@ -1,4 +1,5 @@
 import { makeStyles } from '@material-ui/core';
+import { TemplateItem } from 'app/dms/dmsTemplateDetails/dmsTemplateConfigureSettingsDetails/DmsTemplateConfigureSettingsDetails.types';
 
 import { DmsTemplateItem } from '../DmsTemplates.types';
 
@@ -11,7 +12,7 @@ export const useStyles = makeStyles(theme => ({
     width: theme.spacing(13),
     height: theme.spacing(19),
     fontSize: theme.spacing(5),
-    filter: ({ status }: DmsTemplateItem) => (status === 'inactive' ? 'grayscale(1)' : ''),
+    filter: ({ published }: TemplateItem) => (!published ? 'grayscale(1)' : ''),
   },
   label: {
     marginBottom: theme.spacing(0.5),

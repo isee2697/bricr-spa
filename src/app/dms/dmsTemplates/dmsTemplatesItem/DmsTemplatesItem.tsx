@@ -1,10 +1,7 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
-import { DateTime } from 'luxon';
-import clsx from 'clsx';
-
 import { useLocale } from 'hooks/useLocale/useLocale';
-import { Avatar, Box, Typography, Emoji, Chip } from 'ui/atoms';
+import { Box, Typography, Chip } from 'ui/atoms';
 import { ListOptionsMenu } from 'ui/molecules';
 import { ListOptionsMenuItem } from 'ui/molecules/listOptionsMenu/menuItem/ListOptionsMenuItem';
 
@@ -16,17 +13,14 @@ export const DmsTemplatesItem = ({ template, onStatusChange, category }: DmsTemp
   const intl = useIntl();
   const classes = useStyles(template);
 
-  const { id, name, createdAt, avatar, labels, meta, status } = template;
-
+  //  const { id, name, createdAt, avatar, labels, meta, status } = template;
+  const { id, questionaireName, published } = template;
+  
   return (
     <Box display="flex" width="100%" flexDirection="column">
       <Box display="flex">
         <Box position="relative" className={classes.imageWrapper}>
-          <Avatar variant="rounded" src={avatar} className={classes.image}>
-            {!avatar && <Emoji>{'📷'}</Emoji>}
-          </Avatar>
-          {status === 'inactive' && (
-            <Box className={classes.inactiveWrapper}>
+          <Box className={classes.inactiveWrapper}>
               <Chip
                 color="secondary"
                 label={formatMessage({
@@ -36,25 +30,26 @@ export const DmsTemplatesItem = ({ template, onStatusChange, category }: DmsTemp
                 size="small"
               />
             </Box>
-          )}
+          <div>{id}</div>
         </Box>
         <Box width="100%" display="flex" flexDirection="column" alignItems="space-between">
           <Box display="flex" justifyContent="space-between" mb={2}>
             <div>
               <Typography className={classes.date}>
-                {DateTime.fromISO(new Date(createdAt.toString()).toISOString()).toRelative({
+                {/* {DateTime.fromISO(new Date(createdAt.toString()).toISOString()).toRelative({
                   locale: intl.locale,
-                })}
+                })} */}
+                {Date()}
               </Typography>
-              <Typography className={classes.title}>{name}</Typography>
+              <Typography className={classes.title}>{questionaireName}</Typography>
               <Box mt={2}>
-                {labels.length
+                {/* {labels.length
                   ? labels.map(label => (
                       <Box component="span" key={label} mr={2}>
                         <Chip variant="outlined" color="primary" label={label} size="small" />
                       </Box>
                     ))
-                  : null}
+                  : null} */}
               </Box>
             </div>
             <div>
@@ -73,14 +68,14 @@ export const DmsTemplatesItem = ({ template, onStatusChange, category }: DmsTemp
                     id: 'dms.templates.active_inactive',
                   })}
                   onClick={() => {
-                    onStatusChange(status === 'active' ? 'inactive' : 'active');
+                    onStatusChange(published === true ? 'inactive' : 'active');
                   }}
                 />
               </ListOptionsMenu>
             </div>
           </Box>
-          <Box display="flex" className={classes.stats}>
-            {Object.entries(meta).map(([key, value], index) => (
+          {/* <Box display="flex" className={classes.stats}> */}
+            {/* {Object.entries(meta).map(([key, value], index) => (
               <Box
                 display="flex"
                 flexDirection="column"
@@ -92,8 +87,8 @@ export const DmsTemplatesItem = ({ template, onStatusChange, category }: DmsTemp
                   {formatMessage({ id: `dms.templates.stats.${key}` })}
                 </Typography>
               </Box>
-            ))}
-          </Box>
+            ))} */}
+          {/* </Box> */}
         </Box>
       </Box>
     </Box>

@@ -16,3 +16,27 @@ export const GET_QUESTIONAIRE = gql`
     }
   }
 `;
+
+export const GET_QUESTIONAIRES = gql`
+  query GetQuestionaires(
+    $search: String
+    $from: Int
+    $limit: Int
+  ) {
+    getQuestionaires(
+      pagination: { from: $from, limit: $limit }
+      search: $search
+    )
+      @rest(type: "Questionaire", path: "/questionaires", method: "GET", endpoint: "default") {
+      id
+      questionaireName
+      isAdmin
+      published
+      copyFromId
+      entity {
+        type
+        subType
+      }
+    }
+  }
+`;
