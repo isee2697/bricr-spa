@@ -27,8 +27,6 @@ export const GeneralPageSettings = ({
     value: key,
   }));
 
-  console.log(data);
-
   return (
     <>
       <Page
