@@ -3,7 +3,7 @@ import { Redirect, Route, Switch, useLocation } from 'react-router-dom';
 
 import { Grid, Box } from 'ui/atoms';
 import { EntityTypeProvider } from 'app/shared/entityType';
-import { DmsEntityType } from 'api/types';
+import { DmsEntityType, SalesLabel } from 'api/types';
 import { PimTypes } from 'app/pim/dictionaries';
 
 import { DmsProps } from './Dms.types';
@@ -73,7 +73,12 @@ export const Dms = ({ dms, breadcrumbs, path, entityType }: DmsProps) => {
                       }
                     />
                   ))}
-                  <Route path={`${path}/${DmsEntityType.Sales}/:type`} render={() => <DmsSalesContainer />} />
+                  {Object.keys(SalesLabel).map(label => (
+                    <Route
+                      path={`${path}/${DmsEntityType.Sales}/${label}`}
+                      render={() => <DmsSalesContainer type={label} />}
+                    />
+                  ))}
                   <Route path={`${path}/${DmsEntityType.Crm}/:type`} render={() => <DmsCrmsContainer />} />
                   <Route
                     path={`${path}/templates/:type/:category/:id`}

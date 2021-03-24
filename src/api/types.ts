@@ -15419,7 +15419,25 @@ export type GetSalesListQueryVariables = Exact<{
 
 export type GetSalesListQuery = { __typename?: 'Query' } & {
   getSalesList?: Maybe<
-    { __typename?: 'SalesSearchResult' } & { items?: Maybe<Array<{ __typename?: 'Sales' } & Pick<Sales, 'id'>>> }
+    { __typename?: 'SalesSearchResult' } & {
+      items?: Maybe<
+        Array<
+          { __typename?: 'Sales' } & Pick<
+            Sales,
+            | 'id'
+            | 'label'
+            | 'status'
+            | 'createdAt'
+            | 'updatedAt'
+            | 'name'
+            | 'type'
+            | 'extraInfo'
+            | 'attentionNote'
+            | 'date'
+          >
+        >
+      >;
+    }
   >;
 };
 
@@ -25896,6 +25914,15 @@ export const GetSalesListDocument = gql`
     ) {
       items {
         id
+        label
+        status
+        createdAt
+        updatedAt
+        name
+        type
+        extraInfo
+        attentionNote
+        date
       }
     }
   }

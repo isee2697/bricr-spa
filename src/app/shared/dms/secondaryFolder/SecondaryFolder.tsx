@@ -44,9 +44,9 @@ export const SecondaryFolder = ({
         onClose={() => {
           setDialog(null);
         }}
-        onSubmit={async ({ folderName }) => {
+        onSubmit={({ folderName }) => {
           if (onAddFolder) {
-            await onAddFolder({
+            onAddFolder({
               entityId,
               entityType,
               foldername: folderName,

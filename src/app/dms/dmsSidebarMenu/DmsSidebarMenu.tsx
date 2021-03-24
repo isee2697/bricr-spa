@@ -8,7 +8,7 @@ import { FolderSvgIcon, GraphArrowIcon } from 'ui/atoms/icons';
 import { SidebarMenuType } from 'ui/molecules/sidebarMenu/SidebarMenu.types';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { useLocale } from 'hooks';
-import { DmsEntityType } from 'api/types';
+import { DmsEntityType, SalesLabel } from 'api/types';
 import { PimTypes } from 'app/pim/dictionaries';
 
 import { DmsSidebarMenuProps } from './DmsSidebarMenu.types';
@@ -74,24 +74,12 @@ export const DmsSidebarMenu = ({ onHide, isVisible }: DmsSidebarMenuProps) => {
             icon: <FolderSvgIcon />,
             hideIcon: false,
             title: `dms.menu.${DmsEntityType.Sales}`,
-            onClick: () => push(`${AppRoute.dms}/${DmsEntityType.Sales}/leads`),
-            subItems: [
-              {
-                id: 'leads',
-                title: 'dms.menu.leads',
-                icon: <Box width={theme.spacing(3)} />,
-              },
-              {
-                id: 'orders',
-                title: 'dms.menu.orders',
-                icon: <Box width={theme.spacing(3)} />,
-              },
-              {
-                id: 'invoices',
-                title: 'dms.menu.invoices',
-                icon: <Box width={theme.spacing(3)} />,
-              },
-            ],
+            onClick: () => push(`${AppRoute.dms}/${DmsEntityType.Sales}/${SalesLabel.Lead}`),
+            subItems: Object.keys(SalesLabel).map(label => ({
+              id: label,
+              title: `dms.menu.${label}`,
+              icon: <Box width={theme.spacing(3)} />,
+            })),
           },
         ],
       },

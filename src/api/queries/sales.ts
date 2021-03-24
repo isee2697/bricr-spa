@@ -8,6 +8,15 @@ export const GET_SALES_LIST = gql`
     ) {
       items {
         id
+        label
+        status
+        createdAt
+        updatedAt
+        name
+        type
+        extraInfo
+        attentionNote
+        date
       }
     }
   }
