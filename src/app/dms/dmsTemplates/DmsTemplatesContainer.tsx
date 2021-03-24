@@ -3,7 +3,7 @@ import { useHistory, useLocation, useParams } from 'react-router-dom';
 
 import { Templates } from 'api/mocks/dms';
 import { useModalDispatch } from 'hooks';
-import { useCreateQuestionaireMutation } from '../../../api/types';
+import { QuestionaireType, useCreateQuestionaireMutation } from '../../../api/types';
 
 import { DmsTemplates } from './DmsTemplates';
 import { DmsTemplateItem } from './DmsTemplates.types';
@@ -18,15 +18,17 @@ export const DmsTemplatesContainer = ({ category }: DmsTemplatesContainerProps) 
   const { pathname } = useLocation();
 
   const handleAddTemplate = async (values: { name: string }) => {
-    close('dms-add-template');
-    let id: string | undefined;
-
-    switch (type) {
-      case 'questionnaire':
+    try {
+      if (
+        Object.values(QuestionaireType).find(
+          (templateType: string) => templateType.toLowerCase() === type.toLowerCase(),
+        )
+      ) {
         const response = await createQuestionaire({
           variables: {
             input: {
-              questionaireName: values.name,
+              templateName: values.name,
+              type: type as QuestionaireType,
               entity: {
                 type: type,
               },
@@ -36,14 +38,19 @@ export const DmsTemplatesContainer = ({ category }: DmsTemplatesContainerProps) 
           },
         });
 
-        id = response?.data?.createQuestionaire?.id;
+        const id = response?.data?.createQuestionaire?.id;
+
+        close('dms-add-template');
 
         push(`${pathname}/${id}/general`, { newlyAdded: true, data: response?.data?.createQuestionaire });
+      } else {
+        throw new Error('common.template.type.not.found');
+      }
 
-        break;
+      return undefined;
+    } catch {
+      return { error: true };
     }
-
-    return undefined;
   };
 
   const handleUpdateTemplate = async (template: DmsTemplateItem) => {

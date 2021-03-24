@@ -9302,11 +9302,45 @@ export type RemoveUserFromTeamInput = {
 };
 
 export type QuestionaireInput = {
-  questionaireName: Scalars['String'];
+  templateName: Scalars['String'];
+  type?: Maybe<QuestionaireType>;
   isAdmin?: Maybe<Scalars['Boolean']>;
   published?: Maybe<Scalars['Boolean']>;
   copyFromId?: Maybe<Scalars['String']>;
   entity?: Maybe<EntityInput>;
+  isActive?: Maybe<Scalars['Boolean']>;
+};
+
+export type QuestionInput = {
+  order?: Maybe<Scalars['Int']>;
+  type?: Maybe<QuestionType>;
+  name?: Maybe<Scalars['String']>;
+  required?: Maybe<Scalars['Boolean']>;
+  commentEnabled?: Maybe<Scalars['Boolean']>;
+  showOn?: Maybe<Scalars['String']>;
+  options?: Maybe<Array<Maybe<OptionsInput>>>;
+  entity?: Maybe<EntityInput>;
+};
+
+export type GroupsInput = {
+  groupName?: Maybe<Scalars['String']>;
+  order?: Maybe<Scalars['Int']>;
+  entity?: Maybe<EntityInput>;
+};
+
+export type AnswersInput = {
+  templateId?: Maybe<Scalars['String']>;
+  date?: Maybe<Scalars['Date']>;
+  entities?: Maybe<Array<Maybe<EntityInput>>>;
+};
+
+export type OptionsInput = {
+  name?: Maybe<Scalars['String']>;
+};
+
+export type AnswerInput = {
+  options?: Maybe<Array<Maybe<OptionsInput>>>;
+  comment?: Maybe<Scalars['String']>;
 };
 
 export type EntityInput = {
@@ -9318,12 +9352,81 @@ export type Questionaire = {
   __typename?: 'Questionaire';
   id: Scalars['ID'];
   companyId: Scalars['String'];
-  questionaireName?: Maybe<Scalars['String']>;
+  type?: Maybe<QuestionaireType>;
+  templateName?: Maybe<Scalars['String']>;
   isAdmin?: Maybe<Scalars['Boolean']>;
   published?: Maybe<Scalars['Boolean']>;
   copyFromId?: Maybe<Scalars['String']>;
   entity?: Maybe<Entity>;
+  isActive?: Maybe<Scalars['Boolean']>;
+  createAt: Scalars['Date'];
+  deletedAt?: Maybe<Scalars['Date']>;
 };
+
+export type Groups = {
+  __typename?: 'Groups';
+  id: Scalars['ID'];
+  templateId?: Maybe<Scalars['String']>;
+  groupName?: Maybe<Scalars['String']>;
+  copyFromId?: Maybe<Scalars['String']>;
+  order?: Maybe<Scalars['Int']>;
+  entity?: Maybe<Entity>;
+};
+
+export type Question = {
+  __typename?: 'Question';
+  id: Scalars['ID'];
+  groupId?: Maybe<Scalars['String']>;
+  order?: Maybe<Scalars['Int']>;
+  type?: Maybe<QuestionType>;
+  name?: Maybe<Scalars['String']>;
+  required?: Maybe<Scalars['Boolean']>;
+  commentEnabled?: Maybe<Scalars['Boolean']>;
+  showOn?: Maybe<Scalars['String']>;
+  options?: Maybe<Array<Maybe<Options>>>;
+  entity?: Maybe<Entity>;
+};
+
+export type Answers = {
+  __typename?: 'Answers';
+  id: Scalars['ID'];
+  templateId?: Maybe<Scalars['String']>;
+  date?: Maybe<Scalars['Date']>;
+  entities?: Maybe<Array<Maybe<Entity>>>;
+};
+
+export type Answer = {
+  __typename?: 'Answer';
+  id: Scalars['ID'];
+  answersId?: Maybe<Scalars['String']>;
+  questionId?: Maybe<Scalars['String']>;
+  options?: Maybe<Array<Maybe<Options>>>;
+  comment?: Maybe<Scalars['String']>;
+};
+
+export type Options = {
+  __typename?: 'Options';
+  name?: Maybe<Scalars['String']>;
+};
+
+export enum QuestionType {
+  Text = 'text',
+  Radio = 'radio',
+  Checkbox = 'checkbox',
+  Multiplechoice = 'multiplechoice',
+  Number = 'number',
+  Email = 'email',
+  Price = 'price',
+  Singlelinetext = 'singlelinetext',
+  Multiplelinetext = 'multiplelinetext',
+}
+
+export enum QuestionaireType {
+  Questionaire = 'questionaire',
+  Contract = 'contract',
+  Lvz = 'lvz',
+  Survey = 'survey',
+}
 
 export type Entity = {
   __typename?: 'Entity';
@@ -11517,7 +11620,7 @@ export type CreateQuestionaireMutation = { __typename?: 'Mutation' } & {
   createQuestionaire?: Maybe<
     { __typename?: 'Questionaire' } & Pick<
       Questionaire,
-      'id' | 'questionaireName' | 'isAdmin' | 'published' | 'copyFromId'
+      'id' | 'templateName' | 'isAdmin' | 'published' | 'copyFromId'
     > & { entity?: Maybe<{ __typename?: 'Entity' } & Pick<Entity, 'type' | 'subType'>> }
   >;
 };
@@ -15621,7 +15724,7 @@ export type GetQuestionaireQuery = { __typename?: 'Query' } & {
   getQuestionaire?: Maybe<
     { __typename?: 'Questionaire' } & Pick<
       Questionaire,
-      'id' | 'questionaireName' | 'isAdmin' | 'published' | 'copyFromId'
+      'id' | 'templateName' | 'isAdmin' | 'published' | 'copyFromId' | 'isActive'
     > & { entity?: Maybe<{ __typename?: 'Entity' } & Pick<Entity, 'type' | 'subType'>> }
   >;
 };
@@ -19994,9 +20097,9 @@ export type UpdateUserInTeamMutationOptions = ApolloReactCommon.BaseMutationOpti
 export const CreateQuestionaireDocument = gql`
   mutation CreateQuestionaire($input: QuestionaireInput!) {
     createQuestionaire(input: $input)
-      @rest(type: "Questionaire", path: "/questionaire", method: "POST", endpoint: "default") {
+      @rest(type: "Questionaire", path: "/template", method: "POST", endpoint: "default") {
       id
-      questionaireName
+      templateName
       isAdmin
       published
       copyFromId
@@ -26243,12 +26346,13 @@ export type GetTeamDetailsQueryResult = ApolloReactCommon.QueryResult<
 export const GetQuestionaireDocument = gql`
   query GetQuestionaire($id: ID!) {
     getQuestionaire(id: $id)
-      @rest(type: "Questionaire", path: "/questionaire/{args.id}", method: "POST", endpoint: "default") {
+      @rest(type: "Questionaire", path: "/template/{args.id}", method: "POST", endpoint: "default") {
       id
-      questionaireName
+      templateName
       isAdmin
       published
       copyFromId
+      isActive
       entity {
         type
         subType
