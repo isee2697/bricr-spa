@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import { ListPimsFilters } from 'api/types';
-import { Box, Grid, Typography, IconButton, ClickAwayListener } from 'ui/atoms';
+import { Box, Grid, IconButton, ClickAwayListener } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { CardWithBody } from 'ui/templates';
 import { FiltersButton } from 'ui/molecules/filters/FiltersButton';
 import { ActiveFilters } from 'ui/molecules/filters/activeFilters/ActiveFilters';
-import { PropertyItemPlaceholder, Search, InfoSection } from 'ui/molecules';
+import { PropertyItemPlaceholder, Search } from 'ui/molecules';
 import { FolderContainer } from 'ui/molecules/folder/FolderContainer';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { SearchIcon } from 'ui/atoms/icons';
