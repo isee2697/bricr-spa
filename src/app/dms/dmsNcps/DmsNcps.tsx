@@ -3,14 +3,14 @@ import React from 'react';
 import { DmsEntityType } from 'api/types';
 import { FoldersContainer } from 'app/shared/dms/folders/FoldersContainer';
 
-import { DmsPimsProps } from './DmsPims.types';
+import { DmsNcpsProps } from './DmsNcps.types';
 
-export const DmsPims = ({ pims, type, isLoading }: DmsPimsProps) => {
+export const DmsNcps = ({ ncps, type, isLoading }: DmsNcpsProps) => {
   return (
     <FoldersContainer
-      entityItems={(pims.listPims.items || []).map(item => ({
+      entityItems={ncps.map(item => ({
         id: item.id,
-        name: `${item.street}`,
+        name: item.name ?? '',
       }))}
       entityType={DmsEntityType.Pim}
       type={type}

@@ -1,5 +1,11 @@
-import { DmsStats } from '../Dms.types';
+import { ListPimsQuery } from 'api/types';
 
 export type DmsPimsProps = {
-  dms: DmsStats;
+  pims: ListPimsQuery;
+  type: string;
+  isLoading: boolean;
+};
+
+export type DmsPimsContainerProps = {
+  type: string;
 };
