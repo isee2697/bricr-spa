@@ -52,7 +52,7 @@ type TemplateMeta {
 
 type Questionaire {
     id: ID! 
-    companyId: String!
+    companyId: String
     type: QuestionaireType
     templateName: String
     isAdmin: Boolean
@@ -134,6 +134,6 @@ extend type Mutation {
 }
 
 extend type Query {
-    getQuestionaires(pagination: Pagination, search: String): [Questionaire!] @auth
+    getQuestionaires(pagination: Pagination, search: String, type: String): [Questionaire!] @auth
     getQuestionaire(id: ID!): Questionaire @auth
 }

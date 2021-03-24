@@ -1,65 +1,68 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
 
-import { Templates } from 'api/mocks/dms';
+
 import { useModalDispatch } from 'hooks';
-import { QuestionaireType, useCreateQuestionaireMutation } from '../../../api/types';
+import { QuestionaireType, useCreateQuestionaireMutation, useGetQuestionairesQuery } from '../../../api/types';
 
 import { DmsTemplates } from './DmsTemplates';
-import { DmsTemplateItem } from './DmsTemplates.types';
 import { DmsTemplatesContainerProps } from './DmsTemplatesContainer.types';
+import { TemplateItem } from '../dmsTemplateDetails/dmsTemplateConfigureSettingsDetails/DmsTemplateConfigureSettingsDetails.types';
 
-export const DmsTemplatesContainer = ({ category }: DmsTemplatesContainerProps) => {
-  const [templates, setTemplates] = useState<DmsTemplateItem[]>(Templates);
+export const DmsTemplatesContainer = ({ category }:DmsTemplatesContainerProps) => {
   const [createQuestionaire] = useCreateQuestionaireMutation();
+
   const { push } = useHistory();
   const { type } = useParams<{ type: string }>();
   const { close } = useModalDispatch();
   const { pathname } = useLocation();
-
+  const response  = useGetQuestionairesQuery({variables:{
+    type: 'questionnaire'
+  }});
+  console.log("response")
+  console.log(response)
   const handleAddTemplate = async (values: { name: string }) => {
-    try {
-      if (
-        Object.values(QuestionaireType).find(
-          (templateType: string) => templateType.toLowerCase() === type.toLowerCase(),
-        )
-      ) {
+    close('dms-add-template');
+    let id: string | undefined;
+
+    switch (type) {
+      case 'questionnaire':
         const response = await createQuestionaire({
           variables: {
             input: {
               templateName: values.name,
-              type: type as QuestionaireType,
               entity: {
                 type: type,
               },
+              type: type as QuestionaireType,
               isAdmin: true,
               published: false,
             },
           },
         });
-
-        const id = response?.data?.createQuestionaire?.id;
-
-        close('dms-add-template');
-
+        console.log("getQuestionaires")
+        // console.log(getQuestionaires)
+        id = response?.data?.createQuestionaire?.id;
+        // const type="type"
         push(`${pathname}/${id}/general`, { newlyAdded: true, data: response?.data?.createQuestionaire });
-      } else {
-        throw new Error('common.template.type.not.found');
-      }
 
-      return undefined;
-    } catch {
-      return { error: true };
+        break;
     }
+
+    return undefined;
+  };
+  const handleUpdateTemplate = async (template: TemplateItem) => {
+  
   };
 
-  const handleUpdateTemplate = async (template: DmsTemplateItem) => {
-    const index = templates.findIndex(item => item.id === template.id);
-    templates[index] = template;
-    setTemplates([...templates]);
-  };
-
+   
   return (
-    <DmsTemplates category={category} templates={templates} onAdd={handleAddTemplate} onUpdate={handleUpdateTemplate} />
+    <div>
+       <DmsTemplates category={category} templates={response.data?.getQuestionaires ?? []} 
+       onAdd={handleAddTemplate} 
+       onUpdate={handleUpdateTemplate} 
+       />
+    </div>
+    
   );
 };

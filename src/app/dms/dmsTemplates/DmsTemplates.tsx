@@ -35,7 +35,8 @@ export const DmsTemplates = ({ templates, onAdd, onUpdate, category }: DmsTempla
   ];
 
   const [sort, setSort] = useState<string>(sortOptions[0].key);
-
+  console.log("sort")
+  console.log(sort)
   const handleFilterChange = (filters: ListPimsFilters) => {
     setActiveFilters(filters);
   };
@@ -44,15 +45,20 @@ export const DmsTemplates = ({ templates, onAdd, onUpdate, category }: DmsTempla
   const inactiveTemplates = templates.filter(item => !item.published);
 
   const sortedItems = (items: TemplateItem[]) => {
-    console.log("item")
-    console.log(items)
     return items.sort((item1, item2) => {
-      // if (item1.questionaireName === 'lastEdited') {
-      //   return item1.questionaireName < item2.questionaireName ? 1 : -1;
-      // } else if (sort === 'firstEdited') {
-      //   return item1.createdAt > item2.createdAt ? 1 : -1;
-      // }
-
+        if (sort === 'lastEdited') {
+          if(!item1.meta?.createdAt){
+            return 2
+          }else{
+            return item1.meta?.createdAt < item2.meta?.createdAt ? 1 : -1;
+          }
+        } else if (sort === 'firstEdited') {
+          if(!item1.meta?.createdAt){
+            return 2
+          }else{
+            return item1.meta?.createdAt > item2.meta?.createdAt ? 1 : -1;
+          }
+        }
       return 1;
     });
   };
