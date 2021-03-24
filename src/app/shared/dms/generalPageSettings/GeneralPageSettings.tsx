@@ -27,6 +27,8 @@ export const GeneralPageSettings = ({
     value: key,
   }));
 
+  console.log(data);
+
   return (
     <>
       <Page
@@ -41,14 +43,14 @@ export const GeneralPageSettings = ({
           {editing => (
             <AutosaveForm onSave={onSave} initialValues={{ ...data }}>
               <GenericField
-                name="questionaireName"
+                name="templateName"
                 label="dms.general_page_settings.file_name"
                 placeholder="dms.general_page_settings.file_name.placeholder"
                 size="medium"
                 disabled={!editing}
               />
               <GenericField
-                name="description"
+                name="settings.description"
                 label="dms.general_page_settings.description"
                 placeholder="dms.general_page_settings.description.placeholder"
                 size="medium"
@@ -57,7 +59,7 @@ export const GeneralPageSettings = ({
               <Grid container spacing={3}>
                 <Grid item xs={6}>
                   <GenericField
-                    name="version"
+                    name="settings.version"
                     label="dms.general_page_settings.version"
                     placeholder="dms.general_page_settings.version.placeholder"
                     size="medium"
@@ -67,7 +69,7 @@ export const GeneralPageSettings = ({
                 <Grid item xs={6}>
                   <DropdownField
                     disabled={!editing}
-                    name="language"
+                    name="settings.language"
                     label={formatMessage({ id: 'dms.general_page_settings.language' })}
                     items={languageDropdownItems}
                     placeholder={formatMessage({ id: 'dms.general_page_settings.language.placeholder' })}
@@ -82,7 +84,7 @@ export const GeneralPageSettings = ({
               <Box mt={2} />
               <RadioGroupField
                 disabled={!editing}
-                name="type"
+                name="settings.documentType"
                 options={types.map(type => ({
                   value: type,
                   label: formatMessage({ id: `dictionaries.dms_type.${type}` }),

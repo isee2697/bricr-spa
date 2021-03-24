@@ -9,4 +9,8 @@ export const QUESTIONAIRE: Questionaire = {
   isAdmin: true,
   published: false,
   templateName: 'test',
+  isActive: true,
+  meta: {
+    createdAt: new Date().toISOString(),
+  },
 };

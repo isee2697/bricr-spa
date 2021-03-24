@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { useHistory, useLocation, useParams } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 
 import { Templates } from 'api/mocks/dms';
-import { useModalDispatch } from 'hooks';
-import { QuestionaireType, useCreateQuestionaireMutation } from '../../../api/types';
+import { useGetTemplateType, useModalDispatch } from 'hooks';
+import { useCreateQuestionaireMutation } from '../../../api/types';
 
 import { DmsTemplates } from './DmsTemplates';
 import { DmsTemplateItem } from './DmsTemplates.types';
@@ -13,22 +13,18 @@ export const DmsTemplatesContainer = ({ category }: DmsTemplatesContainerProps) 
   const [templates, setTemplates] = useState<DmsTemplateItem[]>(Templates);
   const [createQuestionaire] = useCreateQuestionaireMutation();
   const { push } = useHistory();
-  const { type } = useParams<{ type: string }>();
+  const type = useGetTemplateType();
   const { close } = useModalDispatch();
   const { pathname } = useLocation();
 
   const handleAddTemplate = async (values: { name: string }) => {
     try {
-      if (
-        Object.values(QuestionaireType).find(
-          (templateType: string) => templateType.toLowerCase() === type.toLowerCase(),
-        )
-      ) {
+      if (type) {
         const response = await createQuestionaire({
           variables: {
             input: {
               templateName: values.name,
-              type: type as QuestionaireType,
+              type,
               entity: {
                 type: type,
               },

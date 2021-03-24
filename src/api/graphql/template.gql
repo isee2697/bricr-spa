@@ -1,12 +1,37 @@
 input QuestionaireInput {
-    templateName: String!
-    type: QuestionaireType
+    templateName: String
+    type: TemplateType
     isAdmin: Boolean
     published: Boolean
     copyFromId: String
     entity: EntityInput
     isActive: Boolean
 }
+
+enum TemplateDocumentType {
+    Sale
+    Rent
+}
+
+type TemplateSettings {
+    description: String
+    version: String
+    language: String
+    documentType: String @uuidOrEnum(enum: ["TemplateDocumentType"])
+}
+
+input TemplateSettingsInput {
+    description: String
+    version: String
+    language: String
+    documentType: String @uuidOrEnum(enum: ["TemplateDocumentType"])
+}
+
+input TemplateGeneralInput {
+    templateName: String
+    settings: TemplateSettingsInput
+}
+
 input QuestionInput {
     order: Int
     type: QuestionType
@@ -17,6 +42,7 @@ input QuestionInput {
     options: [OptionsInput]
     entity: EntityInput
 }
+
 input GroupsInput {
     groupName: String
     order: Int
@@ -44,14 +70,14 @@ input EntityInput {
 }
 
 type TemplateMeta {
-    createAt: Date!
+    createdAt: Date!
     deletedAt: Date
 }
 
 type Questionaire {
     id: ID!
-    companyId: String!
-    type: QuestionaireType
+    companyId: String
+    type: TemplateType
     templateName: String
     isAdmin: Boolean
     published: Boolean
@@ -59,6 +85,7 @@ type Questionaire {
     entity: Entity
     isActive: Boolean
     meta: TemplateMeta!
+    settings: TemplateSettings
 }
 
 type Groups {
@@ -114,11 +141,16 @@ enum QuestionType {
     multiplelinetext
 }
 
-enum QuestionaireType {
-    questionaire
+enum TemplateType {
+    questionnaire
     contract
     lvz
     survey
+    newsletter
+    print
+    socialMedia
+    invoice
+    email
 }
 
 type Entity {
@@ -129,7 +161,8 @@ type Entity {
 
 
 extend type Mutation {
-    createQuestionaire(input: QuestionaireInput!): Questionaire
+    createQuestionaire(input: QuestionaireInput!): Questionaire  @auth
+    updateTemplateGeneral(input: TemplateGeneralInput!): Questionaire  @auth
 }
 
 extend type Query {

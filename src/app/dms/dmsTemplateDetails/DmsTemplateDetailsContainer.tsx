@@ -8,7 +8,12 @@ import { Security } from 'app/shared/dms/security/Security';
 import { DMS_TEMPLATE_RIGHTS as documentRightsMockData } from 'api/mocks/dms-templates';
 import { GeneralPageSettings } from 'app/shared/dms/generalPageSettings/GeneralPageSettings';
 import { useStateQuery } from '../../../hooks/useStateQuery/useStateQuery';
-import { Questionaire, useGetQuestionaireQuery } from '../../../api/types';
+import {
+  GetQuestionaireDocument,
+  Questionaire,
+  useGetQuestionaireQuery,
+  useUpdateTemplateGeneralMutation,
+} from '../../../api/types';
 
 import { DmsTemplateConfigureSettingsDetails } from './dmsTemplateConfigureSettingsDetails/DmsTemplateConfigureSettingsDetails';
 import { DmsTemplateDetailsContainerProps, DocumentType } from './DmsTemplateDetailsContainer.types';
@@ -21,6 +26,9 @@ export const DmsTemplateDetailsContainer = (props: DmsTemplateDetailsContainerPr
     variables: { id },
   });
 
+  console.log('Loaded', loadedData);
+  const [updateGeneral] = useUpdateTemplateGeneralMutation();
+
   const data = loadedData as Questionaire;
 
   if (loading) {
@@ -28,6 +36,29 @@ export const DmsTemplateDetailsContainer = (props: DmsTemplateDetailsContainerPr
   }
 
   const handleSave = async () => {
+    return undefined;
+  };
+
+  const handleSaveGeneral = async (form: Questionaire) => {
+    try {
+      await updateGeneral({
+        variables: {
+          input: {
+            id,
+            ...form,
+          },
+        },
+        refetchQueries: [
+          {
+            query: GetQuestionaireDocument,
+            variables: { id },
+          },
+        ],
+      });
+    } catch {
+      return { error: true };
+    }
+
     return undefined;
   };
 
@@ -41,7 +72,7 @@ export const DmsTemplateDetailsContainer = (props: DmsTemplateDetailsContainerPr
             <GeneralPageSettings
               types={Object.keys(DocumentType)}
               data={data}
-              onSave={handleSave}
+              onSave={handleSaveGeneral}
               updatedBy={{
                 id: '0001',
                 firstName: 'Christian',
