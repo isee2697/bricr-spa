@@ -2,7 +2,7 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 
 import { DmsEntityType } from 'api/types';
-import { Folders } from 'app/shared/dms/folders/Folders';
+import { FoldersContainer } from 'app/shared/dms/folders/FoldersContainer';
 
 import { DmsSalesProps } from './DmsSales.types';
 
@@ -10,7 +10,7 @@ export const DmsSales = ({ sales, isLoading }: DmsSalesProps) => {
   const { type } = useParams<{ type: string }>();
 
   return (
-    <Folders
+    <FoldersContainer
       entityItems={sales.map(item => ({
         id: item.id,
         name: item.name ?? '',

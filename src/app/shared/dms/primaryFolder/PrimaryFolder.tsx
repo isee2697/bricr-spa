@@ -1,29 +1,21 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useHistory } from 'react-router-dom';
 
 import { ListPimsFilters } from 'api/types';
-import { Box, Grid, IconButton, ClickAwayListener } from 'ui/atoms';
+import { Box, Grid } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { CardWithBody } from 'ui/templates';
 import { FiltersButton } from 'ui/molecules/filters/FiltersButton';
 import { ActiveFilters } from 'ui/molecules/filters/activeFilters/ActiveFilters';
-import { PropertyItemPlaceholder, Search } from 'ui/molecules';
+import { PropertyItemPlaceholder } from 'ui/molecules';
 import { FolderContainer } from 'ui/molecules/folder/FolderContainer';
 import { AppRoute } from 'routing/AppRoute.enum';
-import { SearchIcon } from 'ui/atoms/icons';
 import { Page } from 'ui/templates';
 import { EmptyStateFilter } from 'ui/organisms/emptyStateFilter/EmptyStateFilter';
 
 import { useStyles } from './PrimaryFolder.styles';
 import { PrimaryFolderProps } from './PrimaryFolder.types';
 import { PrimaryFolderFilters } from './dictionaries';
-
-const primaryFolderOptions = [
-  { title: 'Adriaan van Bergenstraat', type: '', value: 'Adriaan van Bergenstraat', icon: 'CH' },
-  { title: 'Adriaan van Hils', type: '', value: 'Adriaan van Hils', icon: 'CH' },
-  { title: 'Adriaan van Bils', type: '', value: 'Adriaan van Bils', icon: 'CH' },
-  { title: 'adriaanse', type: '', value: 'adriaanse', icon: 'CH' },
-];
 
 export const PrimaryFolder = ({
   activeFilters,
@@ -36,7 +28,6 @@ export const PrimaryFolder = ({
   const classes = useStyles();
   const { formatMessage } = useLocale();
   const { push } = useHistory();
-  const [showSearchBar, setShowSearchBar] = useState(false);
 
   return (
     <Page
@@ -50,37 +41,7 @@ export const PrimaryFolder = ({
         <CardWithBody
           title={[formatMessage({ id: 'dms.documents.pim' }), formatMessage({ id: `dms.documents.${type}` })].join(' ')}
           titleActions={
-            <Box display="flex">
-              <Box mr={3} className={classes.searchBoxWrapper}>
-                <ClickAwayListener
-                  onClickAway={() => {
-                    setShowSearchBar(false);
-                  }}
-                >
-                  {showSearchBar ? (
-                    <Search
-                      options={primaryFolderOptions}
-                      endAdornment={<></>}
-                      classes={{
-                        root: classes.searchBox,
-                        input: classes.searchBox,
-                      }}
-                    />
-                  ) : (
-                    <IconButton
-                      size="small"
-                      variant="roundedContained"
-                      onClick={() => setShowSearchBar(!showSearchBar)}
-                    >
-                      <SearchIcon />
-                    </IconButton>
-                  )}
-                </ClickAwayListener>
-              </Box>
-              <Box mr={3}>
-                <FiltersButton data={activeFilters} getActiveFilters={onFilter} filters={PrimaryFolderFilters} />
-              </Box>
-            </Box>
+            <FiltersButton data={activeFilters} getActiveFilters={onFilter} filters={PrimaryFolderFilters} />
           }
         >
           {Object.keys(activeFilters).length > 0 &&
