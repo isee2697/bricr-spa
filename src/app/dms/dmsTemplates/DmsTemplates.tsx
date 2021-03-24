@@ -44,9 +44,11 @@ export const DmsTemplates = ({ templates, onAdd, onUpdate, category }: DmsTempla
   const inactiveTemplates = templates.filter(item => !item.published);
 
   const sortedItems = (items: TemplateItem[]) => {
+    console.log("item")
+    console.log(items)
     return items.sort((item1, item2) => {
-      // if (sort === 'lastEdited') {
-      //   return item1.createdAt < item2.createdAt ? 1 : -1;
+      // if (item1.questionaireName === 'lastEdited') {
+      //   return item1.questionaireName < item2.questionaireName ? 1 : -1;
       // } else if (sort === 'firstEdited') {
       //   return item1.createdAt > item2.createdAt ? 1 : -1;
       // }
