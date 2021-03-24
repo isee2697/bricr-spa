@@ -1,7 +1,7 @@
 import { makeStyles } from '@material-ui/core';
 import { TemplateItem } from 'app/dms/dmsTemplateDetails/dmsTemplateConfigureSettingsDetails/DmsTemplateConfigureSettingsDetails.types';
 
-import { DmsTemplateItem } from '../DmsTemplates.types';
+//import { DmsTemplateItem } from '../DmsTemplates.types';
 
 export const useStyles = makeStyles(theme => ({
   imageWrapper: {

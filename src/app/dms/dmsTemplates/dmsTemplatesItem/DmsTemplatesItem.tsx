@@ -1,5 +1,5 @@
 import React from 'react';
-import { useIntl } from 'react-intl';
+//import { useIntl } from 'react-intl';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { Box, Typography, Chip } from 'ui/atoms';
 import { ListOptionsMenu } from 'ui/molecules';
@@ -10,13 +10,8 @@ import { useStyles } from './DmsTemplatesItem.styles';
 
 export const DmsTemplatesItem = ({ template, onStatusChange, category }: DmsTemplatesItemProps) => {
   const { formatMessage } = useLocale();
-  // const intl = useIntl();
   const classes = useStyles(template);
-
-  //  const { id, name, createdAt, avatar, labels, meta, status } = template;
-  
-  const { id, templateName, published,isAdmin,copyFromId,entity,isActive,meta } = template
-  
+  const { id, templateName, published} = template
   return (
     <Box display="flex" width="100%" flexDirection="column">
       <Box display="flex">
