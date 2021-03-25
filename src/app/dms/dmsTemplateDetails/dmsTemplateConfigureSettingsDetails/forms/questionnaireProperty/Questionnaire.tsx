@@ -18,7 +18,7 @@ export const Questionnaire = ({ template, groups, onAddQuestionnaireGroup }: Que
   return (
     <Page
       showHeader
-      title={template.questionaireName}
+      title={template.templateName}
       titleActions={[]}
       headerProps={{
         actionIcon: <AddIcon color="inherit" />,
