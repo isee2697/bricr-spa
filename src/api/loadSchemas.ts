@@ -38,6 +38,7 @@ const schemas = [
   loader('./graphql/object-type-characteristics.gql'),
   loader('./graphql/notification.gql'),
   loader('./graphql/history.gql'),
+  loader('./graphql/template.gql'),
 ];
 
 export const loadSchemas = () => {
