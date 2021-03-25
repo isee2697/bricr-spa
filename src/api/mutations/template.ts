@@ -16,3 +16,12 @@ export const CREATE_QUESTIONAIRE = gql`
     }
   }
 `;
+
+export const UPDATE_TEMPLATE_GENERAL = gql`
+  mutation UpdateTemplateGeneral($input: TemplateGeneralInput!) {
+    updateTemplateGeneral(input: $input)
+      @rest(type: "Template", path: "/template", method: "PUT", endpoint: "default") {
+      id
+    }
+  }
+`;

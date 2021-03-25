@@ -23,7 +23,7 @@ export const DefaultConfigureSettingsDetails = ({ template }: DefaultConfigureSe
               isInitExpanded
             >
               {editing => (
-                <AutosaveForm onSave={() => Promise.resolve(undefined)}>
+                <AutosaveForm initialValues={{ ...template }} onSave={() => Promise.resolve(undefined)}>
                   <GenericField
                     name="templateName"
                     label="dms.template.measurements"

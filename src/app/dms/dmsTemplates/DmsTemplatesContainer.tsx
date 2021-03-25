@@ -1,62 +1,61 @@
 import React from 'react';
-import { useHistory, useLocation, useParams } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 
-
-import { useModalDispatch } from 'hooks';
-import { QuestionaireType, useCreateQuestionaireMutation, useGetQuestionairesQuery } from '../../../api/types';
+import { useCreateQuestionaireMutation, useGetQuestionairesQuery } from '../../../api/types';
+import { useGetTemplateType, useModalDispatch } from 'hooks';
 
 import { DmsTemplates } from './DmsTemplates';
 import { DmsTemplatesContainerProps } from './DmsTemplatesContainer.types';
 import { TemplateItem } from '../dmsTemplateDetails/dmsTemplateConfigureSettingsDetails/DmsTemplateConfigureSettingsDetails.types';
 
-export const DmsTemplatesContainer = ({ category }:DmsTemplatesContainerProps) => {
+export const DmsTemplatesContainer = ({ category }: DmsTemplatesContainerProps) => {
   const [createQuestionaire] = useCreateQuestionaireMutation();
-
   const { push } = useHistory();
-  const { type } = useParams<{ type: string }>();
+  const type = useGetTemplateType();
   const { close } = useModalDispatch();
   const { pathname } = useLocation();
   const response  = useGetQuestionairesQuery({variables:{
     type: 'questionnaire'
   }});
   const handleAddTemplate = async (values: { name: string }) => {
-    close('dms-add-template');
-    let id: string | undefined;
-    switch (type) {
-      case 'questionnaire':
+    try {
+      if (type) {
         const response = await createQuestionaire({
           variables: {
             input: {
               templateName: values.name,
+              type,
               entity: {
                 type: type,
               },
-              type: type as QuestionaireType,
               isAdmin: true,
               published: false,
             },
           },
         });
-        id = response?.data?.createQuestionaire?.id;
+
+        const id = response?.data?.createQuestionaire?.id;
+
+        close('dms-add-template');
+
         push(`${pathname}/${id}/general`, { newlyAdded: true, data: response?.data?.createQuestionaire });
+      } else {
+        throw new Error('common.template.type.not.found');
+      }
 
-        break;
+      return undefined;
+    } catch {
+      return { error: true };
     }
-
-    return undefined;
-  };
-  const handleUpdateTemplate = async (template: TemplateItem) => {
-  
   };
 
-   
+  const handleUpdateTemplate = async (template: TemplateItem) => {};
+
   return (
-    <div>
-       <DmsTemplates category={category} templates={response.data?.getQuestionaires ?? []} 
-       onAdd={handleAddTemplate} 
-       onUpdate={handleUpdateTemplate} 
+       <DmsTemplates category={category} templates={response.data?.getQuestionaires ?? []}
+       onAdd={handleAddTemplate}
+       onUpdate={handleUpdateTemplate}
        />
-    </div>
-    
+
   );
 };

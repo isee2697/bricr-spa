@@ -12,5 +12,5 @@ export const QUESTIONAIRE: Questionaire = {
   isActive: true,
   meta: {
     createdAt: new Date().toISOString(),
-  }
+  },
 };

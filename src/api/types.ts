@@ -412,6 +412,7 @@ export type Mutation = {
   updateTag?: Maybe<Pim>;
   updateTask?: Maybe<Task>;
   updateTeam?: Maybe<Team>;
+  updateTemplateGeneral?: Maybe<Questionaire>;
   updateTextChapter?: Maybe<Pim>;
   updateUserInTeam?: Maybe<Team>;
   updateUsp?: Maybe<Pim>;
@@ -1175,6 +1176,10 @@ export type MutationUpdateTaskArgs = {
 
 export type MutationUpdateTeamArgs = {
   input: UpdateTeamInput;
+};
+
+export type MutationUpdateTemplateGeneralArgs = {
+  input: TemplateGeneralInput;
 };
 
 export type MutationUpdateTextChapterArgs = {
@@ -9304,12 +9309,37 @@ export type RemoveUserFromTeamInput = {
 
 export type QuestionaireInput = {
   templateName?: Maybe<Scalars['String']>;
-  type?: Maybe<QuestionaireType>;
+  type?: Maybe<TemplateType>;
   isAdmin?: Maybe<Scalars['Boolean']>;
   published?: Maybe<Scalars['Boolean']>;
   copyFromId?: Maybe<Scalars['String']>;
   entity?: Maybe<EntityInput>;
   isActive?: Maybe<Scalars['Boolean']>;
+};
+
+export enum TemplateDocumentType {
+  Sale = 'Sale',
+  Rent = 'Rent',
+}
+
+export type TemplateSettings = {
+  __typename?: 'TemplateSettings';
+  description?: Maybe<Scalars['String']>;
+  version?: Maybe<Scalars['String']>;
+  language?: Maybe<Scalars['String']>;
+  documentType?: Maybe<Scalars['String']>;
+};
+
+export type TemplateSettingsInput = {
+  description?: Maybe<Scalars['String']>;
+  version?: Maybe<Scalars['String']>;
+  language?: Maybe<Scalars['String']>;
+  documentType?: Maybe<Scalars['String']>;
+};
+
+export type TemplateGeneralInput = {
+  templateName?: Maybe<Scalars['String']>;
+  settings?: Maybe<TemplateSettingsInput>;
 };
 
 export type QuestionInput = {
@@ -9359,7 +9389,7 @@ export type Questionaire = {
   __typename?: 'Questionaire';
   id: Scalars['ID'];
   companyId?: Maybe<Scalars['String']>;
-  type?: Maybe<QuestionaireType>;
+  type?: Maybe<TemplateType>;
   templateName?: Maybe<Scalars['String']>;
   isAdmin?: Maybe<Scalars['Boolean']>;
   published?: Maybe<Scalars['Boolean']>;
@@ -9367,6 +9397,7 @@ export type Questionaire = {
   entity?: Maybe<Entity>;
   isActive?: Maybe<Scalars['Boolean']>;
   meta: TemplateMeta;
+  settings?: Maybe<TemplateSettings>;
 };
 
 export type Groups = {
@@ -9427,10 +9458,16 @@ export enum QuestionType {
   Multiplelinetext = 'multiplelinetext',
 }
 
-export enum QuestionaireType {
-  Questionaire = 'questionaire',
+export enum TemplateType {
+  Questionnaire = 'questionnaire',
   Contract = 'contract',
   Lvz = 'lvz',
+  Survey = 'survey',
+  Newsletter = 'newsletter',
+  Print = 'print',
+  SocialMedia = 'socialMedia',
+  Invoice = 'invoice',
+  Email = 'email',
 }
 
 export type Entity = {
@@ -11628,6 +11665,14 @@ export type CreateQuestionaireMutation = { __typename?: 'Mutation' } & {
       'id' | 'templateName' | 'isAdmin' | 'published' | 'copyFromId'
     > & { entity?: Maybe<{ __typename?: 'Entity' } & Pick<Entity, 'type' | 'subType'>> }
   >;
+};
+
+export type UpdateTemplateGeneralMutationVariables = Exact<{
+  input: TemplateGeneralInput;
+}>;
+
+export type UpdateTemplateGeneralMutation = { __typename?: 'Mutation' } & {
+  updateTemplateGeneral?: Maybe<{ __typename?: 'Questionaire' } & Pick<Questionaire, 'id'>>;
 };
 
 export type TiaraSendMessageMutationVariables = Exact<{
@@ -15729,8 +15774,17 @@ export type GetQuestionaireQuery = { __typename?: 'Query' } & {
   getQuestionaire?: Maybe<
     { __typename?: 'Questionaire' } & Pick<
       Questionaire,
-      'id' | 'templateName' | 'isAdmin' | 'published' | 'copyFromId' | 'isActive'
-    > & { entity?: Maybe<{ __typename?: 'Entity' } & Pick<Entity, 'type' | 'subType'>> }
+      'id' | 'templateName' | 'isAdmin' | 'published' | 'copyFromId' | 'isActive' | 'type'
+    > & {
+        entity?: Maybe<{ __typename?: 'Entity' } & Pick<Entity, 'type' | 'subType'>>;
+        settings?: Maybe<
+          { __typename?: 'TemplateSettings' } & Pick<
+            TemplateSettings,
+            'description' | 'version' | 'language' | 'documentType'
+          >
+        >;
+        meta: { __typename?: 'TemplateMeta' } & Pick<TemplateMeta, 'createdAt'>;
+      }
   >;
 };
 
@@ -20149,6 +20203,31 @@ export type CreateQuestionaireMutationResult = ApolloReactCommon.MutationResult<
 export type CreateQuestionaireMutationOptions = ApolloReactCommon.BaseMutationOptions<
   CreateQuestionaireMutation,
   CreateQuestionaireMutationVariables
+>;
+export const UpdateTemplateGeneralDocument = gql`
+  mutation UpdateTemplateGeneral($input: TemplateGeneralInput!) {
+    updateTemplateGeneral(input: $input)
+      @rest(type: "Template", path: "/template", method: "PUT", endpoint: "default") {
+      id
+    }
+  }
+`;
+export function useUpdateTemplateGeneralMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    UpdateTemplateGeneralMutation,
+    UpdateTemplateGeneralMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<UpdateTemplateGeneralMutation, UpdateTemplateGeneralMutationVariables>(
+    UpdateTemplateGeneralDocument,
+    baseOptions,
+  );
+}
+export type UpdateTemplateGeneralMutationHookResult = ReturnType<typeof useUpdateTemplateGeneralMutation>;
+export type UpdateTemplateGeneralMutationResult = ApolloReactCommon.MutationResult<UpdateTemplateGeneralMutation>;
+export type UpdateTemplateGeneralMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateTemplateGeneralMutation,
+  UpdateTemplateGeneralMutationVariables
 >;
 export const TiaraSendMessageDocument = gql`
   mutation TiaraSendMessage($input: TiaraSendMessageInput!) {
@@ -26372,16 +26451,26 @@ export type GetTeamDetailsQueryResult = ApolloReactCommon.QueryResult<
 export const GetQuestionaireDocument = gql`
   query GetQuestionaire($id: ID!) {
     getQuestionaire(id: $id)
-      @rest(type: "Questionaire", path: "/template/{args.id}", method: "POST", endpoint: "default") {
+      @rest(type: "Questionaire", path: "/template/{args.id}", method: "GET", endpoint: "default") {
       id
       templateName
       isAdmin
       published
       copyFromId
       isActive
+      type
       entity {
         type
         subType
+      }
+      settings {
+        description
+        version
+        language
+        documentType
+      }
+      meta {
+        createdAt
       }
     }
   }
