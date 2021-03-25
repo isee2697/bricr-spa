@@ -1,5 +1,4 @@
 import React from 'react';
-//import { useIntl } from 'react-intl';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { Box, Typography, Chip } from 'ui/atoms';
 import { ListOptionsMenu } from 'ui/molecules';

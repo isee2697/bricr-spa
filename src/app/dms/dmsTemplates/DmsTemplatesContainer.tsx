@@ -19,12 +19,9 @@ export const DmsTemplatesContainer = ({ category }:DmsTemplatesContainerProps) =
   const response  = useGetQuestionairesQuery({variables:{
     type: 'questionnaire'
   }});
-  console.log("response")
-  console.log(response)
   const handleAddTemplate = async (values: { name: string }) => {
     close('dms-add-template');
     let id: string | undefined;
-
     switch (type) {
       case 'questionnaire':
         const response = await createQuestionaire({
@@ -40,15 +37,10 @@ export const DmsTemplatesContainer = ({ category }:DmsTemplatesContainerProps) =
             },
           },
         });
-        console.log("getQuestionaires")
-        // console.log(getQuestionaires)
         id = response?.data?.createQuestionaire?.id;
-        // const type="type"
         push(`${pathname}/${id}/general`, { newlyAdded: true, data: response?.data?.createQuestionaire });
-
         break;
     }
-
     return undefined;
   };
   const handleUpdateTemplate = async (template: TemplateItem) => {
