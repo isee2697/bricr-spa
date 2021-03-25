@@ -4,9 +4,9 @@ import { FolderContainer } from 'ui/molecules/folder/FolderContainer';
 import { Box, Grid, Card, CardHeader, CardContent, IconButton } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { PropertyItemPlaceholder } from 'ui/molecules';
-import { DocumentFolderType } from '../../../../app/crmRelationsDetails/documents/Documents.types';
+import { DocumentFolderType } from 'app/crmRelationsDetails/documents/Documents.types';
 import { ArrowDownIcon, ArrowUpIcon } from 'ui/atoms/icons';
-import { DmsAddFolderDialog } from 'app/dms/dmsPims/dmsFolders/dmsAddFolderDialog/DmsAddFolderDialog';
+import { AddFolderDialog } from 'app/shared/dms/addFolderDialog/AddFolderDialog';
 
 import { useStyles } from './CardWithFolder.styles';
 import { CardWithFolderProps } from './CardWithFolder.types';
@@ -29,7 +29,7 @@ export const CardWithFolder = ({
 
   const handleAdd = () => {
     setDialog(
-      <DmsAddFolderDialog
+      <AddFolderDialog
         isOpened={true}
         isAdd={true}
         onClose={() => {

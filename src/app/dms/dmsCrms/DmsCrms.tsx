@@ -1,15 +1,23 @@
 import React from 'react';
 import { useParams } from 'react-router';
 
-import { DmsFolderType } from '../Dms.types';
-import { DmsFolders } from '../dmsPims/dmsFolders/DmsFolders';
+import { DmsEntityType } from 'api/types';
+import { FoldersContainer } from 'app/shared/dms/folders/FoldersContainer';
 
 import { DmsCrmsProps } from './DmsCrms.types';
 
-export const DmsCrms = ({ dms }: DmsCrmsProps) => {
+export const DmsCrms = ({ crms, isLoading }: DmsCrmsProps) => {
   const { type } = useParams<{ type: string }>();
 
-  const data = dms.folders?.find(item => item.data.id === 'crm');
-
-  return <DmsFolders data={data?.data as DmsFolderType} type={type} category={'crm'} />;
+  return (
+    <FoldersContainer
+      entityItems={crms.map(item => ({
+        id: item.id,
+        name: `${item.firstName} ${item.lastName}`,
+      }))}
+      type={type}
+      entityType={DmsEntityType.Crm}
+      isLoading={isLoading}
+    />
+  );
 };

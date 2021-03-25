@@ -285,6 +285,7 @@ export type Mutation = {
   confirmProfileInvite: Profile;
   createCompany: Company;
   createCrm: CrmGeneral;
+  createDmsFolder: DmsFolder;
   createEmailAddress: Profile;
   createNcp: NcpGeneral;
   createNotification?: Maybe<Notification>;
@@ -297,6 +298,7 @@ export type Mutation = {
   createTask: Task;
   deactivateProfile: Profile;
   deleteAllocate?: Maybe<Scalars['Boolean']>;
+  deleteDmsFolder: Scalars['Boolean'];
   deleteEntity: Array<DeleteResult>;
   deleteMatchProfile?: Maybe<Scalars['Boolean']>;
   deleteNotification?: Maybe<Scalars['Boolean']>;
@@ -349,6 +351,7 @@ export type Mutation = {
   updateCrmGeneral?: Maybe<CrmGeneral>;
   updateCrmHomeSituation?: Maybe<CrmHomeSituation>;
   updateDescription?: Maybe<Scalars['String']>;
+  updateDmsFolder: DmsFolder;
   updateEmail?: Maybe<Email>;
   updateEmailAddress: Profile;
   updateFloor: Pim;
@@ -666,6 +669,10 @@ export type MutationCreateCrmArgs = {
   input: CreateCrmInput;
 };
 
+export type MutationCreateDmsFolderArgs = {
+  input: CreateDmsFolderInput;
+};
+
 export type MutationCreateEmailAddressArgs = {
   input: CreateEmailAddressInput;
 };
@@ -712,6 +719,10 @@ export type MutationDeactivateProfileArgs = {
 
 export type MutationDeleteAllocateArgs = {
   id: Scalars['ID'];
+};
+
+export type MutationDeleteDmsFolderArgs = {
+  input: DeleteDmsFolderInput;
 };
 
 export type MutationDeleteEntityArgs = {
@@ -922,6 +933,10 @@ export type MutationUpdateCrmHomeSituationArgs = {
 
 export type MutationUpdateDescriptionArgs = {
   input: UpdateDescriptionInput;
+};
+
+export type MutationUpdateDmsFolderArgs = {
+  input: UpdateDmsFolderInput;
 };
 
 export type MutationUpdateEmailArgs = {
@@ -1233,6 +1248,7 @@ export type Query = {
   getCrmHomeSituation?: Maybe<CrmHomeSituation>;
   getCrmLabels?: Maybe<Array<Label>>;
   getCrmWithSameInfo: CrmListSearchResult;
+  getDmsFolder?: Maybe<DmsFolder>;
   getEmail?: Maybe<Email>;
   getKikSettings?: Maybe<KikSettings>;
   getLabels?: Maybe<Array<Label>>;
@@ -1289,6 +1305,7 @@ export type Query = {
   getUndoId: Scalars['ID'];
   listAllocates?: Maybe<Array<Allocate>>;
   listCalendar?: Maybe<Array<Appointment>>;
+  listDmsFolders?: Maybe<Array<DmsFolder>>;
   listEmail?: Maybe<Array<EmailListItem>>;
   listEmailFolders?: Maybe<Array<EmailFolderListItem>>;
   listMatchProfiles?: Maybe<Array<MatchProfile>>;
@@ -1359,6 +1376,10 @@ export type QueryGetCrmLabelsArgs = {
 
 export type QueryGetCrmWithSameInfoArgs = {
   input: CrmWithSameInfoInput;
+};
+
+export type QueryGetDmsFolderArgs = {
+  folderId: Scalars['ID'];
 };
 
 export type QueryGetEmailArgs = {
@@ -1580,6 +1601,10 @@ export type QueryListAllocatesArgs = {
 
 export type QueryListCalendarArgs = {
   input: AppointmentSearch;
+};
+
+export type QueryListDmsFoldersArgs = {
+  entityId: Scalars['ID'];
 };
 
 export type QueryListEmailArgs = {
@@ -2818,6 +2843,75 @@ export type CrmWithSameInfoInput = {
   lastName?: Maybe<Scalars['String']>;
   email?: Maybe<Scalars['String']>;
   phoneNumber?: Maybe<Scalars['String']>;
+};
+
+export enum DmsEntityType {
+  Pim = 'Pim',
+  Ncp = 'Ncp',
+  Crm = 'Crm',
+  Sales = 'Sales',
+}
+
+export enum DmsFolderType {
+  Custom = 'Custom',
+  Default = 'Default',
+}
+
+export enum DmsPimFolderType {
+  Aquisition = 'Aquisition',
+  Quotation = 'Quotation',
+  SalesOrder = 'SalesOrder',
+  Property = 'Property',
+  Drawing = 'Drawing',
+  Questionaires = 'Questionaires',
+  ListOfItems = 'ListOfItems',
+  Publication = 'Publication',
+  Contracts = 'Contracts',
+  Internal = 'Internal',
+}
+
+export enum DmsCrmFolderType {
+  Personal = 'Personal',
+  Emails = 'Emails',
+  ContractsPrint = 'ContractsPrint',
+  Surveys = 'Surveys',
+  Invoices = 'Invoices',
+}
+
+export type DmsFolder = {
+  __typename?: 'DmsFolder';
+  entityId: Scalars['ID'];
+  id: Scalars['ID'];
+  companyId: Scalars['ID'];
+  foldername: Scalars['String'];
+  entityType: DmsEntityType;
+  type: DmsFolderType;
+  order?: Maybe<Scalars['Int']>;
+  deletedAt?: Maybe<Scalars['Date']>;
+};
+
+export type CreateDmsFolderInput = {
+  entityId: Scalars['ID'];
+  foldername: Scalars['String'];
+  entityType: DmsEntityType;
+  type: DmsFolderType;
+  order?: Maybe<Scalars['Int']>;
+  deletedAt?: Maybe<Scalars['Date']>;
+};
+
+export type UpdateDmsFolderInput = {
+  entityId: Scalars['ID'];
+  id: Scalars['ID'];
+  foldername: Scalars['String'];
+  entityType: DmsEntityType;
+  type: DmsFolderType;
+  order?: Maybe<Scalars['Int']>;
+  deletedAt?: Maybe<Scalars['Date']>;
+};
+
+export type DeleteDmsFolderInput = {
+  entityId: Scalars['ID'];
+  id: Scalars['ID'];
 };
 
 export type EmailAndName = {
@@ -9956,6 +10050,14 @@ export type UpdateCrmHomeSituationMutation = { __typename?: 'Mutation' } & {
   >;
 };
 
+export type CreateDmsFolderMutationVariables = Exact<{
+  input: CreateDmsFolderInput;
+}>;
+
+export type CreateDmsFolderMutation = { __typename?: 'Mutation' } & {
+  createDmsFolder: { __typename?: 'DmsFolder' } & Pick<DmsFolder, 'id'>;
+};
+
 export type SendEmailMutationVariables = Exact<{
   accountId: Scalars['String'];
   input: SendEmailInput;
@@ -16357,6 +16459,28 @@ export type UpdateCrmHomeSituationMutationResult = ApolloReactCommon.MutationRes
 export type UpdateCrmHomeSituationMutationOptions = ApolloReactCommon.BaseMutationOptions<
   UpdateCrmHomeSituationMutation,
   UpdateCrmHomeSituationMutationVariables
+>;
+export const CreateDmsFolderDocument = gql`
+  mutation CreateDmsFolder($input: CreateDmsFolderInput!) {
+    createDmsFolder(input: $input)
+      @rest(type: "CreateDmsFolder", path: "/dms/folders/create", method: "POST", endpoint: "default") {
+      id
+    }
+  }
+`;
+export function useCreateDmsFolderMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<CreateDmsFolderMutation, CreateDmsFolderMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<CreateDmsFolderMutation, CreateDmsFolderMutationVariables>(
+    CreateDmsFolderDocument,
+    baseOptions,
+  );
+}
+export type CreateDmsFolderMutationHookResult = ReturnType<typeof useCreateDmsFolderMutation>;
+export type CreateDmsFolderMutationResult = ApolloReactCommon.MutationResult<CreateDmsFolderMutation>;
+export type CreateDmsFolderMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  CreateDmsFolderMutation,
+  CreateDmsFolderMutationVariables
 >;
 export const SendEmailDocument = gql`
   mutation SendEmail($accountId: String!, $input: SendEmailInput!) {

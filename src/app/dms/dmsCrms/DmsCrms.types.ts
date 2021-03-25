@@ -1,5 +1,6 @@
-import { DmsStats } from '../Dms.types';
+import { CrmItem } from 'app/crm/Crm.types';
 
 export type DmsCrmsProps = {
-  dms: DmsStats;
+  crms: CrmItem[];
+  isLoading: boolean;
 };
