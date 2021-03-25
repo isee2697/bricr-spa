@@ -26,6 +26,7 @@ export const Login = ({ onSubmit }: LoginProps) => {
   const handleSubmit = useCallback(
     async (body: LoginInput) => {
       const valid = await onSubmit(body);
+
       if (!valid) {
         setError(!valid);
       }

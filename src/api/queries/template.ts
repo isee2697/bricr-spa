@@ -29,17 +29,8 @@ export const GET_QUESTIONAIRE = gql`
 `;
 
 export const GET_QUESTIONAIRES = gql`
-  query GetQuestionaires(
-    $search: String
-    $from: Int
-    $limit: Int
-    $type: String
-  ) {
-    getQuestionaires(
-      pagination: { from: $from, limit: $limit }
-      search: $search
-      type: $type
-    )
+  query GetQuestionaires($search: String, $from: Int, $limit: Int, $type: String) {
+    getQuestionaires(pagination: { from: $from, limit: $limit }, search: $search, type: $type)
       @rest(type: "Questionaire", path: "/templates/{args.type}", method: "GET", endpoint: "default") {
       id
       templateName
