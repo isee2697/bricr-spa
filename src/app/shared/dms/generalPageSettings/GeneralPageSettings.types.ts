@@ -11,7 +11,7 @@ export type GeneralPageSettingsProps = {
   data?: TemplateItem;
   titleActions?: ReactNode;
   headerProps?: PageHeaderProps;
-  onSave: PromiseFunction<void>;
+  onSave: PromiseFunction<TemplateItem>;
   updatedBy?: LastUpdatedProfile | null;
   dateUpdated?: string | null;
 };

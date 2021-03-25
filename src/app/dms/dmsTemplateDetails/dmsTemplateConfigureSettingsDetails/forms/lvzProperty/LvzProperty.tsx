@@ -18,7 +18,7 @@ export const LvzProperty = ({ template, groups, onAddLvzGroup }: LvzPropertyProp
   return (
     <Page
       showHeader
-      title={template.questionaireName}
+      title={template.templateName}
       titleActions={[]}
       headerProps={{
         actionIcon: <AddIcon color="inherit" />,
