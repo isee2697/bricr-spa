@@ -1,20 +1,34 @@
 import React from 'react';
 import { useLocale } from 'hooks/useLocale/useLocale';
-import { Box, Typography, Chip } from 'ui/atoms';
+import { Box, Typography, Chip, Avatar, Emoji } from 'ui/atoms';
 import { ListOptionsMenu } from 'ui/molecules';
 import { ListOptionsMenuItem } from 'ui/molecules/listOptionsMenu/menuItem/ListOptionsMenuItem';
 
 import { DmsTemplatesItemProps } from './DmsTemplatesItem.types';
 import { useStyles } from './DmsTemplatesItem.styles';
+import { DateTime } from 'luxon';
+import clsx from 'clsx';
 
 export const DmsTemplatesItem = ({ template, onStatusChange, category }: DmsTemplatesItemProps) => {
   const { formatMessage } = useLocale();
   const classes = useStyles(template);
-  const { id, templateName, published} = template
+  const { id, templateName, published, meta, isActive} = template;
+  const avatar = 'https://source.unsplash.com/featured/?map';
+  const labels = ['Residential', 'Bog'];
+  const tags = {generated: 19, sent: 11, printed: 5, download: 1, declined: 0, completed: 0};
+
+
   return (
     <Box display="flex" width="100%" flexDirection="column">
       <Box display="flex">
         <Box position="relative" className={classes.imageWrapper}>
+        <Avatar variant="rounded" src={avatar} className={classes.image}>
+
+{!avatar && <Emoji>{'📷'}</Emoji>}
+
+</Avatar>
+
+{!!isActive && (
           <Box className={classes.inactiveWrapper}>
               <Chip
                 color="secondary"
@@ -24,27 +38,23 @@ export const DmsTemplatesItem = ({ template, onStatusChange, category }: DmsTemp
                 className={classes.inactiveChip}
                 size="small"
               />
-            </Box>
-          <div>{id}</div>
+            </Box> )}
         </Box>
         <Box width="100%" display="flex" flexDirection="column" alignItems="space-between">
           <Box display="flex" justifyContent="space-between" mb={2}>
             <div>
               <Typography className={classes.date}>
-                {/* {DateTime.fromISO(new Date(createdAt.toString()).toISOString()).toRelative({
-                  locale: intl.locale,
-                })} */}
-                {Date()}
+                {DateTime.fromISO(meta?.createdAt).toLocaleString()}
               </Typography>
               <Typography className={classes.title}>{templateName}</Typography>
               <Box mt={2}>
-                {/* {labels.length
+                {labels.length
                   ? labels.map(label => (
                       <Box component="span" key={label} mr={2}>
                         <Chip variant="outlined" color="primary" label={label} size="small" />
                       </Box>
                     ))
-                  : null} */}
+                  : null}
               </Box>
             </div>
             <div>
@@ -69,8 +79,8 @@ export const DmsTemplatesItem = ({ template, onStatusChange, category }: DmsTemp
               </ListOptionsMenu>
             </div>
           </Box>
-          {/* <Box display="flex" className={classes.stats}> */}
-            {/* {Object.entries(meta).map(([key, value], index) => (
+          <Box display="flex" className={classes.stats}>
+            {Object.entries(tags).map(([key, value], index) => (
               <Box
                 display="flex"
                 flexDirection="column"
@@ -82,8 +92,8 @@ export const DmsTemplatesItem = ({ template, onStatusChange, category }: DmsTemp
                   {formatMessage({ id: `dms.templates.stats.${key}` })}
                 </Typography>
               </Box>
-            ))} */}
-          {/* </Box> */}
+            ))}
+          </Box>
         </Box>
       </Box>
     </Box>
