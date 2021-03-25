@@ -39,8 +39,10 @@ export const DmsTemplatesContainer = ({ category }:DmsTemplatesContainerProps) =
         });
         id = response?.data?.createQuestionaire?.id;
         push(`${pathname}/${id}/general`, { newlyAdded: true, data: response?.data?.createQuestionaire });
+
         break;
     }
+
     return undefined;
   };
   const handleUpdateTemplate = async (template: TemplateItem) => {
