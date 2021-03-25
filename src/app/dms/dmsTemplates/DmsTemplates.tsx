@@ -12,13 +12,13 @@ import { ActiveFilters } from 'ui/molecules/filters/activeFilters/ActiveFilters'
 import { ListPimsFilters } from 'api/types';
 import { FiltersButton } from 'ui/molecules/filters/FiltersButton';
 import { AddTemplateDialog } from 'app/shared/dms/addTemplateDialog/AddTemplateDialog';
+import { TemplateItem } from '../dmsTemplateDetails/dmsTemplateConfigureSettingsDetails/DmsTemplateConfigureSettingsDetails.types';
 
 import { ActiveTabStatus, DmsTemplatesProps } from './DmsTemplates.types';
 import { useStyles } from './DmsTemplates.styles';
 import { DmsTemplatesTabs } from './dmsTemplatesTabs/DmsTemplatesTabs';
 import { DmsTemplatesItem } from './dmsTemplatesItem/DmsTemplatesItem';
 import { DmsTemplatesFilters } from './dictionaries';
-import { TemplateItem } from '../dmsTemplateDetails/dmsTemplateConfigureSettingsDetails/DmsTemplateConfigureSettingsDetails.types';
 
 export const DmsTemplates = ({ templates, onAdd, onUpdate, category }: DmsTemplatesProps) => {
   const { formatMessage } = useLocale();
@@ -35,25 +35,29 @@ export const DmsTemplates = ({ templates, onAdd, onUpdate, category }: DmsTempla
   ];
 
   const [sort, setSort] = useState<string>(sortOptions[0].key);
-  console.log("sort")
-  console.log(sort)
+
   const handleFilterChange = (filters: ListPimsFilters) => {
     setActiveFilters(filters);
   };
+
   const activeTemplates = templates.filter(item => !!item.published);
   const inactiveTemplates = templates.filter(item => !item.published);
   const sortedItems = (items: TemplateItem[]) => {
     return items.sort((item1, item2) => {
-        if (sort === 'lastEdited') {
-          if(!item1.meta?.createdAt) return 2
-          return item1.meta?.createdAt < item2.meta?.createdAt ? 1 : -1;
-        } else if (sort === 'firstEdited') {
-          if(!item1.meta?.createdAt) return 2
-          return item1.meta?.createdAt > item2.meta?.createdAt ? 1 : -1;
-        }
-        return 1;
+      if (sort === 'lastEdited') {
+        if (!item1.meta?.createdAt) return 2;
+
+        return item1.meta?.createdAt < item2.meta?.createdAt ? 1 : -1;
+      } else if (sort === 'firstEdited') {
+        if (!item1.meta?.createdAt) return 2;
+
+        return item1.meta?.createdAt > item2.meta?.createdAt ? 1 : -1;
+      }
+
+      return 1;
     });
   };
+
   return (
     <Box flex={1}>
       <Grid container spacing={3}>

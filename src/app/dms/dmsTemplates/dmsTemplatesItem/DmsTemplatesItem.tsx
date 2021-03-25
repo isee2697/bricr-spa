@@ -1,4 +1,7 @@
 import React from 'react';
+import { DateTime } from 'luxon';
+import clsx from 'clsx';
+
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { Box, Typography, Chip, Avatar, Emoji } from 'ui/atoms';
 import { ListOptionsMenu } from 'ui/molecules';
@@ -6,30 +9,25 @@ import { ListOptionsMenuItem } from 'ui/molecules/listOptionsMenu/menuItem/ListO
 
 import { DmsTemplatesItemProps } from './DmsTemplatesItem.types';
 import { useStyles } from './DmsTemplatesItem.styles';
-import { DateTime } from 'luxon';
-import clsx from 'clsx';
 
 export const DmsTemplatesItem = ({ template, onStatusChange, category }: DmsTemplatesItemProps) => {
   const { formatMessage } = useLocale();
   const classes = useStyles(template);
-  const { id, templateName, published, meta, isActive} = template;
+  const { id, templateName, published, meta, isActive } = template;
   const avatar = 'https://source.unsplash.com/featured/?map';
   const labels = ['Residential', 'Bog'];
-  const tags = {generated: 19, sent: 11, printed: 5, download: 1, declined: 0, completed: 0};
-
+  const tags = { generated: 19, sent: 11, printed: 5, download: 1, declined: 0, completed: 0 };
 
   return (
     <Box display="flex" width="100%" flexDirection="column">
       <Box display="flex">
         <Box position="relative" className={classes.imageWrapper}>
-        <Avatar variant="rounded" src={avatar} className={classes.image}>
+          <Avatar variant="rounded" src={avatar} className={classes.image}>
+            {!avatar && <Emoji>{'📷'}</Emoji>}
+          </Avatar>
 
-{!avatar && <Emoji>{'📷'}</Emoji>}
-
-</Avatar>
-
-{!!isActive && (
-          <Box className={classes.inactiveWrapper}>
+          {!!isActive && (
+            <Box className={classes.inactiveWrapper}>
               <Chip
                 color="secondary"
                 label={formatMessage({
@@ -38,14 +36,13 @@ export const DmsTemplatesItem = ({ template, onStatusChange, category }: DmsTemp
                 className={classes.inactiveChip}
                 size="small"
               />
-            </Box> )}
+            </Box>
+          )}
         </Box>
         <Box width="100%" display="flex" flexDirection="column" alignItems="space-between">
           <Box display="flex" justifyContent="space-between" mb={2}>
             <div>
-              <Typography className={classes.date}>
-                {DateTime.fromISO(meta?.createdAt).toLocaleString()}
-              </Typography>
+              <Typography className={classes.date}>{DateTime.fromISO(meta?.createdAt).toLocaleString()}</Typography>
               <Typography className={classes.title}>{templateName}</Typography>
               <Box mt={2}>
                 {labels.length

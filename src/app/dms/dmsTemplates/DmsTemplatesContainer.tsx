@@ -3,10 +3,10 @@ import { useHistory, useLocation } from 'react-router-dom';
 
 import { useCreateQuestionaireMutation, useGetQuestionairesQuery } from '../../../api/types';
 import { useGetTemplateType, useModalDispatch } from 'hooks';
+import { TemplateItem } from '../dmsTemplateDetails/dmsTemplateConfigureSettingsDetails/DmsTemplateConfigureSettingsDetails.types';
 
 import { DmsTemplates } from './DmsTemplates';
 import { DmsTemplatesContainerProps } from './DmsTemplatesContainer.types';
-import { TemplateItem } from '../dmsTemplateDetails/dmsTemplateConfigureSettingsDetails/DmsTemplateConfigureSettingsDetails.types';
 
 export const DmsTemplatesContainer = ({ category }: DmsTemplatesContainerProps) => {
   const [createQuestionaire] = useCreateQuestionaireMutation();
@@ -14,9 +14,12 @@ export const DmsTemplatesContainer = ({ category }: DmsTemplatesContainerProps) 
   const type = useGetTemplateType();
   const { close } = useModalDispatch();
   const { pathname } = useLocation();
-  const response  = useGetQuestionairesQuery({variables:{
-    type: 'questionnaire'
-  }});
+  const response = useGetQuestionairesQuery({
+    variables: {
+      type,
+    },
+  });
+
   const handleAddTemplate = async (values: { name: string }) => {
     try {
       if (type) {
@@ -52,10 +55,11 @@ export const DmsTemplatesContainer = ({ category }: DmsTemplatesContainerProps) 
   const handleUpdateTemplate = async (template: TemplateItem) => {};
 
   return (
-       <DmsTemplates category={category} templates={response.data?.getQuestionaires ?? []}
-       onAdd={handleAddTemplate}
-       onUpdate={handleUpdateTemplate}
-       />
-
+    <DmsTemplates
+      category={category}
+      templates={response.data?.getQuestionaires ?? []}
+      onAdd={handleAddTemplate}
+      onUpdate={handleUpdateTemplate}
+    />
   );
 };
