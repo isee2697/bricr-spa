@@ -13,10 +13,8 @@ import { useStyles } from './DmsTemplatesItem.styles';
 export const DmsTemplatesItem = ({ template, onStatusChange, category }: DmsTemplatesItemProps) => {
   const { formatMessage } = useLocale();
   const classes = useStyles(template);
-  const { id, templateName, published, meta, isActive } = template;
+  const { id, templateName, published, meta, isActive, labels, tags } = template;
   const avatar = 'https://source.unsplash.com/featured/?map';
-  const labels = ['Residential', 'Bog'];
-  const tags = { generated: 19, sent: 11, printed: 5, download: 1, declined: 0, completed: 0 };
 
   return (
     <Box display="flex" width="100%" flexDirection="column">
@@ -45,7 +43,7 @@ export const DmsTemplatesItem = ({ template, onStatusChange, category }: DmsTemp
               <Typography className={classes.date}>{DateTime.fromISO(meta?.createdAt).toLocaleString()}</Typography>
               <Typography className={classes.title}>{templateName}</Typography>
               <Box mt={2}>
-                {labels.length
+                {labels?.length
                   ? labels.map(label => (
                       <Box component="span" key={label} mr={2}>
                         <Chip variant="outlined" color="primary" label={label} size="small" />
@@ -77,16 +75,16 @@ export const DmsTemplatesItem = ({ template, onStatusChange, category }: DmsTemp
             </div>
           </Box>
           <Box display="flex" className={classes.stats}>
-            {Object.entries(tags).map(([key, value], index) => (
+            {tags?.map(({ name, amount }) => (
               <Box
                 display="flex"
                 flexDirection="column"
-                className={clsx(classes.statItem, !value && 'disabled')}
-                key={index}
+                className={clsx(classes.statItem, !amount && 'disabled')}
+                key={name}
               >
-                <Typography className={classes.statInfo}>{value}</Typography>
+                <Typography className={classes.statInfo}>{amount ?? '-'}</Typography>
                 <Typography className={classes.statLabel}>
-                  {formatMessage({ id: `dms.templates.stats.${key}` })}
+                  {formatMessage({ id: `dms.templates.stats.${name.toLowerCase()}` })}
                 </Typography>
               </Box>
             ))}

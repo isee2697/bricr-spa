@@ -74,7 +74,7 @@ type TemplateMeta {
 }
 
 type Questionaire {
-    id: ID!
+     id: ID! 
     companyId: String
     type: TemplateType
     templateName: String
@@ -85,6 +85,13 @@ type Questionaire {
     isActive: Boolean
     meta: TemplateMeta!
     settings: TemplateSettings
+    labels: [String!]
+    tags: [TemplatTag!]
+}
+
+type TemplatTag {
+   name: String!
+   amount: Int
 }
 
 type Groups {

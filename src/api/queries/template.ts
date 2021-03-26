@@ -46,6 +46,11 @@ export const GET_QUESTIONAIRES = gql`
         type
         subType
       }
+      labels
+      tags {
+        name
+        amount
+      }
     }
   }
 `;
