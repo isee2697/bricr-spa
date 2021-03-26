@@ -33,17 +33,36 @@ input TemplateGeneralInput {
 }
 
 input QuestionInput {
+    groupId: ID!
+    name: String!
     order: Int
     type: QuestionType
-    name: String
     required: Boolean
     commentEnabled: Boolean
-    showOn: String
+    showOn: Boolean
+    options: [OptionsInput]
+    entity: EntityInput
+}
+
+input UpdateQuestionInput {
+    name: String
+    order: Int
+    type: QuestionType
+    required: Boolean
+    commentEnabled: Boolean
+    showOn: Boolean
     options: [OptionsInput]
     entity: EntityInput
 }
 
 input GroupsInput {
+    templateId: ID!
+    groupName: String!
+    order: Int
+    entity: EntityInput
+}
+
+input UpdateGroupsInput {
     groupName: String
     order: Int
     entity: EntityInput
@@ -90,8 +109,8 @@ type Questionaire {
 
 type Groups {
     id: ID!
-    templateId: String
-    groupName: String
+    templateId: ID!
+    groupName: String!
     copyFromId: String
     order: Int
     entity: Entity
@@ -99,13 +118,13 @@ type Groups {
 
 type Question {
     id: ID!
+    name: String!
     groupId: String
     order: Int
     type: QuestionType
-    name: String
     required: Boolean
     commentEnabled: Boolean
-    showOn: String
+    showOn: Boolean
     options: [Options]
     entity: Entity
 }
@@ -158,14 +177,20 @@ type Entity {
     subType: String
 }
 
-
-
 extend type Mutation {
     createQuestionaire(input: QuestionaireInput!): Questionaire  @auth
     updateTemplateGeneral(input: TemplateGeneralInput!): Questionaire  @auth
+    createQuestionaireGroup(input: GroupsInput!): Groups @auth
+    updateQuestionaireGroup(id: ID!, input: UpdateGroupsInput!): Groups @auth
+    deleteQuestionaireGroup(id: ID!): Boolean @auth
+    createQuestion(input: QuestionInput!): Question @auth
+    updateQuestion(questionId: ID!, input: UpdateQuestionInput!): Question @auth
 }
 
 extend type Query {
     getQuestionaires(pagination: Pagination, search: String): [Questionaire!] @auth
     getQuestionaire(id: ID!): Questionaire @auth
+    listQuestionaireGroups(templateId: ID!): [Groups!] @auth
+    getQuestionaireGroup(id: ID!): Groups @auth
+    listQuestions(groupId: ID!): [Question!] @auth
 }

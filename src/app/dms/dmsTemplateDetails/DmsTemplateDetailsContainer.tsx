@@ -7,13 +7,13 @@ import { AppRoute } from 'routing/AppRoute.enum';
 import { Security } from 'app/shared/dms/security/Security';
 import { DMS_TEMPLATE_RIGHTS as documentRightsMockData } from 'api/mocks/dms-templates';
 import { GeneralPageSettings } from 'app/shared/dms/generalPageSettings/GeneralPageSettings';
-import { useStateQuery } from '../../../hooks/useStateQuery/useStateQuery';
 import {
   GetQuestionaireDocument,
   Questionaire,
   useGetQuestionaireQuery,
   useUpdateTemplateGeneralMutation,
-} from '../../../api/types';
+} from 'api/types';
+import { useStateQuery } from 'hooks/useStateQuery/useStateQuery';
 
 import { DmsTemplateConfigureSettingsDetails } from './dmsTemplateConfigureSettingsDetails/DmsTemplateConfigureSettingsDetails';
 import { DmsTemplateDetailsContainerProps, DocumentType } from './DmsTemplateDetailsContainer.types';
