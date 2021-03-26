@@ -182,3 +182,23 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 
 
 Be aware a pr should be opened and closed afterwards this is an issue with circleci :)
+
+
+
+
+## For those developers who like VS code the settings json:
+use: https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint
+
+```{
+    "files.autoSave": "onFocusChange",
+    "window.zoomLevel": 1,
+    "eslint.validate": [
+      "javascript",
+      "javascriptreact",
+      "typescript",
+      "typescriptreact",
+  ],
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": true,
+    }
+  }```

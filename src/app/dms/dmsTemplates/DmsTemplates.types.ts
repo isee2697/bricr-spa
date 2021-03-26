@@ -23,7 +23,7 @@ export interface DmsTemplateItem {
   meta: DmsTemplateMeta;
   file?: string;
 }
-//onGet:(template: DmsTemplateItem)=>void;
+
 export type DmsTemplatesProps = {
   templates: TemplateItem[];
   onAdd: PromiseFunction<{ name: string }>;
