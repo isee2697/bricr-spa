@@ -20,6 +20,14 @@ type TemplateSettings {
     documentType: String @uuidOrEnum(enum: ["TemplateDocumentType"])
 }
 
+type TemplateSecurity {
+    name: String!
+    create: Boolean
+    update: Boolean
+    read: Boolean
+    delete: Boolean
+}
+
 input TemplateSettingsInput {
     description: String
     version: String
@@ -27,9 +35,18 @@ input TemplateSettingsInput {
     documentType: String @uuidOrEnum(enum: ["TemplateDocumentType"])
 }
 
+input TemplateSecurityInput {
+    name: String
+    create: Boolean
+    update: Boolean
+    read: Boolean
+    delete: Boolean
+}
+
 input TemplateGeneralInput {
     templateName: String
     settings: TemplateSettingsInput
+    securities: [TemplateSecurityInput!]
 }
 
 input QuestionInput {
@@ -86,6 +103,7 @@ type Questionaire {
     isActive: Boolean
     meta: TemplateMeta!
     settings: TemplateSettings
+    securities: [TemplateSecurity!]
 }
 
 type Groups {

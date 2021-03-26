@@ -9423,6 +9423,15 @@ export type TemplateSettings = {
   documentType?: Maybe<Scalars['String']>;
 };
 
+export type TemplateSecurity = {
+  __typename?: 'TemplateSecurity';
+  name: Scalars['String'];
+  create?: Maybe<Scalars['Boolean']>;
+  update?: Maybe<Scalars['Boolean']>;
+  read?: Maybe<Scalars['Boolean']>;
+  delete?: Maybe<Scalars['Boolean']>;
+};
+
 export type TemplateSettingsInput = {
   description?: Maybe<Scalars['String']>;
   version?: Maybe<Scalars['String']>;
@@ -9430,9 +9439,18 @@ export type TemplateSettingsInput = {
   documentType?: Maybe<Scalars['String']>;
 };
 
+export type TemplateSecurityInput = {
+  name?: Maybe<Scalars['String']>;
+  create?: Maybe<Scalars['Boolean']>;
+  update?: Maybe<Scalars['Boolean']>;
+  read?: Maybe<Scalars['Boolean']>;
+  delete?: Maybe<Scalars['Boolean']>;
+};
+
 export type TemplateGeneralInput = {
   templateName?: Maybe<Scalars['String']>;
   settings?: Maybe<TemplateSettingsInput>;
+  securities?: Maybe<Array<TemplateSecurityInput>>;
 };
 
 export type QuestionInput = {
@@ -9491,6 +9509,7 @@ export type Questionaire = {
   isActive?: Maybe<Scalars['Boolean']>;
   meta: TemplateMeta;
   settings?: Maybe<TemplateSettings>;
+  securities?: Maybe<Array<TemplateSecurity>>;
 };
 
 export type Groups = {
@@ -15900,6 +15919,14 @@ export type GetQuestionaireQuery = { __typename?: 'Query' } & {
           { __typename?: 'TemplateSettings' } & Pick<
             TemplateSettings,
             'description' | 'version' | 'language' | 'documentType'
+          >
+        >;
+        securities?: Maybe<
+          Array<
+            { __typename?: 'TemplateSecurity' } & Pick<
+              TemplateSecurity,
+              'name' | 'create' | 'update' | 'read' | 'delete'
+            >
           >
         >;
         meta: { __typename?: 'TemplateMeta' } & Pick<TemplateMeta, 'createdAt'>;
@@ -26597,6 +26624,13 @@ export const GetQuestionaireDocument = gql`
         version
         language
         documentType
+      }
+      securities {
+        name
+        create
+        update
+        read
+        delete
       }
       meta {
         createdAt
