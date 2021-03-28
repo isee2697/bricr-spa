@@ -17,8 +17,8 @@ export const AddSalesItemModal = ({ isOpened, onClose, onSubmit, options }: AddS
       isOpened={isOpened}
       onClose={onClose}
       onSubmit={onSubmit}
-      title={formatMessage({ id: `sales.add_new.${options?.salesItemType}.title` })}
-      addText={formatMessage({ id: `sales.add_new.${options?.salesItemType}.add_new_button` })}
+      title={formatMessage({ id: `sales.add_new.${options?.salesLabel}.title` })}
+      addText={formatMessage({ id: `sales.add_new.${options?.salesLabel}.add_new_button` })}
       initialValues={{ type: options?.salesItemOrderType || '', extraInfo: '' }}
     >
       <FormSubSectionHeader

@@ -8,7 +8,7 @@ import { joinUrlParams } from 'routing/AppRoute.utils';
 import { AddIcon, HamburgerIcon, ListIcon, LocationIcon, ManageIcon, SearchIcon, SettingsIcon } from 'ui/atoms/icons';
 import { SalesHeader } from '../salesHeader/SalesHeader';
 import { Page } from 'ui/templates';
-import { SalesItemType } from 'app/shared/addSalesItemModal/AddSalesItemModal.types';
+import { SalesLabel } from 'api/types';
 
 import { SalesAcquisitionProps } from './SalesAcquisition.types';
 import { SalesAcquisitionTabs } from './tabs/Tabs';
@@ -49,7 +49,7 @@ export const SalesAcquisition = (props: SalesAcquisitionProps) => {
             <Button
               color="primary"
               variant="contained"
-              onClick={() => open('add-sales-item', { salesItemType: SalesItemType.Acquisition })}
+              onClick={() => open('add-sales-item', { salesLabel: SalesLabel.Acquisition })}
               startIcon={<AddIcon color="inherit" />}
               size="small"
             >
