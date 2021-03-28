@@ -9,24 +9,35 @@ import { Card, CardContent, Grid, Box, Typography, CardHeader } from 'ui/atoms';
 import { AddIcon } from 'ui/atoms/icons';
 import { List, PropertyItemPlaceholder } from 'ui/molecules';
 import { ActiveFilters } from 'ui/molecules/filters/activeFilters/ActiveFilters';
-import { ListPimsFilters } from 'api/types';
+import { ListQuestionairesFilters, Questionaire } from 'api/types';
 import { FiltersButton } from 'ui/molecules/filters/FiltersButton';
 import { AddTemplateDialog } from 'app/shared/dms/addTemplateDialog/AddTemplateDialog';
+import { useDmsTemplateQueryParams } from 'app/shared/useDmsTemplateQueryParams/useDmsTemplateQueryParams';
 
-import { ActiveTabStatus, DmsTemplateItem, DmsTemplatesProps } from './DmsTemplates.types';
+import { DmsTemplatesProps } from './DmsTemplates.types';
 import { useStyles } from './DmsTemplates.styles';
 import { DmsTemplatesTabs } from './dmsTemplatesTabs/DmsTemplatesTabs';
 import { DmsTemplatesItem } from './dmsTemplatesItem/DmsTemplatesItem';
 import { DmsTemplatesFilters } from './dictionaries';
 
-export const DmsTemplates = ({ templates, onAdd, onUpdate, category }: DmsTemplatesProps) => {
+export const DmsTemplates = ({
+  templates,
+  onAdd,
+  onUpdate,
+  category,
+  loading,
+  pagination,
+  amount,
+}: DmsTemplatesProps) => {
   const { formatMessage } = useLocale();
   const { open } = useModalDispatch();
   const classes = useStyles();
   const { push } = useHistory();
-  const [status, setStatus] = useState<ActiveTabStatus>('active');
+  const { status, setStatus } = useDmsTemplateQueryParams();
   const { type } = useParams<{ type: string }>();
-  const [activeFilters, setActiveFilters] = useState<ListPimsFilters>({});
+  const [activeFilters, setActiveFilters] = useState<ListQuestionairesFilters>({
+    type,
+  });
 
   const sortOptions = [
     { key: 'lastEdited', name: 'Last edited' },
@@ -35,19 +46,16 @@ export const DmsTemplates = ({ templates, onAdd, onUpdate, category }: DmsTempla
 
   const [sort, setSort] = useState<string>(sortOptions[0].key);
 
-  const handleFilterChange = (filters: ListPimsFilters) => {
+  const handleFilterChange = (filters: ListQuestionairesFilters) => {
     setActiveFilters(filters);
   };
 
-  const activeTemplates = templates.filter(item => item.status === 'active');
-  const inactiveTemplates = templates.filter(item => item.status === 'inactive');
-
-  const sortedItems = (items: DmsTemplateItem[]) => {
-    return items.sort((item1, item2) => {
+  const sortedItems = (items: Questionaire[]) => {
+    return items.slice().sort((item1, item2) => {
       if (sort === 'lastEdited') {
-        return item1.createdAt < item2.createdAt ? 1 : -1;
+        return item1.meta.createdAt < item2.meta.createdAt ? 1 : -1;
       } else if (sort === 'firstEdited') {
-        return item1.createdAt > item2.createdAt ? 1 : -1;
+        return item1.meta.createdAt > item2.meta.createdAt ? 1 : -1;
       }
 
       return 1;
@@ -99,32 +107,21 @@ export const DmsTemplates = ({ templates, onAdd, onUpdate, category }: DmsTempla
                   />
                   <CardContent>
                     {Object.keys(activeFilters).length > 0 && (
-                      <ActiveFilters<ListPimsFilters> activeFilters={activeFilters} onDelete={handleFilterChange} />
+                      <ActiveFilters<ListQuestionairesFilters>
+                        activeFilters={activeFilters}
+                        onDelete={handleFilterChange}
+                      />
                     )}
                     <Box mb={2}>
-                      <DmsTemplatesTabs
-                        status={status}
-                        onStatusChange={setStatus}
-                        amounts={{
-                          active: activeTemplates?.length,
-                          inactive: inactiveTemplates?.length,
-                        }}
-                      />
+                      <DmsTemplatesTabs status={status} onStatusChange={setStatus} amounts={amount} />
                     </Box>
                     <List
                       className="dms-template-list"
-                      items={sortedItems(status === 'active' ? activeTemplates : inactiveTemplates)}
+                      items={sortedItems(templates)}
                       itemIndex="id"
                       sortOptions={sortOptions}
                       onSort={key => setSort(key)}
-                      pagination={{
-                        count: 8,
-                        currentPerPage: 10,
-                        perPageOptions: [10, 25, 'All'],
-                        onPerPageChange: value => {
-                          alert(value);
-                        },
-                      }}
+                      pagination={pagination}
                       loadingItem={<PropertyItemPlaceholder />}
                       emptyTitle={formatMessage({
                         id: 'dms.templates.empty_line_1',
@@ -142,17 +139,17 @@ export const DmsTemplates = ({ templates, onAdd, onUpdate, category }: DmsTempla
                             <Box
                               className={classes.itemButton}
                               onClick={() => {
-                                if (template.status === 'active') {
+                                if (template.isActive) {
                                   push(`${AppRoute.dms}/templates/${type}/${category}/${template.id}`, {
-                                    name: template.name,
+                                    name: template.templateName,
                                   });
                                 }
                               }}
                             >
                               <DmsTemplatesItem
                                 template={template}
-                                onStatusChange={status => {
-                                  onUpdate({ ...template, status });
+                                onStatusChange={isActive => {
+                                  onUpdate({ ...template, isActive });
                                 }}
                                 category={category}
                               />
@@ -160,6 +157,7 @@ export const DmsTemplates = ({ templates, onAdd, onUpdate, category }: DmsTempla
                           </Box>
                         </Box>
                       )}
+                      loading={loading}
                     />
                   </CardContent>
                 </Card>

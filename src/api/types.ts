@@ -406,6 +406,7 @@ export type Mutation = {
   updatePricing: Pim;
   updateProfile: Profile;
   updateProjectPhase: ProjectPhase;
+  updateQuestionaire?: Maybe<Questionaire>;
   updateSalesSettings: Pim;
   updateSocialMediaLink: Profile;
   updateSpace: Pim;
@@ -1156,6 +1157,10 @@ export type MutationUpdateProjectPhaseArgs = {
   input: UpdateProjectPhaseInput;
 };
 
+export type MutationUpdateQuestionaireArgs = {
+  input: UpdateQuestionaireInput;
+};
+
 export type MutationUpdateSalesSettingsArgs = {
   input: SalesSettingsInput;
 };
@@ -1290,6 +1295,7 @@ export type Query = {
   getPropertyTypes: Array<Scalars['String']>;
   getQuestionaire?: Maybe<Questionaire>;
   getQuestionaires?: Maybe<Array<Questionaire>>;
+  getQuestionairesCount?: Maybe<Scalars['Int']>;
   getSalesCrmsList: LinkSalesCrmsListResult;
   getSalesList?: Maybe<SalesSearchResult>;
   getSalesPimsList: LinkSalesPimsListResult;
@@ -1533,7 +1539,13 @@ export type QueryGetQuestionaireArgs = {
 };
 
 export type QueryGetQuestionairesArgs = {
+  filters: ListQuestionairesFilters;
   pagination?: Maybe<Pagination>;
+  search?: Maybe<Scalars['String']>;
+};
+
+export type QueryGetQuestionairesCountArgs = {
+  filters: ListQuestionairesFilters;
   search?: Maybe<Scalars['String']>;
 };
 
@@ -9410,6 +9422,11 @@ export type QuestionaireInput = {
   isActive?: Maybe<Scalars['Boolean']>;
 };
 
+export type UpdateQuestionaireInput = {
+  id: Scalars['ID'];
+  isActive?: Maybe<Scalars['Boolean']>;
+};
+
 export enum TemplateDocumentType {
   Sale = 'Sale',
   Rent = 'Rent',
@@ -9567,6 +9584,11 @@ export type Entity = {
   __typename?: 'Entity';
   type?: Maybe<Scalars['String']>;
   subType?: Maybe<Scalars['String']>;
+};
+
+export type ListQuestionairesFilters = {
+  type?: Maybe<Scalars['String']>;
+  isActive?: Maybe<Scalars['Boolean']>;
 };
 
 export enum TiaraMessageType {
@@ -11761,6 +11783,19 @@ export type CreateQuestionaireMutationVariables = Exact<{
 
 export type CreateQuestionaireMutation = { __typename?: 'Mutation' } & {
   createQuestionaire?: Maybe<
+    { __typename?: 'Questionaire' } & Pick<
+      Questionaire,
+      'id' | 'templateName' | 'isAdmin' | 'published' | 'copyFromId'
+    > & { entity?: Maybe<{ __typename?: 'Entity' } & Pick<Entity, 'type' | 'subType'>> }
+  >;
+};
+
+export type UpdateQuestionaireMutationVariables = Exact<{
+  input: UpdateQuestionaireInput;
+}>;
+
+export type UpdateQuestionaireMutation = { __typename?: 'Mutation' } & {
+  updateQuestionaire?: Maybe<
     { __typename?: 'Questionaire' } & Pick<
       Questionaire,
       'id' | 'templateName' | 'isAdmin' | 'published' | 'copyFromId'
@@ -15905,6 +15940,42 @@ export type GetQuestionaireQuery = { __typename?: 'Query' } & {
         meta: { __typename?: 'TemplateMeta' } & Pick<TemplateMeta, 'createdAt'>;
       }
   >;
+};
+
+export type GetQuestionairesQueryVariables = Exact<{
+  filters: ListQuestionairesFilters;
+  pagination?: Maybe<Pagination>;
+  search?: Maybe<Scalars['String']>;
+}>;
+
+export type GetQuestionairesQuery = { __typename?: 'Query' } & {
+  getQuestionaires?: Maybe<
+    Array<
+      { __typename?: 'Questionaire' } & Pick<
+        Questionaire,
+        'id' | 'templateName' | 'isAdmin' | 'published' | 'copyFromId' | 'isActive' | 'type'
+      > & {
+          entity?: Maybe<{ __typename?: 'Entity' } & Pick<Entity, 'type' | 'subType'>>;
+          settings?: Maybe<
+            { __typename?: 'TemplateSettings' } & Pick<
+              TemplateSettings,
+              'description' | 'version' | 'language' | 'documentType'
+            >
+          >;
+          meta: { __typename?: 'TemplateMeta' } & Pick<TemplateMeta, 'createdAt'>;
+        }
+    >
+  >;
+};
+
+export type GetQuestionairesCountQueryVariables = Exact<{
+  filters: ListQuestionairesFilters;
+  search?: Maybe<Scalars['String']>;
+}>;
+
+export type GetQuestionairesCountQuery = { __typename?: 'Query' } & {
+  active: Query['getQuestionairesCount'];
+  inactive: Query['getQuestionairesCount'];
 };
 
 export type GetTiaraMutationsQueryVariables = Exact<{
@@ -20323,6 +20394,36 @@ export type CreateQuestionaireMutationResult = ApolloReactCommon.MutationResult<
 export type CreateQuestionaireMutationOptions = ApolloReactCommon.BaseMutationOptions<
   CreateQuestionaireMutation,
   CreateQuestionaireMutationVariables
+>;
+export const UpdateQuestionaireDocument = gql`
+  mutation UpdateQuestionaire($input: UpdateQuestionaireInput!) {
+    updateQuestionaire(input: $input)
+      @rest(type: "UpdateQuestionaire", path: "/template", method: "PUT", endpoint: "default") {
+      id
+      templateName
+      isAdmin
+      published
+      copyFromId
+      entity {
+        type
+        subType
+      }
+    }
+  }
+`;
+export function useUpdateQuestionaireMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateQuestionaireMutation, UpdateQuestionaireMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<UpdateQuestionaireMutation, UpdateQuestionaireMutationVariables>(
+    UpdateQuestionaireDocument,
+    baseOptions,
+  );
+}
+export type UpdateQuestionaireMutationHookResult = ReturnType<typeof useUpdateQuestionaireMutation>;
+export type UpdateQuestionaireMutationResult = ApolloReactCommon.MutationResult<UpdateQuestionaireMutation>;
+export type UpdateQuestionaireMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateQuestionaireMutation,
+  UpdateQuestionaireMutationVariables
 >;
 export const UpdateTemplateGeneralDocument = gql`
   mutation UpdateTemplateGeneral($input: TemplateGeneralInput!) {
@@ -26625,6 +26726,100 @@ export type GetQuestionaireLazyQueryHookResult = ReturnType<typeof useGetQuestio
 export type GetQuestionaireQueryResult = ApolloReactCommon.QueryResult<
   GetQuestionaireQuery,
   GetQuestionaireQueryVariables
+>;
+export const GetQuestionairesDocument = gql`
+  query GetQuestionaires($filters: ListQuestionairesFilters!, $pagination: Pagination, $search: String) {
+    getQuestionaires(filters: $filters, pagination: $pagination, search: $search)
+      @rest(
+        type: "GetQuestionaires"
+        path: "/templates/{args.filters.type}?isActive={args.filters.isActive}&page={args.pagination.from}&limit={args.pagination.limit}"
+        method: "GET"
+        endpoint: "default"
+      ) {
+      id
+      templateName
+      isAdmin
+      published
+      copyFromId
+      isActive
+      type
+      entity {
+        type
+        subType
+      }
+      settings {
+        description
+        version
+        language
+        documentType
+      }
+      meta {
+        createdAt
+      }
+    }
+  }
+`;
+export function useGetQuestionairesQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<GetQuestionairesQuery, GetQuestionairesQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<GetQuestionairesQuery, GetQuestionairesQueryVariables>(
+    GetQuestionairesDocument,
+    baseOptions,
+  );
+}
+export function useGetQuestionairesLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetQuestionairesQuery, GetQuestionairesQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<GetQuestionairesQuery, GetQuestionairesQueryVariables>(
+    GetQuestionairesDocument,
+    baseOptions,
+  );
+}
+export type GetQuestionairesQueryHookResult = ReturnType<typeof useGetQuestionairesQuery>;
+export type GetQuestionairesLazyQueryHookResult = ReturnType<typeof useGetQuestionairesLazyQuery>;
+export type GetQuestionairesQueryResult = ApolloReactCommon.QueryResult<
+  GetQuestionairesQuery,
+  GetQuestionairesQueryVariables
+>;
+export const GetQuestionairesCountDocument = gql`
+  query GetQuestionairesCount($filters: ListQuestionairesFilters!, $search: String) {
+    active: getQuestionairesCount(filters: $filters, search: $search)
+      @rest(
+        type: "GetQuestionairesCount"
+        path: "/templates-count/{args.filters.type}?isActive=true"
+        method: "GET"
+        endpoint: "default"
+      )
+    inactive: getQuestionairesCount(filters: $filters, search: $search)
+      @rest(
+        type: "GetQuestionairesCount"
+        path: "/templates-count/{args.filters.type}?isActive=false"
+        method: "GET"
+        endpoint: "default"
+      )
+  }
+`;
+export function useGetQuestionairesCountQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<GetQuestionairesCountQuery, GetQuestionairesCountQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<GetQuestionairesCountQuery, GetQuestionairesCountQueryVariables>(
+    GetQuestionairesCountDocument,
+    baseOptions,
+  );
+}
+export function useGetQuestionairesCountLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetQuestionairesCountQuery, GetQuestionairesCountQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<GetQuestionairesCountQuery, GetQuestionairesCountQueryVariables>(
+    GetQuestionairesCountDocument,
+    baseOptions,
+  );
+}
+export type GetQuestionairesCountQueryHookResult = ReturnType<typeof useGetQuestionairesCountQuery>;
+export type GetQuestionairesCountLazyQueryHookResult = ReturnType<typeof useGetQuestionairesCountLazyQuery>;
+export type GetQuestionairesCountQueryResult = ApolloReactCommon.QueryResult<
+  GetQuestionairesCountQuery,
+  GetQuestionairesCountQueryVariables
 >;
 export const GetTiaraMutationsDocument = gql`
   query GetTiaraMutations($entityId: ID!, $entity: TiaraEntities!) {

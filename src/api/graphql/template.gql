@@ -8,6 +8,11 @@ input QuestionaireInput {
     isActive: Boolean
 }
 
+input UpdateQuestionaireInput {
+    id: ID!
+    isActive: Boolean
+}
+
 enum TemplateDocumentType {
     Sale
     Rent
@@ -158,14 +163,19 @@ type Entity {
     subType: String
 }
 
-
+input ListQuestionairesFilters {
+  type: String
+  isActive: Boolean
+}
 
 extend type Mutation {
     createQuestionaire(input: QuestionaireInput!): Questionaire  @auth
+    updateQuestionaire(input: UpdateQuestionaireInput!): Questionaire @auth
     updateTemplateGeneral(input: TemplateGeneralInput!): Questionaire  @auth
 }
 
 extend type Query {
-    getQuestionaires(pagination: Pagination, search: String): [Questionaire!] @auth
+    getQuestionaires(filters: ListQuestionairesFilters!, pagination: Pagination, search: String): [Questionaire!] @auth
+    getQuestionairesCount(filters: ListQuestionairesFilters!, search: String): Int @auth
     getQuestionaire(id: ID!): Questionaire @auth
 }
