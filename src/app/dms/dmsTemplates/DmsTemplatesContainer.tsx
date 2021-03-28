@@ -130,10 +130,15 @@ export const DmsTemplatesContainer = ({ category }: DmsTemplatesContainerProps) 
     return undefined;
   };
 
+  // TODO: Should be removed after DynamoDB pagination is done
+  const pageSize = pagination.currentPerPage || PER_PAGE_OPTIONS[0];
+  const paginationStart = typeof pageSize === 'number' ? ((pagination.page || 1) - 1) * pageSize : 0;
+  const paginationEnd = typeof pageSize === 'number' ? (pagination.page || 1) * pageSize : 0;
+
   return (
     <DmsTemplates
       category={category}
-      templates={data?.getQuestionaires || []}
+      templates={(data?.getQuestionaires || []).slice(paginationStart, paginationEnd)}
       onAdd={handleAddTemplate}
       onUpdate={handleUpdateTemplate}
       loading={loading}
