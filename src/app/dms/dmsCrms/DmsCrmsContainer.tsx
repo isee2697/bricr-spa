@@ -33,7 +33,7 @@ export const DmsCrmsContainer = () => {
 
   const { query: sortQuery } = usePimsSorting();
 
-  const { query: paginationQuery } = usePagination({
+  const { pagination, query: paginationQuery } = usePagination({
     itemsCount: amounts ? amounts[CrmStatus.Active] : 0,
     perPageOptions: PER_PAGE_OPTIONS,
   });
@@ -54,5 +54,5 @@ export const DmsCrmsContainer = () => {
     ...crm,
   }));
 
-  return <DmsCrms crms={crms} isLoading={loading} />;
+  return <DmsCrms crms={crms} isLoading={loading} pagination={pagination} />;
 };

@@ -6,7 +6,7 @@ import { FoldersContainer } from 'app/shared/dms/folders/FoldersContainer';
 
 import { DmsCrmsProps } from './DmsCrms.types';
 
-export const DmsCrms = ({ crms, isLoading }: DmsCrmsProps) => {
+export const DmsCrms = ({ crms, isLoading, pagination }: DmsCrmsProps) => {
   const { type } = useParams<{ type: string }>();
 
   return (
@@ -18,6 +18,7 @@ export const DmsCrms = ({ crms, isLoading }: DmsCrmsProps) => {
       type={type}
       entityType={DmsEntityType.Crm}
       isLoading={isLoading}
+      pagination={pagination}
     />
   );
 };
