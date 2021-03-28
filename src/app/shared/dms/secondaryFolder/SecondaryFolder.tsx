@@ -1,18 +1,17 @@
 import React, { useState, ReactNode } from 'react';
 import { useHistory, useParams } from 'react-router';
 
-import { Box, Grid, IconButton } from 'ui/atoms';
+import { Box, Grid, IconButton, Loader } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
-import { PropertyItemPlaceholder } from 'ui/molecules';
 import { FolderContainer } from 'ui/molecules/folder/FolderContainer';
-import { DmsDocument, DmsFolderType } from 'app/dms/Dms.types';
+import { DmsDocument } from 'app/dms/Dms.types';
 import { ListViewContainer } from '../listView/ListViewContainer';
 import { ExitIcon, SeeIcon } from 'ui/atoms/icons';
 import { GeneralPageSettings } from 'app/shared/dms/generalPageSettings/GeneralPageSettings';
 import { DmsDocumentTypes } from 'app/dms/dictionaires';
 import { CardWithBody, Page } from 'ui/templates';
 import { AppRoute } from 'routing/AppRoute.enum';
-import { DmsFolderType as FolderType } from 'api/types';
+import { DmsFolder, DmsFolderType } from 'api/types';
 import { AddFolderDialog } from '../addFolderDialog/AddFolderDialog';
 
 import { useStyles } from './SecondaryFolder.styles';
@@ -21,11 +20,11 @@ import { SecondaryFolderProps } from './SecondaryFolder.types';
 export const SecondaryFolder = ({
   id,
   name,
-  foldersData,
-  isLoading,
+  loading,
   type,
   entityType,
   onAddFolder,
+  folders,
 }: SecondaryFolderProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
@@ -33,7 +32,7 @@ export const SecondaryFolder = ({
   const { entityId } = useParams<{ entityId: string }>();
 
   const [dialog, setDialog] = useState<ReactNode | null>(null);
-  const [selectedFolder, setSelectedFolder] = useState<DmsFolderType | null>(null);
+  const [selectedFolder, setSelectedFolder] = useState<DmsFolder | null>(null);
   const [selectedDocument, setSelectedDocument] = useState<DmsDocument | null>(null);
 
   const handleAdd = () => {
@@ -50,11 +49,11 @@ export const SecondaryFolder = ({
               entityId,
               entityType,
               foldername: folderName,
-              type: FolderType.Custom,
+              type: DmsFolderType.Custom,
             });
           }
 
-          setSelectedDocument(foldersData?.[0].documents?.[0]!);
+          // setSelectedDocument(foldersData?.[0].documents?.[0]!);
           setDialog(null);
 
           return new Promise(resolve => {});
@@ -92,7 +91,7 @@ export const SecondaryFolder = ({
   return (
     <Page
       showHeader
-      title={formatMessage({ id: `dms.folders.${type}` })}
+      title={name}
       titleActions={[]}
       headerProps={{
         customAction: (
@@ -107,18 +106,18 @@ export const SecondaryFolder = ({
         <CardWithBody>
           <Box mt={4}>
             <Grid container>
-              {isLoading ? (
+              {loading ? (
                 <Grid item xs={12}>
-                  <PropertyItemPlaceholder />
+                  <Loader />
                 </Grid>
-              ) : foldersData?.length ? (
-                foldersData.map((item, index) => (
+              ) : folders?.length ? (
+                folders.map((item, index) => (
                   <Grid item key={index} className={classes.listItem} xs={6} sm={4} lg={2}>
                     <FolderContainer
                       id={item.id}
-                      name={item.name}
-                      childCount={item.documents?.length || 0}
-                      type={item.isCustom ? 'secondary' : 'primary'}
+                      name={item.foldername}
+                      childCount={0}
+                      type={item.type === DmsFolderType.Custom ? 'secondary' : 'primary'}
                       onClick={() => {
                         setSelectedFolder(item.id === selectedFolder?.id ? null : item);
                       }}
@@ -146,11 +145,11 @@ export const SecondaryFolder = ({
           <Box mt={4}>
             <ListViewContainer
               id={selectedFolder.id}
-              name={selectedFolder.name}
+              name={selectedFolder.foldername}
               folderType={selectedFolder.type!}
               type={type}
               entityType={entityType}
-              data={selectedFolder.documents}
+              data={[]}
             />
           </Box>
         )}

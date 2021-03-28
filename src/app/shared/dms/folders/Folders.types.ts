@@ -1,4 +1,4 @@
-import { CreateDmsFolderInput, DmsEntityType } from 'api/types';
+import { DmsEntityType } from 'api/types';
 import { PaginationProps } from 'ui/atoms/pagination/Pagination.types';
 
 export type FoldersContainerProps = {
@@ -9,9 +9,7 @@ export type FoldersContainerProps = {
   pagination: PaginationProps;
 };
 
-export type FoldersProps = FoldersContainerProps & {
-  onAddFolder?: (value: CreateDmsFolderInput) => void;
-};
+export type FoldersProps = FoldersContainerProps & {};
 
 export type DmsEntityItem = {
   id: string;
