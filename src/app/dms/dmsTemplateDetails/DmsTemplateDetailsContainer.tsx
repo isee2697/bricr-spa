@@ -5,15 +5,14 @@ import { useLocale } from 'hooks/useLocale/useLocale';
 import { Loader, NavBreadcrumb } from 'ui/atoms';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { Security } from 'app/shared/dms/security/Security';
-import { DMS_TEMPLATE_RIGHTS as documentRightsMockData } from 'api/mocks/dms-templates';
 import { GeneralPageSettings } from 'app/shared/dms/generalPageSettings/GeneralPageSettings';
-import { useStateQuery } from '../../../hooks/useStateQuery/useStateQuery';
+import { useStateQuery } from 'hooks/useStateQuery/useStateQuery';
 import {
   GetQuestionaireDocument,
   Questionaire,
   useGetQuestionaireQuery,
   useUpdateTemplateGeneralMutation,
-} from '../../../api/types';
+} from 'api/types';
 
 import { DmsTemplateConfigureSettingsDetails } from './dmsTemplateConfigureSettingsDetails/DmsTemplateConfigureSettingsDetails';
 import { DmsTemplateDetailsContainerProps, DocumentType } from './DmsTemplateDetailsContainer.types';
@@ -33,10 +32,6 @@ export const DmsTemplateDetailsContainer = (props: DmsTemplateDetailsContainerPr
   if (loading) {
     return <Loader />;
   }
-
-  const handleSave = async () => {
-    return undefined;
-  };
 
   const handleSaveGeneral = async (form: Questionaire) => {
     try {
@@ -70,7 +65,11 @@ export const DmsTemplateDetailsContainer = (props: DmsTemplateDetailsContainerPr
           render={() => (
             <GeneralPageSettings
               types={Object.keys(DocumentType)}
-              data={data}
+              data={{
+                id: data.id,
+                meta: data.meta,
+                settings: data.settings,
+              }}
               onSave={handleSaveGeneral}
               updatedBy={{
                 id: '0001',
@@ -90,8 +89,12 @@ export const DmsTemplateDetailsContainer = (props: DmsTemplateDetailsContainerPr
           render={() => (
             <Security
               title={data.templateName ?? ''}
-              onSave={handleSave}
-              data={documentRightsMockData}
+              onSave={handleSaveGeneral}
+              data={{
+                id: data.id,
+                meta: data.meta,
+                securities: data.securities,
+              }}
               updatedBy={{
                 id: '0001',
                 firstName: 'Christian',

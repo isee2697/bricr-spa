@@ -194,12 +194,216 @@ export type AddServiceInput = {
   configuration?: Maybe<Scalars['ServiceConfigurationInput']>;
 };
 
+<<<<<<< HEAD
 export type AddSpaceInput = {
   spaceType: SpaceType;
   extraRoomPossibility: Scalars['Boolean'];
   pimId: Scalars['String'];
   floorId: Scalars['String'];
   spaceName?: Maybe<Scalars['String']>;
+=======
+export type Mutation = {
+  __typename?: 'Mutation';
+  _?: Maybe<Scalars['Boolean']>;
+  addAllocate?: Maybe<Allocate>;
+  addAllocationCriteria: AddAllocationCriteriaResult;
+  addAogSpace: PimWithNewAogSpace;
+  addAppointment: Appointment;
+  addBogSpace: PimWithNewBogSpace;
+  addCadastre?: Maybe<PimWithNewCadastre>;
+  addCadastreMaps?: Maybe<Pim>;
+  addCost: CostResult;
+  addCrmLabel: Label;
+  addFiles: Array<File>;
+  addFloorToPim: PimWithNewFloor;
+  addIdentificationNumberNcp: NcpWithNewIdentificationNumber;
+  addIdentificationNumberObjectType: ObjectTypeWithNewIdentificationNumber;
+  addIdentificationNumberPim: PimWithNewIdentificationNumber;
+  addInspection: AddInspectionResult;
+  addLabel: Label;
+  addMatchProfile?: Maybe<MatchProfile>;
+  addMediaLink?: Maybe<PimWithNewMediaLink>;
+  addNcpCost: NcpPricesResult;
+  addNcpIdentificationNumber: NcpCharacteristics;
+  addNcpLabel: Label;
+  addNcpMediaLink?: Maybe<NcpMedia>;
+  addNcpPictures?: Maybe<NcpMedia>;
+  addNcpService: NcpWithNewService;
+  addNcpTag?: Maybe<NcpMedia>;
+  addNcpTextChapter?: Maybe<NcpMedia>;
+  addNcpUsps?: Maybe<NcpMedia>;
+  addObjectTypeCost: ObjectTypePricesResult;
+  addObjectTypeLabel: Label;
+  addObjectTypeMediaLink?: Maybe<ObjectTypeMedia>;
+  addObjectTypePictures?: Maybe<ObjectTypeMedia>;
+  addObjectTypeService: ObjectTypeWithNewService;
+  addObjectTypeTag?: Maybe<ObjectTypeMedia>;
+  addObjectTypeTextChapter?: Maybe<ObjectTypeMedia>;
+  addObjectTypeUsps?: Maybe<ObjectTypeMedia>;
+  addOutsideFeature: PimWithNewOutside;
+  addPictures?: Maybe<PimWithNewPictures>;
+  addPimMeter?: Maybe<Pim>;
+  addPimReading?: Maybe<Pim>;
+  addPimService?: Maybe<PimWithNewService>;
+  addProjectPhase: ProjectPhase;
+  addSpaceToFloor: PimWithUpdatedSpace;
+  addSubtask: Task;
+  addTag?: Maybe<PimWithNewTag>;
+  addTaskLabel: Label;
+  addTeam?: Maybe<Team>;
+  addTextChapter?: Maybe<PimWithNewTextChapter>;
+  addUserToTeam?: Maybe<Team>;
+  addUsp?: Maybe<PimWithNewUsp>;
+  addViewingMoment: AddViewingMomentResult;
+  authorizeNylasAccount?: Maybe<Scalars['Boolean']>;
+  authorizeNylasAccountWithToken?: Maybe<NylasAccount>;
+  bulk: BulkOperationResult;
+  bulkDeleteNotifications?: Maybe<Scalars['Boolean']>;
+  bulkReadNotifications?: Maybe<Scalars['Boolean']>;
+  cloneMatchProfile?: Maybe<MatchProfile>;
+  confirmAppointment: Appointment;
+  confirmProfileInvite: Profile;
+  createCompany: Company;
+  createCrm: CrmGeneral;
+  createDmsFolder: DmsFolder;
+  createEmailAddress: Profile;
+  createNcp: NcpGeneral;
+  createNotification?: Maybe<Notification>;
+  createObjectType: ObjectTypeGeneral;
+  createPhoneNumber: Profile;
+  createPim?: Maybe<Pim>;
+  createProfile: Profile;
+  createQuestionaire?: Maybe<Questionaire>;
+  createSocialMediaLink: Profile;
+  createTask: Task;
+  deactivateProfile: Profile;
+  deleteAllocate?: Maybe<Scalars['Boolean']>;
+  deleteDmsFolder: Scalars['Boolean'];
+  deleteEntity: Array<DeleteResult>;
+  deleteMatchProfile?: Maybe<Scalars['Boolean']>;
+  deleteNotification?: Maybe<Scalars['Boolean']>;
+  deleteSubtask?: Maybe<Task>;
+  draftAppointment: DraftAppointment;
+  forgotPassword?: Maybe<ForgotPasswordResponse>;
+  initSendFile: File;
+  linkNcpToProjectPhase: ProjectPhase;
+  linkSalesCrms?: Maybe<Array<CrmListItem>>;
+  linkSalesPims?: Maybe<Array<ListPim>>;
+  login?: Maybe<LoginResponse>;
+  reactivateProfile: Profile;
+  readNotification?: Maybe<Scalars['Boolean']>;
+  removeAllocationCriteria: Pim;
+  removeCrmLabel: Scalars['Boolean'];
+  removeFiles: Array<Maybe<File>>;
+  removeInspection: Pim;
+  removeLabel: Scalars['Boolean'];
+  removeNcpLabel: Scalars['Boolean'];
+  removeObjectTypeLabel: Scalars['Boolean'];
+  removePim?: Maybe<Scalars['String']>;
+  removeProjectPhase?: Maybe<Scalars['Boolean']>;
+  removeTaskLabel: Scalars['Boolean'];
+  removeTeam?: Maybe<Scalars['String']>;
+  removeUserFromTeam?: Maybe<Team>;
+  removeViewingMoment: Pim;
+  resetPassword?: Maybe<ResetPasswordResponse>;
+  sendEmail: Scalars['Boolean'];
+  setLinkedProperties: Pim;
+  setNcpCharacteristics: NcpCharacteristics;
+  setNcpLinkedPims: NcpLinkedPims;
+  setObjectTypeCharacteristicsSections: ObjectTypeCharacteristics;
+  setObjectTypeLinkedPims: ObjectTypeLinkedPims;
+  tiaraSendMessage?: Maybe<Scalars['Boolean']>;
+  toggleNcpPricing: NcpPricesResult;
+  toggleObjectTypePricing: ObjectTypePricesResult;
+  togglePricing: Pim;
+  undoEntity: Array<UndoResult>;
+  updateAllocate?: Maybe<Allocate>;
+  updateAllocationCriteria: Pim;
+  updateAogSpace: AogSpace;
+  updateBogSpace: BogSpace;
+  updateCadastre?: Maybe<Pim>;
+  updateCadastreMap?: Maybe<Pim>;
+  updateCompanyDetails: Company;
+  updateCost: CostResult;
+  updateCrmContactInformation?: Maybe<CrmContactInformation>;
+  updateCrmFamilyContacts?: Maybe<CrmFamilyContacts>;
+  updateCrmFinancial?: Maybe<CrmFinancial>;
+  updateCrmGeneral?: Maybe<CrmGeneral>;
+  updateCrmHomeSituation?: Maybe<CrmHomeSituation>;
+  updateDescription?: Maybe<Scalars['String']>;
+  updateDmsFolder: DmsFolder;
+  updateEmail?: Maybe<Email>;
+  updateEmailAddress: Profile;
+  updateFloor: Pim;
+  updateIdentificationNumberNcp: NcpCharacteristics;
+  updateIdentificationNumberObjectType: ObjectTypeCharacteristics;
+  updateIdentificationNumberPim: Pim;
+  updateInsideGeneral?: Maybe<Pim>;
+  updateInspection: Pim;
+  updateInvestment: Pim;
+  updateKikInfo: Scalars['Boolean'];
+  updateKikSettings: Scalars['Boolean'];
+  updateLinkedPropertiesListDescription?: Maybe<ObjectTypeGeneral>;
+  updateMatchProfile?: Maybe<MatchProfile>;
+  updateMediaLink?: Maybe<Pim>;
+  updateNcp: NcpGeneral;
+  updateNcpCharacteristics: NcpCharacteristics;
+  updateNcpCost: NcpPricesResult;
+  updateNcpCostsDetails: NcpPricesResult;
+  updateNcpInterests: NcpPricesResult;
+  updateNcpLinkedPropertiesListDescription?: Maybe<NcpGeneral>;
+  updateNcpMediaDescription?: Maybe<NcpMedia>;
+  updateNcpMediaLink?: Maybe<NcpMedia>;
+  updateNcpPicture?: Maybe<NcpMedia>;
+  updateNcpPricing: NcpPricesResult;
+  updateNcpService: NcpServices;
+  updateNcpServiceDescription: NcpServices;
+  updateNcpTag?: Maybe<NcpMedia>;
+  updateNcpTextChapter?: Maybe<NcpMedia>;
+  updateNcpUsps?: Maybe<NcpMedia>;
+  updateObjectTypeCharacteristics: ObjectTypeCharacteristics;
+  updateObjectTypeCost: ObjectTypePricesResult;
+  updateObjectTypeCostsDetails: ObjectTypePricesResult;
+  updateObjectTypeMediaDescription?: Maybe<ObjectTypeMedia>;
+  updateObjectTypeMediaLink?: Maybe<ObjectTypeMedia>;
+  updateObjectTypePicture?: Maybe<ObjectTypeMedia>;
+  updateObjectTypePricing: ObjectTypePricesResult;
+  updateObjectTypeService: ObjectTypeServices;
+  updateObjectTypeServiceDescription: ObjectTypeServices;
+  updateObjectTypeTag?: Maybe<ObjectTypeMedia>;
+  updateObjectTypeTextChapter?: Maybe<ObjectTypeMedia>;
+  updateObjectTypeUsps?: Maybe<ObjectTypeMedia>;
+  updateObjectTypesListDescription?: Maybe<NcpGeneral>;
+  updateOutsideFeature: Pim;
+  updatePhoneNumber: Profile;
+  updatePicture?: Maybe<Pim>;
+  updatePimGeneralInfo: Pim;
+  updatePimLocation: Pim;
+  updatePimMeter?: Maybe<Pim>;
+  updatePimOutsideInfo: Pim;
+  updatePimReading?: Maybe<Pim>;
+  updatePimService?: Maybe<Pim>;
+  updatePricing: Pim;
+  updateProfile: Profile;
+  updateProjectPhase: ProjectPhase;
+  updateSalesSettings: Pim;
+  updateSocialMediaLink: Profile;
+  updateSpace: Pim;
+  updateSpecification: Pim;
+  updateSpecificationAdvanced: Pim;
+  updateSubtaskStatus?: Maybe<Task>;
+  updateTag?: Maybe<Pim>;
+  updateTask?: Maybe<Task>;
+  updateTeam?: Maybe<Team>;
+  updateTemplateGeneral?: Maybe<Questionaire>;
+  updateTextChapter?: Maybe<Pim>;
+  updateUserInTeam?: Maybe<Team>;
+  updateUsp?: Maybe<Pim>;
+  updateWorkflowAction: WorkflowAction;
+  updateWorkflowTrigger: WorkflowTrigger;
+  uploadFile?: Maybe<UploadFileResponse>;
+  verifyUser?: Maybe<VerifyUserResponse>;
+>>>>>>> 8218e08b5da1a8a88ed1e2dbcb52b4648ab717bb
 };
 
 export type AddSubtaskInput = {
@@ -712,6 +916,7 @@ export enum AogSoilType {
   Loam = 'Loam'
 }
 
+<<<<<<< HEAD
 export type AogSpace = LastUpdated & {
   __typename?: 'AogSpace';
   id: Scalars['ID'];
@@ -725,6 +930,35 @@ export type AogSpace = LastUpdated & {
   dateUpdated?: Maybe<Scalars['Date']>;
   lastEditedBy?: Maybe<LastUpdatedProfile>;
   dateCreated?: Maybe<Scalars['Date']>;
+=======
+export type MutationConfirmAppointmentArgs = {
+  accountId: Scalars['String'];
+  appointmentId: Scalars['ID'];
+};
+
+export type MutationConfirmProfileInviteArgs = {
+  input: ConfirmProfileInvite;
+};
+
+export type MutationCreateCompanyArgs = {
+  input: CreateCompanyInput;
+};
+
+export type MutationCreateCrmArgs = {
+  input: CreateCrmInput;
+};
+
+export type MutationCreateDmsFolderArgs = {
+  input: CreateDmsFolderInput;
+};
+
+export type MutationCreateEmailAddressArgs = {
+  input: CreateEmailAddressInput;
+};
+
+export type MutationCreateNcpArgs = {
+  input: CreateNcpInput;
+>>>>>>> 8218e08b5da1a8a88ed1e2dbcb52b4648ab717bb
 };
 
 export enum AogSpaceType {
@@ -815,10 +1049,20 @@ export type Appointment = {
   isConfirmed?: Maybe<Scalars['Boolean']>;
 };
 
+<<<<<<< HEAD
 export enum AppointmentAddressType {
   LinkedPersonAddress = 'LinkedPersonAddress',
   NewAcquisitionAddress = 'NewAcquisitionAddress'
 }
+=======
+export type MutationDeleteDmsFolderArgs = {
+  input: DeleteDmsFolderInput;
+};
+
+export type MutationDeleteEntityArgs = {
+  input: DeleteEntityInput;
+};
+>>>>>>> 8218e08b5da1a8a88ed1e2dbcb52b4648ab717bb
 
 export type AppointmentLocation = {
   __typename?: 'AppointmentLocation';
@@ -1195,6 +1439,7 @@ export type BulkReadNotificationsInput = {
   ids: Array<Scalars['ID']>;
 };
 
+<<<<<<< HEAD
 export enum BusinessServicesType {
   ConcreteFloor = 'ConcreteFloor',
   Skylights = 'Skylights',
@@ -1209,6 +1454,15 @@ export enum BusinessServicesType {
   Elevators = 'Elevators',
   OpenableWindows = 'OpenableWindows'
 }
+=======
+export type MutationUpdateDmsFolderArgs = {
+  input: UpdateDmsFolderInput;
+};
+
+export type MutationUpdateEmailArgs = {
+  input: UpdateEmailInput;
+};
+>>>>>>> 8218e08b5da1a8a88ed1e2dbcb52b4648ab717bb
 
 export type BusinessSpace = {
   __typename?: 'BusinessSpace';
@@ -1870,11 +2124,101 @@ export type CreateProjectPhaseInput = {
   ncpId?: Maybe<Scalars['ID']>;
 };
 
+<<<<<<< HEAD
 export type CreateSalesAccountContactInput = {
   __typename?: 'CreateSalesAccountContactInput';
   cyclusId: Scalars['ID'];
   userId: Scalars['ID'];
   role: SalesRole;
+=======
+export type Query = {
+  __typename?: 'Query';
+  _?: Maybe<Scalars['Boolean']>;
+  checkCompanyRegistered: CheckRegisteredResponse;
+  crmList: CrmListSearchResult;
+  dictionary?: Maybe<Scalars['Dictionary']>;
+  getAllProfiles: ProfileSearchResult;
+  getAllocate?: Maybe<Allocate>;
+  getAppointment: Appointment;
+  getBilling?: Maybe<Billing>;
+  getBulkDetails?: Maybe<Array<GetBulkResult>>;
+  getChangesHistory: Array<Event>;
+  getCompanyDetails: Company;
+  getCrmContactInformation?: Maybe<CrmContactInformation>;
+  getCrmFamilyContacts?: Maybe<CrmFamilyContacts>;
+  getCrmFinancial?: Maybe<CrmFinancial>;
+  getCrmGeneral?: Maybe<CrmGeneral>;
+  getCrmHomeSituation?: Maybe<CrmHomeSituation>;
+  getCrmLabels?: Maybe<Array<Label>>;
+  getCrmWithSameInfo: CrmListSearchResult;
+  getDmsFolder?: Maybe<DmsFolder>;
+  getEmail?: Maybe<Email>;
+  getKikSettings?: Maybe<KikSettings>;
+  getLabels?: Maybe<Array<Label>>;
+  getMatchProfile?: Maybe<MatchProfile>;
+  getMyTeamMembers: ProfileSearchResult;
+  getNcp: NcpGeneral;
+  getNcpCharacteristics: NcpCharacteristics;
+  getNcpLabels?: Maybe<Array<Label>>;
+  getNcpLinkedPims: NcpLinkedPims;
+  getNcpMedia: NcpMedia;
+  getNcpPrices: NcpPricesResult;
+  getNcpServices: NcpServices;
+  getNcpWithSameAddress: NcpSearchResult;
+  getNotifications?: Maybe<NotificationSearchResult>;
+  getNylasAuthUrl?: Maybe<Scalars['String']>;
+  getObjectTypeCharacteristics: ObjectTypeCharacteristics;
+  getObjectTypeGeneral: ObjectTypeGeneral;
+  getObjectTypeLabels?: Maybe<Array<Label>>;
+  getObjectTypeLinkedPims: ObjectTypeLinkedPims;
+  getObjectTypeMedia: ObjectTypeMedia;
+  getObjectTypePrices: ObjectTypePricesResult;
+  getObjectTypeServices: ObjectTypeServices;
+  /** @deprecated In later version pim will be split into multiple smaller views. */
+  getPim?: Maybe<Pim>;
+  getPimCadastre: PimCadastre;
+  getPimGeneral: PimGeneral;
+  getPimInside: PimInside;
+  getPimLocation: PimLocation;
+  getPimMedia: PimMedia;
+  getPimMeters: PimMeters;
+  getPimOutside: PimOutside;
+  getPimSales: PimSales;
+  getPimServices: PimServices;
+  getPimSpecification: PimSpecification;
+  getPimsGeneralWithSameAddress: GeneralPimSearchResult;
+  getPricing: PimPrices;
+  getProfile?: Maybe<Profile>;
+  getProjectPhases: ProjectPhaseSearchResult;
+  getPropertyTypes: Array<Scalars['String']>;
+  getQuestionaire?: Maybe<Questionaire>;
+  getQuestionaires?: Maybe<Array<Questionaire>>;
+  getSalesCrmsList: LinkSalesCrmsListResult;
+  getSalesList?: Maybe<SalesSearchResult>;
+  getSalesPimsList: LinkSalesPimsListResult;
+  getTask?: Maybe<Task>;
+  getTaskLabels?: Maybe<Array<Label>>;
+  getTasks?: Maybe<TaskSearchResult>;
+  getTasksFullSummary?: Maybe<TaskFullSummaryResult>;
+  getTasksSummaryByStatus?: Maybe<TaskSummaryByStatusResult>;
+  getTeamDetails?: Maybe<Team>;
+  getTeams?: Maybe<TeamSearchResult>;
+  getTiaraMutations?: Maybe<Array<TiaraMutation>>;
+  getTiaraValidation: TiaraValidation;
+  getUndoId: Scalars['ID'];
+  listAllocates?: Maybe<Array<Allocate>>;
+  listCalendar?: Maybe<Array<Appointment>>;
+  listDmsFolders?: Maybe<Array<DmsFolder>>;
+  listEmail?: Maybe<Array<EmailListItem>>;
+  listEmailFolders?: Maybe<Array<EmailFolderListItem>>;
+  listMatchProfiles?: Maybe<Array<MatchProfile>>;
+  listNcps: NcpListSearchResult;
+  listNylasAccount?: Maybe<Array<NylasAccountItem>>;
+  listObjectTypes: ObjectTypeListSearchResult;
+  listPims: PimListSearchResult;
+  me?: Maybe<Profile>;
+  search?: Maybe<SearchResult>;
+>>>>>>> 8218e08b5da1a8a88ed1e2dbcb52b4648ab717bb
 };
 
 export type CreateSalesAddressInput = {
@@ -1992,11 +2336,21 @@ export type CreateWorkflowTemplateInput = {
   icon: Scalars['String'];
 };
 
+<<<<<<< HEAD
 export type CreateWorkflowTriggerInput = {
   __typename?: 'CreateWorkflowTriggerInput';
   companyId: Scalars['ID'];
   workflowSectionId: Scalars['ID'];
   type: WorkflowTriggerType;
+=======
+export type QueryGetDmsFolderArgs = {
+  folderId: Scalars['ID'];
+};
+
+export type QueryGetEmailArgs = {
+  accountId: Scalars['String'];
+  emailId: Scalars['String'];
+>>>>>>> 8218e08b5da1a8a88ed1e2dbcb52b4648ab717bb
 };
 
 export enum CriteriaOrder {
@@ -2466,12 +2820,24 @@ export type DateRange = {
   to?: Maybe<Scalars['Date']>;
 };
 
+<<<<<<< HEAD
 export enum DateRangeType {
   ThirtyDays = 'ThirtyDays',
   TwoWeeks = 'TwoWeeks',
   OneWeek = 'OneWeek',
   ThreeDays = 'ThreeDays'
 }
+=======
+export type QueryListDmsFoldersArgs = {
+  entityId: Scalars['ID'];
+};
+
+export type QueryListEmailArgs = {
+  accountId: Scalars['String'];
+  folderId?: Maybe<Scalars['ID']>;
+  unread?: Maybe<Scalars['Boolean']>;
+};
+>>>>>>> 8218e08b5da1a8a88ed1e2dbcb52b4648ab717bb
 
 export type DeleteEntityInput = {
   entityType: EventParentType;
@@ -3660,6 +4026,7 @@ export type InstallationsInput = {
   notes?: Maybe<Scalars['String']>;
 };
 
+<<<<<<< HEAD
 export enum InstallationsType {
   RotaryStableMilkingSystem = 'RotaryStableMilkingSystem',
   MilkingParlorSystem = 'MilkingParlorSystem',
@@ -3672,6 +4039,81 @@ export type IntRange = {
   __typename?: 'IntRange';
   from?: Maybe<Scalars['Int']>;
   to?: Maybe<Scalars['Int']>;
+=======
+export enum DmsEntityType {
+  Pim = 'Pim',
+  Ncp = 'Ncp',
+  Crm = 'Crm',
+  Sales = 'Sales',
+}
+
+export enum DmsFolderType {
+  Custom = 'Custom',
+  Default = 'Default',
+}
+
+export enum DmsPimFolderType {
+  Aquisition = 'Aquisition',
+  Quotation = 'Quotation',
+  SalesOrder = 'SalesOrder',
+  Property = 'Property',
+  Drawing = 'Drawing',
+  Questionaires = 'Questionaires',
+  ListOfItems = 'ListOfItems',
+  Publication = 'Publication',
+  Contracts = 'Contracts',
+  Internal = 'Internal',
+}
+
+export enum DmsCrmFolderType {
+  Personal = 'Personal',
+  Emails = 'Emails',
+  ContractsPrint = 'ContractsPrint',
+  Surveys = 'Surveys',
+  Invoices = 'Invoices',
+}
+
+export type DmsFolder = {
+  __typename?: 'DmsFolder';
+  entityId: Scalars['ID'];
+  id: Scalars['ID'];
+  companyId: Scalars['ID'];
+  foldername: Scalars['String'];
+  entityType: DmsEntityType;
+  type: DmsFolderType;
+  order?: Maybe<Scalars['Int']>;
+  deletedAt?: Maybe<Scalars['Date']>;
+};
+
+export type CreateDmsFolderInput = {
+  entityId: Scalars['ID'];
+  foldername: Scalars['String'];
+  entityType: DmsEntityType;
+  type: DmsFolderType;
+  order?: Maybe<Scalars['Int']>;
+  deletedAt?: Maybe<Scalars['Date']>;
+};
+
+export type UpdateDmsFolderInput = {
+  entityId: Scalars['ID'];
+  id: Scalars['ID'];
+  foldername: Scalars['String'];
+  entityType: DmsEntityType;
+  type: DmsFolderType;
+  order?: Maybe<Scalars['Int']>;
+  deletedAt?: Maybe<Scalars['Date']>;
+};
+
+export type DeleteDmsFolderInput = {
+  entityId: Scalars['ID'];
+  id: Scalars['ID'];
+};
+
+export type EmailAndName = {
+  __typename?: 'EmailAndName';
+  email: Scalars['String'];
+  name: Scalars['String'];
+>>>>>>> 8218e08b5da1a8a88ed1e2dbcb52b4648ab717bb
 };
 
 export type IntRangeInput = {
@@ -10215,6 +10657,14 @@ export type UpdateCrmHomeSituationMutation = (
   )> }
 );
 
+export type CreateDmsFolderMutationVariables = Exact<{
+  input: CreateDmsFolderInput;
+}>;
+
+export type CreateDmsFolderMutation = { __typename?: 'Mutation' } & {
+  createDmsFolder: { __typename?: 'DmsFolder' } & Pick<DmsFolder, 'id'>;
+};
+
 export type SendEmailMutationVariables = Exact<{
   accountId: Scalars['String'];
   input: SendEmailInput;
@@ -15565,6 +16015,7 @@ export type GetSalesListQueryVariables = Exact<{
   sortDirection: SortDirection;
 }>;
 
+<<<<<<< HEAD
 
 export type GetSalesListQuery = (
   { __typename?: 'Query' }
@@ -15576,6 +16027,31 @@ export type GetSalesListQuery = (
     )>> }
   )> }
 );
+=======
+export type GetSalesListQuery = { __typename?: 'Query' } & {
+  getSalesList?: Maybe<
+    { __typename?: 'SalesSearchResult' } & {
+      items?: Maybe<
+        Array<
+          { __typename?: 'Sales' } & Pick<
+            Sales,
+            | 'id'
+            | 'label'
+            | 'status'
+            | 'createdAt'
+            | 'updatedAt'
+            | 'name'
+            | 'type'
+            | 'extraInfo'
+            | 'attentionNote'
+            | 'date'
+          >
+        >
+      >;
+    }
+  >;
+};
+>>>>>>> 8218e08b5da1a8a88ed1e2dbcb52b4648ab717bb
 
 export type SearchQueryVariables = Exact<{
   input: SearchInput;
@@ -15811,6 +16287,7 @@ export type GetQuestionaireQueryVariables = Exact<{
   id: Scalars['ID'];
 }>;
 
+<<<<<<< HEAD
 
 export type GetQuestionaireQuery = (
   { __typename?: 'Query' }
@@ -15855,6 +16332,33 @@ export type GetQuestionairesQuery = (
     )>> }
   )>> }
 );
+=======
+export type GetQuestionaireQuery = { __typename?: 'Query' } & {
+  getQuestionaire?: Maybe<
+    { __typename?: 'Questionaire' } & Pick<
+      Questionaire,
+      'id' | 'templateName' | 'isAdmin' | 'published' | 'copyFromId' | 'isActive' | 'type'
+    > & {
+        entity?: Maybe<{ __typename?: 'Entity' } & Pick<Entity, 'type' | 'subType'>>;
+        settings?: Maybe<
+          { __typename?: 'TemplateSettings' } & Pick<
+            TemplateSettings,
+            'description' | 'version' | 'language' | 'documentType'
+          >
+        >;
+        securities?: Maybe<
+          Array<
+            { __typename?: 'TemplateSecurity' } & Pick<
+              TemplateSecurity,
+              'name' | 'create' | 'update' | 'read' | 'delete'
+            >
+          >
+        >;
+        meta: { __typename?: 'TemplateMeta' } & Pick<TemplateMeta, 'createdAt'>;
+      }
+  >;
+};
+>>>>>>> 8218e08b5da1a8a88ed1e2dbcb52b4648ab717bb
 
 export type GetTiaraMutationsQueryVariables = Exact<{
   entityId: Scalars['ID'];
@@ -16278,7 +16782,36 @@ export function useUpdateCrmHomeSituationMutation(baseOptions?: ApolloReactHooks
       }
 export type UpdateCrmHomeSituationMutationHookResult = ReturnType<typeof useUpdateCrmHomeSituationMutation>;
 export type UpdateCrmHomeSituationMutationResult = ApolloReactCommon.MutationResult<UpdateCrmHomeSituationMutation>;
+<<<<<<< HEAD
 export type UpdateCrmHomeSituationMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateCrmHomeSituationMutation, UpdateCrmHomeSituationMutationVariables>;
+=======
+export type UpdateCrmHomeSituationMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateCrmHomeSituationMutation,
+  UpdateCrmHomeSituationMutationVariables
+>;
+export const CreateDmsFolderDocument = gql`
+  mutation CreateDmsFolder($input: CreateDmsFolderInput!) {
+    createDmsFolder(input: $input)
+      @rest(type: "CreateDmsFolder", path: "/dms/folders/create", method: "POST", endpoint: "default") {
+      id
+    }
+  }
+`;
+export function useCreateDmsFolderMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<CreateDmsFolderMutation, CreateDmsFolderMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<CreateDmsFolderMutation, CreateDmsFolderMutationVariables>(
+    CreateDmsFolderDocument,
+    baseOptions,
+  );
+}
+export type CreateDmsFolderMutationHookResult = ReturnType<typeof useCreateDmsFolderMutation>;
+export type CreateDmsFolderMutationResult = ApolloReactCommon.MutationResult<CreateDmsFolderMutation>;
+export type CreateDmsFolderMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  CreateDmsFolderMutation,
+  CreateDmsFolderMutationVariables
+>;
+>>>>>>> 8218e08b5da1a8a88ed1e2dbcb52b4648ab717bb
 export const SendEmailDocument = gql`
     mutation SendEmail($accountId: String!, $input: SendEmailInput!) {
   sendEmail(accountId: $accountId, input: $input)
@@ -23567,10 +24100,30 @@ export type ProjectPhasesQueryHookResult = ReturnType<typeof useProjectPhasesQue
 export type ProjectPhasesLazyQueryHookResult = ReturnType<typeof useProjectPhasesLazyQuery>;
 export type ProjectPhasesQueryResult = ApolloReactCommon.QueryResult<ProjectPhasesQuery, ProjectPhasesQueryVariables>;
 export const GetSalesListDocument = gql`
+<<<<<<< HEAD
     query GetSalesList($label: SalesLabel!, $status: SalesStatus!, $sortColumn: String!, $sortDirection: SortDirection!) {
   getSalesList(filters: {label: $label, status: $status}, sort: {column: $sortColumn, direction: $sortDirection}) {
     items {
       id
+=======
+  query GetSalesList($label: SalesLabel!, $status: SalesStatus!, $sortColumn: String!, $sortDirection: SortDirection!) {
+    getSalesList(
+      filters: { label: $label, status: $status }
+      sort: { column: $sortColumn, direction: $sortDirection }
+    ) {
+      items {
+        id
+        label
+        status
+        createdAt
+        updatedAt
+        name
+        type
+        extraInfo
+        attentionNote
+        date
+      }
+>>>>>>> 8218e08b5da1a8a88ed1e2dbcb52b4648ab717bb
     }
   }
 }
@@ -23970,6 +24523,7 @@ export const GetQuestionaireDocument = gql`
     type
     entity {
       type
+<<<<<<< HEAD
       subType
     }
     settings {
@@ -23980,6 +24534,28 @@ export const GetQuestionaireDocument = gql`
     }
     meta {
       createdAt
+=======
+      entity {
+        type
+        subType
+      }
+      settings {
+        description
+        version
+        language
+        documentType
+      }
+      securities {
+        name
+        create
+        update
+        read
+        delete
+      }
+      meta {
+        createdAt
+      }
+>>>>>>> 8218e08b5da1a8a88ed1e2dbcb52b4648ab717bb
     }
   }
 }

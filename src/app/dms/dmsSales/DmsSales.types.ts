@@ -1,5 +1,11 @@
-import { DmsStats } from '../Dms.types';
+import { Sales } from 'api/types';
 
 export type DmsSalesProps = {
-  dms: DmsStats;
+  sales: Sales[];
+  isLoading: boolean;
+  type: string;
+};
+
+export type DmsSalesContainerProps = {
+  type: string;
 };

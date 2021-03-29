@@ -3,16 +3,16 @@ import React from 'react';
 import { DmsEntityType } from 'api/types';
 import { FoldersContainer } from 'app/shared/dms/folders/FoldersContainer';
 
-import { DmsSalesProps } from './DmsSales.types';
+import { DmsNcpsProps } from './DmsNcps.types';
 
-export const DmsSales = ({ sales, isLoading, type }: DmsSalesProps) => {
+export const DmsNcps = ({ ncps, type, isLoading }: DmsNcpsProps) => {
   return (
     <FoldersContainer
-      entityItems={sales.map(item => ({
+      entityItems={ncps.map(item => ({
         id: item.id,
         name: item.name ?? '',
       }))}
-      entityType={DmsEntityType.Sales}
+      entityType={DmsEntityType.Pim}
       type={type}
       isLoading={isLoading}
     />
