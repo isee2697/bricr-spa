@@ -188,11 +188,11 @@ workflows:
             - build-stage
   custom_develop:
     jobs:
-      - build-develop:
-          filters:
-            branches:
-              only:
-                - /deploy/spa(?:-.+)?$/
+      - build-develop
+#          filters:
+#            branches:
+#              only:
+#                - /deploy/spa(?:-.+)?$/
       - deploy-develop:
           requires:
             - build-develop
