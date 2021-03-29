@@ -176,22 +176,6 @@ enum TemplateType {
     email
 }
 
-type TemplateSecurity {
-    name: String
-    create: String
-    update: String
-    read: String
-    delete: String
-}
-
-input TemplateSecurityInput {
-    name: String
-    create: String
-    update: String
-    read: String
-    delete: String
-}
-
 type Entity {
     type: String
     subType: String
