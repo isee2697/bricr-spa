@@ -33,49 +33,56 @@ export const GET_QUESTIONAIRES = gql`
     getQuestionaires(filters: $filters, pagination: $pagination, search: $search)
       @rest(
         type: "GetQuestionaires"
-        path: "/templates/{args.filters.type}?isActive={args.filters.isActive}&page={args.pagination.from}&limit={args.pagination.limit}"
+        path: "/templates/{args.filters.type}?isActive={args.filters.isActive}&page={args.pagination.page}&limit={args.pagination.limit}"
         method: "GET"
         endpoint: "default"
       ) {
-      id
-      templateName
-      isAdmin
-      published
-      copyFromId
-      isActive
-      type
-      entity {
+      items {
+        id
+        templateName
+        isAdmin
+        published
+        copyFromId
+        isActive
         type
-        subType
+        entity {
+          type
+          subType
+        }
+        settings {
+          description
+          version
+          language
+          documentType
+        }
+        meta {
+          createdAt
+        }
       }
-      settings {
-        description
-        version
-        language
-        documentType
-      }
-      meta {
-        createdAt
-      }
+      count
     }
   }
 `;
 
 export const GET_QUESTIONAIRES_COUNT = gql`
   query GetQuestionairesCount($filters: ListQuestionairesFilters!, $search: String) {
-    active: getQuestionairesCount(filters: $filters, search: $search)
+    active: getQuestionaires(filters: $filters, search: $search)
       @rest(
         type: "GetQuestionairesCount"
-        path: "/templates-count/{args.filters.type}?isActive=true"
+        path: "/templates/{args.filters.type}?isActive=true&countOnly=true"
         method: "GET"
         endpoint: "default"
-      )
-    inactive: getQuestionairesCount(filters: $filters, search: $search)
+      ) {
+      count
+    }
+    inactive: getQuestionaires(filters: $filters, search: $search)
       @rest(
         type: "GetQuestionairesCount"
-        path: "/templates-count/{args.filters.type}?isActive=false"
+        path: "/templates/{args.filters.type}?isActive=false&countOnly=true"
         method: "GET"
         endpoint: "default"
-      )
+      ) {
+      count
+    }
   }
 `;

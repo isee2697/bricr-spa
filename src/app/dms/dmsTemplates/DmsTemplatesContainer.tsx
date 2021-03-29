@@ -1,14 +1,14 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 
 import { useGetTemplateType, useModalDispatch, usePagination } from 'hooks';
 import {
-  GetQuestionairesDocument,
   UpdateQuestionaireInput,
   useCreateQuestionaireMutation,
   useGetQuestionairesQuery,
   useUpdateQuestionaireMutation,
   useGetQuestionairesCountQuery,
+  Questionaire,
 } from 'api/types';
 import { PerPageType } from 'ui/atoms/pagination/Pagination.types';
 import { useDmsTemplateQueryParams } from 'app/shared/useDmsTemplateQueryParams/useDmsTemplateQueryParams';
@@ -28,7 +28,7 @@ export const DmsTemplatesContainer = ({ category }: DmsTemplatesContainerProps) 
   const { close } = useModalDispatch();
   const { pathname } = useLocation();
 
-  const { data: countData } = useGetQuestionairesCountQuery({
+  const { loading: countLoading, data: countData, refetch: refetchCount } = useGetQuestionairesCountQuery({
     variables: {
       filters: {
         type,
@@ -38,8 +38,8 @@ export const DmsTemplatesContainer = ({ category }: DmsTemplatesContainerProps) 
   });
 
   const amounts: DmsTemplatesAmount = {
-    active: countData?.active || 0,
-    inactive: countData?.inactive || 0,
+    active: countData?.active?.count ?? 0,
+    inactive: countData?.inactive?.count ?? 0,
   };
 
   const { pagination, query: paginationQuery } = usePagination({
@@ -47,15 +47,20 @@ export const DmsTemplatesContainer = ({ category }: DmsTemplatesContainerProps) 
     perPageOptions: PER_PAGE_OPTIONS,
   });
 
-  const { data, loading } = useGetQuestionairesQuery({
+  const { data, loading, refetch: refetchData } = useGetQuestionairesQuery({
     variables: {
       filters: {
         type,
         isActive: status === 'active',
-        ...paginationQuery,
       },
+      pagination: paginationQuery,
     },
   });
+
+  const refetch = async () => {
+    await refetchData();
+    await refetchCount();
+  };
 
   const handleAddTemplate = async (values: { name: string }) => {
     try {
@@ -72,19 +77,9 @@ export const DmsTemplatesContainer = ({ category }: DmsTemplatesContainerProps) 
               published: false,
             },
           },
-          refetchQueries: [
-            {
-              query: GetQuestionairesDocument,
-              variables: {
-                filters: {
-                  type,
-                  isActive: status === 'active',
-                  ...paginationQuery,
-                },
-              },
-            },
-          ],
         });
+
+        await refetch();
 
         const id = response?.data?.createQuestionaire?.id;
 
@@ -110,19 +105,9 @@ export const DmsTemplatesContainer = ({ category }: DmsTemplatesContainerProps) 
             isActive: template.isActive,
           },
         },
-        refetchQueries: [
-          {
-            query: GetQuestionairesDocument,
-            variables: {
-              filters: {
-                type,
-                isActive: status === 'active',
-                ...paginationQuery,
-              },
-            },
-          },
-        ],
       });
+
+      await refetch();
     } catch (error) {
       throw new Error('common.template.type.update.failed');
     }
@@ -130,18 +115,13 @@ export const DmsTemplatesContainer = ({ category }: DmsTemplatesContainerProps) 
     return undefined;
   };
 
-  // TODO: Should be removed after DynamoDB pagination is done
-  const pageSize = pagination.currentPerPage || PER_PAGE_OPTIONS[0];
-  const paginationStart = typeof pageSize === 'number' ? ((pagination.page || 1) - 1) * pageSize : 0;
-  const paginationEnd = typeof pageSize === 'number' ? (pagination.page || 1) * pageSize : 0;
-
   return (
     <DmsTemplates
       category={category}
-      templates={(data?.getQuestionaires || []).slice(paginationStart, paginationEnd)}
+      templates={(data?.getQuestionaires?.items as Questionaire[]) || []}
       onAdd={handleAddTemplate}
       onUpdate={handleUpdateTemplate}
-      loading={loading}
+      loading={loading || countLoading}
       pagination={pagination}
       amount={amounts}
     />

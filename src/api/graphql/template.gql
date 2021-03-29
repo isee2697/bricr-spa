@@ -168,6 +168,11 @@ input ListQuestionairesFilters {
   isActive: Boolean
 }
 
+type TemplatesResponse {
+    count: Int
+    items: [Questionaire!]
+}
+
 extend type Mutation {
     createQuestionaire(input: QuestionaireInput!): Questionaire  @auth
     updateQuestionaire(input: UpdateQuestionaireInput!): Questionaire @auth
@@ -175,7 +180,6 @@ extend type Mutation {
 }
 
 extend type Query {
-    getQuestionaires(filters: ListQuestionairesFilters!, pagination: Pagination, search: String): [Questionaire!] @auth
-    getQuestionairesCount(filters: ListQuestionairesFilters!, search: String): Int @auth
+    getQuestionaires(filters: ListQuestionairesFilters!, pagination: Pagination, search: String): TemplatesResponse!  @auth
     getQuestionaire(id: ID!): Questionaire @auth
 }
