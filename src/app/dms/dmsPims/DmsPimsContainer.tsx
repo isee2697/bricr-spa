@@ -46,7 +46,7 @@ export const DmsPimsContainer = ({ type: pimType }: DmsPimsContainerProps) => {
 
   const { query: sortQuery } = usePimsSorting();
 
-  const { query: paginationQuery } = usePagination({
+  const { pagination, query: paginationQuery } = usePagination({
     prefix: 'active',
     itemsCount: amounts ? amounts['active'] : 0,
     perPageOptions: PER_PAGE_OPTIONS,
@@ -62,5 +62,12 @@ export const DmsPimsContainer = ({ type: pimType }: DmsPimsContainerProps) => {
     fetchPolicy: 'no-cache',
   });
 
-  return <DmsPims pims={listData || EMPTY_LIST} type={pimType} isLoading={isCountLoading || isListLoading} />;
+  return (
+    <DmsPims
+      pims={listData || EMPTY_LIST}
+      type={pimType}
+      isLoading={isCountLoading || isListLoading}
+      pagination={pagination}
+    />
+  );
 };

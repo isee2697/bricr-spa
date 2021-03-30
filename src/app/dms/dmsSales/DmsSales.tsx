@@ -5,7 +5,7 @@ import { FoldersContainer } from 'app/shared/dms/folders/FoldersContainer';
 
 import { DmsSalesProps } from './DmsSales.types';
 
-export const DmsSales = ({ sales, isLoading, type }: DmsSalesProps) => {
+export const DmsSales = ({ sales, isLoading, type, pagination }: DmsSalesProps) => {
   return (
     <FoldersContainer
       entityItems={sales.map(item => ({
@@ -15,6 +15,7 @@ export const DmsSales = ({ sales, isLoading, type }: DmsSalesProps) => {
       entityType={DmsEntityType.Sales}
       type={type}
       isLoading={isLoading}
+      pagination={pagination}
     />
   );
 };

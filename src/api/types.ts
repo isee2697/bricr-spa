@@ -12407,6 +12407,21 @@ export type CrmBulkDetailsQuery = { __typename?: 'Query' } & {
   status?: Maybe<Array<{ __typename?: 'GetBulkResult' } & Pick<GetBulkResult, 'value'>>>;
 };
 
+export type ListDmsFoldersQueryVariables = Exact<{
+  entityId: Scalars['ID'];
+}>;
+
+export type ListDmsFoldersQuery = { __typename?: 'Query' } & {
+  listDmsFolders?: Maybe<
+    Array<
+      { __typename?: 'DmsFolder' } & Pick<
+        DmsFolder,
+        'id' | 'entityId' | 'companyId' | 'foldername' | 'entityType' | 'type' | 'order' | 'deletedAt'
+      >
+    >
+  >;
+};
+
 export type ListEmailFoldersQueryVariables = Exact<{
   accountId: Scalars['String'];
 }>;
@@ -21327,6 +21342,43 @@ export type CrmBulkDetailsLazyQueryHookResult = ReturnType<typeof useCrmBulkDeta
 export type CrmBulkDetailsQueryResult = ApolloReactCommon.QueryResult<
   CrmBulkDetailsQuery,
   CrmBulkDetailsQueryVariables
+>;
+export const ListDmsFoldersDocument = gql`
+  query ListDmsFolders($entityId: ID!) {
+    listDmsFolders(entityId: $entityId)
+      @rest(type: "ListDmsFolders", path: "/dms/folders/list/{args.entityId}", method: "GET", endpoint: "default") {
+      id
+      entityId
+      companyId
+      foldername
+      entityType
+      type
+      order
+      deletedAt
+    }
+  }
+`;
+export function useListDmsFoldersQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<ListDmsFoldersQuery, ListDmsFoldersQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<ListDmsFoldersQuery, ListDmsFoldersQueryVariables>(
+    ListDmsFoldersDocument,
+    baseOptions,
+  );
+}
+export function useListDmsFoldersLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<ListDmsFoldersQuery, ListDmsFoldersQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<ListDmsFoldersQuery, ListDmsFoldersQueryVariables>(
+    ListDmsFoldersDocument,
+    baseOptions,
+  );
+}
+export type ListDmsFoldersQueryHookResult = ReturnType<typeof useListDmsFoldersQuery>;
+export type ListDmsFoldersLazyQueryHookResult = ReturnType<typeof useListDmsFoldersLazyQuery>;
+export type ListDmsFoldersQueryResult = ApolloReactCommon.QueryResult<
+  ListDmsFoldersQuery,
+  ListDmsFoldersQueryVariables
 >;
 export const ListEmailFoldersDocument = gql`
   query ListEmailFolders($accountId: String!) {
