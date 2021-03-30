@@ -102,7 +102,7 @@ type Questionaire {
     isActive: Boolean
     meta: TemplateMeta!
     settings: TemplateSettings
-<<<<<<< HEAD
+    securities: [TemplateSecurity!]
     labels: [String!]
     tags: [TemplatTag!]
 }
@@ -110,9 +110,6 @@ type Questionaire {
 type TemplatTag {
    name: String!
    amount: Int
-=======
-    securities: [TemplateSecurity!]
->>>>>>> 8218e08b5da1a8a88ed1e2dbcb52b4648ab717bb
 }
 
 type Groups {
