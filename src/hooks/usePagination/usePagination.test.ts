@@ -30,7 +30,7 @@ describe('usePagination', () => {
     });
 
     expect(result.current.pagination.count).toBe(1);
-    expect(result.current.query).toEqual({ from: 0, limit: undefined, page: 1 });
+    expect(result.current.query).toEqual({ from: 0, limit: undefined, page: 2 });
   });
 
   it('clears current page, when changing per page', () => {
