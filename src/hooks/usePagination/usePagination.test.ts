@@ -23,14 +23,14 @@ describe('usePagination', () => {
     });
 
     expect(result.current.pagination.count).toBe(4);
-    expect(result.current.query).toEqual({ from: 25, limit: 25, page: 1 });
+    expect(result.current.query).toEqual({ from: 25, limit: 25, page: 2 });
 
     act(() => {
       result.current.pagination.onPerPageChange('All');
     });
 
     expect(result.current.pagination.count).toBe(1);
-    expect(result.current.query).toEqual({ from: 0, limit: undefined, page: 2 });
+    expect(result.current.query).toEqual({ from: 0, limit: undefined, page: 1 });
   });
 
   it('clears current page, when changing per page', () => {
