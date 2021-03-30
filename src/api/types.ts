@@ -293,7 +293,9 @@ export type Mutation = {
   createPhoneNumber: Profile;
   createPim?: Maybe<Pim>;
   createProfile: Profile;
+  createQuestion?: Maybe<Question>;
   createQuestionaire?: Maybe<Questionaire>;
+  createQuestionaireGroup?: Maybe<Groups>;
   createSocialMediaLink: Profile;
   createTask: Task;
   deactivateProfile: Profile;
@@ -302,6 +304,7 @@ export type Mutation = {
   deleteEntity: Array<DeleteResult>;
   deleteMatchProfile?: Maybe<Scalars['Boolean']>;
   deleteNotification?: Maybe<Scalars['Boolean']>;
+  deleteQuestionaireGroup?: Maybe<Scalars['Boolean']>;
   deleteSubtask?: Maybe<Task>;
   draftAppointment: DraftAppointment;
   forgotPassword?: Maybe<ForgotPasswordResponse>;
@@ -406,6 +409,9 @@ export type Mutation = {
   updatePricing: Pim;
   updateProfile: Profile;
   updateProjectPhase: ProjectPhase;
+  updateQuestion?: Maybe<Question>;
+  updateQuestionaire?: Maybe<Questionaire>;
+  updateQuestionaireGroup?: Maybe<Groups>;
   updateSalesSettings: Pim;
   updateSocialMediaLink: Profile;
   updateSpace: Pim;
@@ -701,8 +707,16 @@ export type MutationCreateProfileArgs = {
   input: CreateProfileInput;
 };
 
+export type MutationCreateQuestionArgs = {
+  input: QuestionInput;
+};
+
 export type MutationCreateQuestionaireArgs = {
   input: QuestionaireInput;
+};
+
+export type MutationCreateQuestionaireGroupArgs = {
+  input: GroupsInput;
 };
 
 export type MutationCreateSocialMediaLinkArgs = {
@@ -735,6 +749,10 @@ export type MutationDeleteMatchProfileArgs = {
 
 export type MutationDeleteNotificationArgs = {
   input: DeleteNotificationInput;
+};
+
+export type MutationDeleteQuestionaireGroupArgs = {
+  id: Scalars['ID'];
 };
 
 export type MutationDeleteSubtaskArgs = {
@@ -1156,6 +1174,20 @@ export type MutationUpdateProjectPhaseArgs = {
   input: UpdateProjectPhaseInput;
 };
 
+export type MutationUpdateQuestionArgs = {
+  questionId: Scalars['ID'];
+  input: UpdateQuestionInput;
+};
+
+export type MutationUpdateQuestionaireArgs = {
+  input: UpdateQuestionaireInput;
+};
+
+export type MutationUpdateQuestionaireGroupArgs = {
+  id: Scalars['ID'];
+  input: UpdateGroupsInput;
+};
+
 export type MutationUpdateSalesSettingsArgs = {
   input: SalesSettingsInput;
 };
@@ -1289,7 +1321,8 @@ export type Query = {
   getProjectPhases: ProjectPhaseSearchResult;
   getPropertyTypes: Array<Scalars['String']>;
   getQuestionaire?: Maybe<Questionaire>;
-  getQuestionaires?: Maybe<Array<Questionaire>>;
+  getQuestionaireGroup?: Maybe<Groups>;
+  getQuestionaires: TemplatesResponse;
   getSalesCrmsList: LinkSalesCrmsListResult;
   getSalesList?: Maybe<SalesSearchResult>;
   getSalesPimsList: LinkSalesPimsListResult;
@@ -1313,6 +1346,8 @@ export type Query = {
   listNylasAccount?: Maybe<Array<NylasAccountItem>>;
   listObjectTypes: ObjectTypeListSearchResult;
   listPims: PimListSearchResult;
+  listQuestionaireGroups?: Maybe<Array<Groups>>;
+  listQuestions?: Maybe<Array<Question>>;
   me?: Maybe<Profile>;
   search?: Maybe<SearchResult>;
 };
@@ -1532,7 +1567,12 @@ export type QueryGetQuestionaireArgs = {
   id: Scalars['ID'];
 };
 
+export type QueryGetQuestionaireGroupArgs = {
+  id: Scalars['ID'];
+};
+
 export type QueryGetQuestionairesArgs = {
+  filters: ListQuestionairesFilters;
   pagination?: Maybe<Pagination>;
   search?: Maybe<Scalars['String']>;
 };
@@ -1642,6 +1682,14 @@ export type QueryListPimsArgs = {
   filters?: Maybe<ListPimsFilters>;
   pagination?: Maybe<Pagination>;
   sort?: Maybe<Array<Sort>>;
+};
+
+export type QueryListQuestionaireGroupsArgs = {
+  templateId: Scalars['ID'];
+};
+
+export type QueryListQuestionsArgs = {
+  groupId: Scalars['ID'];
 };
 
 export type QuerySearchArgs = {
@@ -9400,6 +9448,11 @@ export type RemoveUserFromTeamInput = {
   userId: Scalars['ID'];
 };
 
+export enum TemplateStatus {
+  Active = 'Active',
+  InActive = 'InActive',
+}
+
 export type QuestionaireInput = {
   templateName?: Maybe<Scalars['String']>;
   type?: Maybe<TemplateType>;
@@ -9407,7 +9460,12 @@ export type QuestionaireInput = {
   published?: Maybe<Scalars['Boolean']>;
   copyFromId?: Maybe<Scalars['String']>;
   entity?: Maybe<EntityInput>;
-  isActive?: Maybe<Scalars['Boolean']>;
+  templateStatus?: Maybe<TemplateStatus>;
+};
+
+export type UpdateQuestionaireInput = {
+  id: Scalars['ID'];
+  templateStatus?: Maybe<TemplateStatus>;
 };
 
 export enum TemplateDocumentType {
@@ -9454,17 +9512,36 @@ export type TemplateGeneralInput = {
 };
 
 export type QuestionInput = {
+  groupId: Scalars['ID'];
+  name: Scalars['String'];
   order?: Maybe<Scalars['Int']>;
   type?: Maybe<QuestionType>;
-  name?: Maybe<Scalars['String']>;
   required?: Maybe<Scalars['Boolean']>;
   commentEnabled?: Maybe<Scalars['Boolean']>;
-  showOn?: Maybe<Scalars['String']>;
+  showOn?: Maybe<Scalars['Boolean']>;
+  options?: Maybe<Array<Maybe<OptionsInput>>>;
+  entity?: Maybe<EntityInput>;
+};
+
+export type UpdateQuestionInput = {
+  name?: Maybe<Scalars['String']>;
+  order?: Maybe<Scalars['Int']>;
+  type?: Maybe<QuestionType>;
+  required?: Maybe<Scalars['Boolean']>;
+  commentEnabled?: Maybe<Scalars['Boolean']>;
+  showOn?: Maybe<Scalars['Boolean']>;
   options?: Maybe<Array<Maybe<OptionsInput>>>;
   entity?: Maybe<EntityInput>;
 };
 
 export type GroupsInput = {
+  templateId: Scalars['ID'];
+  groupName: Scalars['String'];
+  order?: Maybe<Scalars['Int']>;
+  entity?: Maybe<EntityInput>;
+};
+
+export type UpdateGroupsInput = {
   groupName?: Maybe<Scalars['String']>;
   order?: Maybe<Scalars['Int']>;
   entity?: Maybe<EntityInput>;
@@ -9506,7 +9583,7 @@ export type Questionaire = {
   published?: Maybe<Scalars['Boolean']>;
   copyFromId?: Maybe<Scalars['String']>;
   entity?: Maybe<Entity>;
-  isActive?: Maybe<Scalars['Boolean']>;
+  templateStatus?: Maybe<TemplateStatus>;
   meta: TemplateMeta;
   settings?: Maybe<TemplateSettings>;
   securities?: Maybe<Array<TemplateSecurity>>;
@@ -9515,8 +9592,8 @@ export type Questionaire = {
 export type Groups = {
   __typename?: 'Groups';
   id: Scalars['ID'];
-  templateId?: Maybe<Scalars['String']>;
-  groupName?: Maybe<Scalars['String']>;
+  templateId: Scalars['ID'];
+  groupName: Scalars['String'];
   copyFromId?: Maybe<Scalars['String']>;
   order?: Maybe<Scalars['Int']>;
   entity?: Maybe<Entity>;
@@ -9525,13 +9602,13 @@ export type Groups = {
 export type Question = {
   __typename?: 'Question';
   id: Scalars['ID'];
+  name: Scalars['String'];
   groupId?: Maybe<Scalars['String']>;
   order?: Maybe<Scalars['Int']>;
   type?: Maybe<QuestionType>;
-  name?: Maybe<Scalars['String']>;
   required?: Maybe<Scalars['Boolean']>;
   commentEnabled?: Maybe<Scalars['Boolean']>;
-  showOn?: Maybe<Scalars['String']>;
+  showOn?: Maybe<Scalars['Boolean']>;
   options?: Maybe<Array<Maybe<Options>>>;
   entity?: Maybe<Entity>;
 };
@@ -9586,6 +9663,17 @@ export type Entity = {
   __typename?: 'Entity';
   type?: Maybe<Scalars['String']>;
   subType?: Maybe<Scalars['String']>;
+};
+
+export type ListQuestionairesFilters = {
+  type?: Maybe<Scalars['String']>;
+  templateStatus?: Maybe<TemplateStatus>;
+};
+
+export type TemplatesResponse = {
+  __typename?: 'TemplatesResponse';
+  count?: Maybe<Scalars['Int']>;
+  items?: Maybe<Array<Questionaire>>;
 };
 
 export enum TiaraMessageType {
@@ -11782,7 +11870,20 @@ export type CreateQuestionaireMutation = { __typename?: 'Mutation' } & {
   createQuestionaire?: Maybe<
     { __typename?: 'Questionaire' } & Pick<
       Questionaire,
-      'id' | 'templateName' | 'isAdmin' | 'published' | 'copyFromId'
+      'id' | 'templateName' | 'templateStatus' | 'isAdmin' | 'published' | 'copyFromId'
+    > & { entity?: Maybe<{ __typename?: 'Entity' } & Pick<Entity, 'type' | 'subType'>> }
+  >;
+};
+
+export type UpdateQuestionaireMutationVariables = Exact<{
+  input: UpdateQuestionaireInput;
+}>;
+
+export type UpdateQuestionaireMutation = { __typename?: 'Mutation' } & {
+  updateQuestionaire?: Maybe<
+    { __typename?: 'Questionaire' } & Pick<
+      Questionaire,
+      'id' | 'templateName' | 'templateStatus' | 'isAdmin' | 'published' | 'copyFromId'
     > & { entity?: Maybe<{ __typename?: 'Entity' } & Pick<Entity, 'type' | 'subType'>> }
   >;
 };
@@ -11793,6 +11894,70 @@ export type UpdateTemplateGeneralMutationVariables = Exact<{
 
 export type UpdateTemplateGeneralMutation = { __typename?: 'Mutation' } & {
   updateTemplateGeneral?: Maybe<{ __typename?: 'Questionaire' } & Pick<Questionaire, 'id'>>;
+};
+
+export type CreateQuestionaireGroupMutationVariables = Exact<{
+  input: GroupsInput;
+}>;
+
+export type CreateQuestionaireGroupMutation = { __typename?: 'Mutation' } & {
+  createQuestionaireGroup?: Maybe<
+    { __typename?: 'Groups' } & Pick<Groups, 'id' | 'templateId' | 'groupName' | 'copyFromId' | 'order'> & {
+        entity?: Maybe<{ __typename?: 'Entity' } & Pick<Entity, 'type' | 'subType'>>;
+      }
+  >;
+};
+
+export type UpdateQuestionaireGroupMutationVariables = Exact<{
+  id: Scalars['ID'];
+  input: UpdateGroupsInput;
+}>;
+
+export type UpdateQuestionaireGroupMutation = { __typename?: 'Mutation' } & {
+  updateQuestionaireGroup?: Maybe<
+    { __typename?: 'Groups' } & Pick<Groups, 'id' | 'templateId' | 'groupName' | 'copyFromId' | 'order'> & {
+        entity?: Maybe<{ __typename?: 'Entity' } & Pick<Entity, 'type' | 'subType'>>;
+      }
+  >;
+};
+
+export type DeleteQuestionaireGroupMutationVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+export type DeleteQuestionaireGroupMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'deleteQuestionaireGroup'>;
+
+export type CreateQuestionMutationVariables = Exact<{
+  input: QuestionInput;
+}>;
+
+export type CreateQuestionMutation = { __typename?: 'Mutation' } & {
+  createQuestion?: Maybe<
+    { __typename?: 'Question' } & Pick<
+      Question,
+      'id' | 'groupId' | 'order' | 'type' | 'name' | 'required' | 'commentEnabled' | 'showOn'
+    > & {
+        options?: Maybe<Array<Maybe<{ __typename?: 'Options' } & Pick<Options, 'name'>>>>;
+        entity?: Maybe<{ __typename?: 'Entity' } & Pick<Entity, 'type' | 'subType'>>;
+      }
+  >;
+};
+
+export type UpdateQuestionMutationVariables = Exact<{
+  questionId: Scalars['ID'];
+  input: UpdateQuestionInput;
+}>;
+
+export type UpdateQuestionMutation = { __typename?: 'Mutation' } & {
+  updateQuestion?: Maybe<
+    { __typename?: 'Question' } & Pick<
+      Question,
+      'id' | 'groupId' | 'order' | 'type' | 'name' | 'required' | 'commentEnabled' | 'showOn'
+    > & {
+        options?: Maybe<Array<Maybe<{ __typename?: 'Options' } & Pick<Options, 'name'>>>>;
+        entity?: Maybe<{ __typename?: 'Entity' } & Pick<Entity, 'type' | 'subType'>>;
+      }
+  >;
 };
 
 export type TiaraSendMessageMutationVariables = Exact<{
@@ -12405,6 +12570,21 @@ export type CrmBulkDetailsQueryVariables = Exact<{
 
 export type CrmBulkDetailsQuery = { __typename?: 'Query' } & {
   status?: Maybe<Array<{ __typename?: 'GetBulkResult' } & Pick<GetBulkResult, 'value'>>>;
+};
+
+export type ListDmsFoldersQueryVariables = Exact<{
+  entityId: Scalars['ID'];
+}>;
+
+export type ListDmsFoldersQuery = { __typename?: 'Query' } & {
+  listDmsFolders?: Maybe<
+    Array<
+      { __typename?: 'DmsFolder' } & Pick<
+        DmsFolder,
+        'id' | 'entityId' | 'companyId' | 'foldername' | 'entityType' | 'type' | 'order' | 'deletedAt'
+      >
+    >
+  >;
 };
 
 export type ListEmailFoldersQueryVariables = Exact<{
@@ -15912,7 +16092,7 @@ export type GetQuestionaireQuery = { __typename?: 'Query' } & {
   getQuestionaire?: Maybe<
     { __typename?: 'Questionaire' } & Pick<
       Questionaire,
-      'id' | 'templateName' | 'isAdmin' | 'published' | 'copyFromId' | 'isActive' | 'type'
+      'id' | 'templateName' | 'isAdmin' | 'published' | 'copyFromId' | 'templateStatus' | 'type'
     > & {
         entity?: Maybe<{ __typename?: 'Entity' } & Pick<Entity, 'type' | 'subType'>>;
         settings?: Maybe<
@@ -15932,6 +16112,88 @@ export type GetQuestionaireQuery = { __typename?: 'Query' } & {
         meta: { __typename?: 'TemplateMeta' } & Pick<TemplateMeta, 'createdAt'>;
       }
   >;
+};
+
+export type ListQuestionaireGroupsQueryVariables = Exact<{
+  templateId: Scalars['ID'];
+}>;
+
+export type ListQuestionaireGroupsQuery = { __typename?: 'Query' } & {
+  listQuestionaireGroups?: Maybe<
+    Array<
+      { __typename?: 'Groups' } & Pick<Groups, 'id' | 'templateId' | 'groupName' | 'copyFromId' | 'order'> & {
+          entity?: Maybe<{ __typename?: 'Entity' } & Pick<Entity, 'type' | 'subType'>>;
+        }
+    >
+  >;
+};
+
+export type GetQuestionairesQueryVariables = Exact<{
+  filters: ListQuestionairesFilters;
+  pagination?: Maybe<Pagination>;
+  search?: Maybe<Scalars['String']>;
+}>;
+
+export type GetQuestionairesQuery = { __typename?: 'Query' } & {
+  getQuestionaires: { __typename?: 'TemplatesResponse' } & Pick<TemplatesResponse, 'count'> & {
+      items?: Maybe<
+        Array<
+          { __typename?: 'Questionaire' } & Pick<
+            Questionaire,
+            'id' | 'templateName' | 'isAdmin' | 'published' | 'copyFromId' | 'templateStatus' | 'type'
+          > & {
+              entity?: Maybe<{ __typename?: 'Entity' } & Pick<Entity, 'type' | 'subType'>>;
+              settings?: Maybe<
+                { __typename?: 'TemplateSettings' } & Pick<
+                  TemplateSettings,
+                  'description' | 'version' | 'language' | 'documentType'
+                >
+              >;
+              meta: { __typename?: 'TemplateMeta' } & Pick<TemplateMeta, 'createdAt'>;
+            }
+        >
+      >;
+    };
+};
+
+export type GetQuestionaireGroupQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+export type GetQuestionaireGroupQuery = { __typename?: 'Query' } & {
+  getQuestionaireGroup?: Maybe<
+    { __typename?: 'Groups' } & Pick<Groups, 'id' | 'templateId' | 'groupName' | 'copyFromId' | 'order'> & {
+        entity?: Maybe<{ __typename?: 'Entity' } & Pick<Entity, 'type' | 'subType'>>;
+      }
+  >;
+};
+
+export type ListQuestionsQueryVariables = Exact<{
+  groupId: Scalars['ID'];
+}>;
+
+export type ListQuestionsQuery = { __typename?: 'Query' } & {
+  listQuestions?: Maybe<
+    Array<
+      { __typename?: 'Question' } & Pick<
+        Question,
+        'id' | 'groupId' | 'order' | 'type' | 'name' | 'required' | 'commentEnabled' | 'showOn'
+      > & {
+          options?: Maybe<Array<Maybe<{ __typename?: 'Options' } & Pick<Options, 'name'>>>>;
+          entity?: Maybe<{ __typename?: 'Entity' } & Pick<Entity, 'type' | 'subType'>>;
+        }
+    >
+  >;
+};
+
+export type GetQuestionairesCountQueryVariables = Exact<{
+  filters: ListQuestionairesFilters;
+  search?: Maybe<Scalars['String']>;
+}>;
+
+export type GetQuestionairesCountQuery = { __typename?: 'Query' } & {
+  active: { __typename?: 'TemplatesResponse' } & Pick<TemplatesResponse, 'count'>;
+  inactive: { __typename?: 'TemplatesResponse' } & Pick<TemplatesResponse, 'count'>;
 };
 
 export type GetTiaraMutationsQueryVariables = Exact<{
@@ -20327,6 +20589,7 @@ export const CreateQuestionaireDocument = gql`
       @rest(type: "Questionaire", path: "/template", method: "POST", endpoint: "default") {
       id
       templateName
+      templateStatus
       isAdmin
       published
       copyFromId
@@ -20350,6 +20613,37 @@ export type CreateQuestionaireMutationResult = ApolloReactCommon.MutationResult<
 export type CreateQuestionaireMutationOptions = ApolloReactCommon.BaseMutationOptions<
   CreateQuestionaireMutation,
   CreateQuestionaireMutationVariables
+>;
+export const UpdateQuestionaireDocument = gql`
+  mutation UpdateQuestionaire($input: UpdateQuestionaireInput!) {
+    updateQuestionaire(input: $input)
+      @rest(type: "UpdateQuestionaire", path: "/template", method: "PUT", endpoint: "default") {
+      id
+      templateName
+      templateStatus
+      isAdmin
+      published
+      copyFromId
+      entity {
+        type
+        subType
+      }
+    }
+  }
+`;
+export function useUpdateQuestionaireMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateQuestionaireMutation, UpdateQuestionaireMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<UpdateQuestionaireMutation, UpdateQuestionaireMutationVariables>(
+    UpdateQuestionaireDocument,
+    baseOptions,
+  );
+}
+export type UpdateQuestionaireMutationHookResult = ReturnType<typeof useUpdateQuestionaireMutation>;
+export type UpdateQuestionaireMutationResult = ApolloReactCommon.MutationResult<UpdateQuestionaireMutation>;
+export type UpdateQuestionaireMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateQuestionaireMutation,
+  UpdateQuestionaireMutationVariables
 >;
 export const UpdateTemplateGeneralDocument = gql`
   mutation UpdateTemplateGeneral($input: TemplateGeneralInput!) {
@@ -20375,6 +20669,167 @@ export type UpdateTemplateGeneralMutationResult = ApolloReactCommon.MutationResu
 export type UpdateTemplateGeneralMutationOptions = ApolloReactCommon.BaseMutationOptions<
   UpdateTemplateGeneralMutation,
   UpdateTemplateGeneralMutationVariables
+>;
+export const CreateQuestionaireGroupDocument = gql`
+  mutation CreateQuestionaireGroup($input: GroupsInput!) {
+    createQuestionaireGroup(input: $input)
+      @rest(type: "CreateQuestionaireGroup", path: "/groups", method: "POST", endpoint: "default") {
+      id
+      templateId
+      groupName
+      copyFromId
+      order
+      entity {
+        type
+        subType
+      }
+    }
+  }
+`;
+export function useCreateQuestionaireGroupMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    CreateQuestionaireGroupMutation,
+    CreateQuestionaireGroupMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<CreateQuestionaireGroupMutation, CreateQuestionaireGroupMutationVariables>(
+    CreateQuestionaireGroupDocument,
+    baseOptions,
+  );
+}
+export type CreateQuestionaireGroupMutationHookResult = ReturnType<typeof useCreateQuestionaireGroupMutation>;
+export type CreateQuestionaireGroupMutationResult = ApolloReactCommon.MutationResult<CreateQuestionaireGroupMutation>;
+export type CreateQuestionaireGroupMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  CreateQuestionaireGroupMutation,
+  CreateQuestionaireGroupMutationVariables
+>;
+export const UpdateQuestionaireGroupDocument = gql`
+  mutation UpdateQuestionaireGroup($id: ID!, $input: UpdateGroupsInput!) {
+    updateQuestionaireGroup(id: $id, input: $input)
+      @rest(type: "UpdateQuestionaireGroup", path: "/groups/{args.id}", method: "PUT", endpoint: "default") {
+      id
+      templateId
+      groupName
+      copyFromId
+      order
+      entity {
+        type
+        subType
+      }
+    }
+  }
+`;
+export function useUpdateQuestionaireGroupMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    UpdateQuestionaireGroupMutation,
+    UpdateQuestionaireGroupMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<UpdateQuestionaireGroupMutation, UpdateQuestionaireGroupMutationVariables>(
+    UpdateQuestionaireGroupDocument,
+    baseOptions,
+  );
+}
+export type UpdateQuestionaireGroupMutationHookResult = ReturnType<typeof useUpdateQuestionaireGroupMutation>;
+export type UpdateQuestionaireGroupMutationResult = ApolloReactCommon.MutationResult<UpdateQuestionaireGroupMutation>;
+export type UpdateQuestionaireGroupMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateQuestionaireGroupMutation,
+  UpdateQuestionaireGroupMutationVariables
+>;
+export const DeleteQuestionaireGroupDocument = gql`
+  mutation DeleteQuestionaireGroup($id: ID!) {
+    deleteQuestionaireGroup(id: $id)
+      @rest(type: "DeleteQuestionaireGroup", path: "/groups/{args.id}", method: "DELETE", endpoint: "default")
+  }
+`;
+export function useDeleteQuestionaireGroupMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    DeleteQuestionaireGroupMutation,
+    DeleteQuestionaireGroupMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<DeleteQuestionaireGroupMutation, DeleteQuestionaireGroupMutationVariables>(
+    DeleteQuestionaireGroupDocument,
+    baseOptions,
+  );
+}
+export type DeleteQuestionaireGroupMutationHookResult = ReturnType<typeof useDeleteQuestionaireGroupMutation>;
+export type DeleteQuestionaireGroupMutationResult = ApolloReactCommon.MutationResult<DeleteQuestionaireGroupMutation>;
+export type DeleteQuestionaireGroupMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  DeleteQuestionaireGroupMutation,
+  DeleteQuestionaireGroupMutationVariables
+>;
+export const CreateQuestionDocument = gql`
+  mutation CreateQuestion($input: QuestionInput!) {
+    createQuestion(input: $input)
+      @rest(type: "CreateQuestion", path: "/question", method: "POST", endpoint: "default") {
+      id
+      groupId
+      order
+      type
+      name
+      required
+      commentEnabled
+      showOn
+      options {
+        name
+      }
+      entity {
+        type
+        subType
+      }
+    }
+  }
+`;
+export function useCreateQuestionMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<CreateQuestionMutation, CreateQuestionMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<CreateQuestionMutation, CreateQuestionMutationVariables>(
+    CreateQuestionDocument,
+    baseOptions,
+  );
+}
+export type CreateQuestionMutationHookResult = ReturnType<typeof useCreateQuestionMutation>;
+export type CreateQuestionMutationResult = ApolloReactCommon.MutationResult<CreateQuestionMutation>;
+export type CreateQuestionMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  CreateQuestionMutation,
+  CreateQuestionMutationVariables
+>;
+export const UpdateQuestionDocument = gql`
+  mutation UpdateQuestion($questionId: ID!, $input: UpdateQuestionInput!) {
+    updateQuestion(questionId: $questionId, input: $input)
+      @rest(type: "UpdateQuestion", path: "/question/{args.questionId}", method: "PUT", endpoint: "default") {
+      id
+      groupId
+      order
+      type
+      name
+      required
+      commentEnabled
+      showOn
+      options {
+        name
+      }
+      entity {
+        type
+        subType
+      }
+    }
+  }
+`;
+export function useUpdateQuestionMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateQuestionMutation, UpdateQuestionMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<UpdateQuestionMutation, UpdateQuestionMutationVariables>(
+    UpdateQuestionDocument,
+    baseOptions,
+  );
+}
+export type UpdateQuestionMutationHookResult = ReturnType<typeof useUpdateQuestionMutation>;
+export type UpdateQuestionMutationResult = ApolloReactCommon.MutationResult<UpdateQuestionMutation>;
+export type UpdateQuestionMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateQuestionMutation,
+  UpdateQuestionMutationVariables
 >;
 export const TiaraSendMessageDocument = gql`
   mutation TiaraSendMessage($input: TiaraSendMessageInput!) {
@@ -21327,6 +21782,43 @@ export type CrmBulkDetailsLazyQueryHookResult = ReturnType<typeof useCrmBulkDeta
 export type CrmBulkDetailsQueryResult = ApolloReactCommon.QueryResult<
   CrmBulkDetailsQuery,
   CrmBulkDetailsQueryVariables
+>;
+export const ListDmsFoldersDocument = gql`
+  query ListDmsFolders($entityId: ID!) {
+    listDmsFolders(entityId: $entityId)
+      @rest(type: "ListDmsFolders", path: "/dms/folders/list/{args.entityId}", method: "GET", endpoint: "default") {
+      id
+      entityId
+      companyId
+      foldername
+      entityType
+      type
+      order
+      deletedAt
+    }
+  }
+`;
+export function useListDmsFoldersQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<ListDmsFoldersQuery, ListDmsFoldersQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<ListDmsFoldersQuery, ListDmsFoldersQueryVariables>(
+    ListDmsFoldersDocument,
+    baseOptions,
+  );
+}
+export function useListDmsFoldersLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<ListDmsFoldersQuery, ListDmsFoldersQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<ListDmsFoldersQuery, ListDmsFoldersQueryVariables>(
+    ListDmsFoldersDocument,
+    baseOptions,
+  );
+}
+export type ListDmsFoldersQueryHookResult = ReturnType<typeof useListDmsFoldersQuery>;
+export type ListDmsFoldersLazyQueryHookResult = ReturnType<typeof useListDmsFoldersLazyQuery>;
+export type ListDmsFoldersQueryResult = ApolloReactCommon.QueryResult<
+  ListDmsFoldersQuery,
+  ListDmsFoldersQueryVariables
 >;
 export const ListEmailFoldersDocument = gql`
   query ListEmailFolders($accountId: String!) {
@@ -26613,7 +27105,7 @@ export const GetQuestionaireDocument = gql`
       isAdmin
       published
       copyFromId
-      isActive
+      templateStatus
       type
       entity {
         type
@@ -26659,6 +27151,229 @@ export type GetQuestionaireLazyQueryHookResult = ReturnType<typeof useGetQuestio
 export type GetQuestionaireQueryResult = ApolloReactCommon.QueryResult<
   GetQuestionaireQuery,
   GetQuestionaireQueryVariables
+>;
+export const ListQuestionaireGroupsDocument = gql`
+  query ListQuestionaireGroups($templateId: ID!) {
+    listQuestionaireGroups(templateId: $templateId)
+      @rest(
+        type: "ListQuestionaireGroups"
+        path: "/groups?templateId={args.templateId}"
+        method: "GET"
+        endpoint: "default"
+      ) {
+      id
+      templateId
+      groupName
+      copyFromId
+      order
+      entity {
+        type
+        subType
+      }
+    }
+  }
+`;
+export function useListQuestionaireGroupsQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<ListQuestionaireGroupsQuery, ListQuestionaireGroupsQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<ListQuestionaireGroupsQuery, ListQuestionaireGroupsQueryVariables>(
+    ListQuestionaireGroupsDocument,
+    baseOptions,
+  );
+}
+export function useListQuestionaireGroupsLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
+    ListQuestionaireGroupsQuery,
+    ListQuestionaireGroupsQueryVariables
+  >,
+) {
+  return ApolloReactHooks.useLazyQuery<ListQuestionaireGroupsQuery, ListQuestionaireGroupsQueryVariables>(
+    ListQuestionaireGroupsDocument,
+    baseOptions,
+  );
+}
+export type ListQuestionaireGroupsQueryHookResult = ReturnType<typeof useListQuestionaireGroupsQuery>;
+export type ListQuestionaireGroupsLazyQueryHookResult = ReturnType<typeof useListQuestionaireGroupsLazyQuery>;
+export type ListQuestionaireGroupsQueryResult = ApolloReactCommon.QueryResult<
+  ListQuestionaireGroupsQuery,
+  ListQuestionaireGroupsQueryVariables
+>;
+export const GetQuestionairesDocument = gql`
+  query GetQuestionaires($filters: ListQuestionairesFilters!, $pagination: Pagination, $search: String) {
+    getQuestionaires(filters: $filters, pagination: $pagination, search: $search)
+      @rest(
+        type: "GetQuestionaires"
+        path: "/templates/{args.filters.type}?templateStatus={args.filters.templateStatus}&page={args.pagination.page}&limit={args.pagination.limit}"
+        method: "GET"
+        endpoint: "default"
+      ) {
+      items {
+        id
+        templateName
+        isAdmin
+        published
+        copyFromId
+        templateStatus
+        type
+        entity {
+          type
+          subType
+        }
+        settings {
+          description
+          version
+          language
+          documentType
+        }
+        meta {
+          createdAt
+        }
+      }
+      count
+    }
+  }
+`;
+export function useGetQuestionairesQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<GetQuestionairesQuery, GetQuestionairesQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<GetQuestionairesQuery, GetQuestionairesQueryVariables>(
+    GetQuestionairesDocument,
+    baseOptions,
+  );
+}
+export function useGetQuestionairesLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetQuestionairesQuery, GetQuestionairesQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<GetQuestionairesQuery, GetQuestionairesQueryVariables>(
+    GetQuestionairesDocument,
+    baseOptions,
+  );
+}
+export type GetQuestionairesQueryHookResult = ReturnType<typeof useGetQuestionairesQuery>;
+export type GetQuestionairesLazyQueryHookResult = ReturnType<typeof useGetQuestionairesLazyQuery>;
+export type GetQuestionairesQueryResult = ApolloReactCommon.QueryResult<
+  GetQuestionairesQuery,
+  GetQuestionairesQueryVariables
+>;
+export const GetQuestionaireGroupDocument = gql`
+  query GetQuestionaireGroup($id: ID!) {
+    getQuestionaireGroup(id: $id)
+      @rest(type: "GetQuestionaireGroup", path: "/groups/{args.id}", method: "GET", endpoint: "default") {
+      id
+      templateId
+      groupName
+      copyFromId
+      order
+      entity {
+        type
+        subType
+      }
+    }
+  }
+`;
+export function useGetQuestionaireGroupQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<GetQuestionaireGroupQuery, GetQuestionaireGroupQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<GetQuestionaireGroupQuery, GetQuestionaireGroupQueryVariables>(
+    GetQuestionaireGroupDocument,
+    baseOptions,
+  );
+}
+export function useGetQuestionaireGroupLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetQuestionaireGroupQuery, GetQuestionaireGroupQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<GetQuestionaireGroupQuery, GetQuestionaireGroupQueryVariables>(
+    GetQuestionaireGroupDocument,
+    baseOptions,
+  );
+}
+export type GetQuestionaireGroupQueryHookResult = ReturnType<typeof useGetQuestionaireGroupQuery>;
+export type GetQuestionaireGroupLazyQueryHookResult = ReturnType<typeof useGetQuestionaireGroupLazyQuery>;
+export type GetQuestionaireGroupQueryResult = ApolloReactCommon.QueryResult<
+  GetQuestionaireGroupQuery,
+  GetQuestionaireGroupQueryVariables
+>;
+export const ListQuestionsDocument = gql`
+  query ListQuestions($groupId: ID!) {
+    listQuestions(groupId: $groupId)
+      @rest(type: "ListQuestions", path: "/question?groupId={args.groupId}", method: "GET", endpoint: "default") {
+      id
+      groupId
+      order
+      type
+      name
+      required
+      commentEnabled
+      showOn
+      options {
+        name
+      }
+      entity {
+        type
+        subType
+      }
+    }
+  }
+`;
+export function useListQuestionsQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<ListQuestionsQuery, ListQuestionsQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<ListQuestionsQuery, ListQuestionsQueryVariables>(ListQuestionsDocument, baseOptions);
+}
+export function useListQuestionsLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<ListQuestionsQuery, ListQuestionsQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<ListQuestionsQuery, ListQuestionsQueryVariables>(
+    ListQuestionsDocument,
+    baseOptions,
+  );
+}
+export type ListQuestionsQueryHookResult = ReturnType<typeof useListQuestionsQuery>;
+export type ListQuestionsLazyQueryHookResult = ReturnType<typeof useListQuestionsLazyQuery>;
+export type ListQuestionsQueryResult = ApolloReactCommon.QueryResult<ListQuestionsQuery, ListQuestionsQueryVariables>;
+export const GetQuestionairesCountDocument = gql`
+  query GetQuestionairesCount($filters: ListQuestionairesFilters!, $search: String) {
+    active: getQuestionaires(filters: $filters, search: $search)
+      @rest(
+        type: "GetQuestionairesCount"
+        path: "/templates/{args.filters.type}?templateStatus=Active&countOnly=true"
+        method: "GET"
+        endpoint: "default"
+      ) {
+      count
+    }
+    inactive: getQuestionaires(filters: $filters, search: $search)
+      @rest(
+        type: "GetQuestionairesCount"
+        path: "/templates/{args.filters.type}?templateStatus=InActive&countOnly=true"
+        method: "GET"
+        endpoint: "default"
+      ) {
+      count
+    }
+  }
+`;
+export function useGetQuestionairesCountQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<GetQuestionairesCountQuery, GetQuestionairesCountQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<GetQuestionairesCountQuery, GetQuestionairesCountQueryVariables>(
+    GetQuestionairesCountDocument,
+    baseOptions,
+  );
+}
+export function useGetQuestionairesCountLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetQuestionairesCountQuery, GetQuestionairesCountQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<GetQuestionairesCountQuery, GetQuestionairesCountQueryVariables>(
+    GetQuestionairesCountDocument,
+    baseOptions,
+  );
+}
+export type GetQuestionairesCountQueryHookResult = ReturnType<typeof useGetQuestionairesCountQuery>;
+export type GetQuestionairesCountLazyQueryHookResult = ReturnType<typeof useGetQuestionairesCountLazyQuery>;
+export type GetQuestionairesCountQueryResult = ApolloReactCommon.QueryResult<
+  GetQuestionairesCountQuery,
+  GetQuestionairesCountQueryVariables
 >;
 export const GetTiaraMutationsDocument = gql`
   query GetTiaraMutations($entityId: ID!, $entity: TiaraEntities!) {

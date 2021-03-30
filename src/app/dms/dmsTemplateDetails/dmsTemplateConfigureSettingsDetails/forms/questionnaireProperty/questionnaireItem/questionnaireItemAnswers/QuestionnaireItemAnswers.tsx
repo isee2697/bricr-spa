@@ -15,11 +15,11 @@ export const QuestionnaireItemAnswers = ({ answers: propsAnswers }: Questionnair
     <>
       {answers.map((answer, index) => (
         <GenericField
-          name={`multipleChoiceAnswers[${index}]`}
+          name={`multipleChoiceAnswers[${index}].name`}
           label={formatMessage({ id: 'dms.templates.questionnaire.multiple_choice_answer' }, { index: index + 1 })}
         />
       ))}
-      <IconButton size="small" variant="circle" color="primary" onClick={() => setAnswers([...answers, ''])}>
+      <IconButton size="small" variant="circle" color="primary" onClick={() => setAnswers([...answers, { name: '' }])}>
         <AddIcon />
       </IconButton>
     </>
