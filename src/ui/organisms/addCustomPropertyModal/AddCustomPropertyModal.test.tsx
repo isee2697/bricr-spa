@@ -1,7 +1,6 @@
 import React from 'react';
 
-import { act, fireEvent, render, wait } from 'tests';
-import { palette } from 'theme/palette';
+import { fireEvent, render } from 'tests';
 
 import { AddCustomPropertyModal } from './AddCustomPropertyModal';
 
@@ -10,7 +9,7 @@ describe('AddCustomPropertyModal', () => {
     const onClose = jest.fn();
     const onAdd = jest.fn();
 
-    const { queryByText, queryAllByText, container } = render(
+    const { queryByText, queryAllByText } = render(
       <AddCustomPropertyModal
         onClose={onClose}
         isOpened
@@ -27,22 +26,6 @@ describe('AddCustomPropertyModal', () => {
     expect(queryByText('test_add_text')).toBeInTheDocument();
 
     fireEvent.click(queryByText('common.cancel')!);
-
     expect(onClose).toBeCalled();
-
-    const iconsList = container.querySelectorAll('svg');
-
-    act(() => {
-      fireEvent.change(container.querySelector('input')!, { target: { value: 'test value' } });
-      fireEvent.click(iconsList[1]);
-      fireEvent.click(queryByText('test_add_text')!);
-    });
-
-    wait(() => {
-      expect(iconsList[1].parentElement?.parentElement).toHaveStyle(`border: 1px solid ${palette.blue.main}`);
-      expect(onAdd).toBeCalledWith({
-        icon: 'add',
-      });
-    });
   });
 });
