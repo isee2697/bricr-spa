@@ -1,5 +1,5 @@
+import { OptionsInput, QuestionType } from 'api/types';
 import { PromiseFunction } from 'app/shared/types';
-import { QuestionOnlyForObjectType, QuestionType } from '../questionnaireItem/QuestionnaireItem.types';
 
 export type AddQuestionnaireGroupItemModalProps = {
   isOpened: boolean;
@@ -8,11 +8,10 @@ export type AddQuestionnaireGroupItemModalProps = {
 };
 
 export type AddQuestionnaireGroupItemBody = {
-  questionType: QuestionType;
-  isAnswerRequired: boolean;
-  isSupplyExtraCommentField: boolean;
-  isShowOnSummaryPage: boolean;
-  question: string;
-  multipleChoiceAnswers?: string[];
-  questionsOnlyForObjectType: QuestionOnlyForObjectType;
+  name: string;
+  type: QuestionType;
+  required: boolean;
+  commentEnabled: boolean;
+  showOn: boolean;
+  options: OptionsInput[];
 };
