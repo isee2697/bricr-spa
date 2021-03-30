@@ -6,6 +6,7 @@ export const CREATE_QUESTIONAIRE = gql`
       @rest(type: "Questionaire", path: "/template", method: "POST", endpoint: "default") {
       id
       templateName
+      templateStatus
       isAdmin
       published
       copyFromId
@@ -23,6 +24,7 @@ export const UPDATE_QUESTIONAIRE = gql`
       @rest(type: "UpdateQuestionaire", path: "/template", method: "PUT", endpoint: "default") {
       id
       templateName
+      templateStatus
       isAdmin
       published
       copyFromId

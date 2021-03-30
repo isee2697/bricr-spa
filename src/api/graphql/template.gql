@@ -1,3 +1,8 @@
+enum TemplateStatus {
+    Active
+    InActive
+}
+
 input QuestionaireInput {
     templateName: String
     type: TemplateType
@@ -5,12 +10,12 @@ input QuestionaireInput {
     published: Boolean
     copyFromId: String
     entity: EntityInput
-    isActive: Boolean
+    templateStatus: TemplateStatus
 }
 
 input UpdateQuestionaireInput {
     id: ID!
-    isActive: Boolean
+    templateStatus: TemplateStatus
 }
 
 enum TemplateDocumentType {
@@ -105,7 +110,7 @@ type Questionaire {
     published: Boolean
     copyFromId: String
     entity: Entity
-    isActive: Boolean
+    templateStatus: TemplateStatus
     meta: TemplateMeta!
     settings: TemplateSettings
     securities: [TemplateSecurity!]
@@ -183,7 +188,7 @@ type Entity {
 
 input ListQuestionairesFilters {
   type: String
-  isActive: Boolean
+  templateStatus: TemplateStatus
 }
 
 type TemplatesResponse {

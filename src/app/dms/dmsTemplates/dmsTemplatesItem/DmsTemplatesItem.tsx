@@ -4,9 +4,10 @@ import { DateTime } from 'luxon';
 import clsx from 'clsx';
 
 import { useLocale } from 'hooks/useLocale/useLocale';
-import { Avatar, Box, Typography, Emoji, Chip } from 'ui/atoms';
+import { Avatar, Box, Chip, Emoji, Typography } from 'ui/atoms';
 import { ListOptionsMenu } from 'ui/molecules';
 import { ListOptionsMenuItem } from 'ui/molecules/listOptionsMenu/menuItem/ListOptionsMenuItem';
+import { TemplateStatus } from '../../../../api/types';
 
 import { DmsTemplatesItemProps } from './DmsTemplatesItem.types';
 import { useStyles } from './DmsTemplatesItem.styles';
@@ -20,7 +21,7 @@ export const DmsTemplatesItem = ({ template, onStatusChange, category }: DmsTemp
     id,
     templateName,
     meta: { createdAt },
-    isActive,
+    templateStatus,
   } = template;
 
   const labels = ['Residential', 'BOG'];
@@ -41,7 +42,7 @@ export const DmsTemplatesItem = ({ template, onStatusChange, category }: DmsTemp
           <Avatar variant="rounded" src={avatar} className={classes.image}>
             {!avatar && <Emoji>{'📷'}</Emoji>}
           </Avatar>
-          {!isActive && (
+          {templateStatus === TemplateStatus.InActive && (
             <Box className={classes.inactiveWrapper}>
               <Chip
                 color="secondary"
@@ -89,7 +90,7 @@ export const DmsTemplatesItem = ({ template, onStatusChange, category }: DmsTemp
                     id: 'dms.templates.active_inactive',
                   })}
                   onClick={() => {
-                    onStatusChange(!isActive);
+                    onStatusChange(templateStatus === TemplateStatus.Active);
                   }}
                 />
               </ListOptionsMenu>

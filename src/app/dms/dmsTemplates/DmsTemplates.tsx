@@ -5,11 +5,11 @@ import { useHistory, useParams } from 'react-router-dom';
 import { Page } from 'ui/templates';
 import { useLocale, useModalDispatch } from 'hooks';
 import { AppRoute } from 'routing/AppRoute.enum';
-import { Card, CardContent, Grid, Box, Typography, CardHeader } from 'ui/atoms';
+import { Box, Card, CardContent, CardHeader, Grid, Typography } from 'ui/atoms';
 import { AddIcon } from 'ui/atoms/icons';
 import { List, PropertyItemPlaceholder } from 'ui/molecules';
 import { ActiveFilters } from 'ui/molecules/filters/activeFilters/ActiveFilters';
-import { ListQuestionairesFilters, Questionaire } from 'api/types';
+import { ListQuestionairesFilters, Questionaire, TemplateStatus } from 'api/types';
 import { FiltersButton } from 'ui/molecules/filters/FiltersButton';
 import { AddTemplateDialog } from 'app/shared/dms/addTemplateDialog/AddTemplateDialog';
 import { useDmsTemplateQueryParams } from 'app/shared/useDmsTemplateQueryParams/useDmsTemplateQueryParams';
@@ -139,7 +139,7 @@ export const DmsTemplates = ({
                             <Box
                               className={classes.itemButton}
                               onClick={() => {
-                                if (template.isActive) {
+                                if (template.templateStatus === TemplateStatus.Active) {
                                   push(`${AppRoute.dms}/templates/${type}/${category}/${template.id}`, {
                                     name: template.templateName,
                                   });
@@ -149,7 +149,10 @@ export const DmsTemplates = ({
                               <DmsTemplatesItem
                                 template={template}
                                 onStatusChange={isActive => {
-                                  onUpdate({ ...template, isActive });
+                                  onUpdate({
+                                    ...template,
+                                    templateStatus: isActive ? TemplateStatus.InActive : TemplateStatus.Active,
+                                  });
                                 }}
                                 category={category}
                               />

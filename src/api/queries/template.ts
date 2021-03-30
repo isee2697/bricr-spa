@@ -9,7 +9,7 @@ export const GET_QUESTIONAIRE = gql`
       isAdmin
       published
       copyFromId
-      isActive
+      templateStatus
       type
       entity {
         type
@@ -40,7 +40,7 @@ export const GET_QUESTIONAIRES = gql`
     getQuestionaires(filters: $filters, pagination: $pagination, search: $search)
       @rest(
         type: "GetQuestionaires"
-        path: "/templates/{args.filters.type}?isActive={args.filters.isActive}&page={args.pagination.page}&limit={args.pagination.limit}"
+        path: "/templates/{args.filters.type}?templateStatus={args.filters.templateStatus}&page={args.pagination.page}&limit={args.pagination.limit}"
         method: "GET"
         endpoint: "default"
       ) {
@@ -50,7 +50,7 @@ export const GET_QUESTIONAIRES = gql`
         isAdmin
         published
         copyFromId
-        isActive
+        templateStatus
         type
         entity {
           type
@@ -76,7 +76,7 @@ export const GET_QUESTIONAIRES_COUNT = gql`
     active: getQuestionaires(filters: $filters, search: $search)
       @rest(
         type: "GetQuestionairesCount"
-        path: "/templates/{args.filters.type}?isActive=true&countOnly=true"
+        path: "/templates/{args.filters.type}?templateStatus=Active&countOnly=true"
         method: "GET"
         endpoint: "default"
       ) {
@@ -85,7 +85,7 @@ export const GET_QUESTIONAIRES_COUNT = gql`
     inactive: getQuestionaires(filters: $filters, search: $search)
       @rest(
         type: "GetQuestionairesCount"
-        path: "/templates/{args.filters.type}?isActive=false&countOnly=true"
+        path: "/templates/{args.filters.type}?templateStatus=InActive&countOnly=true"
         method: "GET"
         endpoint: "default"
       ) {

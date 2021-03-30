@@ -3,12 +3,13 @@ import { useHistory, useLocation } from 'react-router-dom';
 
 import { useGetTemplateType, useModalDispatch, usePagination } from 'hooks';
 import {
+  Questionaire,
+  TemplateStatus,
   UpdateQuestionaireInput,
   useCreateQuestionaireMutation,
+  useGetQuestionairesCountQuery,
   useGetQuestionairesQuery,
   useUpdateQuestionaireMutation,
-  useGetQuestionairesCountQuery,
-  Questionaire,
 } from 'api/types';
 import { PerPageType } from 'ui/atoms/pagination/Pagination.types';
 import { useDmsTemplateQueryParams } from 'app/shared/useDmsTemplateQueryParams/useDmsTemplateQueryParams';
@@ -51,7 +52,7 @@ export const DmsTemplatesContainer = ({ category }: DmsTemplatesContainerProps) 
     variables: {
       filters: {
         type,
-        isActive: status === 'active',
+        templateStatus: status === 'active' ? TemplateStatus.Active : TemplateStatus.InActive,
       },
       pagination: paginationQuery,
     },
@@ -102,7 +103,7 @@ export const DmsTemplatesContainer = ({ category }: DmsTemplatesContainerProps) 
         variables: {
           input: {
             id: template.id,
-            isActive: template.isActive,
+            templateStatus: template.templateStatus,
           },
         },
       });
