@@ -15,7 +15,7 @@ describe('usePagination', () => {
     const { result } = renderHook(() => usePagination(PARAMS));
 
     expect(result.current.pagination.count).toBe(10);
-    expect(result.current.query).toEqual({ from: 0, limit: 10 });
+    expect(result.current.query).toEqual({ from: 0, limit: 10, page: 1 });
 
     act(() => {
       result.current.pagination.onPerPageChange(25);
@@ -23,14 +23,14 @@ describe('usePagination', () => {
     });
 
     expect(result.current.pagination.count).toBe(4);
-    expect(result.current.query).toEqual({ from: 25, limit: 25 });
+    expect(result.current.query).toEqual({ from: 25, limit: 25, page: 1 });
 
     act(() => {
       result.current.pagination.onPerPageChange('All');
     });
 
     expect(result.current.pagination.count).toBe(1);
-    expect(result.current.query).toEqual({ from: 0, limit: undefined });
+    expect(result.current.query).toEqual({ from: 0, limit: undefined, page: 1 });
   });
 
   it('clears current page, when changing per page', () => {
