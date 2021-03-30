@@ -1,7 +1,7 @@
-import { ActiveTabStatus, DmsTemplateItem } from '../DmsTemplates.types';
+import { Questionaire } from 'api/types';
 
 export type DmsTemplatesItemProps = {
-  template: DmsTemplateItem;
-  onStatusChange: (status: ActiveTabStatus) => void;
+  template: Questionaire;
+  onStatusChange: (status: boolean) => void;
   category: string;
 };

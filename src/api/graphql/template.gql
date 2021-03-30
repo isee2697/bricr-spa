@@ -1,3 +1,8 @@
+enum TemplateStatus {
+    Active
+    InActive
+}
+
 input QuestionaireInput {
     templateName: String
     type: TemplateType
@@ -5,7 +10,12 @@ input QuestionaireInput {
     published: Boolean
     copyFromId: String
     entity: EntityInput
-    isActive: Boolean
+    templateStatus: TemplateStatus
+}
+
+input UpdateQuestionaireInput {
+    id: ID!
+    templateStatus: TemplateStatus
 }
 
 enum TemplateDocumentType {
@@ -100,7 +110,7 @@ type Questionaire {
     published: Boolean
     copyFromId: String
     entity: Entity
-    isActive: Boolean
+    templateStatus: TemplateStatus
     meta: TemplateMeta!
     settings: TemplateSettings
     securities: [TemplateSecurity!]
@@ -176,14 +186,23 @@ type Entity {
     subType: String
 }
 
+input ListQuestionairesFilters {
+  type: String
+  templateStatus: TemplateStatus
+}
 
+type TemplatesResponse {
+    count: Int
+    items: [Questionaire!]
+}
 
 extend type Mutation {
     createQuestionaire(input: QuestionaireInput!): Questionaire  @auth
+    updateQuestionaire(input: UpdateQuestionaireInput!): Questionaire @auth
     updateTemplateGeneral(input: TemplateGeneralInput!): Questionaire  @auth
 }
 
 extend type Query {
-    getQuestionaires(pagination: Pagination, search: String): [Questionaire!] @auth
+    getQuestionaires(filters: ListQuestionairesFilters!, pagination: Pagination, search: String): TemplatesResponse!  @auth
     getQuestionaire(id: ID!): Questionaire @auth
 }

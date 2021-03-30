@@ -4,7 +4,7 @@ import { TemplateType } from '../../api/types';
 
 export const useGetTemplateType = () => {
   const { type } = useParams<{ type: string }>();
-  let templateType: TemplateType | undefined;
+  let templateType: TemplateType;
 
   switch (type) {
     case 'invoices':
@@ -19,7 +19,7 @@ export const useGetTemplateType = () => {
     default:
       templateType = Object.values(TemplateType).find(
         (templateType: string) => templateType.toLowerCase() === type.toLowerCase(),
-      );
+      ) as TemplateType;
   }
 
   return templateType;
