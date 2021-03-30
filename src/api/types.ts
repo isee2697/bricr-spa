@@ -9465,6 +9465,15 @@ export type TemplateSettings = {
   documentType?: Maybe<Scalars['String']>;
 };
 
+export type TemplateSecurity = {
+  __typename?: 'TemplateSecurity';
+  name: Scalars['String'];
+  create?: Maybe<Scalars['Boolean']>;
+  update?: Maybe<Scalars['Boolean']>;
+  read?: Maybe<Scalars['Boolean']>;
+  delete?: Maybe<Scalars['Boolean']>;
+};
+
 export type TemplateSettingsInput = {
   description?: Maybe<Scalars['String']>;
   version?: Maybe<Scalars['String']>;
@@ -9472,9 +9481,18 @@ export type TemplateSettingsInput = {
   documentType?: Maybe<Scalars['String']>;
 };
 
+export type TemplateSecurityInput = {
+  name?: Maybe<Scalars['String']>;
+  create?: Maybe<Scalars['Boolean']>;
+  update?: Maybe<Scalars['Boolean']>;
+  read?: Maybe<Scalars['Boolean']>;
+  delete?: Maybe<Scalars['Boolean']>;
+};
+
 export type TemplateGeneralInput = {
   templateName?: Maybe<Scalars['String']>;
   settings?: Maybe<TemplateSettingsInput>;
+  securities?: Maybe<Array<TemplateSecurityInput>>;
 };
 
 export type QuestionInput = {
@@ -9552,6 +9570,7 @@ export type Questionaire = {
   isActive?: Maybe<Scalars['Boolean']>;
   meta: TemplateMeta;
   settings?: Maybe<TemplateSettings>;
+  securities?: Maybe<Array<TemplateSecurity>>;
 };
 
 export type Groups = {
@@ -12511,6 +12530,21 @@ export type CrmBulkDetailsQueryVariables = Exact<{
 
 export type CrmBulkDetailsQuery = { __typename?: 'Query' } & {
   status?: Maybe<Array<{ __typename?: 'GetBulkResult' } & Pick<GetBulkResult, 'value'>>>;
+};
+
+export type ListDmsFoldersQueryVariables = Exact<{
+  entityId: Scalars['ID'];
+}>;
+
+export type ListDmsFoldersQuery = { __typename?: 'Query' } & {
+  listDmsFolders?: Maybe<
+    Array<
+      { __typename?: 'DmsFolder' } & Pick<
+        DmsFolder,
+        'id' | 'entityId' | 'companyId' | 'foldername' | 'entityType' | 'type' | 'order' | 'deletedAt'
+      >
+    >
+  >;
 };
 
 export type ListEmailFoldersQueryVariables = Exact<{
@@ -16025,6 +16059,14 @@ export type GetQuestionaireQuery = { __typename?: 'Query' } & {
           { __typename?: 'TemplateSettings' } & Pick<
             TemplateSettings,
             'description' | 'version' | 'language' | 'documentType'
+          >
+        >;
+        securities?: Maybe<
+          Array<
+            { __typename?: 'TemplateSecurity' } & Pick<
+              TemplateSecurity,
+              'name' | 'create' | 'update' | 'read' | 'delete'
+            >
           >
         >;
         meta: { __typename?: 'TemplateMeta' } & Pick<TemplateMeta, 'createdAt'>;
@@ -21631,6 +21673,43 @@ export type CrmBulkDetailsQueryResult = ApolloReactCommon.QueryResult<
   CrmBulkDetailsQuery,
   CrmBulkDetailsQueryVariables
 >;
+export const ListDmsFoldersDocument = gql`
+  query ListDmsFolders($entityId: ID!) {
+    listDmsFolders(entityId: $entityId)
+      @rest(type: "ListDmsFolders", path: "/dms/folders/list/{args.entityId}", method: "GET", endpoint: "default") {
+      id
+      entityId
+      companyId
+      foldername
+      entityType
+      type
+      order
+      deletedAt
+    }
+  }
+`;
+export function useListDmsFoldersQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<ListDmsFoldersQuery, ListDmsFoldersQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<ListDmsFoldersQuery, ListDmsFoldersQueryVariables>(
+    ListDmsFoldersDocument,
+    baseOptions,
+  );
+}
+export function useListDmsFoldersLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<ListDmsFoldersQuery, ListDmsFoldersQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<ListDmsFoldersQuery, ListDmsFoldersQueryVariables>(
+    ListDmsFoldersDocument,
+    baseOptions,
+  );
+}
+export type ListDmsFoldersQueryHookResult = ReturnType<typeof useListDmsFoldersQuery>;
+export type ListDmsFoldersLazyQueryHookResult = ReturnType<typeof useListDmsFoldersLazyQuery>;
+export type ListDmsFoldersQueryResult = ApolloReactCommon.QueryResult<
+  ListDmsFoldersQuery,
+  ListDmsFoldersQueryVariables
+>;
 export const ListEmailFoldersDocument = gql`
   query ListEmailFolders($accountId: String!) {
     listEmailFolders(accountId: $accountId)
@@ -26927,6 +27006,13 @@ export const GetQuestionaireDocument = gql`
         version
         language
         documentType
+      }
+      securities {
+        name
+        create
+        update
+        read
+        delete
       }
       meta {
         createdAt

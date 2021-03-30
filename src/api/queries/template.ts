@@ -21,6 +21,13 @@ export const GET_QUESTIONAIRE = gql`
         language
         documentType
       }
+      securities {
+        name
+        create
+        update
+        read
+        delete
+      }
       meta {
         createdAt
       }
