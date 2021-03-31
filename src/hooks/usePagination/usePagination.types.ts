@@ -9,4 +9,4 @@ export type UsePaginationType = ({
   perPageOptions: PerPageType[];
 }) => { pagination: PaginationProps; query: PaginationQuery };
 
-export type PaginationQuery = { from: number; limit: number | undefined };
+export type PaginationQuery = { from: number; page?: number | undefined; limit: number | undefined };

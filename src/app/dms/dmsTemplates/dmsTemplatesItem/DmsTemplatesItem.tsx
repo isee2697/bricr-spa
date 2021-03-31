@@ -3,9 +3,10 @@ import { DateTime } from 'luxon';
 import clsx from 'clsx';
 
 import { useLocale } from 'hooks/useLocale/useLocale';
-import { Box, Typography, Chip, Avatar, Emoji } from 'ui/atoms';
+import { Avatar, Box, Chip, Emoji, Typography } from 'ui/atoms';
 import { ListOptionsMenu } from 'ui/molecules';
 import { ListOptionsMenuItem } from 'ui/molecules/listOptionsMenu/menuItem/ListOptionsMenuItem';
+import { TemplateStatus } from 'api/types';
 
 import { DmsTemplatesItemProps } from './DmsTemplatesItem.types';
 import { useStyles } from './DmsTemplatesItem.styles';
@@ -13,8 +14,17 @@ import { useStyles } from './DmsTemplatesItem.styles';
 export const DmsTemplatesItem = ({ template, onStatusChange, category }: DmsTemplatesItemProps) => {
   const { formatMessage } = useLocale();
   const classes = useStyles(template);
-  const { id, templateName, published, meta, isActive, labels, tags } = template;
-  const avatar = 'https://source.unsplash.com/featured/?map';
+
+  const {
+    id,
+    templateName,
+    meta: { createdAt },
+    templateStatus,
+    tags,
+    labels,
+  } = template;
+
+  const avatar = 'http://placeimg.com/104/152/arch';
 
   return (
     <Box display="flex" width="100%" flexDirection="column">
@@ -23,8 +33,7 @@ export const DmsTemplatesItem = ({ template, onStatusChange, category }: DmsTemp
           <Avatar variant="rounded" src={avatar} className={classes.image}>
             {!avatar && <Emoji>{'📷'}</Emoji>}
           </Avatar>
-
-          {!!isActive && (
+          {templateStatus === TemplateStatus.InActive && (
             <Box className={classes.inactiveWrapper}>
               <Chip
                 color="secondary"
@@ -40,7 +49,11 @@ export const DmsTemplatesItem = ({ template, onStatusChange, category }: DmsTemp
         <Box width="100%" display="flex" flexDirection="column" alignItems="space-between">
           <Box display="flex" justifyContent="space-between" mb={2}>
             <div>
-              <Typography className={classes.date}>{DateTime.fromISO(meta?.createdAt).toLocaleString()}</Typography>
+              <Typography className={classes.date}>
+                {DateTime.fromISO(createdAt).toRelative({
+                  locale: intl.locale,
+                })}
+              </Typography>
               <Typography className={classes.title}>{templateName}</Typography>
               <Box mt={2}>
                 {labels?.length
@@ -68,7 +81,7 @@ export const DmsTemplatesItem = ({ template, onStatusChange, category }: DmsTemp
                     id: 'dms.templates.active_inactive',
                   })}
                   onClick={() => {
-                    onStatusChange(published === true ? 'inactive' : 'active');
+                    onStatusChange(templateStatus === TemplateStatus.Active);
                   }}
                 />
               </ListOptionsMenu>

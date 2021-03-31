@@ -1,15 +1,21 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
 
-import { DmsFolders } from '../dmsPims/dmsFolders/DmsFolders';
-import { DmsFolderType } from '../Dms.types';
+import { DmsEntityType } from 'api/types';
+import { FoldersContainer } from 'app/shared/dms/folders/FoldersContainer';
 
 import { DmsSalesProps } from './DmsSales.types';
 
-export const DmsSales = ({ dms }: DmsSalesProps) => {
-  const { type } = useParams<{ type: string }>();
-
-  const data = dms.folders?.find(item => item.data.id === 'sales');
-
-  return <DmsFolders data={data?.data as DmsFolderType} category={'sales'} type={type} />;
+export const DmsSales = ({ sales, isLoading, type, pagination }: DmsSalesProps) => {
+  return (
+    <FoldersContainer
+      entityItems={sales.map(item => ({
+        id: item.id,
+        name: item.name ?? '',
+      }))}
+      entityType={DmsEntityType.Sales}
+      type={type}
+      isLoading={isLoading}
+      pagination={pagination}
+    />
+  );
 };
