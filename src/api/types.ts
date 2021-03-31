@@ -9599,7 +9599,15 @@ export type Questionaire = {
   templateStatus?: Maybe<TemplateStatus>;
   meta: TemplateMeta;
   settings?: Maybe<TemplateSettings>;
+  labels?: Maybe<Array<Scalars['String']>>;
+  tags?: Maybe<Array<TemplatTag>>;
   securities?: Maybe<Array<TemplateSecurity>>;
+};
+
+export type TemplatTag = {
+  __typename?: 'TemplatTag';
+  name: Scalars['String'];
+  amount?: Maybe<Scalars['Int']>;
 };
 
 export type Groups = {
@@ -16166,7 +16174,7 @@ export type GetQuestionairesQuery = { __typename?: 'Query' } & {
         Array<
           { __typename?: 'Questionaire' } & Pick<
             Questionaire,
-            'id' | 'templateName' | 'isAdmin' | 'published' | 'copyFromId' | 'templateStatus' | 'type'
+            'id' | 'templateName' | 'isAdmin' | 'published' | 'copyFromId' | 'templateStatus' | 'type' | 'labels'
           > & {
               entity?: Maybe<{ __typename?: 'Entity' } & Pick<Entity, 'type' | 'subType'>>;
               settings?: Maybe<
@@ -16176,6 +16184,7 @@ export type GetQuestionairesQuery = { __typename?: 'Query' } & {
                 >
               >;
               meta: { __typename?: 'TemplateMeta' } & Pick<TemplateMeta, 'createdAt'>;
+              tags?: Maybe<Array<{ __typename?: 'TemplatTag' } & Pick<TemplatTag, 'name' | 'amount'>>>;
             }
         >
       >;
@@ -27286,6 +27295,11 @@ export const GetQuestionairesDocument = gql`
         }
         meta {
           createdAt
+        }
+        labels
+        tags {
+          name
+          amount
         }
       }
       count

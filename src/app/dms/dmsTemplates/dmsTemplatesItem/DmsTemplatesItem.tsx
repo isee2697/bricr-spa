@@ -1,39 +1,32 @@
 import React from 'react';
-import { useIntl } from 'react-intl';
 import { DateTime } from 'luxon';
 import clsx from 'clsx';
+import { useIntl } from 'react-intl';
 
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { Avatar, Box, Chip, Emoji, Typography } from 'ui/atoms';
 import { ListOptionsMenu } from 'ui/molecules';
 import { ListOptionsMenuItem } from 'ui/molecules/listOptionsMenu/menuItem/ListOptionsMenuItem';
-import { TemplateStatus } from '../../../../api/types';
+import { TemplateStatus } from 'api/types';
 
 import { DmsTemplatesItemProps } from './DmsTemplatesItem.types';
 import { useStyles } from './DmsTemplatesItem.styles';
 
 export const DmsTemplatesItem = ({ template, onStatusChange, category }: DmsTemplatesItemProps) => {
   const { formatMessage } = useLocale();
-  const intl = useIntl();
   const classes = useStyles(template);
+  const intl = useIntl();
 
   const {
     id,
     templateName,
     meta: { createdAt },
     templateStatus,
+    tags,
+    labels,
   } = template;
 
-  const labels = ['Residential', 'BOG'];
   const avatar = 'http://placeimg.com/104/152/arch';
-  const metaData = {
-    forApproval: 127,
-    sent: 64,
-    viewed: 18,
-    completed: 15,
-    declined: 15,
-    expired: 4,
-  };
 
   return (
     <Box display="flex" width="100%" flexDirection="column">
@@ -65,7 +58,7 @@ export const DmsTemplatesItem = ({ template, onStatusChange, category }: DmsTemp
               </Typography>
               <Typography className={classes.title}>{templateName}</Typography>
               <Box mt={2}>
-                {labels.length
+                {labels?.length
                   ? labels.map(label => (
                       <Box component="span" key={label} mr={2}>
                         <Chip variant="outlined" color="primary" label={label} size="small" />
@@ -97,16 +90,16 @@ export const DmsTemplatesItem = ({ template, onStatusChange, category }: DmsTemp
             </div>
           </Box>
           <Box display="flex" className={classes.stats}>
-            {Object.entries(metaData).map(([key, value], index) => (
+            {tags?.map(({ name, amount }) => (
               <Box
                 display="flex"
                 flexDirection="column"
-                className={clsx(classes.statItem, !value && 'disabled')}
-                key={index}
+                className={clsx(classes.statItem, !amount && 'disabled')}
+                key={name}
               >
-                <Typography className={classes.statInfo}>{value}</Typography>
+                <Typography className={classes.statInfo}>{amount ?? '-'}</Typography>
                 <Typography className={classes.statLabel}>
-                  {formatMessage({ id: `dms.templates.stats.${key}` })}
+                  {formatMessage({ id: `dms.templates.stats.${name.toLowerCase()}` })}
                 </Typography>
               </Box>
             ))}

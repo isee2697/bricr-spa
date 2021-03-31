@@ -87,6 +87,11 @@ export const GET_QUESTIONAIRES = gql`
         meta {
           createdAt
         }
+        labels
+        tags {
+          name
+          amount
+        }
       }
       count
     }
