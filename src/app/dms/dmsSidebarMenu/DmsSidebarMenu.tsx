@@ -276,15 +276,14 @@ export const DmsSidebarMenu = ({ onHide, isVisible }: DmsSidebarMenuProps) => {
   };
 
   return (
-    <>
-      <SidebarMenu
-        onHide={onHide}
-        isVisible={isVisible}
-        translationPrefix="dms.menu"
-        menu={menu}
-        menuTitle={formatMessage({ id: 'dms.title' })}
-        menuTitleIcon={<FolderSvgIcon color="inherit" />}
-      />
-    </>
+    <SidebarMenu
+      onHide={onHide}
+      isVisible={isVisible}
+      translationPrefix="dms.menu"
+      menu={menu}
+      menuTitle={formatMessage({ id: 'dms.title' })}
+      menuTitleIcon={<FolderSvgIcon color="inherit" />}
+      actionHeight={20}
+    />
   );
 };
