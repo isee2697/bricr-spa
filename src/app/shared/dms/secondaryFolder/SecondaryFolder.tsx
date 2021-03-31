@@ -14,6 +14,7 @@ import { AppRoute } from 'routing/AppRoute.enum';
 import { DmsFolder, DmsFolderType } from 'api/types';
 import { AddFolderDialog } from '../addFolderDialog/AddFolderDialog';
 import { CardWithFolder } from '../../../../ui/templates/cards/cardWithFolder/CardWithFolder';
+import { PageWithFolderListCard } from '../../../../ui/templates/page/PageWithCardFolderList/PageWithFolderListCard';
 
 import { useStyles } from './SecondaryFolder.styles';
 import { SecondaryFolderProps } from './SecondaryFolder.types';
@@ -90,46 +91,65 @@ export const SecondaryFolder = ({
   }
 
   return (
-    <Page
-      showHeader
-      title={name}
-      titleActions={[]}
-      headerProps={{
-        customAction: (
-          <IconButton size="small" variant="rounded" onClick={() => push(`${AppRoute.dms}/${entityType}/${type}`)}>
-            <ExitIcon />
-          </IconButton>
-        ),
-      }}
-      classes={{ container: classes.page }}
-    >
-      <Grid item xs={12}>
-        <CardWithFolder
-          title={name}
-          isLoading={loading}
-          isError={false}
-          setSelectedFolder={setSelectedFolder}
-          path={'/'}
-          foldersData={folders.map(item => ({ ...item, name: item.foldername }))}
-          selectedFolder={selectedFolder}
-        />
+    <>
+      <PageWithFolderListCard
+        folders={folders}
+        path={'/'}
+        onSidebarOpen={() => {}}
+        isSidebarVisible={true}
+        title={name}
+        onAddFolder={name => {
+          if (onAddFolder) {
+            onAddFolder({
+              entityId,
+              entityType,
+              foldername: name,
+              type: DmsFolderType.Custom,
+            });
+          }
+        }}
+      />
+      <Page
+        showHeader
+        title={name}
+        titleActions={[]}
+        headerProps={{
+          customAction: (
+            <IconButton size="small" variant="rounded" onClick={() => push(`${AppRoute.dms}/${entityType}/${type}`)}>
+              <ExitIcon />
+            </IconButton>
+          ),
+        }}
+        classes={{ container: classes.page }}
+      >
+        <Grid item xs={12}>
+          <CardWithFolder
+            title={name}
+            isLoading={loading}
+            isError={false}
+            setSelectedFolder={setSelectedFolder}
+            path={'/'}
+            foldersData={folders.map(item => ({ ...item, name: item.foldername }))}
+            selectedFolder={selectedFolder}
+          />
 
-        {selectedFolder && (
-          <Box mt={4}>
-            <ListViewContainer
-              id={selectedFolder.id}
-              name={selectedFolder.foldername}
-              folderType={selectedFolder.type!}
-              type={type}
-              entityType={entityType}
-              data={[]}
-            />
-          </Box>
-        )}
-        {/* show add folder dialog */}
+          {selectedFolder && (
+            <Box mt={4}>
+              <ListViewContainer
+                id={selectedFolder.id}
+                name={selectedFolder.foldername}
+                folderType={selectedFolder.type!}
+                type={type}
+                entityType={entityType}
+                data={[]}
+              />
+            </Box>
+          )}
+          {/* show add folder dialog */}
 
-        {dialog}
-      </Grid>
-    </Page>
+          {dialog}
+        </Grid>
+      </Page>
+    </>
   );
 };
