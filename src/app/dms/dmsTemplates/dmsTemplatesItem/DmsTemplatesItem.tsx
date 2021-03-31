@@ -22,8 +22,8 @@ export const DmsTemplatesItem = ({ template, onStatusChange, category }: DmsTemp
     templateName,
     meta: { createdAt },
     templateStatus,
-    labels,
     tags,
+    labels,
   } = template;
 
   const avatar = 'http://placeimg.com/104/152/arch';

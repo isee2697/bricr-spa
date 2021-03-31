@@ -131,9 +131,9 @@ type Questionaire {
     templateStatus: TemplateStatus
     meta: TemplateMeta!
     settings: TemplateSettings
-    securities: [TemplateSecurity!]
     labels: [String!]
     tags: [TemplatTag!]
+    securities: [TemplateSecurity!]
 }
 
 type TemplatTag {

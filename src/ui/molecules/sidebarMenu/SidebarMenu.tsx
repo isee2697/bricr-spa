@@ -33,6 +33,7 @@ export const SidebarMenu = ({
   bannerColor,
   hasHideButton = true,
   children,
+  actionHeight = 33,
 }: SidebarMenuProps) => {
   const { formatMessage } = useLocale();
   const { pathname } = useLocation();
@@ -180,7 +181,7 @@ export const SidebarMenu = ({
               )}
             </Box>
 
-            <Scrollable width="100%" height={`calc(100vh - ${spacing(33)}px`}>
+            <Scrollable width="100%" height={`calc(100vh - ${spacing(actionHeight)}px`}>
               <SideMenu disablePadding>
                 {menu.groups.map((group, index) => (
                   <Box
