@@ -1,4 +1,4 @@
-import React, { lazy, useCallback, useState, Suspense } from 'react';
+import React, { lazy, useCallback, Suspense } from 'react';
 import { Redirect, Route, Switch, useLocation } from 'react-router-dom';
 
 import { Alert, Box, Grid, Loader } from 'ui/atoms';
@@ -6,6 +6,7 @@ import { useLocale } from 'hooks';
 import { EntityTypeProvider } from 'app/shared/entityType';
 import { PimDetailsSidebarMenu } from 'app/shared/pimDetailsSidebarMenu/PimDetailsSidebarMenu';
 import { AogSpaceType, Pim, TiaraEntities } from 'api/types';
+import { useLayout } from 'context/layout';
 
 import { PimDetailsProps } from './PimDetails.types';
 import { useStyles } from './PimDetails.styles';
@@ -45,7 +46,7 @@ export const PimDetails = ({
 }: PimDetailsProps) => {
   const { formatMessage } = useLocale();
   const classes = useStyles();
-  const [isSidebarVisible, setSidebarVisibility] = useState(true);
+  const { isSidebarMenuVisible, setSidebarMenuVisible } = useLayout();
   const { state } = useLocation<{ newlyAdded: boolean; data: Pim }>();
 
   const pim = data;
@@ -53,12 +54,12 @@ export const PimDetails = ({
   const title = pim ? `${pim.street} ${pim.houseNumber} ${pim.postalCode} ${pim.city}` : '';
 
   const handleSidebarHide = useCallback(() => {
-    setSidebarVisibility(false);
-  }, []);
+    setSidebarMenuVisible(false);
+  }, [setSidebarMenuVisible]);
 
   const handleSidebarOpen = useCallback(() => {
-    setSidebarVisibility(true);
-  }, []);
+    setSidebarMenuVisible(true);
+  }, [setSidebarMenuVisible]);
 
   if (loading) {
     return <Loader />;
@@ -69,7 +70,7 @@ export const PimDetails = ({
       {breadcrumbs}
       <Grid container spacing={0}>
         <PimDetailsSidebarMenu
-          isVisible={isSidebarVisible}
+          isVisible={isSidebarMenuVisible}
           data={data}
           onHide={handleSidebarHide}
           objectTypeName={objectTypeName}
@@ -94,7 +95,7 @@ export const PimDetails = ({
                       path={`${path}/dashboard`}
                       render={() => (
                         <DashboardContainer
-                          isSidebarVisible={isSidebarVisible}
+                          isSidebarVisible={isSidebarMenuVisible}
                           onSidebarOpen={handleSidebarOpen}
                           title={title}
                           isPurchased={isPurchased}
@@ -104,26 +105,38 @@ export const PimDetails = ({
                     <Route
                       path={`${path}/general`}
                       render={() => (
-                        <General isSidebarVisible={isSidebarVisible} onSidebarOpen={handleSidebarOpen} title={title} />
+                        <General
+                          isSidebarVisible={isSidebarMenuVisible}
+                          onSidebarOpen={handleSidebarOpen}
+                          title={title}
+                        />
                       )}
                     />
                     <Route
                       path={`${path}/inside`}
                       render={() => (
-                        <Inside isSidebarVisible={isSidebarVisible} onSidebarOpen={handleSidebarOpen} title={title} />
+                        <Inside
+                          isSidebarVisible={isSidebarMenuVisible}
+                          onSidebarOpen={handleSidebarOpen}
+                          title={title}
+                        />
                       )}
                     />
                     <Route
                       path={`${path}/outside`}
                       render={() => (
-                        <Outside isSidebarVisible={isSidebarVisible} onSidebarOpen={handleSidebarOpen} title={title} />
+                        <Outside
+                          isSidebarVisible={isSidebarMenuVisible}
+                          onSidebarOpen={handleSidebarOpen}
+                          title={title}
+                        />
                       )}
                     />
                     <Route
                       path={`${path}/cadastre`}
                       render={() => (
                         <CadastreContainer
-                          isSidebarVisible={isSidebarVisible}
+                          isSidebarVisible={isSidebarMenuVisible}
                           onSidebarOpen={handleSidebarOpen}
                           title={title}
                         />
@@ -133,7 +146,7 @@ export const PimDetails = ({
                       path={`${path}/services`}
                       render={() => (
                         <ServicesContainer
-                          isSidebarVisible={isSidebarVisible}
+                          isSidebarVisible={isSidebarMenuVisible}
                           onSidebarOpen={handleSidebarOpen}
                           title={title}
                         />
@@ -143,7 +156,7 @@ export const PimDetails = ({
                       path={`${path}/meters`}
                       render={() => (
                         <MetersContainer
-                          isSidebarVisible={isSidebarVisible}
+                          isSidebarVisible={isSidebarMenuVisible}
                           onSidebarOpen={handleSidebarOpen}
                           title={title}
                         />
@@ -153,7 +166,7 @@ export const PimDetails = ({
                       path={`${path}/prices`}
                       render={() => (
                         <PricesContainer
-                          isSidebarVisible={isSidebarVisible}
+                          isSidebarVisible={isSidebarMenuVisible}
                           onSidebarOpen={handleSidebarOpen}
                           title={title}
                         />
@@ -163,7 +176,10 @@ export const PimDetails = ({
                     <Route
                       path={`${path}/allocateSettings`}
                       render={() => (
-                        <SalesSettingsContainer isSidebarVisible={isSidebarVisible} onSidebarOpen={handleSidebarOpen} />
+                        <SalesSettingsContainer
+                          isSidebarVisible={isSidebarMenuVisible}
+                          onSidebarOpen={handleSidebarOpen}
+                        />
                       )}
                     />
                     {/* )} */}
@@ -171,7 +187,7 @@ export const PimDetails = ({
                       path={`${path}/specification`}
                       render={() => (
                         <Specification
-                          isSidebarVisible={isSidebarVisible}
+                          isSidebarVisible={isSidebarMenuVisible}
                           onSidebarOpen={handleSidebarOpen}
                           title={title}
                         />
@@ -181,7 +197,7 @@ export const PimDetails = ({
                       path={`${path}/media`}
                       render={() => (
                         <MediaContainer
-                          isSidebarVisible={isSidebarVisible}
+                          isSidebarVisible={isSidebarMenuVisible}
                           onSidebarOpen={handleSidebarOpen}
                           title={title}
                         />
@@ -191,7 +207,7 @@ export const PimDetails = ({
                       path={`${path}/commercialspaces`}
                       render={() => (
                         <CommercialSpacesContainer
-                          isSidebarVisible={isSidebarVisible}
+                          isSidebarVisible={isSidebarMenuVisible}
                           onSidebarOpen={handleSidebarOpen}
                           title={title}
                         />
@@ -201,7 +217,7 @@ export const PimDetails = ({
                       path={`${path}/summary`}
                       render={() => (
                         <SummaryContainer
-                          isSidebarVisible={isSidebarVisible}
+                          isSidebarVisible={isSidebarMenuVisible}
                           onSidebarOpen={handleSidebarOpen}
                           title={title}
                         />
@@ -212,7 +228,7 @@ export const PimDetails = ({
                       render={() => (
                         <TiaraContainer
                           entity={TiaraEntities.Pim}
-                          isSidebarVisible={isSidebarVisible}
+                          isSidebarVisible={isSidebarMenuVisible}
                           onSidebarOpen={handleSidebarOpen}
                           title={title}
                         />
@@ -222,7 +238,7 @@ export const PimDetails = ({
                       path={`${path}/documents`}
                       render={() => (
                         <DocumentsContainer
-                          isSidebarVisible={isSidebarVisible}
+                          isSidebarVisible={isSidebarMenuVisible}
                           onSidebarOpen={handleSidebarOpen}
                           title={title}
                         />
@@ -237,7 +253,7 @@ export const PimDetails = ({
                       path={`${path}/allocateResults`}
                       render={() => (
                         <AllocateResultsContainer
-                          isSidebarVisible={isSidebarVisible}
+                          isSidebarVisible={isSidebarMenuVisible}
                           onSidebarOpen={handleSidebarOpen}
                         />
                       )}
@@ -246,7 +262,7 @@ export const PimDetails = ({
                       path={`${path}/allocateResults/:resultId`}
                       render={() => (
                         <AllocateResultsDetailsContainer
-                          isSidebarVisible={isSidebarVisible}
+                          isSidebarVisible={isSidebarMenuVisible}
                           onSidebarOpen={handleSidebarOpen}
                         />
                       )}
@@ -260,7 +276,7 @@ export const PimDetails = ({
                       render={() => (
                         <PublicationContainer
                           title={title}
-                          isSidebarVisible={isSidebarVisible}
+                          isSidebarVisible={isSidebarMenuVisible}
                           onSidebarOpen={handleSidebarOpen}
                         />
                       )}
@@ -269,7 +285,7 @@ export const PimDetails = ({
                       path={`${path}/publication/:publicationId`}
                       render={() => (
                         <PublicationDetailsContainer
-                          isSidebarVisible={isSidebarVisible}
+                          isSidebarVisible={isSidebarMenuVisible}
                           onSidebarOpen={handleSidebarOpen}
                           title={title}
                         />
@@ -281,7 +297,7 @@ export const PimDetails = ({
                         path={`${path}/${aogSpaceType.toLowerCase()}`}
                         render={() => (
                           <AogSpacesContainer
-                            isSidebarVisible={isSidebarVisible}
+                            isSidebarVisible={isSidebarMenuVisible}
                             onSidebarOpen={handleSidebarOpen}
                             title={title}
                             type={aogSpaceType}
