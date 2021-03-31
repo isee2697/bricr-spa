@@ -29,7 +29,7 @@ const PER_PAGE_OPTIONS: PerPageType[] = [10, 25, 'All'];
 
 export const RelationsContainer = (props: RelationsContainerProps) => {
   const { status } = useCrmQueryParams({});
-  const { sorting, query: sortQuery } = useCrmsSorting('list');
+  const { sorting, query: sortQuery } = useCrmsSorting('table');
   const { open: openSnackbar } = useSnackbar();
   const { formatMessage } = useLocale();
 

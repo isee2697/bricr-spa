@@ -2,8 +2,9 @@ import { ReactNode } from 'react';
 
 export type ListTableCell<T> = {
   field: keyof T;
-  label?: string;
+  label?: ReactNode;
   sortable?: boolean;
+  defaultHidden?: boolean;
 };
 
 export type ListTableItemProps<T> = {
@@ -12,7 +13,7 @@ export type ListTableItemProps<T> = {
   isHeader?: true;
   renderCell?: (fieldName: keyof T, item?: T) => string | ReactNode;
   item?: T;
-  onSort?: (key: keyof T) => void;
-  sortKey?: keyof T;
+  onSort?: (key: string) => void;
+  sortKey?: string;
   sortDirection?: 'up' | 'down';
 };

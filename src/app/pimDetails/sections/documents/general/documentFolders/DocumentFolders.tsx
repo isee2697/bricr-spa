@@ -4,7 +4,7 @@ import { Box, Grid, Card, CardContent, IconButton, Collapse } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { PropertyItemPlaceholder, Search } from 'ui/molecules';
 import { AddFolderDialog } from '../addFolderDialog/AddFolderDialog';
-import { DmsFolderIcon } from 'app/dms/dmsPims/dmsFolders/dmsFolderIcon/DmsFolderIcon';
+import { FolderContainer } from 'ui/molecules/folder/FolderContainer';
 import { ArrowUpIcon, ArrowDownIcon } from 'ui/atoms/icons';
 import { DocumentListViewContainer } from '../documentListView/DocumentListViewContainer';
 import { DocumentKind } from '../General.types';
@@ -90,7 +90,7 @@ export const DocumentFolders = ({
                 ) : foldersData?.length ? (
                   foldersData.map((item, index) => (
                     <Grid item key={index} className={classes.listItem} xs={6} sm={4} lg={2}>
-                      <DmsFolderIcon
+                      <FolderContainer
                         id={item.id}
                         name={item.name}
                         childCount={item.documents?.length || 0}
@@ -114,7 +114,7 @@ export const DocumentFolders = ({
                   ))
                 ) : null}
                 <Grid item className={classes.listItem} xs={6} sm={4} lg={2}>
-                  <DmsFolderIcon
+                  <FolderContainer
                     id="add_folder"
                     name={formatMessage({ id: 'dms.documents.add_folder' })}
                     onClick={() => {

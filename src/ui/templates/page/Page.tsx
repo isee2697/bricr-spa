@@ -70,9 +70,11 @@ export const Page = ({
                 </Grid>
               </Box>
             </Grid>
-            <Box mt={2} width="100%">
-              {name && autosaveForm}
-            </Box>
+            {name && (
+              <Box mt={2} width="100%">
+                {autosaveForm}
+              </Box>
+            )}
           </>
         )}
         <Grid container item xs={12} className={classes.childContainer}>

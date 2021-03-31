@@ -14,6 +14,7 @@ const grayLight = '#F3F5FA';
 const grayDark = '#E1E1E1';
 const warmgray = '#C4C4C4';
 const warmgrayLight = '#E5E5E5';
+const warmgrayDark = 'rgba(0, 0, 0, 0.55)';
 const red = '#EB5F60';
 const redLight = '#F9ECED';
 const orange = '#FFAD21';
@@ -23,21 +24,31 @@ const yellowLight = '#FEF9E7';
 const green = '#0ABE67';
 const greenLight = '#E7F8F0';
 const blue = '#4CB9DF';
+const purple = '#8694EF';
 const blueLight = '#ECF8FC';
 const blueDark = '#0A57E9';
+
 const blue100 = '#96BAFD';
 const blue200 = '#6A9CFB';
 const blue300 = '#538EFF';
 const blue400 = '#2E75FC';
 const blue500 = '#165FEA';
 const blue600 = '#0A57E9';
+
 const aqua100 = '#97DCFD';
 const aqua200 = '#4DBFF1';
 const aqua300 = '#3EA0E1';
 const aqua400 = '#267EC7';
 const aqua500 = '#23B7FB';
 const aqua600 = '#0959A9';
-const purple = '#813FF6';
+
+const purple100 = '#D7DBFA';
+const purple200 = '#D2D7FA';
+const purple300 = '#BCC3F6';
+const purple400 = '#B3BCF5';
+const purple500 = '#A1ACF3';
+const purple600 = '#8794EF';
+
 const purpleLight = '#F2EEFC';
 const pink = '#E90AE0';
 const gold = '#FFCD50';
@@ -84,6 +95,7 @@ export const palette: PaletteOptions = {
   warmgray: {
     main: warmgray,
     light: warmgrayLight,
+    dark: warmgrayDark,
   },
   red: {
     main: red,
@@ -194,6 +206,14 @@ export const palette: PaletteOptions = {
     '400': blue400,
     '500': blue500,
     '600': blue600,
+  },
+  purpleGradients: {
+    '100': purple100,
+    '200': purple200,
+    '300': purple300,
+    '400': purple400,
+    '500': purple500,
+    '600': purple600,
   },
   chartColors: {
     '100': '#40C4FF',

@@ -15,6 +15,7 @@ export const SideMenuItem = ({
   onClick,
   children,
   className,
+  rightIcon,
 }: SideMenuItemProps) => {
   const classes = useStyles();
 
@@ -44,6 +45,7 @@ export const SideMenuItem = ({
                 </Typography>
               )}
             </Box>
+            {rightIcon}
           </>
         ) : (
           title

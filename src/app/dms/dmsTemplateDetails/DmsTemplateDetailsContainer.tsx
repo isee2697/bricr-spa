@@ -4,21 +4,57 @@ import { Switch, useParams, Route, Redirect } from 'react-router-dom';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { Loader, NavBreadcrumb } from 'ui/atoms';
 import { AppRoute } from 'routing/AppRoute.enum';
-import { Templates } from 'api/mocks/dms';
+import { Security } from 'app/shared/dms/security/Security';
+import { GeneralPageSettings } from 'app/shared/dms/generalPageSettings/GeneralPageSettings';
+import { useStateQuery } from 'hooks/useStateQuery/useStateQuery';
+import {
+  GetQuestionaireDocument,
+  Questionaire,
+  useGetQuestionaireQuery,
+  useUpdateTemplateGeneralMutation,
+} from 'api/types';
 
-import { DmsTemplateGeneralDetails } from './dmsTemplateGeneralDetails/DmsTemplateGeneralDetails';
 import { DmsTemplateConfigureSettingsDetails } from './dmsTemplateConfigureSettingsDetails/DmsTemplateConfigureSettingsDetails';
-import { DmsTemplateEditor } from './dmsTemplateEditor/DmsTemplateEditor';
-import { DmsTemplateDetailsContainerProps } from './DmsTemplateDetailsContainer.types';
+import { DmsTemplateDetailsContainerProps, DocumentType } from './DmsTemplateDetailsContainer.types';
 
 export const DmsTemplateDetailsContainer = (props: DmsTemplateDetailsContainerProps) => {
   const { formatMessage } = useLocale();
   const { id } = useParams<{ id: string }>();
-  const data = Templates.find(item => item.id === id);
+  const { loading, data: loadedData } = useStateQuery({
+    query: useGetQuestionaireQuery,
+    variables: { id },
+  });
 
-  if (!data) {
+  const [updateGeneral] = useUpdateTemplateGeneralMutation();
+
+  const data = loadedData as Questionaire;
+
+  if (loading) {
     return <Loader />;
   }
+
+  const handleSaveGeneral = async (form: Questionaire) => {
+    try {
+      await updateGeneral({
+        variables: {
+          input: {
+            id,
+            ...form,
+          },
+        },
+        refetchQueries: [
+          {
+            query: GetQuestionaireDocument,
+            variables: { id },
+          },
+        ],
+      });
+    } catch {
+      return { error: true };
+    }
+
+    return undefined;
+  };
 
   return (
     <>
@@ -26,15 +62,47 @@ export const DmsTemplateDetailsContainer = (props: DmsTemplateDetailsContainerPr
       <Switch>
         <Route
           path={`${AppRoute.dms}/templates/:type/:category/${id}/general`}
-          render={() => <DmsTemplateGeneralDetails template={data} />}
+          render={() => (
+            <GeneralPageSettings
+              types={Object.keys(DocumentType)}
+              data={{
+                id: data.id,
+                meta: data.meta,
+                settings: data.settings,
+              }}
+              onSave={handleSaveGeneral}
+              updatedBy={{
+                id: '0001',
+                firstName: 'Christian',
+                lastName: 'van Gils',
+              }}
+              dateUpdated={new Date().toISOString()}
+            />
+          )}
         />
         <Route
           path={`${AppRoute.dms}/templates/:type/:category/${id}/configureSettings`}
           render={() => <DmsTemplateConfigureSettingsDetails template={data} />}
         />
         <Route
-          path={`${AppRoute.dms}/templates/:type/:category/${id}/editor`}
-          render={() => <DmsTemplateEditor template={data} {...props} />}
+          path={`${AppRoute.dms}/templates/:type/:category/${id}/security`}
+          render={() => (
+            <Security
+              title={data.templateName ?? ''}
+              onSave={handleSaveGeneral}
+              data={{
+                id: data.id,
+                meta: data.meta,
+                securities: data.securities,
+              }}
+              updatedBy={{
+                id: '0001',
+                firstName: 'Christian',
+                lastName: 'van Gils',
+              }}
+              dateUpdated={new Date().toISOString()}
+            />
+          )}
         />
         <Redirect to={`${AppRoute.dms}/templates/:type/:category/${id}/general`} />
       </Switch>

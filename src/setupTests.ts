@@ -20,3 +20,13 @@ global.MutationObserver = class {
     return [];
   }
 };
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+(global as any).document.createRange = () => ({
+  setStart: () => {},
+  setEnd: () => {},
+  commonAncestorContainer: {
+    nodeName: 'BODY',
+    ownerDocument: document,
+  },
+});

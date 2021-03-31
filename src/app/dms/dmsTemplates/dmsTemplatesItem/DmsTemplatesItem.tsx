@@ -4,9 +4,10 @@ import { DateTime } from 'luxon';
 import clsx from 'clsx';
 
 import { useLocale } from 'hooks/useLocale/useLocale';
-import { Avatar, Box, Typography, Emoji, Chip } from 'ui/atoms';
+import { Avatar, Box, Chip, Emoji, Typography } from 'ui/atoms';
 import { ListOptionsMenu } from 'ui/molecules';
 import { ListOptionsMenuItem } from 'ui/molecules/listOptionsMenu/menuItem/ListOptionsMenuItem';
+import { TemplateStatus } from '../../../../api/types';
 
 import { DmsTemplatesItemProps } from './DmsTemplatesItem.types';
 import { useStyles } from './DmsTemplatesItem.styles';
@@ -16,7 +17,23 @@ export const DmsTemplatesItem = ({ template, onStatusChange, category }: DmsTemp
   const intl = useIntl();
   const classes = useStyles(template);
 
-  const { id, name, createdAt, avatar, labels, meta, status } = template;
+  const {
+    id,
+    templateName,
+    meta: { createdAt },
+    templateStatus,
+  } = template;
+
+  const labels = ['Residential', 'BOG'];
+  const avatar = 'http://placeimg.com/104/152/arch';
+  const metaData = {
+    forApproval: 127,
+    sent: 64,
+    viewed: 18,
+    completed: 15,
+    declined: 15,
+    expired: 4,
+  };
 
   return (
     <Box display="flex" width="100%" flexDirection="column">
@@ -25,7 +42,7 @@ export const DmsTemplatesItem = ({ template, onStatusChange, category }: DmsTemp
           <Avatar variant="rounded" src={avatar} className={classes.image}>
             {!avatar && <Emoji>{'📷'}</Emoji>}
           </Avatar>
-          {status === 'inactive' && (
+          {templateStatus === TemplateStatus.InActive && (
             <Box className={classes.inactiveWrapper}>
               <Chip
                 color="secondary"
@@ -42,11 +59,11 @@ export const DmsTemplatesItem = ({ template, onStatusChange, category }: DmsTemp
           <Box display="flex" justifyContent="space-between" mb={2}>
             <div>
               <Typography className={classes.date}>
-                {DateTime.fromISO(new Date(createdAt.toString()).toISOString()).toRelative({
+                {DateTime.fromISO(createdAt).toRelative({
                   locale: intl.locale,
                 })}
               </Typography>
-              <Typography className={classes.title}>{name}</Typography>
+              <Typography className={classes.title}>{templateName}</Typography>
               <Box mt={2}>
                 {labels.length
                   ? labels.map(label => (
@@ -73,14 +90,14 @@ export const DmsTemplatesItem = ({ template, onStatusChange, category }: DmsTemp
                     id: 'dms.templates.active_inactive',
                   })}
                   onClick={() => {
-                    onStatusChange(status === 'active' ? 'inactive' : 'active');
+                    onStatusChange(templateStatus === TemplateStatus.Active);
                   }}
                 />
               </ListOptionsMenu>
             </div>
           </Box>
           <Box display="flex" className={classes.stats}>
-            {Object.entries(meta).map(([key, value], index) => (
+            {Object.entries(metaData).map(([key, value], index) => (
               <Box
                 display="flex"
                 flexDirection="column"

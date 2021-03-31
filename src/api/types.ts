@@ -233,6 +233,7 @@ export type Mutation = {
   addCadastre?: Maybe<PimWithNewCadastre>;
   addCadastreMaps?: Maybe<Pim>;
   addCost: CostResult;
+  addCrmLabel: Label;
   addFiles: Array<File>;
   addFloorToPim: PimWithNewFloor;
   addIdentificationNumberNcp: NcpWithNewIdentificationNumber;
@@ -279,10 +280,12 @@ export type Mutation = {
   bulk: BulkOperationResult;
   bulkDeleteNotifications?: Maybe<Scalars['Boolean']>;
   bulkReadNotifications?: Maybe<Scalars['Boolean']>;
+  cloneMatchProfile?: Maybe<MatchProfile>;
   confirmAppointment: Appointment;
   confirmProfileInvite: Profile;
   createCompany: Company;
   createCrm: CrmGeneral;
+  createDmsFolder: DmsFolder;
   createEmailAddress: Profile;
   createNcp: NcpGeneral;
   createNotification?: Maybe<Notification>;
@@ -290,13 +293,18 @@ export type Mutation = {
   createPhoneNumber: Profile;
   createPim?: Maybe<Pim>;
   createProfile: Profile;
+  createQuestion?: Maybe<Question>;
+  createQuestionaire?: Maybe<Questionaire>;
+  createQuestionaireGroup?: Maybe<Groups>;
   createSocialMediaLink: Profile;
   createTask: Task;
   deactivateProfile: Profile;
   deleteAllocate?: Maybe<Scalars['Boolean']>;
+  deleteDmsFolder: Scalars['Boolean'];
   deleteEntity: Array<DeleteResult>;
   deleteMatchProfile?: Maybe<Scalars['Boolean']>;
   deleteNotification?: Maybe<Scalars['Boolean']>;
+  deleteQuestionaireGroup?: Maybe<Scalars['Boolean']>;
   deleteSubtask?: Maybe<Task>;
   draftAppointment: DraftAppointment;
   forgotPassword?: Maybe<ForgotPasswordResponse>;
@@ -308,6 +316,7 @@ export type Mutation = {
   reactivateProfile: Profile;
   readNotification?: Maybe<Scalars['Boolean']>;
   removeAllocationCriteria: Pim;
+  removeCrmLabel: Scalars['Boolean'];
   removeFiles: Array<Maybe<File>>;
   removeInspection: Pim;
   removeLabel: Scalars['Boolean'];
@@ -341,9 +350,11 @@ export type Mutation = {
   updateCost: CostResult;
   updateCrmContactInformation?: Maybe<CrmContactInformation>;
   updateCrmFamilyContacts?: Maybe<CrmFamilyContacts>;
+  updateCrmFinancial?: Maybe<CrmFinancial>;
   updateCrmGeneral?: Maybe<CrmGeneral>;
   updateCrmHomeSituation?: Maybe<CrmHomeSituation>;
   updateDescription?: Maybe<Scalars['String']>;
+  updateDmsFolder: DmsFolder;
   updateEmail?: Maybe<Email>;
   updateEmailAddress: Profile;
   updateFloor: Pim;
@@ -398,6 +409,9 @@ export type Mutation = {
   updatePricing: Pim;
   updateProfile: Profile;
   updateProjectPhase: ProjectPhase;
+  updateQuestion?: Maybe<Question>;
+  updateQuestionaire?: Maybe<Questionaire>;
+  updateQuestionaireGroup?: Maybe<Groups>;
   updateSalesSettings: Pim;
   updateSocialMediaLink: Profile;
   updateSpace: Pim;
@@ -407,6 +421,7 @@ export type Mutation = {
   updateTag?: Maybe<Pim>;
   updateTask?: Maybe<Task>;
   updateTeam?: Maybe<Team>;
+  updateTemplateGeneral?: Maybe<Questionaire>;
   updateTextChapter?: Maybe<Pim>;
   updateUserInTeam?: Maybe<Team>;
   updateUsp?: Maybe<Pim>;
@@ -446,6 +461,10 @@ export type MutationAddCadastreMapsArgs = {
 
 export type MutationAddCostArgs = {
   input: AddCostInput;
+};
+
+export type MutationAddCrmLabelArgs = {
+  input: LabelInput;
 };
 
 export type MutationAddFilesArgs = {
@@ -635,6 +654,10 @@ export type MutationBulkReadNotificationsArgs = {
   input: BulkReadNotificationsInput;
 };
 
+export type MutationCloneMatchProfileArgs = {
+  input: CloneMatchProfileInput;
+};
+
 export type MutationConfirmAppointmentArgs = {
   accountId: Scalars['String'];
   appointmentId: Scalars['ID'];
@@ -650,6 +673,10 @@ export type MutationCreateCompanyArgs = {
 
 export type MutationCreateCrmArgs = {
   input: CreateCrmInput;
+};
+
+export type MutationCreateDmsFolderArgs = {
+  input: CreateDmsFolderInput;
 };
 
 export type MutationCreateEmailAddressArgs = {
@@ -680,6 +707,18 @@ export type MutationCreateProfileArgs = {
   input: CreateProfileInput;
 };
 
+export type MutationCreateQuestionArgs = {
+  input: QuestionInput;
+};
+
+export type MutationCreateQuestionaireArgs = {
+  input: QuestionaireInput;
+};
+
+export type MutationCreateQuestionaireGroupArgs = {
+  input: GroupsInput;
+};
+
 export type MutationCreateSocialMediaLinkArgs = {
   input: CreateSocialMediaLinkInput;
 };
@@ -696,6 +735,10 @@ export type MutationDeleteAllocateArgs = {
   id: Scalars['ID'];
 };
 
+export type MutationDeleteDmsFolderArgs = {
+  input: DeleteDmsFolderInput;
+};
+
 export type MutationDeleteEntityArgs = {
   input: DeleteEntityInput;
 };
@@ -706,6 +749,10 @@ export type MutationDeleteMatchProfileArgs = {
 
 export type MutationDeleteNotificationArgs = {
   input: DeleteNotificationInput;
+};
+
+export type MutationDeleteQuestionaireGroupArgs = {
+  id: Scalars['ID'];
 };
 
 export type MutationDeleteSubtaskArgs = {
@@ -749,6 +796,10 @@ export type MutationReadNotificationArgs = {
 };
 
 export type MutationRemoveAllocationCriteriaArgs = {
+  id: Scalars['ID'];
+};
+
+export type MutationRemoveCrmLabelArgs = {
   id: Scalars['ID'];
 };
 
@@ -886,6 +937,10 @@ export type MutationUpdateCrmFamilyContactsArgs = {
   input: UpdateCrmFamilyContactsInput;
 };
 
+export type MutationUpdateCrmFinancialArgs = {
+  input: UpdateCrmFinancialInput;
+};
+
 export type MutationUpdateCrmGeneralArgs = {
   input: UpdateCrmGeneralInput;
 };
@@ -896,6 +951,10 @@ export type MutationUpdateCrmHomeSituationArgs = {
 
 export type MutationUpdateDescriptionArgs = {
   input: UpdateDescriptionInput;
+};
+
+export type MutationUpdateDmsFolderArgs = {
+  input: UpdateDmsFolderInput;
 };
 
 export type MutationUpdateEmailArgs = {
@@ -1115,6 +1174,20 @@ export type MutationUpdateProjectPhaseArgs = {
   input: UpdateProjectPhaseInput;
 };
 
+export type MutationUpdateQuestionArgs = {
+  questionId: Scalars['ID'];
+  input: UpdateQuestionInput;
+};
+
+export type MutationUpdateQuestionaireArgs = {
+  input: UpdateQuestionaireInput;
+};
+
+export type MutationUpdateQuestionaireGroupArgs = {
+  id: Scalars['ID'];
+  input: UpdateGroupsInput;
+};
+
 export type MutationUpdateSalesSettingsArgs = {
   input: SalesSettingsInput;
 };
@@ -1152,6 +1225,10 @@ export type MutationUpdateTeamArgs = {
   input: UpdateTeamInput;
 };
 
+export type MutationUpdateTemplateGeneralArgs = {
+  input: TemplateGeneralInput;
+};
+
 export type MutationUpdateTextChapterArgs = {
   input: UpdateTextChapterInput;
 };
@@ -1186,7 +1263,6 @@ export type MutationVerifyUserArgs = {
 export type Query = {
   __typename?: 'Query';
   _?: Maybe<Scalars['Boolean']>;
-  advancedSearch?: Maybe<AdvancedSearchResult>;
   checkCompanyRegistered: CheckRegisteredResponse;
   crmList: CrmListSearchResult;
   dictionary?: Maybe<Scalars['Dictionary']>;
@@ -1199,9 +1275,12 @@ export type Query = {
   getCompanyDetails: Company;
   getCrmContactInformation?: Maybe<CrmContactInformation>;
   getCrmFamilyContacts?: Maybe<CrmFamilyContacts>;
+  getCrmFinancial?: Maybe<CrmFinancial>;
   getCrmGeneral?: Maybe<CrmGeneral>;
   getCrmHomeSituation?: Maybe<CrmHomeSituation>;
+  getCrmLabels?: Maybe<Array<Label>>;
   getCrmWithSameInfo: CrmListSearchResult;
+  getDmsFolder?: Maybe<DmsFolder>;
   getEmail?: Maybe<Email>;
   getKikSettings?: Maybe<KikSettings>;
   getLabels?: Maybe<Array<Label>>;
@@ -1241,6 +1320,9 @@ export type Query = {
   getProfile?: Maybe<Profile>;
   getProjectPhases: ProjectPhaseSearchResult;
   getPropertyTypes: Array<Scalars['String']>;
+  getQuestionaire?: Maybe<Questionaire>;
+  getQuestionaireGroup?: Maybe<Groups>;
+  getQuestionaires: TemplatesResponse;
   getSalesCrmsList: LinkSalesCrmsListResult;
   getSalesList?: Maybe<SalesSearchResult>;
   getSalesPimsList: LinkSalesPimsListResult;
@@ -1256,6 +1338,7 @@ export type Query = {
   getUndoId: Scalars['ID'];
   listAllocates?: Maybe<Array<Allocate>>;
   listCalendar?: Maybe<Array<Appointment>>;
+  listDmsFolders?: Maybe<Array<DmsFolder>>;
   listEmail?: Maybe<Array<EmailListItem>>;
   listEmailFolders?: Maybe<Array<EmailFolderListItem>>;
   listMatchProfiles?: Maybe<Array<MatchProfile>>;
@@ -1263,11 +1346,10 @@ export type Query = {
   listNylasAccount?: Maybe<Array<NylasAccountItem>>;
   listObjectTypes: ObjectTypeListSearchResult;
   listPims: PimListSearchResult;
+  listQuestionaireGroups?: Maybe<Array<Groups>>;
+  listQuestions?: Maybe<Array<Question>>;
   me?: Maybe<Profile>;
-};
-
-export type QueryAdvancedSearchArgs = {
-  input: AdvancedSearchInput;
+  search?: Maybe<SearchResult>;
 };
 
 export type QueryCheckCompanyRegisteredArgs = {
@@ -1310,6 +1392,10 @@ export type QueryGetCrmFamilyContactsArgs = {
   id: Scalars['ID'];
 };
 
+export type QueryGetCrmFinancialArgs = {
+  id: Scalars['ID'];
+};
+
 export type QueryGetCrmGeneralArgs = {
   id: Scalars['ID'];
 };
@@ -1318,8 +1404,17 @@ export type QueryGetCrmHomeSituationArgs = {
   id: Scalars['ID'];
 };
 
+export type QueryGetCrmLabelsArgs = {
+  parentId: Scalars['ID'];
+  properties?: Maybe<Array<LabelProperty>>;
+};
+
 export type QueryGetCrmWithSameInfoArgs = {
   input: CrmWithSameInfoInput;
+};
+
+export type QueryGetDmsFolderArgs = {
+  folderId: Scalars['ID'];
 };
 
 export type QueryGetEmailArgs = {
@@ -1468,6 +1563,20 @@ export type QueryGetProjectPhasesArgs = {
   pagination: Pagination;
 };
 
+export type QueryGetQuestionaireArgs = {
+  id: Scalars['ID'];
+};
+
+export type QueryGetQuestionaireGroupArgs = {
+  id: Scalars['ID'];
+};
+
+export type QueryGetQuestionairesArgs = {
+  filters: ListQuestionairesFilters;
+  pagination?: Maybe<Pagination>;
+  search?: Maybe<Scalars['String']>;
+};
+
 export type QueryGetSalesCrmsListArgs = {
   id: Scalars['ID'];
 };
@@ -1534,6 +1643,10 @@ export type QueryListCalendarArgs = {
   input: AppointmentSearch;
 };
 
+export type QueryListDmsFoldersArgs = {
+  entityId: Scalars['ID'];
+};
+
 export type QueryListEmailArgs = {
   accountId: Scalars['String'];
   folderId?: Maybe<Scalars['ID']>;
@@ -1569,6 +1682,18 @@ export type QueryListPimsArgs = {
   filters?: Maybe<ListPimsFilters>;
   pagination?: Maybe<Pagination>;
   sort?: Maybe<Array<Sort>>;
+};
+
+export type QueryListQuestionaireGroupsArgs = {
+  templateId: Scalars['ID'];
+};
+
+export type QueryListQuestionsArgs = {
+  groupId: Scalars['ID'];
+};
+
+export type QuerySearchArgs = {
+  input: SearchInput;
 };
 
 export type LoginInput = {
@@ -2232,12 +2357,20 @@ export type LinkedCrm = {
   email?: Maybe<Scalars['String']>;
   phoneNumber?: Maybe<Scalars['String']>;
   avatar?: Maybe<File>;
+  isPassedAway?: Maybe<Scalars['Boolean']>;
+  dateOfDeath?: Maybe<Scalars['Date']>;
 };
 
 export type CrmContact = {
   __typename?: 'CrmContact';
   type: Scalars['String'];
   contact: LinkedCrm;
+};
+
+export type CrmPartner = {
+  __typename?: 'CrmPartner';
+  isDivorced?: Maybe<Scalars['Boolean']>;
+  partner: LinkedCrm;
 };
 
 export type CrmFamilyContacts = {
@@ -2249,7 +2382,7 @@ export type CrmFamilyContacts = {
   familyCompositionChildren?: Maybe<Scalars['Int']>;
   familyCompositionAdults?: Maybe<Scalars['Int']>;
   familyCompositionInformation?: Maybe<Scalars['String']>;
-  partner?: Maybe<LinkedCrm>;
+  partners?: Maybe<Array<CrmPartner>>;
   contacts?: Maybe<Array<CrmContact>>;
 };
 
@@ -2261,13 +2394,267 @@ export type UpdateCrmFamilyContactsInput = {
   familyCompositionChildren?: Maybe<Scalars['Int']>;
   familyCompositionAdults?: Maybe<Scalars['Int']>;
   familyCompositionInformation?: Maybe<Scalars['String']>;
-  partnerId?: Maybe<Scalars['ID']>;
+  partners?: Maybe<Array<CrmPartnerInput>>;
   contacts?: Maybe<Array<CrmContactInput>>;
 };
 
 export type CrmContactInput = {
   type: Scalars['String'];
   contactId: Scalars['ID'];
+};
+
+export type CrmPartnerInput = {
+  id: Scalars['ID'];
+  isDivorced?: Maybe<Scalars['Boolean']>;
+  isPassedAway?: Maybe<Scalars['Boolean']>;
+  dateOfDeath?: Maybe<Scalars['Date']>;
+};
+
+export enum IncomeType {
+  Employer = 'Employer',
+  Equity = 'Equity',
+  Pension = 'Pension',
+  SocialBenefit = 'SocialBenefit',
+  Entrepreneur = 'Entrepreneur',
+}
+
+export enum PeriodType {
+  PerMonth = 'PerMonth',
+  PerWeek = 'PerWeek',
+  PerFourWeeks = 'PerFourWeeks',
+  PerYear = 'PerYear',
+}
+
+export enum EmploymentType {
+  FixedTerm = 'FixedTerm',
+  Indefinitely = 'Indefinitely',
+}
+
+export enum SocialBenefitType {
+  SocialBenefit = 'SocialBenefit',
+  Wajong = 'Wajong',
+  WiaWao = 'WiaWao',
+  IoawIow = 'IoawIow',
+}
+
+export enum EntrepreneurType {
+  IbEntrepreneur = 'IbEntrepreneur',
+  Dga = 'Dga',
+}
+
+export enum FinancialObligationType {
+  Obligation1 = 'Obligation1',
+  Obligation2 = 'Obligation2',
+  Obligation3 = 'Obligation3',
+}
+
+export enum BankType {
+  Ing = 'Ing',
+  Rabobank = 'Rabobank',
+  AbnAmro = 'AbnAmro',
+}
+
+export enum BankAccountPurposeType {
+  AutomaticIncasso = 'AutomaticIncasso',
+  ServiceCosts = 'ServiceCosts',
+  FirstInvoice = 'FirstInvoice',
+}
+
+export enum EmployerIncomeProfession {
+  Designer = 'Designer',
+}
+
+export type CrmFinancial = {
+  __typename?: 'CrmFinancial';
+  id: Scalars['ID'];
+  financialInfo?: Maybe<Scalars['String']>;
+  income?: Maybe<Array<CrmIncome>>;
+  financialObligations?: Maybe<Array<CrmFinancialObligation>>;
+  bankAccounts?: Maybe<Array<CrmBankAccount>>;
+};
+
+export type UpdateCrmFinancialInput = {
+  id: Scalars['ID'];
+  financialInfo?: Maybe<Scalars['String']>;
+  income?: Maybe<Array<CrmIncomeInput>>;
+  financialObligations?: Maybe<Array<CrmFinancialObligationInput>>;
+  bankAccounts?: Maybe<Array<CrmBankAccountInput>>;
+};
+
+export type CrmIncome = {
+  __typename?: 'CrmIncome';
+  id: Scalars['ID'];
+  type: IncomeType;
+  information?: Maybe<Scalars['String']>;
+  employerIncome?: Maybe<CrmEmployerIncome>;
+  equityIncome?: Maybe<CrmEquityIncome>;
+  pensionIncome?: Maybe<CrmPensionIncome>;
+  socialBenefitIncome?: Maybe<CrmSocialBenefitIncome>;
+  entrepreneurIncome?: Maybe<CrmEntrepreneurIncome>;
+};
+
+export type CrmEmployerInformation = {
+  __typename?: 'CrmEmployerInformation';
+  name?: Maybe<Scalars['String']>;
+  street?: Maybe<Scalars['String']>;
+  houseNumber?: Maybe<Scalars['Int']>;
+  addition?: Maybe<Scalars['String']>;
+  zipcode?: Maybe<Scalars['String']>;
+  city?: Maybe<Scalars['String']>;
+  country?: Maybe<Scalars['String']>;
+};
+
+export type CrmEmployerIncome = {
+  __typename?: 'CrmEmployerIncome';
+  profession?: Maybe<EmployerIncomeProfession>;
+  employer?: Maybe<LinkedCrm>;
+  employerInformation?: Maybe<CrmEmployerInformation>;
+  employmentType?: Maybe<Scalars['String']>;
+  grossIncome?: Maybe<Scalars['Int']>;
+  grossIncomePeriod?: Maybe<PeriodType>;
+  holidayBonus?: Maybe<Scalars['Boolean']>;
+  fixedThirteenthMonth?: Maybe<Scalars['Boolean']>;
+  irregularityAllowance?: Maybe<Scalars['Int']>;
+  irregularityAllowancePeriod?: Maybe<PeriodType>;
+  profitDistribution?: Maybe<Scalars['Int']>;
+  profitDistributionPeriod?: Maybe<PeriodType>;
+  commission?: Maybe<Scalars['Int']>;
+  commissionPeriod?: Maybe<PeriodType>;
+  overtime?: Maybe<Scalars['Int']>;
+  overtimePeriod?: Maybe<PeriodType>;
+};
+
+export type CrmEquityIncome = {
+  __typename?: 'CrmEquityIncome';
+  income?: Maybe<Scalars['Int']>;
+};
+
+export type CrmPensionIncome = {
+  __typename?: 'CrmPensionIncome';
+  aowBenefit?: Maybe<Scalars['Int']>;
+  aowBenefitPeriod?: Maybe<PeriodType>;
+  retirementBenefit?: Maybe<Scalars['Int']>;
+  retirementBenefitPeriod?: Maybe<PeriodType>;
+};
+
+export type CrmSocialBenefitIncome = {
+  __typename?: 'CrmSocialBenefitIncome';
+  income?: Maybe<Scalars['Int']>;
+  incomePeriod?: Maybe<PeriodType>;
+  socialBenefitType?: Maybe<Scalars['String']>;
+};
+
+export type CrmEntrepreneurIncome = {
+  __typename?: 'CrmEntrepreneurIncome';
+  entrepreneurType?: Maybe<EntrepreneurType>;
+  companyCar?: Maybe<Scalars['Boolean']>;
+  companyBike?: Maybe<Scalars['Boolean']>;
+  pastPensionAge?: Maybe<Scalars['Boolean']>;
+  smeProfitExemption?: Maybe<Scalars['Boolean']>;
+  incomePerYear?: Maybe<Scalars['Int']>;
+  workingHoursPerMonth?: Maybe<Scalars['Int']>;
+  yearsAsIndependent?: Maybe<Scalars['Int']>;
+};
+
+export type CrmFinancialObligation = {
+  __typename?: 'CrmFinancialObligation';
+  id: Scalars['ID'];
+  type: Scalars['String'];
+  financialObligation?: Maybe<Scalars['Int']>;
+  information?: Maybe<Scalars['String']>;
+};
+
+export type CrmBankAccount = {
+  __typename?: 'CrmBankAccount';
+  id: Scalars['ID'];
+  type: Scalars['String'];
+  accountNumber?: Maybe<Scalars['String']>;
+  bic?: Maybe<Scalars['String']>;
+  iban?: Maybe<Scalars['String']>;
+  swift?: Maybe<Scalars['String']>;
+  purpose?: Maybe<Scalars['String']>;
+};
+
+export type CrmIncomeInput = {
+  type: IncomeType;
+  information?: Maybe<Scalars['String']>;
+  employerIncome?: Maybe<CrmEmployerIncomeInput>;
+  equityIncome?: Maybe<CrmEquityIncomeInput>;
+  pensionIncome?: Maybe<CrmPensionIncomeInput>;
+  socialBenefitIncome?: Maybe<CrmSocialBenefitIncomeInput>;
+  entrepreneurIncome?: Maybe<CrmEntrepreneurIncomeInput>;
+};
+
+export type CrmEmployerInformationInput = {
+  name?: Maybe<Scalars['String']>;
+  street?: Maybe<Scalars['String']>;
+  houseNumber?: Maybe<Scalars['Int']>;
+  addition?: Maybe<Scalars['String']>;
+  zipcode?: Maybe<Scalars['String']>;
+  city?: Maybe<Scalars['String']>;
+  country?: Maybe<Scalars['String']>;
+};
+
+export type CrmEmployerIncomeInput = {
+  profession?: Maybe<EmployerIncomeProfession>;
+  employerId?: Maybe<Scalars['ID']>;
+  employerInformation?: Maybe<CrmEmployerInformationInput>;
+  employmentType?: Maybe<Scalars['String']>;
+  grossIncome?: Maybe<Scalars['Int']>;
+  grossIncomePeriod?: Maybe<PeriodType>;
+  holidayBonus?: Maybe<Scalars['Boolean']>;
+  fixedThirteenthMonth?: Maybe<Scalars['Boolean']>;
+  irregularityAllowance?: Maybe<Scalars['Int']>;
+  irregularityAllowancePeriod?: Maybe<PeriodType>;
+  profitDistribution?: Maybe<Scalars['Int']>;
+  profitDistributionPeriod?: Maybe<PeriodType>;
+  commission?: Maybe<Scalars['Int']>;
+  commissionPeriod?: Maybe<PeriodType>;
+  overtime?: Maybe<Scalars['Int']>;
+  overtimePeriod?: Maybe<PeriodType>;
+};
+
+export type CrmEquityIncomeInput = {
+  income?: Maybe<Scalars['Int']>;
+};
+
+export type CrmPensionIncomeInput = {
+  aowBenefit?: Maybe<Scalars['Int']>;
+  aowBenefitPeriod?: Maybe<PeriodType>;
+  retirementBenefit?: Maybe<Scalars['Int']>;
+  retirementBenefitPeriod?: Maybe<PeriodType>;
+};
+
+export type CrmSocialBenefitIncomeInput = {
+  income?: Maybe<Scalars['Int']>;
+  incomePeriod?: Maybe<PeriodType>;
+  socialBenefitType?: Maybe<Scalars['String']>;
+};
+
+export type CrmEntrepreneurIncomeInput = {
+  entrepreneurType?: Maybe<EntrepreneurType>;
+  companyCar?: Maybe<Scalars['Boolean']>;
+  companyBike?: Maybe<Scalars['Boolean']>;
+  pastPensionAge?: Maybe<Scalars['Boolean']>;
+  smeProfitExemption?: Maybe<Scalars['Boolean']>;
+  incomePerYear?: Maybe<Scalars['Int']>;
+  workingHoursPerMonth?: Maybe<Scalars['Int']>;
+  yearsAsIndependent?: Maybe<Scalars['Int']>;
+};
+
+export type CrmFinancialObligationInput = {
+  type: Scalars['String'];
+  financialObligation?: Maybe<Scalars['Int']>;
+  information?: Maybe<Scalars['String']>;
+};
+
+export type CrmBankAccountInput = {
+  type: Scalars['String'];
+  accountNumber?: Maybe<Scalars['String']>;
+  bic?: Maybe<Scalars['String']>;
+  iban?: Maybe<Scalars['String']>;
+  swift?: Maybe<Scalars['String']>;
+  purpose?: Maybe<Scalars['String']>;
 };
 
 export enum CrmType {
@@ -2472,7 +2859,7 @@ export type CrmListItem = {
   familyCompositionChildren?: Maybe<Scalars['Int']>;
   familyCompositionAdults?: Maybe<Scalars['Int']>;
   currentHomeSituation?: Maybe<Scalars['String']>;
-  partner?: Maybe<LinkedCrm>;
+  partners?: Maybe<Array<CrmPartner>>;
   phoneNumber?: Maybe<Scalars['String']>;
   addresses?: Maybe<Array<CrmAddress>>;
   email?: Maybe<Scalars['String']>;
@@ -2504,6 +2891,75 @@ export type CrmWithSameInfoInput = {
   lastName?: Maybe<Scalars['String']>;
   email?: Maybe<Scalars['String']>;
   phoneNumber?: Maybe<Scalars['String']>;
+};
+
+export enum DmsEntityType {
+  Pim = 'Pim',
+  Ncp = 'Ncp',
+  Crm = 'Crm',
+  Sales = 'Sales',
+}
+
+export enum DmsFolderType {
+  Custom = 'Custom',
+  Default = 'Default',
+}
+
+export enum DmsPimFolderType {
+  Aquisition = 'Aquisition',
+  Quotation = 'Quotation',
+  SalesOrder = 'SalesOrder',
+  Property = 'Property',
+  Drawing = 'Drawing',
+  Questionaires = 'Questionaires',
+  ListOfItems = 'ListOfItems',
+  Publication = 'Publication',
+  Contracts = 'Contracts',
+  Internal = 'Internal',
+}
+
+export enum DmsCrmFolderType {
+  Personal = 'Personal',
+  Emails = 'Emails',
+  ContractsPrint = 'ContractsPrint',
+  Surveys = 'Surveys',
+  Invoices = 'Invoices',
+}
+
+export type DmsFolder = {
+  __typename?: 'DmsFolder';
+  entityId: Scalars['ID'];
+  id: Scalars['ID'];
+  companyId: Scalars['ID'];
+  foldername: Scalars['String'];
+  entityType: DmsEntityType;
+  type: DmsFolderType;
+  order?: Maybe<Scalars['Int']>;
+  deletedAt?: Maybe<Scalars['Date']>;
+};
+
+export type CreateDmsFolderInput = {
+  entityId: Scalars['ID'];
+  foldername: Scalars['String'];
+  entityType: DmsEntityType;
+  type: DmsFolderType;
+  order?: Maybe<Scalars['Int']>;
+  deletedAt?: Maybe<Scalars['Date']>;
+};
+
+export type UpdateDmsFolderInput = {
+  entityId: Scalars['ID'];
+  id: Scalars['ID'];
+  foldername: Scalars['String'];
+  entityType: DmsEntityType;
+  type: DmsFolderType;
+  order?: Maybe<Scalars['Int']>;
+  deletedAt?: Maybe<Scalars['Date']>;
+};
+
+export type DeleteDmsFolderInput = {
+  entityId: Scalars['ID'];
+  id: Scalars['ID'];
 };
 
 export type EmailAndName = {
@@ -2907,6 +3363,8 @@ export enum Entities {
   AddOn = 'addOn',
   TiaraMutation = 'tiaraMutation',
   Email = 'email',
+  Users = 'users',
+  Sales = 'sales',
 }
 
 export enum IdentificationNumberType {
@@ -2978,6 +3436,7 @@ export enum LabelProperty {
   MaintenanceInspection = 'MaintenanceInspection',
   Cost = 'Cost',
   Task = 'Task',
+  ReasonToMove = 'ReasonToMove',
 }
 
 export type Label = {
@@ -3317,6 +3776,8 @@ export type MatchProfile = {
   exploitation?: Maybe<IntRange>;
   requirements?: Maybe<Array<MatchRequirement>>;
   locations?: Maybe<Array<MatchProfileLocation>>;
+  isActive: Scalars['Boolean'];
+  createdAt: Scalars['Date'];
 };
 
 export type MatchRevenueAndExploitation = {
@@ -3447,6 +3908,10 @@ export type AddMatchProfileInput = {
   locations?: Maybe<Array<MatchProfileLocationInput>>;
 };
 
+export type CloneMatchProfileInput = {
+  id: Scalars['ID'];
+};
+
 export type UpdateMatchProfileInput = {
   propertyType?: Maybe<MatchPropertyType>;
   startDate?: Maybe<Scalars['Date']>;
@@ -3467,6 +3932,7 @@ export type UpdateMatchProfileInput = {
   exploitation?: Maybe<IntRangeInput>;
   requirements?: Maybe<Array<MatchRequirementInput>>;
   locations?: Maybe<Array<MatchProfileLocationInput>>;
+  isActive?: Maybe<Scalars['Boolean']>;
 };
 
 export type MatchCharacteristicsInput = {
@@ -8563,8 +9029,8 @@ export type Pagination = {
   searchAfter?: Maybe<Array<Scalars['String']>>;
 };
 
-export type AdvancedSearchResult = {
-  __typename?: 'AdvancedSearchResult';
+export type SearchResult = {
+  __typename?: 'SearchResult';
   users?: Maybe<Array<Profile>>;
   emails?: Maybe<Array<Profile>>;
   crms?: Maybe<Array<CrmListItem>>;
@@ -8574,9 +9040,9 @@ export type AdvancedSearchResult = {
   sales?: Maybe<Array<Sales>>;
 };
 
-export type AdvancedSearchInput = {
+export type SearchInput = {
   keyword: Scalars['String'];
-  type?: Maybe<Array<Entities>>;
+  types?: Maybe<Array<Entities>>;
   page?: Maybe<Scalars['Int']>;
   size?: Maybe<Scalars['Int']>;
 };
@@ -8982,6 +9448,234 @@ export type RemoveUserFromTeamInput = {
   userId: Scalars['ID'];
 };
 
+export enum TemplateStatus {
+  Active = 'Active',
+  InActive = 'InActive',
+}
+
+export type QuestionaireInput = {
+  templateName?: Maybe<Scalars['String']>;
+  type?: Maybe<TemplateType>;
+  isAdmin?: Maybe<Scalars['Boolean']>;
+  published?: Maybe<Scalars['Boolean']>;
+  copyFromId?: Maybe<Scalars['String']>;
+  entity?: Maybe<EntityInput>;
+  templateStatus?: Maybe<TemplateStatus>;
+};
+
+export type UpdateQuestionaireInput = {
+  id: Scalars['ID'];
+  templateStatus?: Maybe<TemplateStatus>;
+};
+
+export enum TemplateDocumentType {
+  Sale = 'Sale',
+  Rent = 'Rent',
+}
+
+export type TemplateSettings = {
+  __typename?: 'TemplateSettings';
+  description?: Maybe<Scalars['String']>;
+  version?: Maybe<Scalars['String']>;
+  language?: Maybe<Scalars['String']>;
+  documentType?: Maybe<Scalars['String']>;
+};
+
+export type TemplateSecurity = {
+  __typename?: 'TemplateSecurity';
+  name: Scalars['String'];
+  create?: Maybe<Scalars['Boolean']>;
+  update?: Maybe<Scalars['Boolean']>;
+  read?: Maybe<Scalars['Boolean']>;
+  delete?: Maybe<Scalars['Boolean']>;
+};
+
+export type TemplateSettingsInput = {
+  description?: Maybe<Scalars['String']>;
+  version?: Maybe<Scalars['String']>;
+  language?: Maybe<Scalars['String']>;
+  documentType?: Maybe<Scalars['String']>;
+};
+
+export type TemplateSecurityInput = {
+  name?: Maybe<Scalars['String']>;
+  create?: Maybe<Scalars['Boolean']>;
+  update?: Maybe<Scalars['Boolean']>;
+  read?: Maybe<Scalars['Boolean']>;
+  delete?: Maybe<Scalars['Boolean']>;
+};
+
+export type TemplateGeneralInput = {
+  templateName?: Maybe<Scalars['String']>;
+  settings?: Maybe<TemplateSettingsInput>;
+  securities?: Maybe<Array<TemplateSecurityInput>>;
+};
+
+export type QuestionInput = {
+  groupId: Scalars['ID'];
+  name: Scalars['String'];
+  order?: Maybe<Scalars['Int']>;
+  type?: Maybe<QuestionType>;
+  required?: Maybe<Scalars['Boolean']>;
+  commentEnabled?: Maybe<Scalars['Boolean']>;
+  showOn?: Maybe<Scalars['Boolean']>;
+  options?: Maybe<Array<Maybe<OptionsInput>>>;
+  entity?: Maybe<EntityInput>;
+};
+
+export type UpdateQuestionInput = {
+  name?: Maybe<Scalars['String']>;
+  order?: Maybe<Scalars['Int']>;
+  type?: Maybe<QuestionType>;
+  required?: Maybe<Scalars['Boolean']>;
+  commentEnabled?: Maybe<Scalars['Boolean']>;
+  showOn?: Maybe<Scalars['Boolean']>;
+  options?: Maybe<Array<Maybe<OptionsInput>>>;
+  entity?: Maybe<EntityInput>;
+};
+
+export type GroupsInput = {
+  templateId: Scalars['ID'];
+  groupName: Scalars['String'];
+  order?: Maybe<Scalars['Int']>;
+  entity?: Maybe<EntityInput>;
+};
+
+export type UpdateGroupsInput = {
+  groupName?: Maybe<Scalars['String']>;
+  order?: Maybe<Scalars['Int']>;
+  entity?: Maybe<EntityInput>;
+};
+
+export type AnswersInput = {
+  templateId?: Maybe<Scalars['String']>;
+  date?: Maybe<Scalars['Date']>;
+  entities?: Maybe<Array<Maybe<EntityInput>>>;
+};
+
+export type OptionsInput = {
+  name?: Maybe<Scalars['String']>;
+};
+
+export type AnswerInput = {
+  options?: Maybe<Array<Maybe<OptionsInput>>>;
+  comment?: Maybe<Scalars['String']>;
+};
+
+export type EntityInput = {
+  type?: Maybe<Scalars['String']>;
+  subType?: Maybe<Scalars['String']>;
+};
+
+export type TemplateMeta = {
+  __typename?: 'TemplateMeta';
+  createdAt: Scalars['Date'];
+  deletedAt?: Maybe<Scalars['Date']>;
+};
+
+export type Questionaire = {
+  __typename?: 'Questionaire';
+  id: Scalars['ID'];
+  companyId?: Maybe<Scalars['String']>;
+  type?: Maybe<TemplateType>;
+  templateName?: Maybe<Scalars['String']>;
+  isAdmin?: Maybe<Scalars['Boolean']>;
+  published?: Maybe<Scalars['Boolean']>;
+  copyFromId?: Maybe<Scalars['String']>;
+  entity?: Maybe<Entity>;
+  templateStatus?: Maybe<TemplateStatus>;
+  meta: TemplateMeta;
+  settings?: Maybe<TemplateSettings>;
+  securities?: Maybe<Array<TemplateSecurity>>;
+};
+
+export type Groups = {
+  __typename?: 'Groups';
+  id: Scalars['ID'];
+  templateId: Scalars['ID'];
+  groupName: Scalars['String'];
+  copyFromId?: Maybe<Scalars['String']>;
+  order?: Maybe<Scalars['Int']>;
+  entity?: Maybe<Entity>;
+};
+
+export type Question = {
+  __typename?: 'Question';
+  id: Scalars['ID'];
+  name: Scalars['String'];
+  groupId?: Maybe<Scalars['String']>;
+  order?: Maybe<Scalars['Int']>;
+  type?: Maybe<QuestionType>;
+  required?: Maybe<Scalars['Boolean']>;
+  commentEnabled?: Maybe<Scalars['Boolean']>;
+  showOn?: Maybe<Scalars['Boolean']>;
+  options?: Maybe<Array<Maybe<Options>>>;
+  entity?: Maybe<Entity>;
+};
+
+export type Answers = {
+  __typename?: 'Answers';
+  id: Scalars['ID'];
+  templateId?: Maybe<Scalars['String']>;
+  date?: Maybe<Scalars['Date']>;
+  entities?: Maybe<Array<Maybe<Entity>>>;
+};
+
+export type Answer = {
+  __typename?: 'Answer';
+  id: Scalars['ID'];
+  answersId?: Maybe<Scalars['String']>;
+  questionId?: Maybe<Scalars['String']>;
+  options?: Maybe<Array<Maybe<Options>>>;
+  comment?: Maybe<Scalars['String']>;
+};
+
+export type Options = {
+  __typename?: 'Options';
+  name?: Maybe<Scalars['String']>;
+};
+
+export enum QuestionType {
+  Text = 'text',
+  Radio = 'radio',
+  Checkbox = 'checkbox',
+  Multiplechoice = 'multiplechoice',
+  Number = 'number',
+  Email = 'email',
+  Price = 'price',
+  Singlelinetext = 'singlelinetext',
+  Multiplelinetext = 'multiplelinetext',
+}
+
+export enum TemplateType {
+  Questionnaire = 'questionnaire',
+  Contract = 'contract',
+  Lvz = 'lvz',
+  Survey = 'survey',
+  Newsletter = 'newsletter',
+  Print = 'print',
+  SocialMedia = 'socialMedia',
+  Invoice = 'invoice',
+  Email = 'email',
+}
+
+export type Entity = {
+  __typename?: 'Entity';
+  type?: Maybe<Scalars['String']>;
+  subType?: Maybe<Scalars['String']>;
+};
+
+export type ListQuestionairesFilters = {
+  type?: Maybe<Scalars['String']>;
+  templateStatus?: Maybe<TemplateStatus>;
+};
+
+export type TemplatesResponse = {
+  __typename?: 'TemplatesResponse';
+  count?: Maybe<Scalars['Int']>;
+  items?: Maybe<Array<Questionaire>>;
+};
+
 export enum TiaraMessageType {
   Aanmelden = 'Aanmelden',
   Wijzigen = 'Wijzigen',
@@ -9363,7 +10057,16 @@ export type UpdateCrmFamilyContactsMutation = { __typename?: 'Mutation' } & {
       | 'familyCompositionAdults'
       | 'familyCompositionInformation'
     > & {
-        partner?: Maybe<{ __typename?: 'LinkedCrm' } & Pick<LinkedCrm, 'id'>>;
+        partners?: Maybe<
+          Array<
+            { __typename?: 'CrmPartner' } & Pick<CrmPartner, 'isDivorced'> & {
+                partner: { __typename?: 'LinkedCrm' } & Pick<
+                  LinkedCrm,
+                  'id' | 'firstName' | 'initials' | 'lastName' | 'email' | 'isPassedAway' | 'dateOfDeath'
+                > & { avatar?: Maybe<{ __typename?: 'File' } & Pick<File, 'url'>> };
+              }
+          >
+        >;
         contacts?: Maybe<
           Array<
             { __typename?: 'CrmContact' } & Pick<CrmContact, 'type'> & {
@@ -9373,6 +10076,14 @@ export type UpdateCrmFamilyContactsMutation = { __typename?: 'Mutation' } & {
         >;
       }
   >;
+};
+
+export type UpdateCrmFinancialMutationVariables = Exact<{
+  input: UpdateCrmFinancialInput;
+}>;
+
+export type UpdateCrmFinancialMutation = { __typename?: 'Mutation' } & {
+  updateCrmFinancial?: Maybe<{ __typename?: 'CrmFinancial' } & Pick<CrmFinancial, 'id'>>;
 };
 
 export type CreateCrmMutationVariables = Exact<{
@@ -9444,6 +10155,14 @@ export type UpdateCrmHomeSituationMutation = { __typename?: 'Mutation' } & {
       | 'movingInformation'
     >
   >;
+};
+
+export type CreateDmsFolderMutationVariables = Exact<{
+  input: CreateDmsFolderInput;
+}>;
+
+export type CreateDmsFolderMutation = { __typename?: 'Mutation' } & {
+  createDmsFolder: { __typename?: 'DmsFolder' } & Pick<DmsFolder, 'id'>;
 };
 
 export type SendEmailMutationVariables = Exact<{
@@ -9579,6 +10298,14 @@ export type AddLabelMutation = { __typename?: 'Mutation' } & {
   addLabel: { __typename?: 'Label' } & Pick<Label, 'id' | 'property' | 'text' | 'icon'>;
 };
 
+export type AddCrmLabelMutationVariables = Exact<{
+  input: LabelInput;
+}>;
+
+export type AddCrmLabelMutation = { __typename?: 'Mutation' } & {
+  addCrmLabel: { __typename?: 'Label' } & Pick<Label, 'id' | 'property' | 'text' | 'icon'>;
+};
+
 export type AddMatchProfileMutationVariables = Exact<{
   input: AddMatchProfileInput;
 }>;
@@ -9600,6 +10327,110 @@ export type AddMatchProfileMutation = { __typename?: 'Mutation' } & {
       | 'conditions'
       | 'services'
       | 'tags'
+      | 'isActive'
+      | 'createdAt'
+    > & {
+        matchDuration?: Maybe<{ __typename?: 'MatchProfileDateRange' } & Pick<MatchProfileDateRange, 'from' | 'to'>>;
+        characteristics?: Maybe<
+          { __typename?: 'MatchCharacteristics' } & Pick<MatchCharacteristics, 'general'> & {
+              property?: Maybe<
+                { __typename?: 'MatchCharacteristicsProperty' } & Pick<
+                  MatchCharacteristicsProperty,
+                  | 'minAmountRooms'
+                  | 'minAmountBedrooms'
+                  | 'residentialLayerFrom'
+                  | 'residentialLayerTo'
+                  | 'constructionYearFrom'
+                  | 'constructionYearTo'
+                  | 'maintenanceQuality'
+                >
+              >;
+            }
+        >;
+        commercialCharacteristics?: Maybe<
+          { __typename?: 'MatchCommercialCharacteristics' } & Pick<MatchCommercialCharacteristics, 'general'> & {
+              property?: Maybe<
+                { __typename?: 'MatchCommercialCharacteristicsProperty' } & Pick<
+                  MatchCommercialCharacteristicsProperty,
+                  | 'minFreeHeight'
+                  | 'minFreeSpan'
+                  | 'minFloorLoad'
+                  | 'minAmountOfFloors'
+                  | 'minParkingLots'
+                  | 'engergyLabel'
+                  | 'constructionYearFrom'
+                  | 'constructionYearTo'
+                  | 'maintenanceQuality'
+                >
+              >;
+            }
+        >;
+        pricing?: Maybe<
+          { __typename?: 'MatchPricing' } & Pick<
+            MatchPricing,
+            'buyFrom' | 'buyTo' | 'rentFrom' | 'rentTo' | 'rentFrequency' | 'rentalPeriod' | 'preferredStartDate'
+          >
+        >;
+        outside?: Maybe<{ __typename?: 'MatchOutsidePricing' } & Pick<MatchOutsidePricing, 'minGarage'>>;
+        garden?: Maybe<
+          { __typename?: 'MatchGarden' } & Pick<
+            MatchGarden,
+            'situation' | 'outdoorSpacesMin' | 'outdoorSpacesMax' | 'volumeMin' | 'volumeMax'
+          >
+        >;
+        measurements?: Maybe<
+          { __typename?: 'MatchMeasurements' } & Pick<
+            MatchMeasurements,
+            | 'surfaceFromMin'
+            | 'surfaceToMin'
+            | 'livingAreaFromMin'
+            | 'livingAreaToMin'
+            | 'businessSpaceSurfaceFromMin'
+            | 'businessSpaceSurfaceToMin'
+            | 'practiceRoomSurfaceToMax'
+            | 'practiceRoomSurfaceToMin'
+            | 'plotSurfaceFromMin'
+            | 'plotSurfaceToMin'
+          >
+        >;
+        revenue?: Maybe<{ __typename?: 'IntRange' } & Pick<IntRange, 'from' | 'to'>>;
+        exploitation?: Maybe<{ __typename?: 'IntRange' } & Pick<IntRange, 'from' | 'to'>>;
+        requirements?: Maybe<Array<{ __typename?: 'MatchRequirement' } & Pick<MatchRequirement, 'key' | 'status'>>>;
+        locations?: Maybe<
+          Array<
+            { __typename?: 'MatchProfileLocation' } & Pick<
+              MatchProfileLocation,
+              'latitude' | 'longitude' | 'street' | 'houseNumber' | 'radius'
+            >
+          >
+        >;
+      }
+  >;
+};
+
+export type CloneMatchProfileMutationVariables = Exact<{
+  input: CloneMatchProfileInput;
+}>;
+
+export type CloneMatchProfileMutation = { __typename?: 'Mutation' } & {
+  cloneMatchProfile?: Maybe<
+    { __typename?: 'MatchProfile' } & Pick<
+      MatchProfile,
+      | 'id'
+      | 'crmId'
+      | 'companyId'
+      | 'propertyType'
+      | 'startDate'
+      | 'endDate'
+      | 'matchWith'
+      | 'description'
+      | 'estateType'
+      | 'commercialEstateType'
+      | 'conditions'
+      | 'services'
+      | 'tags'
+      | 'isActive'
+      | 'createdAt'
     > & {
         matchDuration?: Maybe<{ __typename?: 'MatchProfileDateRange' } & Pick<MatchProfileDateRange, 'from' | 'to'>>;
         characteristics?: Maybe<
@@ -9701,6 +10532,8 @@ export type UpdateMatchProfileMutation = { __typename?: 'Mutation' } & {
       | 'conditions'
       | 'services'
       | 'tags'
+      | 'isActive'
+      | 'createdAt'
     > & {
         matchDuration?: Maybe<{ __typename?: 'MatchProfileDateRange' } & Pick<MatchProfileDateRange, 'from' | 'to'>>;
         characteristics?: Maybe<
@@ -11029,6 +11862,104 @@ export type UpdateUserInTeamMutation = { __typename?: 'Mutation' } & {
   updateUserInTeam?: Maybe<{ __typename?: 'Team' } & Pick<Team, 'id'>>;
 };
 
+export type CreateQuestionaireMutationVariables = Exact<{
+  input: QuestionaireInput;
+}>;
+
+export type CreateQuestionaireMutation = { __typename?: 'Mutation' } & {
+  createQuestionaire?: Maybe<
+    { __typename?: 'Questionaire' } & Pick<
+      Questionaire,
+      'id' | 'templateName' | 'templateStatus' | 'isAdmin' | 'published' | 'copyFromId'
+    > & { entity?: Maybe<{ __typename?: 'Entity' } & Pick<Entity, 'type' | 'subType'>> }
+  >;
+};
+
+export type UpdateQuestionaireMutationVariables = Exact<{
+  input: UpdateQuestionaireInput;
+}>;
+
+export type UpdateQuestionaireMutation = { __typename?: 'Mutation' } & {
+  updateQuestionaire?: Maybe<
+    { __typename?: 'Questionaire' } & Pick<
+      Questionaire,
+      'id' | 'templateName' | 'templateStatus' | 'isAdmin' | 'published' | 'copyFromId'
+    > & { entity?: Maybe<{ __typename?: 'Entity' } & Pick<Entity, 'type' | 'subType'>> }
+  >;
+};
+
+export type UpdateTemplateGeneralMutationVariables = Exact<{
+  input: TemplateGeneralInput;
+}>;
+
+export type UpdateTemplateGeneralMutation = { __typename?: 'Mutation' } & {
+  updateTemplateGeneral?: Maybe<{ __typename?: 'Questionaire' } & Pick<Questionaire, 'id'>>;
+};
+
+export type CreateQuestionaireGroupMutationVariables = Exact<{
+  input: GroupsInput;
+}>;
+
+export type CreateQuestionaireGroupMutation = { __typename?: 'Mutation' } & {
+  createQuestionaireGroup?: Maybe<
+    { __typename?: 'Groups' } & Pick<Groups, 'id' | 'templateId' | 'groupName' | 'copyFromId' | 'order'> & {
+        entity?: Maybe<{ __typename?: 'Entity' } & Pick<Entity, 'type' | 'subType'>>;
+      }
+  >;
+};
+
+export type UpdateQuestionaireGroupMutationVariables = Exact<{
+  id: Scalars['ID'];
+  input: UpdateGroupsInput;
+}>;
+
+export type UpdateQuestionaireGroupMutation = { __typename?: 'Mutation' } & {
+  updateQuestionaireGroup?: Maybe<
+    { __typename?: 'Groups' } & Pick<Groups, 'id' | 'templateId' | 'groupName' | 'copyFromId' | 'order'> & {
+        entity?: Maybe<{ __typename?: 'Entity' } & Pick<Entity, 'type' | 'subType'>>;
+      }
+  >;
+};
+
+export type DeleteQuestionaireGroupMutationVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+export type DeleteQuestionaireGroupMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'deleteQuestionaireGroup'>;
+
+export type CreateQuestionMutationVariables = Exact<{
+  input: QuestionInput;
+}>;
+
+export type CreateQuestionMutation = { __typename?: 'Mutation' } & {
+  createQuestion?: Maybe<
+    { __typename?: 'Question' } & Pick<
+      Question,
+      'id' | 'groupId' | 'order' | 'type' | 'name' | 'required' | 'commentEnabled' | 'showOn'
+    > & {
+        options?: Maybe<Array<Maybe<{ __typename?: 'Options' } & Pick<Options, 'name'>>>>;
+        entity?: Maybe<{ __typename?: 'Entity' } & Pick<Entity, 'type' | 'subType'>>;
+      }
+  >;
+};
+
+export type UpdateQuestionMutationVariables = Exact<{
+  questionId: Scalars['ID'];
+  input: UpdateQuestionInput;
+}>;
+
+export type UpdateQuestionMutation = { __typename?: 'Mutation' } & {
+  updateQuestion?: Maybe<
+    { __typename?: 'Question' } & Pick<
+      Question,
+      'id' | 'groupId' | 'order' | 'type' | 'name' | 'required' | 'commentEnabled' | 'showOn'
+    > & {
+        options?: Maybe<Array<Maybe<{ __typename?: 'Options' } & Pick<Options, 'name'>>>>;
+        entity?: Maybe<{ __typename?: 'Entity' } & Pick<Entity, 'type' | 'subType'>>;
+      }
+  >;
+};
+
 export type TiaraSendMessageMutationVariables = Exact<{
   input: TiaraSendMessageInput;
 }>;
@@ -11375,16 +12306,112 @@ export type GetCrmFamilyContactsQuery = { __typename?: 'Query' } & {
       | 'familyCompositionAdults'
       | 'familyCompositionInformation'
     > & {
-        partner?: Maybe<
-          { __typename?: 'LinkedCrm' } & Pick<LinkedCrm, 'id' | 'firstName' | 'initials' | 'lastName' | 'email'> & {
-              avatar?: Maybe<{ __typename?: 'File' } & Pick<File, 'url'>>;
-            }
+        partners?: Maybe<
+          Array<
+            { __typename?: 'CrmPartner' } & Pick<CrmPartner, 'isDivorced'> & {
+                partner: { __typename?: 'LinkedCrm' } & Pick<
+                  LinkedCrm,
+                  'id' | 'firstName' | 'initials' | 'lastName' | 'email' | 'isPassedAway' | 'dateOfDeath'
+                > & { avatar?: Maybe<{ __typename?: 'File' } & Pick<File, 'url'>> };
+              }
+          >
         >;
         contacts?: Maybe<
           Array<
             { __typename?: 'CrmContact' } & Pick<CrmContact, 'type'> & {
                 contact: { __typename?: 'LinkedCrm' } & Pick<LinkedCrm, 'id'>;
               }
+          >
+        >;
+      }
+  >;
+};
+
+export type GetCrmFinancialQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+export type GetCrmFinancialQuery = { __typename?: 'Query' } & {
+  getCrmFinancial?: Maybe<
+    { __typename?: 'CrmFinancial' } & Pick<CrmFinancial, 'id' | 'financialInfo'> & {
+        income?: Maybe<
+          Array<
+            { __typename?: 'CrmIncome' } & Pick<CrmIncome, 'id' | 'type' | 'information'> & {
+                employerIncome?: Maybe<
+                  { __typename?: 'CrmEmployerIncome' } & Pick<
+                    CrmEmployerIncome,
+                    | 'profession'
+                    | 'employmentType'
+                    | 'grossIncome'
+                    | 'grossIncomePeriod'
+                    | 'holidayBonus'
+                    | 'fixedThirteenthMonth'
+                    | 'irregularityAllowance'
+                    | 'irregularityAllowancePeriod'
+                    | 'profitDistribution'
+                    | 'profitDistributionPeriod'
+                    | 'commission'
+                    | 'commissionPeriod'
+                    | 'overtime'
+                    | 'overtimePeriod'
+                  > & {
+                      employer?: Maybe<
+                        { __typename?: 'LinkedCrm' } & Pick<
+                          LinkedCrm,
+                          'id' | 'firstName' | 'extraNames' | 'initials' | 'lastName' | 'email' | 'phoneNumber'
+                        > & { avatar?: Maybe<{ __typename?: 'File' } & Pick<File, 'id' | 'url'>> }
+                      >;
+                      employerInformation?: Maybe<
+                        { __typename?: 'CrmEmployerInformation' } & Pick<
+                          CrmEmployerInformation,
+                          'name' | 'street' | 'houseNumber' | 'addition' | 'zipcode' | 'city' | 'country'
+                        >
+                      >;
+                    }
+                >;
+                equityIncome?: Maybe<{ __typename?: 'CrmEquityIncome' } & Pick<CrmEquityIncome, 'income'>>;
+                pensionIncome?: Maybe<
+                  { __typename?: 'CrmPensionIncome' } & Pick<
+                    CrmPensionIncome,
+                    'aowBenefit' | 'aowBenefitPeriod' | 'retirementBenefit' | 'retirementBenefitPeriod'
+                  >
+                >;
+                socialBenefitIncome?: Maybe<
+                  { __typename?: 'CrmSocialBenefitIncome' } & Pick<
+                    CrmSocialBenefitIncome,
+                    'income' | 'incomePeriod' | 'socialBenefitType'
+                  >
+                >;
+                entrepreneurIncome?: Maybe<
+                  { __typename?: 'CrmEntrepreneurIncome' } & Pick<
+                    CrmEntrepreneurIncome,
+                    | 'entrepreneurType'
+                    | 'companyCar'
+                    | 'companyBike'
+                    | 'pastPensionAge'
+                    | 'smeProfitExemption'
+                    | 'incomePerYear'
+                    | 'workingHoursPerMonth'
+                    | 'yearsAsIndependent'
+                  >
+                >;
+              }
+          >
+        >;
+        financialObligations?: Maybe<
+          Array<
+            { __typename?: 'CrmFinancialObligation' } & Pick<
+              CrmFinancialObligation,
+              'id' | 'type' | 'financialObligation' | 'information'
+            >
+          >
+        >;
+        bankAccounts?: Maybe<
+          Array<
+            { __typename?: 'CrmBankAccount' } & Pick<
+              CrmBankAccount,
+              'id' | 'type' | 'accountNumber' | 'bic' | 'iban' | 'swift' | 'purpose'
+            >
           >
         >;
       }
@@ -11493,10 +12520,14 @@ export type CrmListQuery = { __typename?: 'Query' } & {
           | 'dateUpdated'
           | 'completeness'
         > & {
-            partner?: Maybe<
-              { __typename?: 'LinkedCrm' } & Pick<LinkedCrm, 'id' | 'firstName' | 'lastName'> & {
-                  avatar?: Maybe<{ __typename?: 'File' } & Pick<File, 'url'>>;
+            partners?: Maybe<
+              Array<
+                { __typename?: 'CrmPartner' } & {
+                  partner: { __typename?: 'LinkedCrm' } & Pick<LinkedCrm, 'id' | 'firstName' | 'lastName'> & {
+                      avatar?: Maybe<{ __typename?: 'File' } & Pick<File, 'url'>>;
+                    };
                 }
+              >
             >;
             addresses?: Maybe<Array<{ __typename?: 'CrmAddress' } & Pick<CrmAddress, 'city'>>>;
             avatar?: Maybe<{ __typename?: 'File' } & Pick<File, 'url'>>;
@@ -11539,6 +12570,21 @@ export type CrmBulkDetailsQueryVariables = Exact<{
 
 export type CrmBulkDetailsQuery = { __typename?: 'Query' } & {
   status?: Maybe<Array<{ __typename?: 'GetBulkResult' } & Pick<GetBulkResult, 'value'>>>;
+};
+
+export type ListDmsFoldersQueryVariables = Exact<{
+  entityId: Scalars['ID'];
+}>;
+
+export type ListDmsFoldersQuery = { __typename?: 'Query' } & {
+  listDmsFolders?: Maybe<
+    Array<
+      { __typename?: 'DmsFolder' } & Pick<
+        DmsFolder,
+        'id' | 'entityId' | 'companyId' | 'foldername' | 'entityType' | 'type' | 'order' | 'deletedAt'
+      >
+    >
+  >;
 };
 
 export type ListEmailFoldersQueryVariables = Exact<{
@@ -11615,6 +12661,15 @@ export type GetLabelsQueryVariables = Exact<{
 
 export type GetLabelsQuery = { __typename?: 'Query' } & {
   getLabels?: Maybe<Array<{ __typename?: 'Label' } & Pick<Label, 'id' | 'property' | 'icon' | 'text'>>>;
+};
+
+export type GetCrmLabelsQueryVariables = Exact<{
+  id: Scalars['ID'];
+  properties?: Maybe<Array<LabelProperty>>;
+}>;
+
+export type GetCrmLabelsQuery = { __typename?: 'Query' } & {
+  getCrmLabels?: Maybe<Array<{ __typename?: 'Label' } & Pick<Label, 'id' | 'property' | 'icon' | 'text'>>>;
 };
 
 export type CountPimsByParamsQueryVariables = Exact<{
@@ -11731,6 +12786,8 @@ export type GetMatchProfileQuery = { __typename?: 'Query' } & {
       | 'conditions'
       | 'services'
       | 'tags'
+      | 'isActive'
+      | 'createdAt'
     > & {
         matchDuration?: Maybe<{ __typename?: 'MatchProfileDateRange' } & Pick<MatchProfileDateRange, 'from' | 'to'>>;
         characteristics?: Maybe<
@@ -11832,6 +12889,8 @@ export type ListMatchProfilesQuery = { __typename?: 'Query' } & {
         | 'conditions'
         | 'services'
         | 'tags'
+        | 'isActive'
+        | 'createdAt'
       > & {
           matchDuration?: Maybe<{ __typename?: 'MatchProfileDateRange' } & Pick<MatchProfileDateRange, 'from' | 'to'>>;
           characteristics?: Maybe<
@@ -14711,17 +15770,35 @@ export type GetSalesListQueryVariables = Exact<{
 
 export type GetSalesListQuery = { __typename?: 'Query' } & {
   getSalesList?: Maybe<
-    { __typename?: 'SalesSearchResult' } & { items?: Maybe<Array<{ __typename?: 'Sales' } & Pick<Sales, 'id'>>> }
+    { __typename?: 'SalesSearchResult' } & {
+      items?: Maybe<
+        Array<
+          { __typename?: 'Sales' } & Pick<
+            Sales,
+            | 'id'
+            | 'label'
+            | 'status'
+            | 'createdAt'
+            | 'updatedAt'
+            | 'name'
+            | 'type'
+            | 'extraInfo'
+            | 'attentionNote'
+            | 'date'
+          >
+        >
+      >;
+    }
   >;
 };
 
-export type AdvancedSearchQueryVariables = Exact<{
-  input: AdvancedSearchInput;
+export type SearchQueryVariables = Exact<{
+  input: SearchInput;
 }>;
 
-export type AdvancedSearchQuery = { __typename?: 'Query' } & {
-  advancedSearch?: Maybe<
-    { __typename?: 'AdvancedSearchResult' } & {
+export type SearchQuery = { __typename?: 'Query' } & {
+  search?: Maybe<
+    { __typename?: 'SearchResult' } & {
       users?: Maybe<
         Array<
           { __typename?: 'Profile' } & Pick<
@@ -15005,6 +16082,118 @@ export type GetTeamDetailsQuery = { __typename?: 'Query' } & {
         >;
       }
   >;
+};
+
+export type GetQuestionaireQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+export type GetQuestionaireQuery = { __typename?: 'Query' } & {
+  getQuestionaire?: Maybe<
+    { __typename?: 'Questionaire' } & Pick<
+      Questionaire,
+      'id' | 'templateName' | 'isAdmin' | 'published' | 'copyFromId' | 'templateStatus' | 'type'
+    > & {
+        entity?: Maybe<{ __typename?: 'Entity' } & Pick<Entity, 'type' | 'subType'>>;
+        settings?: Maybe<
+          { __typename?: 'TemplateSettings' } & Pick<
+            TemplateSettings,
+            'description' | 'version' | 'language' | 'documentType'
+          >
+        >;
+        securities?: Maybe<
+          Array<
+            { __typename?: 'TemplateSecurity' } & Pick<
+              TemplateSecurity,
+              'name' | 'create' | 'update' | 'read' | 'delete'
+            >
+          >
+        >;
+        meta: { __typename?: 'TemplateMeta' } & Pick<TemplateMeta, 'createdAt'>;
+      }
+  >;
+};
+
+export type ListQuestionaireGroupsQueryVariables = Exact<{
+  templateId: Scalars['ID'];
+}>;
+
+export type ListQuestionaireGroupsQuery = { __typename?: 'Query' } & {
+  listQuestionaireGroups?: Maybe<
+    Array<
+      { __typename?: 'Groups' } & Pick<Groups, 'id' | 'templateId' | 'groupName' | 'copyFromId' | 'order'> & {
+          entity?: Maybe<{ __typename?: 'Entity' } & Pick<Entity, 'type' | 'subType'>>;
+        }
+    >
+  >;
+};
+
+export type GetQuestionairesQueryVariables = Exact<{
+  filters: ListQuestionairesFilters;
+  pagination?: Maybe<Pagination>;
+  search?: Maybe<Scalars['String']>;
+}>;
+
+export type GetQuestionairesQuery = { __typename?: 'Query' } & {
+  getQuestionaires: { __typename?: 'TemplatesResponse' } & Pick<TemplatesResponse, 'count'> & {
+      items?: Maybe<
+        Array<
+          { __typename?: 'Questionaire' } & Pick<
+            Questionaire,
+            'id' | 'templateName' | 'isAdmin' | 'published' | 'copyFromId' | 'templateStatus' | 'type'
+          > & {
+              entity?: Maybe<{ __typename?: 'Entity' } & Pick<Entity, 'type' | 'subType'>>;
+              settings?: Maybe<
+                { __typename?: 'TemplateSettings' } & Pick<
+                  TemplateSettings,
+                  'description' | 'version' | 'language' | 'documentType'
+                >
+              >;
+              meta: { __typename?: 'TemplateMeta' } & Pick<TemplateMeta, 'createdAt'>;
+            }
+        >
+      >;
+    };
+};
+
+export type GetQuestionaireGroupQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+export type GetQuestionaireGroupQuery = { __typename?: 'Query' } & {
+  getQuestionaireGroup?: Maybe<
+    { __typename?: 'Groups' } & Pick<Groups, 'id' | 'templateId' | 'groupName' | 'copyFromId' | 'order'> & {
+        entity?: Maybe<{ __typename?: 'Entity' } & Pick<Entity, 'type' | 'subType'>>;
+      }
+  >;
+};
+
+export type ListQuestionsQueryVariables = Exact<{
+  groupId: Scalars['ID'];
+}>;
+
+export type ListQuestionsQuery = { __typename?: 'Query' } & {
+  listQuestions?: Maybe<
+    Array<
+      { __typename?: 'Question' } & Pick<
+        Question,
+        'id' | 'groupId' | 'order' | 'type' | 'name' | 'required' | 'commentEnabled' | 'showOn'
+      > & {
+          options?: Maybe<Array<Maybe<{ __typename?: 'Options' } & Pick<Options, 'name'>>>>;
+          entity?: Maybe<{ __typename?: 'Entity' } & Pick<Entity, 'type' | 'subType'>>;
+        }
+    >
+  >;
+};
+
+export type GetQuestionairesCountQueryVariables = Exact<{
+  filters: ListQuestionairesFilters;
+  search?: Maybe<Scalars['String']>;
+}>;
+
+export type GetQuestionairesCountQuery = { __typename?: 'Query' } & {
+  active: { __typename?: 'TemplatesResponse' } & Pick<TemplatesResponse, 'count'>;
+  inactive: { __typename?: 'TemplatesResponse' } & Pick<TemplatesResponse, 'count'>;
 };
 
 export type GetTiaraMutationsQueryVariables = Exact<{
@@ -15408,8 +16597,20 @@ export const UpdateCrmFamilyContactsDocument = gql`
       familyCompositionChildren
       familyCompositionAdults
       familyCompositionInformation
-      partner {
-        id
+      partners {
+        isDivorced
+        partner {
+          id
+          firstName
+          initials
+          lastName
+          email
+          avatar {
+            url
+          }
+          isPassedAway
+          dateOfDeath
+        }
       }
       contacts {
         type
@@ -15436,6 +16637,27 @@ export type UpdateCrmFamilyContactsMutationResult = ApolloReactCommon.MutationRe
 export type UpdateCrmFamilyContactsMutationOptions = ApolloReactCommon.BaseMutationOptions<
   UpdateCrmFamilyContactsMutation,
   UpdateCrmFamilyContactsMutationVariables
+>;
+export const UpdateCrmFinancialDocument = gql`
+  mutation UpdateCrmFinancial($input: UpdateCrmFinancialInput!) {
+    updateCrmFinancial(input: $input) {
+      id
+    }
+  }
+`;
+export function useUpdateCrmFinancialMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateCrmFinancialMutation, UpdateCrmFinancialMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<UpdateCrmFinancialMutation, UpdateCrmFinancialMutationVariables>(
+    UpdateCrmFinancialDocument,
+    baseOptions,
+  );
+}
+export type UpdateCrmFinancialMutationHookResult = ReturnType<typeof useUpdateCrmFinancialMutation>;
+export type UpdateCrmFinancialMutationResult = ApolloReactCommon.MutationResult<UpdateCrmFinancialMutation>;
+export type UpdateCrmFinancialMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateCrmFinancialMutation,
+  UpdateCrmFinancialMutationVariables
 >;
 export const CreateCrmDocument = gql`
   mutation CreateCrm($input: CreateCrmInput!) {
@@ -15544,6 +16766,28 @@ export type UpdateCrmHomeSituationMutationResult = ApolloReactCommon.MutationRes
 export type UpdateCrmHomeSituationMutationOptions = ApolloReactCommon.BaseMutationOptions<
   UpdateCrmHomeSituationMutation,
   UpdateCrmHomeSituationMutationVariables
+>;
+export const CreateDmsFolderDocument = gql`
+  mutation CreateDmsFolder($input: CreateDmsFolderInput!) {
+    createDmsFolder(input: $input)
+      @rest(type: "CreateDmsFolder", path: "/dms/folders/create", method: "POST", endpoint: "default") {
+      id
+    }
+  }
+`;
+export function useCreateDmsFolderMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<CreateDmsFolderMutation, CreateDmsFolderMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<CreateDmsFolderMutation, CreateDmsFolderMutationVariables>(
+    CreateDmsFolderDocument,
+    baseOptions,
+  );
+}
+export type CreateDmsFolderMutationHookResult = ReturnType<typeof useCreateDmsFolderMutation>;
+export type CreateDmsFolderMutationResult = ApolloReactCommon.MutationResult<CreateDmsFolderMutation>;
+export type CreateDmsFolderMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  CreateDmsFolderMutation,
+  CreateDmsFolderMutationVariables
 >;
 export const SendEmailDocument = gql`
   mutation SendEmail($accountId: String!, $input: SendEmailInput!) {
@@ -15912,6 +17156,30 @@ export type AddLabelMutationOptions = ApolloReactCommon.BaseMutationOptions<
   AddLabelMutation,
   AddLabelMutationVariables
 >;
+export const AddCrmLabelDocument = gql`
+  mutation AddCrmLabel($input: LabelInput!) {
+    addCrmLabel(input: $input) {
+      id
+      property
+      text
+      icon
+    }
+  }
+`;
+export function useAddCrmLabelMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<AddCrmLabelMutation, AddCrmLabelMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<AddCrmLabelMutation, AddCrmLabelMutationVariables>(
+    AddCrmLabelDocument,
+    baseOptions,
+  );
+}
+export type AddCrmLabelMutationHookResult = ReturnType<typeof useAddCrmLabelMutation>;
+export type AddCrmLabelMutationResult = ApolloReactCommon.MutationResult<AddCrmLabelMutation>;
+export type AddCrmLabelMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  AddCrmLabelMutation,
+  AddCrmLabelMutationVariables
+>;
 export const AddMatchProfileDocument = gql`
   mutation AddMatchProfile($input: AddMatchProfileInput!) {
     addMatchProfile(input: $input)
@@ -16009,6 +17277,8 @@ export const AddMatchProfileDocument = gql`
         houseNumber
         radius
       }
+      isActive
+      createdAt
     }
   }
 `;
@@ -16025,6 +17295,122 @@ export type AddMatchProfileMutationResult = ApolloReactCommon.MutationResult<Add
 export type AddMatchProfileMutationOptions = ApolloReactCommon.BaseMutationOptions<
   AddMatchProfileMutation,
   AddMatchProfileMutationVariables
+>;
+export const CloneMatchProfileDocument = gql`
+  mutation CloneMatchProfile($input: CloneMatchProfileInput!) {
+    cloneMatchProfile(input: $input)
+      @rest(type: "CloneMatchResponse", path: "/clone-match", method: "POST", endpoint: "default") {
+      id
+      crmId
+      companyId
+      propertyType
+      startDate
+      endDate
+      matchDuration {
+        from
+        to
+      }
+      matchWith
+      description
+      estateType
+      commercialEstateType
+      characteristics {
+        general
+        property {
+          minAmountRooms
+          minAmountBedrooms
+          residentialLayerFrom
+          residentialLayerTo
+          constructionYearFrom
+          constructionYearTo
+          maintenanceQuality
+        }
+      }
+      commercialCharacteristics {
+        general
+        property {
+          minFreeHeight
+          minFreeSpan
+          minFloorLoad
+          minAmountOfFloors
+          minParkingLots
+          engergyLabel
+          constructionYearFrom
+          constructionYearTo
+          maintenanceQuality
+        }
+      }
+      pricing {
+        buyFrom
+        buyTo
+        rentFrom
+        rentTo
+        rentFrequency
+        rentalPeriod
+        preferredStartDate
+      }
+      outside {
+        minGarage
+      }
+      garden {
+        situation
+        outdoorSpacesMin
+        outdoorSpacesMax
+        volumeMin
+        volumeMax
+      }
+      conditions
+      services
+      tags
+      measurements {
+        surfaceFromMin
+        surfaceToMin
+        livingAreaFromMin
+        livingAreaToMin
+        businessSpaceSurfaceFromMin
+        businessSpaceSurfaceToMin
+        practiceRoomSurfaceToMax
+        practiceRoomSurfaceToMin
+        plotSurfaceFromMin
+        plotSurfaceToMin
+      }
+      revenue {
+        from
+        to
+      }
+      exploitation {
+        from
+        to
+      }
+      requirements {
+        key
+        status
+      }
+      locations {
+        latitude
+        longitude
+        street
+        houseNumber
+        radius
+      }
+      isActive
+      createdAt
+    }
+  }
+`;
+export function useCloneMatchProfileMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<CloneMatchProfileMutation, CloneMatchProfileMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<CloneMatchProfileMutation, CloneMatchProfileMutationVariables>(
+    CloneMatchProfileDocument,
+    baseOptions,
+  );
+}
+export type CloneMatchProfileMutationHookResult = ReturnType<typeof useCloneMatchProfileMutation>;
+export type CloneMatchProfileMutationResult = ApolloReactCommon.MutationResult<CloneMatchProfileMutation>;
+export type CloneMatchProfileMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  CloneMatchProfileMutation,
+  CloneMatchProfileMutationVariables
 >;
 export const UpdateMatchProfileDocument = gql`
   mutation UpdateMatchProfile($id: ID!, $input: UpdateMatchProfileInput!) {
@@ -16123,6 +17509,8 @@ export const UpdateMatchProfileDocument = gql`
         houseNumber
         radius
       }
+      isActive
+      createdAt
     }
   }
 `;
@@ -16141,14 +17529,14 @@ export type UpdateMatchProfileMutationOptions = ApolloReactCommon.BaseMutationOp
   UpdateMatchProfileMutationVariables
 >;
 export const DeleteMatchProfileDocument = gql`
-  mutation DeleteMatchProfile($id: ID!)
-    @rest(
-      type: "DeleteMatchProfileResponse"
-      path: "/delete-match?id={args.id}"
-      method: "DELETE"
-      endpoint: "default"
-    ) {
+  mutation DeleteMatchProfile($id: ID!) {
     deleteMatchProfile(id: $id)
+      @rest(
+        type: "DeleteMatchProfileResponse"
+        path: "/delete-match?id={args.id}"
+        method: "DELETE"
+        endpoint: "default"
+      )
   }
 `;
 export function useDeleteMatchProfileMutation(
@@ -19195,6 +20583,254 @@ export type UpdateUserInTeamMutationOptions = ApolloReactCommon.BaseMutationOpti
   UpdateUserInTeamMutation,
   UpdateUserInTeamMutationVariables
 >;
+export const CreateQuestionaireDocument = gql`
+  mutation CreateQuestionaire($input: QuestionaireInput!) {
+    createQuestionaire(input: $input)
+      @rest(type: "Questionaire", path: "/template", method: "POST", endpoint: "default") {
+      id
+      templateName
+      templateStatus
+      isAdmin
+      published
+      copyFromId
+      entity {
+        type
+        subType
+      }
+    }
+  }
+`;
+export function useCreateQuestionaireMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<CreateQuestionaireMutation, CreateQuestionaireMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<CreateQuestionaireMutation, CreateQuestionaireMutationVariables>(
+    CreateQuestionaireDocument,
+    baseOptions,
+  );
+}
+export type CreateQuestionaireMutationHookResult = ReturnType<typeof useCreateQuestionaireMutation>;
+export type CreateQuestionaireMutationResult = ApolloReactCommon.MutationResult<CreateQuestionaireMutation>;
+export type CreateQuestionaireMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  CreateQuestionaireMutation,
+  CreateQuestionaireMutationVariables
+>;
+export const UpdateQuestionaireDocument = gql`
+  mutation UpdateQuestionaire($input: UpdateQuestionaireInput!) {
+    updateQuestionaire(input: $input)
+      @rest(type: "UpdateQuestionaire", path: "/template", method: "PUT", endpoint: "default") {
+      id
+      templateName
+      templateStatus
+      isAdmin
+      published
+      copyFromId
+      entity {
+        type
+        subType
+      }
+    }
+  }
+`;
+export function useUpdateQuestionaireMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateQuestionaireMutation, UpdateQuestionaireMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<UpdateQuestionaireMutation, UpdateQuestionaireMutationVariables>(
+    UpdateQuestionaireDocument,
+    baseOptions,
+  );
+}
+export type UpdateQuestionaireMutationHookResult = ReturnType<typeof useUpdateQuestionaireMutation>;
+export type UpdateQuestionaireMutationResult = ApolloReactCommon.MutationResult<UpdateQuestionaireMutation>;
+export type UpdateQuestionaireMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateQuestionaireMutation,
+  UpdateQuestionaireMutationVariables
+>;
+export const UpdateTemplateGeneralDocument = gql`
+  mutation UpdateTemplateGeneral($input: TemplateGeneralInput!) {
+    updateTemplateGeneral(input: $input)
+      @rest(type: "Template", path: "/template", method: "PUT", endpoint: "default") {
+      id
+    }
+  }
+`;
+export function useUpdateTemplateGeneralMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    UpdateTemplateGeneralMutation,
+    UpdateTemplateGeneralMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<UpdateTemplateGeneralMutation, UpdateTemplateGeneralMutationVariables>(
+    UpdateTemplateGeneralDocument,
+    baseOptions,
+  );
+}
+export type UpdateTemplateGeneralMutationHookResult = ReturnType<typeof useUpdateTemplateGeneralMutation>;
+export type UpdateTemplateGeneralMutationResult = ApolloReactCommon.MutationResult<UpdateTemplateGeneralMutation>;
+export type UpdateTemplateGeneralMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateTemplateGeneralMutation,
+  UpdateTemplateGeneralMutationVariables
+>;
+export const CreateQuestionaireGroupDocument = gql`
+  mutation CreateQuestionaireGroup($input: GroupsInput!) {
+    createQuestionaireGroup(input: $input)
+      @rest(type: "CreateQuestionaireGroup", path: "/groups", method: "POST", endpoint: "default") {
+      id
+      templateId
+      groupName
+      copyFromId
+      order
+      entity {
+        type
+        subType
+      }
+    }
+  }
+`;
+export function useCreateQuestionaireGroupMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    CreateQuestionaireGroupMutation,
+    CreateQuestionaireGroupMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<CreateQuestionaireGroupMutation, CreateQuestionaireGroupMutationVariables>(
+    CreateQuestionaireGroupDocument,
+    baseOptions,
+  );
+}
+export type CreateQuestionaireGroupMutationHookResult = ReturnType<typeof useCreateQuestionaireGroupMutation>;
+export type CreateQuestionaireGroupMutationResult = ApolloReactCommon.MutationResult<CreateQuestionaireGroupMutation>;
+export type CreateQuestionaireGroupMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  CreateQuestionaireGroupMutation,
+  CreateQuestionaireGroupMutationVariables
+>;
+export const UpdateQuestionaireGroupDocument = gql`
+  mutation UpdateQuestionaireGroup($id: ID!, $input: UpdateGroupsInput!) {
+    updateQuestionaireGroup(id: $id, input: $input)
+      @rest(type: "UpdateQuestionaireGroup", path: "/groups/{args.id}", method: "PUT", endpoint: "default") {
+      id
+      templateId
+      groupName
+      copyFromId
+      order
+      entity {
+        type
+        subType
+      }
+    }
+  }
+`;
+export function useUpdateQuestionaireGroupMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    UpdateQuestionaireGroupMutation,
+    UpdateQuestionaireGroupMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<UpdateQuestionaireGroupMutation, UpdateQuestionaireGroupMutationVariables>(
+    UpdateQuestionaireGroupDocument,
+    baseOptions,
+  );
+}
+export type UpdateQuestionaireGroupMutationHookResult = ReturnType<typeof useUpdateQuestionaireGroupMutation>;
+export type UpdateQuestionaireGroupMutationResult = ApolloReactCommon.MutationResult<UpdateQuestionaireGroupMutation>;
+export type UpdateQuestionaireGroupMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateQuestionaireGroupMutation,
+  UpdateQuestionaireGroupMutationVariables
+>;
+export const DeleteQuestionaireGroupDocument = gql`
+  mutation DeleteQuestionaireGroup($id: ID!) {
+    deleteQuestionaireGroup(id: $id)
+      @rest(type: "DeleteQuestionaireGroup", path: "/groups/{args.id}", method: "DELETE", endpoint: "default")
+  }
+`;
+export function useDeleteQuestionaireGroupMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    DeleteQuestionaireGroupMutation,
+    DeleteQuestionaireGroupMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<DeleteQuestionaireGroupMutation, DeleteQuestionaireGroupMutationVariables>(
+    DeleteQuestionaireGroupDocument,
+    baseOptions,
+  );
+}
+export type DeleteQuestionaireGroupMutationHookResult = ReturnType<typeof useDeleteQuestionaireGroupMutation>;
+export type DeleteQuestionaireGroupMutationResult = ApolloReactCommon.MutationResult<DeleteQuestionaireGroupMutation>;
+export type DeleteQuestionaireGroupMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  DeleteQuestionaireGroupMutation,
+  DeleteQuestionaireGroupMutationVariables
+>;
+export const CreateQuestionDocument = gql`
+  mutation CreateQuestion($input: QuestionInput!) {
+    createQuestion(input: $input)
+      @rest(type: "CreateQuestion", path: "/question", method: "POST", endpoint: "default") {
+      id
+      groupId
+      order
+      type
+      name
+      required
+      commentEnabled
+      showOn
+      options {
+        name
+      }
+      entity {
+        type
+        subType
+      }
+    }
+  }
+`;
+export function useCreateQuestionMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<CreateQuestionMutation, CreateQuestionMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<CreateQuestionMutation, CreateQuestionMutationVariables>(
+    CreateQuestionDocument,
+    baseOptions,
+  );
+}
+export type CreateQuestionMutationHookResult = ReturnType<typeof useCreateQuestionMutation>;
+export type CreateQuestionMutationResult = ApolloReactCommon.MutationResult<CreateQuestionMutation>;
+export type CreateQuestionMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  CreateQuestionMutation,
+  CreateQuestionMutationVariables
+>;
+export const UpdateQuestionDocument = gql`
+  mutation UpdateQuestion($questionId: ID!, $input: UpdateQuestionInput!) {
+    updateQuestion(questionId: $questionId, input: $input)
+      @rest(type: "UpdateQuestion", path: "/question/{args.questionId}", method: "PUT", endpoint: "default") {
+      id
+      groupId
+      order
+      type
+      name
+      required
+      commentEnabled
+      showOn
+      options {
+        name
+      }
+      entity {
+        type
+        subType
+      }
+    }
+  }
+`;
+export function useUpdateQuestionMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateQuestionMutation, UpdateQuestionMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<UpdateQuestionMutation, UpdateQuestionMutationVariables>(
+    UpdateQuestionDocument,
+    baseOptions,
+  );
+}
+export type UpdateQuestionMutationHookResult = ReturnType<typeof useUpdateQuestionMutation>;
+export type UpdateQuestionMutationResult = ApolloReactCommon.MutationResult<UpdateQuestionMutation>;
+export type UpdateQuestionMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateQuestionMutation,
+  UpdateQuestionMutationVariables
+>;
 export const TiaraSendMessageDocument = gql`
   mutation TiaraSendMessage($input: TiaraSendMessageInput!) {
     tiaraSendMessage(input: $input)
@@ -19725,14 +21361,19 @@ export const GetCrmFamilyContactsDocument = gql`
       familyCompositionChildren
       familyCompositionAdults
       familyCompositionInformation
-      partner {
-        id
-        firstName
-        initials
-        lastName
-        email
-        avatar {
-          url
+      partners {
+        isDivorced
+        partner {
+          id
+          firstName
+          initials
+          lastName
+          email
+          avatar {
+            url
+          }
+          isPassedAway
+          dateOfDeath
         }
       }
       contacts {
@@ -19765,6 +21406,118 @@ export type GetCrmFamilyContactsLazyQueryHookResult = ReturnType<typeof useGetCr
 export type GetCrmFamilyContactsQueryResult = ApolloReactCommon.QueryResult<
   GetCrmFamilyContactsQuery,
   GetCrmFamilyContactsQueryVariables
+>;
+export const GetCrmFinancialDocument = gql`
+  query GetCrmFinancial($id: ID!) {
+    getCrmFinancial(id: $id) {
+      id
+      financialInfo
+      income {
+        id
+        type
+        information
+        employerIncome {
+          profession
+          employer {
+            id
+            firstName
+            extraNames
+            initials
+            lastName
+            email
+            phoneNumber
+            avatar {
+              id
+              url
+            }
+          }
+          employerInformation {
+            name
+            street
+            houseNumber
+            addition
+            zipcode
+            city
+            country
+          }
+          employmentType
+          grossIncome
+          grossIncomePeriod
+          holidayBonus
+          fixedThirteenthMonth
+          irregularityAllowance
+          irregularityAllowancePeriod
+          profitDistribution
+          profitDistributionPeriod
+          commission
+          commissionPeriod
+          overtime
+          overtimePeriod
+        }
+        equityIncome {
+          income
+        }
+        pensionIncome {
+          aowBenefit
+          aowBenefitPeriod
+          retirementBenefit
+          retirementBenefitPeriod
+        }
+        socialBenefitIncome {
+          income
+          incomePeriod
+          socialBenefitType
+        }
+        entrepreneurIncome {
+          entrepreneurType
+          companyCar
+          companyBike
+          pastPensionAge
+          smeProfitExemption
+          incomePerYear
+          workingHoursPerMonth
+          yearsAsIndependent
+        }
+      }
+      financialObligations {
+        id
+        type
+        financialObligation
+        information
+      }
+      bankAccounts {
+        id
+        type
+        accountNumber
+        bic
+        iban
+        swift
+        purpose
+      }
+    }
+  }
+`;
+export function useGetCrmFinancialQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<GetCrmFinancialQuery, GetCrmFinancialQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<GetCrmFinancialQuery, GetCrmFinancialQueryVariables>(
+    GetCrmFinancialDocument,
+    baseOptions,
+  );
+}
+export function useGetCrmFinancialLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetCrmFinancialQuery, GetCrmFinancialQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<GetCrmFinancialQuery, GetCrmFinancialQueryVariables>(
+    GetCrmFinancialDocument,
+    baseOptions,
+  );
+}
+export type GetCrmFinancialQueryHookResult = ReturnType<typeof useGetCrmFinancialQuery>;
+export type GetCrmFinancialLazyQueryHookResult = ReturnType<typeof useGetCrmFinancialLazyQuery>;
+export type GetCrmFinancialQueryResult = ApolloReactCommon.QueryResult<
+  GetCrmFinancialQuery,
+  GetCrmFinancialQueryVariables
 >;
 export const GetCrmGeneralDocument = gql`
   query getCrmGeneral($id: ID!) {
@@ -19895,12 +21648,14 @@ export const CrmListDocument = gql`
         familyCompositionChildren
         familyCompositionAdults
         currentHomeSituation
-        partner {
-          id
-          firstName
-          lastName
-          avatar {
-            url
+        partners {
+          partner {
+            id
+            firstName
+            lastName
+            avatar {
+              url
+            }
           }
         }
         phoneNumber
@@ -20027,6 +21782,43 @@ export type CrmBulkDetailsLazyQueryHookResult = ReturnType<typeof useCrmBulkDeta
 export type CrmBulkDetailsQueryResult = ApolloReactCommon.QueryResult<
   CrmBulkDetailsQuery,
   CrmBulkDetailsQueryVariables
+>;
+export const ListDmsFoldersDocument = gql`
+  query ListDmsFolders($entityId: ID!) {
+    listDmsFolders(entityId: $entityId)
+      @rest(type: "ListDmsFolders", path: "/dms/folders/list/{args.entityId}", method: "GET", endpoint: "default") {
+      id
+      entityId
+      companyId
+      foldername
+      entityType
+      type
+      order
+      deletedAt
+    }
+  }
+`;
+export function useListDmsFoldersQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<ListDmsFoldersQuery, ListDmsFoldersQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<ListDmsFoldersQuery, ListDmsFoldersQueryVariables>(
+    ListDmsFoldersDocument,
+    baseOptions,
+  );
+}
+export function useListDmsFoldersLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<ListDmsFoldersQuery, ListDmsFoldersQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<ListDmsFoldersQuery, ListDmsFoldersQueryVariables>(
+    ListDmsFoldersDocument,
+    baseOptions,
+  );
+}
+export type ListDmsFoldersQueryHookResult = ReturnType<typeof useListDmsFoldersQuery>;
+export type ListDmsFoldersLazyQueryHookResult = ReturnType<typeof useListDmsFoldersLazyQuery>;
+export type ListDmsFoldersQueryResult = ApolloReactCommon.QueryResult<
+  ListDmsFoldersQuery,
+  ListDmsFoldersQueryVariables
 >;
 export const ListEmailFoldersDocument = gql`
   query ListEmailFolders($accountId: String!) {
@@ -20231,6 +22023,32 @@ export function useGetLabelsLazyQuery(
 export type GetLabelsQueryHookResult = ReturnType<typeof useGetLabelsQuery>;
 export type GetLabelsLazyQueryHookResult = ReturnType<typeof useGetLabelsLazyQuery>;
 export type GetLabelsQueryResult = ApolloReactCommon.QueryResult<GetLabelsQuery, GetLabelsQueryVariables>;
+export const GetCrmLabelsDocument = gql`
+  query GetCrmLabels($id: ID!, $properties: [LabelProperty!]) {
+    getCrmLabels(parentId: $id, properties: $properties) {
+      id
+      property
+      icon
+      text
+    }
+  }
+`;
+export function useGetCrmLabelsQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<GetCrmLabelsQuery, GetCrmLabelsQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<GetCrmLabelsQuery, GetCrmLabelsQueryVariables>(GetCrmLabelsDocument, baseOptions);
+}
+export function useGetCrmLabelsLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetCrmLabelsQuery, GetCrmLabelsQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<GetCrmLabelsQuery, GetCrmLabelsQueryVariables>(
+    GetCrmLabelsDocument,
+    baseOptions,
+  );
+}
+export type GetCrmLabelsQueryHookResult = ReturnType<typeof useGetCrmLabelsQuery>;
+export type GetCrmLabelsLazyQueryHookResult = ReturnType<typeof useGetCrmLabelsLazyQuery>;
+export type GetCrmLabelsQueryResult = ApolloReactCommon.QueryResult<GetCrmLabelsQuery, GetCrmLabelsQueryVariables>;
 export const CountPimsByParamsDocument = gql`
   query CountPimsByParams($filters: ListPimsFilters) {
     listPims(filters: $filters) {
@@ -20500,6 +22318,8 @@ export const GetMatchProfileDocument = gql`
         houseNumber
         radius
       }
+      isActive
+      createdAt
     }
   }
 `;
@@ -20627,6 +22447,8 @@ export const ListMatchProfilesDocument = gql`
         houseNumber
         radius
       }
+      isActive
+      createdAt
     }
   }
 `;
@@ -24797,6 +26619,15 @@ export const GetSalesListDocument = gql`
     ) {
       items {
         id
+        label
+        status
+        createdAt
+        updatedAt
+        name
+        type
+        extraInfo
+        attentionNote
+        date
       }
     }
   }
@@ -24817,9 +26648,9 @@ export function useGetSalesListLazyQuery(
 export type GetSalesListQueryHookResult = ReturnType<typeof useGetSalesListQuery>;
 export type GetSalesListLazyQueryHookResult = ReturnType<typeof useGetSalesListLazyQuery>;
 export type GetSalesListQueryResult = ApolloReactCommon.QueryResult<GetSalesListQuery, GetSalesListQueryVariables>;
-export const AdvancedSearchDocument = gql`
-  query AdvancedSearch($input: AdvancedSearchInput!) {
-    advancedSearch(input: $input) {
+export const SearchDocument = gql`
+  query Search($input: SearchInput!) {
+    search(input: $input) @rest(type: "Search", path: "/search", method: "POST", endpoint: "default") {
       users {
         id
         firstName
@@ -24944,28 +26775,17 @@ export const AdvancedSearchDocument = gql`
     }
   }
 `;
-export function useAdvancedSearchQuery(
-  baseOptions?: ApolloReactHooks.QueryHookOptions<AdvancedSearchQuery, AdvancedSearchQueryVariables>,
-) {
-  return ApolloReactHooks.useQuery<AdvancedSearchQuery, AdvancedSearchQueryVariables>(
-    AdvancedSearchDocument,
-    baseOptions,
-  );
+export function useSearchQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<SearchQuery, SearchQueryVariables>) {
+  return ApolloReactHooks.useQuery<SearchQuery, SearchQueryVariables>(SearchDocument, baseOptions);
 }
-export function useAdvancedSearchLazyQuery(
-  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<AdvancedSearchQuery, AdvancedSearchQueryVariables>,
+export function useSearchLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<SearchQuery, SearchQueryVariables>,
 ) {
-  return ApolloReactHooks.useLazyQuery<AdvancedSearchQuery, AdvancedSearchQueryVariables>(
-    AdvancedSearchDocument,
-    baseOptions,
-  );
+  return ApolloReactHooks.useLazyQuery<SearchQuery, SearchQueryVariables>(SearchDocument, baseOptions);
 }
-export type AdvancedSearchQueryHookResult = ReturnType<typeof useAdvancedSearchQuery>;
-export type AdvancedSearchLazyQueryHookResult = ReturnType<typeof useAdvancedSearchLazyQuery>;
-export type AdvancedSearchQueryResult = ApolloReactCommon.QueryResult<
-  AdvancedSearchQuery,
-  AdvancedSearchQueryVariables
->;
+export type SearchQueryHookResult = ReturnType<typeof useSearchQuery>;
+export type SearchLazyQueryHookResult = ReturnType<typeof useSearchLazyQuery>;
+export type SearchQueryResult = ApolloReactCommon.QueryResult<SearchQuery, SearchQueryVariables>;
 export const SettingInfoDocument = gql`
   query SettingInfo {
     getTeams {
@@ -25275,6 +27095,285 @@ export type GetTeamDetailsLazyQueryHookResult = ReturnType<typeof useGetTeamDeta
 export type GetTeamDetailsQueryResult = ApolloReactCommon.QueryResult<
   GetTeamDetailsQuery,
   GetTeamDetailsQueryVariables
+>;
+export const GetQuestionaireDocument = gql`
+  query GetQuestionaire($id: ID!) {
+    getQuestionaire(id: $id)
+      @rest(type: "Questionaire", path: "/template/{args.id}", method: "GET", endpoint: "default") {
+      id
+      templateName
+      isAdmin
+      published
+      copyFromId
+      templateStatus
+      type
+      entity {
+        type
+        subType
+      }
+      settings {
+        description
+        version
+        language
+        documentType
+      }
+      securities {
+        name
+        create
+        update
+        read
+        delete
+      }
+      meta {
+        createdAt
+      }
+    }
+  }
+`;
+export function useGetQuestionaireQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<GetQuestionaireQuery, GetQuestionaireQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<GetQuestionaireQuery, GetQuestionaireQueryVariables>(
+    GetQuestionaireDocument,
+    baseOptions,
+  );
+}
+export function useGetQuestionaireLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetQuestionaireQuery, GetQuestionaireQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<GetQuestionaireQuery, GetQuestionaireQueryVariables>(
+    GetQuestionaireDocument,
+    baseOptions,
+  );
+}
+export type GetQuestionaireQueryHookResult = ReturnType<typeof useGetQuestionaireQuery>;
+export type GetQuestionaireLazyQueryHookResult = ReturnType<typeof useGetQuestionaireLazyQuery>;
+export type GetQuestionaireQueryResult = ApolloReactCommon.QueryResult<
+  GetQuestionaireQuery,
+  GetQuestionaireQueryVariables
+>;
+export const ListQuestionaireGroupsDocument = gql`
+  query ListQuestionaireGroups($templateId: ID!) {
+    listQuestionaireGroups(templateId: $templateId)
+      @rest(
+        type: "ListQuestionaireGroups"
+        path: "/groups?templateId={args.templateId}"
+        method: "GET"
+        endpoint: "default"
+      ) {
+      id
+      templateId
+      groupName
+      copyFromId
+      order
+      entity {
+        type
+        subType
+      }
+    }
+  }
+`;
+export function useListQuestionaireGroupsQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<ListQuestionaireGroupsQuery, ListQuestionaireGroupsQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<ListQuestionaireGroupsQuery, ListQuestionaireGroupsQueryVariables>(
+    ListQuestionaireGroupsDocument,
+    baseOptions,
+  );
+}
+export function useListQuestionaireGroupsLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
+    ListQuestionaireGroupsQuery,
+    ListQuestionaireGroupsQueryVariables
+  >,
+) {
+  return ApolloReactHooks.useLazyQuery<ListQuestionaireGroupsQuery, ListQuestionaireGroupsQueryVariables>(
+    ListQuestionaireGroupsDocument,
+    baseOptions,
+  );
+}
+export type ListQuestionaireGroupsQueryHookResult = ReturnType<typeof useListQuestionaireGroupsQuery>;
+export type ListQuestionaireGroupsLazyQueryHookResult = ReturnType<typeof useListQuestionaireGroupsLazyQuery>;
+export type ListQuestionaireGroupsQueryResult = ApolloReactCommon.QueryResult<
+  ListQuestionaireGroupsQuery,
+  ListQuestionaireGroupsQueryVariables
+>;
+export const GetQuestionairesDocument = gql`
+  query GetQuestionaires($filters: ListQuestionairesFilters!, $pagination: Pagination, $search: String) {
+    getQuestionaires(filters: $filters, pagination: $pagination, search: $search)
+      @rest(
+        type: "GetQuestionaires"
+        path: "/templates/{args.filters.type}?templateStatus={args.filters.templateStatus}&page={args.pagination.page}&limit={args.pagination.limit}"
+        method: "GET"
+        endpoint: "default"
+      ) {
+      items {
+        id
+        templateName
+        isAdmin
+        published
+        copyFromId
+        templateStatus
+        type
+        entity {
+          type
+          subType
+        }
+        settings {
+          description
+          version
+          language
+          documentType
+        }
+        meta {
+          createdAt
+        }
+      }
+      count
+    }
+  }
+`;
+export function useGetQuestionairesQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<GetQuestionairesQuery, GetQuestionairesQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<GetQuestionairesQuery, GetQuestionairesQueryVariables>(
+    GetQuestionairesDocument,
+    baseOptions,
+  );
+}
+export function useGetQuestionairesLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetQuestionairesQuery, GetQuestionairesQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<GetQuestionairesQuery, GetQuestionairesQueryVariables>(
+    GetQuestionairesDocument,
+    baseOptions,
+  );
+}
+export type GetQuestionairesQueryHookResult = ReturnType<typeof useGetQuestionairesQuery>;
+export type GetQuestionairesLazyQueryHookResult = ReturnType<typeof useGetQuestionairesLazyQuery>;
+export type GetQuestionairesQueryResult = ApolloReactCommon.QueryResult<
+  GetQuestionairesQuery,
+  GetQuestionairesQueryVariables
+>;
+export const GetQuestionaireGroupDocument = gql`
+  query GetQuestionaireGroup($id: ID!) {
+    getQuestionaireGroup(id: $id)
+      @rest(type: "GetQuestionaireGroup", path: "/groups/{args.id}", method: "GET", endpoint: "default") {
+      id
+      templateId
+      groupName
+      copyFromId
+      order
+      entity {
+        type
+        subType
+      }
+    }
+  }
+`;
+export function useGetQuestionaireGroupQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<GetQuestionaireGroupQuery, GetQuestionaireGroupQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<GetQuestionaireGroupQuery, GetQuestionaireGroupQueryVariables>(
+    GetQuestionaireGroupDocument,
+    baseOptions,
+  );
+}
+export function useGetQuestionaireGroupLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetQuestionaireGroupQuery, GetQuestionaireGroupQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<GetQuestionaireGroupQuery, GetQuestionaireGroupQueryVariables>(
+    GetQuestionaireGroupDocument,
+    baseOptions,
+  );
+}
+export type GetQuestionaireGroupQueryHookResult = ReturnType<typeof useGetQuestionaireGroupQuery>;
+export type GetQuestionaireGroupLazyQueryHookResult = ReturnType<typeof useGetQuestionaireGroupLazyQuery>;
+export type GetQuestionaireGroupQueryResult = ApolloReactCommon.QueryResult<
+  GetQuestionaireGroupQuery,
+  GetQuestionaireGroupQueryVariables
+>;
+export const ListQuestionsDocument = gql`
+  query ListQuestions($groupId: ID!) {
+    listQuestions(groupId: $groupId)
+      @rest(type: "ListQuestions", path: "/question?groupId={args.groupId}", method: "GET", endpoint: "default") {
+      id
+      groupId
+      order
+      type
+      name
+      required
+      commentEnabled
+      showOn
+      options {
+        name
+      }
+      entity {
+        type
+        subType
+      }
+    }
+  }
+`;
+export function useListQuestionsQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<ListQuestionsQuery, ListQuestionsQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<ListQuestionsQuery, ListQuestionsQueryVariables>(ListQuestionsDocument, baseOptions);
+}
+export function useListQuestionsLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<ListQuestionsQuery, ListQuestionsQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<ListQuestionsQuery, ListQuestionsQueryVariables>(
+    ListQuestionsDocument,
+    baseOptions,
+  );
+}
+export type ListQuestionsQueryHookResult = ReturnType<typeof useListQuestionsQuery>;
+export type ListQuestionsLazyQueryHookResult = ReturnType<typeof useListQuestionsLazyQuery>;
+export type ListQuestionsQueryResult = ApolloReactCommon.QueryResult<ListQuestionsQuery, ListQuestionsQueryVariables>;
+export const GetQuestionairesCountDocument = gql`
+  query GetQuestionairesCount($filters: ListQuestionairesFilters!, $search: String) {
+    active: getQuestionaires(filters: $filters, search: $search)
+      @rest(
+        type: "GetQuestionairesCount"
+        path: "/templates/{args.filters.type}?templateStatus=Active&countOnly=true"
+        method: "GET"
+        endpoint: "default"
+      ) {
+      count
+    }
+    inactive: getQuestionaires(filters: $filters, search: $search)
+      @rest(
+        type: "GetQuestionairesCount"
+        path: "/templates/{args.filters.type}?templateStatus=InActive&countOnly=true"
+        method: "GET"
+        endpoint: "default"
+      ) {
+      count
+    }
+  }
+`;
+export function useGetQuestionairesCountQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<GetQuestionairesCountQuery, GetQuestionairesCountQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<GetQuestionairesCountQuery, GetQuestionairesCountQueryVariables>(
+    GetQuestionairesCountDocument,
+    baseOptions,
+  );
+}
+export function useGetQuestionairesCountLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetQuestionairesCountQuery, GetQuestionairesCountQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<GetQuestionairesCountQuery, GetQuestionairesCountQueryVariables>(
+    GetQuestionairesCountDocument,
+    baseOptions,
+  );
+}
+export type GetQuestionairesCountQueryHookResult = ReturnType<typeof useGetQuestionairesCountQuery>;
+export type GetQuestionairesCountLazyQueryHookResult = ReturnType<typeof useGetQuestionairesCountLazyQuery>;
+export type GetQuestionairesCountQueryResult = ApolloReactCommon.QueryResult<
+  GetQuestionairesCountQuery,
+  GetQuestionairesCountQueryVariables
 >;
 export const GetTiaraMutationsDocument = gql`
   query GetTiaraMutations($entityId: ID!, $entity: TiaraEntities!) {

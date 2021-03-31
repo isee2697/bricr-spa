@@ -9,13 +9,13 @@ export type AddSalesLeadModalProps = {
 
 export type AddSalesLeadBody = {
   firstName: string;
-  insertion: string;
+  initials: string;
   lastName: string;
   email: string;
   phone: string;
   type: 'partner' | 'no_partner' | 'unknown';
   partnerFirstName?: string;
-  partnerInsertion?: string;
+  partnerInitials?: string;
   partnerLastName?: string;
   partnerEmail?: string;
   partnerPhone?: string;

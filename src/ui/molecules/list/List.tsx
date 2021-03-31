@@ -23,6 +23,7 @@ export const List: <T>(p: ListProps<T>) => React.ReactElement<ListProps<T>> = ({
   loadingItem,
   emptyTitle,
   emptyDescription,
+  emptyPlaceholder,
   className,
   checkboxProps,
   selectedItems = [],
@@ -39,6 +40,9 @@ export const List: <T>(p: ListProps<T>) => React.ReactElement<ListProps<T>> = ({
   bulkTitle,
   isShowHeader = true,
   listIndexHeader,
+  hideArchive = false,
+  hideDelete = false,
+  hideBulkActions = false,
 }) => {
   const classes = useStyles();
   const [isActionModalOpened, setActionModalOpened] = useState(false);
@@ -93,6 +97,10 @@ export const List: <T>(p: ListProps<T>) => React.ReactElement<ListProps<T>> = ({
     );
   }
 
+  if (!loading && !items.length && emptyPlaceholder) {
+    return <>{emptyPlaceholder}</>;
+  }
+
   const handleOperation = (operation: BulkOperations) => {
     if (onOperation) {
       const filtered = items.filter(item => checkedKeys.includes(`${item[itemIndex]}`));
@@ -142,9 +150,9 @@ export const List: <T>(p: ListProps<T>) => React.ReactElement<ListProps<T>> = ({
           checkAllStatus={checkAllStatus}
           disabled={disabled}
           onCheckAll={handleCheckAll}
-          onArchive={() => handleOperation(BulkOperations.Archive)}
-          onDelete={() => handleOperation(BulkOperations.Delete)}
-          onBulk={handleBulk}
+          onArchive={!hideArchive ? () => handleOperation(BulkOperations.Archive) : undefined}
+          onDelete={!hideDelete ? () => handleOperation(BulkOperations.Delete) : undefined}
+          onBulk={!hideBulkActions ? handleBulk : undefined}
           onSort={!!onSort ? onSort : () => {}}
         />
       )}
