@@ -7,25 +7,42 @@ import { PropertyItemPlaceholder } from 'ui/molecules';
 import { DocumentFolderType } from 'app/crmRelationsDetails/documents/Documents.types';
 import { ArrowDownIcon, ArrowUpIcon } from 'ui/atoms/icons';
 import { AddFolderDialog } from 'app/shared/dms/addFolderDialog/AddFolderDialog';
+import { DmsFolder, DmsFolderType } from '../../../../api/types';
 
 import { useStyles } from './CardWithFolder.styles';
 import { CardWithFolderProps } from './CardWithFolder.types';
 
 export const CardWithFolder = ({
-  foldersData,
+  foldersData = [],
   isLoading,
   onAddFolder,
   onDeleteFolder,
   onUpdateFolder,
   setSelectedFolder,
   title,
+  selectedFolder,
 }: CardWithFolderProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
 
   const [dialog, setDialog] = useState<ReactNode | null>(null);
   const [isExpanded, setIsExpanded] = useState(true);
-  const [selectedFolder] = useState<DocumentFolderType | null>(null);
+
+  const folderWithOrder = foldersData
+    .filter(item => !!item.order)
+    .sort((a, b) => {
+      const first = a?.order ?? 1;
+      const second = b?.order ?? 2;
+
+      if (first < second) return -1;
+
+      if (first > second) return 1;
+
+      return 0;
+    });
+  const folderWithoutOrder = foldersData
+    .filter(item => !item.order)
+    .sort((a, b) => a.foldername.localeCompare(b.foldername));
 
   const handleAdd = () => {
     setDialog(
@@ -47,9 +64,9 @@ export const CardWithFolder = ({
     );
   };
 
-  const handleDelete = useCallback((item: DocumentFolderType) => onDeleteFolder?.(item.id), [onDeleteFolder]);
+  const handleDelete = useCallback((item: DmsFolder) => onDeleteFolder?.(item.id), [onDeleteFolder]);
 
-  const handleUpdate = useCallback((item: DocumentFolderType, name: string) => onUpdateFolder?.({ ...item, name }), [
+  const handleUpdate = useCallback((item: DmsFolder, name: string) => onUpdateFolder?.({ ...item, foldername: name }), [
     onUpdateFolder,
   ]);
 
@@ -73,13 +90,13 @@ export const CardWithFolder = ({
                   <PropertyItemPlaceholder />
                 </Grid>
               ) : foldersData?.length ? (
-                foldersData.map((item, index) => (
+                [...folderWithOrder, ...folderWithoutOrder].map((item, index) => (
                   <Grid item key={index} className={classes.listItem} xs={6} sm={4} lg={2}>
                     <FolderContainer
                       id={item.id}
-                      name={item.name}
-                      childCount={item.documents?.length || 0}
-                      type={!item.isUserFolder ? 'primary' : 'secondary'}
+                      name={item.foldername}
+                      childCount={0}
+                      type={item.type === DmsFolderType.Default ? 'primary' : 'secondary'}
                       isOpened={item.id === selectedFolder?.id}
                       onClick={() => {
                         setSelectedFolder(item.id === selectedFolder?.id ? null : item);

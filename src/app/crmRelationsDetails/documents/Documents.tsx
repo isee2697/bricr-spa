@@ -32,20 +32,20 @@ export const Documents = (props: DocumentsProps) => {
         urlBase={joinUrlParams(baseUrl, urlParams)}
       />
       <Switch>
-        <Route
-          path={`${path}/folders`}
-          render={() => (
-            <PageWithFolderListCard
-              {...props}
-              path={`${path}/folders`}
-              folders={documents}
-              onAddFolder={onAddFolder}
-              onDeleteFolder={onDeleteFolder}
-              onUpdateFolder={onUpdateFolder}
-              onUploadFiles={onUploadFiles}
-            />
-          )}
-        />
+        {/*<Route*/}
+        {/*  path={`${path}/folders`}*/}
+        {/*  render={() => (*/}
+        {/*    // <PageWithFolderListCard*/}
+        {/*    //   {...props}*/}
+        {/*    //   path={`${path}/folders`}*/}
+        {/*    //   folders={documents}*/}
+        {/*    //   onAddFolder={onAddFolder}*/}
+        {/*    //   onDeleteFolder={onDeleteFolder}*/}
+        {/*    //   onUpdateFolder={onUpdateFolder}*/}
+        {/*    //   onUploadFiles={onUploadFiles}*/}
+        {/*    // />*/}
+        {/*  )}*/}
+        {/*/>*/}
         <Route
           exact
           path={`${path}/checklist`}

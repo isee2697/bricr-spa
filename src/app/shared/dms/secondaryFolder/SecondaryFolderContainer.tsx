@@ -40,6 +40,8 @@ export const SecondaryFolderContainer = (props: SecondaryFolderContainerProps) =
   };
 
   return (
-    <SecondaryFolder {...props} loading={loading} onAddFolder={onAddFolder} folders={data?.listDmsFolders || []} />
+    <>
+      <SecondaryFolder {...props} loading={loading} onAddFolder={onAddFolder} folders={data?.listDmsFolders ?? []} />
+    </>
   );
 };

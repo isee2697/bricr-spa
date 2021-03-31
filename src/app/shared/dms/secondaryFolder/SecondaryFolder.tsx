@@ -13,6 +13,7 @@ import { CardWithBody, Page } from 'ui/templates';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { DmsFolder, DmsFolderType } from 'api/types';
 import { AddFolderDialog } from '../addFolderDialog/AddFolderDialog';
+import { CardWithFolder } from '../../../../ui/templates/cards/cardWithFolder/CardWithFolder';
 
 import { useStyles } from './SecondaryFolder.styles';
 import { SecondaryFolderProps } from './SecondaryFolder.types';
@@ -103,43 +104,15 @@ export const SecondaryFolder = ({
       classes={{ container: classes.page }}
     >
       <Grid item xs={12}>
-        <CardWithBody>
-          <Box mt={4}>
-            <Grid container>
-              {loading ? (
-                <Grid item xs={12}>
-                  <Loader />
-                </Grid>
-              ) : folders?.length ? (
-                folders.map((item, index) => (
-                  <Grid item key={index} className={classes.listItem} xs={6} sm={4} lg={2}>
-                    <FolderContainer
-                      id={item.id}
-                      name={item.foldername}
-                      childCount={0}
-                      type={item.type === DmsFolderType.Custom ? 'secondary' : 'primary'}
-                      onClick={() => {
-                        setSelectedFolder(item.id === selectedFolder?.id ? null : item);
-                      }}
-                      isOpened={item.id === selectedFolder?.id}
-                    />
-                  </Grid>
-                ))
-              ) : null}
-
-              <Grid item className={classes.listItem} xs={6} sm={4} lg={2}>
-                <FolderContainer
-                  id="add_folder"
-                  name={formatMessage({ id: 'dms.documents.add_folder' })}
-                  onClick={() => {
-                    handleAdd();
-                  }}
-                  isAdd
-                />
-              </Grid>
-            </Grid>
-          </Box>
-        </CardWithBody>
+        <CardWithFolder
+          title={name}
+          isLoading={loading}
+          isError={false}
+          setSelectedFolder={setSelectedFolder}
+          path={'/'}
+          foldersData={folders.map(item => ({ ...item, name: item.foldername }))}
+          selectedFolder={selectedFolder}
+        />
 
         {selectedFolder && (
           <Box mt={4}>
