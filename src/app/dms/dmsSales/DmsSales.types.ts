@@ -1,5 +1,13 @@
-import { DmsStats } from '../Dms.types';
+import { Sales } from 'api/types';
+import { PaginationProps } from 'ui/atoms/pagination/Pagination.types';
 
 export type DmsSalesProps = {
-  dms: DmsStats;
+  sales: Sales[];
+  isLoading: boolean;
+  type: string;
+  pagination: PaginationProps;
+};
+
+export type DmsSalesContainerProps = {
+  type: string;
 };

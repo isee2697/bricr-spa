@@ -7,6 +7,7 @@ import { FormSubSectionHeader } from 'ui/molecules';
 import { CheckboxField, GenericField, RadioGroupField } from 'form/fields';
 import { Grid, IconButton, Box } from 'ui/atoms';
 import { AddIcon } from 'ui/atoms/icons';
+import { requireValidator } from 'form/validators';
 
 import { AddQuestionnaireGroupItemModalProps } from './AddQuestionnaireGroupItemModal.types';
 import { questionTypes } from './dictionaries';
@@ -33,31 +34,35 @@ export const AddQuestionnaireGroupItemModal = ({
         subtitle={formatMessage({ id: 'common.choose_one_option_below' })}
         noBorder
       />
-      <RadioGroupField xs={2} name="questionType" options={questionTypes} />
+      <RadioGroupField xs={2} name="type" options={questionTypes} />
       <Grid container spacing={1}>
         <Grid item xs={4}>
           <CheckboxField
             label={formatMessage({ id: 'dms.templates.questionnaire.isAnswerRequired' })}
-            name="isAnswerRequired"
+            name="required"
           />
         </Grid>
         <Grid item xs={4}>
           <CheckboxField
             label={formatMessage({ id: 'dms.templates.questionnaire.isSupplyExtraCommentField' })}
-            name="isSupplyExtraCommentField"
+            name="commentEnabled"
           />
         </Grid>
         <Grid item xs={4}>
           <CheckboxField
             label={formatMessage({ id: 'dms.templates.questionnaire.isShowOnSummaryPage' })}
-            name="isShowOnSummaryPage"
+            name="showOn"
           />
         </Grid>
       </Grid>
-      <GenericField name="question" label={formatMessage({ id: 'dms.templates.questionnaire.question' })} />
+      <GenericField
+        name="name"
+        label={formatMessage({ id: 'dms.templates.questionnaire.question' })}
+        validate={[requireValidator]}
+      />
       {multipleChoiceAnswers.map(multipleChoiceAnswer => (
         <GenericField
-          name={`multipleChoiceAnswers[${multipleChoiceAnswer}]`}
+          name={`options[${multipleChoiceAnswer}].name`}
           label={formatMessage(
             { id: 'dms.templates.questionnaire.multiple_choice_answer' },
             { index: multipleChoiceAnswer + 1 },

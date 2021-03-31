@@ -13,7 +13,7 @@ export const DefaultConfigureSettingsDetails = ({ template }: DefaultConfigureSe
 
   return (
     <>
-      <Page showHeader title={template.questionaireName} titleActions={[]}>
+      <Page showHeader title={template.templateName} titleActions={[]}>
         <Box display="flex" flexDirection="column" width="100%">
           <Box mt={1}>
             <FormSection
@@ -23,7 +23,7 @@ export const DefaultConfigureSettingsDetails = ({ template }: DefaultConfigureSe
               isInitExpanded
             >
               {editing => (
-                <AutosaveForm onSave={() => Promise.resolve(undefined)}>
+                <AutosaveForm initialValues={{ ...template }} onSave={() => Promise.resolve(undefined)}>
                   <GenericField
                     name="templateName"
                     label="dms.template.measurements"

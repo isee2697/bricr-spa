@@ -9,20 +9,27 @@ import { GenericField } from 'form/fields';
 import { AddQuestionnaireGroupItemModal } from '../addQuestionnaireGroupItemModal/AddQuestionnaireGroupItemModal';
 import { ListOptionsMenuItem } from 'ui/molecules/listOptionsMenu/menuItem/ListOptionsMenuItem';
 import { CardWithList } from 'ui/templates';
+import { Question, UpdateQuestionInput } from 'api/types';
 
 import { QuestionnaireGroupItem, QuestionnaireItemProps } from './QuestionnaireItem.types';
 import { QuestionnaireItemSubItem } from './item/Item';
 
-export const QuestionnaireItem = ({ group }: QuestionnaireItemProps) => {
+export const QuestionnaireItem = ({
+  group,
+  onAddQuestion,
+  onUpdateQuestoin,
+  items,
+  isLoading,
+}: QuestionnaireItemProps) => {
   const { formatMessage } = useLocale();
-  const [questionnaireItems, setQuestionnaireItems] = useState<QuestionnaireGroupItem[]>([]);
+  const [questionnaireItems] = useState<QuestionnaireGroupItem[]>([]);
   const { open, close } = useModalDispatch();
   const { isOpen: isModalOpen } = useModalState('add-questionnaire-group-item');
 
-  const { id, name } = group;
+  const { id, groupName } = group;
 
   const initialValues = {
-    name,
+    groupName,
     questionnaireItems: questionnaireItems,
   };
 
@@ -43,35 +50,30 @@ export const QuestionnaireItem = ({ group }: QuestionnaireItemProps) => {
     return undefined;
   };
 
-  const handleSaveSubItem = async (value: QuestionnaireGroupItem) => {
-    // TODO: Save group sub item
+  const handleAddQuestionnaireGroupItem = async (body: AddQuestionnaireGroupItemBody) => {
+    onAddQuestion({
+      ...body,
+      groupId: group.id,
+    });
 
     return undefined;
   };
 
-  const handleAddQuestionnaireGroupItem = async (body: AddQuestionnaireGroupItemBody) => {
-    setQuestionnaireItems([
-      ...questionnaireItems,
-      {
-        id: `${questionnaireItems.length}`,
-        ...body,
-      },
-    ]);
-
-    close('add-questionnaire-group-item');
+  const handleUpdateQuestionItem = async ({ id, ...body }: UpdateQuestionInput & { id: string }) => {
+    onUpdateQuestoin(id, body);
 
     return undefined;
   };
 
   return (
     <>
-      <CardWithList
+      <CardWithList<Question>
         emoji="🤔"
         emptyStateTextFirst={formatMessage({ id: 'dms.template.questionnaire.empty_title' })}
         emptyStateTextSecond={formatMessage({ id: 'dms.template.questionnaire.empty_description' })}
-        title={name}
-        items={questionnaireItems.map(item => ({ ...item, title: item.question }))}
-        onSave={(value: QuestionnaireGroupItem) => handleSaveSubItem(value)}
+        title={groupName}
+        items={items}
+        onSave={(value: UpdateQuestionInput & { id: string }) => handleUpdateQuestionItem(value)}
         onAdd={() => open('add-questionnaire-group-item')}
         onOptionsClick={onMenuClick}
         renderGenericFields={isEditing => (
@@ -79,7 +81,7 @@ export const QuestionnaireItem = ({ group }: QuestionnaireItemProps) => {
             <Grid item xs={12}>
               <GenericField
                 fullWidth
-                name="name"
+                name="groupName"
                 label={formatMessage({ id: 'dms.templates.questionnaire.item.name_questionnaire_group' })}
                 placeholder={formatMessage({
                   id: 'dms.templates.questionnaire.item.name_questionnaire_group.placeholder',

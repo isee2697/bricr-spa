@@ -1,4 +1,6 @@
+import { Questionaire, UpdateQuestionaireInput } from 'api/types';
 import { PromiseFunction } from 'app/shared/types';
+import { PaginationProps } from 'ui/atoms/pagination/Pagination.types';
 
 export type ActiveTabStatus = 'active' | 'inactive';
 
@@ -24,8 +26,16 @@ export interface DmsTemplateItem {
 }
 
 export type DmsTemplatesProps = {
-  templates: DmsTemplateItem[];
+  templates: Questionaire[];
   onAdd: PromiseFunction<{ name: string }>;
-  onUpdate: (template: DmsTemplateItem) => void;
+  onUpdate: PromiseFunction<UpdateQuestionaireInput>;
   category: string;
+  loading: boolean;
+  pagination: PaginationProps;
+  amount: DmsTemplatesAmount;
+};
+
+export type DmsTemplatesAmount = {
+  active: number;
+  inactive: number;
 };

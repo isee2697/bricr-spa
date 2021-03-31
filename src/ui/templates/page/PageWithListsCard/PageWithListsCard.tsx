@@ -86,7 +86,7 @@ export const PageWithListsCard: <V, A, F>(
   };
 
   return (
-    <Box>
+    <Box width="100%">
       {!withoutHeader && <PageWithListsHeader {...header} />}
       {name && (
         <Box mt={-1} width="100%">

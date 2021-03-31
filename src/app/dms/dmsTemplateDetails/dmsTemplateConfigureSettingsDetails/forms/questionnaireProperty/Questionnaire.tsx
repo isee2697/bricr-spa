@@ -8,7 +8,7 @@ import { Page } from 'ui/templates';
 
 import { QuestionnaireProps } from './Questionnaire.types';
 import { AddQuestionnaireGroupModal } from './addQuestionnaireGroupModal/AddQuestionnaireGroupModal';
-import { QuestionnaireItem } from './questionnaireItem/QuestionnaireItem';
+import { QuestionnaireItemContainer } from './questionnaireItem/QuestionnaireItemContainer';
 
 export const Questionnaire = ({ template, groups, onAddQuestionnaireGroup }: QuestionnaireProps) => {
   const { formatMessage } = useLocale();
@@ -18,7 +18,7 @@ export const Questionnaire = ({ template, groups, onAddQuestionnaireGroup }: Que
   return (
     <Page
       showHeader
-      title={template.questionaireName}
+      title={template.templateName}
       titleActions={[]}
       headerProps={{
         actionIcon: <AddIcon color="inherit" />,
@@ -27,7 +27,7 @@ export const Questionnaire = ({ template, groups, onAddQuestionnaireGroup }: Que
       }}
     >
       {groups.map((group, index) => (
-        <QuestionnaireItem key={index} group={group} />
+        <QuestionnaireItemContainer key={index} group={group} />
       ))}
       {groups.length === 0 && (
         <Card>
