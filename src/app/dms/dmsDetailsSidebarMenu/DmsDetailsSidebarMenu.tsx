@@ -1,69 +1,18 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useParams } from 'react-router';
-import { DateTime } from 'luxon';
 
 import { DmsDetailsSidebarMenu } from 'app/shared/dms/sideBarMenu/SideBarMenu';
-import { Box, Chip, Step, Stepper, Typography } from 'ui/atoms';
-import { PIM_DOCUMENT_QUESTIONNAIRE } from 'api/mocks/pim';
-import { StageIcon } from 'ui/molecules/propertyStage/stageIcon/StageIcon';
-import { CheckIcon, CloseIcon } from 'ui/atoms/icons';
+import { QuestionaireConfigureItemsContainer } from '../dmsTemplateDetails/dmsTemplateConfigureSettingsDetails/forms/questionnaireProperty/questionaireConfigureItems/QuestionaireConfigureItemsContainer';
 
 import { DetailsSidebarMenuProps } from './DmsDetailsSidebarMenu.types';
-import { useStyles, Connector, Labels } from './DmsDetailsSidebarMenu.styles';
 
 export const DetailsSidebarMenu = (props: DetailsSidebarMenuProps) => {
   const { type } = useParams<{ type: string; category: string }>();
-  const classes = useStyles();
-  const data = type === 'questionnaire' ? PIM_DOCUMENT_QUESTIONNAIRE : undefined;
-  const [currentStep, setCurrentStep] = useState(3);
 
   let configureItems;
 
   if (type === 'questionnaire') {
-    configureItems = (
-      <Stepper activeStep={currentStep} connector={<Connector />} className={classes.stepper} orientation="vertical">
-        {data?.steps.map(({ title, modifiedAt, approved, declined, status }, index) => (
-          <Step
-            completed={index < currentStep}
-            key={title}
-            className={`${classes.step} ${index < currentStep && classes.completed}`}
-            onClick={() => setCurrentStep(index)}
-          >
-            <Labels
-              completed={index < currentStep}
-              icon={<StageIcon active={currentStep === index} completed={index < currentStep} icon={index} />}
-            >
-              <Box display="flex" alignItems="flex-start" justifyContent="space-between">
-                <Box display="flex" flexDirection="column" alignItems="flex-start">
-                  <Box my={0.5}>
-                    <Typography variant="h5">{title}</Typography>
-                  </Box>
-                  <Typography variant="h6" className={classes.date}>
-                    {modifiedAt ? DateTime.fromJSDate(new Date(modifiedAt)).toFormat('dd-MM-yyyy') : '-'}
-                  </Typography>
-                </Box>
-                {index ? (
-                  <Box display="flex" flexDirection="column" alignItems="flex-start" ml={2}>
-                    <Box display="flex" alignItems="center">
-                      <Box display="flex" alignItems="center" className={classes.checkIcon}>
-                        <CheckIcon color="inherit" fontSize="small" />
-                      </Box>
-                      <Chip className={classes.chipText} label={approved || '-'} />
-                    </Box>
-                    <Box display="flex" alignItems="center" mt={0.5}>
-                      <Box display="flex" alignItems="center" className={classes.closeIcon}>
-                        <CloseIcon color="inherit" fontSize="small" />
-                      </Box>
-                      <Chip className={classes.chipText} label={declined || '-'} />
-                    </Box>
-                  </Box>
-                ) : null}
-              </Box>
-            </Labels>
-          </Step>
-        ))}
-      </Stepper>
-    );
+    configureItems = <QuestionaireConfigureItemsContainer />;
   }
 
   return <DmsDetailsSidebarMenu {...props} configureItems={configureItems} />;

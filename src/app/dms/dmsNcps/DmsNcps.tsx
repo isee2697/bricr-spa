@@ -5,7 +5,7 @@ import { FoldersContainer } from 'app/shared/dms/folders/FoldersContainer';
 
 import { DmsNcpsProps } from './DmsNcps.types';
 
-export const DmsNcps = ({ ncps, type, isLoading }: DmsNcpsProps) => {
+export const DmsNcps = ({ ncps, type, isLoading, pagination }: DmsNcpsProps) => {
   return (
     <FoldersContainer
       entityItems={ncps.map(item => ({
@@ -15,6 +15,7 @@ export const DmsNcps = ({ ncps, type, isLoading }: DmsNcpsProps) => {
       entityType={DmsEntityType.Pim}
       type={type}
       isLoading={isLoading}
+      pagination={pagination}
     />
   );
 };

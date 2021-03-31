@@ -1,13 +1,14 @@
-import { CreateDmsFolderInput, DmsEntityType } from 'api/types';
-import { DmsFolderType } from 'app/dms/Dms.types';
+import { CreateDmsFolderInput, DmsEntityType, DmsFolder } from 'api/types';
 
-export type SecondaryFolderProps = {
+export type SecondaryFolderContainerProps = {
   id: string;
   name: string;
-  isLoading: boolean;
-  isError: boolean;
   entityType: DmsEntityType;
   type: string;
-  foldersData?: DmsFolderType[];
+};
+
+export type SecondaryFolderProps = SecondaryFolderContainerProps & {
+  loading: boolean;
   onAddFolder?: (value: CreateDmsFolderInput) => void;
+  folders: DmsFolder[];
 };
