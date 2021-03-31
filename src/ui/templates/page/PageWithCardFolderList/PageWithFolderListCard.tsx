@@ -1,19 +1,15 @@
-import { Typography } from '@material-ui/core';
 import React, { useCallback, useState } from 'react';
 
-import { CrmRelationsDetailsHeader } from 'app/crmRelationsDetails/crmRelationsDetailsHeader/CrmRelationsDetailsHeader';
 import { Page } from '../Page';
 import { Box, Grid } from 'ui/atoms';
 import { CardWithFolder } from '../../cards/cardWithFolder/CardWithFolder';
-import { useLocale } from 'hooks';
-import { DocumentFolderType } from 'app/crmRelationsDetails/documents/Documents.types';
 import { CardWithTable } from '../../cards/cardWithTable/CardWithTable';
 import { FileType, FileTypeView } from '../../cards/cardWithTable/CardWithTable.types';
-import { EMAILS } from 'api/mocks/email';
 import { ClockIcon, HomeIcon } from 'ui/atoms/icons';
-import { DmsFolder } from '../../../../api/types';
+import { DmsFolder } from 'api/types';
 
 import { PageWithFolderListCardProps } from './PageWithFolderListCard.types';
+import { useStyles } from './PageWithCardFolderList.styles';
 
 const actions = {
   onReply: { exec: () => {}, icon: <HomeIcon /> },
@@ -28,17 +24,17 @@ const actions = {
 };
 
 export const PageWithFolderListCard = ({
-  onSidebarOpen,
-  isSidebarVisible,
-  path,
+  title,
+  titleActions,
+  headerProps,
   folders,
-  onAddFolder,
-  onDeleteFolder,
-  onUpdateFolder,
   onUploadFiles,
+  cardTitle,
+  cardTitleActions,
+  cardTitleAmount,
+  ...props
 }: PageWithFolderListCardProps) => {
-  const { formatMessage } = useLocale();
-
+  const classes = useStyles();
   const isEmailFolder = false;
 
   const [selectedFolder, setSelectedFolder] = useState<DmsFolder | null>(null);
@@ -52,25 +48,19 @@ export const PageWithFolderListCard = ({
 
   return (
     <>
-      <CrmRelationsDetailsHeader onSidebarOpen={onSidebarOpen} isSidebarVisible={isSidebarVisible} />
-      <Page withoutHeader>
-        <Grid xs={12} item>
-          <Box display="flex" alignItems="center">
-            <Typography variant="h1">{formatMessage({ id: 'crm.details.documents.document_folders' })}</Typography>
-          </Box>
-        </Grid>
-        <Grid data-testid={'card-with-folder'} item xs={12}>
+      <Page showHeader title={title} titleActions={titleActions} headerProps={headerProps}>
+        <Grid data-testid={'card-with-folder'} item xs={12} className={classes.root}>
           <CardWithFolder
-            path={`${path}/folders`}
             foldersData={folders}
             isLoading={false}
             isError={false}
             setSelectedFolder={setSelectedFolder}
-            onAddFolder={onAddFolder}
-            onDeleteFolder={onDeleteFolder}
-            onUpdateFolder={onUpdateFolder}
             onUploadFiles={onUploadFiles}
             selectedFolder={selectedFolder}
+            title={cardTitle}
+            titleActions={cardTitleActions}
+            titleAmount={cardTitleAmount}
+            {...props}
           />
           {selectedFolder && (
             <Box data-testid="card-with-table" mt={3.5}>

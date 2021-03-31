@@ -6,7 +6,6 @@ import { useLocale } from 'hooks';
 import { useEntityType } from 'app/shared/entityType';
 import { Loader, NavBreadcrumb } from 'ui/atoms';
 import { joinUrlParams } from 'routing/AppRoute.utils';
-import { PageWithFolderListCard } from '../../../ui/templates/page/PageWithCardFolderList/PageWithFolderListCard';
 
 import { DocumentsProps } from './Documents.types';
 import { ChecklistContainer } from './checklist/ChecklistContainer';
@@ -14,7 +13,7 @@ import { ChecklistListContainer } from './checklistList/ChecklistListContainer';
 import { CheckListItemDetailsContainer } from './checkListItemDetails/CheckListItemDetailsContainer';
 
 export const Documents = (props: DocumentsProps) => {
-  const { path, documents, onAddFolder, onDeleteFolder, onUpdateFolder, onUploadFiles } = props;
+  const { path, documents } = props;
 
   const { formatMessage } = useLocale();
   const { baseUrl } = useEntityType();
@@ -32,20 +31,6 @@ export const Documents = (props: DocumentsProps) => {
         urlBase={joinUrlParams(baseUrl, urlParams)}
       />
       <Switch>
-        {/*<Route*/}
-        {/*  path={`${path}/folders`}*/}
-        {/*  render={() => (*/}
-        {/*    // <PageWithFolderListCard*/}
-        {/*    //   {...props}*/}
-        {/*    //   path={`${path}/folders`}*/}
-        {/*    //   folders={documents}*/}
-        {/*    //   onAddFolder={onAddFolder}*/}
-        {/*    //   onDeleteFolder={onDeleteFolder}*/}
-        {/*    //   onUpdateFolder={onUpdateFolder}*/}
-        {/*    //   onUploadFiles={onUploadFiles}*/}
-        {/*    // />*/}
-        {/*  )}*/}
-        {/*/>*/}
         <Route
           exact
           path={`${path}/checklist`}
