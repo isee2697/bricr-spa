@@ -1,10 +1,11 @@
 import { LastUpdatedProfile } from 'api/types';
+import { TemplateItem } from 'app/dms/dmsTemplateDetails/dmsTemplateConfigureSettingsDetails/DmsTemplateConfigureSettingsDetails.types';
 import { PromiseFunction } from 'app/shared/types';
 
 export type SecurityProps = {
   title: string;
-  onSave: PromiseFunction<void>;
-  data: SecurityData;
+  data: TemplateItem;
+  onSave: PromiseFunction<TemplateItem>;
   updatedBy?: LastUpdatedProfile | null;
   dateUpdated?: string | null;
 };

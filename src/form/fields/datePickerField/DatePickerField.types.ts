@@ -1,6 +1,6 @@
 import { FieldValidator } from 'final-form';
 
-import { DatePickerProps } from 'ui/molecules/datePicker/DatePicker.types';
+import { DatePickerProps } from 'ui/atoms/datePicker/DatePicker.types';
 
 type FieldValue = string | null;
 

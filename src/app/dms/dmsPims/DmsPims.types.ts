@@ -1,5 +1,13 @@
-import { DmsStats } from '../Dms.types';
+import { ListPimsQuery } from 'api/types';
+import { PaginationProps } from 'ui/atoms/pagination/Pagination.types';
 
 export type DmsPimsProps = {
-  dms: DmsStats;
+  pims: ListPimsQuery;
+  type: string;
+  isLoading: boolean;
+  pagination: PaginationProps;
+};
+
+export type DmsPimsContainerProps = {
+  type: string;
 };

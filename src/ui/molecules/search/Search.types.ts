@@ -1,12 +1,15 @@
 import { ReactNode } from 'react';
 import { AutocompleteProps } from '@material-ui/lab/Autocomplete';
 
+import { Entities } from 'api/types';
+
 export type Search = {
   title: string;
   type: string;
   subline?: string;
   date?: Date;
   icon?: ReactNode;
+  onClick?: VoidFunction;
 };
 
 export type SearchClasses = {
@@ -24,6 +27,7 @@ interface SearchPropsInterface<T> extends Partial<AutocompleteProps<T>> {
   endAdornment?: ReactNode;
   classes?: SearchClasses;
   loading?: boolean;
+  onSearch?: (input: string) => void;
 }
 
 export type SearchProps = SearchPropsInterface<Search>;

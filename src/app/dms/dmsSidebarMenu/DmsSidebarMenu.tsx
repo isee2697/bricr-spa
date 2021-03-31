@@ -4,14 +4,16 @@ import { useTheme } from '@material-ui/core';
 
 import { SidebarMenu } from 'ui/molecules';
 import { Box } from 'ui/atoms';
-import { FolderSvgIcon, AddIcon, GraphArrowIcon } from 'ui/atoms/icons';
+import { FolderSvgIcon, GraphArrowIcon } from 'ui/atoms/icons';
 import { SidebarMenuType } from 'ui/molecules/sidebarMenu/SidebarMenu.types';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { useLocale } from 'hooks';
+import { DmsEntityType, SalesLabel } from 'api/types';
+import { PimTypes } from 'app/pim/dictionaries';
 
 import { DmsSidebarMenuProps } from './DmsSidebarMenu.types';
 
-export const DmsSidebarMenu = ({ onHide, isVisible, onAddFolder }: DmsSidebarMenuProps) => {
+export const DmsSidebarMenu = ({ onHide, isVisible }: DmsSidebarMenuProps) => {
   const { url } = useRouteMatch();
   const theme = useTheme();
   const { formatMessage } = useLocale();
@@ -34,63 +36,26 @@ export const DmsSidebarMenu = ({ onHide, isVisible, onAddFolder }: DmsSidebarMen
       {
         isCollapsable: true,
         key: 'folders',
-        onClick: () => push(`${AppRoute.dms}/pim/residential`),
+        onClick: () => push(`${AppRoute.dms}/${DmsEntityType.Pim}/residential`),
         items: [
           {
-            key: 'pim',
+            key: DmsEntityType.Pim,
             icon: <FolderSvgIcon />,
             hideIcon: false,
-            title: 'dms.menu.pim',
-            onClick: () => push(`${AppRoute.dms}/pim/residential`),
-            subItems: [
-              {
-                id: 'residential',
-                title: 'dms.menu.residential',
-                icon: <Box width={theme.spacing(3)} />,
-              },
-              {
-                id: 'new_construction',
-                title: 'dms.menu.new_construction',
-                icon: <Box width={theme.spacing(3)} />,
-              },
-              {
-                id: 'relet',
-                title: 'dms.menu.relet',
-                icon: <Box width={theme.spacing(3)} />,
-              },
-              {
-                id: 'commercial',
-                title: 'dms.menu.commercial',
-                icon: <Box width={theme.spacing(3)} />,
-              },
-              {
-                id: 'building_commercial',
-                title: 'dms.menu.building_commercial',
-                icon: <Box width={theme.spacing(3)} />,
-              },
-              {
-                id: 'agriculture',
-                title: 'dms.menu.agriculture',
-                icon: <Box width={theme.spacing(3)} />,
-              },
-              {
-                id: 'parkinglot',
-                title: 'dms.menu.parkinglot',
-                icon: <Box width={theme.spacing(3)} />,
-              },
-              {
-                id: 'building_plot',
-                title: 'dms.menu.building_plot',
-                icon: <Box width={theme.spacing(3)} />,
-              },
-            ],
+            title: `dms.menu.${DmsEntityType.Pim}`,
+            onClick: () => push(`${AppRoute.dms}/${DmsEntityType.Pim}/residential`),
+            subItems: PimTypes.map(item => ({
+              id: item.name,
+              title: `dms.menu.${item.name}`,
+              icon: <Box width={theme.spacing(3)} />,
+            })),
           },
           {
-            key: 'crm',
+            key: DmsEntityType.Crm,
             icon: <FolderSvgIcon />,
             hideIcon: false,
-            title: 'dms.menu.crm',
-            onClick: () => push(`${AppRoute.dms}/crm/relations`),
+            title: `dms.menu.${DmsEntityType.Crm}`,
+            onClick: () => push(`${AppRoute.dms}/${DmsEntityType.Crm}/relations`),
             subItems: [
               {
                 id: 'relations',
@@ -105,17 +70,16 @@ export const DmsSidebarMenu = ({ onHide, isVisible, onAddFolder }: DmsSidebarMen
             ],
           },
           {
-            key: 'sales',
+            key: DmsEntityType.Sales,
             icon: <FolderSvgIcon />,
             hideIcon: false,
-            title: 'dms.menu.sales',
-          },
-          {
-            key: 'addFolder',
-            icon: <AddIcon />,
-            hideIcon: false,
-            title: 'dms.menu.add_folder',
-            onClick: () => {},
+            title: `dms.menu.${DmsEntityType.Sales}`,
+            onClick: () => push(`${AppRoute.dms}/${DmsEntityType.Sales}/${SalesLabel.Lead}`),
+            subItems: Object.keys(SalesLabel).map(label => ({
+              id: label,
+              title: `dms.menu.${label}`,
+              icon: <Box width={theme.spacing(3)} />,
+            })),
           },
         ],
       },

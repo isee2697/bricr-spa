@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import { Form } from 'react-final-form';
 import { DateTime } from 'luxon';
 
-import { AdvancedSearch, DatePicker, DatePickerCalendar } from 'ui/molecules';
+import { AdvancedSearch, DatePickerCalendar } from 'ui/molecules';
 import {
   Box,
   Button,
@@ -16,6 +16,7 @@ import {
   SidebarHideButton,
   Slide,
   Typography,
+  DatePicker,
 } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { ArrowDownIcon, ArrowUpIcon, CalendarIcon } from 'ui/atoms/icons';

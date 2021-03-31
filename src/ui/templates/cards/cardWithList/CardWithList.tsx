@@ -19,6 +19,7 @@ export const CardWithList: <T extends Type>(p: CardWithListProps<T>) => ReactEle
   items,
   onSave,
   renderSubOptions,
+  renderGenericFields,
   ...props
 }) => {
   const [toggledKey, setToggledKey] = useState<string>();
@@ -42,6 +43,7 @@ export const CardWithList: <T extends Type>(p: CardWithListProps<T>) => ReactEle
     >
       {editing => (
         <>
+          {renderGenericFields?.(editing)}
           {items.length > 0 ? (
             items.map((item, key) => (
               <FormSubSection
