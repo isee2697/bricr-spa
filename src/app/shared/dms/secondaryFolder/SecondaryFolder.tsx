@@ -98,12 +98,12 @@ export const SecondaryFolder = ({
         onSidebarOpen={() => {}}
         isSidebarVisible={true}
         title={name}
-        onAddFolder={name => {
+        onAddFolder={folderName => {
           if (onAddFolder) {
             onAddFolder({
               entityId,
               entityType,
-              foldername: name,
+              foldername: folderName,
               type: DmsFolderType.Custom,
             });
           }
