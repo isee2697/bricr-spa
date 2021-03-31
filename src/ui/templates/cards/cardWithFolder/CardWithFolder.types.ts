@@ -3,6 +3,7 @@ import { AnyObject } from 'final-form';
 
 import { DmsFolder } from 'api/types';
 import { PaginationProps } from 'ui/atoms/pagination/Pagination.types';
+import { SortOption } from 'ui/molecules/list/List.types';
 
 export type CardWithFolderProps = {
   isLoading: boolean;
@@ -23,7 +24,9 @@ export type CardWithFolderProps = {
   pagination?: PaginationProps;
   activeFilters?: AnyObject;
   onFilter?: (filters: AnyObject) => void;
-  sortOptions?: string[];
-  onSort?: (key: string) => void;
+  sorting?: {
+    sortOptions: SortOption[];
+    onSort: (key: string) => void;
+  };
   onSelectFolder?: (folder: string) => void;
 };

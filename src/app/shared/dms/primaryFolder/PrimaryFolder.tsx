@@ -17,11 +17,10 @@ export const PrimaryFolder = ({
   entityType,
   entityItems,
   pagination,
+  sorting,
 }: PrimaryFolderProps) => {
   const { formatMessage } = useLocale();
   const { push } = useHistory();
-
-  const sortOptions = ['last_edited'];
 
   return (
     <PageWithFolderListCard
@@ -50,8 +49,7 @@ export const PrimaryFolder = ({
         <FiltersButton data={activeFilters} getActiveFilters={onFilter} filters={PrimaryFolderFilters} />
       }
       cardTitleAmount={24}
-      onSort={() => {}}
-      sortOptions={sortOptions}
+      sorting={sorting}
       onSelectFolder={folderId => push(`${AppRoute.dms}/${entityType}/${type}/${folderId}`)}
     />
   );

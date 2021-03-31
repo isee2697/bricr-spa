@@ -28,12 +28,12 @@ export const CardWithFolder = ({
   pagination,
   activeFilters,
   onFilter,
-  sortOptions,
-  onSort,
+  sorting,
   onSelectFolder,
 }: CardWithFolderProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
+  const [sortValue, setSorting] = useState((sorting?.sortOptions || []).length > 0 ? sorting?.sortOptions[0].key : '');
 
   const [dialog, setDialog] = useState<ReactNode | null>(null);
 
@@ -106,12 +106,21 @@ export const CardWithFolder = ({
         <Box mt={2}>
           <Grid container>
             <Grid item xs={12}>
-              {onSort && sortOptions && (
+              {sorting && (
                 <Box textAlign="right" mb={4}>
-                  <Select variant="outlined" value={sortOptions[0]} className={classes.sort}>
-                    {sortOptions.map(option => (
-                      <MenuItem key={option} value={option}>
-                        {formatMessage({ id: `common.sort_options.${option}` })}
+                  <Select
+                    variant="outlined"
+                    value={sortValue}
+                    className={classes.sort}
+                    onChange={event => {
+                      const value = event?.target.value as string;
+                      setSorting(value);
+                      sorting.onSort(value);
+                    }}
+                  >
+                    {sorting.sortOptions.map(option => (
+                      <MenuItem key={option.key} value={option.key}>
+                        {formatMessage({ id: `common.sort_options.${option.name}` })}
                       </MenuItem>
                     ))}
                   </Select>
