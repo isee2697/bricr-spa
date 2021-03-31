@@ -1,6 +1,7 @@
 import React from 'react';
 import { DateTime } from 'luxon';
 import clsx from 'clsx';
+import { useIntl } from 'react-intl';
 
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { Avatar, Box, Chip, Emoji, Typography } from 'ui/atoms';
@@ -14,6 +15,7 @@ import { useStyles } from './DmsTemplatesItem.styles';
 export const DmsTemplatesItem = ({ template, onStatusChange, category }: DmsTemplatesItemProps) => {
   const { formatMessage } = useLocale();
   const classes = useStyles(template);
+  const intl = useIntl();
 
   const {
     id,
