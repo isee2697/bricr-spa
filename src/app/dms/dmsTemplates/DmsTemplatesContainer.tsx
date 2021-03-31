@@ -104,6 +104,7 @@ export const DmsTemplatesContainer = ({ category }: DmsTemplatesContainerProps) 
           input: {
             id: template.id,
             templateStatus: template.templateStatus,
+            type,
           },
         },
       });

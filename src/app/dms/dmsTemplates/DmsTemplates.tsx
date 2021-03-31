@@ -152,6 +152,7 @@ export const DmsTemplates = ({
                                   onUpdate({
                                     ...template,
                                     templateStatus: isActive ? TemplateStatus.InActive : TemplateStatus.Active,
+                                    type: template.type!,
                                   });
                                 }}
                                 category={category}

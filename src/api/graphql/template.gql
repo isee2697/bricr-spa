@@ -16,6 +16,7 @@ input QuestionaireInput {
 input UpdateQuestionaireInput {
     id: ID!
     templateStatus: TemplateStatus
+    type: TemplateType!
 }
 
 enum TemplateDocumentType {
