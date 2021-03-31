@@ -1,43 +1,38 @@
 import React from 'react';
 
-import { render } from '../../../tests';
+import { fireEvent, render } from 'tests';
 
-import { FolderContainer } from './folderContainer';
+import { FolderContainer } from './FolderContainer';
 
 describe('FolderContainer', () => {
-  test('is in document', () => {
+  test('render correctly', () => {
     const onClick = jest.fn();
-    const onRemove = jest.fn();
-    const onRename = jest.fn();
-    const { getByTestId } = render(
-      <FolderContainer
-        id={'folder-1'}
-        name={'Acquisition'}
-        onClick={onClick}
-        onRemove={onRemove}
-        onRename={onRename}
-      />,
-    );
-    const element = getByTestId('folder-container');
 
-    expect(element).toBeInTheDocument();
+    const { container } = render(<FolderContainer id="primary-folder" name="Primary Folder" onClick={onClick} />);
+
+    fireEvent.click(container.querySelector('svg')!);
+
+    expect(onClick).toBeCalled();
   });
-  test('is folder add icon in document', () => {
-    const onClick = jest.fn();
+
+  test('render remove badge', () => {
     const onRemove = jest.fn();
-    const onRename = jest.fn();
-    const { getByTestId } = render(
+
+    const { container } = render(
       <FolderContainer
-        id={'folder-1'}
-        name={'Acquisition'}
-        onClick={onClick}
+        id="secondary-with-badge"
+        name="Secondary Folder with Remove"
+        type="secondary"
         onRemove={onRemove}
-        onRename={onRename}
-        isAdd={true}
       />,
     );
-    const element = getByTestId('bordered-icon');
 
-    expect(element).toBeInTheDocument();
+    expect(container.querySelector('.MuiBadge-root')).toBeInTheDocument();
+  });
+
+  test('render count info', () => {
+    const { queryByText } = render(<FolderContainer id="count-folder" name="Folder with Count" childCount={4} />);
+
+    expect(queryByText('4')).toBeInTheDocument();
   });
 });
