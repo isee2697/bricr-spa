@@ -1,16 +1,16 @@
 import { Typography } from '@material-ui/core';
 import React, { useCallback, useState } from 'react';
 
-import { CrmRelationsDetailsHeader } from '../../../../app/crmRelationsDetails/crmRelationsDetailsHeader/CrmRelationsDetailsHeader';
+import { CrmRelationsDetailsHeader } from 'app/crmRelationsDetails/crmRelationsDetailsHeader/CrmRelationsDetailsHeader';
 import { Page } from '../Page';
-import { Box, Grid } from '../../../atoms';
+import { Box, Grid } from 'ui/atoms';
 import { CardWithFolder } from '../../cards/cardWithFolder/CardWithFolder';
-import { useLocale } from '../../../../hooks';
-import { DocumentFolderType } from '../../../../app/crmRelationsDetails/documents/Documents.types';
+import { useLocale } from 'hooks';
+import { DocumentFolderType } from 'app/crmRelationsDetails/documents/Documents.types';
 import { CardWithTable } from '../../cards/cardWithTable/CardWithTable';
 import { FileType, FileTypeView } from '../../cards/cardWithTable/CardWithTable.types';
-import { EMAILS } from '../../../../api/mocks/email';
-import { ClockIcon, HomeIcon } from '../../../atoms/icons';
+import { EMAILS } from 'api/mocks/email';
+import { ClockIcon, HomeIcon } from 'ui/atoms/icons';
 
 import { PageWithFolderListCardProps } from './PageWithFolderListCard.types';
 
