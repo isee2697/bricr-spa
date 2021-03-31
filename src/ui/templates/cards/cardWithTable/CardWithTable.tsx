@@ -10,6 +10,7 @@ import { List, ListTableItem } from 'ui/molecules';
 import { useLocale } from 'hooks';
 import { UploadModalField } from 'ui/organisms';
 import { AppRoute } from 'routing/AppRoute.enum';
+import { EmptyStateFilter } from 'ui/organisms/emptyStateFilter/EmptyStateFilter';
 
 import { CardWithTableActions } from './actions/CardWithTableActions';
 import { CardTableModals } from './modals/CardTableModals';
@@ -123,6 +124,7 @@ export const CardWithTable: <F extends FileType>(
                 <CardWithTableActions item={item} actions={actions} />
               </Box>
             )}
+            emptyPlaceholder={<EmptyStateFilter type={view} isFiltered={Object.keys(activeFilters).length > 0} />}
           />
         ) : (
           <Typography>{formatMessage({ id: 'files.details.no.files.upload.title' })}</Typography>

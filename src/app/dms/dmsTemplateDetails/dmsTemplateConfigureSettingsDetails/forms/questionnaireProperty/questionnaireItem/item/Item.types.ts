@@ -1,8 +1,6 @@
-import { QuestionnaireGroupItem } from '../QuestionnaireItem.types';
-import { PromiseFunction } from 'app/shared/types';
+import { Question } from 'api/types';
 
 export type QuestionnaireItemSubItemProps = {
-  index: number;
-  item: QuestionnaireGroupItem;
-  onSave: PromiseFunction<QuestionnaireGroupItem>;
+  item: Question;
+  isEditing?: boolean;
 };

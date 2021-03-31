@@ -6,6 +6,8 @@ import { DocumentRequestStatus } from 'app/crmRelationsDetails/documents/Documen
 import { DmsTemplateItem } from 'app/dms/dmsTemplates/DmsTemplates.types';
 import { DmsBlockItem } from 'app/dms/dmsContentBlocks/DmsContentBlocks.types';
 import { DmsImageItem } from 'app/dms/dmsImageLibrary/DmsImages.types';
+import { Document } from 'app/crmRelationsDetails/documents/Documents.types';
+import { DmsEntityType } from 'api/types';
 
 export const DMSDocuments: DmsDocument[] = [
   {
@@ -96,19 +98,20 @@ export const DMSStats: DmsStats = {
         expired: 4,
       },
       data: {
-        id: 'pim',
+        id: '0001',
+        entityType: DmsEntityType.Pim,
         name: 'PIM',
         folders: [
           {
-            id: 'folder_1',
+            id: '0001',
             name: 'Adriaan van Bergenstraat 8',
             folders: [
               {
-                id: 'folder_1_1',
+                id: '0001',
                 name: 'Contracts',
                 documents: [
                   {
-                    id: 'doc_1',
+                    id: '0001',
                     name: 'Akte van levering.pdf',
                     dateCreated: DateTime.fromJSDate(new Date('2020/09/22')),
                     size: 34223,
@@ -130,7 +133,7 @@ export const DMSStats: DmsStats = {
                     ],
                   },
                   {
-                    id: 'doc_2',
+                    id: '0002',
                     name: 'Bewijs van inschrijving.pdf',
                     dateCreated: DateTime.fromJSDate(new Date('2020/09/23')),
                     size: 32223,
@@ -148,7 +151,7 @@ export const DMSStats: DmsStats = {
                     ],
                   },
                   {
-                    id: 'doc_3',
+                    id: '0003',
                     name: 'Inschrijfformulier.docx',
                     dateCreated: DateTime.fromJSDate(new Date('2010/09/16')),
                     size: 4223,
@@ -176,162 +179,739 @@ export const DMSStats: DmsStats = {
                 ],
               },
               {
-                id: 'folder_1_2',
+                id: '0002',
                 name: 'Documents',
               },
               {
-                id: 'folder_1_3',
+                id: '0003',
                 name: 'Images',
               },
               {
-                id: 'folder_1_4',
+                id: '0004',
                 name: 'Brochures',
+              },
+              {
+                id: '0005',
+                name: 'My Custom',
+                isCustom: true,
+                documents: [
+                  {
+                    id: '0001',
+                    name: 'Akte van levering.pdf',
+                    dateCreated: DateTime.fromJSDate(new Date('2020/09/22')),
+                    size: 34223,
+                    type: 'pdf',
+                    avatar: 'http://placeimg.com/104/152/arch',
+                    stepsCompleted: [
+                      {
+                        status: DocumentRequestStatus.Request,
+                        date: DateTime.local(),
+                      },
+                      {
+                        status: DocumentRequestStatus.UserNotified,
+                        date: DateTime.local(),
+                      },
+                      {
+                        status: DocumentRequestStatus.Uploaded,
+                        date: DateTime.local(),
+                      },
+                    ],
+                  },
+                  {
+                    id: '0002',
+                    name: 'Bewijs van inschrijving.pdf',
+                    dateCreated: DateTime.fromJSDate(new Date('2020/09/23')),
+                    size: 32223,
+                    type: 'pdf',
+                    avatar: 'http://placeimg.com/104/152/arch',
+                    stepsCompleted: [
+                      {
+                        status: DocumentRequestStatus.Request,
+                        date: DateTime.local(),
+                      },
+                      {
+                        status: DocumentRequestStatus.RequestRejected,
+                        date: DateTime.local(),
+                      },
+                    ],
+                  },
+                  {
+                    id: '0003',
+                    name: 'Inschrijfformulier.docx',
+                    dateCreated: DateTime.fromJSDate(new Date('2010/09/16')),
+                    size: 4223,
+                    type: 'docx',
+                    avatar: 'http://placeimg.com/104/152/arch',
+                    stepsCompleted: [
+                      {
+                        status: DocumentRequestStatus.Request,
+                        date: DateTime.local(),
+                      },
+                      {
+                        status: DocumentRequestStatus.UserNotified,
+                        date: DateTime.local(),
+                      },
+                      {
+                        status: DocumentRequestStatus.Uploaded,
+                        date: DateTime.local(),
+                      },
+                      {
+                        status: DocumentRequestStatus.Accepted,
+                        date: DateTime.local(),
+                      },
+                    ],
+                  },
+                ],
               },
             ],
           },
           {
-            id: 'folder_2',
+            id: '0002',
             name: 'Adriaan van Bergenstraat 8',
             folders: [
               {
-                id: 'folder_2_1',
+                id: '0001',
                 name: 'Secondary Folder 1',
               },
               {
-                id: 'folder_2_2',
+                id: '0002',
                 name: 'Secondary Folder 1',
               },
               {
-                id: 'folder_2_3',
+                id: '0003',
                 name: 'Secondary Folder 1',
               },
               {
-                id: 'folder_2_4',
+                id: '0004',
                 name: 'Secondary Folder 1',
               },
               {
-                id: 'folder_2_5',
+                id: '0005',
                 name: 'Secondary Folder 1',
               },
               {
-                id: 'folder_2_6',
+                id: '0006',
                 name: 'Secondary Folder 1',
               },
               {
-                id: 'folder_2_7',
+                id: '0007',
                 name: 'Secondary Folder 1',
               },
               {
-                id: 'folder_2_8',
+                id: '0008',
                 name: 'Secondary Folder 1',
               },
               {
-                id: 'folder_2_9',
+                id: '0009',
                 name: 'Secondary Folder 1',
               },
               {
-                id: 'folder_2_10',
+                id: '0010',
                 name: 'Secondary Folder 1',
               },
               {
-                id: 'folder_2_11',
+                id: '0011',
                 name: 'Secondary Folder 1',
               },
               {
-                id: 'folder_2_12',
+                id: '0012',
                 name: 'Secondary Folder 1',
               },
               {
-                id: 'folder_2_13',
+                id: '0013',
                 name: 'Secondary Folder 1',
               },
               {
-                id: 'folder_2_14',
+                id: '0014',
                 name: 'Secondary Folder 1',
               },
               {
-                id: 'folder_2_15',
+                id: '0015',
                 name: 'Secondary Folder 1',
               },
               {
-                id: 'folder_2_16',
+                id: '0016',
                 name: 'Secondary Folder 1',
               },
               {
-                id: 'folder_2_17',
+                id: '0017',
                 name: 'Secondary Folder 1',
               },
               {
-                id: 'folder_2_18',
+                id: '0018',
                 name: 'Secondary Folder 1',
               },
               {
-                id: 'folder_2_19',
+                id: '0019',
                 name: 'Secondary Folder 1',
               },
               {
-                id: 'folder_2_20',
+                id: '0020',
                 name: 'Secondary Folder 1',
               },
               {
-                id: 'folder_2_21',
+                id: '0021',
                 name: 'Secondary Folder 1',
               },
               {
-                id: 'folder_2_22',
+                id: '0022',
                 name: 'Secondary Folder 1',
               },
               {
-                id: 'folder_2_23',
+                id: '0023',
                 name: 'Secondary Folder 1',
               },
               {
-                id: 'folder_2_24',
+                id: '0024',
                 name: 'Secondary Folder 1',
               },
             ],
           },
           {
-            id: 'folder_3',
+            id: '0003',
             name: 'Adriaan van Bergenstraat 8',
           },
           {
-            id: 'folder_4',
+            id: '0004',
             name: 'Adriaan van Bergenstraat 8',
           },
           {
-            id: 'folder_5',
+            id: '0005',
             name: 'Adriaan van Bergenstraat 8',
           },
           {
-            id: 'folder_6',
+            id: '0006',
             name: 'Adriaan van Bergenstraat 8',
           },
           {
-            id: 'folder_7',
+            id: '0007',
             name: 'Adriaan van Bergenstraat 8',
           },
           {
-            id: 'folder_8',
+            id: '0008',
             name: 'Adriaan van Bergenstraat 8',
           },
           {
-            id: 'folder_9',
+            id: '0009',
             name: 'Adriaan van Bergenstraat 8',
           },
           {
-            id: 'folder_10',
+            id: '0010',
             name: 'Adriaan van Bergenstraat 8',
           },
           {
-            id: 'folder_11',
+            id: '0011',
             name: 'Adriaan van Bergenstraat 8',
           },
         ],
       },
     },
     {
-      data: { id: 'crm', name: 'CRM' },
+      meta: {
+        forApproval: 127,
+        sent: 64,
+        viewed: 18,
+        completed: 15,
+        declined: 15,
+        expired: 4,
+      },
+      data: {
+        id: '0002',
+        entityType: DmsEntityType.Sales,
+        name: 'SALES',
+        folders: [
+          {
+            id: '0001',
+            name: 'Adriaan van Bergenstraat 8',
+            folders: [
+              {
+                id: '0001',
+                name: 'Contracts',
+                documents: [
+                  {
+                    id: '0001',
+                    name: 'Akte van levering.pdf',
+                    dateCreated: DateTime.fromJSDate(new Date('2020/09/22')),
+                    size: 34223,
+                    type: 'pdf',
+                    avatar: 'http://placeimg.com/104/152/arch',
+                    stepsCompleted: [
+                      {
+                        status: DocumentRequestStatus.Request,
+                        date: DateTime.local(),
+                      },
+                      {
+                        status: DocumentRequestStatus.UserNotified,
+                        date: DateTime.local(),
+                      },
+                      {
+                        status: DocumentRequestStatus.Uploaded,
+                        date: DateTime.local(),
+                      },
+                    ],
+                  },
+                  {
+                    id: '0001',
+                    name: 'Bewijs van inschrijving.pdf',
+                    dateCreated: DateTime.fromJSDate(new Date('2020/09/23')),
+                    size: 32223,
+                    type: 'pdf',
+                    avatar: 'http://placeimg.com/104/152/arch',
+                    stepsCompleted: [
+                      {
+                        status: DocumentRequestStatus.Request,
+                        date: DateTime.local(),
+                      },
+                      {
+                        status: DocumentRequestStatus.RequestRejected,
+                        date: DateTime.local(),
+                      },
+                    ],
+                  },
+                  {
+                    id: '0001',
+                    name: 'Inschrijfformulier.docx',
+                    dateCreated: DateTime.fromJSDate(new Date('2010/09/16')),
+                    size: 4223,
+                    type: 'docx',
+                    avatar: 'http://placeimg.com/104/152/arch',
+                    stepsCompleted: [
+                      {
+                        status: DocumentRequestStatus.Request,
+                        date: DateTime.local(),
+                      },
+                      {
+                        status: DocumentRequestStatus.UserNotified,
+                        date: DateTime.local(),
+                      },
+                      {
+                        status: DocumentRequestStatus.Uploaded,
+                        date: DateTime.local(),
+                      },
+                      {
+                        status: DocumentRequestStatus.Accepted,
+                        date: DateTime.local(),
+                      },
+                    ],
+                  },
+                ],
+              },
+              {
+                id: '0002',
+                name: 'Documents',
+              },
+              {
+                id: '0003',
+                name: 'Images',
+              },
+              {
+                id: '0004',
+                name: 'Brochures',
+              },
+            ],
+          },
+          {
+            id: '0002',
+            name: 'Adriaan van Bergenstraat 8',
+            folders: [
+              {
+                id: '0001',
+                name: 'Secondary Folder 1',
+              },
+              {
+                id: '0002',
+                name: 'Secondary Folder 1',
+              },
+              {
+                id: '0003',
+                name: 'Secondary Folder 1',
+              },
+              {
+                id: '0004',
+                name: 'Secondary Folder 1',
+              },
+              {
+                id: '0005',
+                name: 'Secondary Folder 1',
+              },
+              {
+                id: '0006',
+                name: 'Secondary Folder 1',
+              },
+              {
+                id: '0007',
+                name: 'Secondary Folder 1',
+              },
+              {
+                id: '0008',
+                name: 'Secondary Folder 1',
+              },
+              {
+                id: '0009',
+                name: 'Secondary Folder 1',
+              },
+              {
+                id: '0010',
+                name: 'Secondary Folder 1',
+              },
+              {
+                id: '0011',
+                name: 'Secondary Folder 1',
+              },
+              {
+                id: '0012',
+                name: 'Secondary Folder 1',
+              },
+              {
+                id: '0013',
+                name: 'Secondary Folder 1',
+              },
+              {
+                id: '0014',
+                name: 'Secondary Folder 1',
+              },
+              {
+                id: '0015',
+                name: 'Secondary Folder 1',
+              },
+              {
+                id: '0016',
+                name: 'Secondary Folder 1',
+              },
+              {
+                id: '0017',
+                name: 'Secondary Folder 1',
+              },
+              {
+                id: '0018',
+                name: 'Secondary Folder 1',
+              },
+              {
+                id: '0019',
+                name: 'Secondary Folder 1',
+              },
+              {
+                id: '0020',
+                name: 'Secondary Folder 1',
+              },
+              {
+                id: '0021',
+                name: 'Secondary Folder 1',
+              },
+              {
+                id: '0022',
+                name: 'Secondary Folder 1',
+              },
+              {
+                id: '0023',
+                name: 'Secondary Folder 1',
+              },
+              {
+                id: '0024',
+                name: 'Secondary Folder 1',
+              },
+            ],
+          },
+          {
+            id: '0003',
+            name: 'Adriaan van Bergenstraat 8',
+          },
+          {
+            id: '0004',
+            name: 'Adriaan van Bergenstraat 8',
+          },
+          {
+            id: '0005',
+            name: 'Adriaan van Bergenstraat 8',
+          },
+          {
+            id: '0006',
+            name: 'Adriaan van Bergenstraat 8',
+          },
+          {
+            id: '0007',
+            name: 'Adriaan van Bergenstraat 8',
+          },
+          {
+            id: '0008',
+            name: 'Adriaan van Bergenstraat 8',
+          },
+          {
+            id: '0009',
+            name: 'Adriaan van Bergenstraat 8',
+          },
+          {
+            id: '0010',
+            name: 'Adriaan van Bergenstraat 8',
+          },
+          {
+            id: '0011',
+            name: 'Adriaan van Bergenstraat 8',
+          },
+        ],
+      },
+    },
+    {
+      meta: {
+        forApproval: 127,
+        sent: 64,
+        viewed: 18,
+        completed: 15,
+        declined: 15,
+        expired: 4,
+      },
+      data: {
+        id: '0003',
+        entityType: DmsEntityType.Crm,
+        name: 'CRM',
+        folders: [
+          {
+            id: '0001',
+            name: 'Adriaan van Bergenstraat 8',
+            folders: [
+              {
+                id: '0001',
+                name: 'Personal',
+                type: 'personal',
+                documents: [
+                  {
+                    id: '0001',
+                    name: 'Akte van levering.pdf',
+                    dateCreated: DateTime.fromJSDate(new Date('2020/09/22')),
+                    size: 34223,
+                    type: 'pdf',
+                    avatar: 'http://placeimg.com/104/152/arch',
+                    stepsCompleted: [
+                      {
+                        status: DocumentRequestStatus.Request,
+                        date: DateTime.local(),
+                      },
+                      {
+                        status: DocumentRequestStatus.UserNotified,
+                        date: DateTime.local(),
+                      },
+                      {
+                        status: DocumentRequestStatus.Uploaded,
+                        date: DateTime.local(),
+                      },
+                    ],
+                  },
+                  {
+                    id: '0002',
+                    name: 'Bewijs van inschrijving.pdf',
+                    dateCreated: DateTime.fromJSDate(new Date('2020/09/23')),
+                    size: 32223,
+                    type: 'pdf',
+                    avatar: 'http://placeimg.com/104/152/arch',
+                    stepsCompleted: [
+                      {
+                        status: DocumentRequestStatus.Request,
+                        date: DateTime.local(),
+                      },
+                      {
+                        status: DocumentRequestStatus.RequestRejected,
+                        date: DateTime.local(),
+                      },
+                    ],
+                  },
+                  {
+                    id: '0003',
+                    name: 'Inschrijfformulier.docx',
+                    dateCreated: DateTime.fromJSDate(new Date('2010/09/16')),
+                    size: 4223,
+                    type: 'docx',
+                    avatar: 'http://placeimg.com/104/152/arch',
+                    stepsCompleted: [
+                      {
+                        status: DocumentRequestStatus.Request,
+                        date: DateTime.local(),
+                      },
+                      {
+                        status: DocumentRequestStatus.UserNotified,
+                        date: DateTime.local(),
+                      },
+                      {
+                        status: DocumentRequestStatus.Uploaded,
+                        date: DateTime.local(),
+                      },
+                      {
+                        status: DocumentRequestStatus.Accepted,
+                        date: DateTime.local(),
+                      },
+                    ],
+                  },
+                ],
+              },
+              {
+                id: '0002',
+                name: 'Emails',
+                type: 'emails',
+              },
+              {
+                id: '0003',
+                name: 'Contracts',
+                type: 'contracts',
+              },
+              {
+                id: '0004',
+                name: 'Print',
+                type: 'print',
+              },
+              {
+                id: '0005',
+                name: 'Survey',
+                type: 'survey',
+              },
+              {
+                id: '0006',
+                name: 'Invoices',
+                type: 'invoices',
+              },
+            ],
+          },
+          {
+            id: '0002',
+            name: 'Adriaan van Bergenstraat 8',
+            folders: [
+              {
+                id: '0001',
+                name: 'Secondary Folder 1',
+              },
+              {
+                id: '0002',
+                name: 'Secondary Folder 1',
+              },
+              {
+                id: '0003',
+                name: 'Secondary Folder 1',
+              },
+              {
+                id: '0004',
+                name: 'Secondary Folder 1',
+              },
+              {
+                id: '0005',
+                name: 'Secondary Folder 1',
+              },
+              {
+                id: '0006',
+                name: 'Secondary Folder 1',
+              },
+              {
+                id: '0007',
+                name: 'Secondary Folder 1',
+              },
+              {
+                id: '0008',
+                name: 'Secondary Folder 1',
+              },
+              {
+                id: '0009',
+                name: 'Secondary Folder 1',
+              },
+              {
+                id: '0010',
+                name: 'Secondary Folder 1',
+              },
+              {
+                id: '0011',
+                name: 'Secondary Folder 1',
+              },
+              {
+                id: '0012',
+                name: 'Secondary Folder 1',
+              },
+              {
+                id: '0013',
+                name: 'Secondary Folder 1',
+              },
+              {
+                id: '0014',
+                name: 'Secondary Folder 1',
+              },
+              {
+                id: '0015',
+                name: 'Secondary Folder 1',
+              },
+              {
+                id: '0016',
+                name: 'Secondary Folder 1',
+              },
+              {
+                id: '0017',
+                name: 'Secondary Folder 1',
+              },
+              {
+                id: '0018',
+                name: 'Secondary Folder 1',
+              },
+              {
+                id: '0019',
+                name: 'Secondary Folder 1',
+              },
+              {
+                id: '0020',
+                name: 'Secondary Folder 1',
+              },
+              {
+                id: '0021',
+                name: 'Secondary Folder 1',
+              },
+              {
+                id: '0022',
+                name: 'Secondary Folder 1',
+              },
+              {
+                id: '0023',
+                name: 'Secondary Folder 1',
+              },
+              {
+                id: '0024',
+                name: 'Secondary Folder 1',
+              },
+            ],
+          },
+          {
+            id: '0003',
+            name: 'Adriaan van Bergenstraat 8',
+          },
+          {
+            id: '0004',
+            name: 'Adriaan van Bergenstraat 8',
+          },
+          {
+            id: '0005',
+            name: 'Adriaan van Bergenstraat 8',
+          },
+          {
+            id: '0006',
+            name: 'Adriaan van Bergenstraat 8',
+          },
+          {
+            id: '0007',
+            name: 'Adriaan van Bergenstraat 8',
+          },
+          {
+            id: '0008',
+            name: 'Adriaan van Bergenstraat 8',
+          },
+          {
+            id: '0009',
+            name: 'Adriaan van Bergenstraat 8',
+          },
+          {
+            id: '0010',
+            name: 'Adriaan van Bergenstraat 8',
+          },
+          {
+            id: '0011',
+            name: 'Adriaan van Bergenstraat 8',
+          },
+        ],
+      },
+    },
+    {
+      data: { id: '0001', entityType: DmsEntityType.Pim, name: 'SALES' },
       meta: {
         forApproval: 127,
         sent: 64,
@@ -342,18 +922,7 @@ export const DMSStats: DmsStats = {
       },
     },
     {
-      data: { id: 'sales', name: 'SALES' },
-      meta: {
-        forApproval: 127,
-        sent: 64,
-        viewed: 18,
-        completed: 15,
-        declined: 15,
-        expired: 4,
-      },
-    },
-    {
-      data: { id: 'folder_1', name: 'New Folder 1' },
+      data: { id: '0001', entityType: DmsEntityType.Pim, name: 'New Folder 1' },
       meta: {
         forApproval: 0,
         sent: 0,
@@ -466,7 +1035,7 @@ export const DMSTimelineItems: Timeline[] = [
 
 export const Templates: DmsTemplateItem[] = [
   {
-    id: 'dms-template-1',
+    id: '0001',
     type: 'email',
     name: 'Contract for Sale',
     labels: ['Residential', 'BOG'],
@@ -484,7 +1053,7 @@ export const Templates: DmsTemplateItem[] = [
     },
   },
   {
-    id: 'dms-template-2',
+    id: '0002',
     type: 'email',
     name: 'Contract for Rent',
     labels: ['Residential', 'BOG'],
@@ -502,7 +1071,7 @@ export const Templates: DmsTemplateItem[] = [
     },
   },
   {
-    id: 'dms-template-3',
+    id: '0003',
     type: 'email',
     name: 'Key transfer',
     labels: ['Residential', 'BOG'],
@@ -598,5 +1167,24 @@ export const Images: DmsImageItem[] = [
     status: 'active',
     createdAt: '2020/09/21',
     url: 'http://placeimg.com/104/152/arch',
+  },
+];
+
+export const DMS_GENERAL_LIST_ITEMS: Document[] = [
+  {
+    id: '0001',
+    name: 'SO-003-Isenburgstraat-36',
+    uri: 'http://localhost',
+    type: '.pdf',
+    dateCreated: DateTime.local(),
+    stepsCompleted: [],
+  },
+  {
+    id: '0002',
+    name: 'SO-003-Isenburgstraat-36',
+    uri: 'http://localhost',
+    type: '.doc',
+    dateCreated: DateTime.local(),
+    stepsCompleted: [],
   },
 ];

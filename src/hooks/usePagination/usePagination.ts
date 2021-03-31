@@ -25,6 +25,7 @@ export const usePagination: UsePaginationType = ({ itemsCount, perPageOptions, p
     },
     query: {
       from: !perPage ? 0 : (pageIndex || 0) * perPage,
+      page: (pageIndex || 0) + 1,
       limit: !perPage ? undefined : perPage,
     },
   };

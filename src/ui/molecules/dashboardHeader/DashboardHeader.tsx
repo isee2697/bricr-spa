@@ -6,7 +6,7 @@ import { Typography, Grid, Emoji } from 'ui/atoms';
 import { DashboardHeaderProps } from './DashboardHeader.types';
 import { useStyles } from './DashboardHeader.styles';
 
-export const DashboardHeader = ({ children, onFilterClick }: DashboardHeaderProps) => {
+export const DashboardHeader = ({ children }: DashboardHeaderProps) => {
   const classes = useStyles();
 
   return (

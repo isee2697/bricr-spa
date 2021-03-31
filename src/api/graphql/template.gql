@@ -1,0 +1,235 @@
+enum TemplateStatus {
+    Active
+    InActive
+}
+
+input QuestionaireInput {
+    templateName: String
+    type: TemplateType
+    isAdmin: Boolean
+    published: Boolean
+    copyFromId: String
+    entity: EntityInput
+    templateStatus: TemplateStatus
+}
+
+input UpdateQuestionaireInput {
+    id: ID!
+    templateStatus: TemplateStatus
+}
+
+enum TemplateDocumentType {
+    Sale
+    Rent
+}
+
+type TemplateSettings {
+    description: String
+    version: String
+    language: String
+    documentType: String @uuidOrEnum(enum: ["TemplateDocumentType"])
+}
+
+type TemplateSecurity {
+    name: String!
+    create: Boolean
+    update: Boolean
+    read: Boolean
+    delete: Boolean
+}
+
+input TemplateSettingsInput {
+    description: String
+    version: String
+    language: String
+    documentType: String @uuidOrEnum(enum: ["TemplateDocumentType"])
+}
+
+input TemplateSecurityInput {
+    name: String
+    create: Boolean
+    update: Boolean
+    read: Boolean
+    delete: Boolean
+}
+
+input TemplateGeneralInput {
+    templateName: String
+    settings: TemplateSettingsInput
+    securities: [TemplateSecurityInput!]
+}
+
+input QuestionInput {
+    groupId: ID!
+    name: String!
+    order: Int
+    type: QuestionType
+    required: Boolean
+    commentEnabled: Boolean
+    showOn: Boolean
+    options: [OptionsInput]
+    entity: EntityInput
+}
+
+input UpdateQuestionInput {
+    name: String
+    order: Int
+    type: QuestionType
+    required: Boolean
+    commentEnabled: Boolean
+    showOn: Boolean
+    options: [OptionsInput]
+    entity: EntityInput
+}
+
+input GroupsInput {
+    templateId: ID!
+    groupName: String!
+    order: Int
+    entity: EntityInput
+}
+
+input UpdateGroupsInput {
+    groupName: String
+    order: Int
+    entity: EntityInput
+}
+
+input AnswersInput {
+    templateId: String
+    date: Date
+    entities: [EntityInput]
+}
+
+input OptionsInput {
+    name: String
+}
+
+input AnswerInput {
+    options: [OptionsInput]
+    comment: String
+}
+
+input EntityInput {
+    type: String
+    subType: String
+}
+
+type TemplateMeta {
+    createdAt: Date!
+    deletedAt: Date
+}
+
+type Questionaire {
+    id: ID!
+    companyId: String
+    type: TemplateType
+    templateName: String
+    isAdmin: Boolean
+    published: Boolean
+    copyFromId: String
+    entity: Entity
+    templateStatus: TemplateStatus
+    meta: TemplateMeta!
+    settings: TemplateSettings
+    securities: [TemplateSecurity!]
+}
+
+type Groups {
+    id: ID!
+    templateId: ID!
+    groupName: String!
+    copyFromId: String
+    order: Int
+    entity: Entity
+}
+
+type Question {
+    id: ID!
+    name: String!
+    groupId: String
+    order: Int
+    type: QuestionType
+    required: Boolean
+    commentEnabled: Boolean
+    showOn: Boolean
+    options: [Options]
+    entity: Entity
+}
+
+type Answers {
+    id: ID!
+    templateId: String
+    date: Date
+    entities: [Entity]
+}
+
+type Answer {
+    id: ID!
+    answersId: String
+    questionId: String
+    options: [Options]
+    comment: String
+}
+
+type Options {
+    name: String
+}
+
+enum QuestionType {
+    text
+    radio
+    checkbox
+    multiplechoice
+    number
+    email
+    price
+    singlelinetext
+    multiplelinetext
+}
+
+enum TemplateType {
+    questionnaire
+    contract
+    lvz
+    survey
+    newsletter
+    print
+    socialMedia
+    invoice
+    email
+}
+
+type Entity {
+    type: String
+    subType: String
+}
+
+input ListQuestionairesFilters {
+    type: String
+    templateStatus: TemplateStatus
+}
+
+type TemplatesResponse {
+    count: Int
+    items: [Questionaire!]
+}
+
+extend type Mutation {
+    createQuestionaire(input: QuestionaireInput!): Questionaire  @auth
+    updateQuestionaire(input: UpdateQuestionaireInput!): Questionaire @auth
+    updateTemplateGeneral(input: TemplateGeneralInput!): Questionaire  @auth
+    createQuestionaireGroup(input: GroupsInput!): Groups @auth
+    updateQuestionaireGroup(id: ID!, input: UpdateGroupsInput!): Groups @auth
+    deleteQuestionaireGroup(id: ID!): Boolean @auth
+    createQuestion(input: QuestionInput!): Question @auth
+    updateQuestion(questionId: ID!, input: UpdateQuestionInput!): Question @auth
+}
+
+extend type Query {
+    getQuestionaires(filters: ListQuestionairesFilters!, pagination: Pagination, search: String): TemplatesResponse!  @auth
+    getQuestionaire(id: ID!): Questionaire @auth
+    listQuestionaireGroups(templateId: ID!): [Groups!] @auth
+    getQuestionaireGroup(id: ID!): Groups @auth
+    listQuestions(groupId: ID!): [Question!] @auth
+}

@@ -22,7 +22,7 @@ export const Dashboard = () => {
   return (
     <>
       <div className={classes.content}>
-        <DashboardHeader onFilterClick={() => {}}>
+        <DashboardHeader>
           {formatMessage({ id: 'dashboard.welcome' })} {user?.firstName} 👋
         </DashboardHeader>
 

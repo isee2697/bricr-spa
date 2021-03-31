@@ -1,19 +1,53 @@
 Example of ConflictInfo component
 ```jsx harmony
-import { ConfirmModal } from './ConfirmModal'; 
-import { AutosaveForm } from 'ui/organisms';
+import { useState } from 'react';
 
-<AutosaveForm onSave={() => Promise.resolve(undefined)}>
+import { Box, Button } from 'ui/atoms';
+
+import { ConfirmModal } from './ConfirmModal'; 
+import { ConfirmButtonType } from 'ui/molecules/confirmModal/ConfirmModal.types';
+
+const [isOpened, setIsOpened] = useState(false);
+
+<Box>
+    <Button size="small" onClick={() => setIsOpened(true)}>Open confirm modal</Button>
     <ConfirmModal
         emoji='😬'
-        isOpened={true}
+        isOpened={isOpened}
         title={'Deleting'}
-        onCancel={() => {}}
-        onConfirm={() => {}}
+        onCancel={() => setIsOpened(false)}
+        onConfirm={() => setIsOpened(false)}
         messageLineFirst={'Are you sure?'}
-        cancel={'No'}
-        confirm={'Yes'}
+        cancelText={'No'}
+        confirmText={'Yes'}
         confirmButtonType={ConfirmButtonType.ERROR}
     />
-</AutosaveForm>
+</Box>
+```
+
+```jsx harmony
+import { useState } from 'react';
+
+import { Box, Button } from 'ui/atoms';
+
+import { ConfirmModal } from './ConfirmModal'; 
+import { ConfirmButtonType } from 'ui/molecules/confirmModal/ConfirmModal.types';
+
+const [isOpened, setIsOpened] = useState(false);
+
+<Box>
+    <Button size="small" onClick={() => setIsOpened(true)}>Open confirm modal</Button>
+    <ConfirmModal
+        emoji='😬'
+        isOpened={isOpened}
+        title={'Deleting'}
+        onCancel={() => setIsOpened(false)}
+        onConfirm={() => setIsOpened(false)}
+        messageLineFirst={'Are you sure?'}
+        messageLineSecond={'Please be sure to confirm'}
+        cancelText={'No'}
+        confirmText={'Yes'}
+        confirmButtonType={ConfirmButtonType.INFO}
+    />
+</Box>
 ```
