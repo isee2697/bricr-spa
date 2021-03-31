@@ -8,8 +8,8 @@ import { AppRoute } from 'routing/AppRoute.enum';
 import { NavBreadcrumb } from 'ui/atoms/navBreadcrumb/NavBreadcrumb';
 import { ListPimsFilters } from 'api/types';
 import { PimTypes } from 'app/pim/dictionaries';
-import { SecondaryFolder } from 'app/shared/dms/secondaryFolder/SecondaryFolder';
 import { PrimaryFolder } from 'app/shared/dms/primaryFolder/PrimaryFolder';
+import { SecondaryFolderContainer } from '../secondaryFolder/SecondaryFolderContainer';
 
 import { FoldersProps } from './Folders.types';
 
@@ -17,7 +17,7 @@ const getPimFilterVariables = (type: string): ListPimsFilters => {
   return { propertyTypes: PimTypes.find(pimType => pimType.name === type)?.types };
 };
 
-export const Folders = ({ entityItems, entityType, type, onAddFolder, isLoading }: FoldersProps) => {
+export const Folders = ({ entityItems, entityType, type, isLoading, pagination }: FoldersProps) => {
   const { formatMessage } = useLocale();
   const { baseUrl } = useEntityType();
   const urlParams = useParams();
@@ -47,16 +47,7 @@ export const Folders = ({ entityItems, entityType, type, onAddFolder, isLoading 
             const item = entityItems.find(item => item.id === path.match.params.entityId);
 
             return item ? (
-              <SecondaryFolder
-                id={item.id}
-                name={item.name}
-                isLoading={false}
-                isError={false}
-                foldersData={[]}
-                type={type}
-                entityType={entityType}
-                onAddFolder={onAddFolder}
-              />
+              <SecondaryFolderContainer id={item.id} name={item.name} type={type} entityType={entityType} />
             ) : (
               <Redirect to={folderPath} />
             );
@@ -73,6 +64,7 @@ export const Folders = ({ entityItems, entityType, type, onAddFolder, isLoading 
               entityItems={entityItems}
               type={type}
               entityType={entityType}
+              pagination={pagination}
             />
           )}
         />

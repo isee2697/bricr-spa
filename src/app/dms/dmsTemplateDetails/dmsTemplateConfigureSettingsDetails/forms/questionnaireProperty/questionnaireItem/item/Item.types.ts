@@ -1,6 +1,6 @@
-import { QuestionnaireGroupItem } from '../QuestionnaireItem.types';
+import { Question } from 'api/types';
 
 export type QuestionnaireItemSubItemProps = {
-  item: QuestionnaireGroupItem;
+  item: Question;
   isEditing?: boolean;
 };

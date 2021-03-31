@@ -1,3 +1,4 @@
+import { Groups } from 'api/types';
 import { PromiseFunction } from 'app/shared/types';
 import { TemplateItem } from '../../DmsTemplateConfigureSettingsDetails.types';
 
@@ -8,8 +9,9 @@ export type QuestionnaireContainerProps = {
 };
 
 export type QuestionnaireProps = {
+  isLoading: boolean;
   template: TemplateItem;
-  groups: QuestionnaireGroup[];
+  groups: Groups[];
   onAddQuestionnaireGroup: PromiseFunction<AddQuestionnaireGroupBody>;
 };
 

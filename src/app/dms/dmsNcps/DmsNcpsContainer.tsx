@@ -35,7 +35,7 @@ export const DmsNcpsContainer = ({ type: ncpType }: DmsNcpsContainerProps) => {
 
   const { query: sortQuery } = useProjectSorting();
 
-  const { query: paginationQuery } = usePagination({
+  const { pagination, query: paginationQuery } = usePagination({
     prefix: 'active',
     itemsCount: amounts ? amounts['active'] : 0,
     perPageOptions: PER_PAGE_OPTIONS,
@@ -56,6 +56,7 @@ export const DmsNcpsContainer = ({ type: ncpType }: DmsNcpsContainerProps) => {
       ncps={(listData?.listNcps.items || []) as ListNcp[]}
       type={ncpType}
       isLoading={isCountLoading || isListLoading}
+      pagination={pagination}
     />
   );
 };
