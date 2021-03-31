@@ -69,7 +69,7 @@ export const PageWithFolderListCard = ({
             onUploadFiles={onUploadFiles}
           />
           {selectedFolder && (
-            <Box data-testid={'card-with-table'} mt={3.5}>
+            <Box data-testid="card-with-table" mt={3.5}>
               <CardWithTable<FileType>
                 onAdd={() => {}}
                 titleId={selectedFolder.name}
