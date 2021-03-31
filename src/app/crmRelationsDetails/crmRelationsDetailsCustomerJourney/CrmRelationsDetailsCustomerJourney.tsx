@@ -103,7 +103,6 @@ export const CrmRelationsDetailsCustomerJourney = ({
                 </Box>
                 <Box mr={2}>
                   <FiltersButton
-                    variant="rounded"
                     data={activeFilters}
                     getActiveFilters={onFilter}
                     filters={CrmRelationsCustomerJourneyFilters}
