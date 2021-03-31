@@ -41,13 +41,13 @@ export const DashboardOrders = ({ orders, currentTab, onChangeTab }: DashboardOr
         open('add-sales-lead');
         break;
       case SalesLabel.Acquisition:
-        open('add-sales-item', { salesItemType: SalesLabel.Acquisition });
+        open('add-sales-item', { salesLabel: SalesLabel.Acquisition });
         break;
       case SalesLabel.Order:
-        open('add-sales-item', { salesItemType: SalesLabel.Order });
+        open('add-sales-item', { salesLabel: SalesLabel.Order });
         break;
       case SalesLabel.Quotation:
-        open('add-sales-item', { salesItemType: SalesLabel.Quotation });
+        open('add-sales-item', { salesLabel: SalesLabel.Quotation });
         break;
       default:
         open('add-sales-lead');

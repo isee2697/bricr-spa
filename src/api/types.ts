@@ -296,6 +296,7 @@ export type Mutation = {
   createQuestion?: Maybe<Question>;
   createQuestionaire?: Maybe<Questionaire>;
   createQuestionaireGroup?: Maybe<Groups>;
+  createSales?: Maybe<Sales>;
   createSocialMediaLink: Profile;
   createTask: Task;
   deactivateProfile: Profile;
@@ -717,6 +718,10 @@ export type MutationCreateQuestionaireArgs = {
 
 export type MutationCreateQuestionaireGroupArgs = {
   input: GroupsInput;
+};
+
+export type MutationCreateSalesArgs = {
+  input: CreateSalesInput;
 };
 
 export type MutationCreateSocialMediaLinkArgs = {
@@ -1582,7 +1587,8 @@ export type QueryGetSalesCrmsListArgs = {
 };
 
 export type QueryGetSalesListArgs = {
-  filters: SalesFilters;
+  label: SalesLabel;
+  status: SalesStatus;
   sort?: Maybe<Array<Sort>>;
 };
 
@@ -8821,15 +8827,15 @@ export type SalesBrokerage = {
   notes?: Maybe<Scalars['String']>;
 };
 
-export type CreateSalesInput = {
-  __typename?: 'CreateSalesInput';
+export type CreateSales = {
+  __typename?: 'CreateSales';
   label: SalesLabel;
   type: SalesType;
   extraInfo?: Maybe<Scalars['String']>;
 };
 
-export type UpdateSalesInput = {
-  __typename?: 'UpdateSalesInput';
+export type UpdateSales = {
+  __typename?: 'UpdateSales';
   attentionNote?: Maybe<Scalars['String']>;
   status?: Maybe<SalesStatus>;
   date?: Maybe<Scalars['Date']>;
@@ -8837,50 +8843,50 @@ export type UpdateSalesInput = {
   extraInfo?: Maybe<Scalars['String']>;
 };
 
-export type CreateSalesStatusChangeInput = {
-  __typename?: 'CreateSalesStatusChangeInput';
+export type CreateSalesStatusChange = {
+  __typename?: 'CreateSalesStatusChange';
   cyclusId: Scalars['ID'];
   label: SalesLabel;
   status: SalesStatus;
   historyId: Scalars['ID'];
 };
 
-export type CreateSalesAccountContactInput = {
-  __typename?: 'CreateSalesAccountContactInput';
+export type CreateSalesAccountContact = {
+  __typename?: 'CreateSalesAccountContact';
   cyclusId: Scalars['ID'];
   userId: Scalars['ID'];
   role: SalesRole;
 };
 
-export type UpdateSalesAccountContactInput = {
-  __typename?: 'UpdateSalesAccountContactInput';
+export type UpdateSalesAccountContact = {
+  __typename?: 'UpdateSalesAccountContact';
   cyclusId: Scalars['ID'];
   userId: Scalars['ID'];
   role: SalesRole;
 };
 
-export type CreateSalesEntityInput = {
-  __typename?: 'CreateSalesEntityInput';
+export type CreateSalesEntity = {
+  __typename?: 'CreateSalesEntity';
   cyclusId: Scalars['ID'];
   entityType: Entities;
   entityId: Scalars['ID'];
 };
 
-export type CreateSalesFileInput = {
-  __typename?: 'CreateSalesFileInput';
+export type CreateSalesFile = {
+  __typename?: 'CreateSalesFile';
   cyclusId: Scalars['ID'];
   documentId: Scalars['ID'];
   label: Scalars['String'];
 };
 
-export type CreateSalesPackageInput = {
-  __typename?: 'CreateSalesPackageInput';
+export type CreateSalesPackage = {
+  __typename?: 'CreateSalesPackage';
   cyclusId: Scalars['ID'];
   package: Scalars['String'];
 };
 
-export type CreateSalesAddressInput = {
-  __typename?: 'CreateSalesAddressInput';
+export type CreateSalesAddress = {
+  __typename?: 'CreateSalesAddress';
   cyclusId: Scalars['ID'];
   country?: Maybe<Scalars['String']>;
   city?: Maybe<Scalars['String']>;
@@ -8890,8 +8896,8 @@ export type CreateSalesAddressInput = {
   extraInfo?: Maybe<Scalars['String']>;
 };
 
-export type UpdateSalesAddressInput = {
-  __typename?: 'UpdateSalesAddressInput';
+export type UpdateSalesAddress = {
+  __typename?: 'UpdateSalesAddress';
   country?: Maybe<Scalars['String']>;
   city?: Maybe<Scalars['String']>;
   zipCode?: Maybe<Scalars['String']>;
@@ -8900,8 +8906,8 @@ export type UpdateSalesAddressInput = {
   extraInfo?: Maybe<Scalars['String']>;
 };
 
-export type CreateSalesBrokerageInput = {
-  __typename?: 'CreateSalesBrokerageInput';
+export type CreateSalesBrokerage = {
+  __typename?: 'CreateSalesBrokerage';
   cyclusId: Scalars['ID'];
   type: Scalars['Int'];
   percentage?: Maybe<Scalars['Int']>;
@@ -8915,8 +8921,8 @@ export type CreateSalesBrokerageInput = {
   notes?: Maybe<Scalars['String']>;
 };
 
-export type UpdateSalesBrokerageInput = {
-  __typename?: 'UpdateSalesBrokerageInput';
+export type UpdateSalesBrokerage = {
+  __typename?: 'UpdateSalesBrokerage';
   type?: Maybe<Scalars['Int']>;
   percentage?: Maybe<Scalars['Int']>;
   fixedAmount?: Maybe<Scalars['Int']>;
@@ -8929,26 +8935,26 @@ export type UpdateSalesBrokerageInput = {
   notes?: Maybe<Scalars['String']>;
 };
 
-export type CreateSalesPimInput = {
-  __typename?: 'CreateSalesPimInput';
+export type CreateSalesPim = {
+  __typename?: 'CreateSalesPim';
   cyclusId: Scalars['ID'];
   pimId: Scalars['ID'];
 };
 
-export type BulkCreateSalesPimInput = {
-  __typename?: 'BulkCreateSalesPimInput';
+export type BulkCreateSalesPim = {
+  __typename?: 'BulkCreateSalesPim';
   cyclusId: Scalars['ID'];
   pimIds?: Maybe<Array<Scalars['ID']>>;
 };
 
-export type CreateSalesCrmInput = {
-  __typename?: 'CreateSalesCrmInput';
+export type CreateSalesCrm = {
+  __typename?: 'CreateSalesCrm';
   cyclusId: Scalars['ID'];
   crmId: Scalars['ID'];
 };
 
-export type BulkCreateSalesCrmInput = {
-  __typename?: 'BulkCreateSalesCrmInput';
+export type BulkCreateSalesCrm = {
+  __typename?: 'BulkCreateSalesCrm';
   cyclusId: Scalars['ID'];
   crmIds?: Maybe<Array<Scalars['ID']>>;
 };
@@ -8963,6 +8969,7 @@ export enum SalesLabel {
   Acquisition = 'Acquisition',
   Quotation = 'Quotation',
   Order = 'Order',
+  Invoice = 'Invoice',
 }
 
 export enum SalesStatus {
@@ -8993,6 +9000,12 @@ export type SalesSearchResult = {
   __typename?: 'SalesSearchResult';
   metadata?: Maybe<SearchMetadata>;
   items?: Maybe<Array<Sales>>;
+};
+
+export type CreateSalesInput = {
+  label: SalesLabel;
+  type: SalesType;
+  extraInfo?: Maybe<Scalars['String']>;
 };
 
 export type SearchMetadata = {
@@ -11764,6 +11777,19 @@ export type LinkNcpToProjectPhaseMutationVariables = Exact<{
 
 export type LinkNcpToProjectPhaseMutation = { __typename?: 'Mutation' } & {
   linkNcpToProjectPhase: { __typename?: 'ProjectPhase' } & Pick<ProjectPhase, 'id'>;
+};
+
+export type CreateSalesMutationVariables = Exact<{
+  input: CreateSalesInput;
+}>;
+
+export type CreateSalesMutation = { __typename?: 'Mutation' } & {
+  createSales?: Maybe<
+    { __typename?: 'Sales' } & Pick<
+      Sales,
+      'id' | 'label' | 'status' | 'createdAt' | 'updatedAt' | 'name' | 'type' | 'extraInfo' | 'attentionNote' | 'date'
+    >
+  >;
 };
 
 export type AddTaskLabelMutationVariables = Exact<{
@@ -20347,6 +20373,36 @@ export type LinkNcpToProjectPhaseMutationOptions = ApolloReactCommon.BaseMutatio
   LinkNcpToProjectPhaseMutation,
   LinkNcpToProjectPhaseMutationVariables
 >;
+export const CreateSalesDocument = gql`
+  mutation CreateSales($input: CreateSalesInput!) {
+    createSales(input: $input) @rest(type: "CreateSales", path: "/create-sales", method: "POST", endpoint: "default") {
+      id
+      label
+      status
+      createdAt
+      updatedAt
+      name
+      type
+      extraInfo
+      attentionNote
+      date
+    }
+  }
+`;
+export function useCreateSalesMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<CreateSalesMutation, CreateSalesMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<CreateSalesMutation, CreateSalesMutationVariables>(
+    CreateSalesDocument,
+    baseOptions,
+  );
+}
+export type CreateSalesMutationHookResult = ReturnType<typeof useCreateSalesMutation>;
+export type CreateSalesMutationResult = ApolloReactCommon.MutationResult<CreateSalesMutation>;
+export type CreateSalesMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  CreateSalesMutation,
+  CreateSalesMutationVariables
+>;
 export const AddTaskLabelDocument = gql`
   mutation AddTaskLabel($input: LabelInput!) {
     addTaskLabel(input: $input) {
@@ -26613,10 +26669,13 @@ export type ProjectPhasesLazyQueryHookResult = ReturnType<typeof useProjectPhase
 export type ProjectPhasesQueryResult = ApolloReactCommon.QueryResult<ProjectPhasesQuery, ProjectPhasesQueryVariables>;
 export const GetSalesListDocument = gql`
   query GetSalesList($label: SalesLabel!, $status: SalesStatus!, $sortColumn: String!, $sortDirection: SortDirection!) {
-    getSalesList(
-      filters: { label: $label, status: $status }
-      sort: { column: $sortColumn, direction: $sortDirection }
-    ) {
+    getSalesList(label: $label, status: $status, sort: { column: $sortColumn, direction: $sortDirection })
+      @rest(
+        type: "ListSales"
+        path: "/get-sales-list?label={args.label}&status={args.status}"
+        method: "GET"
+        endpoint: "default"
+      ) {
       items {
         id
         label

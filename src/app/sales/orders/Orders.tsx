@@ -10,8 +10,7 @@ import { AddIcon, HamburgerIcon, ListIcon, LocationIcon, ManageIcon, SearchIcon 
 import { Page } from 'ui/templates';
 import { ActionTab } from 'ui/molecules/actionTabs/ActionTabs.types';
 import { ActionTabs } from 'ui/molecules';
-import { SalesItemType } from 'app/shared/addSalesItemModal/AddSalesItemModal.types';
-import { SalesStatus } from 'api/types';
+import { SalesLabel, SalesStatus } from 'api/types';
 
 import { OrdersProps } from './Orders.types';
 import { useStyles } from './Orders.styles';
@@ -80,7 +79,7 @@ export const Orders = ({
           <Button
             color="primary"
             variant="contained"
-            onClick={() => open('add-sales-item', { salesItemType: SalesItemType.Order })}
+            onClick={() => open('add-sales-item', { salesLabel: SalesLabel.Order })}
             startIcon={<AddIcon color="inherit" />}
             size="small"
           >

@@ -79,13 +79,13 @@ type SalesBrokerage {
   notes: String
 }
 
-type CreateSalesInput {
+type CreateSales {
   label: SalesLabel!
   type: SalesType!
   extraInfo: String
 }
 
-type UpdateSalesInput {
+type UpdateSales {
   attentionNote: String
   status: SalesStatus
   date: Date
@@ -93,43 +93,43 @@ type UpdateSalesInput {
   extraInfo: String
 }
 
-type CreateSalesStatusChangeInput {
+type CreateSalesStatusChange {
   cyclusId: ID!
   label: SalesLabel!
   status: SalesStatus!
   historyId: ID!
 }
 
-type CreateSalesAccountContactInput {
+type CreateSalesAccountContact {
   cyclusId: ID!
   userId: ID!
   role: SalesRole!
 }
 
-type UpdateSalesAccountContactInput {
+type UpdateSalesAccountContact {
   cyclusId: ID!
   userId: ID!
   role: SalesRole!
 }
 
-type CreateSalesEntityInput {
+type CreateSalesEntity {
   cyclusId: ID!
   entityType: Entities!
   entityId: ID!
 }
 
-type CreateSalesFileInput {
+type CreateSalesFile {
   cyclusId: ID!
   documentId: ID!
   label: String!
 }
 
-type CreateSalesPackageInput {
+type CreateSalesPackage {
   cyclusId: ID!
   package: String!
 }
 
-type CreateSalesAddressInput {
+type CreateSalesAddress {
   cyclusId: ID!
   country: String
   city: String
@@ -139,7 +139,7 @@ type CreateSalesAddressInput {
   extraInfo: String
 }
 
-type UpdateSalesAddressInput {
+type UpdateSalesAddress {
   country: String
   city: String
   zipCode: String
@@ -148,7 +148,7 @@ type UpdateSalesAddressInput {
   extraInfo: String
 }
 
-type CreateSalesBrokerageInput {
+type CreateSalesBrokerage {
   cyclusId: ID!
   type: Int!
   percentage: Int
@@ -162,7 +162,7 @@ type CreateSalesBrokerageInput {
   notes: String
 }
 
-type UpdateSalesBrokerageInput {
+type UpdateSalesBrokerage {
   type: Int
   percentage: Int
   fixedAmount: Int
@@ -175,22 +175,22 @@ type UpdateSalesBrokerageInput {
   notes: String
 }
 
-type CreateSalesPimInput {
+type CreateSalesPim {
   cyclusId: ID!
   pimId: ID!
 }
 
-type BulkCreateSalesPimInput {
+type BulkCreateSalesPim {
   cyclusId: ID!
   pimIds: [ID!]
 }
 
-type CreateSalesCrmInput {
+type CreateSalesCrm {
   cyclusId: ID!
   crmId: ID!
 }
 
-type BulkCreateSalesCrmInput {
+type BulkCreateSalesCrm {
   cyclusId: ID!
   crmIds: [ID!]
 }
@@ -205,6 +205,7 @@ enum SalesLabel {
   Acquisition
   Quotation
   Order
+  Invoice
 }
 
 enum SalesStatus {
@@ -236,6 +237,16 @@ type SalesSearchResult {
   items: [Sales!]
 }
 
+input CreateSalesInput {
+  label: SalesLabel!
+  type: SalesType!
+  extraInfo: String
+}
+
+extend type Mutation {
+  createSales(input: CreateSalesInput!): Sales @auth
+}
+
 extend type Query {
-  getSalesList(filters: SalesFilters!, sort: [Sort!]): SalesSearchResult
+  getSalesList(label: SalesLabel!, status: SalesStatus!, sort: [Sort!]): SalesSearchResult @auth
 }
