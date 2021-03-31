@@ -10,14 +10,19 @@ export const GET_CRM_FAMILY_CONTACTS = gql`
       familyCompositionChildren
       familyCompositionAdults
       familyCompositionInformation
-      partner {
-        id
-        firstName
-        insertion
-        lastName
-        email
-        avatar {
-          url
+      partners {
+        isDivorced
+        partner {
+          id
+          firstName
+          initials
+          lastName
+          email
+          avatar {
+            url
+          }
+          isPassedAway
+          dateOfDeath
         }
       }
       contacts {

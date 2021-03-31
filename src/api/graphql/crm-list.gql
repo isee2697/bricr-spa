@@ -2,12 +2,28 @@ type CrmListItem {
   id: ID!
   type: CrmType!
   firstName: String
-  insertion: String
+  initials: String
   lastName: String
+  gender: GenderType
+  dateOfBirth: Date
+  placeOfBirth: String
+  nationality: String
+  maritalStatus: String @uuidOrEnum(enum: ["MaritalStatusType"])
+  familyCompositionChildren: Int
+  familyCompositionAdults: Int
+  currentHomeSituation: String @uuidOrEnum(enum: ["CurrentHomeSituationType"])
+  partners: [CrmPartner!]
   phoneNumber: String
+  addresses: [CrmAddress!]
   email: String
   avatar: File
   status: CrmStatus
+  matchProfilesFrom: Date
+  matchProfilesTo: Date
+  sales: [Sales!]
+  dateCreated: Date!
+  dateUpdated: Date
+  completeness: Float!
 }
 
 type CrmListSearchResult {
@@ -16,10 +32,20 @@ type CrmListSearchResult {
 }
 
 input ListCrmFilters {
+  city: String
   type: CrmType
   status: CrmStatus
 }
 
+input CrmWithSameInfoInput {
+  firstName: String
+  initials: String
+  lastName: String
+  email: String
+  phoneNumber: String
+}
+
 extend type Query {
   crmList(filters: ListCrmFilters, pagination: Pagination, sort: [Sort!]): CrmListSearchResult! @auth
+  getCrmWithSameInfo(input: CrmWithSameInfoInput!): CrmListSearchResult! @auth
 }

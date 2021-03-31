@@ -1,26 +1,34 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { Badge, Box, Card, CardContent, CardHeader, IconButton, NavBreadcrumb, Tab, Tabs } from 'ui/atoms';
 import { List, PropertyItemPlaceholder } from 'ui/molecules';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { Page } from 'ui/templates';
-import { AddIcon, CardsIcon, LocationIcon, ManageIcon, SearchIcon } from 'ui/atoms/icons';
+import { AddIcon, CardsIcon, LocationIcon } from 'ui/atoms/icons';
 import { joinUrlParams } from 'routing/AppRoute.utils';
 import { useEntityType } from 'app/shared/entityType';
+import { FiltersButton } from 'ui/molecules/filters/FiltersButton';
+import { ActiveFilters } from 'ui/molecules/filters/activeFilters/ActiveFilters';
+import { ListPimsFilters } from 'api/types';
 
 import {
+  CrmRelationsCustomerJourneyProperty,
   CrmRelationsDetailsCustomerJourneyProps,
   CrmRelationsDetailsCustomerJourneyTab,
 } from './CrmRelationsDetailsCustomerJourney.types';
 import { useStyles } from './CrmRelationsDetailsCustomerJourney.styles';
 import { ListItem } from './listItem/ListItem';
+import { ListItemBuyer } from './listItem/listItemBuyer/ListItemBuyer';
+import { CrmRelationsCustomerJourneyFilters } from './dictionaries';
 
 export const CrmRelationsDetailsCustomerJourney = ({
-  crm: { firstName, insertion, lastName },
   items,
   status,
   onStatusChange,
+  activeFilters,
+  onFilter,
+  isOwner,
 }: CrmRelationsDetailsCustomerJourneyProps) => {
   const customerJourneyTabs = [
     {
@@ -36,16 +44,30 @@ export const CrmRelationsDetailsCustomerJourney = ({
       hasBadge: true,
     },
     {
-      key: CrmRelationsDetailsCustomerJourneyTab.Biddings,
+      key: CrmRelationsDetailsCustomerJourneyTab.Candidate,
       hasBadge: true,
     },
     {
-      key: CrmRelationsDetailsCustomerJourneyTab.Candidate,
+      key: CrmRelationsDetailsCustomerJourneyTab.Biddings,
     },
     {
       key: CrmRelationsDetailsCustomerJourneyTab.Optant,
     },
+    {
+      key: CrmRelationsDetailsCustomerJourneyTab.Buyer,
+      label: items?.[0].properties.includes(CrmRelationsCustomerJourneyProperty.RentPrice)
+        ? CrmRelationsDetailsCustomerJourneyTab.Tenant
+        : CrmRelationsDetailsCustomerJourneyTab.Buyer,
+      hasBadge: true,
+    },
   ];
+
+  if (isOwner) {
+    customerJourneyTabs.push({
+      key: CrmRelationsDetailsCustomerJourneyTab.Owner,
+      hasBadge: true,
+    });
+  }
 
   const { formatMessage } = useLocale();
   const classes = useStyles();
@@ -54,6 +76,7 @@ export const CrmRelationsDetailsCustomerJourney = ({
   const isShowListHeader =
     status === CrmRelationsDetailsCustomerJourneyTab.Matches ||
     status === CrmRelationsDetailsCustomerJourneyTab.Interests;
+  const [isMapView, setMapView] = useState(false);
 
   return (
     <>
@@ -67,23 +90,28 @@ export const CrmRelationsDetailsCustomerJourney = ({
           <CardHeader
             title={formatMessage({ id: 'crm.details.customer_journey.title' })}
             action={
-              <>
-                <IconButton variant="rounded" size="small" onClick={() => {}} className={classes.marginRightTwo}>
-                  <CardsIcon />
-                </IconButton>
-                <IconButton variant="rounded" size="small" onClick={() => {}} className={classes.marginRightTwo}>
-                  <LocationIcon />
-                </IconButton>
-                <IconButton variant="rounded" size="small" onClick={() => {}} className={classes.marginRightTwo}>
-                  <ManageIcon />
-                </IconButton>
-                <IconButton variant="rounded" size="small" onClick={() => {}} className={classes.marginRightTwo}>
-                  <SearchIcon />
-                </IconButton>
+              <Box display="flex">
+                <Box mr={2}>
+                  <IconButton variant="rounded" size="small" onClick={() => setMapView(!isMapView)}>
+                    <CardsIcon color={isMapView ? 'primary' : 'inherit'} />
+                  </IconButton>
+                </Box>
+                <Box mr={2}>
+                  <IconButton variant="rounded" size="small" onClick={() => {}}>
+                    <LocationIcon />
+                  </IconButton>
+                </Box>
+                <Box mr={2}>
+                  <FiltersButton
+                    data={activeFilters}
+                    getActiveFilters={onFilter}
+                    filters={CrmRelationsCustomerJourneyFilters}
+                  />
+                </Box>
                 <IconButton aria-label="add" color="primary" size="small" onClick={() => {}}>
                   <AddIcon color="inherit" />
                 </IconButton>
-              </>
+              </Box>
             }
           />
           <CardContent className={classes.noMargin}>
@@ -103,16 +131,21 @@ export const CrmRelationsDetailsCustomerJourney = ({
                     value={tab.key}
                     label={
                       tab.hasBadge ? (
-                        <Badge className={classes.badge} badgeContent={4}>
-                          {formatMessage({ id: `crm.details.customer_journey.${tab.key}` })}
+                        <Badge className={classes.badge} badgeContent={666}>
+                          {formatMessage({ id: `crm.details.customer_journey.${tab.label ?? tab.key}` })}
                         </Badge>
                       ) : (
-                        <>{formatMessage({ id: `crm.details.customer_journey.${tab.key}` })}</>
+                        <>{formatMessage({ id: `crm.details.customer_journey.${tab.label ?? tab.key}` })}</>
                       )
                     }
                   />
                 ))}
               </Tabs>
+              {Object.keys(activeFilters).length > 0 && (
+                <Box mt={-2}>
+                  <ActiveFilters<ListPimsFilters> activeFilters={activeFilters} onDelete={onFilter} />
+                </Box>
+              )}
               <List
                 items={items.map((item, index) => ({ ...item, index }))}
                 itemIndex={'id'}
@@ -123,17 +156,21 @@ export const CrmRelationsDetailsCustomerJourney = ({
                   { id: 'crm.list.empty_description' },
                   { buttonName: formatMessage({ id: 'crm.details.customer_journey.add' }) },
                 )}
-                renderItem={(item, checked, checkbox) => (
-                  <ListItem
-                    key={item.id}
-                    isShowListHeader={isShowListHeader}
-                    isShowNumber={!isShowListHeader}
-                    status={status}
-                    item={item}
-                    checkbox={checkbox}
-                    checked={checked}
-                  />
-                )}
+                renderItem={(item, checked, checkbox) =>
+                  status === CrmRelationsDetailsCustomerJourneyTab.Buyer ? (
+                    <ListItemBuyer item={item} />
+                  ) : (
+                    <ListItem
+                      key={item.id}
+                      isShowListHeader={isShowListHeader}
+                      isShowNumber={!isShowListHeader}
+                      status={status}
+                      item={item}
+                      checkbox={checkbox}
+                      checked={checked}
+                    />
+                  )
+                }
               />
             </Box>
           </CardContent>

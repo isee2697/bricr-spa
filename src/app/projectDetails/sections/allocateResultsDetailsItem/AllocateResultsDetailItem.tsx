@@ -19,6 +19,7 @@ import { AllocateResultsDetailItemProps } from './AllocateResultsDetailItem.type
 import { StatCard } from './statCard/StatCard';
 import { RankingList } from './goldList/List';
 import { AssignedTableView } from './tableView/AssignedTableView';
+import { NcpAllocateResultDetailsFilters } from './dictionaries';
 
 export const AllocateResultsDetailItem = ({ isSidebarVisible, onSidebarOpen }: AllocateResultsDetailItemProps) => {
   const { formatMessage } = useLocale();
@@ -130,7 +131,12 @@ export const AllocateResultsDetailItem = ({ isSidebarVisible, onSidebarOpen }: A
               {formatMessage({ id: 'common.select_all' })}
             </Typography>
           </Box>
-          <FiltersButton color="primary" data={activeFilters} getActiveFilters={handleFilterChange} />
+          <FiltersButton
+            color="primary"
+            data={activeFilters}
+            getActiveFilters={handleFilterChange}
+            filters={NcpAllocateResultDetailsFilters}
+          />
         </Box>
         <RankingList
           items={item.allocatedRelations}

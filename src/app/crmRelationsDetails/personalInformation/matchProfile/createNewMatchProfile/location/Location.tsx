@@ -1,46 +1,66 @@
 import React from 'react';
-import arrayMutators from 'final-form-arrays';
+import { useForm, useFormState } from 'react-final-form';
+import { useParams } from 'react-router-dom';
 
-import { Box, Grid, InputAdornment, TextField, Typography } from 'ui/atoms';
+import { Box, Grid, IconButton, InputAdornment, TextField, Typography } from 'ui/atoms';
 import { useLocale } from 'hooks';
-import { AutosaveForm, FormSection } from 'ui/organisms';
+import { FormSection } from 'ui/organisms';
 import { AogIcon, DeleteIcon, SearchIcon } from 'ui/atoms/icons';
 import { QuantityField } from 'form/fields';
-import { SubSectionProps } from '../CreateNewMatchProfile.types';
+import { MatchProfileLocation } from 'api/types';
 
 import { useStyles } from './Location.styles';
 import { LocationMap } from './locationMap/LocationMap';
 
-export const Location = ({ onSave }: SubSectionProps) => {
+export const Location = () => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
+  const { matchProfileId } = useParams<{ matchProfileId?: string }>();
+
+  const form = useForm();
+  const formState = useFormState();
+
+  const locations = formState.values?.locations || [];
+
+  const handleRemoveLocation = (index: number) => {
+    form.change(
+      'locations',
+      locations.filter((location: MatchProfileLocation, locationIndex: number) => locationIndex === index),
+    );
+  };
 
   return (
-    <AutosaveForm onSave={onSave} mutators={{ ...arrayMutators }}>
-      <FormSection
-        title={formatMessage({
-          id: 'crm.details.personal_information_match_profile.characteristics_property.title',
-        })}
-        isExpandable
-      >
-        {isEditing => (
-          <Grid item xs={12}>
-            <LocationMap latitudeName="latitude" longitudeName="longitude" disabled={!isEditing} />
-            <Box mt={3}>
-              <TextField
-                fullWidth
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <SearchIcon />
-                    </InputAdornment>
-                  ),
-                }}
-                placeholder={formatMessage({ id: 'common.search' })}
-                className={classes.searchField}
-                disabled={!isEditing}
-              />
-            </Box>
+    <FormSection
+      title={formatMessage({
+        id: 'crm.details.personal_information_match_profile.characteristics_property.title',
+      })}
+      isExpandable
+      isInitExpanded
+      isInitEditing={!matchProfileId}
+    >
+      {isEditing => (
+        <Grid item xs={12}>
+          <LocationMap
+            latitudeName={`locations[${(locations || []).length}].latitude`}
+            longitudeName={`locations[${(locations || []).length}].longitude`}
+            disabled={!isEditing}
+          />
+          <Box mt={3}>
+            <TextField
+              fullWidth
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <SearchIcon />
+                  </InputAdornment>
+                ),
+              }}
+              placeholder={formatMessage({ id: 'common.search' })}
+              className={classes.searchField}
+              disabled={!isEditing}
+            />
+          </Box>
+          {(locations || []).map((location: MatchProfileLocation, index: number) => (
             <Box mt={3}>
               <Grid container spacing={8} alignItems="center" justify="space-between">
                 <Grid item xs={8}>
@@ -48,10 +68,12 @@ export const Location = ({ onSave }: SubSectionProps) => {
                     <AogIcon />
                     <Box flexGrow={1} flexShrink={1}>
                       <Typography variant="h5" className={classes.locationLabel}>
-                        Stationsstraat 25, Amsterdam
+                        {location.street} {location.houseNumber}
                       </Typography>
                     </Box>
-                    <DeleteIcon />
+                    <IconButton size="small" variant="rounded" onClick={() => handleRemoveLocation(index)}>
+                      <DeleteIcon />
+                    </IconButton>
                   </Box>
                 </Grid>
                 <Grid item xs={4}>
@@ -60,14 +82,14 @@ export const Location = ({ onSave }: SubSectionProps) => {
                   </Typography>
                   <QuantityField
                     label={formatMessage({ id: 'crm.details.personal_information_match_profile.location.meters' })}
-                    name="radius"
+                    name={`locations[${index}].radius`}
                   />
                 </Grid>
               </Grid>
             </Box>
-          </Grid>
-        )}
-      </FormSection>
-    </AutosaveForm>
+          ))}
+        </Grid>
+      )}
+    </FormSection>
   );
 };

@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react';
 import clsx from 'classnames';
 import { useHistory } from 'react-router-dom';
 
-import { CrmStatus, CrmType, ListPimsFilters } from 'api/types';
+import { CrmStatus, CrmType, ListCrmFilters } from 'api/types';
 import { Page } from 'ui/templates';
 import { List, ListOptionsMenu, PropertyItemPlaceholder } from 'ui/molecules';
 import { Grid, Card, CardHeader, CardContent, Box } from 'ui/atoms';
@@ -10,16 +10,17 @@ import { CrmHeader } from '../crmHeader/CrmHeader';
 import { CrmActionTabs } from '../crmActionTabs/CrmActionTabs';
 import { useLocale } from 'hooks';
 import { CrmSubHeader } from '../crmSubHeader/CrmSubHeader';
-import { CrmItem } from '../Crm.types';
 import { CrmListItem } from '../crmListItem/CrmListItem';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { SortOption } from 'ui/molecules/list/List.types';
 import { ListHeader } from 'ui/molecules/list/listHeader/ListHeader';
 import { ActiveFilters } from 'ui/molecules/filters/activeFilters/ActiveFilters';
+import { CrmItem } from '../Crm.types';
 
 import { BusinessesProps } from './Businesses.types';
 import { useStyles } from './Businesses.styles';
 import { CrmTableView } from './../crmTableView/CrmTableView';
+import { BusinessesMenu } from './businessesMenu/BusinessesMenu';
 
 export const Businesses = ({
   onSidebarOpen,
@@ -113,7 +114,7 @@ export const Businesses = ({
                 />
               </Box>
               <Box mt={-2}>
-                <ActiveFilters<ListPimsFilters> activeFilters={activeFilters} onDelete={onFilter} />
+                <ActiveFilters<ListCrmFilters> activeFilters={activeFilters} onDelete={onFilter} />
               </Box>
               <Box px={2}>
                 {viewMode === 'table' ? (
@@ -122,9 +123,19 @@ export const Businesses = ({
                     selected={selected}
                     onSelectItem={handleSelectItem}
                     onSelectAllItems={handleSelectAllItems}
+                    onClick={id => push(AppRoute.crmBusinessesDetails.replace(':id', id))}
+                    renderAction={(item: CrmItem) => (
+                      <BusinessesMenu
+                        item={item}
+                        onMerge={() => {}}
+                        onMove={() => {}}
+                        onActive={() => {}}
+                        onDelete={() => {}}
+                      />
+                    )}
                   />
                 ) : (
-                  <List
+                  <List<CrmItem>
                     className="crm-list"
                     items={crmItemsFiltered as CrmItem[]}
                     itemIndex={'id'}
@@ -145,7 +156,18 @@ export const Businesses = ({
                             className={classes.itemButton}
                             onClick={() => push(AppRoute.crmBusinessesDetails.replace(':id', crm.id))}
                           >
-                            <CrmListItem crm={crm} />
+                            <CrmListItem
+                              crm={crm}
+                              renderAction={(item: CrmItem) => (
+                                <BusinessesMenu
+                                  item={item}
+                                  onMerge={() => {}}
+                                  onMove={() => {}}
+                                  onActive={() => {}}
+                                  onDelete={() => {}}
+                                />
+                              )}
+                            />
                           </Box>
                         </Box>
                       </Box>

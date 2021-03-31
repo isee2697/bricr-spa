@@ -66,6 +66,21 @@ export const mockServer = () => {
         };
       });
 
+      this.post('/mock-security/questionaire', (schema, request) => {
+        return {
+          id: 'test-id',
+          companyId: '845ec438-3a11-4bbc-a578-757f76eb1b9b',
+          questionaireName: 'MyName',
+          isAdmin: true,
+          published: false,
+          copyFromId: '',
+          entity: {
+            type: 'questionnaire',
+            subType: 'String',
+          },
+        };
+      });
+
       this.post('/mock-security/forgot_password', (schema, request) => {
         const requestJson = JSON.parse(request.requestBody);
 
@@ -110,7 +125,7 @@ export const mockServer = () => {
         return newFile;
       });
 
-      this.post('/mock/nylas-account-list', (schema, request) => {
+      this.get('/mock/nylas-account-list', (schema, request) => {
         return [];
       });
 
@@ -209,7 +224,8 @@ export const mockServer = () => {
             }
 
             return {
-              id: PIM_DETAILS.id,
+              ...PIM_DETAILS,
+              ...variables.input,
             };
           },
           getAllProfiles() {

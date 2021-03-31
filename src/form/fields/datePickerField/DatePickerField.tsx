@@ -5,7 +5,7 @@ import { DateTime } from 'luxon';
 import { validatorsChain } from 'form/validators';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { dateValidator } from 'form/validators/dateValidator/dateValidator';
-import { DatePicker } from 'ui/molecules';
+import { DatePicker } from 'ui/atoms';
 
 import { DatePickerFieldProps } from './DatePickerField.types';
 

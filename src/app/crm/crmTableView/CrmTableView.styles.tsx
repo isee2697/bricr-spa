@@ -86,6 +86,9 @@ export const useStyles = makeStyles(theme => ({
     display: 'inline-block',
     verticalAlign: 'middle',
   },
+  scrollable: {
+    overflow: 'auto',
+  },
   pagination: {
     padding: theme.spacing(2.5),
   },

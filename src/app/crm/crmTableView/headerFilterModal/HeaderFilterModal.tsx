@@ -36,6 +36,22 @@ export const HeaderFilterModal = ({
     setUpdate(!update);
   };
 
+  const addColumnToList = (dropObj: string) => {
+    const dropIndex = headerColumns.findIndex(item => item.value === dropObj);
+
+    headerColumns[dropIndex].hidden = false;
+    headerColumns.splice(0, 0, headerColumns[dropIndex]);
+    headerColumns.splice(dropIndex + 1, 1);
+    setUpdate(!update);
+  };
+
+  const handleRemoveColumnFromList = (dropObj: string) => {
+    const dropIndex = headerColumns.findIndex(item => item.value === dropObj);
+    headerColumns[dropIndex].hidden = true;
+
+    setUpdate(!update);
+  };
+
   return (
     <Modal
       fullWidth
@@ -58,7 +74,7 @@ export const HeaderFilterModal = ({
                   changeOrder={changeColumnOrder}
                 />
               ))}
-            <HeaderColumnItemPlaceholder />
+            <HeaderColumnItemPlaceholder onDropColumn={addColumnToList} />
             <Box mt={6} mb={6} className={classes.splitter} />
             <Typography variant="h4" className={classes.subtitle}>
               {formatMessage({ id: 'crm.table.header_filter.available_columns' })}
@@ -72,6 +88,7 @@ export const HeaderFilterModal = ({
                   changeOrder={changeColumnOrder}
                 />
               ))}
+            <HeaderColumnItemPlaceholder onDropColumn={handleRemoveColumnFromList} />
           </Box>
         </DndProvider>
       </DialogContent>

@@ -35,12 +35,6 @@ export const CrmRelationsDetailsSidebarMenu = ({ onHide, isVisible, crm }: CrmRe
           {
             key: 'customer_journey',
             icon: <NcRentIcon />,
-            subItems: [
-              {
-                id: 'your_new_home',
-                label: 'crm.details.menu.customer_journey.your_new_home',
-              },
-            ],
           },
           { key: 'timeline', icon: <ClockIcon /> },
           { key: 'summary', icon: <DocIcon /> },
@@ -56,6 +50,7 @@ export const CrmRelationsDetailsSidebarMenu = ({ onHide, isVisible, crm }: CrmRe
           { key: 'personal_information_home_situation', hideIcon: true },
           { key: 'personal_information_financial_profile', hideIcon: true },
           { key: 'personal_information_match_profile', hideIcon: true },
+          { key: 'personal_information_business_contacts', hideIcon: true },
         ],
       },
       {
@@ -108,17 +103,25 @@ export const CrmRelationsDetailsSidebarMenu = ({ onHide, isVisible, crm }: CrmRe
           { key: 'marketing_news_letter', hideIcon: true },
           { key: 'marketing_target_groups', hideIcon: true },
           { key: 'marketing_cross_sell', hideIcon: true },
+          { key: 'marketing_survey', hideIcon: true },
+          { key: 'marketing_open_house', hideIcon: true },
         ],
       },
       {
-        key: 'crm.details.menu.business_info',
         isCollapsable: true,
-        items: [{ key: 'linked_businesses' }],
+        key: 'crm.details.menu.professional_contacts',
+        items: [
+          { key: 'professional_contacts_brokers', hideIcon: true, count: 2 },
+          { key: 'professional_contacts_notary', hideIcon: true, count: 0 },
+          { key: 'professional_contacts_purchase', hideIcon: true, count: 2 },
+          { key: 'professional_contacts_appraiser', hideIcon: true, count: 0 },
+          { key: 'professional_contacts_others', hideIcon: true, count: 2 },
+        ],
       },
     ],
   };
 
-  const title = crm.firstName + (crm.insertion ? ` ${crm.insertion} ` : ' ') + crm.lastName;
+  const title = (crm.firstName || '') + (crm.lastName || '');
 
   return (
     <SidebarMenu
@@ -132,11 +135,7 @@ export const CrmRelationsDetailsSidebarMenu = ({ onHide, isVisible, crm }: CrmRe
             title={title}
             subtitle={formatMessage({ id: 'crm.relation' })}
             icon={
-              <UserAvatar
-                name={`${crm.firstName} ${crm.insertion} ${crm.lastName}`}
-                avatar={crm.avatar?.url || ''}
-                variant="rounded"
-              />
+              <UserAvatar name={`${crm.firstName} ${crm.lastName}`} avatar={crm.avatar?.url || ''} variant="rounded" />
             }
           />
           <Box display="flex" alignItems="center" mt={1} ml={4.5}>
@@ -155,14 +154,10 @@ export const CrmRelationsDetailsSidebarMenu = ({ onHide, isVisible, crm }: CrmRe
             alignItems="center"
             className={classes.alternativeRelation}
           >
-            <UserAvatar
-              name={`${crm.firstName} ${crm.insertion} ${crm.lastName}`}
-              avatar={crm.avatar?.url || ''}
-              variant="rounded"
-            />
+            <UserAvatar name={`${crm.firstName} ${crm.lastName}`} avatar={crm.avatar?.url || ''} variant="rounded" />
             <Box ml={1}>
               <Typography variant="h5" color="textSecondary" className={classes.fontWeightBold}>
-                {crm.firstName} {crm.insertion} {crm.lastName}
+                {crm.firstName} {crm.lastName}
               </Typography>
               <Typography variant="h6" color="textSecondary">
                 {formatMessage({ id: 'crm.relation' })}

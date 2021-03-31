@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import clsx from 'classnames';
 import { useHistory } from 'react-router-dom';
 import { useTheme } from '@material-ui/core';
 
 import { useLocale } from 'hooks/useLocale/useLocale';
-import { Avatar, Box, Typography, UserAvatar, ProgressFilling, IconButton, Chip, Menu, MenuItem } from 'ui/atoms';
-import { MailIcon, HelpIcon, MenuIcon, EditIcon, DeleteIcon, HeadIcon } from 'ui/atoms/icons';
+import { Avatar, Box, Typography, UserAvatar, ProgressFilling, Chip } from 'ui/atoms';
+import { MailIcon, HeadIcon, PhoneIcon } from 'ui/atoms/icons';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { CrmStatus } from 'api/types';
 
@@ -13,12 +13,12 @@ import { CrmListItemMetaBoxProps, CrmListItemProps } from './CrmListItem.types';
 import { useStyles } from './CrmListItem.style';
 
 const CrmListItemMetaBox = ({ label, count, crm }: CrmListItemMetaBoxProps) => {
-  const classes = useStyles({ crm });
+  const classes = useStyles({ status: crm.status });
 
   return (
     <Box className={classes.meta}>
       <Typography className={classes.metaCount} variant="h3">
-        {count}
+        {count || '-'}
       </Typography>
       <Typography className={classes.metaLabel} variant="h6">
         {label}
@@ -27,27 +27,23 @@ const CrmListItemMetaBox = ({ label, count, crm }: CrmListItemMetaBoxProps) => {
   );
 };
 
-export const CrmListItem = ({ crm, onUpdateStatus, onDelete }: CrmListItemProps) => {
+export const CrmListItem = ({ crm, renderAction }: CrmListItemProps) => {
   const { formatMessage } = useLocale();
-  const classes = useStyles({ crm });
+  const classes = useStyles({ status: crm.status });
   const { push } = useHistory();
-  const [menuEl, setMenuEl] = useState<HTMLElement | null>(null);
   const theme = useTheme();
 
   const {
-    id,
     firstName,
-    insertion,
+    initials,
     lastName,
     email,
     phoneNumber,
     avatar,
     property,
-    partner: { image: partnerAvatar, firstName: partnerFirstName, lastName: partnerLastName },
-    manager: { image: managerAvatar, firstName: managerFirstName, lastName: managerLastName },
-    informationCompletedStatus,
+    partners,
     meta: { matches, interests, viewings, biddings, candidate, optant },
-    status,
+    completeness = 0,
   } = crm;
 
   const metaAsArray = [
@@ -77,45 +73,6 @@ export const CrmListItem = ({ crm, onUpdateStatus, onDelete }: CrmListItemProps)
     },
   ];
 
-  const onMenuClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    event.stopPropagation();
-    setMenuEl(menuEl ? null : event.currentTarget);
-  };
-
-  const onMenuClose = () => {
-    setMenuEl(null);
-  };
-
-  const menuItems = [
-    {
-      icon: <EditIcon classes={{ root: classes.menuIcon }} />,
-      title: formatMessage({
-        id: 'crm.item.toggle_active_inactive',
-      }),
-      onClick: () => {
-        if (!onUpdateStatus) return;
-
-        if (status === CrmStatus.Active) {
-          onUpdateStatus(id, CrmStatus.Inactive);
-        } else if (status === CrmStatus.Inactive || CrmStatus.ActionRequired) {
-          onUpdateStatus(id, CrmStatus.Active);
-        }
-      },
-      color: 'default',
-    },
-    {
-      icon: <DeleteIcon classes={{ root: classes.menuIcon }} />,
-      title: formatMessage({
-        id: 'crm.item.delete',
-      }),
-      onClick: () => {
-        if (!onDelete) return;
-        onDelete(id);
-      },
-      color: 'error',
-    },
-  ];
-
   return (
     <Box
       display="flex"
@@ -123,6 +80,7 @@ export const CrmListItem = ({ crm, onUpdateStatus, onDelete }: CrmListItemProps)
       flexDirection="column"
       className={clsx(classes.cursor, crm.status === CrmStatus.Inactive && classes.inactive)}
       onClick={() => push(AppRoute.crmRelationsDetails.replace(':id', crm.id))}
+      pb={2}
     >
       <Box display="flex" mb={3}>
         <Box>
@@ -142,56 +100,37 @@ export const CrmListItem = ({ crm, onUpdateStatus, onDelete }: CrmListItemProps)
             <Box>
               <Box>
                 <Typography variant="h3" className={classes.crmUserName}>
-                  {firstName} {insertion} {lastName}
+                  {firstName} {initials} {lastName}
                 </Typography>
               </Box>
               <Box display="flex">
-                <Box mr={4}>
-                  <HelpIcon className={classes.verticalAlignTop} /> {phoneNumber}
-                </Box>
                 <Box>
-                  <MailIcon className={classes.verticalAlignTop} /> {email}
-                </Box>
-              </Box>
-            </Box>
-            <Box>
-              <IconButton
-                className="menu-icon"
-                variant="rounded"
-                size="small"
-                selected={Boolean(menuEl)}
-                onClick={onMenuClick}
-              >
-                <MenuIcon />
-              </IconButton>
-            </Box>
-          </Box>
-          <Menu
-            id="crm-relation-menu"
-            open={Boolean(menuEl)}
-            onClose={onMenuClose}
-            anchorEl={menuEl}
-            placement="bottom-end"
-          >
-            {menuItems.map((menuItem, index) => (
-              <MenuItem
-                className={classes.menuItem}
-                onClick={(event: React.MouseEvent) => {
-                  event.stopPropagation();
-                  menuItem.onClick();
-                }}
-              >
-                <Box width="100%" display="flex" alignItems="center" justifyContent="space-between">
-                  <Box display="flex" alignItems="center">
-                    {menuItem.icon}
-                    <Box ml={2}>
-                      <Typography variant="subtitle1">{menuItem.title}</Typography>
-                    </Box>
+                  <Box mr={4}>
+                    <PhoneIcon className={classes.verticalAlignTop} /> {phoneNumber}
+                  </Box>
+                  <Box>
+                    <MailIcon className={classes.verticalAlignTop} /> {email}
                   </Box>
                 </Box>
-              </MenuItem>
-            ))}
-          </Menu>
+                {partners?.length && (
+                  <Box mr={2}>
+                    <Typography variant="h6" className={classes.label}>
+                      {formatMessage({ id: 'crm.item.partner' })}
+                    </Typography>
+                    <Box display="flex" alignItems="center" className={classes.avatarWithName}>
+                      <UserAvatar
+                        name={`${partners[0].partner.firstName} ${partners[0].partner.lastName}`}
+                        avatar={partners[0].partner.avatar?.url || undefined}
+                        className={classes.avatarIcon}
+                      />{' '}
+                      {partners[0].partner.firstName} {partners[0].partner.lastName}
+                    </Box>
+                  </Box>
+                )}
+              </Box>
+            </Box>
+            <Box>{renderAction?.(crm)}</Box>
+          </Box>
           <Box display="flex" justifyContent="space-between">
             <Box>
               <Typography variant="h6" className={classes.label}>
@@ -200,37 +139,6 @@ export const CrmListItem = ({ crm, onUpdateStatus, onDelete }: CrmListItemProps)
               <Box className={classes.inlineBlock}>
                 <Box display="flex" alignItems="center" mb={1} className={classes.avatarWithName}>
                   <UserAvatar name={property} avatar={avatar?.url || ''} className={classes.avatarIcon} /> {property}
-                </Box>
-              </Box>
-              <br />
-              <Box className={classes.inlineBlock}>
-                <Box display="flex">
-                  <Box mr={2}>
-                    <Typography variant="h6" className={classes.label}>
-                      {formatMessage({ id: 'crm.item.partner' })}
-                    </Typography>
-                    <Box display="flex" alignItems="center" className={classes.avatarWithName}>
-                      <UserAvatar
-                        name={`${partnerFirstName} ${partnerLastName}`}
-                        avatar={partnerAvatar?.url || undefined}
-                        className={classes.avatarIcon}
-                      />{' '}
-                      {partnerFirstName} {partnerLastName}
-                    </Box>
-                  </Box>
-                  <Box>
-                    <Typography variant="h6" className={classes.label}>
-                      {formatMessage({ id: 'crm.item.manager' })}
-                    </Typography>
-                    <Box display="flex" alignItems="center" className={classes.avatarWithName}>
-                      <UserAvatar
-                        name={`${managerFirstName} ${managerLastName}`}
-                        avatar={managerAvatar?.url || undefined}
-                        className={classes.avatarIcon}
-                      />{' '}
-                      {managerFirstName} {managerLastName}
-                    </Box>
-                  </Box>
                 </Box>
               </Box>
             </Box>
@@ -248,7 +156,7 @@ export const CrmListItem = ({ crm, onUpdateStatus, onDelete }: CrmListItemProps)
       <Box display="flex" justifyContent="space-between">
         <Box className={classes.infoProgress} mr={1}>
           <Box mb={1}>{formatMessage({ id: 'property_item.info_completed' })}</Box>
-          <ProgressFilling progress={informationCompletedStatus ?? 0} />
+          <ProgressFilling progress={completeness} />
         </Box>
         <Box display="flex">
           {metaAsArray.map(meta => (

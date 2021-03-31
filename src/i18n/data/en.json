@@ -423,6 +423,9 @@
   "crm.details.customer_journey.your_new_home.conditions": "Conditions",
   "crm.details.customer_journey.your_new_home.final_price": "Final price",
   "crm.details.customer_journey.your_new_home.title": "Your new home",
+  "crm.details.customer_journey.buyer": "Buyer",
+  "crm.details.customer_journey.tenant": "Tenant",
+  "crm.details.customer_journey.owner": "Owner",
   "crm.details.dashboard.agenda.action_required": "Action required",
   "crm.details.dashboard.agenda.appointments": "Appointments",
   "crm.details.dashboard.brokers": "Brokers",
@@ -3753,9 +3756,15 @@
   "validation.min_length": "Minimum length of {length} is required",
   "validation.min_value": "Minimum value of {value} is required",
   "validation.number": "Value must be an valid number",
+  "validation.letter": "Value must be an valid letter",
   "validation.required": "Field is required",
   "validation.url": "Url is not valid",
   "visited_pages.title": "Visited pages",
   "visited_pages.view_more": "View more",
-  "wed.placeholder": "10:00"
+  "wed.placeholder": "10:00",
+  "dictionaries.contact_information.social_media_type.Facebook": "Facebook",
+  "dictionaries.contact_information.social_media_type.Twitter": "Twitter",
+  "dictionaries.contact_information.social_media_type.LinkedIn": "LinkedIn",
+  "dictionaries.contact_information.social_media_type.Custom": "Custom",
+  "dictionaries.contact_information.address_type.HomeAddress": "Home Address"
 }

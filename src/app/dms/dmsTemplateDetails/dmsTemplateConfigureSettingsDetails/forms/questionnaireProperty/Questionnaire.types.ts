@@ -1,15 +1,17 @@
-import { DmsTemplateItem } from 'app/dms/dmsTemplates/DmsTemplates.types';
+import { Groups } from 'api/types';
 import { PromiseFunction } from 'app/shared/types';
+import { TemplateItem } from '../../DmsTemplateConfigureSettingsDetails.types';
 
 import { AddQuestionnaireGroupBody } from './addQuestionnaireGroupModal/AddQuestionnaireGroupModal.types';
 
 export type QuestionnaireContainerProps = {
-  template: DmsTemplateItem;
+  template: TemplateItem;
 };
 
 export type QuestionnaireProps = {
-  template: DmsTemplateItem;
-  groups: QuestionnaireGroup[];
+  isLoading: boolean;
+  template: TemplateItem;
+  groups: Groups[];
   onAddQuestionnaireGroup: PromiseFunction<AddQuestionnaireGroupBody>;
 };
 

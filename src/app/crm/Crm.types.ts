@@ -1,4 +1,6 @@
-import { CrmType, Maybe, Profile, CrmStatus, GenderType } from 'api/types';
+import { DateTime } from 'luxon';
+
+import { CrmType, Maybe, Profile, CrmStatus, GenderType, CrmAddress, CrmPartner } from 'api/types';
 
 export type CrmProps = {
   path: string;
@@ -10,17 +12,26 @@ export type CrmItem = {
   id: string;
   type: CrmType;
   firstName?: Maybe<string>;
-  insertion?: Maybe<string>;
+  initials?: Maybe<string>;
   lastName?: Maybe<string>;
-  gender?: GenderType;
+  gender?: Maybe<GenderType>;
+  dateOfBirth?: Maybe<string>;
+  placeOfBirth?: Maybe<string>;
+  nationality?: Maybe<string>;
+  addresses?: Maybe<Partial<CrmAddress>[]>;
+  martialStatus?: Maybe<string>;
+  familyCompositionChildren?: Maybe<number>;
+  familyCompositionAdults?: Maybe<number>;
+  currentHomeSituation?: Maybe<string>;
   email?: Maybe<string>;
   phoneNumber?: Maybe<string>;
   avatar?: Maybe<{ url?: Maybe<string> }>;
   status: Maybe<CrmStatus>;
   property: string;
-  partner: Profile;
+  partners: Maybe<CrmPartner[]>;
   manager: Profile;
-  informationCompletedStatus: number;
+  createdAt?: DateTime;
+  completeness?: number;
   meta: {
     matches: number;
     interests: number;

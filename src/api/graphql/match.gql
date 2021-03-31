@@ -47,7 +47,7 @@ enum MatchRentalPeriodType {
 
 enum MatchProfileWith {
   OwnPortfolio,
-  ExternalNVM
+  ExternalNvm
 }
 
 enum MatchCharacteristicsGeneralType {
@@ -162,7 +162,7 @@ type MatchProfile {
   propertyType: MatchPropertyType
   startDate: Date
   endDate: Date
-  duration: MatchProfileDateRange
+  matchDuration: MatchProfileDateRange
   matchWith: [MatchProfileWith!]
   description: String
   estateType: MatchEstateType
@@ -180,6 +180,8 @@ type MatchProfile {
   exploitation: IntRange
   requirements: [MatchRequirement!]
   locations: [MatchProfileLocation!]
+  isActive: Boolean!
+  createdAt: Date!
 }
 
 type MatchRevenueAndExploitation {
@@ -242,7 +244,7 @@ type MatchOutsidePricing {
 }
 
 type MatchGarden {
-  situation: MatchGardenSituation
+  situation: [MatchGardenSituation!]
   outdoorSpacesMin: Float
   outdoorSpacesMax: Float
   volumeMin: Float
@@ -263,11 +265,11 @@ type MatchMeasurements {
 }
 
 type MatchProfileLocation {
-  latitude: Float!
-  longitude: Float!
-  street: String!
-  houseNumber: Int!
-  radius: Float!
+  latitude: Float
+  longitude: Float
+  street: String
+  houseNumber: Int
+  radius: Float
 }
 
 type MatchRequirement {
@@ -275,14 +277,12 @@ type MatchRequirement {
   status: MatchRequirementStatus!
 }
 
-input MatchProfileInput {
-  id: ID!
+input AddMatchProfileInput {
   crmId: ID!
-  companyId: ID!
   propertyType: MatchPropertyType
   startDate: Date
   endDate: Date
-  duration: DateRange
+  matchDuration: DateRange
   matchWith: [MatchProfileWith!]
   description: String
   estateType: MatchEstateType
@@ -300,11 +300,15 @@ input MatchProfileInput {
   locations: [MatchProfileLocationInput!]
 }
 
+input CloneMatchProfileInput {
+  id: ID!
+}
+
 input UpdateMatchProfileInput {
   propertyType: MatchPropertyType
   startDate: Date
   endDate: Date
-  duration: DateRange
+  matchDuration: DateRange
   matchWith: [MatchProfileWith!]
   description: String
   estateType: MatchEstateType
@@ -320,6 +324,7 @@ input UpdateMatchProfileInput {
   exploitation: IntRangeInput
   requirements: [MatchRequirementInput!]
   locations: [MatchProfileLocationInput!]
+  isActive: Boolean
 }
 
 input MatchCharacteristicsInput {
@@ -380,7 +385,7 @@ input MatchOutsidePricingInput {
 }
 
 input MatchGardenInput {
-  situation: MatchGardenSituation
+  situation: [MatchGardenSituation!]
   outdoorSpacesMin: Float
   outdoorSpacesMax: Float
   volumeMin: Float
@@ -401,11 +406,11 @@ input MatchMeasurementsInput {
 }
 
 input MatchProfileLocationInput {
-  latitude: Float!
-  longitude: Float!
-  street: String!
-  houseNumber: Int!
-  radius: Float!
+  latitude: Float
+  longitude: Float
+  street: String
+  houseNumber: Int
+  radius: Float
 }
 
 input MatchRequirementInput {
@@ -414,11 +419,13 @@ input MatchRequirementInput {
 }
 
 extend type Mutation {
-  addMatchProfile(crmId: ID!, input: MatchProfileInput!): MatchProfile @auth
+  addMatchProfile(input: AddMatchProfileInput!): MatchProfile @auth
   updateMatchProfile(id: ID!, input: UpdateMatchProfileInput!): MatchProfile @auth
+  cloneMatchProfile(input: CloneMatchProfileInput!): MatchProfile @auth
   deleteMatchProfile(id: ID!): Boolean @auth
 }
 
 extend type Query {
+  listMatchProfiles(crmId: ID!): [MatchProfile!] @auth
   getMatchProfile(id: ID!): MatchProfile @auth
 }

@@ -4,6 +4,11 @@ export const CREATE_CRM = gql`
   mutation CreateCrm($input: CreateCrmInput!) {
     createCrm(input: $input) {
       id
+      firstName
+      initials
+      lastName
+      dateCreated
+      completeness
     }
   }
 `;
@@ -14,17 +19,20 @@ export const UPDATE_CRM_GENERAL = gql`
       id
       firstName
       extraNames
-      insertion
+      initials
       lastName
       gender
       dateOfBirth
       placeOfBirth
       nationality
+      dateOfDeath
+      isPassedAway
       preferredLanguage
       identification
       identificationNumber
       identificationIssueCity
       identificationIssueDate
+      identificationExpirationDate
       preferredTitlePrefix
       preferredTitleSuffix
       preferredLetterSalutation

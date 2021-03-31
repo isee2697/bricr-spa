@@ -10,7 +10,8 @@ import { AddIcon, HamburgerIcon, ListIcon, LocationIcon, ManageIcon, SearchIcon 
 import { Page } from 'ui/templates';
 import { ActionTab } from 'ui/molecules/actionTabs/ActionTabs.types';
 import { ActionTabs } from 'ui/molecules';
-import { SalesItemType, SalesOrderType } from '../../shared/addSalesItemModal/AddSalesItemModal.types';
+import { SalesOrderType } from '../../shared/addSalesItemModal/AddSalesItemModal.types';
+import { SalesLabel } from 'api/types';
 
 import { QuotationsProps, QuotationsTabStatus } from './Quotations.types';
 import { useStyles } from './Quotations.styles';
@@ -74,7 +75,7 @@ export const Quotations = ({
             variant="contained"
             onClick={() =>
               open('add-sales-item', {
-                salesItemType: SalesItemType.Quotation,
+                salesLabel: SalesLabel.Quotation,
                 salesItemOrderType: SalesOrderType.HouseForSale,
               })
             }

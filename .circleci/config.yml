@@ -55,7 +55,7 @@ jobs:
       - run:
           command: cp .env.dist .env && npm install && node ./scripts/get_translations.js --accessToken=$PHRASE_ACCESS_TOKEN --projectID=$PHRASE_PROJECT_ID
           name: "Config and install"
-      - run: npm run coverage
+      - run: npm run coverage --max-old-space-size=7244
   lint-and-build:
     resource_class: large
     docker:
@@ -192,7 +192,7 @@ workflows:
           filters:
             branches:
               only:
-                - /deploy/(?:-.+)?$/
+                - /deploy/spa(?:-.+)?$/
       - deploy-develop:
           requires:
             - build-develop

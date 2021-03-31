@@ -1,48 +1,51 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 
-import { Grid, Box } from 'ui/atoms';
+import { Grid } from 'ui/atoms';
+import { useLayout } from 'context/layout';
 
 import { CrmProps } from './Crm.types';
 import { useStyles } from './Crm.style';
 import { CrmSidebarMenu } from './crmSidebarMenu/CrmSidebarMenu';
 import { RelationsContainer } from './relations/RelationsContainer';
 import { BusinessesContainer } from './businesses/BusinessesContainer';
+import { MergeCrmRelationContainer } from './mergeRelation/MergeCrmRelationContainer';
 
 export const Crm = ({ path, status, onStatusChange }: CrmProps) => {
   const classes = useStyles();
-  const [isSidebarVisible, setSidebarVisibility] = useState(true);
-
-  const handleSidebarHide = useCallback(() => {
-    setSidebarVisibility(false);
-  }, []);
+  const { isSidebarMenuVisible, setSidebarMenuVisible } = useLayout();
 
   const handleSidebarOpen = useCallback(() => {
-    setSidebarVisibility(true);
-  }, []);
+    setSidebarMenuVisible(true);
+  }, [setSidebarMenuVisible]);
 
   return (
     <Grid container>
-      <CrmSidebarMenu onHide={handleSidebarHide} isVisible={isSidebarVisible} />
-      <Box flex={1}>
+      <CrmSidebarMenu onHide={() => setSidebarMenuVisible(false)} isVisible={isSidebarMenuVisible} />
+      <Grid
+        item
+        xs={isSidebarMenuVisible ? false : 12}
+        md={isSidebarMenuVisible ? 9 : 12}
+        lg={isSidebarMenuVisible ? 10 : 12}
+        className={classes.content}
+      >
         <Grid container spacing={3} className={classes.content}>
           <Switch>
             <Route
-              path={`${path}/relations`}
+              path={`${path}/merge/:id`}
               render={() => (
-                <RelationsContainer
-                  isSidebarVisible={isSidebarVisible}
-                  onSidebarOpen={handleSidebarOpen}
-                  onStatusChange={onStatusChange}
-                  status={status}
-                />
+                <MergeCrmRelationContainer isSidebarVisible={isSidebarMenuVisible} onSidebarOpen={handleSidebarOpen} />
               )}
+            />
+            <Route
+              path={`${path}/relations`}
+              render={() => <RelationsContainer onStatusChange={onStatusChange} status={status} />}
             />
             <Route
               path={`${path}/businesses`}
               render={() => (
                 <BusinessesContainer
-                  isSidebarVisible={isSidebarVisible}
+                  isSidebarVisible={isSidebarMenuVisible}
                   onSidebarOpen={handleSidebarOpen}
                   onStatusChange={onStatusChange}
                   status={status}
@@ -52,7 +55,7 @@ export const Crm = ({ path, status, onStatusChange }: CrmProps) => {
             <Redirect to={`${path}/relations`} />
           </Switch>
         </Grid>
-      </Box>
+      </Grid>
     </Grid>
   );
 };

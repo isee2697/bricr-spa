@@ -14,6 +14,7 @@ import { ListPimsFilters } from 'api/types';
 import { ListItem } from './listItem/ListItem';
 import { useStyles } from './List.styles';
 import { AllocateResultItem, AllocateResultSortOrder } from './List.types';
+import { PimAllocateResultsListFilters } from './dictionaries';
 
 export const AllocateResultsList = () => {
   const { formatMessage } = useLocale();
@@ -68,7 +69,14 @@ export const AllocateResultsList = () => {
           <>
             <CardHeader
               title={formatMessage({ id: 'project.details.allocate_results.title' })}
-              action={<FiltersButton color="primary" data={activeFilters} getActiveFilters={handleFilterChange} />}
+              action={
+                <FiltersButton
+                  color="primary"
+                  data={activeFilters}
+                  getActiveFilters={handleFilterChange}
+                  filters={PimAllocateResultsListFilters}
+                />
+              }
             />
             <CardContent className={classes.noPadding}>
               <Box>

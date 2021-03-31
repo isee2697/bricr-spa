@@ -56,7 +56,7 @@ export const ChecklistList = ({
               <MenuIcon />
             </IconButton>
             <Box ml={2} />
-            <IconButton size="small" variant="rounded" className={classes.rotatedButton} onClick={() => push(path)}>
+            <IconButton size="small" variant="rounded" onClick={() => push(path)}>
               <ExitIcon />
             </IconButton>
           </Box>

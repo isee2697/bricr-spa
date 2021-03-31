@@ -2,7 +2,21 @@ import { ReactNode } from 'react';
 import { AnyObject } from 'final-form';
 import { GridSize } from '@material-ui/core';
 
-import { ListPimsFilters } from './../../../api/types';
+import { Profile, Team } from 'api/types';
+
+export enum FiltersSizes {
+  M = 6,
+  L = 12,
+}
+
+export enum Types {
+  Text = 'label',
+  Date = 'date',
+  Range = 'range',
+  Checkbox = 'checkbox',
+  RadioButton = 'radioButton',
+  DateRange = 'dateRange',
+}
 
 export type CheckboxDataType = {
   label: string;
@@ -27,7 +41,10 @@ export type FilterProps = {
   onTabChange: (index: number) => void;
   data?: AnyObject;
   filterAmount?: number;
-  onDeleteFilter: (filters: ListPimsFilters) => void;
+  onDeleteFilter: (filters: AnyObject) => void;
+  filters: FiltersTypes[];
+  teams?: Team[];
+  accountManagers?: Profile[];
 };
 
 export type FilterContainerProps = {
@@ -39,8 +56,11 @@ export type FilterContainerProps = {
 
 export type FilterButtonProps = {
   data?: AnyObject;
-  getActiveFilters?: (filters: ListPimsFilters) => void;
+  getActiveFilters?: (filters: AnyObject) => void;
   color?: 'primary' | 'secondary' | 'default' | 'error';
+  filters: FiltersTypes[];
+  teams?: Team[];
+  accountManagers?: Profile[];
 };
 
 export type FilterSidenavProps = {
@@ -54,6 +74,7 @@ export type FilterTabPanelProps = {
   children: ReactNode;
   activeTab: number;
   id: number;
+  options?: CheckboxDataType[];
   onDeleteFilter?: () => void;
-  onSearch?: (value: string) => void;
+  onSearch?: (options: CheckboxDataType[] | undefined) => void;
 };

@@ -1,4 +1,4 @@
-import { UpdateMatchProfileInput } from 'api/types';
+import { MatchProfile, AddMatchProfileInput, UpdateMatchProfileInput } from 'api/types';
 import { PromiseFunction } from 'app/shared/types';
 
 export type CreateNewMatchProfileContainerProps = {
@@ -7,8 +7,11 @@ export type CreateNewMatchProfileContainerProps = {
   isSidebarVisible: boolean;
 };
 
-export type CreateNewMatchProfileProps = CreateNewMatchProfileContainerProps & {};
+export type CreateNewMatchProfileProps = CreateNewMatchProfileContainerProps & {
+  matchProfile?: MatchProfile;
+  onSave: PromiseFunction<AddMatchProfileInput | UpdateMatchProfileInput>;
+};
 
 export type SubSectionProps = {
-  onSave: PromiseFunction<UpdateMatchProfileInput>;
+  onSave: PromiseFunction<AddMatchProfileInput | UpdateMatchProfileInput>;
 };

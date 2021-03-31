@@ -2,7 +2,7 @@ import { CrmListItem } from 'api/types';
 import { PromiseFunction } from 'app/shared/types';
 import { PersonType } from '../people/People.types';
 
-export type AddNewPersonModalCrmListItem = Pick<CrmListItem, 'id' | 'firstName' | 'insertion' | 'lastName'>;
+export type AddNewPersonModalCrmListItem = Pick<CrmListItem, 'id' | 'firstName' | 'initials' | 'lastName'>;
 
 export type AddNewPersonModalProps = {
   isOpened: boolean;

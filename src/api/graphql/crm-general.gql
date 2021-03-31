@@ -37,11 +37,11 @@ enum PreferredLetterSalutationType {
   LordMylady
 }
 
-enum CrmIdentificationNumberType {
-  Sap,
-  Woningnet,
-  DebtorNumber,
-  Custom
+enum IdentificationType {
+  Passport
+  DriverLicense
+  IdCard
+  ResidencePermit
 }
 
 enum CrmStatus {
@@ -49,46 +49,54 @@ enum CrmStatus {
   Active, Inactive
 }
 
-type CrmGeneral {
+type CrmGeneral implements LastUpdated {
   id: ID!
+  description: String
   firstName: String
   extraNames: String
-  insertion: String
+  initials: String
   lastName: String
   avatar: File
   gender: GenderType
   dateOfBirth: Date
   placeOfBirth: String
   nationality: String
+  dateOfDeath: Date
+  isPassedAway: Boolean
   preferredLanguage: String @uuidOrEnum(enum: ["PreferredLanguageType"])
-  identification: String
+  identification: IdentificationType
   identificationNumber: String
   identificationIssueCity: String
   identificationIssueDate: Date
+  identificationExpirationDate: Date
   preferredTitlePrefix: String @uuidOrEnum(enum: ["PreferredTitlePrefixType"])
   preferredTitleSuffix: String @uuidOrEnum(enum: ["PreferredTitleSuffixType"])
   preferredLetterSalutation: String @uuidOrEnum(enum: ["preferredLetterSalutationType"])
   preferredTitleInformation: String
   identificationNumbers: [CrmIdentificationNumber!]
   status: CrmStatus
+  dateCreated: Date!
+  lastEditedBy: LastUpdatedProfile
+  dateUpdated: Date
+  completeness: Float!
 }
 
 type CrmIdentificationNumber {
-  type: CrmIdentificationNumberType!
-  number: String!
+  type: IdentificationNumberType!
+  number: String
   name: String
 }
 
 input CrmIdentificationNumberInput {
-  type: CrmIdentificationNumberType!
-  number: String!
+  type: IdentificationNumberType!
+  number: String
   name: String
 }
 
 input CreateCrmInput {
   type: CrmType!
   firstName: String
-  insertion: String
+  initials: String
   lastName: String
   email: String
   phoneNumber: String
@@ -96,20 +104,24 @@ input CreateCrmInput {
 
 input UpdateCrmGeneralInput {
   id: ID!
+  description: String
   firstName: String
   extraNames: String
-  insertion: String
+  initials: String
   lastName: String
   gender: GenderType
   avatarId: String,
   dateOfBirth: Date
   placeOfBirth: String
   nationality: String
+  dateOfDeath: Date
+  isPassedAway: Boolean
   preferredLanguage: String @uuidOrEnum(enum: ["PreferredLanguageType"])
-  identification: String
+  identification: IdentificationType
   identificationNumber: String
   identificationIssueCity: String
   identificationIssueDate: Date
+  identificationExpirationDate: Date
   preferredTitlePrefix: String @uuidOrEnum(enum: ["PreferredTitlePrefixType"])
   preferredTitleSuffix: String @uuidOrEnum(enum: ["PreferredTitleSuffixType"])
   preferredLetterSalutation: String @uuidOrEnum(enum: ["preferredLetterSalutationType"])

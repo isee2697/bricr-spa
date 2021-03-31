@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core';
 
-import { DmsTemplateItem } from '../DmsTemplates.types';
+import { Questionaire, TemplateStatus } from 'api/types';
 
 export const useStyles = makeStyles(theme => ({
   imageWrapper: {
@@ -11,7 +11,7 @@ export const useStyles = makeStyles(theme => ({
     width: theme.spacing(13),
     height: theme.spacing(19),
     fontSize: theme.spacing(5),
-    filter: ({ status }: DmsTemplateItem) => (status === 'inactive' ? 'grayscale(1)' : ''),
+    filter: ({ templateStatus }: Questionaire) => (templateStatus === TemplateStatus.Active ? '' : 'grayscale(1)'),
   },
   label: {
     marginBottom: theme.spacing(0.5),

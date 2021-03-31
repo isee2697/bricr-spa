@@ -5,5 +5,6 @@ declare namespace Cypress {
     userLogin(): Chainable<void>;
     clearSession(): Chainable<void>;
     openMenuGroupByTestIdWhenClosed(id: string): Chainable<void>;
+    openMenuGroupItemByTestIdWhenClosed(id: string): Chainable<void>;
   }
 }

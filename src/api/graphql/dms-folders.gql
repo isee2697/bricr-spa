@@ -1,0 +1,78 @@
+enum DmsEntityType {
+    Pim
+    Ncp
+    Crm
+    Sales
+}
+
+enum DmsFolderType {
+    Custom
+    Default
+}
+
+enum DmsPimFolderType {
+    Aquisition
+    Quotation
+    SalesOrder
+    Property
+    Drawing
+    Questionaires
+    ListOfItems
+    Publication
+    Contracts
+    Internal
+}
+
+enum DmsCrmFolderType {
+    Personal
+    Emails
+    ContractsPrint
+    Surveys
+    Invoices
+}
+
+type DmsFolder {
+    entityId: ID!
+    id: ID!
+    companyId: ID!
+    foldername: String!
+    entityType: DmsEntityType!
+    type: DmsFolderType!
+    order: Int
+    deletedAt: Date
+}
+
+input CreateDmsFolderInput {
+    entityId: ID!
+    foldername: String!
+    entityType: DmsEntityType!
+    type: DmsFolderType!
+    order: Int
+    deletedAt: Date
+}
+
+input UpdateDmsFolderInput {
+    entityId: ID!
+    id: ID!
+    foldername: String!
+    entityType: DmsEntityType!
+    type: DmsFolderType!
+    order: Int
+    deletedAt: Date
+}
+
+input DeleteDmsFolderInput {
+    entityId: ID!
+    id: ID!
+}
+
+extend type Mutation {
+    createDmsFolder(input: CreateDmsFolderInput!): DmsFolder! @auth
+    updateDmsFolder(input: UpdateDmsFolderInput!): DmsFolder! @auth
+    deleteDmsFolder(input: DeleteDmsFolderInput!): Boolean! @auth
+}
+
+extend type Query {
+    listDmsFolders(entityId: ID!): [DmsFolder!] @auth
+    getDmsFolder(folderId: ID!): DmsFolder @auth
+}

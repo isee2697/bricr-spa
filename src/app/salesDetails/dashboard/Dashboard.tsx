@@ -10,7 +10,7 @@ import { MetaHeader } from './metaHeader/MetaHeader';
 import { Boards } from './boards/Boards';
 
 export const Dashboard = ({ isSidebarVisible, onSidebarOpen, crm }: DashboardProps) => {
-  const { firstName, insertion, lastName, meta } = crm;
+  const { firstName, lastName, meta } = crm;
   const { formatMessage } = useLocale();
 
   return (
@@ -20,7 +20,7 @@ export const Dashboard = ({ isSidebarVisible, onSidebarOpen, crm }: DashboardPro
       <Page withoutHeader>
         <Grid xs={12} item>
           <Typography variant="h1">
-            {firstName} {insertion} {lastName}
+            {firstName} {lastName}
           </Typography>
         </Grid>
         <MetaHeader {...meta} />

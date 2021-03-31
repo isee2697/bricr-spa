@@ -7,3 +7,6 @@ export { InfoCardPage } from 'ui/templates/page/CardPages/InfoCardPage';
 export { CardWithInfo } from './cards/cardWithInfo/CardWithInfo';
 export { PageWithList } from './page/CardPages/PageWithList';
 export { AutosaveCard } from './cards/autosaveCard/AutosaveCard';
+export { PageWithListsCard } from './page/PageWithListsCard/PageWithListsCard';
+export { CardWithBody } from './cards/cardWithBody/CardWithBody';
+export { CardWithTable } from 'ui/templates/cards/cardWithTable/CardWithTable';

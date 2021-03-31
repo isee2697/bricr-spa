@@ -15,6 +15,7 @@ import { useStyles } from './CheckListView.styles';
 import { CheckListViewProps } from './CheckListView.types';
 import { CheckListViewItem } from './checklistViewItem/CheckListViewItem';
 import { CheckListViewTabs } from './checklistViewTabs/CheckListViewTabs';
+import { DocumentsChecklistFilters } from './dictionaries';
 
 export const CheckListView = ({
   data,
@@ -70,7 +71,12 @@ export const CheckListView = ({
             action={
               <Box display="flex">
                 <Box mr={3}>
-                  <FiltersButton color="primary" data={activeFilters} getActiveFilters={onFilter} />
+                  <FiltersButton
+                    color="primary"
+                    data={activeFilters}
+                    getActiveFilters={onFilter}
+                    filters={DocumentsChecklistFilters}
+                  />
                 </Box>
               </Box>
             }

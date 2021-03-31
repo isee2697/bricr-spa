@@ -1,5 +1,5 @@
-import { DmsTemplateItem } from './../../../../dmsTemplates/DmsTemplates.types';
+import { TemplateItem } from '../../DmsTemplateConfigureSettingsDetails.types';
 
 export type DefaultConfigureSettingsDetailsProps = {
-  template: DmsTemplateItem;
+  template: TemplateItem;
 };

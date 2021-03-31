@@ -15,6 +15,8 @@ REACT_APP_API_URL=http://localhost:1337/graphql
 REACT_APP_SECURITY_URL=http://localhost:50050/api
 REACT_APP_FILE_URL=http://localhost:1338/dev
 ```
+- add the following line to your hosts file to work locally with files:
+127.0.0.1   localstack
 
 ## Quick info about project
 - was bootstrapped with [Create React App](https://github.com/facebook/create-react-app)
@@ -29,6 +31,12 @@ REACT_APP_FILE_URL=http://localhost:1338/dev
 - uses `@graphql-codegen` for generating api
 - has [styleguide](./docs/styleguide.md) 
 - uses React Context API along with React hooks to manage global states
+
+### Development:
+-  follow styleguide
+-  We always write unit tests for all in the ui folder.
+-  Add this items to styleguidist
+-  Write e2e tests for critical parts and new entities.
 
 ## CI
 
@@ -170,7 +178,27 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 
 ## Deploy manually
 ### branchname should be: 
-- deploy/**
+- deploy/spa**
 
 
 Be aware a pr should be opened and closed afterwards this is an issue with circleci :)
+
+
+
+
+## For those developers who like VS code the settings json:
+use: https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint
+
+```{
+    "files.autoSave": "onFocusChange",
+    "window.zoomLevel": 1,
+    "eslint.validate": [
+      "javascript",
+      "javascriptreact",
+      "typescript",
+      "typescriptreact",
+  ],
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": true,
+    }
+  }```

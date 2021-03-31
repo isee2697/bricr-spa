@@ -1,11 +1,19 @@
 import React from 'react';
-
-import { Box } from 'ui/atoms';
+import { useDrop } from 'react-dnd';
 
 import { useStyles } from './HeaderColumnItem.styles';
+import { HeaderColumnItemPlaceholderProps } from './HeaderColumnItemPlaceholder.types';
+import { HeaderColumnItemDragObject } from './HeaderFilterModal.types';
 
-export const HeaderColumnItemPlaceholder = () => {
+export const HeaderColumnItemPlaceholder = ({ onDropColumn }: HeaderColumnItemPlaceholderProps) => {
   const classes = useStyles();
 
-  return <Box width="100%" className={classes.placeholderItem} />;
+  const [, drop] = useDrop({
+    accept: 'CrmTableHeaderFilter',
+    drop: (dropObject: HeaderColumnItemDragObject) => {
+      onDropColumn(dropObject.item);
+    },
+  });
+
+  return <div ref={drop} className={classes.placeholderItem} />;
 };

@@ -1,8 +1,6 @@
 import { makeStyles } from '@material-ui/core';
 
-import { CrmStatus } from 'api/types';
-
-import { CrmListItemProps } from './CrmListItem.types';
+import { CrmStatus, Maybe } from 'api/types';
 
 export const useStyles = makeStyles(theme => ({
   inactive: {
@@ -12,7 +10,7 @@ export const useStyles = makeStyles(theme => ({
     width: 160,
     height: 152,
     marginRight: theme.spacing(2),
-    filter: ({ crm: { status } }: CrmListItemProps) => (status === CrmStatus.Inactive ? 'grayscale(1)' : ''),
+    filter: ({ status }: { status?: Maybe<CrmStatus> }) => (status === CrmStatus.Inactive ? 'grayscale(1)' : ''),
     fontSize: '3em',
   },
   cursor: {
@@ -42,12 +40,20 @@ export const useStyles = makeStyles(theme => ({
   meta: {
     width: 74,
     height: 40,
+    borderLeft: `1px solid ${theme.palette.gray.light}`,
+    '&:last-child': {
+      borderRight: `1px solid ${theme.palette.gray.light}`,
+    },
   },
   metaCount: {
     textAlign: 'center',
+    fontWeight: theme.typography.fontWeightBold,
+    color: theme.palette.black.main,
   },
   metaLabel: {
     textAlign: 'center',
+    fontWeight: theme.typography.fontWeightMedium,
+    color: theme.palette.silver.main,
   },
   infoProgress: {
     display: 'flex',

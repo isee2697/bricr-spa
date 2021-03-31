@@ -1,8 +1,8 @@
 import { gql } from 'apollo-boost';
 
-export const ADVANCED_SEARCH = gql`
-  query AdvancedSearch($input: AdvancedSearchInput!) {
-    advancedSearch(input: $input) {
+export const SEARCH = gql`
+  query Search($input: SearchInput!) {
+    search(input: $input) @rest(type: "Search", path: "/search", method: "POST", endpoint: "default") {
       users {
         id
         firstName
@@ -45,7 +45,7 @@ export const ADVANCED_SEARCH = gql`
         id
         type
         firstName
-        insertion
+        initials
         lastName
         phoneNumber
         email

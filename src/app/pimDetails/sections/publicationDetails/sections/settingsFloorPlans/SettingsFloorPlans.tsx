@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
+import { TouchBackend } from 'react-dnd-touch-backend';
 
 import { useLocale } from 'hooks';
 import { FormSection } from 'ui/organisms';
@@ -10,6 +10,7 @@ import { useStyles } from './SettingsFloorPlans.styles';
 import { SettingsFloorPlanItem } from './SettingsFloorPlans.types';
 import { PlanItem } from './planItem/PlanItem';
 import { PlanItemPlaceholder } from './planItemPlaceholder/PlanItemPlaceholder';
+import { PlanItemDragObject } from './planItemDragObject/PlanItemDragObject';
 
 export const SettingsFloorPlans = () => {
   const { formatMessage } = useLocale();
@@ -37,10 +38,16 @@ export const SettingsFloorPlans = () => {
     },
   ];
 
+  const [mainPicture, setMainPicture] = useState<SettingsFloorPlanItem>();
   const [addedPictures, setAddedPictures] = useState<SettingsFloorPlanItem[]>([]);
 
   const handleAddToList = (item: SettingsFloorPlanItem) => {
     const filteredList = addedPictures.filter(picture => picture.id !== item.id);
+
+    if (mainPicture && mainPicture.id === item.id) {
+      setMainPicture(undefined);
+    }
+
     setAddedPictures([...filteredList, item]);
   };
 
@@ -56,20 +63,39 @@ export const SettingsFloorPlans = () => {
     setAddedPictures([...addedPictures.filter(picture => picture.id !== item.id)]);
   };
 
+  const handleSetMainPicture = (item: SettingsFloorPlanItem) => {
+    handleRemoveFromList(item);
+    setMainPicture(item);
+  };
+
+  const handleRemoveFromMainPicture = () => {
+    setMainPicture(undefined);
+  };
+
   return (
     <FormSection
       title={formatMessage({ id: 'pim_details.publication.funda.settings.floor_plans.title' })}
       isEditable
       isExpandable
     >
-      <DndProvider backend={HTML5Backend}>
+      <DndProvider backend={TouchBackend} options={{ enableMouseEvents: true }}>
+        <PlanItemDragObject />
         <Box display="flex" flexWrap>
+          <Box mr={2}>
+            <Typography variant="h5" className={classes.fontWeightMedium} color="textSecondary">
+              {formatMessage({ id: 'pim_details.publication.funda.settings.floor_plans.main_picture' })}
+            </Typography>
+            <Box mt={1.5} />
+            {mainPicture ? (
+              <PlanItem isAdded onRemoveFromList={handleRemoveFromMainPicture} {...mainPicture} />
+            ) : (
+              <PlanItemPlaceholder onAddItemToAddedList={handleSetMainPicture} />
+            )}
+          </Box>
           {addedPictures.map((picture, index) => (
             <Box mr={2}>
               <Typography variant="h5" className={classes.fontWeightMedium} color="textSecondary">
-                {index === 0
-                  ? formatMessage({ id: 'pim_details.publication.funda.settings.floor_plans.main_picture' })
-                  : index}
+                {index + 1}
               </Typography>
               <Box mt={1.5} />
               <PlanItem
@@ -83,21 +109,24 @@ export const SettingsFloorPlans = () => {
           ))}
           <Box>
             <Typography variant="h5" className={classes.fontWeightMedium} color="textSecondary">
-              {Math.max(addedPictures.length, 1)}
+              {Math.max(addedPictures.length + 1, 1)}
             </Typography>
             <Box mt={1.5} />
             <PlanItemPlaceholder onAddItemToAddedList={handleAddToList} />
           </Box>
         </Box>
-      </DndProvider>
-      <Box mt={9} />
-      <Typography variant="h5" className={classes.fontWeightMedium} color="textSecondary">
-        {formatMessage({ id: 'pim_details.publication.funda.settings.floor_plans.available_images' })}
-      </Typography>
-      <DndProvider backend={HTML5Backend}>
+        <Box mt={9} />
+        <Typography variant="h5" className={classes.fontWeightMedium} color="textSecondary">
+          {formatMessage({ id: 'pim_details.publication.funda.settings.floor_plans.available_images' })}
+        </Typography>
+        <PlanItemDragObject />
         <Box display="flex" flexWrap mt={1.5}>
           {availableImages
-            .filter(picture => addedPictures.findIndex(image => image.id === picture.id) < 0)
+            .filter(
+              picture =>
+                (!mainPicture || mainPicture.id !== picture.id) &&
+                addedPictures.findIndex(image => image.id === picture.id) < 0,
+            )
             .map((picture, index) => (
               <Box mr={2}>
                 <PlanItem key={index} {...picture} />

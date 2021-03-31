@@ -6,12 +6,14 @@ export type PersonalInformationGeneralProps = {
     | 'id'
     | 'firstName'
     | 'extraNames'
-    | 'insertion'
+    | 'initials'
     | 'lastName'
     | 'gender'
     | 'dateOfBirth'
     | 'placeOfBirth'
     | 'nationality'
+    | 'dateOfDeath'
+    | 'isPassedAway'
     | 'preferredLanguage'
     | 'identification'
     | 'identificationNumber'
@@ -22,6 +24,8 @@ export type PersonalInformationGeneralProps = {
     | 'preferredLetterSalutation'
     | 'preferredTitleInformation'
     | 'status'
+    | 'dateCreated'
+    | 'completeness'
   >;
   onSave(values: unknown): Promise<undefined | { error: boolean }>;
 };

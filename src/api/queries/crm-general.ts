@@ -6,17 +6,20 @@ export const GET_CRM_GENERAL = gql`
       id
       firstName
       extraNames
-      insertion
+      initials
       lastName
       gender
       dateOfBirth
       placeOfBirth
       nationality
+      dateOfDeath
+      isPassedAway
       preferredLanguage
       identification
       identificationNumber
       identificationIssueCity
       identificationIssueDate
+      identificationExpirationDate
       preferredTitlePrefix
       preferredTitleSuffix
       preferredLetterSalutation
@@ -33,6 +36,14 @@ export const GET_CRM_GENERAL = gql`
         url
       }
       status
+      completeness
+      dateCreated
+      lastEditedBy {
+        id
+        firstName
+        lastName
+      }
+      dateUpdated
     }
   }
 `;

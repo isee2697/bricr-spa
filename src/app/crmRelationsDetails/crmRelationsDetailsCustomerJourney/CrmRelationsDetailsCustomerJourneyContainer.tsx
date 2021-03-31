@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 
 import { useCrmRelationsCustomerJourneyQueryParams } from 'app/shared/useCrmRelationsCustomerJourneyQueryParams/useCrmRelationsCustomerJourneyQueryParams';
 import {
@@ -9,11 +9,12 @@ import {
   CRM_RELATIONS_CUSTOMER_JOURNEY_MATCHING,
   CRM_RELATIONS_CUSTOMER_JOURNEY_OPTANTS,
   CRM_RELATIONS_CUSTOMER_JOURNEY_VIEWINGS,
+  CRM_RELATIONS_CUSTOMER_JOURNEY_BUYER,
 } from 'api/mocks/crm-relation';
 import { CrmRelationsDetailsHeader } from '../crmRelationsDetailsHeader/CrmRelationsDetailsHeader';
-import { Grid, IconButton, Typography } from 'ui/atoms';
+import { Grid, Typography } from 'ui/atoms';
 import { AppRoute } from 'routing/AppRoute.enum';
-import { HelpIcon, MenuIcon } from 'ui/atoms/icons';
+import { ListPimsFilters } from 'api/types';
 
 import {
   CrmRelationsDetailsCustomerJourneyContainerProps,
@@ -22,7 +23,6 @@ import {
 } from './CrmRelationsDetailsCustomerJourney.types';
 import { CrmRelationsDetailsCustomerJourney } from './CrmRelationsDetailsCustomerJourney';
 import { useStyles } from './CrmRelationsDetailsCustomerJourney.styles';
-import { CrmRelationsDetailsCustomerJourneyYourNewHome } from './yourNewHome/YourNewHome';
 
 export const CrmRelationsDetailsCustomerJourneyContainer = ({
   crm,
@@ -30,8 +30,12 @@ export const CrmRelationsDetailsCustomerJourneyContainer = ({
   onSidebarOpen,
 }: CrmRelationsDetailsCustomerJourneyContainerProps) => {
   const classes = useStyles();
-  const { status, setStatus } = useCrmRelationsCustomerJourneyQueryParams({});
+  const { status, setStatus } = useCrmRelationsCustomerJourneyQueryParams({
+    status: CrmRelationsDetailsCustomerJourneyTab.Buyer,
+  });
+  const [activeFilters, setActiveFilters] = useState<ListPimsFilters>({});
   const [data, setData] = useState<CrmRelationsDetailsCustomerJourneyType[]>(CRM_RELATIONS_CUSTOMER_JOURNEY_MATCHING);
+  const [isOwner] = useState(true);
 
   useEffect(() => {
     switch (status) {
@@ -53,12 +57,15 @@ export const CrmRelationsDetailsCustomerJourneyContainer = ({
       case CrmRelationsDetailsCustomerJourneyTab.Optant:
         setData(CRM_RELATIONS_CUSTOMER_JOURNEY_OPTANTS);
         break;
+      case CrmRelationsDetailsCustomerJourneyTab.Buyer:
+        setData(CRM_RELATIONS_CUSTOMER_JOURNEY_BUYER);
+        break;
       default:
         setData(CRM_RELATIONS_CUSTOMER_JOURNEY_MATCHING);
     }
   }, [status]);
 
-  const { firstName, insertion, lastName } = crm;
+  const { firstName, lastName } = crm;
 
   return (
     <>
@@ -66,16 +73,8 @@ export const CrmRelationsDetailsCustomerJourneyContainer = ({
 
       <Grid xs={12} item container className={classes.header}>
         <Typography variant="h1" className={classes.title}>
-          {firstName} {insertion} {lastName}
+          {firstName} {lastName}
         </Typography>
-
-        <IconButton variant="rounded" size="small" onClick={() => {}} className={classes.marginRightTwo}>
-          <HelpIcon />
-        </IconButton>
-
-        <IconButton variant="rounded" size="small" onClick={() => {}}>
-          <MenuIcon />
-        </IconButton>
       </Grid>
 
       <Switch>
@@ -83,13 +82,19 @@ export const CrmRelationsDetailsCustomerJourneyContainer = ({
           exact
           path={`${AppRoute.crmRelationsDetails}/customer_journey`}
           render={() => (
-            <CrmRelationsDetailsCustomerJourney crm={crm} status={status} onStatusChange={setStatus} items={data} />
+            <CrmRelationsDetailsCustomerJourney
+              crm={crm}
+              status={status}
+              onStatusChange={setStatus}
+              onFilter={filters => setActiveFilters(filters)}
+              activeFilters={activeFilters}
+              items={data}
+              isOwner={isOwner}
+            />
           )}
         />
         <Route
-          exact
-          path={`${AppRoute.crmRelationsDetails}/customer_journey/your_new_home`}
-          render={() => <CrmRelationsDetailsCustomerJourneyYourNewHome />}
+          render={() => <Redirect to={`${AppRoute.crmRelationsDetails.replace(':id', crm.id)}/customer_journey`} />}
         />
       </Switch>
     </>
