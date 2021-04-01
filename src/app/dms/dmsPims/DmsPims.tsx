@@ -10,7 +10,7 @@ export const DmsPims = ({ pims, type, isLoading, pagination, sorting }: DmsPimsP
     <FoldersContainer
       entityItems={(pims.listPims.items || []).map(item => ({
         id: item.id,
-        name: `${item.street}`,
+        name: `${item.street} ${item.houseNumber}${item.houseNumberAddition ? ` ${item.houseNumberAddition}` : ''}`,
       }))}
       entityType={DmsEntityType.Pim}
       type={type}

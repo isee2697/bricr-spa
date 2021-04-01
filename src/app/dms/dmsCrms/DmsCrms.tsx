@@ -13,7 +13,7 @@ export const DmsCrms = ({ crms, isLoading, pagination, sorting }: DmsCrmsProps) 
     <FoldersContainer
       entityItems={crms.map(item => ({
         id: item.id,
-        name: `${item.firstName} ${item.lastName}`,
+        name: `${item.firstName} ${item.lastName}${item.email ? ` - ${item.email}` : ''}`,
       }))}
       type={type}
       entityType={DmsEntityType.Crm}
