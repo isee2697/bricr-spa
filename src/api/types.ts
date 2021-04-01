@@ -2909,6 +2909,7 @@ export type DmsFolder = {
   type: DmsFolderType;
   order?: Maybe<Scalars['Int']>;
   deletedAt?: Maybe<Scalars['Date']>;
+  isEmailFolder?: Maybe<Scalars['Boolean']>;
 };
 
 export type CreateDmsFolderInput = {
@@ -12545,7 +12546,7 @@ export type ListDmsFoldersQuery = { __typename?: 'Query' } & {
     Array<
       { __typename?: 'DmsFolder' } & Pick<
         DmsFolder,
-        'id' | 'entityId' | 'companyId' | 'foldername' | 'entityType' | 'type' | 'order' | 'deletedAt'
+        'id' | 'entityId' | 'companyId' | 'foldername' | 'entityType' | 'type' | 'order' | 'deletedAt' | 'isEmailFolder'
       >
     >
   >;
@@ -21734,6 +21735,7 @@ export const ListDmsFoldersDocument = gql`
       type
       order
       deletedAt
+      isEmailFolder
     }
   }
 `;
@@ -27097,12 +27099,7 @@ export type GetQuestionaireQueryResult = ApolloReactCommon.QueryResult<
 export const ListQuestionaireGroupsDocument = gql`
   query ListQuestionaireGroups($templateId: ID!) {
     listQuestionaireGroups(templateId: $templateId)
-      @rest(
-        type: "ListQuestionaireGroups"
-        path: "/groups?templateId={args.templateId}"
-        method: "GET"
-        endpoint: "default"
-      ) {
+      @rest(type: "ListQuestionaireGroups", path: "/groups/{args.templateId}", method: "GET", endpoint: "default") {
       id
       templateId
       groupName
