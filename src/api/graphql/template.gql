@@ -16,6 +16,7 @@ input QuestionaireInput {
 input UpdateQuestionaireInput {
     id: ID!
     templateStatus: TemplateStatus
+    type: TemplateType!
 }
 
 enum TemplateDocumentType {
@@ -133,7 +134,7 @@ type Questionaire {
     settings: TemplateSettings
     labels: [String!]
     tags: [TemplatTag!]
-    securities: [TemplateSecurity!]
+    permissions: [TemplateSecurity!]
 }
 
 type TemplatTag {
@@ -238,4 +239,25 @@ extend type Query {
     listQuestionaireGroups(templateId: ID!): [Groups!] @auth
     getQuestionaireGroup(id: ID!): Groups @auth
     listQuestions(groupId: ID!): [Question!] @auth
+}
+
+type Security {
+    message: messageType!
+    path: pathType
+    type:String
+    context:contextType
+}
+
+type messageType {
+    message:String
+}
+
+type contextType {
+    child:String
+    label:String
+    key:String
+}
+
+type pathType {
+    type:String
 }

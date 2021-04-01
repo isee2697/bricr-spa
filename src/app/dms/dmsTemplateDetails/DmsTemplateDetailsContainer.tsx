@@ -93,7 +93,7 @@ export const DmsTemplateDetailsContainer = (props: DmsTemplateDetailsContainerPr
               data={{
                 id: data.id,
                 meta: data.meta,
-                securities: data.securities,
+                permissions: data.permissions,
               }}
               updatedBy={{
                 id: '0001',

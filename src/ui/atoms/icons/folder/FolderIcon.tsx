@@ -30,7 +30,7 @@ export const FolderIcon = (props: FolderIconProps) => {
   const paintId = id + '_paint';
 
   return (
-    <SvgIcon width="93" height="74" viewBox="0 0 93 74" fill="none" {...props}>
+    <SvgIcon data-testid="folder-icon" width="93" height="74" viewBox="0 0 93 74" fill="none" {...props}>
       <g filter={`url(#${filterId})`}>
         {weight > 1 && (
           <path
@@ -40,6 +40,7 @@ export const FolderIcon = (props: FolderIconProps) => {
         )}
         {weight > 0 && (
           <path
+            data-testid="folder-icon-path"
             d="M34.1506 6.74248L38.7662 10.499C40.1378 11.6154 41.9886 12.2414 43.917 12.2414H46.7692H54.1758C52.2473 12.2414 50.3966 11.6154 49.025 10.499L44.4094 6.74248C43.0376 5.62603 41.187 5 39.2586 5H29.183H29C30.9284 5 32.779 5.62617 34.1506 6.74248Z"
             fill={color(variant)[100]}
           />

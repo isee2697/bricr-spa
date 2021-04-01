@@ -7845,7 +7845,7 @@ export type Questionaire = {
   settings?: Maybe<TemplateSettings>;
   labels?: Maybe<Array<Scalars['String']>>;
   tags?: Maybe<Array<TemplatTag>>;
-  securities?: Maybe<Array<TemplateSecurity>>;
+  permissions?: Maybe<Array<TemplateSecurity>>;
 };
 
 export type QuestionaireInput = {
@@ -8363,6 +8363,14 @@ export enum SectionWithDescriptionType {
   AogGrounds = 'AogGrounds',
   MetersMetaInfo = 'MetersMetaInfo',
 }
+
+export type Security = {
+  __typename?: 'Security';
+  message: MessageType;
+  path?: Maybe<PathType>;
+  type?: Maybe<Scalars['String']>;
+  context?: Maybe<ContextType>;
+};
 
 export type SendEmailInput = {
   from: Array<EmailAndNameInput>;
@@ -9571,6 +9579,7 @@ export type UpdateQuestionInput = {
 export type UpdateQuestionaireInput = {
   id: Scalars['ID'];
   templateStatus?: Maybe<TemplateStatus>;
+  type: TemplateType;
 };
 
 export type UpdateReadingInput = {
@@ -9864,6 +9873,23 @@ export enum WorkflowTriggerType {
   Trigger1 = 'Trigger1',
   Trigger2 = 'Trigger2',
 }
+
+export type ContextType = {
+  __typename?: 'contextType';
+  child?: Maybe<Scalars['String']>;
+  label?: Maybe<Scalars['String']>;
+  key?: Maybe<Scalars['String']>;
+};
+
+export type MessageType = {
+  __typename?: 'messageType';
+  message?: Maybe<Scalars['String']>;
+};
+
+export type PathType = {
+  __typename?: 'pathType';
+  type?: Maybe<Scalars['String']>;
+};
 
 export type AddAllocateMutationVariables = Exact<{
   input: AddAllocateInput;
@@ -16137,7 +16163,7 @@ export type GetQuestionaireQuery = { __typename?: 'Query' } & {
             'description' | 'version' | 'language' | 'documentType'
           >
         >;
-        securities?: Maybe<
+        permissions?: Maybe<
           Array<
             { __typename?: 'TemplateSecurity' } & Pick<
               TemplateSecurity,
@@ -27187,7 +27213,7 @@ export const GetQuestionaireDocument = gql`
         language
         documentType
       }
-      securities {
+      permissions {
         name
         create
         update
