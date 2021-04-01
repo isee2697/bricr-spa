@@ -5,10 +5,10 @@ import { useHistory, useParams } from 'react-router';
 import { Box, Chip, Loader, Step, Stepper, Typography } from 'ui/atoms';
 import { StageIcon } from 'ui/molecules/propertyStage/stageIcon/StageIcon';
 import { CheckIcon, CloseIcon } from 'ui/atoms/icons';
-import { useStyles, Connector, Labels } from 'app/dms/dmsDetailsSidebarMenu/DmsDetailsSidebarMenu.styles';
 import { AppRoute } from 'routing/AppRoute.enum';
 
 import { QuestionaireConfigureItemsProps } from './QuestionaireConfigureItems.types';
+import { useStyles, Connector, Labels } from './QuestionaireConfigureItems.styles';
 
 export const QuestionaireConfigureItems = ({ isLoading, groups }: QuestionaireConfigureItemsProps) => {
   const classes = useStyles();
