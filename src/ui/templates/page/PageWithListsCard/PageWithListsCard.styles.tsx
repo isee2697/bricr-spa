@@ -36,10 +36,8 @@ export const useStyles = (isTable?: boolean) =>
         backgroundColor: 'yellow',
         [breakpoints.down('sm')]: {
           marginLeft: 0,
-          marginRight: 0,
-         
+          marginRight: 0, 
         },
-
       },
       display: 'flex',
       alignItems: isTable ? 'center' : 'flex-start',

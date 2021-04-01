@@ -16,15 +16,12 @@ export const useStyles = makeStyles(theme => ({
       width: 80,
       height: 47,
     },
-    // Mobiel: 
     [theme.breakpoints.down('sm')]: {
       width: 47,
-      height: 47,
-      
+      height: 47,  
     },
   },
   content: {
-      // Mobiel
       [theme.breakpoints.down('sm')]: {
         background: 'pink',
         padding: 0,
@@ -112,7 +109,6 @@ export const useStyles = makeStyles(theme => ({
       width: 20,
       height: 57,
     },
-       // Mobiel: 
        [theme.breakpoints.down('sm')]: {
         backgroundColor: 'blue',
         align: 'left',

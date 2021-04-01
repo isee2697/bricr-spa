@@ -18,13 +18,9 @@ export const useStyles = makeStyles(theme => ({
     alignItems: 'stretch',
     position: 'relative',
     marginBottom: theme.spacing(3),
-  
-
     '&.actionRequired': {
       background: theme.palette.yellow.light,
-   
     },
-
     '&:after': {
       content: '""',
       position: 'absolute',
@@ -33,7 +29,6 @@ export const useStyles = makeStyles(theme => ({
       margin: theme.spacing(0, 2),
       borderBottom: `${theme.spacing(0.25)}px solid ${theme.palette.gray.light}`,
     },
-
     '&:last-child': {
       marginBottom: 0,
     },
@@ -44,7 +39,6 @@ export const useStyles = makeStyles(theme => ({
   rowItem: {
     padding: theme.spacing(2.75, 2, 2.75, 0),
     width: '100%',
-
   },
   rowItemIndex: {
     margin: theme.spacing(2.5),
@@ -54,6 +48,5 @@ export const useStyles = makeStyles(theme => ({
     border: `1px solid ${theme.palette.gray.light}`,
     borderRadius: theme.spacing(1.5),
     color: theme.palette.gray.main,
-  
   },
 }));

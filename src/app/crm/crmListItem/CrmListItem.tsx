@@ -2,8 +2,6 @@ import React from 'react';
 import clsx from 'classnames';
 import { useHistory } from 'react-router-dom';
 import { useTheme } from '@material-ui/core';
-
-
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { Avatar, Box, Typography, UserAvatar, ProgressFilling, Chip } from 'ui/atoms';
 import { MailIcon, HeadIcon, PhoneIcon } from 'ui/atoms/icons';

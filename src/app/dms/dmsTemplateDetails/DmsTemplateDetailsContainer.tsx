@@ -32,14 +32,9 @@ export const DmsTemplateDetailsContainer = (
     query: useGetQuestionaireQuery,
     variables: { id, type: type.toString() },
   });
-
-
   const [updateGeneral] = useUpdateTemplateGeneralMutation();
-
   const data = loadedData as Questionaire;
-
   const backendData = [...(data.securities ?? [])];
-
   const defaultPermissionsWithData = DMS_TEMPLATE_RIGHTS.map((permission) => {
     const index = backendData.findIndex(
       (item) => item?.name === permission.name
@@ -47,19 +42,15 @@ export const DmsTemplateDetailsContainer = (
     if (index !== -1) {
       const permissionData = backendData[index];
       backendData.splice(index);
-
       return permissionData;
     }
-
     return permission;
   });
-
   data.securities = [...defaultPermissionsWithData, ...backendData];
 
   if (loading) {
     return <Loader />;
   }
-
   const handleSaveGeneral = async (form: Questionaire) => {
     try {
       await updateGeneral({
@@ -72,7 +63,6 @@ export const DmsTemplateDetailsContainer = (
               const isDefault = DMS_TEMPLATE_RIGHTS.find(
                 (item) => item.name === permission.name
               );
-
               if (isDefault) {
                 return (
                   !!permission?.create ||
@@ -81,7 +71,6 @@ export const DmsTemplateDetailsContainer = (
                   !!permission?.delete
                 );
               }
-
               return true;
             }),
           },
@@ -96,10 +85,8 @@ export const DmsTemplateDetailsContainer = (
     } catch {
       return { error: true };
     }
-
     return undefined;
   };
-
   return (
     <>
       <NavBreadcrumb
