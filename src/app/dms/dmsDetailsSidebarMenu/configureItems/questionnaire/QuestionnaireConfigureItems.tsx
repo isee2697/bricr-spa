@@ -8,7 +8,7 @@ import { StageIcon } from 'ui/molecules/propertyStage/stageIcon/StageIcon';
 import { Connector, Labels, useStyles } from './QuestionnaireConfigureItems.styles';
 import { QuestionnaireConfigureItemsProps } from './QuestoinnaireConfigureItems.types';
 
-export const QuestionnaireConfigureItems = ({ data }: QuestionnaireConfigureItemsProps) => {
+export const QuestionnaireConfigureItems = ({ data, onChangeStep }: QuestionnaireConfigureItemsProps) => {
   const [currentStep, setCurrentStep] = useState(0);
   const classes = useStyles();
 
@@ -19,7 +19,13 @@ export const QuestionnaireConfigureItems = ({ data }: QuestionnaireConfigureItem
           completed={index < currentStep}
           key={title}
           className={`${classes.step} ${index < currentStep && classes.completed}`}
-          onClick={() => setCurrentStep(index)}
+          onClick={() => {
+            setCurrentStep(index);
+
+            if (onChangeStep) {
+              onChangeStep(index);
+            }
+          }}
         >
           <Labels
             completed={index < currentStep}

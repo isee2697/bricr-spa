@@ -2,4 +2,5 @@ import { DocumentQuestionnaireType } from 'app/pimDetails/sections/documents/doc
 
 export type QuestionnaireConfigureItemsProps = {
   data: DocumentQuestionnaireType;
+  onChangeStep: (index: number) => void;
 };
