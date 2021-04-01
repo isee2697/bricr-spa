@@ -1,8 +1,7 @@
 import { Layout } from 'react-grid-layout';
 
 import { PropertyCategory } from 'app/shared/addPimModal/AddPimModal.types';
-import { Appointment, CrmType, ProjectType, PropertyType } from 'api/types';
-import { SalesItemType } from 'app/shared/addSalesItemModal/AddSalesItemModal.types';
+import { Appointment, CrmType, ProjectType, PropertyType, SalesLabel } from 'api/types';
 import { SurveyCategory, SurveyType } from 'app/crmRelationsDetails/marketingSurvey/MarketingSurvey.types';
 
 export type ModalContextType = {
@@ -20,7 +19,7 @@ export type ModalStateOptions = {
   isLinkedProperty?: boolean;
   propertyType?: PropertyType;
   projectType?: ProjectType;
-  salesItemType?: SalesItemType;
+  salesLabel?: SalesLabel;
   salesItemOrderType?: string;
   insightDashboardNewType?: Layout;
   id?: number;

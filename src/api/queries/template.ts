@@ -1,9 +1,9 @@
 import { gql } from 'apollo-boost';
 
 export const GET_QUESTIONAIRE = gql`
-  query GetQuestionaire($id: ID!) {
-    getQuestionaire(id: $id)
-      @rest(type: "Questionaire", path: "/template/{args.id}", method: "GET", endpoint: "default") {
+  query GetQuestionaire($id: ID!, $type: String) {
+    getQuestionaire(id: $id, type: $type)
+      @rest(type: "Questionaire", path: "/template/{args.type}/{args.id}", method: "GET", endpoint: "default") {
       id
       templateName
       isAdmin
@@ -86,6 +86,11 @@ export const GET_QUESTIONAIRES = gql`
         }
         meta {
           createdAt
+        }
+        labels
+        tags {
+          name
+          amount
         }
       }
       count

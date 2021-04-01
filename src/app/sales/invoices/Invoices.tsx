@@ -20,7 +20,8 @@ import {
 import { Page } from 'ui/templates';
 import { ActionTabs } from 'ui/molecules';
 import { InvoicesStatus } from 'app/crmRelationsDetails/sales/invoices/Invoices.types';
-import { SalesItemType, SalesOrderType } from 'app/shared/addSalesItemModal/AddSalesItemModal.types';
+import { SalesOrderType } from 'app/shared/addSalesItemModal/AddSalesItemModal.types';
+import { SalesLabel } from 'api/types';
 
 import { InvoicesProps } from './Invoices.types';
 import { useStyles } from './Invoices.styles';
@@ -112,7 +113,7 @@ export const Invoices = ({
               variant="contained"
               onClick={() =>
                 open('add-sales-item', {
-                  salesItemType: SalesItemType.Invoice,
+                  salesLabel: SalesLabel.Invoice,
                   salesItemOrderType: SalesOrderType.HouseForSale,
                 })
               }

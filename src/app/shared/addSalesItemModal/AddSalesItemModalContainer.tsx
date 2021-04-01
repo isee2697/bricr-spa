@@ -18,7 +18,7 @@ export const AddSalesItemModalContainer = () => {
           'Content-Type': 'application/json',
           Authorization: 'Bearer ' + accessToken,
         },
-        body: JSON.stringify({ ...body, label: options?.salesItemType }),
+        body: JSON.stringify({ ...body, label: options?.salesLabel }),
       });
 
       close('add-sales-item');

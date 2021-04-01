@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { IconPickerIcon } from '../../ui/molecules/iconPicker/IconPicker.types';
+import { IconPickerIcon } from 'ui/molecules/iconPicker/IconPicker.types';
 import {
   AddIcon,
   BellIcon,
@@ -9,7 +9,7 @@ import {
   EditIcon,
   FilesIcon,
   FilterIcon,
-  FolderIcon,
+  FolderSvgIcon,
   GraphArrowIcon,
   HomeIcon,
   LinkIcon,
@@ -17,7 +17,7 @@ import {
   PinIcon,
   SquareIcon,
   TasksIcon,
-} from '../../ui/atoms/icons';
+} from 'ui/atoms/icons';
 
 export const iconPickerIcons: IconPickerIcon[] = [
   {
@@ -41,7 +41,7 @@ export const iconPickerIcons: IconPickerIcon[] = [
     name: 'files',
   },
   {
-    icon: <FolderIcon color="inherit" />,
+    icon: <FolderSvgIcon color="inherit" />,
     name: 'folder',
   },
   {

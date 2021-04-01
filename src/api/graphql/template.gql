@@ -16,6 +16,7 @@ input QuestionaireInput {
 input UpdateQuestionaireInput {
     id: ID!
     templateStatus: TemplateStatus
+    type: TemplateType!
 }
 
 enum TemplateDocumentType {
@@ -81,7 +82,6 @@ input UpdateQuestionInput {
     options: [OptionsInput]
     entity: EntityInput
 }
-
 input GroupsInput {
     templateId: ID!
     groupName: String!
@@ -121,7 +121,7 @@ type TemplateMeta {
 }
 
 type Questionaire {
-    id: ID!
+     id: ID! 
     companyId: String
     type: TemplateType
     templateName: String
@@ -132,7 +132,14 @@ type Questionaire {
     templateStatus: TemplateStatus
     meta: TemplateMeta!
     settings: TemplateSettings
+    labels: [String!]
+    tags: [TemplatTag!]
     securities: [TemplateSecurity!]
+}
+
+type TemplatTag {
+   name: String!
+   amount: Int
 }
 
 type Groups {
@@ -228,7 +235,7 @@ extend type Mutation {
 
 extend type Query {
     getQuestionaires(filters: ListQuestionairesFilters!, pagination: Pagination, search: String): TemplatesResponse!  @auth
-    getQuestionaire(id: ID!): Questionaire @auth
+    getQuestionaire(id: ID!, type: String): Questionaire @auth
     listQuestionaireGroups(templateId: ID!): [Groups!] @auth
     getQuestionaireGroup(id: ID!): Groups @auth
     listQuestions(groupId: ID!): [Question!] @auth
