@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
-import { AppointmentSearch, useListCalendarLazyQuery } from 'api/types';
+import { AppointmentSearch, useListCalendarQuery } from 'api/types';
 import { useNylasAccountState } from 'hooks';
 import { AppRoute } from 'routing/AppRoute.enum';
 
@@ -10,10 +10,14 @@ import { DashboardCalendar } from './DashboardCalendar';
 export const DashboardCalendarContainer = () => {
   const { push } = useHistory();
   const nylasAccounts = useNylasAccountState().accounts.filter(account => !!account.isCalendarConnected);
-  const [listCalendar, { data: agenda, loading }] = useListCalendarLazyQuery({ fetchPolicy: 'no-cache' });
   const [searchParams, setSearchParams] = useState<AppointmentSearch>();
+  const { data: agenda, loading } = useListCalendarQuery({
+    fetchPolicy: 'no-cache',
+    skip: !searchParams,
+    variables: { input: searchParams || { accountId: '', startDate: '', endDate: '' } },
+  });
 
-  if (nylasAccounts.length) {
+  if (nylasAccounts.length && !searchParams) {
     const startDay = new Date();
     const endDay = new Date();
     endDay.setDate(endDay.getDate() + 3);
@@ -24,22 +28,6 @@ export const DashboardCalendarContainer = () => {
       endDate: endDay.toLocaleDateString(),
     });
   }
-
-  useEffect(() => {
-    const getAppointments = async () => {
-      if (nylasAccounts.length && searchParams) {
-        listCalendar({
-          variables: {
-            input: searchParams,
-          },
-        });
-      }
-    };
-
-    if (nylasAccounts.length) {
-      getAppointments();
-    }
-  }, [searchParams, nylasAccounts.length, listCalendar]);
 
   const data =
     agenda?.listCalendar?.map(item => ({

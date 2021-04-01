@@ -281,7 +281,6 @@ export type Mutation = {
   bulkDeleteNotifications?: Maybe<Scalars['Boolean']>;
   bulkReadNotifications?: Maybe<Scalars['Boolean']>;
   cloneMatchProfile?: Maybe<MatchProfile>;
-  confirmAppointment: Appointment;
   confirmProfileInvite: Profile;
   createCompany: Company;
   createCrm: CrmGeneral;
@@ -307,7 +306,6 @@ export type Mutation = {
   deleteNotification?: Maybe<Scalars['Boolean']>;
   deleteQuestionaireGroup?: Maybe<Scalars['Boolean']>;
   deleteSubtask?: Maybe<Task>;
-  draftAppointment: DraftAppointment;
   forgotPassword?: Maybe<ForgotPasswordResponse>;
   initSendFile: File;
   linkNcpToProjectPhase: ProjectPhase;
@@ -659,11 +657,6 @@ export type MutationCloneMatchProfileArgs = {
   input: CloneMatchProfileInput;
 };
 
-export type MutationConfirmAppointmentArgs = {
-  accountId: Scalars['String'];
-  appointmentId: Scalars['ID'];
-};
-
 export type MutationConfirmProfileInviteArgs = {
   input: ConfirmProfileInvite;
 };
@@ -762,10 +755,6 @@ export type MutationDeleteQuestionaireGroupArgs = {
 
 export type MutationDeleteSubtaskArgs = {
   subtaskId: Scalars['ID'];
-};
-
-export type MutationDraftAppointmentArgs = {
-  input: DraftAppointmentInput;
 };
 
 export type MutationForgotPasswordArgs = {
@@ -1935,29 +1924,6 @@ export type AppointmentTermInput = {
   to?: Maybe<Scalars['Date']>;
 };
 
-export type DraftAppointmentInput = {
-  id?: Maybe<Scalars['ID']>;
-  title?: Maybe<Scalars['String']>;
-  from?: Maybe<Scalars['Date']>;
-  to?: Maybe<Scalars['Date']>;
-  alternativeTerms?: Maybe<Array<AppointmentTermInput>>;
-  allDay?: Maybe<Scalars['Boolean']>;
-  confirmedDate?: Maybe<Scalars['Boolean']>;
-  repeatAppointment?: Maybe<AppointmentRepeat>;
-  description?: Maybe<Scalars['String']>;
-  assignedPimIds?: Maybe<Array<Scalars['String']>>;
-  agreementType?: Maybe<Array<Maybe<AppointmentMeetingType>>>;
-  invitedPersons?: Maybe<Array<Scalars['String']>>;
-  isInsideOffice?: Maybe<Scalars['Boolean']>;
-  location?: Maybe<Scalars['String']>;
-  outsideLocation?: Maybe<Scalars['String']>;
-  travelTimeBefore?: Maybe<Scalars['Int']>;
-  travelTimeAfter?: Maybe<Scalars['Int']>;
-  type?: Maybe<CalendarTypes>;
-  appointmentType?: Maybe<AppointmentType>;
-  taskLabel?: Maybe<TaskLabel>;
-};
-
 export type AddAppointmentInput = {
   accountId: Scalars['ID'];
   title?: Maybe<Scalars['String']>;
@@ -2943,6 +2909,7 @@ export type DmsFolder = {
   type: DmsFolderType;
   order?: Maybe<Scalars['Int']>;
   deletedAt?: Maybe<Scalars['Date']>;
+  isEmailFolder?: Maybe<Scalars['Boolean']>;
 };
 
 export type CreateDmsFolderInput = {
@@ -9964,44 +9931,6 @@ export type AddAppointmentMutation = { __typename?: 'Mutation' } & {
   >;
 };
 
-export type DraftAppointmentMutationVariables = Exact<{
-  input: DraftAppointmentInput;
-}>;
-
-export type DraftAppointmentMutation = { __typename?: 'Mutation' } & {
-  draftAppointment: { __typename?: 'DraftAppointment' } & Pick<
-    DraftAppointment,
-    | 'id'
-    | 'from'
-    | 'to'
-    | 'travelTimeBefore'
-    | 'travelTimeAfter'
-    | 'title'
-    | 'allDay'
-    | 'type'
-    | 'isInsideOffice'
-    | 'location'
-    | 'outsideLocation'
-    | 'taskLabel'
-    | 'state'
-    | 'agreementType'
-    | 'repeatAppointment'
-    | 'description'
-    | 'appointmentType'
-    | 'assignedPimIds'
-    | 'invitedPersons'
-  >;
-};
-
-export type ConfirmAppointmentMutationVariables = Exact<{
-  appointmentId: Scalars['ID'];
-  accountId: Scalars['String'];
-}>;
-
-export type ConfirmAppointmentMutation = { __typename?: 'Mutation' } & {
-  confirmAppointment: { __typename?: 'Appointment' } & Pick<Appointment, 'id'>;
-};
-
 export type CreateCompanyMutationVariables = Exact<{
   input: CreateCompanyInput;
 }>;
@@ -12617,7 +12546,7 @@ export type ListDmsFoldersQuery = { __typename?: 'Query' } & {
     Array<
       { __typename?: 'DmsFolder' } & Pick<
         DmsFolder,
-        'id' | 'entityId' | 'companyId' | 'foldername' | 'entityType' | 'type' | 'order' | 'deletedAt'
+        'id' | 'entityId' | 'companyId' | 'foldername' | 'entityType' | 'type' | 'order' | 'deletedAt' | 'isEmailFolder'
       >
     >
   >;
@@ -16420,7 +16349,8 @@ export type BulkMutationResult = ApolloReactCommon.MutationResult<BulkMutation>;
 export type BulkMutationOptions = ApolloReactCommon.BaseMutationOptions<BulkMutation, BulkMutationVariables>;
 export const AddAppointmentDocument = gql`
   mutation AddAppointment($input: AddAppointmentInput!) {
-    addAppointment(input: $input) {
+    addAppointment(input: $input)
+      @rest(type: "AddAppointment", path: "/calendar-addappointment", method: "POST", endpoint: "default") {
       id
       from
       to
@@ -16456,66 +16386,6 @@ export type AddAppointmentMutationResult = ApolloReactCommon.MutationResult<AddA
 export type AddAppointmentMutationOptions = ApolloReactCommon.BaseMutationOptions<
   AddAppointmentMutation,
   AddAppointmentMutationVariables
->;
-export const DraftAppointmentDocument = gql`
-  mutation DraftAppointment($input: DraftAppointmentInput!) {
-    draftAppointment(input: $input) {
-      id
-      from
-      to
-      travelTimeBefore
-      travelTimeAfter
-      title
-      allDay
-      type
-      isInsideOffice
-      location
-      outsideLocation
-      taskLabel
-      state
-      agreementType
-      repeatAppointment
-      description
-      appointmentType
-      assignedPimIds
-      invitedPersons
-    }
-  }
-`;
-export function useDraftAppointmentMutation(
-  baseOptions?: ApolloReactHooks.MutationHookOptions<DraftAppointmentMutation, DraftAppointmentMutationVariables>,
-) {
-  return ApolloReactHooks.useMutation<DraftAppointmentMutation, DraftAppointmentMutationVariables>(
-    DraftAppointmentDocument,
-    baseOptions,
-  );
-}
-export type DraftAppointmentMutationHookResult = ReturnType<typeof useDraftAppointmentMutation>;
-export type DraftAppointmentMutationResult = ApolloReactCommon.MutationResult<DraftAppointmentMutation>;
-export type DraftAppointmentMutationOptions = ApolloReactCommon.BaseMutationOptions<
-  DraftAppointmentMutation,
-  DraftAppointmentMutationVariables
->;
-export const ConfirmAppointmentDocument = gql`
-  mutation ConfirmAppointment($appointmentId: ID!, $accountId: String!) {
-    confirmAppointment(appointmentId: $appointmentId, accountId: $accountId) {
-      id
-    }
-  }
-`;
-export function useConfirmAppointmentMutation(
-  baseOptions?: ApolloReactHooks.MutationHookOptions<ConfirmAppointmentMutation, ConfirmAppointmentMutationVariables>,
-) {
-  return ApolloReactHooks.useMutation<ConfirmAppointmentMutation, ConfirmAppointmentMutationVariables>(
-    ConfirmAppointmentDocument,
-    baseOptions,
-  );
-}
-export type ConfirmAppointmentMutationHookResult = ReturnType<typeof useConfirmAppointmentMutation>;
-export type ConfirmAppointmentMutationResult = ApolloReactCommon.MutationResult<ConfirmAppointmentMutation>;
-export type ConfirmAppointmentMutationOptions = ApolloReactCommon.BaseMutationOptions<
-  ConfirmAppointmentMutation,
-  ConfirmAppointmentMutationVariables
 >;
 export const CreateCompanyDocument = gql`
   mutation CreateCompany($input: CreateCompanyInput!) {
@@ -21179,7 +21049,8 @@ export type BulkDetailsLazyQueryHookResult = ReturnType<typeof useBulkDetailsLaz
 export type BulkDetailsQueryResult = ApolloReactCommon.QueryResult<BulkDetailsQuery, BulkDetailsQueryVariables>;
 export const ListCalendarDocument = gql`
   query ListCalendar($input: AppointmentSearch!) {
-    listCalendar(input: $input) {
+    listCalendar(input: $input)
+      @rest(type: "ListCalendar", path: "/calendar-search", method: "POST", endpoint: "default") {
       id
       from
       to
@@ -21220,7 +21091,8 @@ export type ListCalendarLazyQueryHookResult = ReturnType<typeof useListCalendarL
 export type ListCalendarQueryResult = ApolloReactCommon.QueryResult<ListCalendarQuery, ListCalendarQueryVariables>;
 export const GetAppointmentDocument = gql`
   query GetAppointment($appointmentId: ID!) {
-    getAppointment(appointmentId: $appointmentId) {
+    getAppointment(appointmentId: $appointmentId)
+      @rest(type: "GetAppointment", path: "/calendar-getappointment", method: "POST", endpoint: "default") {
       id
       from
       to
@@ -21863,6 +21735,7 @@ export const ListDmsFoldersDocument = gql`
       type
       order
       deletedAt
+      isEmailFolder
     }
   }
 `;
@@ -27226,12 +27099,7 @@ export type GetQuestionaireQueryResult = ApolloReactCommon.QueryResult<
 export const ListQuestionaireGroupsDocument = gql`
   query ListQuestionaireGroups($templateId: ID!) {
     listQuestionaireGroups(templateId: $templateId)
-      @rest(
-        type: "ListQuestionaireGroups"
-        path: "/groups?templateId={args.templateId}"
-        method: "GET"
-        endpoint: "default"
-      ) {
+      @rest(type: "ListQuestionaireGroups", path: "/groups/{args.templateId}", method: "GET", endpoint: "default") {
       id
       templateId
       groupName

@@ -1,19 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import clsx from 'classnames';
-import { useQueryParam, StringParam } from 'use-query-params';
 import { useHistory } from 'react-router';
 
 import { Box, Card, CardContent, CardHeader, Grid, IconButton, Menu, MenuItem, Typography } from 'ui/atoms';
 import { AddIcon, ClockIcon, DeleteIcon, MenuIcon } from 'ui/atoms/icons';
 import { Page } from 'ui/templates';
-import { useAuthState, useLocale, useModalDispatch, useModalState } from 'hooks';
+import { useLocale, useModalDispatch, useModalState } from 'hooks';
 import { ActionTab } from 'ui/molecules/actionTabs/ActionTabs.types';
 import { ActionTabs, InfoSection } from 'ui/molecules';
-import { useAuthorizeNylasAccountWithTokenMutation, useGetNylasAuthUrlLazyQuery } from 'api/types';
 import { AppRoute } from 'routing/AppRoute.enum';
 
 import { AddNewAccountModal } from './addNewAccountModal/AddNewAccountModal';
@@ -25,6 +23,7 @@ export const CalendarSettings = ({
   onSidebarOpen,
   isSidebarVisible,
   accounts,
+  onAddNewAccount,
 }: CalendarSettingsProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
@@ -32,39 +31,8 @@ export const CalendarSettings = ({
   const { open, close } = useModalDispatch();
   const [menuEl, setMenuEl] = useState<HTMLElement | null>(null);
   const [status, setStatus] = useState<'active' | 'inactive'>('active');
-  const [authorizeNylasAccountWithToken] = useAuthorizeNylasAccountWithTokenMutation();
-  const [getNylasAuthUrl, { data: nylasAuthUrl }] = useGetNylasAuthUrlLazyQuery();
-
-  const [nylasAuthCode, setNylasAuthCode] = useQueryParam('code', StringParam);
-  const { accessToken } = useAuthState();
 
   const { push } = useHistory();
-
-  useEffect(() => {
-    const addNylasAccount = async () => {
-      try {
-        if (nylasAuthCode) {
-          const account = await authorizeNylasAccountWithToken({
-            variables: {
-              input: { nylasToken: nylasAuthCode, isCalendarConnected: true },
-            },
-          });
-
-          if (account) {
-            window.location.href = window.location.href.split('?')[0];
-          }
-        }
-      } catch (error) {}
-    };
-
-    if (nylasAuthCode) {
-      addNylasAccount();
-    }
-  }, [accessToken, authorizeNylasAccountWithToken, nylasAuthCode, setNylasAuthCode]);
-
-  if (nylasAuthUrl?.getNylasAuthUrl) {
-    window.open(nylasAuthUrl.getNylasAuthUrl, '_blank');
-  }
 
   const onMenuClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event.stopPropagation();
@@ -177,21 +145,7 @@ export const CalendarSettings = ({
       <AddNewAccountModal
         isOpened={isOpen}
         onClose={() => close('add-new-calendar-account')}
-        onSubmit={async (values): Promise<boolean> => {
-          const options = {
-            loginHint: values.email,
-            redirectURI: window.location.href,
-            scopes: ['email.modify', 'email.send', 'calendar', 'contacts'],
-          };
-
-          await getNylasAuthUrl({
-            variables: {
-              input: options,
-            },
-          });
-
-          return true;
-        }}
+        onSubmit={onAddNewAccount}
       />
       <Menu
         id="calendar-account-settings-row-menu"

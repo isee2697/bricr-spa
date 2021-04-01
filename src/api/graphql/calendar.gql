@@ -119,29 +119,6 @@ input AppointmentTermInput {
     to: Date
 }
 
-input DraftAppointmentInput {
-    id: ID
-    title: String
-    from: Date
-    to: Date
-    alternativeTerms: [AppointmentTermInput!]
-    allDay: Boolean
-    confirmedDate: Boolean
-    repeatAppointment: AppointmentRepeat
-    description: String
-    assignedPimIds: [String!]
-    agreementType: [AppointmentMeetingType]
-    invitedPersons: [String!]
-    isInsideOffice: Boolean
-    location: String
-    outsideLocation: String
-    travelTimeBefore: Int
-    travelTimeAfter: Int
-    type: CalendarTypes
-    appointmentType: AppointmentType
-    taskLabel: TaskLabel
-}
-
 input AddAppointmentInput {
     accountId: ID!
     title: String
@@ -176,8 +153,6 @@ input AppointmentSearch {
 }
 
 extend type Mutation {
-    draftAppointment(input: DraftAppointmentInput!): DraftAppointment! @auth
-    confirmAppointment(accountId: String!, appointmentId: ID!): Appointment! @auth
     addAppointment(input: AddAppointmentInput!): Appointment! @auth
 }
 
