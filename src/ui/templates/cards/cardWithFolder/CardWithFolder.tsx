@@ -54,7 +54,7 @@ export const CardWithFolder = ({
   ]);
 
   return (
-    <Card className={classes.root}>
+    <Card data-testid="card-with-folder" className={classes.root}>
       <CardHeader
         title={title}
         action={

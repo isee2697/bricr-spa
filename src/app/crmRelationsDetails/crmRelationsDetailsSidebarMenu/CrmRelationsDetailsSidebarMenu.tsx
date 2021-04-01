@@ -35,12 +35,6 @@ export const CrmRelationsDetailsSidebarMenu = ({ onHide, isVisible, crm }: CrmRe
           {
             key: 'customer_journey',
             icon: <NcRentIcon />,
-            subItems: [
-              {
-                id: 'your_new_home',
-                label: 'crm.details.menu.customer_journey.your_new_home',
-              },
-            ],
           },
           { key: 'timeline', icon: <ClockIcon /> },
           { key: 'summary', icon: <DocIcon /> },

@@ -826,3 +826,31 @@ export const CRM_DOCUMENT_TIMELINE: Timeline[] = [
     },
   },
 ];
+
+export const CRM_RELATIONS_CUSTOMER_JOURNEY_BUYER: CrmRelationsDetailsCustomerJourneyType[] = [
+  {
+    id: '0001',
+    image: 'http://placeimg.com/176/112/arch',
+    dateCreated: DateTime.local(),
+    name: 'Van der Meerstraat 45, Amersfoort',
+    size: 65,
+    rooms: 2,
+    properties: [CrmRelationsCustomerJourneyProperty.Apartment],
+    propertyRelatedItems: [CrmRelationsCustomerJourneyProperty.Balcony, CrmRelationsCustomerJourneyProperty.Terrace],
+    price: 358000,
+    matchStrength: 0.56,
+    finalPrice: 350000,
+    finalPriceUpdated: DateTime.local(),
+    conditions: {
+      takeOverListOfCases: true,
+      technicalBuildingInspection: true,
+      reservationOfFunding: true,
+    },
+    requiredDocuments: {
+      salesContract: true,
+      driverLicense: true,
+      employmentConfirmation: false,
+    },
+    status: 'Candidate',
+  },
+];

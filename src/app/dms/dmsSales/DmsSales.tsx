@@ -1,14 +1,11 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
 
 import { DmsEntityType } from 'api/types';
 import { FoldersContainer } from 'app/shared/dms/folders/FoldersContainer';
 
 import { DmsSalesProps } from './DmsSales.types';
 
-export const DmsSales = ({ sales, isLoading }: DmsSalesProps) => {
-  const { type } = useParams<{ type: string }>();
-
+export const DmsSales = ({ sales, isLoading, type, pagination }: DmsSalesProps) => {
   return (
     <FoldersContainer
       entityItems={sales.map(item => ({
@@ -18,6 +15,7 @@ export const DmsSales = ({ sales, isLoading }: DmsSalesProps) => {
       entityType={DmsEntityType.Sales}
       type={type}
       isLoading={isLoading}
+      pagination={pagination}
     />
   );
 };
