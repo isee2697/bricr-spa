@@ -6,7 +6,7 @@ export const useStateQuery: <T>(p: StateQueryProps<T>) => ReturnStateQuery<T> = 
   const { state } = useLocation<{ newlyAdded: boolean; data: object }>();
 
   const skip = !!state?.newlyAdded && !!state?.data;
-  const { loading, error, data: response } = query({
+  const { loading, error, data: response, refetch } = query({
     variables,
     skip,
   });
@@ -27,5 +27,5 @@ export const useStateQuery: <T>(p: StateQueryProps<T>) => ReturnStateQuery<T> = 
     });
   }
 
-  return { error, loading, data };
+  return { error, loading, data, refetch };
 };
