@@ -13,6 +13,7 @@ import {
   useGetQuestionaireQuery,
   useUpdateTemplateGeneralMutation,
 } from 'api/types';
+import { useGetTemplateType } from '../../../hooks';
 
 import { DmsTemplateConfigureSettingsDetails } from './dmsTemplateConfigureSettingsDetails/DmsTemplateConfigureSettingsDetails';
 import { DmsTemplateDetailsContainerProps, DocumentType } from './DmsTemplateDetailsContainer.types';
@@ -20,9 +21,10 @@ import { DmsTemplateDetailsContainerProps, DocumentType } from './DmsTemplateDet
 export const DmsTemplateDetailsContainer = (props: DmsTemplateDetailsContainerProps) => {
   const { formatMessage } = useLocale();
   const { id } = useParams<{ id: string }>();
+  const type = useGetTemplateType();
   const { loading, data: loadedData } = useStateQuery({
     query: useGetQuestionaireQuery,
-    variables: { id },
+    variables: { id, type: type.toString() },
   });
 
   const [updateGeneral] = useUpdateTemplateGeneralMutation();
@@ -39,13 +41,14 @@ export const DmsTemplateDetailsContainer = (props: DmsTemplateDetailsContainerPr
         variables: {
           input: {
             id,
+            type,
             ...form,
           },
         },
         refetchQueries: [
           {
             query: GetQuestionaireDocument,
-            variables: { id },
+            variables: { id, type },
           },
         ],
       });
@@ -65,11 +68,7 @@ export const DmsTemplateDetailsContainer = (props: DmsTemplateDetailsContainerPr
           render={() => (
             <GeneralPageSettings
               types={Object.keys(DocumentType)}
-              data={{
-                id: data.id,
-                meta: data.meta,
-                settings: data.settings,
-              }}
+              data={data}
               onSave={handleSaveGeneral}
               updatedBy={{
                 id: '0001',
@@ -90,11 +89,7 @@ export const DmsTemplateDetailsContainer = (props: DmsTemplateDetailsContainerPr
             <Security
               title={data.templateName ?? ''}
               onSave={handleSaveGeneral}
-              data={{
-                id: data.id,
-                meta: data.meta,
-                securities: data.securities,
-              }}
+              data={data}
               updatedBy={{
                 id: '0001',
                 firstName: 'Christian',
