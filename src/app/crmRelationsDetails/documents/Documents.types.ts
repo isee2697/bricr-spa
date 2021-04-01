@@ -7,17 +7,7 @@ export type DocumentsContainerProps = {
   title: string;
 };
 
-export type DocumentsProps = {
-  path: string;
-  onSidebarOpen: VoidFunction;
-  isSidebarVisible: boolean;
-  title: string;
-  documents?: DocumentFolderType[];
-  onAddFolder?: (folderName: string) => void;
-  onDeleteFolder?: (id: string) => void;
-  onUpdateFolder?: (folder: DocumentFolderType) => void;
-  onUploadFiles?: (folder: DocumentFolderType, files: File[]) => void;
-};
+export type DocumentsProps = DocumentsContainerProps;
 
 export enum DocumentStatus {
   Requested = 'Requested',
@@ -39,6 +29,7 @@ export type DocumentFolderType = {
   documents?: Document[];
   isEmailFolder?: boolean;
   isUserFolder?: boolean;
+  order?: number | null;
 };
 
 export type Document = {

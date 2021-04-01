@@ -1,7 +1,11 @@
-import { NylasAuthorizationInput } from 'api/types';
+import { PromiseFunction } from 'app/shared/types';
 
 export type AddNewAccountModalProps = {
   isOpened: boolean;
   onClose: VoidFunction;
-  onSubmit: (values: NylasAuthorizationInput) => Promise<boolean>;
+  onSubmit: PromiseFunction<AddNewAccountBody>;
+};
+
+export type AddNewAccountBody = {
+  email: string;
 };

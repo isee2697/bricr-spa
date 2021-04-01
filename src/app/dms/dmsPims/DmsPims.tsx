@@ -5,7 +5,7 @@ import { FoldersContainer } from 'app/shared/dms/folders/FoldersContainer';
 
 import { DmsPimsProps } from './DmsPims.types';
 
-export const DmsPims = ({ pims, type, isLoading, pagination }: DmsPimsProps) => {
+export const DmsPims = ({ pims, type, isLoading, pagination, sorting }: DmsPimsProps) => {
   return (
     <FoldersContainer
       entityItems={(pims.listPims.items || []).map(item => ({
@@ -16,6 +16,7 @@ export const DmsPims = ({ pims, type, isLoading, pagination }: DmsPimsProps) => 
       type={type}
       isLoading={isLoading}
       pagination={pagination}
+      sorting={sorting}
     />
   );
 };

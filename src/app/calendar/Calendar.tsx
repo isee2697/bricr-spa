@@ -8,7 +8,7 @@ import { NavBreadcrumb } from 'ui/atoms';
 import { useLocale } from 'hooks';
 
 import { CalendarProps } from './Calendar.types';
-import { CalendarSettings } from './settings/Settings';
+import { CalendarSettingsContainer } from './settings/SettingsContainer';
 import { AppointmentModal } from './appointmentModal/AppointmentModal';
 
 export const Calendar = ({ teamMembers, accounts, groups }: CalendarProps) => {
@@ -22,7 +22,7 @@ export const Calendar = ({ teamMembers, accounts, groups }: CalendarProps) => {
           exact
           path={`${AppRoute.calendar}/settings`}
           render={() => (
-            <CalendarSettings
+            <CalendarSettingsContainer
               isSidebarVisible={true}
               onSidebarClose={() => {}}
               onSidebarOpen={() => {}}
