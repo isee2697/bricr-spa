@@ -235,7 +235,7 @@ extend type Mutation {
 
 extend type Query {
     getQuestionaires(filters: ListQuestionairesFilters!, pagination: Pagination, search: String): TemplatesResponse!  @auth
-    getQuestionaire(id: ID!): Questionaire @auth
+    getQuestionaire(id: ID!, type: String): Questionaire @auth
     listQuestionaireGroups(templateId: ID!): [Groups!] @auth
     getQuestionaireGroup(id: ID!): Groups @auth
     listQuestions(groupId: ID!): [Question!] @auth
