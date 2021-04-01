@@ -4,7 +4,6 @@ export const useStyles = makeStyles(theme => ({
   badge: {
     color: theme.palette.gray.main,
     background: theme.palette.gray.light,
-
     '&.ActionRequired': {
       color: theme.palette.white.main,
       background: theme.palette.error.main,
