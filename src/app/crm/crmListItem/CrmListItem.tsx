@@ -3,6 +3,7 @@ import clsx from 'classnames';
 import { useHistory } from 'react-router-dom';
 import { useTheme } from '@material-ui/core';
 
+
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { Avatar, Box, Typography, UserAvatar, ProgressFilling, Chip } from 'ui/atoms';
 import { MailIcon, HeadIcon, PhoneIcon } from 'ui/atoms/icons';
@@ -76,13 +77,14 @@ export const CrmListItem = ({ crm, renderAction }: CrmListItemProps) => {
   return (
     <Box
       display="flex"
+      flexGrow='3'
       width="100%"
       flexDirection="column"
       className={clsx(classes.cursor, crm.status === CrmStatus.Inactive && classes.inactive)}
       onClick={() => push(AppRoute.crmRelationsDetails.replace(':id', crm.id))}
       pb={2}
     >
-      <Box display="flex" mb={3}>
+      <Box display="flex" mb={3} >
         <Box>
           <Avatar variant="circle" src={avatar?.url || ''} className={classes.image}>
             {!avatar && (
@@ -95,7 +97,7 @@ export const CrmListItem = ({ crm, renderAction }: CrmListItemProps) => {
             )}
           </Avatar>
         </Box>
-        <Box width="100%">
+        <Box flexGrow={1} className={classes.content}>
           <Box display="flex" justifyContent="space-between" mb={2}>
             <Box>
               <Box>
@@ -155,7 +157,7 @@ export const CrmListItem = ({ crm, renderAction }: CrmListItemProps) => {
       </Box>
       <Box display="flex" justifyContent="space-between">
         <Box className={classes.infoProgress} mr={1}>
-          <Box mb={1}>{formatMessage({ id: 'property_item.info_completed' })}</Box>
+          <Box mb={1} >{formatMessage({ id: 'property_item.info_completed' })}</Box>
           <ProgressFilling progress={completeness} />
         </Box>
         <Box display="flex">

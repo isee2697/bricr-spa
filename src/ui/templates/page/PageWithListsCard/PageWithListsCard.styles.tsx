@@ -1,7 +1,7 @@
 import { makeStyles } from '@material-ui/core';
 
 export const useStyles = (isTable?: boolean) =>
-  makeStyles(({ palette, shadows, spacing }) => ({
+  makeStyles(({ palette, shadows, spacing, breakpoints }) => ({
     header: {
       marginBottom: spacing(3),
     },
@@ -33,6 +33,13 @@ export const useStyles = (isTable?: boolean) =>
         padding: spacing(1),
         marginLeft: spacing(1.3),
         marginRight: spacing(1.3),
+        backgroundColor: 'yellow',
+        [breakpoints.down('sm')]: {
+          marginLeft: 0,
+          marginRight: 0,
+         
+        },
+
       },
       display: 'flex',
       alignItems: isTable ? 'center' : 'flex-start',
@@ -56,6 +63,18 @@ export const useStyles = (isTable?: boolean) =>
     rowItem: {
       width: '100%',
       cursor: 'pointer',
+      backgroundColor: 'green',
+      [breakpoints.down('sm')]: {
+        marginLeft: 0,
+        marginRight: 900,
+        paddingLeft: 0,
+        width: 40,
+        height: 210,
+      },
+      '& .MuiBox-root': {
+        paddingLeft: 0,
+        paddingTop: 0,
+      }
     },
     tableActionCell: {
       cursor: 'pointer',

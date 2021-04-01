@@ -12,7 +12,8 @@ export const CrmSubHeader = ({ viewMode = 'list', setViewMode, activeFilters, on
   const classes = useStyles();
 
   return (
-    <Box display="flex" alignItems="center">
+    <Box display={{ xs: 'none', sm: 'block', lg: 'flex' }} alignItems="center">
+      
       <IconButton
         variant="rounded"
         size="small"
