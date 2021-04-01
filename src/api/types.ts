@@ -1828,6 +1828,7 @@ export type QueryGetProjectPhasesArgs = {
 
 export type QueryGetQuestionaireArgs = {
   id: Scalars['ID'];
+  type?: Maybe<Scalars['String']>;
 };
 
 
@@ -16178,6 +16179,7 @@ export type GetTeamDetailsQuery = (
 
 export type GetQuestionaireQueryVariables = Exact<{
   id: Scalars['ID'];
+  type?: Maybe<Scalars['String']>;
 }>;
 
 
@@ -24605,8 +24607,8 @@ export type GetTeamDetailsQueryHookResult = ReturnType<typeof useGetTeamDetailsQ
 export type GetTeamDetailsLazyQueryHookResult = ReturnType<typeof useGetTeamDetailsLazyQuery>;
 export type GetTeamDetailsQueryResult = ApolloReactCommon.QueryResult<GetTeamDetailsQuery, GetTeamDetailsQueryVariables>;
 export const GetQuestionaireDocument = gql`
-    query GetQuestionaire($id: ID!) {
-  getQuestionaire(id: $id) @rest(type: "Questionaire", path: "/template/{args.id}", method: "GET", endpoint: "default") {
+    query GetQuestionaire($id: ID!, $type: String) {
+  getQuestionaire(id: $id, type: $type) @rest(type: "Questionaire", path: "/template/{args.type}/{args.id}", method: "GET", endpoint: "default") {
     id
     templateName
     isAdmin
