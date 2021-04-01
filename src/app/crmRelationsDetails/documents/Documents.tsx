@@ -37,6 +37,7 @@ export const Documents = (props: DocumentsProps) => {
               entityType={DmsEntityType.Crm}
               name={title}
               type={'relations'}
+              hideExitButton
             />
           )}
         />

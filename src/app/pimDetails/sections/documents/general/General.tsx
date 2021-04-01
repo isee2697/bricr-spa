@@ -9,5 +9,7 @@ import { DocumentsGeneralProps } from './General.types';
 export const DocumentsGeneral = ({ title }: DocumentsGeneralProps) => {
   const { id } = useParams<{ id: string }>();
 
-  return <SecondaryFolderContainer id={id} name={title ?? ''} type={''} entityType={DmsEntityType.Pim} />;
+  return (
+    <SecondaryFolderContainer id={id} name={title ?? ''} type={''} entityType={DmsEntityType.Pim} hideExitButton />
+  );
 };

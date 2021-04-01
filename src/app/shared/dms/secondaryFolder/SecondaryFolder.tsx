@@ -13,7 +13,15 @@ import { AppRoute } from 'routing/AppRoute.enum';
 
 import { SecondaryFolderProps } from './SecondaryFolder.types';
 
-export const SecondaryFolder = ({ name, type, entityType, onAddFolder, folders }: SecondaryFolderProps) => {
+export const SecondaryFolder = ({
+  name,
+  type,
+  entityType,
+  onAddFolder,
+  folders,
+  hideExitButton = false,
+  onExit,
+}: SecondaryFolderProps) => {
   const { formatMessage } = useLocale();
   const { entityId } = useParams<{ entityId: string }>();
   const { push } = useHistory();
@@ -55,10 +63,16 @@ export const SecondaryFolder = ({ name, type, entityType, onAddFolder, folders }
       title={name}
       titleActions={[]}
       headerProps={{
-        customAction: (
-          <IconButton size="small" variant="rounded" onClick={() => push(`${AppRoute.dms}/${entityType}/${type}`)}>
+        customAction: !hideExitButton ? (
+          <IconButton
+            size="small"
+            variant="rounded"
+            onClick={() => (onExit ? onExit() : push(`${AppRoute.dms}/${entityType}/${type}`))}
+          >
             <ExitIcon />
           </IconButton>
+        ) : (
+          undefined
         ),
       }}
       onAddFolder={folderName => {
