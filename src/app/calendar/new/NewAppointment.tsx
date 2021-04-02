@@ -1,4 +1,5 @@
 import React from 'react';
+import { Form } from 'react-final-form';
 import arrayMutators from 'final-form-arrays';
 import { useHistory } from 'react-router-dom';
 import clsx from 'classnames';
@@ -6,9 +7,8 @@ import clsx from 'classnames';
 import { Box, Button, Grid, IconButton } from 'ui/atoms';
 import { useLocale } from 'hooks';
 import { Page } from 'ui/templates';
-import { BuildingIcon, CrmIcon, GraphIcon, HomeIcon, ExitIcon, TasksIcon } from 'ui/atoms/icons';
-import { AddAppointmentInput, CalendarTypes } from 'api/types';
-import { AutosaveForm } from 'ui/organisms';
+import { BuildingIcon, CrmIcon, GraphIcon, HomeIcon, ExitIcon, TasksIcon, AddIcon } from 'ui/atoms/icons';
+import { CalendarTypes } from 'api/types';
 import { ListOptionsMenuItem } from 'ui/molecules/listOptionsMenu/menuItem/ListOptionsMenuItem';
 import { ListOptionsMenu } from 'ui/molecules';
 
@@ -22,31 +22,17 @@ import { CheckboxesCard } from './cards/checkboxesCard/CheckboxesCard';
 import { useStyles } from './NewAppointment.styles';
 import { PencilAppointment } from './cards/pencilAppointment/PencilAppointment';
 
-export const NewAppointment = ({
-  members,
-  locations,
-  appointmentInfo,
-  onSubmit,
-  onConfirm,
-  loading,
-  isEdit,
-}: NewAppointmentProps) => {
+export const NewAppointment = ({ members, locations, appointmentInfo, onSubmit, loading }: NewAppointmentProps) => {
   const { goBack } = useHistory();
   const { formatMessage } = useLocale();
   const classes = useStyles();
 
-  const handleSave = async (values: AddAppointmentInput) => {
-    await onSubmit(values);
-
-    return undefined;
-  };
-
   return (
-    <AutosaveForm
+    <Form
       initialValues={appointmentInfo}
       keepDirtyOnReinitialize
       mutators={{ ...arrayMutators }}
-      onSave={handleSave}
+      onSubmit={values => onSubmit(values)}
     >
       {({ handleSubmit, values }) => (
         <form onSubmit={handleSubmit} autoComplete="off">
@@ -56,14 +42,6 @@ export const NewAppointment = ({
             title={formatMessage({ id: 'appointment.new.title' })}
             titleActions={
               <Box display="flex" alignItems="center">
-                {!isEdit && (
-                  <>
-                    <Button variant="contained" color="primary" onClick={onConfirm} disabled={loading}>
-                      {formatMessage({ id: 'calendar.appointments.create_appointment.confirm' })}
-                    </Button>
-                    <Box ml={4} />
-                  </>
-                )}
                 <IconButton size="small" variant="roundedContained" className={classes.btnWhite}>
                   <TasksIcon />
                 </IconButton>
@@ -84,6 +62,9 @@ export const NewAppointment = ({
                   <GraphIcon />
                 </IconButton>
                 <Box ml={1} />
+                <Button type="submit" variant="contained" color="primary" disabled={loading}>
+                  <AddIcon color="inherit" /> {formatMessage({ id: 'calendar.appointments.create_appointment.add' })}
+                </Button>
                 <ListOptionsMenu id="new-appointment-setting-menu" onDeleteClick={() => {}} hideEditButton>
                   <ListOptionsMenuItem
                     title={formatMessage({
@@ -143,6 +124,6 @@ export const NewAppointment = ({
           </Page>
         </form>
       )}
-    </AutosaveForm>
+    </Form>
   );
 };

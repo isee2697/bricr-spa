@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { DateTime } from 'luxon';
 import { useHistory } from 'react-router-dom';
 import { AppointmentModel } from '@devexpress/dx-react-scheduler';
@@ -36,7 +36,7 @@ import { DateView } from 'ui/molecules/calendar/Calandar.types';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { SidebarMenu } from '../sidebarMenu/SidebarMenu';
 import { useLayout } from 'context/layout';
-import { AppointmentSearch, CalendarTypes, useListCalendarLazyQuery } from 'api/types';
+import { AppointmentSearch, CalendarTypes, useListCalendarQuery } from 'api/types';
 
 import { GroupDayView } from './group/GroupDayView';
 import { CalendarViewProps } from './CalendarView.types';
@@ -80,24 +80,19 @@ export const CalendarView = ({ account, teamMembers, groups, filters, onFilterCh
 
   const { push } = useHistory();
 
-  const [getListCalendarQuery, { data: calendarData }] = useListCalendarLazyQuery({
+  const { startDate, endDate } = getViewRange(currentView, selectedDate.toJSDate());
+  const searchParams: AppointmentSearch = {
+    accountId: account?.id || '',
+    startDate: startDate.toLocaleDateString(),
+    endDate: endDate.toLocaleDateString(),
+  };
+  const { data: calendarData } = useListCalendarQuery({
     fetchPolicy: 'no-cache',
+    skip: !searchParams || !account,
+    variables: {
+      input: searchParams,
+    },
   });
-
-  useEffect(() => {
-    const { startDate, endDate } = getViewRange(currentView, selectedDate.toJSDate());
-    const searchParams: AppointmentSearch = {
-      accountId: account?.id || '',
-      startDate: startDate.toLocaleDateString(),
-      endDate: endDate.toLocaleDateString(),
-    };
-
-    getListCalendarQuery({
-      variables: {
-        input: searchParams,
-      },
-    });
-  }, [account, currentView, filters.selectedDate, getListCalendarQuery, selectedDate]);
 
   let data: AppointmentModel[] = [];
 

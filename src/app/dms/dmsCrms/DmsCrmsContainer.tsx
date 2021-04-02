@@ -4,9 +4,9 @@ import { useParams } from 'react-router';
 import { CrmStatus, CrmType, ListCrmFilters, useCrmListQuery, useListCrmsCountQuery } from 'api/types';
 import { usePagination } from 'hooks';
 import { PerPageType } from 'ui/atoms/pagination/Pagination.types';
-import { usePimsSorting } from 'app/shared/usePimsSorting/usePimsSorting';
 import { CrmItem } from 'app/crm/Crm.types';
 import { CRM as mockCrm } from 'api/mocks/crm';
+import { useCrmsSorting } from 'app/shared/useCrmsSorting/useCrmsSorting';
 
 import { DmsCrms } from './DmsCrms';
 
@@ -31,7 +31,7 @@ export const DmsCrmsContainer = () => {
     }) ??
     undefined;
 
-  const { query: sortQuery } = usePimsSorting();
+  const { sorting, query: sortQuery } = useCrmsSorting('table');
 
   const { pagination, query: paginationQuery } = usePagination({
     itemsCount: amounts ? amounts[CrmStatus.Active] : 0,
@@ -54,5 +54,5 @@ export const DmsCrmsContainer = () => {
     ...crm,
   }));
 
-  return <DmsCrms crms={crms} isLoading={loading} pagination={pagination} />;
+  return <DmsCrms crms={crms} isLoading={loading} pagination={pagination} sorting={sorting} />;
 };

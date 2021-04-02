@@ -5,6 +5,8 @@ export type SecondaryFolderContainerProps = {
   name: string;
   entityType: DmsEntityType;
   type: string;
+  hideExitButton?: boolean;
+  onExit?: VoidFunction;
 };
 
 export type SecondaryFolderProps = SecondaryFolderContainerProps & {

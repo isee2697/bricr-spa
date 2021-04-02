@@ -1,25 +1,21 @@
 import React from 'react';
 import { useLocation, useRouteMatch } from 'react-router-dom';
-import { DateTime } from 'luxon';
 
 import { SidebarMenu } from 'ui/molecules';
-import { CheckIcon, CloseIcon, LockIcon, SaleIcon, TriggerIcon } from 'ui/atoms/icons';
+import { LockIcon, SaleIcon, TriggerIcon } from 'ui/atoms/icons';
 import { MenuItem } from 'ui/molecules/sidebarMenu/SidebarMenu.types';
-import { Box, Chip, Scrollable, SidebarTitleTile, Step, Stepper, Typography, UserAvatar } from 'ui/atoms';
-import { StageIcon } from 'ui/molecules/propertyStage/stageIcon/StageIcon';
+import { Box, Scrollable, SidebarTitleTile, UserAvatar } from 'ui/atoms';
 import { useLocale } from 'hooks';
+import { QuestionnaireConfigureItems } from 'app/dms/dmsDetailsSidebarMenu/configureItems/questionnaire/QuestionnaireConfigureItems';
 
-import { Connector, Labels, useStyles } from './DocumentQuestionnaireSidebarMenu.styles';
 import { DocumentQuestionnaireSidebarMenuProps } from './DocumentQuestionnaireSidebarMenu.types';
 
 export const DocumentQuestionnaireSidebarMenu = ({
   onHide,
   isVisible,
   data,
-  activeItem,
   onChangeStep,
 }: DocumentQuestionnaireSidebarMenuProps) => {
-  const classes = useStyles();
   const { formatMessage } = useLocale();
   const { url } = useRouteMatch();
   const { pathname } = useLocation();
@@ -62,54 +58,7 @@ export const DocumentQuestionnaireSidebarMenu = ({
           <Box mt={2} />
           {!isOnSecurityPage && (
             <Scrollable width="100%" height={baseSize * data.steps.length}>
-              <Stepper
-                style={{ height: baseSize }}
-                activeStep={activeItem}
-                connector={<Connector />}
-                className={classes.stepper}
-                orientation="vertical"
-              >
-                {data.steps.map(({ title, modifiedAt, approved, declined, status }, index) => (
-                  <Step
-                    completed={index < activeItem}
-                    key={title}
-                    className={`${classes.step} ${index < activeItem && classes.completed}`}
-                    onClick={() => onChangeStep(index)}
-                  >
-                    <Labels
-                      completed={index < activeItem}
-                      icon={<StageIcon active={activeItem === index} completed={index < activeItem} icon={index} />}
-                    >
-                      <Box display="flex" alignItems="flex-start">
-                        <Box display="flex" flexDirection="column" alignItems="flex-start">
-                          <Box my={0.5}>
-                            <Typography variant="h5">{title}</Typography>
-                          </Box>
-                          <Typography variant="h6" className={classes.date}>
-                            {modifiedAt ? DateTime.fromJSDate(new Date(modifiedAt)).toFormat('dd-MM-yyyy') : '-'}
-                          </Typography>
-                        </Box>
-                        {index ? (
-                          <Box display="flex" flexDirection="column" alignItems="flex-start" ml={2}>
-                            <Box display="flex" alignItems="center">
-                              <Box display="flex" alignItems="center" className={classes.checkIcon}>
-                                <CheckIcon color="inherit" fontSize="small" />
-                              </Box>
-                              <Chip className={classes.chipText} label={approved || '-'} />
-                            </Box>
-                            <Box display="flex" alignItems="center" mt={0.5}>
-                              <Box display="flex" alignItems="center" className={classes.closeIcon}>
-                                <CloseIcon color="inherit" fontSize="small" />
-                              </Box>
-                              <Chip className={classes.chipText} label={declined || '-'} />
-                            </Box>
-                          </Box>
-                        ) : null}
-                      </Box>
-                    </Labels>
-                  </Step>
-                ))}
-              </Stepper>
+              <QuestionnaireConfigureItems data={data} onChangeStep={onChangeStep} />
             </Scrollable>
           )}
         </>
