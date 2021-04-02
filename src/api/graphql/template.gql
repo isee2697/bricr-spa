@@ -240,24 +240,3 @@ extend type Query {
     getQuestionaireGroup(id: ID!): Groups @auth
     listQuestions(groupId: ID!): [Question!] @auth
 }
-
-type Security {
-    message: messageType!
-    path: pathType
-    type:String
-    context:contextType
-}
-
-type messageType {
-    message:String
-}
-
-type contextType {
-    child:String
-    label:String
-    key:String
-}
-
-type pathType {
-    type:String
-}
