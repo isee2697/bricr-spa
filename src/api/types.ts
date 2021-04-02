@@ -2910,6 +2910,11 @@ export type DmsFolder = {
   order?: Maybe<Scalars['Int']>;
   deletedAt?: Maybe<Scalars['Date']>;
   isEmailFolder?: Maybe<Scalars['Boolean']>;
+  isQuestionaireFolder?: Maybe<Scalars['Boolean']>;
+  isListOfItemsFolder?: Maybe<Scalars['Boolean']>;
+  isContractsFolder?: Maybe<Scalars['Boolean']>;
+  isSurveyFolder?: Maybe<Scalars['Boolean']>;
+  isInvoicesFolder?: Maybe<Scalars['Boolean']>;
 };
 
 export type CreateDmsFolderInput = {
@@ -12546,7 +12551,20 @@ export type ListDmsFoldersQuery = { __typename?: 'Query' } & {
     Array<
       { __typename?: 'DmsFolder' } & Pick<
         DmsFolder,
-        'id' | 'entityId' | 'companyId' | 'foldername' | 'entityType' | 'type' | 'order' | 'deletedAt' | 'isEmailFolder'
+        | 'id'
+        | 'entityId'
+        | 'companyId'
+        | 'foldername'
+        | 'entityType'
+        | 'type'
+        | 'order'
+        | 'deletedAt'
+        | 'isEmailFolder'
+        | 'isQuestionaireFolder'
+        | 'isListOfItemsFolder'
+        | 'isContractsFolder'
+        | 'isSurveyFolder'
+        | 'isInvoicesFolder'
       >
     >
   >;
@@ -21736,6 +21754,11 @@ export const ListDmsFoldersDocument = gql`
       order
       deletedAt
       isEmailFolder
+      isQuestionaireFolder
+      isListOfItemsFolder
+      isContractsFolder
+      isSurveyFolder
+      isInvoicesFolder
     }
   }
 `;

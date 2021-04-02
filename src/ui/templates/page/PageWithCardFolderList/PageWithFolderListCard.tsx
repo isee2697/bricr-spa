@@ -1,4 +1,5 @@
 import React, { useCallback, useState } from 'react';
+import { DateTime } from 'luxon';
 
 import { Page } from '../Page';
 import { Box, Grid } from 'ui/atoms';
@@ -7,6 +8,8 @@ import { CardWithTable } from '../../cards/cardWithTable/CardWithTable';
 import { FileType, FileTypeView } from '../../cards/cardWithTable/CardWithTable.types';
 import { ClockIcon, HomeIcon } from 'ui/atoms/icons';
 import { DmsFolder } from 'api/types';
+import { EMAILS } from 'api/mocks/email';
+import { InvoiceItems } from 'api/mocks/invoice';
 
 import { PageWithFolderListCardProps } from './PageWithFolderListCard.types';
 import { useStyles } from './PageWithCardFolderList.styles';
@@ -35,7 +38,6 @@ export const PageWithFolderListCard = ({
   ...props
 }: PageWithFolderListCardProps) => {
   const classes = useStyles();
-  const isEmailFolder = false;
 
   const [selectedFolder, setSelectedFolder] = useState<DmsFolder | null>(null);
 
@@ -68,13 +70,43 @@ export const PageWithFolderListCard = ({
                 onAdd={() => {}}
                 titleId={selectedFolder.foldername}
                 titleAmount={0}
-                view={isEmailFolder ? FileTypeView.Email : FileTypeView.File}
-                files={[]}
+                view={
+                  selectedFolder.isEmailFolder
+                    ? FileTypeView.Email
+                    : selectedFolder.isQuestionaireFolder
+                    ? FileTypeView.Questionaire
+                    : selectedFolder.isListOfItemsFolder
+                    ? FileTypeView.ListOfItems
+                    : selectedFolder.isContractsFolder
+                    ? FileTypeView.Contracts
+                    : selectedFolder.isSurveyFolder
+                    ? FileTypeView.Survey
+                    : selectedFolder.isInvoicesFolder
+                    ? FileTypeView.Invoices
+                    : FileTypeView.File
+                }
+                files={
+                  selectedFolder.isEmailFolder
+                    ? (EMAILS as FileType[])
+                    : selectedFolder.isInvoicesFolder
+                    ? ((InvoiceItems as unknown) as FileType[])
+                    : ([
+                        {
+                          ...EMAILS[0],
+                          id: '0001',
+                          name: 'PDF Format',
+                          uri: 'http://localhost',
+                          dateCreated: DateTime.local(),
+                          stepsCompleted: [],
+                          type: 'pdf',
+                        },
+                      ] as FileType[])
+                }
                 onUploadFiles={files => handleUploadFiles(selectedFolder, files)}
                 actions={{
                   onEdit: { exec: () => {} },
                   onDelete: { exec: () => {} },
-                  ...(isEmailFolder ? actions : {}),
+                  ...(selectedFolder.isEmailFolder ? actions : {}),
                 }}
               />
             </Box>

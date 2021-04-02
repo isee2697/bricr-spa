@@ -7,6 +7,18 @@ import { Email } from 'app/email/Email.types';
 export enum FileTypeView {
   Email = 'Email',
   File = 'File',
+  Questionaire = 'Questionaire',
+  ListOfItems = 'ListOfItems',
+  Contracts = 'Contracts',
+  Survey = 'Survey',
+  Invoices = 'Invoices',
+}
+
+export enum InvoicesStepStatus {
+  Created = 'Created',
+  Sent = 'Sent',
+  Accepted = 'Accepted',
+  Paid = 'Paid',
 }
 
 export type FileTypeBase = Document & Email;

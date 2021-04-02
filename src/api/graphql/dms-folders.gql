@@ -41,6 +41,11 @@ type DmsFolder {
     order: Int
     deletedAt: Date
     isEmailFolder: Boolean
+    isQuestionaireFolder: Boolean
+    isListOfItemsFolder: Boolean
+    isContractsFolder: Boolean
+    isSurveyFolder: Boolean
+    isInvoicesFolder: Boolean
 }
 
 input CreateDmsFolderInput {

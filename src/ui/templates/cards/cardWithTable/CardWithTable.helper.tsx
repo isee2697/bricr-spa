@@ -1,17 +1,76 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { ReactNode, useCallback, useEffect, useState } from 'react';
 import { DateTime } from 'luxon';
+import { AnyObject } from 'final-form';
 
-import { PreviewIcon } from 'ui/molecules';
+import { ListTableItem, PreviewIcon } from 'ui/molecules';
 import { Chip, Typography, Box, UserAvatar } from 'ui/atoms';
 import { ListTableCell } from 'ui/molecules/listTableItem/ListTableItem.types';
-import { LinkIcon, PinIcon } from 'ui/atoms/icons';
+import { LinkIcon, PinIcon, SettingsIcon } from 'ui/atoms/icons';
 import { HeaderColumnItemType } from 'ui/molecules/columnModal/ColumnModal.types';
+import { InvoiceItem } from 'app/shared/dms/cardItems/invoiceItem/InvoiceItem';
+import { InvoiceItemStatus, InvoiceItemType } from 'app/shared/dms/cardItems/invoiceItem/InvoiceItem.types';
 
 import { EmailFilters, FileFilters } from './Dictionary';
 import { FileTypeView, FileType } from './CardWithTable.types';
 import { FileHeaderProps } from './CardWithTable.types';
+import { CardWithTableActions } from './actions/CardWithTableActions';
 
 const filesPreviewClassName = 'files-previewer';
+
+export const renderListIndexHeaderCell = (
+  view: FileTypeView,
+  headerCells: ListTableCell<FileType>[],
+  onSettings: (open: boolean) => void,
+) => {
+  if (view === FileTypeView.Email || view === FileTypeView.File) {
+    return (
+      <Box display="flex" flexGrow={1} mr={2}>
+        <Box flexGrow={1}>
+          <ListTableItem headerCells={headerCells} isHeader />
+        </Box>
+        <Box ml={0.5} mr={0.5}>
+          <SettingsIcon onClick={() => onSettings(true)} />
+        </Box>
+      </Box>
+    );
+  } else {
+    return undefined;
+  }
+};
+
+export const showHeaderCell = (view: FileTypeView) => {
+  return view === FileTypeView.Email || view === FileTypeView.File;
+};
+
+type ActionFunction<F> = (file: F) => void;
+
+export const renderItem = (
+  view: FileTypeView,
+  item: FileType,
+  isSelected: boolean,
+  checkbox: ReactNode,
+  headerCells: ListTableCell<FileType>[],
+  actions: AnyObject,
+) => {
+  if (view === FileTypeView.Invoices) {
+    return <InvoiceItem item={(item as unknown) as InvoiceItemType} />;
+  } else {
+    return (
+      <Box className="card-file-list">
+        <Box>{checkbox}</Box>
+        <Box flexGrow={1}>
+          <ListTableItem<FileType>
+            key={item.id}
+            renderCell={renderCardListCell}
+            headerCells={headerCells}
+            item={item}
+          />
+        </Box>
+        <CardWithTableActions item={item} actions={actions} />
+      </Box>
+    );
+  }
+};
 
 export const renderCardListCell = (fieldName: keyof FileType, item?: FileType) => {
   const checkItem = Object.assign(item ?? {});
@@ -147,6 +206,7 @@ export const useCardWithTableState = (view: FileTypeView) => {
   const [isColumnModalOpen, setColumnModalOpen] = useState(false);
   const [isPreviewModalOpen, setPreviewModalOpen] = useState(false);
   const [isUploadModalOpen, setUploadModalOpen] = useState(false);
+  const [invoiceTab, setInvoiceTab] = useState<InvoiceItemStatus>(InvoiceItemStatus.ActionRequired);
 
   const [activeColumns, setActiveColumns] = useState(mapCellsToColumns(baseHeaderCells));
 
@@ -185,5 +245,7 @@ export const useCardWithTableState = (view: FileTypeView) => {
     isPreviewModalOpen,
     setUploadModalOpen,
     isUploadModalOpen,
+    invoiceTab,
+    setInvoiceTab,
   };
 };
