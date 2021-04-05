@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 import { AnyObject } from 'final-form';
 
 import { DocumentsProps } from 'app/crmRelationsDetails/documents/Documents.types';
-import { DmsFolder } from 'api/types';
+import { DmsFile, DmsFolder } from 'api/types';
 import { BasePageProps } from '../Page.types';
 import { PaginationProps } from 'ui/atoms/pagination/Pagination.types';
 import { SortOption } from 'ui/molecules/list/List.types';
@@ -28,4 +28,7 @@ export type PageWithFolderListCardProps = DocumentsProps &
       onSort: (key: string) => void;
     };
     onSelectFolder?: (folder: string) => void;
+    onSelectDmsFolder?: (folder: DmsFolder) => void;
+    files?: DmsFile[];
+    loadingFiles?: boolean;
   };

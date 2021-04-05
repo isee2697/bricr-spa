@@ -307,6 +307,7 @@ export type Mutation = {
   deleteQuestionaireGroup?: Maybe<Scalars['Boolean']>;
   deleteSubtask?: Maybe<Task>;
   forgotPassword?: Maybe<ForgotPasswordResponse>;
+  initCreateDmsFile: DmsFile;
   initSendFile: File;
   linkNcpToProjectPhase: ProjectPhase;
   linkSalesCrms?: Maybe<Array<CrmListItem>>;
@@ -759,6 +760,10 @@ export type MutationDeleteSubtaskArgs = {
 
 export type MutationForgotPasswordArgs = {
   input?: Maybe<ForgotPasswordInput>;
+};
+
+export type MutationInitCreateDmsFileArgs = {
+  input: DmsFileInput;
 };
 
 export type MutationInitSendFileArgs = {
@@ -1332,6 +1337,7 @@ export type Query = {
   getUndoId: Scalars['ID'];
   listAllocates?: Maybe<Array<Allocate>>;
   listCalendar?: Maybe<Array<Appointment>>;
+  listDmsFiles?: Maybe<Array<DmsFile>>;
   listDmsFolders?: Maybe<Array<DmsFolder>>;
   listEmail?: Maybe<Array<EmailListItem>>;
   listEmailFolders?: Maybe<Array<EmailFolderListItem>>;
@@ -1637,6 +1643,10 @@ export type QueryListAllocatesArgs = {
 
 export type QueryListCalendarArgs = {
   input: AppointmentSearch;
+};
+
+export type QueryListDmsFilesArgs = {
+  folderId: Scalars['ID'];
 };
 
 export type QueryListDmsFoldersArgs = {
@@ -2900,6 +2910,7 @@ export type DmsFileInput = {
 export type DmsFileMetaInput = {
   createdAt?: Maybe<Scalars['Date']>;
   deletedAt?: Maybe<Scalars['Date']>;
+  fileType?: Maybe<Scalars['String']>;
 };
 
 export enum DmsEntityType {
@@ -10151,6 +10162,14 @@ export type UpdateCrmHomeSituationMutation = { __typename?: 'Mutation' } & {
   >;
 };
 
+export type InitCreateDmsFileMutationVariables = Exact<{
+  input: DmsFileInput;
+}>;
+
+export type InitCreateDmsFileMutation = { __typename?: 'Mutation' } & {
+  initCreateDmsFile: { __typename?: 'DmsFile' } & Pick<DmsFile, 'id' | 'signedUrl'>;
+};
+
 export type CreateDmsFolderMutationVariables = Exact<{
   input: CreateDmsFolderInput;
 }>;
@@ -12577,6 +12596,24 @@ export type CrmBulkDetailsQueryVariables = Exact<{
 
 export type CrmBulkDetailsQuery = { __typename?: 'Query' } & {
   status?: Maybe<Array<{ __typename?: 'GetBulkResult' } & Pick<GetBulkResult, 'value'>>>;
+};
+
+export type ListDmsFilesQueryVariables = Exact<{
+  folderId: Scalars['ID'];
+}>;
+
+export type ListDmsFilesQuery = { __typename?: 'Query' } & {
+  listDmsFiles?: Maybe<
+    Array<
+      { __typename?: 'DmsFile' } & Pick<
+        DmsFile,
+        'id' | 'folderId' | 'companyId' | 'fileName' | 'isPrivate' | 'signedUrl'
+      > & {
+          entity?: Maybe<{ __typename?: 'Entity' } & Pick<Entity, 'type' | 'subType'>>;
+          meta: { __typename?: 'DmsFileMeta' } & Pick<DmsFileMeta, 'createdAt' | 'deletedAt' | 'fileType'>;
+        }
+    >
+  >;
 };
 
 export type ListDmsFoldersQueryVariables = Exact<{
@@ -16731,6 +16768,29 @@ export type UpdateCrmHomeSituationMutationResult = ApolloReactCommon.MutationRes
 export type UpdateCrmHomeSituationMutationOptions = ApolloReactCommon.BaseMutationOptions<
   UpdateCrmHomeSituationMutation,
   UpdateCrmHomeSituationMutationVariables
+>;
+export const InitCreateDmsFileDocument = gql`
+  mutation InitCreateDmsFile($input: DmsFileInput!) {
+    initCreateDmsFile(input: $input)
+      @rest(type: "InitCreateDmsFile", path: "/dms/files/create", method: "POST", endpoint: "default") {
+      id
+      signedUrl
+    }
+  }
+`;
+export function useInitCreateDmsFileMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<InitCreateDmsFileMutation, InitCreateDmsFileMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<InitCreateDmsFileMutation, InitCreateDmsFileMutationVariables>(
+    InitCreateDmsFileDocument,
+    baseOptions,
+  );
+}
+export type InitCreateDmsFileMutationHookResult = ReturnType<typeof useInitCreateDmsFileMutation>;
+export type InitCreateDmsFileMutationResult = ApolloReactCommon.MutationResult<InitCreateDmsFileMutation>;
+export type InitCreateDmsFileMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  InitCreateDmsFileMutation,
+  InitCreateDmsFileMutationVariables
 >;
 export const CreateDmsFolderDocument = gql`
   mutation CreateDmsFolder($input: CreateDmsFolderInput!) {
@@ -21780,6 +21840,44 @@ export type CrmBulkDetailsQueryResult = ApolloReactCommon.QueryResult<
   CrmBulkDetailsQuery,
   CrmBulkDetailsQueryVariables
 >;
+export const ListDmsFilesDocument = gql`
+  query ListDmsFiles($folderId: ID!) {
+    listDmsFiles(folderId: $folderId)
+      @rest(type: "ListDmsFiles", path: "/dms/files/list/{args.folderId}", method: "GET", endpoint: "default") {
+      id
+      folderId
+      companyId
+      fileName
+      isPrivate
+      entity {
+        type
+        subType
+      }
+      signedUrl
+      meta {
+        createdAt
+        deletedAt
+        fileType
+      }
+    }
+  }
+`;
+export function useListDmsFilesQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<ListDmsFilesQuery, ListDmsFilesQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<ListDmsFilesQuery, ListDmsFilesQueryVariables>(ListDmsFilesDocument, baseOptions);
+}
+export function useListDmsFilesLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<ListDmsFilesQuery, ListDmsFilesQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<ListDmsFilesQuery, ListDmsFilesQueryVariables>(
+    ListDmsFilesDocument,
+    baseOptions,
+  );
+}
+export type ListDmsFilesQueryHookResult = ReturnType<typeof useListDmsFilesQuery>;
+export type ListDmsFilesLazyQueryHookResult = ReturnType<typeof useListDmsFilesLazyQuery>;
+export type ListDmsFilesQueryResult = ApolloReactCommon.QueryResult<ListDmsFilesQuery, ListDmsFilesQueryVariables>;
 export const ListDmsFoldersDocument = gql`
   query ListDmsFolders($entityId: ID!, $withFileAmount: Boolean) {
     listDmsFolders(entityId: $entityId, withFileAmount: $withFileAmount)

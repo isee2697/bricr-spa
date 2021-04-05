@@ -1,5 +1,4 @@
-import React, { useCallback, useState } from 'react';
-import { DateTime } from 'luxon';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import { Page } from '../Page';
 import { Box, Grid } from 'ui/atoms';
@@ -35,11 +34,20 @@ export const PageWithFolderListCard = ({
   cardTitle,
   cardTitleActions,
   cardTitleAmount,
+  files,
+  loadingFiles = false,
+  onSelectDmsFolder,
   ...props
 }: PageWithFolderListCardProps) => {
   const classes = useStyles();
 
   const [selectedFolder, setSelectedFolder] = useState<DmsFolder | null>(null);
+
+  useEffect(() => {
+    if (selectedFolder && onSelectDmsFolder) {
+      onSelectDmsFolder(selectedFolder);
+    }
+  }, [onSelectDmsFolder, selectedFolder]);
 
   const handleUploadFiles = useCallback(
     (folder: DmsFolder, files: File[]) => {
@@ -86,21 +94,18 @@ export const PageWithFolderListCard = ({
                     : FileTypeView.File
                 }
                 files={
-                  selectedFolder.isEmailFolder
+                  (selectedFolder.isEmailFolder
                     ? (EMAILS as FileType[])
                     : selectedFolder.isInvoicesFolder
                     ? ((InvoiceItems as unknown) as FileType[])
-                    : ([
-                        {
-                          ...EMAILS[0],
-                          id: '0001',
-                          name: 'PDF Format',
-                          uri: 'http://localhost',
-                          dateCreated: DateTime.local(),
-                          stepsCompleted: [],
-                          type: 'pdf',
-                        },
-                      ] as FileType[])
+                    : (files || []).map(file => ({
+                        ...file,
+                        name: file.fileName,
+                        type: file.meta.fileType,
+                        dateCreated: file.meta.createdAt,
+                        uri: file.signedUrl,
+                        date: file.meta.createdAt,
+                      }))) as FileType[]
                 }
                 onUploadFiles={files => handleUploadFiles(selectedFolder, files)}
                 actions={{

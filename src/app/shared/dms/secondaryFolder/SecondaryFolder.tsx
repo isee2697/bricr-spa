@@ -1,12 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useHistory, useParams } from 'react-router';
 
 import { IconButton } from 'ui/atoms';
-import { useLocale } from 'hooks/useLocale/useLocale';
-import { DmsDocument } from 'app/dms/Dms.types';
-import { ExitIcon, SeeIcon } from 'ui/atoms/icons';
-import { GeneralPageSettings } from 'app/shared/dms/generalPageSettings/GeneralPageSettings';
-import { DmsDocumentTypes } from 'app/dms/dictionaires';
+import { ExitIcon } from 'ui/atoms/icons';
 import { DmsFolderType } from 'api/types';
 import { PageWithFolderListCard } from 'ui/templates/page/PageWithCardFolderList/PageWithFolderListCard';
 import { AppRoute } from 'routing/AppRoute.enum';
@@ -21,38 +17,13 @@ export const SecondaryFolder = ({
   folders,
   hideExitButton = false,
   onExit,
+  onSelectDmsFolder,
+  files,
+  loadingFiles,
+  onUpload,
 }: SecondaryFolderProps) => {
-  const { formatMessage } = useLocale();
   const { entityId } = useParams<{ entityId: string }>();
   const { push } = useHistory();
-
-  const [selectedDocument, setSelectedDocument] = useState<DmsDocument | null>(null);
-
-  const handleSave = async () => {
-    return undefined;
-  };
-
-  if (selectedDocument) {
-    return (
-      <GeneralPageSettings
-        title={formatMessage({ id: `dms.documents.${entityType}_documents` })}
-        types={DmsDocumentTypes[entityType]?.[type] || []}
-        onSave={handleSave}
-        titleActions={
-          <IconButton size="small" variant="rounded">
-            <SeeIcon />
-          </IconButton>
-        }
-        headerProps={{
-          customAction: (
-            <IconButton size="small" variant="rounded" onClick={() => setSelectedDocument(null)}>
-              <ExitIcon />
-            </IconButton>
-          ),
-        }}
-      />
-    );
-  }
 
   return (
     <PageWithFolderListCard
@@ -85,6 +56,10 @@ export const SecondaryFolder = ({
           });
         }
       }}
+      files={files}
+      loadingFiles={loadingFiles}
+      onSelectDmsFolder={onSelectDmsFolder}
+      onUploadFiles={onUpload}
     />
   );
 };

@@ -29,4 +29,13 @@ input DmsFileInput {
 input DmsFileMetaInput {
   createdAt: Date
   deletedAt: Date
+  fileType: String
+}
+
+extend type Mutation {
+  initCreateDmsFile(input: DmsFileInput!): DmsFile! @auth
+}
+
+extend type Query {
+  listDmsFiles(folderId: ID!): [DmsFile!] @auth
 }
