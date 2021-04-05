@@ -46,6 +46,7 @@ type DmsFolder {
     isContractsFolder: Boolean
     isSurveyFolder: Boolean
     isInvoicesFolder: Boolean
+    filesCount: Int
 }
 
 input CreateDmsFolderInput {
@@ -79,6 +80,6 @@ extend type Mutation {
 }
 
 extend type Query {
-    listDmsFolders(entityId: ID!): [DmsFolder!] @auth
+    listDmsFolders(entityId: ID!, withFileAmount: Boolean): [DmsFolder!] @auth
     getDmsFolder(folderId: ID!): DmsFolder @auth
 }

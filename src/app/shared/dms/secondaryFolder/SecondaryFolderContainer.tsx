@@ -17,6 +17,7 @@ export const SecondaryFolderContainer = (props: SecondaryFolderContainerProps) =
   const { data, loading } = useListDmsFoldersQuery({
     variables: {
       entityId: id,
+      withFileAmount: true,
     },
     fetchPolicy: 'network-only',
   });

@@ -1641,6 +1641,7 @@ export type QueryListCalendarArgs = {
 
 export type QueryListDmsFoldersArgs = {
   entityId: Scalars['ID'];
+  withFileAmount?: Maybe<Scalars['Boolean']>;
 };
 
 export type QueryListEmailArgs = {
@@ -2866,6 +2867,41 @@ export type CrmWithSameInfoInput = {
   phoneNumber?: Maybe<Scalars['String']>;
 };
 
+export type DmsFile = {
+  __typename?: 'DmsFile';
+  id: Scalars['ID'];
+  folderId: Scalars['ID'];
+  companyId: Scalars['ID'];
+  fileName: Scalars['String'];
+  isPrivate: Scalars['Boolean'];
+  entity?: Maybe<Entity>;
+  signedUrl: Scalars['String'];
+  meta: DmsFileMeta;
+};
+
+export type DmsFileMeta = {
+  __typename?: 'DmsFileMeta';
+  createdAt: Scalars['Date'];
+  deletedAt?: Maybe<Scalars['Date']>;
+  fileType?: Maybe<Scalars['String']>;
+};
+
+export type DmsFileInput = {
+  id?: Maybe<Scalars['ID']>;
+  folderId?: Maybe<Scalars['ID']>;
+  companyId?: Maybe<Scalars['ID']>;
+  fileName?: Maybe<Scalars['String']>;
+  isPrivate?: Maybe<Scalars['Boolean']>;
+  entity?: Maybe<EntityInput>;
+  signedUrl?: Maybe<Scalars['String']>;
+  meta?: Maybe<DmsFileMetaInput>;
+};
+
+export type DmsFileMetaInput = {
+  createdAt?: Maybe<Scalars['Date']>;
+  deletedAt?: Maybe<Scalars['Date']>;
+};
+
 export enum DmsEntityType {
   Pim = 'Pim',
   Ncp = 'Ncp',
@@ -2915,6 +2951,7 @@ export type DmsFolder = {
   isContractsFolder?: Maybe<Scalars['Boolean']>;
   isSurveyFolder?: Maybe<Scalars['Boolean']>;
   isInvoicesFolder?: Maybe<Scalars['Boolean']>;
+  filesCount?: Maybe<Scalars['Int']>;
 };
 
 export type CreateDmsFolderInput = {
@@ -12544,6 +12581,7 @@ export type CrmBulkDetailsQuery = { __typename?: 'Query' } & {
 
 export type ListDmsFoldersQueryVariables = Exact<{
   entityId: Scalars['ID'];
+  withFileAmount?: Maybe<Scalars['Boolean']>;
 }>;
 
 export type ListDmsFoldersQuery = { __typename?: 'Query' } & {
@@ -12565,6 +12603,7 @@ export type ListDmsFoldersQuery = { __typename?: 'Query' } & {
         | 'isContractsFolder'
         | 'isSurveyFolder'
         | 'isInvoicesFolder'
+        | 'filesCount'
       >
     >
   >;
@@ -21742,9 +21781,14 @@ export type CrmBulkDetailsQueryResult = ApolloReactCommon.QueryResult<
   CrmBulkDetailsQueryVariables
 >;
 export const ListDmsFoldersDocument = gql`
-  query ListDmsFolders($entityId: ID!) {
-    listDmsFolders(entityId: $entityId)
-      @rest(type: "ListDmsFolders", path: "/dms/folders/list/{args.entityId}", method: "GET", endpoint: "default") {
+  query ListDmsFolders($entityId: ID!, $withFileAmount: Boolean) {
+    listDmsFolders(entityId: $entityId, withFileAmount: $withFileAmount)
+      @rest(
+        type: "ListDmsFolders"
+        path: "/dms/folders/list/{args.entityId}?withFileAmount={args.withFileAmount}"
+        method: "GET"
+        endpoint: "default"
+      ) {
       id
       entityId
       companyId
@@ -21759,6 +21803,7 @@ export const ListDmsFoldersDocument = gql`
       isContractsFolder
       isSurveyFolder
       isInvoicesFolder
+      filesCount
     }
   }
 `;
