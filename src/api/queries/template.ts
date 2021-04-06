@@ -21,7 +21,7 @@ export const GET_QUESTIONAIRE = gql`
         language
         documentType
       }
-      securities {
+      permissions {
         name
         create
         update
