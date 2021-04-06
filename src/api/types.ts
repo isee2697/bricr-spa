@@ -9624,7 +9624,7 @@ export type Questionaire = {
   settings?: Maybe<TemplateSettings>;
   labels?: Maybe<Array<Scalars['String']>>;
   tags?: Maybe<Array<TemplatTag>>;
-  securities?: Maybe<Array<TemplateSecurity>>;
+  permissions?: Maybe<Array<TemplateSecurity>>;
 };
 
 export type TemplatTag = {
@@ -16162,7 +16162,7 @@ export type GetQuestionaireQuery = { __typename?: 'Query' } & {
             'description' | 'version' | 'language' | 'documentType'
           >
         >;
-        securities?: Maybe<
+        permissions?: Maybe<
           Array<
             { __typename?: 'TemplateSecurity' } & Pick<
               TemplateSecurity,
@@ -27234,7 +27234,7 @@ export const GetQuestionaireDocument = gql`
         language
         documentType
       }
-      securities {
+      permissions {
         name
         create
         update
