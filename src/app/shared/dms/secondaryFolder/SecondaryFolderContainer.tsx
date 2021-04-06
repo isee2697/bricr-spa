@@ -6,7 +6,7 @@ import {
   ListDmsFoldersDocument,
   useCreateDmsFolderMutation,
   useInitCreateDmsFileMutation,
-  useListDmsFilesLazyQuery,
+  useListDmsFolderFilesLazyQuery,
   useListDmsFoldersQuery,
   useUploadFileMutation,
 } from 'api/types';
@@ -17,7 +17,7 @@ import { SecondaryFolderContainerProps } from './SecondaryFolder.types';
 export const SecondaryFolderContainer = (props: SecondaryFolderContainerProps) => {
   const { id, type, entityType } = props;
   const [createDmsFolder] = useCreateDmsFolderMutation();
-  const [listDmsFiles, { data: dmsFilesData, loading: isLoadingDmsFiles }] = useListDmsFilesLazyQuery();
+  const [listDmsFiles, { data: dmsFilesData, loading: isLoadingDmsFiles }] = useListDmsFolderFilesLazyQuery();
   const [selectedFolder, setSelectedFolder] = useState<DmsFolder | null>();
   const [createDmsFile] = useInitCreateDmsFileMutation();
   const [uploadFile] = useUploadFileMutation();
@@ -111,7 +111,7 @@ export const SecondaryFolderContainer = (props: SecondaryFolderContainerProps) =
         onAddFolder={onAddFolder}
         folders={data?.listDmsFolders ?? []}
         onSelectDmsFolder={handleSelectFolder}
-        files={dmsFilesData?.listDmsFiles || []}
+        files={dmsFilesData?.listDmsFolderFiles || []}
         loadingFiles={isLoadingDmsFiles}
         onUpload={handleSave}
       />

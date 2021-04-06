@@ -1337,7 +1337,8 @@ export type Query = {
   getUndoId: Scalars['ID'];
   listAllocates?: Maybe<Array<Allocate>>;
   listCalendar?: Maybe<Array<Appointment>>;
-  listDmsFiles?: Maybe<Array<DmsFile>>;
+  listDmsCompanyFiles?: Maybe<Array<DmsFile>>;
+  listDmsFolderFiles?: Maybe<Array<DmsFile>>;
   listDmsFolders?: Maybe<Array<DmsFolder>>;
   listEmail?: Maybe<Array<EmailListItem>>;
   listEmailFolders?: Maybe<Array<EmailFolderListItem>>;
@@ -1645,7 +1646,7 @@ export type QueryListCalendarArgs = {
   input: AppointmentSearch;
 };
 
-export type QueryListDmsFilesArgs = {
+export type QueryListDmsFolderFilesArgs = {
   folderId: Scalars['ID'];
 };
 
@@ -12598,12 +12599,12 @@ export type CrmBulkDetailsQuery = { __typename?: 'Query' } & {
   status?: Maybe<Array<{ __typename?: 'GetBulkResult' } & Pick<GetBulkResult, 'value'>>>;
 };
 
-export type ListDmsFilesQueryVariables = Exact<{
+export type ListDmsFolderFilesQueryVariables = Exact<{
   folderId: Scalars['ID'];
 }>;
 
-export type ListDmsFilesQuery = { __typename?: 'Query' } & {
-  listDmsFiles?: Maybe<
+export type ListDmsFolderFilesQuery = { __typename?: 'Query' } & {
+  listDmsFolderFiles?: Maybe<
     Array<
       { __typename?: 'DmsFile' } & Pick<
         DmsFile,
@@ -21840,10 +21841,10 @@ export type CrmBulkDetailsQueryResult = ApolloReactCommon.QueryResult<
   CrmBulkDetailsQuery,
   CrmBulkDetailsQueryVariables
 >;
-export const ListDmsFilesDocument = gql`
-  query ListDmsFiles($folderId: ID!) {
-    listDmsFiles(folderId: $folderId)
-      @rest(type: "ListDmsFiles", path: "/dms/files/list/{args.folderId}", method: "GET", endpoint: "default") {
+export const ListDmsFolderFilesDocument = gql`
+  query ListDmsFolderFiles($folderId: ID!) {
+    listDmsFolderFiles(folderId: $folderId)
+      @rest(type: "ListDmsFolderFiles", path: "/dms/files/list/{args.folderId}", method: "GET", endpoint: "default") {
       id
       folderId
       companyId
@@ -21862,22 +21863,28 @@ export const ListDmsFilesDocument = gql`
     }
   }
 `;
-export function useListDmsFilesQuery(
-  baseOptions?: ApolloReactHooks.QueryHookOptions<ListDmsFilesQuery, ListDmsFilesQueryVariables>,
+export function useListDmsFolderFilesQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<ListDmsFolderFilesQuery, ListDmsFolderFilesQueryVariables>,
 ) {
-  return ApolloReactHooks.useQuery<ListDmsFilesQuery, ListDmsFilesQueryVariables>(ListDmsFilesDocument, baseOptions);
-}
-export function useListDmsFilesLazyQuery(
-  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<ListDmsFilesQuery, ListDmsFilesQueryVariables>,
-) {
-  return ApolloReactHooks.useLazyQuery<ListDmsFilesQuery, ListDmsFilesQueryVariables>(
-    ListDmsFilesDocument,
+  return ApolloReactHooks.useQuery<ListDmsFolderFilesQuery, ListDmsFolderFilesQueryVariables>(
+    ListDmsFolderFilesDocument,
     baseOptions,
   );
 }
-export type ListDmsFilesQueryHookResult = ReturnType<typeof useListDmsFilesQuery>;
-export type ListDmsFilesLazyQueryHookResult = ReturnType<typeof useListDmsFilesLazyQuery>;
-export type ListDmsFilesQueryResult = ApolloReactCommon.QueryResult<ListDmsFilesQuery, ListDmsFilesQueryVariables>;
+export function useListDmsFolderFilesLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<ListDmsFolderFilesQuery, ListDmsFolderFilesQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<ListDmsFolderFilesQuery, ListDmsFolderFilesQueryVariables>(
+    ListDmsFolderFilesDocument,
+    baseOptions,
+  );
+}
+export type ListDmsFolderFilesQueryHookResult = ReturnType<typeof useListDmsFolderFilesQuery>;
+export type ListDmsFolderFilesLazyQueryHookResult = ReturnType<typeof useListDmsFolderFilesLazyQuery>;
+export type ListDmsFolderFilesQueryResult = ApolloReactCommon.QueryResult<
+  ListDmsFolderFilesQuery,
+  ListDmsFolderFilesQueryVariables
+>;
 export const ListDmsFoldersDocument = gql`
   query ListDmsFolders($entityId: ID!, $withFileAmount: Boolean) {
     listDmsFolders(entityId: $entityId, withFileAmount: $withFileAmount)
