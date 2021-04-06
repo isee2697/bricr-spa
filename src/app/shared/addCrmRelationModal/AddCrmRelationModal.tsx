@@ -114,7 +114,7 @@ export const AddCrmRelationModal = ({
                 ? 'crm.relation.enter_relation_informatoin'
                 : step === 1
                 ? 'crm.relation.type_of_information_requesting'
-                : 'crm.relation.enter_relation_informatoin',
+                : 'crm.relation.enter_relation_information',
           })}
           className={classes.modal}
         >

@@ -1,13 +1,31 @@
-import { DocumentFolderType, DocumentsProps } from '../../../../app/crmRelationsDetails/documents/Documents.types';
+import { ReactNode } from 'react';
+import { AnyObject } from 'final-form';
 
-export type PageWithFolderListCardProps = DocumentsProps & {
-  path: string;
-  onSidebarOpen: VoidFunction;
-  isSidebarVisible: boolean;
-  title: string;
-  folders?: DocumentFolderType[];
-  onAddFolder?: (folderName: string) => void;
-  onDeleteFolder?: (id: string) => void;
-  onUpdateFolder?: (folder: DocumentFolderType) => void;
-  onUploadFiles?: (folder: DocumentFolderType, files: File[]) => void;
-};
+import { DocumentsProps } from 'app/crmRelationsDetails/documents/Documents.types';
+import { DmsFolder } from 'api/types';
+import { BasePageProps } from '../Page.types';
+import { PaginationProps } from 'ui/atoms/pagination/Pagination.types';
+import { SortOption } from 'ui/molecules/list/List.types';
+
+export type PageWithFolderListCardProps = DocumentsProps &
+  BasePageProps & {
+    onSidebarOpen: VoidFunction;
+    isSidebarVisible: boolean;
+    folders?: DmsFolder[];
+    type?: 'primary' | 'secondary';
+    onAddFolder?: (folderName: string) => void;
+    onDeleteFolder?: (id: string) => void;
+    onUpdateFolder?: (folder: DmsFolder) => void;
+    onUploadFiles?: (folder: DmsFolder, files: File[]) => void;
+    onFilter?: (filters: AnyObject) => void;
+    activeFilters?: AnyObject;
+    pagination?: PaginationProps;
+    cardTitle?: string;
+    cardTitleAmount?: number | string;
+    cardTitleActions?: ReactNode;
+    sorting?: {
+      sortOptions: SortOption[];
+      onSort: (key: string) => void;
+    };
+    onSelectFolder?: (folder: string) => void;
+  };

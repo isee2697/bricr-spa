@@ -18,8 +18,8 @@ export const Security = ({ title, onSave, data, updatedBy, dateUpdated }: Securi
     await onSave({
       id: data.id,
       meta: data.meta,
-      securities: [
-        ...(data?.securities || []),
+      permissions: [
+        ...(data?.permissions || []),
         {
           name,
           create: false,
@@ -37,10 +37,10 @@ export const Security = ({ title, onSave, data, updatedBy, dateUpdated }: Securi
     await onSave({
       id: data.id,
       meta: data.meta,
-      securities: (values.securities || []).map((value, index) => ({
-        ...(data.securities || [])[index],
+      permissions: (values.permissions || []).map((value, index) => ({
+        ...(data.permissions || [])[index],
         ...value,
-        name: (data.securities || [])[index].name || '',
+        name: (data.permissions || [])[index].name || '',
       })),
     });
 
@@ -87,7 +87,7 @@ export const Security = ({ title, onSave, data, updatedBy, dateUpdated }: Securi
                 </Grid>
               </Box>
               <AutosaveForm onSave={handleSaveSecurity} initialValues={data}>
-                {(data?.securities || []).map((item, index) => (
+                {(data?.permissions || []).map((item, index) => (
                   <Grid container alignItems="center">
                     <Grid item xs={4} lg={3}>
                       <Box display="flex" alignItems="center">

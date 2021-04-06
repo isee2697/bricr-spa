@@ -21,7 +21,7 @@ export const GET_QUESTIONAIRE = gql`
         language
         documentType
       }
-      securities {
+      permissions {
         name
         create
         update
@@ -38,12 +38,7 @@ export const GET_QUESTIONAIRE = gql`
 export const LIST_QUESTIONAIRE_GROUPS = gql`
   query ListQuestionaireGroups($templateId: ID!) {
     listQuestionaireGroups(templateId: $templateId)
-      @rest(
-        type: "ListQuestionaireGroups"
-        path: "/groups?templateId={args.templateId}"
-        method: "GET"
-        endpoint: "default"
-      ) {
+      @rest(type: "ListQuestionaireGroups", path: "/groups/{args.templateId}", method: "GET", endpoint: "default") {
       id
       templateId
       groupName

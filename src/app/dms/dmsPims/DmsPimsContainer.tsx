@@ -44,7 +44,7 @@ export const DmsPimsContainer = ({ type: pimType }: DmsPimsContainerProps) => {
     }) ??
     undefined;
 
-  const { query: sortQuery } = usePimsSorting();
+  const { sorting, query: sortQuery } = usePimsSorting();
 
   const { pagination, query: paginationQuery } = usePagination({
     prefix: 'active',
@@ -68,6 +68,7 @@ export const DmsPimsContainer = ({ type: pimType }: DmsPimsContainerProps) => {
       type={pimType}
       isLoading={isCountLoading || isListLoading}
       pagination={pagination}
+      sorting={sorting}
     />
   );
 };

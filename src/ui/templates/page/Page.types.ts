@@ -6,7 +6,7 @@ import { CardWithInfoProps } from 'ui/templates/cards/cardWithInfo/CardWithInfo.
 import { PageHeaderProps } from 'ui/templates/page/header/PageHeader.types';
 import { BaseCardListItemType, CardWithListProps } from 'ui/templates/cards/cardWithList/CardWithList.types';
 
-type BasePageProps = {
+export type BasePageProps = {
   title?: string | ReactNode;
   onSave?(values: unknown): Promise<undefined | { error: boolean }>;
   initialValues?: AnyObject;

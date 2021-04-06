@@ -17,7 +17,7 @@ const getPimFilterVariables = (type: string): ListPimsFilters => {
   return { propertyTypes: PimTypes.find(pimType => pimType.name === type)?.types };
 };
 
-export const Folders = ({ entityItems, entityType, type, isLoading, pagination }: FoldersProps) => {
+export const Folders = ({ entityItems, entityType, type, isLoading, pagination, sorting }: FoldersProps) => {
   const { formatMessage } = useLocale();
   const { baseUrl } = useEntityType();
   const urlParams = useParams();
@@ -65,6 +65,7 @@ export const Folders = ({ entityItems, entityType, type, isLoading, pagination }
               type={type}
               entityType={entityType}
               pagination={pagination}
+              sorting={sorting}
             />
           )}
         />
