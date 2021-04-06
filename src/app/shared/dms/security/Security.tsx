@@ -97,16 +97,17 @@ export const Security = ({ title, onSave, data, updatedBy, dateUpdated }: Securi
                       </Box>
                     </Grid>
                     <Grid item xs={2} lg={1}>
-                      <CheckboxField disabled={!editing} name={`securities[${index}].create`} />
+                      <input type="hidden" name={`permissions[${index}].name`} value={data.permissions?.[index].name} />
+                      <CheckboxField disabled={!editing} name={`permissions[${index}].create`} />
                     </Grid>
                     <Grid item xs={2} lg={1}>
-                      <CheckboxField disabled={!editing} name={`securities[${index}].read`} />
+                      <CheckboxField disabled={!editing} name={`permissions[${index}].read`} />
                     </Grid>
                     <Grid item xs={2} lg={1}>
-                      <CheckboxField disabled={!editing} name={`securities[${index}].update`} />
+                      <CheckboxField disabled={!editing} name={`permissions[${index}].update`} />
                     </Grid>
                     <Grid item xs={2} lg={1}>
-                      <CheckboxField disabled={!editing} name={`securities[${index}].delete`} />
+                      <CheckboxField disabled={!editing} name={`permissions[${index}].delete`} />
                     </Grid>
                   </Grid>
                 ))}

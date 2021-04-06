@@ -1,16 +1,14 @@
 import { TemplateSecurity } from 'api/types';
-import { SecurityData } from 'app/shared/dms/security/Security.types';
 
 export const DMS_TEMPLATE_RIGHTS: TemplateSecurity[] = [
-  {name: 'Matches'},
-  {name: 'Interest'},
-  {name: 'Viewing'},
-  {name: 'Candidate'},
-  {name: 'Bidding'},
-  {name: 'Optant'},
-  {name: 'Buyer'},
-  {name: 'Tenant'},
-  {name: 'Broker'},
-  {name: 'Notary'},
-]
-
+  { name: 'Matches' },
+  { name: 'Interest' },
+  { name: 'Viewing' },
+  { name: 'Candidate' },
+  { name: 'Bidding' },
+  { name: 'Optant' },
+  { name: 'Buyer' },
+  { name: 'Tenant' },
+  { name: 'Broker' },
+  { name: 'Notary' },
+];

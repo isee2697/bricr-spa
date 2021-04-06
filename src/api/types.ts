@@ -3,8 +3,6 @@ import * as ApolloReactCommon from '@apollo/react-common';
 import * as ApolloReactHooks from '@apollo/react-hooks';
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -12,367 +10,24 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
-  AbsoluteFloat: any;
   BulkFieldValue: any;
-  CostVat: any;
-  Date: string;
-  Dictionary: any;
   EventData: any;
-  PathBuilder: any;
-  ServiceConfigurationInput: any;
-  UpdateFeatureInputConfiguration: any;
-  UpdateSpaceInputConfiguration: any;
   UploadFileInput: any;
+  PathBuilder: any;
+  UpdateSpaceInputConfiguration: any;
+  UpdateFeatureInputConfiguration: any;
+  AbsoluteFloat: any;
+  CostVat: any;
+  Dictionary: any;
   UuidOrEnum: any;
+  Date: string;
+  ServiceConfigurationInput: any;
 };
 
-export type AddAllocateInput = {
-  objectId: Scalars['String'];
-  name: Scalars['String'];
-};
-
-export type AddAllocationCriteriaInput = {
-  pimId: Scalars['ID'];
-};
-
-export type AddAllocationCriteriaResult = {
-  __typename?: 'AddAllocationCriteriaResult';
-  pim: Pim;
-  criteria: AllocationCriteria;
-};
-
-export type AddAogSpaceInput = {
-  id: Scalars['ID'];
-  type: AogSpaceType;
-  name?: Maybe<Scalars['String']>;
-};
-
-export type AddAppointmentInput = {
-  accountId: Scalars['ID'];
-  title?: Maybe<Scalars['String']>;
-  from: Scalars['Date'];
-  to: Scalars['Date'];
-  alternativeTerms?: Maybe<Array<AppointmentTermInput>>;
-  allDay?: Maybe<Scalars['Boolean']>;
-  confirmedDate?: Maybe<Scalars['Boolean']>;
-  repeatAppointment?: Maybe<AppointmentRepeat>;
-  description?: Maybe<Scalars['String']>;
-  assignedPimIds?: Maybe<Array<Scalars['String']>>;
-  agreementType?: Maybe<Array<Maybe<AppointmentMeetingType>>>;
-  invitedPersons?: Maybe<Array<Scalars['String']>>;
-  isInsideOffice?: Maybe<Scalars['Boolean']>;
-  location?: Maybe<Scalars['String']>;
-  outsideLocation?: Maybe<Scalars['String']>;
-  travelTimeBefore?: Maybe<Scalars['Int']>;
-  travelTimeAfter?: Maybe<Scalars['Int']>;
-  type: CalendarTypes;
-  appointmentType?: Maybe<AppointmentType>;
-  taskLabel?: Maybe<TaskLabel>;
-};
-
-export type AddBogSpaceInput = {
-  id: Scalars['ID'];
-  type: BogSpaceType;
-  name?: Maybe<Scalars['String']>;
-};
-
-export type AddCadastreInput = {
-  pimId: Scalars['String'];
-  type: CadastreType;
-  description?: Maybe<Scalars['String']>;
-};
-
-export type AddCadastreMapsInput = {
-  pimId: Scalars['String'];
-  maps: Array<NewCadastreMapInput>;
-};
-
-export type AddCommonCostInput = {
-  id: Scalars['ID'];
-  type: Scalars['String'];
-  name?: Maybe<Scalars['String']>;
-};
-
-export type AddCostInput = {
-  id: Scalars['ID'];
-  type: Scalars['String'];
-  name?: Maybe<Scalars['String']>;
-};
-
-export type AddFilesInput = {
-  fileIDs: Array<Scalars['ID']>;
-  entity: EntityWithFiles;
-  entityID: Scalars['ID'];
-};
-
-export type AddIdentificationNumberInput = {
-  parentId: Scalars['String'];
-  name?: Maybe<Scalars['String']>;
-  type?: Maybe<Scalars['String']>;
-};
-
-export type AddInspectionInput = {
-  pimId: Scalars['ID'];
-  inspectionType: InspectionType;
-  type: Scalars['String'];
-};
-
-export type AddInspectionResult = {
-  __typename?: 'AddInspectionResult';
-  inspection: Inspection;
-  pim: Pim;
-};
-
-export type AddMatchProfileInput = {
-  crmId: Scalars['ID'];
-  propertyType?: Maybe<MatchPropertyType>;
-  startDate?: Maybe<Scalars['Date']>;
-  endDate?: Maybe<Scalars['Date']>;
-  matchDuration?: Maybe<DateRange>;
-  matchWith?: Maybe<Array<MatchProfileWith>>;
-  description?: Maybe<Scalars['String']>;
-  estateType?: Maybe<MatchEstateType>;
-  commercialEstateType?: Maybe<MatchCommercialEstateType>;
-  characteristics?: Maybe<MatchCharacteristicsInput>;
-  commercialCharacteristics?: Maybe<MatchCommercialCharacteristicsInput>;
-  pricing?: Maybe<MatchPricingInput>;
-  outside?: Maybe<MatchOutsidePricingInput>;
-  garden?: Maybe<MatchGardenInput>;
-  tags?: Maybe<Array<MatchTags>>;
-  measurements?: Maybe<MatchMeasurementsInput>;
-  revenue?: Maybe<IntRangeInput>;
-  exploitation?: Maybe<IntRangeInput>;
-  requirements?: Maybe<Array<MatchRequirementInput>>;
-  locations?: Maybe<Array<MatchProfileLocationInput>>;
-};
-
-export type AddMediaLinkInput = {
-  pimId: Scalars['String'];
-  type?: Maybe<Scalars['String']>;
-  url?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
-};
-
-export type AddMeterInput = {
-  parentId: Scalars['String'];
-  name: Scalars['String'];
-  type: MeterType;
-};
-
-export type AddNewFloorInput = {
-  pimId: Scalars['String'];
-  floorDescription?: Maybe<Scalars['String']>;
-  floorType: FloorType;
-};
-
-export type AddOutsideFeatureInput = {
-  pimId: Scalars['String'];
-  type: OutsideFeatureType;
-  description?: Maybe<Scalars['String']>;
-};
-
-export type AddPicturesInput = {
-  pimId: Scalars['String'];
-  pictures: Array<NewPictureInput>;
-};
-
-export type AddReadingInput = {
-  parentId: Scalars['ID'];
-  meterId: Scalars['ID'];
-  value?: Maybe<Scalars['Int']>;
-  dateOfReading?: Maybe<Scalars['Date']>;
-  feedInId?: Maybe<Scalars['String']>;
-};
-
-export type AddServiceInput = {
-  parentId: Scalars['ID'];
-  name: Scalars['String'];
-  type: ServiceType;
-  configuration?: Maybe<Scalars['ServiceConfigurationInput']>;
-};
-
-export type AddSpaceInput = {
-  spaceType: SpaceType;
-  extraRoomPossibility: Scalars['Boolean'];
-  pimId: Scalars['String'];
-  floorId: Scalars['String'];
-  spaceName?: Maybe<Scalars['String']>;
-};
-
-export type AddSubtaskInput = {
-  title: Scalars['String'];
-};
-
-export type AddTagInput = {
-  pimId: Scalars['String'];
-  type?: Maybe<Scalars['String']>;
-  description?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
-};
-
-export type AddTeamInput = {
-  name: Scalars['String'];
-  description?: Maybe<Scalars['String']>;
-  teamRights?: Maybe<Array<TeamRight>>;
-};
-
-export type AddTextChapterInput = {
-  pimId: Scalars['String'];
-  name?: Maybe<Scalars['String']>;
-  type?: Maybe<Scalars['String']>;
-  text?: Maybe<Scalars['String']>;
-};
-
-export type AddUserToTeamInput = {
-  teamId: Scalars['ID'];
-  userId: Scalars['ID'];
-  permissions: PermissionsInTeamInput;
-  notes?: Maybe<Scalars['String']>;
-};
-
-export type AddUspInput = {
-  pimId: Scalars['String'];
-  type?: Maybe<Scalars['String']>;
-  description?: Maybe<Scalars['String']>;
-};
-
-export type AddViewingMomentInput = {
-  pimId: Scalars['ID'];
-};
-
-export type AddViewingMomentResult = {
-  __typename?: 'AddViewingMomentResult';
-  pim: Pim;
-  moment: ViewingMoment;
-};
-
-export enum AdditionalPositionNotArgaic {
-  OtherCompany = 'OtherCompany',
-  Horeca = 'Horeca',
-  Recreation = 'Recreation',
-  Living = 'Living',
-  CareFunction = 'CareFunction',
-  CaravanStorage = 'CaravanStorage',
+export enum AllocateType {
+  MatchProfile = 'MatchProfile',
+  Allocation = 'Allocation',
 }
-
-export type AdditionalServiceConfiguration = {
-  __typename?: 'AdditionalServiceConfiguration';
-  type: AdditionalServiceType;
-};
-
-export enum AdditionalServiceType {
-  AirConditioning = 'AirConditioning',
-  AlarmSystem = 'AlarmSystem',
-  ExteriorSunProtection = 'ExteriorSunProtection',
-  Skylight = 'Skylight',
-  SateliteDish = 'SateliteDish',
-  SlidingDoor = 'SlidingDoor',
-  CableTv = 'CableTv',
-  Windmill = 'Windmill',
-  SolarCollector = 'SolarCollector',
-  SwimmingPool = 'SwimmingPool',
-  FrenchBalcony = 'FrenchBalcony',
-  MechanicalVentilation = 'MechanicalVentilation',
-  Elevator = 'Elevator',
-  Flue = 'Flue',
-  Shutters = 'Shutters',
-}
-
-export enum AdminSettings {
-  General = 'General',
-  Users = 'Users',
-  Teams = 'Teams',
-  Options = 'Options',
-  Workflows = 'Workflows',
-  Matching = 'Matching',
-  Pim = 'PIM',
-  Crm = 'CRM',
-  Sales = 'SALES',
-  Email = 'Email',
-  Documents = 'Documents',
-  Calendar = 'Calendar',
-  Marketing = 'Marketing',
-  KpiTargets = 'KPITargets',
-  Notifications = 'Notifications',
-  Tasks = 'Tasks',
-  Billing = 'Billing',
-}
-
-export enum AirTreatmentType {
-  AirCondition = 'AirCondition',
-  MechanicalVentilation = 'MechanicalVentilation',
-  TopCooling = 'TopCooling',
-}
-
-export type Allocate = {
-  __typename?: 'Allocate';
-  id: Scalars['ID'];
-  companyId: Scalars['ID'];
-  objectId: Scalars['ID'];
-  name: Scalars['String'];
-  version: Scalars['Date'];
-  note?: Maybe<Scalars['String']>;
-  criteria?: Maybe<AllocateCriteria>;
-  people?: Maybe<AllocatePeople>;
-  home?: Maybe<AllocateHome>;
-  assignToRole?: Maybe<AllocateAssignRole>;
-};
-
-export enum AllocateAssignRole {
-  Reservation = 'Reservation',
-  Candidate = 'Candidate',
-  Optant = 'Optant',
-  Tenant = 'Tenant',
-}
-
-export type AllocateCriteria = {
-  __typename?: 'AllocateCriteria';
-  type?: Maybe<Array<AllocateType>>;
-  startDate?: Maybe<Scalars['Date']>;
-  endDate?: Maybe<Scalars['Date']>;
-  amountAssignedCandidates?: Maybe<Scalars['Int']>;
-  rentalePriceCalculation?: Maybe<AllocateRentalPriceCalculation>;
-  isPublishedExternally?: Maybe<Scalars['Boolean']>;
-  interestDetails?: Maybe<AllocateInterestDetails>;
-  documents?: Maybe<AllocateCriteriaDocuments>;
-  criteriaOrder?: Maybe<Array<AllocateCriteriaOrder>>;
-};
-
-export type AllocateCriteriaDocuments = {
-  __typename?: 'AllocateCriteriaDocuments';
-  acceptedMissingDocumentsNumber?: Maybe<Scalars['Int']>;
-  onlyAcceptedDocuments?: Maybe<Scalars['Boolean']>;
-};
-
-export type AllocateCriteriaDocumentsInput = {
-  acceptedMissingDocumentsNumber?: Maybe<Scalars['Int']>;
-  onlyAcceptedDocuments?: Maybe<Scalars['Boolean']>;
-};
-
-export type AllocateCriteriaInput = {
-  type?: Maybe<Array<AllocateType>>;
-  startDate?: Maybe<Scalars['Date']>;
-  endDate?: Maybe<Scalars['Date']>;
-  amountAssignedCandidates?: Maybe<Scalars['Int']>;
-  rentalePriceCalculation?: Maybe<AllocateRentalPriceCalculationInput>;
-  isPublishedExternally?: Maybe<Scalars['Boolean']>;
-  interestDetails?: Maybe<AllocateInterestDetailsInput>;
-  documents?: Maybe<AllocateCriteriaDocumentsInput>;
-  criteriaOrder?: Maybe<Array<AllocateCriteriaOrderInput>>;
-};
-
-export type AllocateCriteriaOrder = {
-  __typename?: 'AllocateCriteriaOrder';
-  name?: Maybe<AllocateCriteriaType>;
-  order?: Maybe<Scalars['Int']>;
-  checked?: Maybe<Scalars['Boolean']>;
-};
-
-export type AllocateCriteriaOrderInput = {
-  name?: Maybe<AllocateCriteriaType>;
-  order?: Maybe<Scalars['Int']>;
-  checked?: Maybe<Scalars['Boolean']>;
-};
 
 export enum AllocateCriteriaType {
   JointIncome = 'JointIncome',
@@ -389,20 +44,12 @@ export enum AllocateEmploymentType {
   Benefits = 'Benefits',
 }
 
-export type AllocateHome = {
-  __typename?: 'AllocateHome';
-  amountChildren?: Maybe<Scalars['Int']>;
-  amountAdults?: Maybe<Scalars['Int']>;
-  situation?: Maybe<AllocateHomeSituation>;
-  hasCurrentResidence?: Maybe<Scalars['Boolean']>;
-};
-
-export type AllocateHomeInput = {
-  amountChildren?: Maybe<Scalars['Int']>;
-  amountAdults?: Maybe<Scalars['Int']>;
-  situation?: Maybe<AllocateHomeSituation>;
-  hasCurrentResidence?: Maybe<Scalars['Boolean']>;
-};
+export enum AllocateAssignRole {
+  Reservation = 'Reservation',
+  Candidate = 'Candidate',
+  Optant = 'Optant',
+  Tenant = 'Tenant',
+}
 
 export enum AllocateHomeSituation {
   LivingIn = 'LivingIn',
@@ -411,70 +58,31 @@ export enum AllocateHomeSituation {
   FreeSecotorRental = 'FreeSecotorRental',
 }
 
-export type AllocateInput = {
+export type Allocate = {
+  __typename?: 'Allocate';
+  id: Scalars['ID'];
+  companyId: Scalars['ID'];
+  objectId: Scalars['ID'];
+  name: Scalars['String'];
+  version: Scalars['Date'];
   note?: Maybe<Scalars['String']>;
-  criteria?: Maybe<AllocateCriteriaInput>;
-  people?: Maybe<AllocatePeopleInput>;
-  home?: Maybe<AllocateHomeInput>;
+  criteria?: Maybe<AllocateCriteria>;
+  people?: Maybe<AllocatePeople>;
+  home?: Maybe<AllocateHome>;
   assignToRole?: Maybe<AllocateAssignRole>;
 };
 
-export type AllocateInterestDetails = {
-  __typename?: 'AllocateInterestDetails';
-  minNumberOfPreferences?: Maybe<Scalars['Int']>;
-  registrationForm?: Maybe<Scalars['Date']>;
-  registrationTo?: Maybe<Scalars['Date']>;
-  assignOnlyWithInterest?: Maybe<Scalars['Boolean']>;
-};
-
-export type AllocateInterestDetailsInput = {
-  minNumberOfPreferences?: Maybe<Scalars['Int']>;
-  registrationForm?: Maybe<Scalars['Date']>;
-  registrationTo?: Maybe<Scalars['Date']>;
-  assignOnlyWithInterest?: Maybe<Scalars['Boolean']>;
-};
-
-export type AllocatePeople = {
-  __typename?: 'AllocatePeople';
-  jointIncome?: Maybe<AllocatePeopleJointIncome>;
-  income?: Maybe<AllocatePeopleIncome>;
-  partnerIncome?: Maybe<AllocatePeopleIncome>;
-};
-
-export type AllocatePeopleIncome = {
-  __typename?: 'AllocatePeopleIncome';
-  availableCapitalCount?: Maybe<Scalars['Int']>;
-  deductMonthlyObligations?: Maybe<Scalars['Int']>;
-  minAge?: Maybe<Scalars['Int']>;
-  employementType?: Maybe<AllocateEmploymentType>;
-};
-
-export type AllocatePeopleIncomeInput = {
-  availableCapitalCount?: Maybe<Scalars['Int']>;
-  deductMonthlyObligations?: Maybe<Scalars['Int']>;
-  minAge?: Maybe<Scalars['Int']>;
-  employementType?: Maybe<AllocateEmploymentType>;
-};
-
-export type AllocatePeopleInput = {
-  jointIncome?: Maybe<AllocatePeopleJointIncomeInput>;
-  income?: Maybe<AllocatePeopleIncomeInput>;
-  partnerIncome?: Maybe<AllocatePeopleIncomeInput>;
-};
-
-export type AllocatePeopleJointIncome = {
-  __typename?: 'AllocatePeopleJointIncome';
-  lowestPercentage?: Maybe<Scalars['Int']>;
-  distributionThreshold?: Maybe<Scalars['Int']>;
-  ficitousCalculation?: Maybe<Scalars['Int']>;
-  includePension?: Maybe<Scalars['Int']>;
-};
-
-export type AllocatePeopleJointIncomeInput = {
-  lowestPercentage?: Maybe<Scalars['Int']>;
-  distributionThreshold?: Maybe<Scalars['Int']>;
-  ficitousCalculation?: Maybe<Scalars['Int']>;
-  includePension?: Maybe<Scalars['Int']>;
+export type AllocateCriteria = {
+  __typename?: 'AllocateCriteria';
+  type?: Maybe<Array<AllocateType>>;
+  startDate?: Maybe<Scalars['Date']>;
+  endDate?: Maybe<Scalars['Date']>;
+  amountAssignedCandidates?: Maybe<Scalars['Int']>;
+  rentalePriceCalculation?: Maybe<AllocateRentalPriceCalculation>;
+  isPublishedExternally?: Maybe<Scalars['Boolean']>;
+  interestDetails?: Maybe<AllocateInterestDetails>;
+  documents?: Maybe<AllocateCriteriaDocuments>;
+  criteriaOrder?: Maybe<Array<AllocateCriteriaOrder>>;
 };
 
 export type AllocateRentalPriceCalculation = {
@@ -485,6 +93,83 @@ export type AllocateRentalPriceCalculation = {
   maxRentByIcome?: Maybe<Scalars['Int']>;
 };
 
+export type AllocateInterestDetails = {
+  __typename?: 'AllocateInterestDetails';
+  minNumberOfPreferences?: Maybe<Scalars['Int']>;
+  registrationForm?: Maybe<Scalars['Date']>;
+  registrationTo?: Maybe<Scalars['Date']>;
+  assignOnlyWithInterest?: Maybe<Scalars['Boolean']>;
+};
+
+export type AllocateCriteriaDocuments = {
+  __typename?: 'AllocateCriteriaDocuments';
+  acceptedMissingDocumentsNumber?: Maybe<Scalars['Int']>;
+  onlyAcceptedDocuments?: Maybe<Scalars['Boolean']>;
+};
+
+export type AllocateCriteriaOrder = {
+  __typename?: 'AllocateCriteriaOrder';
+  name?: Maybe<AllocateCriteriaType>;
+  order?: Maybe<Scalars['Int']>;
+  checked?: Maybe<Scalars['Boolean']>;
+};
+
+export type AllocatePeople = {
+  __typename?: 'AllocatePeople';
+  jointIncome?: Maybe<AllocatePeopleJointIncome>;
+  income?: Maybe<AllocatePeopleIncome>;
+  partnerIncome?: Maybe<AllocatePeopleIncome>;
+};
+
+export type AllocatePeopleJointIncome = {
+  __typename?: 'AllocatePeopleJointIncome';
+  lowestPercentage?: Maybe<Scalars['Int']>;
+  distributionThreshold?: Maybe<Scalars['Int']>;
+  ficitousCalculation?: Maybe<Scalars['Int']>;
+  includePension?: Maybe<Scalars['Int']>;
+};
+
+export type AllocatePeopleIncome = {
+  __typename?: 'AllocatePeopleIncome';
+  availableCapitalCount?: Maybe<Scalars['Int']>;
+  deductMonthlyObligations?: Maybe<Scalars['Int']>;
+  minAge?: Maybe<Scalars['Int']>;
+  employementType?: Maybe<AllocateEmploymentType>;
+};
+
+export type AllocateHome = {
+  __typename?: 'AllocateHome';
+  amountChildren?: Maybe<Scalars['Int']>;
+  amountAdults?: Maybe<Scalars['Int']>;
+  situation?: Maybe<AllocateHomeSituation>;
+  hasCurrentResidence?: Maybe<Scalars['Boolean']>;
+};
+
+export type AddAllocateInput = {
+  objectId: Scalars['String'];
+  name: Scalars['String'];
+};
+
+export type AllocateInput = {
+  note?: Maybe<Scalars['String']>;
+  criteria?: Maybe<AllocateCriteriaInput>;
+  people?: Maybe<AllocatePeopleInput>;
+  home?: Maybe<AllocateHomeInput>;
+  assignToRole?: Maybe<AllocateAssignRole>;
+};
+
+export type AllocateCriteriaInput = {
+  type?: Maybe<Array<AllocateType>>;
+  startDate?: Maybe<Scalars['Date']>;
+  endDate?: Maybe<Scalars['Date']>;
+  amountAssignedCandidates?: Maybe<Scalars['Int']>;
+  rentalePriceCalculation?: Maybe<AllocateRentalPriceCalculationInput>;
+  isPublishedExternally?: Maybe<Scalars['Boolean']>;
+  interestDetails?: Maybe<AllocateInterestDetailsInput>;
+  documents?: Maybe<AllocateCriteriaDocumentsInput>;
+  criteriaOrder?: Maybe<Array<AllocateCriteriaOrderInput>>;
+};
+
 export type AllocateRentalPriceCalculationInput = {
   minJointIncome?: Maybe<Scalars['Int']>;
   maxJointIncome?: Maybe<Scalars['Int']>;
@@ -492,4356 +177,50 @@ export type AllocateRentalPriceCalculationInput = {
   maxRentByIcome?: Maybe<Scalars['Int']>;
 };
 
-export enum AllocateType {
-  MatchProfile = 'MatchProfile',
-  Allocation = 'Allocation',
-}
-
-export type AllocationCriteria = {
-  __typename?: 'AllocationCriteria';
-  id: Scalars['ID'];
-  description?: Maybe<Scalars['String']>;
-  type?: Maybe<AllocationCriteriaType>;
-  note?: Maybe<Scalars['String']>;
-  startDate?: Maybe<Scalars['Date']>;
-  endDate?: Maybe<Scalars['Date']>;
-  candidatesAssignedPerProperty?: Maybe<Scalars['Int']>;
-  minJointAnnualIncome?: Maybe<Scalars['AbsoluteFloat']>;
-  monthlyRentByMinJointIncome?: Maybe<Scalars['AbsoluteFloat']>;
-  maxJointAnnualIncome?: Maybe<Scalars['AbsoluteFloat']>;
-  monthlyRentByMaxJointIncome?: Maybe<Scalars['AbsoluteFloat']>;
-  publishedExternally?: Maybe<PropertyPublishedExternally>;
-  minNumberPreferenceInterest?: Maybe<Scalars['Int']>;
-  registrationFrom?: Maybe<Scalars['Date']>;
+export type AllocateInterestDetailsInput = {
+  minNumberOfPreferences?: Maybe<Scalars['Int']>;
+  registrationForm?: Maybe<Scalars['Date']>;
   registrationTo?: Maybe<Scalars['Date']>;
-  assignOnlyPeopleWithPropertyInterest?: Maybe<Scalars['Boolean']>;
-  acceptedMissingDocuments?: Maybe<Scalars['Int']>;
+  assignOnlyWithInterest?: Maybe<Scalars['Boolean']>;
+};
+
+export type AllocateCriteriaDocumentsInput = {
+  acceptedMissingDocumentsNumber?: Maybe<Scalars['Int']>;
   onlyAcceptedDocuments?: Maybe<Scalars['Boolean']>;
-  criteriaOrder: Array<CriteriaOrder>;
-  lowestIncomePercentage?: Maybe<Scalars['AbsoluteFloat']>;
-  incomeDistributionThreshold?: Maybe<Scalars['AbsoluteFloat']>;
-  fictitiousIncomeCalculation?: Maybe<Scalars['AbsoluteFloat']>;
-  firstPersonFromCouple?: Maybe<PersonCapital>;
-  secondPersonFromCouple?: Maybe<PersonCapital>;
-  minimalAgeFirstPersonCouple?: Maybe<Scalars['Int']>;
-  minimalAgePartner?: Maybe<Scalars['Int']>;
-  homeSituation?: Maybe<Array<HomeSituation>>;
-  numberOfAdults?: Maybe<Scalars['Int']>;
-  numberOfChildren?: Maybe<Scalars['Int']>;
-  currentResidence?: Maybe<Scalars['String']>;
-  typeOfEmploymentFirstPersonInCouple?: Maybe<Array<TypeOfEmployment>>;
-  typeOfEmploymentSecondPersonInCouple?: Maybe<Array<TypeOfEmployment>>;
-  assignToPersonsWithRole?: Maybe<Array<PersonRole>>;
-  assignPeopleAboveMaxJointIncome?: Maybe<Scalars['Boolean']>;
-  segmentationProfiles?: Maybe<Array<Profile>>;
-  segmentationProfileIds?: Maybe<Array<Scalars['String']>>;
 };
 
-export type AllocationCriteriaInput = {
-  id: Scalars['ID'];
-  description?: Maybe<Scalars['String']>;
-  type?: Maybe<AllocationCriteriaType>;
-  note?: Maybe<Scalars['String']>;
-  startDate?: Maybe<Scalars['Date']>;
-  endDate?: Maybe<Scalars['Date']>;
-  candidatesAssignedPerProperty?: Maybe<Scalars['Int']>;
-  minJointAnnualIncome?: Maybe<Scalars['AbsoluteFloat']>;
-  monthlyRentByMinJointIncome?: Maybe<Scalars['AbsoluteFloat']>;
-  maxJointAnnualIncome?: Maybe<Scalars['AbsoluteFloat']>;
-  monthlyRentByMaxJointIncome?: Maybe<Scalars['AbsoluteFloat']>;
-  publishedExternally?: Maybe<PropertyPublishedExternally>;
-  minNumberPreferenceInterest?: Maybe<Scalars['Int']>;
-  registrationFrom?: Maybe<Scalars['Date']>;
-  registrationTo?: Maybe<Scalars['Date']>;
-  assignOnlyPeopleWithPropertyInterest?: Maybe<Scalars['Boolean']>;
-  acceptedMissingDocuments?: Maybe<Scalars['Int']>;
-  onlyAcceptedDocuments?: Maybe<Scalars['Boolean']>;
-  criteriaOrder: Array<CriteriaOrder>;
-  lowestIncomePercentage?: Maybe<Scalars['AbsoluteFloat']>;
-  incomeDistributionThreshold?: Maybe<Scalars['AbsoluteFloat']>;
-  fictitiousIncomeCalculation?: Maybe<Scalars['AbsoluteFloat']>;
-  firstPersonFromCouple?: Maybe<PersonCapitalInput>;
-  secondPersonFromCouple?: Maybe<PersonCapitalInput>;
-  minimalAgeFirstPersonCouple?: Maybe<Scalars['Int']>;
-  minimalAgePartner?: Maybe<Scalars['Int']>;
-  homeSituation?: Maybe<Array<HomeSituation>>;
-  numberOfAdults?: Maybe<Scalars['Int']>;
-  numberOfChildren?: Maybe<Scalars['Int']>;
-  currentResidence?: Maybe<Scalars['String']>;
-  typeOfEmploymentFirstPersonInCouple?: Maybe<Array<TypeOfEmployment>>;
-  typeOfEmploymentSecondPersonInCouple?: Maybe<Array<TypeOfEmployment>>;
-  assignToPersonsWithRole?: Maybe<Array<PersonRole>>;
-  assignPeopleAboveMaxJointIncome?: Maybe<Scalars['Boolean']>;
-  segmentationProfileIds?: Maybe<Array<Scalars['ID']>>;
-};
-
-export enum AllocationCriteriaType {
-  MatchProfile = 'MatchProfile',
-  Allocation = 'Allocation',
-}
-
-export type Animals = {
-  __typename?: 'Animals';
-  type?: Maybe<Scalars['String']>;
-  numberOfSameAnimals?: Maybe<Scalars['Int']>;
-  notes?: Maybe<Scalars['String']>;
-  specifications?: Maybe<Array<AogSpecifications>>;
-};
-
-export type AnimalsInput = {
-  type?: Maybe<Scalars['String']>;
-  numberOfSameAnimals?: Maybe<Scalars['Int']>;
-  notes?: Maybe<Scalars['String']>;
-  specifications?: Maybe<Array<AogSpecificationsInput>>;
-};
-
-export enum AnimalsType {
-  Geese = 'Geese',
-  Ducks = 'Ducks',
-  Ostriches = 'Ostriches',
-  LayingHens = 'LayingHens',
-  Cows = 'Cows',
-  Horses = 'Horses',
-  Eels = 'Eels',
-  Sheep = 'Sheep',
-  Fish = 'Fish',
-  VealCalves = 'VealCalves',
-  Broilers = 'Broilers',
-  MeatBulls = 'MeatBulls',
-  Worms = 'Worms',
-}
-
-export type Answer = {
-  __typename?: 'Answer';
-  id: Scalars['ID'];
-  answersId?: Maybe<Scalars['String']>;
-  questionId?: Maybe<Scalars['String']>;
-  options?: Maybe<Array<Maybe<Options>>>;
-  comment?: Maybe<Scalars['String']>;
-};
-
-export type AnswerInput = {
-  options?: Maybe<Array<Maybe<OptionsInput>>>;
-  comment?: Maybe<Scalars['String']>;
-};
-
-export type Answers = {
-  __typename?: 'Answers';
-  id: Scalars['ID'];
-  templateId?: Maybe<Scalars['String']>;
-  date?: Maybe<Scalars['Date']>;
-  entities?: Maybe<Array<Maybe<Entity>>>;
-};
-
-export type AnswersInput = {
-  templateId?: Maybe<Scalars['String']>;
-  date?: Maybe<Scalars['Date']>;
-  entities?: Maybe<Array<Maybe<EntityInput>>>;
-};
-
-export type AogGeneral = {
-  __typename?: 'AogGeneral';
-  generalType?: Maybe<Scalars['String']>;
-  additionalPosition?: Maybe<Array<Scalars['String']>>;
-  houseLot?: Maybe<AogHouseLot>;
-  specifications?: Maybe<Array<AogSpecifications>>;
-};
-
-export type AogGeneralInput = {
-  generalType?: Maybe<Scalars['String']>;
-  additionalPosition?: Maybe<Array<Scalars['String']>>;
-  houseLot?: Maybe<AogHouseLotInput>;
-  specifications?: Maybe<Array<AogSpecificationsInput>>;
-};
-
-export enum AogGeneralType {
-  ArableFarm = 'ArableFarm',
-  TreeNursery = 'TreeNursery',
-  MushroomCultivation = 'MushroomCultivation',
-  FruitGrowing = 'FruitGrowing',
-  Goats = 'Goats',
-  GlassGarden = 'GlassGarden',
-  YoungCattleRearing = 'YoungCattleRearing',
-  Turkeys = 'Turkeys',
-  Ducks = 'Ducks',
-  Geese = 'Geese',
-  Ostriches = 'Ostriches',
-  LayingHens = 'LayingHens',
-  RidingSchool = 'RidingSchool',
-  PensionStorage = 'PensionStorage',
-  DairyFarm = 'DairyFarm',
-  HorseHusbandry = 'HorseHusbandry',
-  EalFarm = 'EalFarm',
-  SheepFarm = 'SheepFarm',
-  FishFarm = 'FishFarm',
-  MeatCalf = 'MeatCalf',
-  Broiler = 'Broiler',
-  BeefBull = 'BeefBull',
-  FatteningPig = 'FatteningPig',
-  OpenFieldGarden = 'OpenFieldGarden',
-  WarnFarm = 'WarnFarm',
-  SawsAndFatteningPigFarm = 'SawsAndFatteningPigFarm',
-  SowFarm = 'SowFarm',
-  SucklerCowFarm = 'SucklerCowFarm',
-  LooseGround = 'LooseGround',
-}
-
-export type AogHouseLot = {
-  __typename?: 'AogHouseLot';
-  length?: Maybe<Scalars['AbsoluteFloat']>;
-  width?: Maybe<Scalars['AbsoluteFloat']>;
-  surface?: Maybe<Scalars['AbsoluteFloat']>;
-  amountOfHouses?: Maybe<Scalars['Int']>;
-};
-
-export type AogHouseLotInput = {
-  length?: Maybe<Scalars['AbsoluteFloat']>;
-  width?: Maybe<Scalars['AbsoluteFloat']>;
-  surface?: Maybe<Scalars['AbsoluteFloat']>;
-  amountOfHouses?: Maybe<Scalars['Int']>;
-};
-
-export enum AogSoilType {
-  Clay = 'Clay',
-  Peat = 'Peat',
-  Gravel = 'Gravel',
-  Sand = 'Sand',
-  Loam = 'Loam',
-}
-
-export type AogSpace = LastUpdated & {
-  __typename?: 'AogSpace';
-  id: Scalars['ID'];
-  type: AogSpaceType;
-  name?: Maybe<Scalars['String']>;
-  groundConfiguration?: Maybe<GroundSpace>;
-  buildingsConfiguration?: Maybe<BuildingsSpace>;
-  installationsConfiguration?: Maybe<Installations>;
-  animalsConfiguration?: Maybe<Animals>;
-  images?: Maybe<Array<File>>;
-  dateUpdated?: Maybe<Scalars['Date']>;
-  lastEditedBy?: Maybe<LastUpdatedProfile>;
-  dateCreated?: Maybe<Scalars['Date']>;
-};
-
-export enum AogSpaceType {
-  Ground = 'Ground',
-  Buildings = 'Buildings',
-  Installations = 'Installations',
-  Animals = 'Animals',
-}
-
-export type AogSpecifications = {
-  __typename?: 'AogSpecifications';
-  type?: Maybe<Scalars['String']>;
-  notes?: Maybe<Scalars['String']>;
-};
-
-export type AogSpecificationsInput = {
-  type?: Maybe<Scalars['String']>;
-  notes?: Maybe<Scalars['String']>;
-};
-
-export enum AogSpecificationsType {
-  EnvironmentalPermit = 'EnvironmentalPermit',
-  Drainage = 'Drainage',
-  ProductionRights = 'ProductionRights',
-}
-
-export type ApartmentGeneral = {
-  __typename?: 'ApartmentGeneral';
-  availability?: Maybe<PropertyAvailabilityInformation>;
-  construction?: Maybe<ConstructionInformation>;
-  propertyDetails?: Maybe<ApartmentPropertyDetails>;
-};
-
-export type ApartmentGeneralInput = {
-  availability?: Maybe<PropertyAvailabilityInformationInput>;
-  construction?: Maybe<ConstructionInformationInput>;
-  propertyDetails?: Maybe<ApartmentPropertyDetailsInput>;
-};
-
-export type ApartmentPropertyDetails = {
-  __typename?: 'ApartmentPropertyDetails';
-  groundfloorApartmentStartsOnFloor?: Maybe<Scalars['Int']>;
-  amountOfTotalFloors?: Maybe<Scalars['Int']>;
-  notes?: Maybe<Scalars['String']>;
-  apartmentType?: Maybe<Scalars['String']>;
-  characteristicsApartment?: Maybe<Scalars['String']>;
-};
-
-export type ApartmentPropertyDetailsInput = {
-  groundfloorApartmentStartsOnFloor?: Maybe<Scalars['Int']>;
-  amountOfTotalFloors?: Maybe<Scalars['Int']>;
-  notes?: Maybe<Scalars['String']>;
-  apartmentType?: Maybe<Scalars['String']>;
-  characteristicsApartment?: Maybe<Scalars['String']>;
-};
-
-export enum ApartmentType {
-  OneBedroomApartment = 'OneBedroomApartment',
-  TwoBedroomApartment = 'TwoBedroomApartment',
-  ThreeBedroomApartment = 'ThreeBedroomApartment',
-  FourBedroomApartment = 'FourBedroomApartment',
-  FiveBedroomApartment = 'FiveBedroomApartment',
-}
-
-export type Appointment = {
-  __typename?: 'Appointment';
-  id: Scalars['ID'];
-  title?: Maybe<Scalars['String']>;
-  from: Scalars['Date'];
-  to: Scalars['Date'];
-  alternativeTerms?: Maybe<Array<AppointmentTerm>>;
-  allDay?: Maybe<Scalars['Boolean']>;
-  confirmedDate?: Maybe<Scalars['Boolean']>;
-  repeatAppointment?: Maybe<AppointmentRepeat>;
-  description?: Maybe<Scalars['String']>;
-  assignedPimIds?: Maybe<Array<Scalars['String']>>;
-  agreementType?: Maybe<Array<Maybe<AppointmentMeetingType>>>;
-  invitedPersons?: Maybe<Array<Scalars['String']>>;
-  isInsideOffice?: Maybe<Scalars['Boolean']>;
-  location?: Maybe<Scalars['String']>;
-  outsideLocation?: Maybe<Scalars['String']>;
-  travelTimeBefore?: Maybe<Scalars['Int']>;
-  travelTimeAfter?: Maybe<Scalars['Int']>;
-  state?: Maybe<AppointmentState>;
-  type: CalendarTypes;
-  appointmentType?: Maybe<AppointmentType>;
-  taskLabel?: Maybe<TaskLabel>;
-  isConfirmed?: Maybe<Scalars['Boolean']>;
-};
-
-export enum AppointmentAddressType {
-  LinkedPersonAddress = 'LinkedPersonAddress',
-  NewAcquisitionAddress = 'NewAcquisitionAddress',
-}
-
-export type AppointmentLocation = {
-  __typename?: 'AppointmentLocation';
-  id: Scalars['ID'];
-  availablePlaces?: Maybe<Scalars['Int']>;
-  name?: Maybe<Scalars['String']>;
-  suggest?: Maybe<Scalars['Boolean']>;
-};
-
-export enum AppointmentMeetingType {
-  ExternalAgreement = 'ExternalAgreement',
-  Collegial = 'Collegial',
-  CompleteArgeement = 'CompleteArgeement',
-  RedirectAppointment = 'RedirectAppointment',
-  FollowUpJob = 'FollowUpJob',
-}
-
-export enum AppointmentRepeat {
-  NoRepeat = 'NoRepeat',
-  Daily = 'Daily',
-  WorkDays = 'WorkDays',
-  Weekly = 'Weekly',
-  Monthly = 'Monthly',
-  Hourly = 'Hourly',
-  Yearly = 'Yearly',
-}
-
-export type AppointmentSearch = {
-  accountId: Scalars['ID'];
-  startDate: Scalars['String'];
-  endDate: Scalars['String'];
-  selectedUser?: Maybe<Scalars['String']>;
-  selectedGroup?: Maybe<Scalars['String']>;
-  selectedAppointmentType?: Maybe<AppointmentType>;
-  selectTaskType?: Maybe<Array<TaskLabel>>;
-};
-
-export enum AppointmentState {
-  Pencil = 'Pencil',
-  Confirmed = 'Confirmed',
-  Completed = 'Completed',
-  Unconfirmed = 'Unconfirmed',
-}
-
-export type AppointmentTerm = {
-  __typename?: 'AppointmentTerm';
-  from?: Maybe<Scalars['Date']>;
-  to?: Maybe<Scalars['Date']>;
-};
-
-export type AppointmentTermInput = {
-  from?: Maybe<Scalars['Date']>;
-  to?: Maybe<Scalars['Date']>;
-};
-
-export enum AppointmentType {
-  Aquisition = 'Aquisition',
-  SigningContract = 'SigningContract',
-  Openhouse = 'Openhouse',
-  Purchase = 'Purchase',
-  Inspection = 'Inspection',
-  PersonalShowing = 'PersonalShowing',
-}
-
-export enum ApprovalType {
-  AdaptedHome = 'AdaptedHome',
-  EnergyPerformanceAdvice = 'EnergyPerformanceAdvice',
-  PoliceMark = 'PoliceMark',
-  GeneralHomeApproval = 'GeneralHomeApproval',
-  GiwGuaranteeCertificate = 'GiwGuaranteeCertificate',
-  SwkGuaranteeCertificate = 'SwkGuaranteeCertificate',
-  ArchitecturalInspection = 'ArchitecturalInspection',
-  HouseGuarantee = 'HouseGuarantee',
-  HousingGuaranteeCertificate = 'HousingGuaranteeCertificate',
-  FireSafety = 'FireSafety',
-  KiwaSafeLiving = 'KiwaSafeLiving',
-  QualityMarkCertificate = 'QualityMarkCertificate',
-}
-
-export type Approvals = {
-  __typename?: 'Approvals';
-  label?: Maybe<Array<ApprovalType>>;
-  notes?: Maybe<Scalars['String']>;
-};
-
-export type ApprovalsInput = {
-  label?: Maybe<Array<ApprovalType>>;
-  notes?: Maybe<Scalars['String']>;
-};
-
-export type AuthenticationResult = {
-  __typename?: 'AuthenticationResult';
-  AccessToken: Scalars['String'];
-  RefreshToken: Scalars['String'];
-};
-
-export enum BankAccountPurposeType {
-  AutomaticIncasso = 'AutomaticIncasso',
-  ServiceCosts = 'ServiceCosts',
-  FirstInvoice = 'FirstInvoice',
-}
-
-export enum BankType {
-  Ing = 'Ing',
-  Rabobank = 'Rabobank',
-  AbnAmro = 'AbnAmro',
-}
-
-export enum BathroomServices {
-  Bidet = 'Bidet',
-  Sauna = 'Sauna',
-  WashingMachineConnection = 'WashingMachineConnection',
-  Shower = 'Shower',
-  SteamCabin = 'SteamCabin',
-  Sink = 'Sink',
-  CoubleWashbasin = 'CoubleWashbasin',
-  Toilet = 'Toilet',
-  Washbasin = 'Washbasin',
-  WalkInShower = 'WalkInShower',
-  Urinal = 'Urinal',
-  Whirlpool = 'Whirlpool',
-  Jacuzzi = 'Jacuzzi',
-  SitzBath = 'SitzBath',
-  Bathtub = 'Bathtub',
-}
-
-export type BathroomSpace = {
-  __typename?: 'BathroomSpace';
-  constructionYear?: Maybe<Scalars['Float']>;
-  notes?: Maybe<Scalars['String']>;
-  services?: Maybe<Array<Maybe<BathroomServices>>>;
-  servicesNotes?: Maybe<Scalars['String']>;
-  shape?: Maybe<SpaceShape>;
-  measurement?: Maybe<CuboidMeasurement>;
-  serviceHeating?: Maybe<Array<Maybe<SpaceServiceHeating>>>;
-  images?: Maybe<Array<File>>;
-};
-
-export type BedroomSpace = {
-  __typename?: 'BedroomSpace';
-  constructionYear?: Maybe<Scalars['Float']>;
-  notes?: Maybe<Scalars['String']>;
-  shape?: Maybe<SpaceShape>;
-  measurement?: Maybe<CuboidMeasurement>;
-  serviceHeating?: Maybe<Array<Maybe<SpaceServiceHeating>>>;
-  images?: Maybe<Array<File>>;
-};
-
-export type Billing = {
-  __typename?: 'Billing';
-  url: Scalars['String'];
-};
-
-export type BillingResponse = {
-  url: Scalars['String'];
-};
-
-export type BogGeneral = {
-  __typename?: 'BogGeneral';
-  type?: Maybe<GeneralBogType>;
-  characteristics?: Maybe<GeneralCharacteristicsBog>;
-  startsOnFloor?: Maybe<Scalars['Int']>;
-  totalFloors?: Maybe<Scalars['Int']>;
-  notes?: Maybe<Scalars['String']>;
-};
-
-export type BogGeneralInput = {
-  type?: Maybe<GeneralBogType>;
-  characteristics?: Maybe<GeneralCharacteristicsBog>;
-  startsOnFloor?: Maybe<Scalars['Int']>;
-  totalFloors?: Maybe<Scalars['Int']>;
-  notes?: Maybe<Scalars['String']>;
-};
-
-export type BogPrices = {
-  __typename?: 'BogPrices';
-  price?: Maybe<Scalars['AbsoluteFloat']>;
-  vatRate?: Maybe<Scalars['AbsoluteFloat']>;
-  priceVat?: Maybe<Scalars['AbsoluteFloat']>;
-  priceIncVat?: Maybe<Scalars['AbsoluteFloat']>;
-};
-
-export type BogPricesInput = {
-  price?: Maybe<Scalars['AbsoluteFloat']>;
-  vatRate?: Maybe<Scalars['AbsoluteFloat']>;
-  priceVat?: Maybe<Scalars['AbsoluteFloat']>;
-  priceIncVat?: Maybe<Scalars['AbsoluteFloat']>;
-};
-
-export type BogSpace = LastUpdated & {
-  __typename?: 'BogSpace';
-  id: Scalars['ID'];
-  type: BogSpaceType;
-  name?: Maybe<Scalars['String']>;
-  notes?: Maybe<Scalars['String']>;
-  description?: Maybe<Scalars['String']>;
-  retailSpaceConfiguration?: Maybe<RetailSpace>;
-  leisureSpaceConfiguration?: Maybe<LeisureSpace>;
-  horecaSpaceConfiguration?: Maybe<HorecaSpace>;
-  businessSpaceConfiguration?: Maybe<BusinessSpace>;
-  officeSpaceConfiguration?: Maybe<OfficeSpace>;
-  socialRealEstateSpaceConfiguration?: Maybe<SocialRealEstateSpace>;
-  terrainConfiguration?: Maybe<Terrain>;
-  storageConfiguration?: Maybe<Storage>;
-  images?: Maybe<Array<File>>;
-  dateUpdated?: Maybe<Scalars['Date']>;
-  lastEditedBy?: Maybe<LastUpdatedProfile>;
-  dateCreated?: Maybe<Scalars['Date']>;
-};
-
-export enum BogSpaceType {
-  BusinessSpace = 'BusinessSpace',
-  OfficeSpace = 'OfficeSpace',
-  RetailSpace = 'RetailSpace',
-  Leisure = 'Leisure',
-  HorecaSpace = 'HorecaSpace',
-  SocialRealEstateSpace = 'SocialRealEstateSpace',
-  Terrain = 'Terrain',
-  Storage = 'Storage',
-}
-
-export type BoughtOff = {
-  __typename?: 'BoughtOff';
-  date?: Maybe<Scalars['Date']>;
-  perpetually?: Maybe<Scalars['Boolean']>;
-  notes?: Maybe<Scalars['String']>;
-};
-
-export type BoughtOffInput = {
-  date?: Maybe<Scalars['Date']>;
-  perpetually?: Maybe<Scalars['Boolean']>;
-  notes?: Maybe<Scalars['String']>;
-};
-
-export enum BricrPlans {
-  Professional = 'Professional',
-  EnterPrise = 'EnterPrise',
-  Start = 'Start',
-}
-
-export type BuildingMeasurements = {
-  __typename?: 'BuildingMeasurements';
-  length?: Maybe<Scalars['AbsoluteFloat']>;
-  width?: Maybe<Scalars['AbsoluteFloat']>;
-  surface?: Maybe<Scalars['AbsoluteFloat']>;
-  height?: Maybe<Scalars['AbsoluteFloat']>;
-  volume?: Maybe<Scalars['AbsoluteFloat']>;
-  constructionYear?: Maybe<Scalars['Int']>;
-};
-
-export type BuildingMeasurementsInput = {
-  length?: Maybe<Scalars['AbsoluteFloat']>;
-  width?: Maybe<Scalars['AbsoluteFloat']>;
-  surface?: Maybe<Scalars['AbsoluteFloat']>;
-  height?: Maybe<Scalars['AbsoluteFloat']>;
-  volume?: Maybe<Scalars['AbsoluteFloat']>;
-  constructionYear?: Maybe<Scalars['Int']>;
-};
-
-export type BuildingPlotGeneral = {
-  __typename?: 'BuildingPlotGeneral';
-  availability?: Maybe<PropertyAvailabilityInformation>;
-  construction?: Maybe<ConstructionInformation>;
-  propertyDetails?: Maybe<BuildingPlotPropertyDetails>;
-};
-
-export type BuildingPlotGeneralInput = {
-  availability?: Maybe<PropertyAvailabilityInformationInput>;
-  construction?: Maybe<ConstructionInformationInput>;
-  propertyDetails?: Maybe<BuildingPlotPropertyDetailsInput>;
-};
-
-export type BuildingPlotPropertyDetails = {
-  __typename?: 'BuildingPlotPropertyDetails';
-  plotReadyForConstruction?: Maybe<Scalars['Boolean']>;
-  buildingPlotNumber?: Maybe<Scalars['Int']>;
-  notes?: Maybe<Scalars['String']>;
-  soilType?: Maybe<Scalars['String']>;
-  measurements?: Maybe<RectangleMeasurement>;
-};
-
-export type BuildingPlotPropertyDetailsInput = {
-  plotReadyForConstruction?: Maybe<Scalars['Boolean']>;
-  buildingPlotNumber?: Maybe<Scalars['Int']>;
-  notes?: Maybe<Scalars['String']>;
-  measurements?: Maybe<RectangleMeasurementInput>;
-  soilType?: Maybe<Scalars['String']>;
-};
-
-export enum BuildingType {
-  Sheds = 'Sheds',
-  RidingHalls = 'RidingHalls',
-  Canteen = 'Canteen',
-  StorageShed = 'StorageShed',
-  MachineShed = 'MachineShed',
-  GlassCurb = 'GlassCurb',
-  ManureSilo = 'ManureSilo',
-  HorseBoxes = 'HorseBoxes',
-  CageHouse = 'CageHouse',
-  Cubicles = 'Cubicles',
-  FatteningPigsty = 'FatteningPigsty',
-  BreedingPigsty = 'BreedingPigsty',
-  PigletStable = 'PigletStable',
-}
-
-export type BuildingsSpace = {
-  __typename?: 'BuildingsSpace';
-  buildingType?: Maybe<Scalars['String']>;
-  numberOfSameBuilding?: Maybe<Scalars['Int']>;
-  buildingTypeNotes?: Maybe<Scalars['String']>;
-  measurements?: Maybe<BuildingMeasurements>;
-};
-
-export type BuildingsSpaceInput = {
-  buildingType?: Maybe<Scalars['String']>;
-  numberOfSameBuilding?: Maybe<Scalars['Int']>;
-  buildingTypeNotes?: Maybe<Scalars['String']>;
-  measurements?: Maybe<BuildingMeasurementsInput>;
-};
-
-export type BulkCreateSalesCrm = {
-  __typename?: 'BulkCreateSalesCrm';
-  cyclusId: Scalars['ID'];
-  crmIds?: Maybe<Array<Scalars['ID']>>;
-};
-
-export type BulkCreateSalesPim = {
-  __typename?: 'BulkCreateSalesPim';
-  cyclusId: Scalars['ID'];
-  pimIds?: Maybe<Array<Scalars['ID']>>;
-};
-
-export type BulkDeleteNotificationsInput = {
-  ids: Array<Scalars['ID']>;
-};
-
-export enum BulkEntities {
-  Pim = 'Pim',
-  ObjectType = 'ObjectType',
-  Ncp = 'Ncp',
-  Crm = 'Crm',
-}
-
-export enum BulkField {
-  City = 'City',
-  Status = 'Status',
-  RentPrice = 'RentPrice',
-  SalePrice = 'SalePrice',
-  Security = 'Security',
-  Result = 'Result',
-}
-
-export type BulkOperationInput = {
-  operation: BulkOperations;
-  ids: Array<Scalars['ID']>;
-  entity: BulkEntities;
-  field?: Maybe<BulkField>;
-  value?: Maybe<Scalars['BulkFieldValue']>;
-};
-
-export type BulkOperationResult = {
-  __typename?: 'BulkOperationResult';
-  undoIds: Array<Scalars['ID']>;
-};
-
-export enum BulkOperations {
-  SetField = 'SetField',
-  Delete = 'Delete',
-  Archive = 'Archive',
-}
-
-export type BulkReadNotificationsInput = {
-  ids: Array<Scalars['ID']>;
-};
-
-export enum BusinessServicesType {
-  ConcreteFloor = 'ConcreteFloor',
-  Skylights = 'Skylights',
-  Pantry = 'Pantry',
-  Heating = 'Heating',
-  LoadingDocks = 'LoadingDocks',
-  Sprinkler = 'Sprinkler',
-  PowerFlow = 'PowerFlow',
-  OverheadDoors = 'OverheadDoors',
-  Toilet = 'Toilet',
-  RecessedLuminaires = 'RecessedLuminaires',
-  Elevators = 'Elevators',
-  OpenableWindows = 'OpenableWindows',
-}
-
-export type BusinessSpace = {
-  __typename?: 'BusinessSpace';
-  measurements?: Maybe<BusinessSpaceMeasurements>;
-  airTreatment?: Maybe<Array<Scalars['String']>>;
-  services?: Maybe<Array<Scalars['String']>>;
-  prices?: Maybe<BogPrices>;
-};
-
-export type BusinessSpaceInput = {
-  measurements?: Maybe<BusinessSpaceMeasurementsInput>;
-  airTreatment?: Maybe<Array<Scalars['String']>>;
-  services?: Maybe<Array<Scalars['String']>>;
-  prices?: Maybe<BogPricesInput>;
-};
-
-export type BusinessSpaceMeasurements = {
-  __typename?: 'BusinessSpaceMeasurements';
-  surface?: Maybe<Scalars['AbsoluteFloat']>;
-  freeHeight?: Maybe<Scalars['AbsoluteFloat']>;
-  freeSpan?: Maybe<Scalars['AbsoluteFloat']>;
-  floorLoad?: Maybe<Scalars['AbsoluteFloat']>;
-  inUnitsFrom?: Maybe<Scalars['AbsoluteFloat']>;
-  amountOfFloors?: Maybe<Scalars['Int']>;
-};
-
-export type BusinessSpaceMeasurementsInput = {
-  surface?: Maybe<Scalars['AbsoluteFloat']>;
-  freeHeight?: Maybe<Scalars['AbsoluteFloat']>;
-  freeSpan?: Maybe<Scalars['AbsoluteFloat']>;
-  floorLoad?: Maybe<Scalars['AbsoluteFloat']>;
-  inUnitsFrom?: Maybe<Scalars['AbsoluteFloat']>;
-  amountOfFloors?: Maybe<Scalars['Int']>;
-};
-
-export type Cadastre = LastUpdated & {
-  __typename?: 'Cadastre';
-  id: Scalars['String'];
-  description?: Maybe<Scalars['String']>;
-  mapsDescription?: Maybe<Scalars['String']>;
-  type: CadastreType;
-  maps?: Maybe<Array<CadastreMap>>;
-  plot?: Maybe<CadastrePlot>;
-  dateCreated?: Maybe<Scalars['Date']>;
-  dateUpdated?: Maybe<Scalars['Date']>;
-  lastEditedBy?: Maybe<LastUpdatedProfile>;
-};
-
-export type CadastreMap = {
-  __typename?: 'CadastreMap';
-  id: Scalars['String'];
-  mapName: Scalars['String'];
-  name?: Maybe<Scalars['String']>;
-  file?: Maybe<File>;
-  description?: Maybe<Scalars['String']>;
-  dateCreated?: Maybe<Scalars['Date']>;
-  type?: Maybe<Scalars['String']>;
-};
-
-export type CadastreMapInput = {
-  mapName?: Maybe<Scalars['String']>;
-  description?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
-  type?: Maybe<Scalars['String']>;
-};
-
-export enum CadastreMapType {
-  Map = 'Map',
-  Register = 'Register',
-}
-
-export enum CadastreOwnershipType {
-  PerpetualLeaseChargedWith = 'PerpetualLeaseChargedWith',
-  PropertyChargedWith = 'PropertyChargedWith',
-  AnnualLeaseholdChargedWith = 'AnnualLeaseholdChargedWith',
-  LeaseholdAndBuildingChargedWith = 'LeaseholdAndBuildingChargedWith',
-  BuildingChargedWith = 'BuildingChargedWith',
-  Other = 'Other',
-}
-
-export type CadastrePlot = {
-  __typename?: 'CadastrePlot';
-  notes?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
-  municipalCode?: Maybe<Scalars['String']>;
-  sectionCode?: Maybe<Scalars['String']>;
-  plot?: Maybe<Scalars['String']>;
-  indexNumber?: Maybe<Scalars['String']>;
-  surface?: Maybe<Scalars['Float']>;
-  share?: Maybe<Scalars['String']>;
-  codeSize?: Maybe<CodeSizeType>;
-  ownershipChoice?: Maybe<OwnershipChoiceType>;
-  ownershipType?: Maybe<CadastreOwnershipType>;
-  lease?: Maybe<Lease>;
-  boughtOff?: Maybe<BoughtOff>;
-  dateCreated?: Maybe<Scalars['Date']>;
-};
-
-export type CadastrePlotInput = {
-  id?: Maybe<Scalars['String']>;
-  notes?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
-  municipalCode?: Maybe<Scalars['String']>;
-  sectionCode?: Maybe<Scalars['String']>;
-  plot?: Maybe<Scalars['String']>;
-  indexNumber?: Maybe<Scalars['String']>;
-  surface?: Maybe<Scalars['Float']>;
-  share?: Maybe<Scalars['String']>;
-  codeSize?: Maybe<CodeSizeType>;
-  ownershipChoice?: Maybe<OwnershipChoiceType>;
-  ownershipType?: Maybe<CadastreOwnershipType>;
-  lease?: Maybe<LeaseInput>;
-  boughtOff?: Maybe<BoughtOffInput>;
-};
-
-export enum CadastreType {
-  CadastreMap = 'CadastreMap',
-  Plot = 'Plot',
-}
-
-export type CalendarGroup = {
-  __typename?: 'CalendarGroup';
-  id: Scalars['ID'];
-  name: Scalars['String'];
-  color?: Maybe<Scalars['String']>;
-  members?: Maybe<Array<Profile>>;
-};
-
-export enum CalendarTypes {
-  Meeting = 'Meeting',
-  Appointment = 'Appointment',
-  Birthday = 'Birthday',
-  Travel = 'Travel',
-  Private = 'Private',
-  Task = 'Task',
-}
-
-export type ChangesHistoryFilters = {
-  entityType?: Maybe<EventEntityType>;
-  relatedEntityId?: Maybe<Scalars['ID']>;
-};
-
-export enum ChapterOrUspType {
-  Garden = 'Garden',
-  Garage = 'Garage',
-  Storage = 'Storage',
-  Terrain = 'Terrain',
-  ParkingLot = 'ParkingLot',
-  Kitchen = 'Kitchen',
-  Bathroom = 'Bathroom',
-  LivingRoom = 'LivingRoom',
-  Bedroom = 'Bedroom',
-  HomeOffice = 'HomeOffice',
-  Attic = 'Attic',
-  Floor = 'Floor',
-  Basement = 'Basement',
-  GroundFloor = 'GroundFloor',
-  Funda = 'Funda',
-}
-
-export enum CharacteristicsApartment {
-  CorridorApartment = 'CorridorApartment',
-  ServiceApartment = 'ServiceApartment',
-  NursingApartment = 'NursingApartment',
-  CallFloor = 'CallFloor',
-  DormRoom = 'DormRoom',
-  OpenPorch = 'OpenPorch',
-  PorchApartment = 'PorchApartment',
-  GalleryApartment = 'GalleryApartment',
-  Mezzanine = 'Mezzanine',
-  Penthouse = 'Penthouse',
-  Maisonette = 'Maisonette',
-  UpstairsApartment = 'UpstairsApartment',
-  DownstairsApartment = 'DownstairsApartment',
-  DoubleUpstairsApartment = 'DoubleUpstairsApartment',
-  DoubleDownstairsApartment = 'DoubleDownstairsApartment',
-}
-
-export enum CharacteristicsSections {
-  Measurements = 'Measurements',
-  ClientInformation = 'ClientInformation',
-  InvoiceDetails = 'InvoiceDetails',
-  IdentificationNumber = 'IdentificationNumber',
-  Energy = 'Energy',
-  Phase = 'Phase',
-  AccountManagers = 'AccountManagers',
-  ProjectMarketing = 'ProjectMarketing',
-  AttentionField = 'AttentionField',
-  ObjectTypes = 'ObjectTypes',
-}
-
-export type CheckCompanyRegistereInput = {
-  name: Scalars['String'];
-};
-
-export type CheckRegisteredResponse = {
-  __typename?: 'CheckRegisteredResponse';
-  suggestions?: Maybe<Array<Scalars['String']>>;
-  taken: Scalars['Boolean'];
-};
-
-export type CloneMatchProfileInput = {
-  id: Scalars['ID'];
-};
-
-export enum CodeSizeType {
-  Apartment = 'Apartment',
-  Tightness = 'Tightness',
-  PartLot = 'PartLot',
-  InWholePlot = 'InWholePlot',
-  MembershipRight = 'MembershipRight',
-}
-
-export type CommonAddMediaLinkInput = {
-  parentId: Scalars['String'];
-  type?: Maybe<Scalars['String']>;
-  url?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
-};
-
-export type CommonAddPicturesInput = {
-  parentId: Scalars['String'];
-  pictures: Array<NewPictureInput>;
-};
-
-export type CommonAddTagInput = {
-  parentId: Scalars['String'];
-  type?: Maybe<Scalars['String']>;
-  description?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
-};
-
-export type CommonAddTextChapterInput = {
-  parentId: Scalars['String'];
-  name?: Maybe<Scalars['String']>;
-  type?: Maybe<Scalars['String']>;
-  text?: Maybe<Scalars['String']>;
-};
-
-export type CommonAddUspsInput = {
-  parentId: Scalars['String'];
-  type?: Maybe<Scalars['String']>;
-  description?: Maybe<Scalars['String']>;
-};
-
-export type CommonCost = {
-  __typename?: 'CommonCost';
-  id: Scalars['ID'];
-  serviceCostsFrom?: Maybe<Scalars['AbsoluteFloat']>;
-  serviceCostsTill?: Maybe<Scalars['AbsoluteFloat']>;
-  paymentsFrequency?: Maybe<CostPaymentFrequency>;
-  vatTaxedServiceCostsFrom?: Maybe<Scalars['AbsoluteFloat']>;
-  vatTaxedServiceCostsTill?: Maybe<Scalars['AbsoluteFloat']>;
-  vatPercentage?: Maybe<Scalars['CostVat']>;
-  notes?: Maybe<Scalars['String']>;
-  type: Scalars['String'];
-  name?: Maybe<Scalars['String']>;
-  dateCreated?: Maybe<Scalars['Date']>;
-};
-
-export enum CommonCostType {
-  Kitchen = 'Kitchen',
-  Tiles = 'Tiles',
-  Bathroom = 'Bathroom',
-  Service = 'Service',
-  Heating = 'Heating',
-  Electricity = 'Electricity',
-  Water = 'Water',
-  Sewage = 'Sewage',
-  WaterBoard = 'WaterBoard',
-  LandConsolidationInterest = 'LandConsolidationInterest',
-  HomeownerAssociation = 'HomeownerAssociation',
-  OzbUserPart = 'OzbUserPart',
-  OzbBusinessPart = 'OzbBusinessPart',
-  Custom = 'Custom',
-}
-
-export type CommonCosts = LastUpdated & {
-  __typename?: 'CommonCosts';
-  costs?: Maybe<Array<CommonCost>>;
-  description?: Maybe<Scalars['String']>;
-  lastEditedBy?: Maybe<LastUpdatedProfile>;
-  dateUpdated?: Maybe<Scalars['Date']>;
-};
-
-export type CommonMedia = LastUpdated & {
-  __typename?: 'CommonMedia';
-  id: Scalars['String'];
-  pictures?: Maybe<Array<Picture>>;
-  mediaLinks?: Maybe<Array<MediaLink>>;
-  textChapters?: Maybe<Array<TextChapter>>;
-  usps?: Maybe<Array<Usp>>;
-  tags?: Maybe<Array<Tag>>;
-  dateUpdated?: Maybe<Scalars['Date']>;
-  lastEditedBy?: Maybe<LastUpdatedProfile>;
-  mediaDescription?: Maybe<Scalars['String']>;
-};
-
-export type CommonMediaPicturesArgs = {
-  sort?: Maybe<Sort>;
-};
-
-export type CommonNewPictureInput = {
-  fileID: Scalars['String'];
-  isMainPicture?: Maybe<Scalars['Boolean']>;
-};
-
-export type CommonPricing = LastUpdated & {
-  __typename?: 'CommonPricing';
-  rent?: Maybe<CommonRentInformations>;
-  sale?: Maybe<CommonSaleInformations>;
-  lastEditedBy?: Maybe<LastUpdatedProfile>;
-  dateUpdated?: Maybe<Scalars['Date']>;
-  description?: Maybe<Scalars['String']>;
-};
-
-export enum CommonPricingType {
-  Sale = 'Sale',
-  Rent = 'Rent',
-}
-
-export type CommonRentInformations = {
-  __typename?: 'CommonRentInformations';
-  minPrice?: Maybe<Scalars['AbsoluteFloat']>;
-  maxPrice?: Maybe<Scalars['AbsoluteFloat']>;
-  isEnabled?: Maybe<Scalars['Boolean']>;
-  calculateAutomatically?: Maybe<Scalars['Boolean']>;
-};
-
-export type CommonRentInformationsInput = {
-  minPrice?: Maybe<Scalars['AbsoluteFloat']>;
-  maxPrice?: Maybe<Scalars['AbsoluteFloat']>;
-  calculateAutomatically?: Maybe<Scalars['Boolean']>;
-};
-
-export enum CommonRoomsType {
-  Canteen = 'Canteen',
-  Pantry = 'Pantry',
-  Kitchen = 'Kitchen',
-  FrontDesk = 'FrontDesk',
-  Sanitary = 'Sanitary',
-  ConferenceRoom = 'ConferenceRoom',
-}
-
-export type CommonSaleInformations = {
-  __typename?: 'CommonSaleInformations';
-  minPrice?: Maybe<Scalars['AbsoluteFloat']>;
-  maxPrice?: Maybe<Scalars['AbsoluteFloat']>;
-  isEnabled?: Maybe<Scalars['Boolean']>;
-  calculateAutomatically?: Maybe<Scalars['Boolean']>;
-};
-
-export type CommonSaleInformationsInput = {
-  minPrice?: Maybe<Scalars['AbsoluteFloat']>;
-  maxPrice?: Maybe<Scalars['AbsoluteFloat']>;
-  calculateAutomatically?: Maybe<Scalars['Boolean']>;
-};
-
-export type CommonUpdateMediaDescriptionInput = {
-  id: Scalars['String'];
-  description?: Maybe<Scalars['String']>;
-};
-
-export type CommonUpdateMediaLinkInput = {
-  parentId: Scalars['String'];
-  id: Scalars['String'];
-  type?: Maybe<Scalars['String']>;
-  url?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
-};
-
-export type CommonUpdatePictureInput = {
-  parentId: Scalars['String'];
-  id: Scalars['String'];
-  type?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
-  description?: Maybe<Scalars['String']>;
-  fileId?: Maybe<Scalars['String']>;
-  isMainPicture?: Maybe<Scalars['Boolean']>;
-};
-
-export type CommonUpdateTagInput = {
-  parentId: Scalars['String'];
-  id: Scalars['String'];
-  type?: Maybe<Scalars['String']>;
-  description?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
-};
-
-export type CommonUpdateTextChapterInput = {
-  parentId: Scalars['String'];
-  id: Scalars['String'];
-  name?: Maybe<Scalars['String']>;
-  type?: Maybe<Scalars['String']>;
-  text?: Maybe<Scalars['String']>;
-};
-
-export type CommonUpdateUspsInput = {
-  parentId: Scalars['String'];
-  id: Scalars['String'];
-  type?: Maybe<Scalars['String']>;
-  description?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
-};
-
-export type Company = {
-  __typename?: 'Company';
-  id: Scalars['ID'];
-  teams?: Maybe<Array<Team>>;
-  users?: Maybe<Array<Profile>>;
-  name?: Maybe<Scalars['String']>;
-  domain?: Maybe<Scalars['String']>;
-  address?: Maybe<Scalars['String']>;
-  addressSecondLine?: Maybe<Scalars['String']>;
-  state?: Maybe<Scalars['String']>;
-  city?: Maybe<Scalars['String']>;
-  zipcode?: Maybe<Scalars['String']>;
-  country?: Maybe<Scalars['String']>;
-  houseNumber?: Maybe<Scalars['String']>;
-  floor?: Maybe<Scalars['Int']>;
-  chamberOfCommerce?: Maybe<Scalars['String']>;
-  vat?: Maybe<Scalars['String']>;
-  image?: Maybe<File>;
-};
-
-export type ConfirmProfileInvite = {
-  firstName?: Maybe<Scalars['String']>;
-  lastName?: Maybe<Scalars['String']>;
-  email: Scalars['String'];
-  password: Scalars['String'];
-};
-
-export type ConstructionInformation = {
-  __typename?: 'ConstructionInformation';
-  type?: Maybe<ConstructionType>;
-  from?: Maybe<Scalars['Date']>;
-  to?: Maybe<Scalars['Date']>;
-  notes?: Maybe<Scalars['String']>;
-};
-
-export type ConstructionInformationInput = {
-  type?: Maybe<ConstructionType>;
-  from?: Maybe<Scalars['Date']>;
-  to?: Maybe<Scalars['Date']>;
-  notes?: Maybe<Scalars['String']>;
-};
-
-export enum ConstructionType {
-  UnderConstruction = 'UnderConstruction',
-  InDevelopment = 'InDevelopment',
-}
-
-export enum ContactAddressType {
-  HomeAddress = 'HomeAddress',
-  SalesAddress = 'SalesAddress',
-  MailingAddress = 'MailingAddress',
-  VisitingAddress = 'VisitingAddress',
-  BillingAddress = 'BillingAddress',
-  FutureAddress = 'FutureAddress',
-  PreviousAddress = 'PreviousAddress',
-  SecondAddress = 'SecondAddress',
-  Custom = 'Custom',
-}
-
-export enum ContactEmailAddressType {
-  MainAddress = 'MainAddress',
-  AddressForMatches = 'AddressForMatches',
-  AddressForInvoices = 'AddressForInvoices',
-  Private = 'Private',
-  Business = 'Business',
-  PreviousAddress = 'PreviousAddress',
-  Custom = 'Custom',
-}
-
-export enum ContactPhoneNumberType {
-  MainNumber = 'MainNumber',
-  MobileNumber = 'MobileNumber',
-  PrivateNumber = 'PrivateNumber',
-  BusinessNumber = 'BusinessNumber',
-  FaxNumber = 'FaxNumber',
-  Custom = 'Custom',
-}
-
-export enum ContactSocialMediaType {
-  Facebook = 'Facebook',
-  Twitter = 'Twitter',
-  LinkedIn = 'LinkedIn',
-  Custom = 'Custom',
-}
-
-export type Cost = {
-  __typename?: 'Cost';
-  id: Scalars['ID'];
-  serviceCosts?: Maybe<Scalars['AbsoluteFloat']>;
-  paymentsFrequency?: Maybe<CostPaymentFrequency>;
-  vatTaxedServiceCosts?: Maybe<Scalars['AbsoluteFloat']>;
-  vatPercentage?: Maybe<Scalars['CostVat']>;
-  notes?: Maybe<Scalars['String']>;
-  type: Scalars['String'];
-  name?: Maybe<Scalars['String']>;
-  dateCreated?: Maybe<Scalars['Date']>;
-};
-
-export enum CostPaymentFrequency {
-  Monthly = 'Monthly',
-  Yearly = 'Yearly',
-}
-
-export type CostResult = {
-  __typename?: 'CostResult';
-  pim: Pim;
-  cost: Cost;
-};
-
-export enum CostType {
-  Service = 'Service',
-  Heating = 'Heating',
-  Electricity = 'Electricity',
-  Water = 'Water',
-  Sewage = 'Sewage',
-  WaterBoard = 'WaterBoard',
-  LandConsolidationInterest = 'LandConsolidationInterest',
-  HomeownerAssociation = 'HomeownerAssociation',
-  OzbUserPart = 'OzbUserPart',
-  OzbBusinessPart = 'OzbBusinessPart',
-  Custom = 'Custom',
-}
-
-export type CostsDetails = LastUpdated & {
-  __typename?: 'CostsDetails';
-  description?: Maybe<Scalars['String']>;
-  dateUpdated?: Maybe<Scalars['Date']>;
-  lastEditedBy?: Maybe<LastUpdatedProfile>;
-};
-
-export type CreateCompanyInput = {
-  name: Scalars['String'];
-  email: Scalars['String'];
-  password: Scalars['String'];
-  space: Scalars['String'];
-  amountUsers?: Maybe<Scalars['Int']>;
-  amountProperties?: Maybe<Scalars['Int']>;
-  plan?: Maybe<BricrPlans>;
-};
-
-export type CreateCrmInput = {
-  type: CrmType;
-  firstName?: Maybe<Scalars['String']>;
-  initials?: Maybe<Scalars['String']>;
-  lastName?: Maybe<Scalars['String']>;
-  email?: Maybe<Scalars['String']>;
-  phoneNumber?: Maybe<Scalars['String']>;
-};
-
-export type CreateDmsFolderInput = {
-  entityId: Scalars['ID'];
-  foldername: Scalars['String'];
-  entityType: DmsEntityType;
-  type: DmsFolderType;
+export type AllocateCriteriaOrderInput = {
+  name?: Maybe<AllocateCriteriaType>;
   order?: Maybe<Scalars['Int']>;
-  deletedAt?: Maybe<Scalars['Date']>;
-};
-
-export type CreateEmailAddressInput = {
-  profileId: Scalars['String'];
-  emailAddress: Scalars['String'];
-  emailAddressType?: Maybe<EmailAddressType>;
-  isPublic?: Maybe<Scalars['Boolean']>;
-};
-
-export type CreateFileInput = {
-  fileName: Scalars['String'];
-  fileType: Scalars['String'];
-  permission: FilePermission;
-  description?: Maybe<Scalars['String']>;
-};
-
-export type CreateHistoryDataInput = {
-  __typename?: 'CreateHistoryDataInput';
-  data: Scalars['String'];
-};
-
-export type CreateHistoryInput = {
-  __typename?: 'CreateHistoryInput';
-  entity: Entities;
-  entityId: Scalars['String'];
-  description?: Maybe<Scalars['String']>;
-  data: Scalars['String'];
-  oldData: Scalars['String'];
-  userId: Scalars['String'];
-  companyId: Scalars['String'];
-};
-
-export type CreateNcpInput = {
-  type: NcpType;
-  name: Scalars['String'];
-  additionalName?: Maybe<Scalars['String']>;
-  street: Scalars['String'];
-  houseNumber: Scalars['String'];
-  zipCode: Scalars['String'];
-  city: Scalars['String'];
-  country: Scalars['String'];
-  additionalHouseNumber?: Maybe<Scalars['String']>;
-  projectType?: Maybe<ProjectType>;
-};
-
-export type CreateNotificationInput = {
-  type: NotificationType;
-  receiver: Scalars['ID'];
-  description: Scalars['String'];
-  linkedEntity?: Maybe<LinkedEntityInput>;
-};
-
-export type CreateObjectTypeInput = {
-  name: Scalars['String'];
-  ncpId: Scalars['ID'];
-};
-
-export type CreatePhoneNumberInput = {
-  profileId: Scalars['String'];
-  phoneNumber: Scalars['String'];
-  phoneNumberType?: Maybe<PhoneNumberType>;
-  isPublic?: Maybe<Scalars['Boolean']>;
-};
-
-export type CreatePimInput = {
-  realEstateType: RealEstateType;
-  street: Scalars['String'];
-  houseNumberPrefix?: Maybe<Scalars['String']>;
-  houseNumber: Scalars['String'];
-  houseNumberAddition?: Maybe<Scalars['String']>;
-  constructionNumberPrefix?: Maybe<Scalars['String']>;
-  constructionNumber?: Maybe<Scalars['String']>;
-  constructionNumberAddition?: Maybe<Scalars['String']>;
-  postalCode: Scalars['String'];
-  district?: Maybe<Scalars['String']>;
-  city: Scalars['String'];
-  state?: Maybe<Scalars['String']>;
-  county?: Maybe<Scalars['String']>;
-  country: Scalars['String'];
-  developmentType: DevelopmentType;
-  status: PimStatus;
-  salePrice?: Maybe<Scalars['Float']>;
-  rentPrice?: Maybe<Scalars['Float']>;
-  description?: Maybe<Scalars['String']>;
-  livingArea?: Maybe<Scalars['Int']>;
-  propertyType?: Maybe<PropertyType>;
-  attentionNote?: Maybe<Scalars['String']>;
-};
-
-export type CreateProfileInput = {
-  gender?: Maybe<GenderType>;
-  firstName?: Maybe<Scalars['String']>;
-  lastName?: Maybe<Scalars['String']>;
-  dateOfBirth?: Maybe<Scalars['Date']>;
-  functionDescription?: Maybe<Scalars['String']>;
-  email: Scalars['String'];
-  isAdmin?: Maybe<Scalars['Boolean']>;
-  adminSettings?: Maybe<Array<AdminSettings>>;
-  language?: Maybe<Scalars['String']>;
-};
-
-export type CreateProjectPhaseInput = {
-  name: Scalars['String'];
-  logoId?: Maybe<Scalars['ID']>;
-  ncpId?: Maybe<Scalars['ID']>;
-};
-
-export type CreateSales = {
-  __typename?: 'CreateSales';
-  label: SalesLabel;
-  type: SalesType;
-  extraInfo?: Maybe<Scalars['String']>;
-};
-
-export type CreateSalesAccountContact = {
-  __typename?: 'CreateSalesAccountContact';
-  cyclusId: Scalars['ID'];
-  userId: Scalars['ID'];
-  role: SalesRole;
-};
-
-export type CreateSalesAddress = {
-  __typename?: 'CreateSalesAddress';
-  cyclusId: Scalars['ID'];
-  country?: Maybe<Scalars['String']>;
-  city?: Maybe<Scalars['String']>;
-  zipCode?: Maybe<Scalars['String']>;
-  street?: Maybe<Scalars['String']>;
-  houseNumber?: Maybe<Scalars['String']>;
-  extraInfo?: Maybe<Scalars['String']>;
-};
-
-export type CreateSalesBrokerage = {
-  __typename?: 'CreateSalesBrokerage';
-  cyclusId: Scalars['ID'];
-  type: Scalars['Int'];
-  percentage?: Maybe<Scalars['Int']>;
-  fixedAmount?: Maybe<Scalars['Int']>;
-  amountValues?: Maybe<Scalars['String']>;
-  vatPercentage?: Maybe<Scalars['Int']>;
-  reservationRate?: Maybe<Scalars['String']>;
-  partialCommission?: Maybe<Scalars['Int']>;
-  bonusPercentage?: Maybe<Scalars['Int']>;
-  description?: Maybe<Scalars['String']>;
-  notes?: Maybe<Scalars['String']>;
-};
-
-export type CreateSalesCrm = {
-  __typename?: 'CreateSalesCrm';
-  cyclusId: Scalars['ID'];
-  crmId: Scalars['ID'];
-};
-
-export type CreateSalesEntity = {
-  __typename?: 'CreateSalesEntity';
-  cyclusId: Scalars['ID'];
-  entityType: Entities;
-  entityId: Scalars['ID'];
-};
-
-export type CreateSalesFile = {
-  __typename?: 'CreateSalesFile';
-  cyclusId: Scalars['ID'];
-  documentId: Scalars['ID'];
-  label: Scalars['String'];
-};
-
-export type CreateSalesInput = {
-  label: SalesLabel;
-  type: SalesType;
-  extraInfo?: Maybe<Scalars['String']>;
-};
-
-export type CreateSalesPackage = {
-  __typename?: 'CreateSalesPackage';
-  cyclusId: Scalars['ID'];
-  package: Scalars['String'];
-};
-
-export type CreateSalesPim = {
-  __typename?: 'CreateSalesPim';
-  cyclusId: Scalars['ID'];
-  pimId: Scalars['ID'];
-};
-
-export type CreateSalesStatusChange = {
-  __typename?: 'CreateSalesStatusChange';
-  cyclusId: Scalars['ID'];
-  label: SalesLabel;
-  status: SalesStatus;
-  historyId: Scalars['ID'];
-};
-
-export type CreateSocialMediaLinkInput = {
-  profileId: Scalars['String'];
-  socialMediaLink: Scalars['String'];
-  socialMediaLinkType?: Maybe<SocialMediaLinkType>;
-  isPublic?: Maybe<Scalars['Boolean']>;
-};
-
-export type CreateTaskInput = {
-  title: Scalars['String'];
-  assignee: Scalars['ID'];
-  startDate?: Maybe<Scalars['Date']>;
-  deadline?: Maybe<Scalars['Date']>;
-  priority: TaskPriority;
-  label: Scalars['String'];
-};
-
-export type CreateWorkflowActionInput = {
-  companyId: Scalars['ID'];
-  workflowTriggerId: Scalars['ID'];
-  workflowActionGroupType?: Maybe<WorkflowActionGroupType>;
-  workflowActionGroupId?: Maybe<Scalars['ID']>;
-  type: WorkflowActionType;
-};
-
-export type CreateWorkflowSectionInput = {
-  __typename?: 'CreateWorkflowSectionInput';
-  companyId: Scalars['ID'];
-  workflowTemplateId: Scalars['ID'];
-  name: Scalars['String'];
-  startpoint: WorkflowSectionStartpoint;
-  startpointOutside?: Maybe<Scalars['ID']>;
-  endpoint: WorkflowSectionEndpoint;
-  endpointOutside?: Maybe<Scalars['ID']>;
-};
-
-export type CreateWorkflowTemplateInput = {
-  __typename?: 'CreateWorkflowTemplateInput';
-  companyId: Scalars['ID'];
-  name: Scalars['String'];
-  icon: Scalars['String'];
-};
-
-export type CreateWorkflowTriggerInput = {
-  __typename?: 'CreateWorkflowTriggerInput';
-  companyId: Scalars['ID'];
-  workflowSectionId: Scalars['ID'];
-  type: WorkflowTriggerType;
-};
-
-export enum CriteriaOrder {
-  JointIncome = 'JointIncome',
-  MinimalAmountOfMissingDocuments = 'MinimalAmountOfMissingDocuments',
-  NumberOfPreferenceInterest = 'NumberOfPreferenceInterest',
-  DateOfRegistrationInterest = 'DateOfRegistrationInterest',
-  AdditionalWork = 'AdditionalWork',
-}
-
-export type CrmAddress = {
-  __typename?: 'CrmAddress';
-  id: Scalars['ID'];
-  type: ContactAddressType;
-  street?: Maybe<Scalars['String']>;
-  houseNumber?: Maybe<Scalars['Int']>;
-  addition?: Maybe<Scalars['String']>;
-  zipcode?: Maybe<Scalars['String']>;
-  city?: Maybe<Scalars['String']>;
-  country?: Maybe<Scalars['String']>;
-  extraInformation?: Maybe<Scalars['String']>;
-  availableFrom?: Maybe<Scalars['Date']>;
-  note?: Maybe<Scalars['String']>;
-};
-
-export type CrmAddressInput = {
-  type: ContactAddressType;
-  street?: Maybe<Scalars['String']>;
-  houseNumber?: Maybe<Scalars['Int']>;
-  addition?: Maybe<Scalars['String']>;
-  zipcode?: Maybe<Scalars['String']>;
-  city?: Maybe<Scalars['String']>;
-  country?: Maybe<Scalars['String']>;
-  extraInformation?: Maybe<Scalars['String']>;
-  availableFrom?: Maybe<Scalars['Date']>;
-  note?: Maybe<Scalars['String']>;
-};
-
-export type CrmBankAccount = {
-  __typename?: 'CrmBankAccount';
-  id: Scalars['ID'];
-  type: Scalars['String'];
-  accountNumber?: Maybe<Scalars['String']>;
-  bic?: Maybe<Scalars['String']>;
-  iban?: Maybe<Scalars['String']>;
-  swift?: Maybe<Scalars['String']>;
-  purpose?: Maybe<Scalars['String']>;
-};
-
-export type CrmBankAccountInput = {
-  type: Scalars['String'];
-  accountNumber?: Maybe<Scalars['String']>;
-  bic?: Maybe<Scalars['String']>;
-  iban?: Maybe<Scalars['String']>;
-  swift?: Maybe<Scalars['String']>;
-  purpose?: Maybe<Scalars['String']>;
-};
-
-export type CrmContact = {
-  __typename?: 'CrmContact';
-  type: Scalars['String'];
-  contact: LinkedCrm;
-};
-
-export type CrmContactInformation = LastUpdated & {
-  __typename?: 'CrmContactInformation';
-  id: Scalars['ID'];
-  contactInfoDescription?: Maybe<Scalars['String']>;
-  addresses?: Maybe<Array<CrmAddress>>;
-  phoneNumbers?: Maybe<Array<CrmPhoneNumber>>;
-  emailAddresses?: Maybe<Array<CrmEmailAddress>>;
-  socialMedia?: Maybe<Array<CrmSocialMedia>>;
-  dateCreated: Scalars['Date'];
-  lastEditedBy?: Maybe<LastUpdatedProfile>;
-  dateUpdated?: Maybe<Scalars['Date']>;
-};
-
-export type CrmContactInput = {
-  type: Scalars['String'];
-  contactId: Scalars['ID'];
-};
-
-export type CrmEmailAddress = {
-  __typename?: 'CrmEmailAddress';
-  id: Scalars['ID'];
-  type: ContactEmailAddressType;
-  email?: Maybe<Scalars['String']>;
-  availableFrom?: Maybe<Scalars['Date']>;
-  note?: Maybe<Scalars['String']>;
-};
-
-export type CrmEmailAddressInput = {
-  type: ContactEmailAddressType;
-  email?: Maybe<Scalars['String']>;
-  availableFrom?: Maybe<Scalars['Date']>;
-  note?: Maybe<Scalars['String']>;
-};
-
-export type CrmEmployerIncome = {
-  __typename?: 'CrmEmployerIncome';
-  profession?: Maybe<EmployerIncomeProfession>;
-  employer?: Maybe<LinkedCrm>;
-  employerInformation?: Maybe<CrmEmployerInformation>;
-  employmentType?: Maybe<Scalars['String']>;
-  grossIncome?: Maybe<Scalars['Int']>;
-  grossIncomePeriod?: Maybe<PeriodType>;
-  holidayBonus?: Maybe<Scalars['Boolean']>;
-  fixedThirteenthMonth?: Maybe<Scalars['Boolean']>;
-  irregularityAllowance?: Maybe<Scalars['Int']>;
-  irregularityAllowancePeriod?: Maybe<PeriodType>;
-  profitDistribution?: Maybe<Scalars['Int']>;
-  profitDistributionPeriod?: Maybe<PeriodType>;
-  commission?: Maybe<Scalars['Int']>;
-  commissionPeriod?: Maybe<PeriodType>;
-  overtime?: Maybe<Scalars['Int']>;
-  overtimePeriod?: Maybe<PeriodType>;
-};
-
-export type CrmEmployerIncomeInput = {
-  profession?: Maybe<EmployerIncomeProfession>;
-  employerId?: Maybe<Scalars['ID']>;
-  employerInformation?: Maybe<CrmEmployerInformationInput>;
-  employmentType?: Maybe<Scalars['String']>;
-  grossIncome?: Maybe<Scalars['Int']>;
-  grossIncomePeriod?: Maybe<PeriodType>;
-  holidayBonus?: Maybe<Scalars['Boolean']>;
-  fixedThirteenthMonth?: Maybe<Scalars['Boolean']>;
-  irregularityAllowance?: Maybe<Scalars['Int']>;
-  irregularityAllowancePeriod?: Maybe<PeriodType>;
-  profitDistribution?: Maybe<Scalars['Int']>;
-  profitDistributionPeriod?: Maybe<PeriodType>;
-  commission?: Maybe<Scalars['Int']>;
-  commissionPeriod?: Maybe<PeriodType>;
-  overtime?: Maybe<Scalars['Int']>;
-  overtimePeriod?: Maybe<PeriodType>;
-};
-
-export type CrmEmployerInformation = {
-  __typename?: 'CrmEmployerInformation';
-  name?: Maybe<Scalars['String']>;
-  street?: Maybe<Scalars['String']>;
-  houseNumber?: Maybe<Scalars['Int']>;
-  addition?: Maybe<Scalars['String']>;
-  zipcode?: Maybe<Scalars['String']>;
-  city?: Maybe<Scalars['String']>;
-  country?: Maybe<Scalars['String']>;
-};
-
-export type CrmEmployerInformationInput = {
-  name?: Maybe<Scalars['String']>;
-  street?: Maybe<Scalars['String']>;
-  houseNumber?: Maybe<Scalars['Int']>;
-  addition?: Maybe<Scalars['String']>;
-  zipcode?: Maybe<Scalars['String']>;
-  city?: Maybe<Scalars['String']>;
-  country?: Maybe<Scalars['String']>;
-};
-
-export type CrmEntrepreneurIncome = {
-  __typename?: 'CrmEntrepreneurIncome';
-  entrepreneurType?: Maybe<EntrepreneurType>;
-  companyCar?: Maybe<Scalars['Boolean']>;
-  companyBike?: Maybe<Scalars['Boolean']>;
-  pastPensionAge?: Maybe<Scalars['Boolean']>;
-  smeProfitExemption?: Maybe<Scalars['Boolean']>;
-  incomePerYear?: Maybe<Scalars['Int']>;
-  workingHoursPerMonth?: Maybe<Scalars['Int']>;
-  yearsAsIndependent?: Maybe<Scalars['Int']>;
-};
-
-export type CrmEntrepreneurIncomeInput = {
-  entrepreneurType?: Maybe<EntrepreneurType>;
-  companyCar?: Maybe<Scalars['Boolean']>;
-  companyBike?: Maybe<Scalars['Boolean']>;
-  pastPensionAge?: Maybe<Scalars['Boolean']>;
-  smeProfitExemption?: Maybe<Scalars['Boolean']>;
-  incomePerYear?: Maybe<Scalars['Int']>;
-  workingHoursPerMonth?: Maybe<Scalars['Int']>;
-  yearsAsIndependent?: Maybe<Scalars['Int']>;
-};
-
-export type CrmEquityIncome = {
-  __typename?: 'CrmEquityIncome';
-  income?: Maybe<Scalars['Int']>;
-};
-
-export type CrmEquityIncomeInput = {
-  income?: Maybe<Scalars['Int']>;
-};
-
-export type CrmFamilyContacts = {
-  __typename?: 'CrmFamilyContacts';
-  id: Scalars['ID'];
-  maritalStatus?: Maybe<Scalars['String']>;
-  maritalStatusDate?: Maybe<Scalars['Date']>;
-  maritalStatusInformation?: Maybe<Scalars['String']>;
-  familyCompositionChildren?: Maybe<Scalars['Int']>;
-  familyCompositionAdults?: Maybe<Scalars['Int']>;
-  familyCompositionInformation?: Maybe<Scalars['String']>;
-  partners?: Maybe<Array<CrmPartner>>;
-  contacts?: Maybe<Array<CrmContact>>;
-};
-
-export type CrmFinancial = {
-  __typename?: 'CrmFinancial';
-  id: Scalars['ID'];
-  financialInfo?: Maybe<Scalars['String']>;
-  income?: Maybe<Array<CrmIncome>>;
-  financialObligations?: Maybe<Array<CrmFinancialObligation>>;
-  bankAccounts?: Maybe<Array<CrmBankAccount>>;
-};
-
-export type CrmFinancialObligation = {
-  __typename?: 'CrmFinancialObligation';
-  id: Scalars['ID'];
-  type: Scalars['String'];
-  financialObligation?: Maybe<Scalars['Int']>;
-  information?: Maybe<Scalars['String']>;
-};
-
-export type CrmFinancialObligationInput = {
-  type: Scalars['String'];
-  financialObligation?: Maybe<Scalars['Int']>;
-  information?: Maybe<Scalars['String']>;
-};
-
-export type CrmGeneral = LastUpdated & {
-  __typename?: 'CrmGeneral';
-  id: Scalars['ID'];
-  description?: Maybe<Scalars['String']>;
-  firstName?: Maybe<Scalars['String']>;
-  extraNames?: Maybe<Scalars['String']>;
-  initials?: Maybe<Scalars['String']>;
-  lastName?: Maybe<Scalars['String']>;
-  avatar?: Maybe<File>;
-  gender?: Maybe<GenderType>;
-  dateOfBirth?: Maybe<Scalars['Date']>;
-  placeOfBirth?: Maybe<Scalars['String']>;
-  nationality?: Maybe<Scalars['String']>;
-  dateOfDeath?: Maybe<Scalars['Date']>;
-  isPassedAway?: Maybe<Scalars['Boolean']>;
-  preferredLanguage?: Maybe<Scalars['String']>;
-  identification?: Maybe<IdentificationType>;
-  identificationNumber?: Maybe<Scalars['String']>;
-  identificationIssueCity?: Maybe<Scalars['String']>;
-  identificationIssueDate?: Maybe<Scalars['Date']>;
-  identificationExpirationDate?: Maybe<Scalars['Date']>;
-  preferredTitlePrefix?: Maybe<Scalars['String']>;
-  preferredTitleSuffix?: Maybe<Scalars['String']>;
-  preferredLetterSalutation?: Maybe<Scalars['String']>;
-  preferredTitleInformation?: Maybe<Scalars['String']>;
-  identificationNumbers?: Maybe<Array<CrmIdentificationNumber>>;
-  status?: Maybe<CrmStatus>;
-  dateCreated: Scalars['Date'];
-  lastEditedBy?: Maybe<LastUpdatedProfile>;
-  dateUpdated?: Maybe<Scalars['Date']>;
-  completeness: Scalars['Float'];
-};
-
-export type CrmHomeSituation = {
-  __typename?: 'CrmHomeSituation';
-  id: Scalars['ID'];
-  currentHomeSituation?: Maybe<Scalars['String']>;
-  currentHomeStatus?: Maybe<Scalars['String']>;
-  currentHomeSalesValue?: Maybe<Scalars['Int']>;
-  currentHomeMortgage?: Maybe<Scalars['Int']>;
-  currentHomeInformation?: Maybe<Scalars['String']>;
-  reasonToMove?: Maybe<Array<Scalars['String']>>;
-  movingDate?: Maybe<Scalars['Date']>;
-  movingInformation?: Maybe<Scalars['String']>;
-};
-
-export type CrmIdentificationNumber = {
-  __typename?: 'CrmIdentificationNumber';
-  type: IdentificationNumberType;
-  number?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
-};
-
-export type CrmIdentificationNumberInput = {
-  type: IdentificationNumberType;
-  number?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
-};
-
-export type CrmIncome = {
-  __typename?: 'CrmIncome';
-  id: Scalars['ID'];
-  type: IncomeType;
-  information?: Maybe<Scalars['String']>;
-  employerIncome?: Maybe<CrmEmployerIncome>;
-  equityIncome?: Maybe<CrmEquityIncome>;
-  pensionIncome?: Maybe<CrmPensionIncome>;
-  socialBenefitIncome?: Maybe<CrmSocialBenefitIncome>;
-  entrepreneurIncome?: Maybe<CrmEntrepreneurIncome>;
-};
-
-export type CrmIncomeInput = {
-  type: IncomeType;
-  information?: Maybe<Scalars['String']>;
-  employerIncome?: Maybe<CrmEmployerIncomeInput>;
-  equityIncome?: Maybe<CrmEquityIncomeInput>;
-  pensionIncome?: Maybe<CrmPensionIncomeInput>;
-  socialBenefitIncome?: Maybe<CrmSocialBenefitIncomeInput>;
-  entrepreneurIncome?: Maybe<CrmEntrepreneurIncomeInput>;
-};
-
-export type CrmListItem = {
-  __typename?: 'CrmListItem';
-  id: Scalars['ID'];
-  type: CrmType;
-  firstName?: Maybe<Scalars['String']>;
-  initials?: Maybe<Scalars['String']>;
-  lastName?: Maybe<Scalars['String']>;
-  gender?: Maybe<GenderType>;
-  dateOfBirth?: Maybe<Scalars['Date']>;
-  placeOfBirth?: Maybe<Scalars['String']>;
-  nationality?: Maybe<Scalars['String']>;
-  maritalStatus?: Maybe<Scalars['String']>;
-  familyCompositionChildren?: Maybe<Scalars['Int']>;
-  familyCompositionAdults?: Maybe<Scalars['Int']>;
-  currentHomeSituation?: Maybe<Scalars['String']>;
-  partners?: Maybe<Array<CrmPartner>>;
-  phoneNumber?: Maybe<Scalars['String']>;
-  addresses?: Maybe<Array<CrmAddress>>;
-  email?: Maybe<Scalars['String']>;
-  avatar?: Maybe<File>;
-  status?: Maybe<CrmStatus>;
-  matchProfilesFrom?: Maybe<Scalars['Date']>;
-  matchProfilesTo?: Maybe<Scalars['Date']>;
-  sales?: Maybe<Array<Sales>>;
-  dateCreated: Scalars['Date'];
-  dateUpdated?: Maybe<Scalars['Date']>;
-  completeness: Scalars['Float'];
-};
-
-export type CrmListSearchResult = {
-  __typename?: 'CrmListSearchResult';
-  metadata?: Maybe<SearchMetadata>;
-  items?: Maybe<Array<CrmListItem>>;
-};
-
-export type CrmPartner = {
-  __typename?: 'CrmPartner';
-  isDivorced?: Maybe<Scalars['Boolean']>;
-  partner: LinkedCrm;
-};
-
-export type CrmPartnerInput = {
-  id: Scalars['ID'];
-  isDivorced?: Maybe<Scalars['Boolean']>;
-  isPassedAway?: Maybe<Scalars['Boolean']>;
-  dateOfDeath?: Maybe<Scalars['Date']>;
-};
-
-export type CrmPensionIncome = {
-  __typename?: 'CrmPensionIncome';
-  aowBenefit?: Maybe<Scalars['Int']>;
-  aowBenefitPeriod?: Maybe<PeriodType>;
-  retirementBenefit?: Maybe<Scalars['Int']>;
-  retirementBenefitPeriod?: Maybe<PeriodType>;
-};
-
-export type CrmPensionIncomeInput = {
-  aowBenefit?: Maybe<Scalars['Int']>;
-  aowBenefitPeriod?: Maybe<PeriodType>;
-  retirementBenefit?: Maybe<Scalars['Int']>;
-  retirementBenefitPeriod?: Maybe<PeriodType>;
-};
-
-export type CrmPhoneNumber = {
-  __typename?: 'CrmPhoneNumber';
-  id: Scalars['ID'];
-  type: ContactPhoneNumberType;
-  countryCode?: Maybe<Scalars['String']>;
-  phoneNumber?: Maybe<Scalars['String']>;
-  availableFrom?: Maybe<Scalars['Date']>;
-  note?: Maybe<Scalars['String']>;
-};
-
-export type CrmPhoneNumberInput = {
-  type: ContactPhoneNumberType;
-  countryCode?: Maybe<Scalars['String']>;
-  phoneNumber?: Maybe<Scalars['String']>;
-  availableFrom?: Maybe<Scalars['Date']>;
-  note?: Maybe<Scalars['String']>;
-};
-
-export type CrmSocialBenefitIncome = {
-  __typename?: 'CrmSocialBenefitIncome';
-  income?: Maybe<Scalars['Int']>;
-  incomePeriod?: Maybe<PeriodType>;
-  socialBenefitType?: Maybe<Scalars['String']>;
-};
-
-export type CrmSocialBenefitIncomeInput = {
-  income?: Maybe<Scalars['Int']>;
-  incomePeriod?: Maybe<PeriodType>;
-  socialBenefitType?: Maybe<Scalars['String']>;
-};
-
-export type CrmSocialMedia = {
-  __typename?: 'CrmSocialMedia';
-  id: Scalars['ID'];
-  type: ContactSocialMediaType;
-  url?: Maybe<Scalars['String']>;
-};
-
-export type CrmSocialMediaInput = {
-  type: ContactSocialMediaType;
-  url?: Maybe<Scalars['String']>;
-};
-
-export enum CrmStatus {
-  ActionRequired = 'ActionRequired',
-  Active = 'Active',
-  Inactive = 'Inactive',
-}
-
-export enum CrmType {
-  Relation = 'Relation',
-  Business = 'Business',
-}
-
-export type CrmWithSameInfoInput = {
-  firstName?: Maybe<Scalars['String']>;
-  initials?: Maybe<Scalars['String']>;
-  lastName?: Maybe<Scalars['String']>;
-  email?: Maybe<Scalars['String']>;
-  phoneNumber?: Maybe<Scalars['String']>;
-};
-
-export type CuboidMeasurement = {
-  __typename?: 'CuboidMeasurement';
-  length?: Maybe<Scalars['Float']>;
-  width?: Maybe<Scalars['Float']>;
-  height?: Maybe<Scalars['Float']>;
-  surface?: Maybe<Scalars['Float']>;
-  volume?: Maybe<Scalars['Float']>;
-};
-
-export enum CultivationTypes {
-  FlowerBulbs = 'FlowerBulbs',
-  Fruit = 'Fruit',
-  Plants = 'Plants',
-  Vegetables = 'Vegetables',
-  Flowers = 'Flowers',
-  Trees = 'Trees',
-}
-
-export enum CurrentHomeSituationType {
-  LiveIn = 'LiveIn',
-  HomeForSale = 'HomeForSale',
-  SocialHousing = 'SocialHousing',
-  FreeSectorRentalHome = 'FreeSectorRentalHome',
-  StudentHouse = 'StudentHouse',
-}
-
-export enum CurrentHomeStatusType {
-  HouseSold = 'HouseSold',
-  AvailableForSale = 'AvailableForSale',
-}
-
-export type DateRange = {
-  from?: Maybe<Scalars['Date']>;
-  to?: Maybe<Scalars['Date']>;
-};
-
-export enum DateRangeType {
-  ThirtyDays = 'ThirtyDays',
-  TwoWeeks = 'TwoWeeks',
-  OneWeek = 'OneWeek',
-  ThreeDays = 'ThreeDays',
-}
-
-export type DeleteDmsFolderInput = {
-  entityId: Scalars['ID'];
-  id: Scalars['ID'];
-};
-
-export type DeleteEntityInput = {
-  entityType: EventParentType;
-  entityIds: Array<Scalars['String']>;
-};
-
-export type DeleteNotificationInput = {
-  id: Scalars['ID'];
-};
-
-export type DeleteResult = {
-  __typename?: 'DeleteResult';
-  successful?: Maybe<Scalars['Boolean']>;
-  message?: Maybe<Scalars['String']>;
-  undoId?: Maybe<Scalars['String']>;
-};
-
-export enum DestinationType {
-  Socially = 'Socially',
-  Living = 'Living',
-}
-
-export enum DevelopmentType {
-  New = 'New',
-  Existing = 'Existing',
-}
-
-export enum DistanceUnit {
-  Meters = 'Meters',
-  Kilometers = 'Kilometers',
-}
-
-export enum DmsCrmFolderType {
-  Personal = 'Personal',
-  Emails = 'Emails',
-  ContractsPrint = 'ContractsPrint',
-  Surveys = 'Surveys',
-  Invoices = 'Invoices',
-}
-
-export enum DmsEntityType {
-  Pim = 'Pim',
-  Ncp = 'Ncp',
-  Crm = 'Crm',
-  Sales = 'Sales',
-}
-
-export type DmsFolder = {
-  __typename?: 'DmsFolder';
-  entityId: Scalars['ID'];
-  id: Scalars['ID'];
-  companyId: Scalars['ID'];
-  foldername: Scalars['String'];
-  entityType: DmsEntityType;
-  type: DmsFolderType;
-  order?: Maybe<Scalars['Int']>;
-  deletedAt?: Maybe<Scalars['Date']>;
-  isEmailFolder?: Maybe<Scalars['Boolean']>;
-};
-
-export enum DmsFolderType {
-  Custom = 'Custom',
-  Default = 'Default',
-}
-
-export enum DmsPimFolderType {
-  Aquisition = 'Aquisition',
-  Quotation = 'Quotation',
-  SalesOrder = 'SalesOrder',
-  Property = 'Property',
-  Drawing = 'Drawing',
-  Questionaires = 'Questionaires',
-  ListOfItems = 'ListOfItems',
-  Publication = 'Publication',
-  Contracts = 'Contracts',
-  Internal = 'Internal',
-}
-
-export type DraftAppointment = {
-  __typename?: 'DraftAppointment';
-  id?: Maybe<Scalars['ID']>;
-  title?: Maybe<Scalars['String']>;
-  from?: Maybe<Scalars['Date']>;
-  to?: Maybe<Scalars['Date']>;
-  alternativeTerms?: Maybe<Array<AppointmentTerm>>;
-  allDay?: Maybe<Scalars['Boolean']>;
-  confirmedDate?: Maybe<Scalars['Boolean']>;
-  repeatAppointment?: Maybe<AppointmentRepeat>;
-  description?: Maybe<Scalars['String']>;
-  assignedPimIds?: Maybe<Array<Scalars['String']>>;
-  agreementType?: Maybe<Array<Maybe<AppointmentMeetingType>>>;
-  invitedPersons?: Maybe<Array<Scalars['String']>>;
-  isInsideOffice?: Maybe<Scalars['Boolean']>;
-  location?: Maybe<Scalars['String']>;
-  outsideLocation?: Maybe<Scalars['String']>;
-  travelTimeBefore?: Maybe<Scalars['Int']>;
-  travelTimeAfter?: Maybe<Scalars['Int']>;
-  state?: Maybe<AppointmentState>;
-  type?: Maybe<CalendarTypes>;
-  appointmentType?: Maybe<AppointmentType>;
-  taskLabel?: Maybe<TaskLabel>;
-};
-
-export type Email = {
-  __typename?: 'Email';
-  id: Scalars['ID'];
-  folder: EmailFolder;
-  from: Array<EmailAndName>;
-  to: Array<EmailAndName>;
-  cc?: Maybe<Array<EmailAndName>>;
-  bcc?: Maybe<Array<EmailAndName>>;
-  subject: Scalars['String'];
-  body: Scalars['String'];
-  date: Scalars['Date'];
-  unread?: Maybe<Scalars['Boolean']>;
-  files?: Maybe<Array<EmailAttachment>>;
-  thread_id?: Maybe<Scalars['String']>;
-  threads?: Maybe<EmailThread>;
-  threadMessages?: Maybe<Array<ThreadMessage>>;
-};
-
-export type EmailAddress = {
-  __typename?: 'EmailAddress';
-  id: Scalars['String'];
-  emailAddress: Scalars['String'];
-  emailAddressType?: Maybe<EmailAddressType>;
-  isPublic?: Maybe<Scalars['Boolean']>;
-};
-
-export enum EmailAddressType {
-  Business = 'Business',
-  Private = 'Private',
-}
-
-export type EmailAndName = {
-  __typename?: 'EmailAndName';
-  email: Scalars['String'];
-  name: Scalars['String'];
-};
-
-export type EmailAndNameInput = {
-  email: Scalars['String'];
-  name: Scalars['String'];
-};
-
-export type EmailAttachment = {
-  __typename?: 'EmailAttachment';
-  contentDisposition: Scalars['String'];
-  contentType: Scalars['String'];
-  filename: Scalars['String'];
-  id: Scalars['String'];
-  size: Scalars['Int'];
-};
-
-export type EmailFolder = {
-  __typename?: 'EmailFolder';
-  id: Scalars['ID'];
-  nylasFolderId: Scalars['ID'];
-  name: Scalars['String'];
-  displayName?: Maybe<Scalars['String']>;
-  userId: Scalars['ID'];
-};
-
-export type EmailFolderListItem = {
-  __typename?: 'EmailFolderListItem';
-  folder: EmailFolder;
-  numberOfUnreadEmails: Scalars['Int'];
-};
-
-export type EmailListItem = {
-  __typename?: 'EmailListItem';
-  id: Scalars['ID'];
-  folder: EmailFolder;
-  from: Array<EmailAndName>;
-  to: Array<EmailAndName>;
-  subject: Scalars['String'];
-  date: Scalars['Date'];
-  unread?: Maybe<Scalars['Boolean']>;
-  thread_id?: Maybe<Scalars['String']>;
-  threads?: Maybe<EmailThread>;
-  threadMessages?: Maybe<Array<ThreadMessage>>;
-  files?: Maybe<Array<EmailAttachment>>;
-};
-
-export type EmailThread = {
-  __typename?: 'EmailThread';
-  id: Scalars['ID'];
-  message_ids: Array<Scalars['String']>;
-  participants: Array<EmailAndName>;
-};
-
-export enum EmployerIncomeProfession {
-  Designer = 'Designer',
-}
-
-export enum EmploymentType {
-  FixedTerm = 'FixedTerm',
-  Indefinitely = 'Indefinitely',
-}
-
-export type Energy = {
-  __typename?: 'Energy';
-  label?: Maybe<EnergyType>;
-  energyIndex?: Maybe<Scalars['String']>;
-  endDateEnergyLabel?: Maybe<Scalars['Date']>;
-  EPC?: Maybe<Scalars['String']>;
-  characteristicType?: Maybe<EnergyCharasteristicType>;
-  notes?: Maybe<Scalars['String']>;
-};
-
-export enum EnergyCharasteristicType {
-  Beng = 'Beng',
-  NaturalEnergy = 'NaturalEnergy',
-  ZeroOnMeter = 'ZeroOnMeter',
-}
-
-export type EnergyInput = {
-  label?: Maybe<EnergyType>;
-  energyIndex?: Maybe<Scalars['String']>;
-  endDateEnergyLabel?: Maybe<Scalars['Date']>;
-  EPC?: Maybe<Scalars['String']>;
-  characteristicType?: Maybe<EnergyCharasteristicType>;
-  notes?: Maybe<Scalars['String']>;
-};
-
-export enum EnergyType {
-  A = 'A',
-  A1Plus = 'A1Plus',
-  A2Plus = 'A2Plus',
-  A3Plus = 'A3Plus',
-  A4Plus = 'A4Plus',
-  A5Plus = 'A5Plus',
-  B = 'B',
-  C = 'C',
-  D = 'D',
-  E = 'E',
-  F = 'F',
-  G = 'G',
-}
-
-export enum Entities {
-  Team = 'team',
-  Pim = 'pim',
-  ListPim = 'listPim',
-  GeneralPim = 'generalPim',
-  PimCadastre = 'pimCadastre',
-  PimPrices = 'pimPrices',
-  PimOutside = 'pimOutside',
-  PimInside = 'pimInside',
-  Profile = 'profile',
-  PimServices = 'pimServices',
-  PimMedia = 'pimMedia',
-  PimSpecification = 'pimSpecification',
-  PimSales = 'pimSales',
-  Label = 'label',
-  NcpLabel = 'ncpLabel',
-  TaskLabel = 'taskLabel',
-  PimLocation = 'pimLocation',
-  Event = 'event',
-  NcpGeneral = 'ncpGeneral',
-  ListNcp = 'listNcp',
-  Ncp = 'ncp',
-  NcpCharacteristics = 'ncpCharacteristics',
-  NcpPrices = 'ncpPrices',
-  NcpMedia = 'ncpMedia',
-  NcpServices = 'ncpServices',
-  NcpLinkedPims = 'ncpLinkedPims',
-  ProjectPhase = 'projectPhase',
-  ObjectType = 'objectType',
-  ObjectTypeGeneral = 'objectTypeGeneral',
-  ObjectTypePrices = 'objectTypePrices',
-  ObjectTypeMedia = 'objectTypeMedia',
-  ObjectTypeLinkedPims = 'objectTypeLinkedPims',
-  ObjectTypeCharacteristics = 'objectTypeCharacteristics',
-  ObjectTypeServices = 'objectTypeServices',
-  ObjectTypesList = 'objectTypesList',
-  ObjectTypeLabel = 'objectTypeLabel',
-  Company = 'company',
-  Task = 'task',
-  Notification = 'notification',
-  Crm = 'crm',
-  CrmList = 'crmList',
-  CrmGeneral = 'crmGeneral',
-  Plan = 'plan',
-  CrmFamilyContacts = 'crmFamilyContacts',
-  CrmHomeSituation = 'crmHomeSituation',
-  CrmFinancial = 'crmFinancial',
-  CrmContactInformation = 'crmContactInformation',
-  CrmMatchProfile = 'crmMatchProfile',
-  AddOn = 'addOn',
-  TiaraMutation = 'tiaraMutation',
-  Email = 'email',
-  Users = 'users',
-  Sales = 'sales',
-}
-
-export type Entity = {
-  __typename?: 'Entity';
-  type?: Maybe<Scalars['String']>;
-  subType?: Maybe<Scalars['String']>;
-};
-
-export type EntityInput = {
-  type?: Maybe<Scalars['String']>;
-  subType?: Maybe<Scalars['String']>;
-};
-
-export type EntityLinkedWithPims = {
-  id: Scalars['ID'];
-  linkedProperties: PimListSearchResult;
-  linkedPropertiesIds?: Maybe<Array<Scalars['ID']>>;
-  lastEditedBy?: Maybe<LastUpdatedProfile>;
-  dateUpdated?: Maybe<Scalars['Date']>;
-  description?: Maybe<Scalars['String']>;
-};
-
-export type EntityLinkedWithPimsLinkedPropertiesArgs = {
-  filters?: Maybe<LinkedPimFilters>;
-  sort?: Maybe<Array<Sort>>;
-  pagination: Pagination;
-};
-
-export enum EntityWithFiles {
-  Pim = 'Pim',
-  Ncp = 'Ncp',
-  ObjectType = 'ObjectType',
-  Space = 'Space',
-  BogSpace = 'BogSpace',
-  AogSpace = 'AogSpace',
-  OutsideFeature = 'OutsideFeature',
-  OutsideGeneral = 'OutsideGeneral',
-  OutsidePropertyRelated = 'OutsidePropertyRelated',
-  RoofInformation = 'RoofInformation',
-  CadastreMap = 'CadastreMap',
-  MediaPicture = 'MediaPicture',
-  NcpMediaPicture = 'NcpMediaPicture',
-  ObjectTypeMediaPicture = 'ObjectTypeMediaPicture',
-  NcpProjectMarketing = 'NcpProjectMarketing',
-  ObjectTypeProjectMarketing = 'ObjectTypeProjectMarketing',
-  ProjectPhase = 'ProjectPhase',
-  Profile = 'Profile',
-  Crm = 'Crm',
-  Company = 'Company',
-}
-
-export enum EntityWithMultipleFiles {
-  Pim = 'Pim',
-  Ncp = 'Ncp',
-  ObjectType = 'ObjectType',
-  Space = 'Space',
-  BogSpace = 'BogSpace',
-  AogSpace = 'AogSpace',
-  OutsideFeature = 'OutsideFeature',
-  OutsideGeneral = 'OutsideGeneral',
-  OutsidePropertyRelated = 'OutsidePropertyRelated',
-  RoofInformation = 'RoofInformation',
-  NcpProjectMarketing = 'NcpProjectMarketing',
-  ObjectTypeProjectMarketing = 'ObjectTypeProjectMarketing',
-}
-
-export enum EntrepreneurType {
-  IbEntrepreneur = 'IbEntrepreneur',
-  Dga = 'Dga',
-}
-
-export type Event = {
-  __typename?: 'Event';
-  id: Scalars['String'];
-  entityType: EventEntityType;
-  relatedEntityId?: Maybe<Scalars['String']>;
-  action: EventAction;
-  timestamp: Scalars['Date'];
-  data?: Maybe<Scalars['EventData']>;
-  emittedBy?: Maybe<Profile>;
-  parentType?: Maybe<EventParentType>;
-  parentId?: Maybe<Scalars['String']>;
-  description?: Maybe<Scalars['String']>;
-};
-
-export enum EventAction {
-  Created = 'Created',
-  Removed = 'Removed',
-  Updated = 'Updated',
-}
-
-export enum EventEntityType {
-  AllocationCriteria = 'AllocationCriteria',
-  AogSpace = 'AogSpace',
-  BogSpace = 'BogSpace',
-  Cadastre = 'Cadastre',
-  CadastreMap = 'CadastreMap',
-  Cost = 'Cost',
-  Crm = 'Crm',
-  Floor = 'Floor',
-  Inspection = 'Inspection',
-  MediaLinks = 'MediaLinks',
-  Meter = 'Meter',
-  Ncp = 'Ncp',
-  ObjectType = 'ObjectType',
-  OutsideFeature = 'OutsideFeature',
-  Pim = 'Pim',
-  PimCost = 'PimCost',
-  ProjectPhase = 'ProjectPhase',
-  Reading = 'Reading',
-  Service = 'Service',
-  Space = 'Space',
-  Tags = 'Tags',
-  TextChapters = 'TextChapters',
-  Usps = 'Usps',
-  ViewingMoment = 'ViewingMoment',
-}
-
-export enum EventParentType {
-  Pim = 'Pim',
-  ObjectType = 'ObjectType',
-  Ncp = 'Ncp',
-}
-
-export type Extension = {
-  __typename?: 'Extension';
-  yearOfExtension?: Maybe<Scalars['Int']>;
-  notes?: Maybe<Scalars['String']>;
-};
-
-export type ExtensionInput = {
-  yearOfExtension?: Maybe<Scalars['Int']>;
-  notes?: Maybe<Scalars['String']>;
-};
-
-export type ExtraAddress = {
-  __typename?: 'ExtraAddress';
-  plotNumber?: Maybe<Scalars['String']>;
-  plotNumberAddition?: Maybe<Scalars['String']>;
-  houseNumberStart?: Maybe<Scalars['String']>;
-  houseNumberEnd?: Maybe<Scalars['String']>;
-};
-
-export type ExtraAddressInput = {
-  plotNumber?: Maybe<Scalars['String']>;
-  plotNumberAddition?: Maybe<Scalars['String']>;
-  houseNumberStart?: Maybe<Scalars['String']>;
-  houseNumberEnd?: Maybe<Scalars['String']>;
-};
-
-export enum FenceTypes {
-  Wood = 'Wood',
-  Plastic = 'Plastic',
-  PlasticBand = 'PlasticBand',
-}
-
-export type File = {
-  __typename?: 'File';
-  id: Scalars['ID'];
-  fileName: Scalars['String'];
-  description?: Maybe<Scalars['String']>;
-  status: Scalars['Int'];
-  fileType: Scalars['String'];
-  permission: FilePermission;
-  key: Scalars['ID'];
-  createdAt?: Maybe<Scalars['Date']>;
-  signedUrl?: Maybe<Scalars['String']>;
-  url?: Maybe<Scalars['String']>;
-  bucket?: Maybe<Scalars['String']>;
-  entityID?: Maybe<Scalars['String']>;
-  entity?: Maybe<EntityWithFiles>;
-};
-
-export enum FilePermission {
-  Public = 'public',
-  Private = 'private',
-}
-
-export enum FinancialObligationType {
-  Obligation1 = 'Obligation1',
-  Obligation2 = 'Obligation2',
-  Obligation3 = 'Obligation3',
-}
-
-export type Floor = LastUpdated & {
-  __typename?: 'Floor';
-  id: Scalars['String'];
-  floorDescription?: Maybe<Scalars['String']>;
-  level: Scalars['Int'];
-  floorType: FloorType;
-  spaces?: Maybe<Array<Space>>;
-  lastEditedBy?: Maybe<LastUpdatedProfile>;
-  dateUpdated?: Maybe<Scalars['Date']>;
-  dateCreated?: Maybe<Scalars['Date']>;
-};
-
-export enum FloorType {
-  Attic = 'Attic',
-  Floor = 'Floor',
-  Basement = 'Basement',
-  GroundFloor = 'GroundFloor',
-  Loft = 'Loft',
-}
-
-export type ForgotPasswordInput = {
-  username: Scalars['String'];
-};
-
-export type ForgotPasswordResponse = {
-  __typename?: 'ForgotPasswordResponse';
-  error?: Maybe<Scalars['String']>;
-  stack?: Maybe<Scalars['String']>;
-};
-
-export type Foundation = {
-  __typename?: 'Foundation';
-  type?: Maybe<FoundationTypeInformations>;
-  material?: Maybe<FoundationMaterialInformations>;
-};
-
-export type FoundationInput = {
-  type?: Maybe<FoundationTypeInformationsInput>;
-  material?: Maybe<FoundationMaterialInformationsInput>;
-};
-
-export type FoundationMaterialInformations = {
-  __typename?: 'FoundationMaterialInformations';
-  type?: Maybe<Array<FoundationMaterialType>>;
-  notes?: Maybe<Scalars['String']>;
-};
-
-export type FoundationMaterialInformationsInput = {
-  type?: Maybe<Array<FoundationMaterialType>>;
-  notes?: Maybe<Scalars['String']>;
-};
-
-export enum FoundationMaterialType {
-  Concrete = 'Concrete',
-  Timber = 'Timber',
-  Steel = 'Steel',
-  Plastic = 'Plastic',
-}
-
-export enum FoundationType {
-  IsolatedFooting = 'IsolatedFooting',
-  CombinedFooting = 'CombinedFooting',
-  WallFooting = 'WallFooting',
-  SpreadLooting = 'SpreadLooting',
-  RaftOrMatFoundations = 'RaftOrMatFoundations',
-  PileFoundations = 'PileFoundations',
-  DrilledShafts = 'DrilledShafts',
-}
-
-export type FoundationTypeInformations = {
-  __typename?: 'FoundationTypeInformations';
-  type?: Maybe<FoundationType>;
-  notes?: Maybe<Scalars['String']>;
-};
-
-export type FoundationTypeInformationsInput = {
-  type?: Maybe<FoundationType>;
-  notes?: Maybe<Scalars['String']>;
-};
-
-export enum GarageAndStorageMaterial {
-  Stone = 'Stone',
-  Wood = 'Wood',
-  Plastic = 'Plastic',
-  Metal = 'Metal',
-  Other = 'Other',
-}
-
-export type GarageFeature = {
-  __typename?: 'GarageFeature';
-  main?: Maybe<Scalars['Boolean']>;
-  types?: Maybe<Array<Maybe<GarageType>>>;
-  attached?: Maybe<Scalars['Boolean']>;
-  attic?: Maybe<Scalars['Boolean']>;
-  insulations?: Maybe<Array<Maybe<GarageInsulation>>>;
-  services?: Maybe<Array<Maybe<GarageService>>>;
-  secondaryWindows?: Maybe<Scalars['Boolean']>;
-  materials?: Maybe<Array<Maybe<GarageAndStorageMaterial>>>;
-  measurement?: Maybe<CuboidMeasurement>;
-  notes?: Maybe<Scalars['String']>;
-  images?: Maybe<Array<File>>;
-};
-
-export enum GarageInsulation {
-  RoofInsulation = 'RoofInsulation',
-  DoubleGlazing = 'DoubleGlazing',
-  EcoConstruction = 'EcoConstruction',
-  NoCavity = 'NoCavity',
-  PartlyDoubleGlazing = 'PartlyDoubleGlazing',
-  WallInsulation = 'WallInsulation',
-  FloorInsulation = 'FloorInsulation',
-  FullyInsulated = 'FullyInsulated',
-}
-
-export enum GarageService {
-  ElectricDoor = 'ElectricDoor',
-  Loft = 'Loft',
-  Electricity = 'Electricity',
-  HeatingWater = 'HeatingWater',
-}
-
-export enum GarageType {
-  NoGarage = 'NoGarage',
-  AttachmentWood = 'AttachmentWood',
-  AttachmentStone = 'AttachmentStone',
-  Carport = 'Carport',
-  GarageWithCarport = 'GarageWithCarport',
-  GaragePossible = 'GaragePossible',
-  GarageBox = 'GarageBox',
-  Indoor = 'Indoor',
-  ParkingBasement = 'ParkingBasement',
-  ParkingSpace = 'ParkingSpace',
-  Basement = 'Basement',
-  FreestandingWood = 'FreestandingWood',
-  FreestandingStone = 'FreestandingStone',
-}
-
-export type GardenFeature = {
-  __typename?: 'GardenFeature';
-  main?: Maybe<Scalars['Boolean']>;
-  type?: Maybe<GardenType>;
-  notes?: Maybe<Scalars['String']>;
-  quality?: Maybe<GardenQualityType>;
-  location?: Maybe<Array<Maybe<Location>>>;
-  shape?: Maybe<GardenShapeType>;
-  measurement?: Maybe<RectangleMeasurement>;
-  images?: Maybe<Array<File>>;
-};
-
-export enum GardenQualityType {
-  ToBeConstructed = 'ToBeConstructed',
-  BeautifullyConstructed = 'BeautifullyConstructed',
-  Normal = 'Normal',
-  Neglected = 'Neglected',
-  TakenCareOf = 'TakenCareOf',
-}
-
-export enum GardenShapeType {
-  Square = 'Square',
-  Rectangle = 'Rectangle',
-  LShape = 'LShape',
-  UShape = 'UShape',
-  TShape = 'TShape',
-}
-
-export enum GardenType {
-  Backyard = 'Backyard',
-  PatioOrAtrium = 'PatioOrAtrium',
-  Place = 'Place',
-  AllGroundGarden = 'AllGroundGarden',
-  FrontGarden = 'FrontGarden',
-  SunTerrace = 'SunTerrace',
-  BackGarden = 'BackGarden',
-}
-
-export enum GenderType {
-  Male = 'Male',
-  Female = 'Female',
-  GenderNeutral = 'GenderNeutral',
-}
-
-export enum GeneralBogType {
-  BusinessSpace = 'BusinessSpace',
-  Offices = 'Offices',
-  RetailSpace = 'RetailSpace',
-  SocialRealEstate = 'SocialRealEstate',
-  Horeca = 'Horeca',
-}
-
-export enum GeneralCharacteristicsBog {
-  Leissure = 'Leissure',
-  BuildingPlot = 'BuildingPlot',
-  Investment = 'Investment',
-  PavedOutsideArea = 'PavedOutsideArea',
-  LogisticsFunction = 'LogisticsFunction',
-}
-
-export type GeneralInformation = {
-  __typename?: 'GeneralInformation';
-  qualityInformation?: Maybe<Array<Maybe<QualityInformations>>>;
-  images?: Maybe<Array<File>>;
-  notes?: Maybe<Scalars['String']>;
-};
-
-export type GeneralInformationInput = {
-  qualityInformation?: Maybe<Array<Maybe<QualityInformations>>>;
-  images?: Maybe<Array<Maybe<Scalars['String']>>>;
-  notes?: Maybe<Scalars['String']>;
-};
-
-export type GeneralPimSearchResult = {
-  __typename?: 'GeneralPimSearchResult';
-  metadata?: Maybe<SearchMetadata>;
-  items?: Maybe<Array<PimGeneral>>;
-};
-
-export type GetBulkDetailsInput = {
-  ids: Array<Scalars['ID']>;
-  field: BulkField;
-  entity: BulkEntities;
-};
-
-export type GetBulkResult = {
-  __typename?: 'GetBulkResult';
-  id: Scalars['ID'];
-  value?: Maybe<Scalars['BulkFieldValue']>;
-};
-
-export type GetPrivateFileInput = {
-  key: Scalars['ID'];
-  entityID?: Maybe<Scalars['String']>;
-  entity?: Maybe<EntityWithFiles>;
-};
-
-export type GoodToKnow = {
-  __typename?: 'GoodToKnow';
-  type?: Maybe<Scalars['String']>;
-  distance?: Maybe<Scalars['Int']>;
-  units?: Maybe<DistanceUnit>;
   checked?: Maybe<Scalars['Boolean']>;
 };
 
-export type GoodToKnowInput = {
-  type?: Maybe<Scalars['String']>;
-  distance?: Maybe<Scalars['Int']>;
-  units?: Maybe<DistanceUnit>;
-  checked?: Maybe<Scalars['Boolean']>;
+export type AllocatePeopleInput = {
+  jointIncome?: Maybe<AllocatePeopleJointIncomeInput>;
+  income?: Maybe<AllocatePeopleIncomeInput>;
+  partnerIncome?: Maybe<AllocatePeopleIncomeInput>;
 };
 
-export enum GoodToKnowType {
-  MaintenancePlan = 'MaintenancePlan',
-  ReserveFund = 'ReserveFund',
-  HomeInsurance = 'HomeInsurance',
-  PeriodicContribution = 'PeriodicContribution',
-  Meeting = 'Meeting',
-  RegistrationChamberOfCommerce = 'RegistrationChamberOfCommerce',
-  ChecklistPresent = 'ChecklistPresent',
-  Active = 'Active',
-}
-
-export type GoodWillPrices = {
-  __typename?: 'GoodWillPrices';
-  priceInventoryGoodwill?: Maybe<Scalars['AbsoluteFloat']>;
-  vatRate?: Maybe<Scalars['AbsoluteFloat']>;
-  priceInventoryGoodwillVat?: Maybe<Scalars['AbsoluteFloat']>;
-  priceInventoryGoodwillIncludedVat?: Maybe<Scalars['AbsoluteFloat']>;
-  notes?: Maybe<Scalars['String']>;
-};
-
-export type GoodWillPricesInput = {
-  priceInventoryGoodwill?: Maybe<Scalars['AbsoluteFloat']>;
-  vatRate?: Maybe<Scalars['AbsoluteFloat']>;
-  priceInventoryGoodwillVat?: Maybe<Scalars['AbsoluteFloat']>;
-  priceInventoryGoodwillIncludedVat?: Maybe<Scalars['AbsoluteFloat']>;
-  notes?: Maybe<Scalars['String']>;
-};
-
-export type GroundMeasurements = {
-  __typename?: 'GroundMeasurements';
-  length?: Maybe<Scalars['AbsoluteFloat']>;
-  width?: Maybe<Scalars['AbsoluteFloat']>;
-  surface?: Maybe<Scalars['AbsoluteFloat']>;
-  fullBuiltWidth?: Maybe<Scalars['AbsoluteFloat']>;
-  currentNumberOfSeats?: Maybe<Scalars['Int']>;
-  housingArea?: Maybe<Scalars['AbsoluteFloat']>;
-};
-
-export type GroundMeasurementsInput = {
-  length?: Maybe<Scalars['AbsoluteFloat']>;
-  width?: Maybe<Scalars['AbsoluteFloat']>;
-  surface?: Maybe<Scalars['AbsoluteFloat']>;
-  fullBuiltWidth?: Maybe<Scalars['AbsoluteFloat']>;
-  currentNumberOfSeats?: Maybe<Scalars['Int']>;
-  housingArea?: Maybe<Scalars['AbsoluteFloat']>;
-};
-
-export type GroundSpace = {
-  __typename?: 'GroundSpace';
-  typeOfLooseGround?: Maybe<Scalars['String']>;
-  soilType?: Maybe<Array<Scalars['String']>>;
-  soilTypeNotes?: Maybe<Scalars['String']>;
-  measurements?: Maybe<GroundMeasurements>;
-  specifications?: Maybe<Array<AogSpecifications>>;
-  cultivationTypes?: Maybe<Array<Scalars['String']>>;
-  fenceTypes?: Maybe<Array<Scalars['String']>>;
-};
-
-export type GroundSpaceInput = {
-  typeOfLooseGround?: Maybe<Scalars['String']>;
-  soilType?: Maybe<Array<Scalars['String']>>;
-  soilTypeNotes?: Maybe<Scalars['String']>;
-  measurements?: Maybe<GroundMeasurementsInput>;
-  specifications?: Maybe<Array<AogSpecificationsInput>>;
-  cultivationTypes?: Maybe<Array<Scalars['String']>>;
-  fenceTypes?: Maybe<Array<Scalars['String']>>;
-};
-
-export type Groups = {
-  __typename?: 'Groups';
-  id: Scalars['ID'];
-  templateId: Scalars['ID'];
-  groupName: Scalars['String'];
-  copyFromId?: Maybe<Scalars['String']>;
-  order?: Maybe<Scalars['Int']>;
-  entity?: Maybe<Entity>;
-};
-
-export type GroupsInput = {
-  templateId: Scalars['ID'];
-  groupName: Scalars['String'];
-  order?: Maybe<Scalars['Int']>;
-  entity?: Maybe<EntityInput>;
-};
-
-export type GutterInformations = {
-  __typename?: 'GutterInformations';
-  type?: Maybe<GutterType>;
-  notes?: Maybe<Scalars['String']>;
-};
-
-export type GutterInformationsInput = {
-  type?: Maybe<GutterType>;
-  notes?: Maybe<Scalars['String']>;
-};
-
-export enum GutterMaterial {
-  Vinyl = 'Vinyl',
-  Stainless = 'Stainless',
-  Aluminium = 'Aluminium',
-  Copper = 'Copper',
-  Zinc = 'Zinc',
-  Steel = 'Steel',
-}
-
-export type GutterMaterialInformations = {
-  __typename?: 'GutterMaterialInformations';
-  material?: Maybe<GutterMaterial>;
-  notes?: Maybe<Scalars['String']>;
-};
-
-export type GutterMaterialInformationsInput = {
-  material?: Maybe<GutterMaterial>;
-  notes?: Maybe<Scalars['String']>;
-};
-
-export enum GutterType {
-  HalfRound = 'HalfRound',
-  Flatbottom = 'Flatbottom',
-  NoGutter = 'NoGutter',
-}
-
-export type HasCharacteristicsSections = {
-  characteristicsSections?: Maybe<Array<CharacteristicsSections>>;
-};
-
-export type HeatingSourceConfiguration = {
-  __typename?: 'HeatingSourceConfiguration';
-  type: HeatingSourceType;
-  maintenanceContract?: Maybe<HeatingSourceMaintenanceContract>;
-};
-
-export type HeatingSourceMaintenanceContract = {
-  __typename?: 'HeatingSourceMaintenanceContract';
-  enabled: Scalars['Boolean'];
-  endDate?: Maybe<Scalars['Date']>;
-};
-
-export enum HeatingSourceType {
-  GeothermalHeat = 'GeothermalHeat',
-  Fireplace = 'Fireplace',
-  AllBurner = 'AllBurner',
-  PelletStove = 'PelletStove',
-  BlockHeating = 'BlockHeating',
-  WoodStove = 'WoodStove',
-  DistrictHeating = 'DistrictHeating',
-  CentralHeatingBoiler = 'CentralHeatingBoiler',
-  CoalStove = 'CoalStove',
-  PartialElectricHeating = 'PartialElectricHeating',
-  MotherHearth = 'MotherHearth',
-  GasFire = 'GasFire',
-  PossibleFireplace = 'PossibleFireplace',
-  HeatRecoverySystem = 'HeatRecoverySystem',
-  GasHeaters = 'GasHeaters',
-  HeatPump = 'HeatPump',
-  HotAirHeating = 'HotAirHeating',
-  UnderfloorHeating = 'UnderfloorHeating',
-  UnderfloorHeatingCompletely = 'UnderfloorHeatingCompletely',
-  WallHeating = 'WallHeating',
-}
-
-export type History = {
-  __typename?: 'History';
-  id: Scalars['String'];
-  entity: Entities;
-  entityId: Scalars['String'];
-  description?: Maybe<Scalars['String']>;
-  data: Scalars['String'];
-  oldData: Scalars['String'];
-  createdAt: Scalars['Date'];
-  userId: Scalars['String'];
-  companyId: Scalars['String'];
-};
-
-export type HistoryData = {
-  __typename?: 'HistoryData';
-  id: Scalars['String'];
-  data: Scalars['String'];
-};
-
-export type HomeOfficeSpace = {
-  __typename?: 'HomeOfficeSpace';
-  constructionYear?: Maybe<Scalars['Float']>;
-  notes?: Maybe<Scalars['String']>;
-  shape?: Maybe<SpaceShape>;
-  measurement?: Maybe<CuboidMeasurement>;
-  serviceHeating?: Maybe<Array<Maybe<SpaceServiceHeating>>>;
-  images?: Maybe<Array<File>>;
-};
-
-export type HomeOwnerAssociation = {
-  __typename?: 'HomeOwnerAssociation';
-  name?: Maybe<Scalars['String']>;
-  monthlyContribution?: Maybe<Scalars['AbsoluteFloat']>;
-  goodToKnow?: Maybe<Array<Scalars['String']>>;
-  notes?: Maybe<Scalars['String']>;
-};
-
-export type HomeOwnerAssociationInput = {
-  name?: Maybe<Scalars['String']>;
-  monthlyContribution?: Maybe<Scalars['AbsoluteFloat']>;
-  goodToKnow?: Maybe<Array<Scalars['String']>>;
-  notes?: Maybe<Scalars['String']>;
-};
-
-export enum HomeSituation {
-  LivingIn = 'LivingIn',
-  OwnerOccupiedHome = 'OwnerOccupiedHome',
-  SocialHousing = 'SocialHousing',
-  FreeSectorRentalHome = 'FreeSectorRentalHome',
-}
-
-export type HorecaMeasurements = {
-  __typename?: 'HorecaMeasurements';
-  surface?: Maybe<Scalars['AbsoluteFloat']>;
-  salesFloorArea?: Maybe<Scalars['AbsoluteFloat']>;
-  amountOfFloors?: Maybe<Scalars['Int']>;
-  amountOfRooms?: Maybe<Scalars['Int']>;
-  currentNumberOfSeats?: Maybe<Scalars['Int']>;
-  housingArea?: Maybe<Scalars['AbsoluteFloat']>;
-};
-
-export type HorecaMeasurementsInput = {
-  surface?: Maybe<Scalars['AbsoluteFloat']>;
-  salesFloorArea?: Maybe<Scalars['AbsoluteFloat']>;
-  amountOfFloors?: Maybe<Scalars['Int']>;
-  amountOfRooms?: Maybe<Scalars['Int']>;
-  currentNumberOfSeats?: Maybe<Scalars['Int']>;
-  housingArea?: Maybe<Scalars['AbsoluteFloat']>;
-};
-
-export type HorecaPrices = {
-  __typename?: 'HorecaPrices';
-  priceInventoryGoodwill?: Maybe<Scalars['AbsoluteFloat']>;
-  vatRate?: Maybe<Scalars['AbsoluteFloat']>;
-  priceInventoryGoodwillVat?: Maybe<Scalars['AbsoluteFloat']>;
-  priceInventoryGoodwillIncludedVat?: Maybe<Scalars['AbsoluteFloat']>;
-  revenueLastFiscalYear?: Maybe<Scalars['AbsoluteFloat']>;
-  rentalIncomeHomeYear?: Maybe<Scalars['AbsoluteFloat']>;
-  notes?: Maybe<Scalars['String']>;
-};
-
-export type HorecaPricesInput = {
-  priceInventoryGoodwill?: Maybe<Scalars['AbsoluteFloat']>;
-  vatRate?: Maybe<Scalars['AbsoluteFloat']>;
-  priceInventoryGoodwillVat?: Maybe<Scalars['AbsoluteFloat']>;
-  priceInventoryGoodwillIncludedVat?: Maybe<Scalars['AbsoluteFloat']>;
-  revenueLastFiscalYear?: Maybe<Scalars['AbsoluteFloat']>;
-  rentalIncomeHomeYear?: Maybe<Scalars['AbsoluteFloat']>;
-  notes?: Maybe<Scalars['String']>;
-};
-
-export type HorecaSpace = {
-  __typename?: 'HorecaSpace';
-  measurements?: Maybe<HorecaMeasurements>;
-  type?: Maybe<Array<Scalars['String']>>;
-  notes?: Maybe<Scalars['String']>;
-  specifications?: Maybe<Array<Scalars['String']>>;
-  prices?: Maybe<HorecaPrices>;
-  wealthClass?: Maybe<Scalars['String']>;
-  legalForm?: Maybe<Scalars['String']>;
-};
-
-export type HorecaSpaceInput = {
-  measurements?: Maybe<HorecaMeasurementsInput>;
-  type?: Maybe<Array<Scalars['String']>>;
-  notes?: Maybe<Scalars['String']>;
-  specifications?: Maybe<Array<Scalars['String']>>;
-  prices?: Maybe<HorecaPricesInput>;
-  wealthClass?: Maybe<Scalars['String']>;
-  legalForm?: Maybe<Scalars['String']>;
-};
-
-export enum HorecaSpecificationType {
-  TakeoverPersonnel = 'TakeoverPersonnel',
-  CateringArea = 'CateringArea',
-  ResidentialObjectAvailable = 'ResidentialObjectAvailable',
-  Terrace = 'Terrace',
-  Luxery = 'Luxery',
-}
-
-export enum HorecaType {
-  Snackbar = 'Snackbar',
-  ConferenceRoomCenter = 'ConferenceRoomCenter',
-  Restaurant = 'Restaurant',
-  Bistro = 'Bistro',
-  Disco = 'Disco',
-  Hotel = 'Hotel',
-  Cafe = 'Cafe',
-  EatCafe = 'EatCafe',
-  PancakeHouse = 'PancakeHouse',
-  Cafeteria = 'Cafeteria',
-  Restaria = 'Restaria',
-  Lunchroom = 'Lunchroom',
-  FastFood = 'FastFood',
-  RoadHouse = 'RoadHouse',
-  IceCreamParlour = 'IceCreamParlour',
-  SandwichShop = 'SandwichShop',
-}
-
-export type HotWaterSupplyConfiguration = {
-  __typename?: 'HotWaterSupplyConfiguration';
-  type: HotWaterSupplyType;
-  fuel?: Maybe<HotWaterSupplyFuelType>;
-};
-
-export enum HotWaterSupplyFuelType {
-  Gas = 'Gas',
-  Electric = 'Electric',
-  Oil = 'Oil',
-}
-
-export enum HotWaterSupplyType {
-  CentralHeatingBoiler = 'CentralHeatingBoiler',
-  Boiler = 'Boiler',
-  Geyser = 'Geyser',
-  SolarWaterHeater = 'SolarWaterHeater',
-}
-
-export type HouseGeneral = {
-  __typename?: 'HouseGeneral';
-  availability?: Maybe<PropertyAvailabilityInformation>;
-  construction?: Maybe<ConstructionInformation>;
-  floor?: Maybe<FloorType>;
-  propertyConnection?: Maybe<PropertyConnection>;
-  propertyDetails?: Maybe<PropertyTypeDetailed>;
-};
-
-export type HouseGeneralInput = {
-  availability?: Maybe<PropertyAvailabilityInformationInput>;
-  construction?: Maybe<ConstructionInformationInput>;
-  floor?: Maybe<FloorType>;
-  propertyConnection?: Maybe<PropertyConnection>;
-  propertyDetails?: Maybe<PropertyTypeDetailed>;
-};
-
-export type HouseOutside = {
-  __typename?: 'HouseOutside';
-  generalInformation?: Maybe<GeneralInformation>;
-  foundation?: Maybe<Foundation>;
-  propertyRelated?: Maybe<PropertyRelated>;
-  roofInformation?: Maybe<RoofInformation>;
-  notes?: Maybe<Scalars['String']>;
-};
-
-export type HouseOutsideInput = {
-  generalInformation?: Maybe<GeneralInformationInput>;
-  foundation?: Maybe<FoundationInput>;
-  propertyRelated?: Maybe<PropertyRelatedInput>;
-  roofInformation?: Maybe<RoofInformationInput>;
-  notes?: Maybe<Scalars['String']>;
-};
-
-export type HousingOptions = {
-  __typename?: 'HousingOptions';
-  type?: Maybe<Array<Scalars['String']>>;
-  notes?: Maybe<Scalars['String']>;
-};
-
-export type HousingOptionsInput = {
-  type?: Maybe<Array<Scalars['String']>>;
-  notes?: Maybe<Scalars['String']>;
-};
-
-export enum HousingType {
-  PartiallyRented = 'PartiallyRented',
-  DoubleOccupancyAvailable = 'DoubleOccupancyAvailable',
-  DoubleOccupancyPossible = 'DoubleOccupancyPossible',
-  AccessibleToDisabledPeople = 'AccessibleToDisabledPeople',
-  AcessibleToTheEldery = 'AcessibleToTheEldery',
-}
-
-export type IdentificationNumber = {
-  __typename?: 'IdentificationNumber';
-  id: Scalars['String'];
-  name?: Maybe<Scalars['String']>;
-  number?: Maybe<Scalars['String']>;
-  type?: Maybe<Scalars['String']>;
-  dateCreated?: Maybe<Scalars['Date']>;
-};
-
-export enum IdentificationNumberType {
-  Sap = 'Sap',
-  Form = 'Form',
-}
-
-export enum IdentificationType {
-  Passport = 'Passport',
-  DriverLicense = 'DriverLicense',
-  IdCard = 'IdCard',
-  ResidencePermit = 'ResidencePermit',
-}
-
-export enum IncomeType {
-  Employer = 'Employer',
-  Equity = 'Equity',
-  Pension = 'Pension',
-  SocialBenefit = 'SocialBenefit',
-  Entrepreneur = 'Entrepreneur',
-}
-
-export type InitSendFileInput = {
-  fileName?: Maybe<Scalars['String']>;
-  fileType?: Maybe<Scalars['String']>;
-  permission?: Maybe<Scalars['String']>;
-  description?: Maybe<Scalars['String']>;
-};
-
-export type InsideGeneral = LastUpdated & {
-  __typename?: 'InsideGeneral';
-  windows?: Maybe<InsideWindows>;
-  extension?: Maybe<Extension>;
-  renovation?: Maybe<Renovation>;
-  notes?: Maybe<Scalars['String']>;
-  dateUpdated?: Maybe<Scalars['Date']>;
-  lastEditedBy?: Maybe<LastUpdatedProfile>;
-};
-
-export type InsideGeneralInput = {
-  pimId: Scalars['ID'];
-  windows?: Maybe<InsideWindowsInput>;
-  extension?: Maybe<ExtensionInput>;
-  renovation?: Maybe<RenovationInput>;
-  notes?: Maybe<Scalars['String']>;
-};
-
-export type InsideSpecification = {
-  __typename?: 'InsideSpecification';
-  type?: Maybe<Array<Scalars['String']>>;
-  notes?: Maybe<Scalars['String']>;
-};
-
-export type InsideSpecificationInput = {
-  type?: Maybe<Array<Scalars['String']>>;
-  notes?: Maybe<Scalars['String']>;
-};
-
-export enum InsideType {
-  Furnished = 'Furnished',
-  Upholstered = 'Upholstered',
-  PartialyUpholstered = 'PartialyUpholstered',
-}
-
-export type InsideWindows = {
-  __typename?: 'InsideWindows';
-  types?: Maybe<Array<WindowType>>;
-  notes?: Maybe<Scalars['String']>;
-};
-
-export type InsideWindowsInput = {
-  types?: Maybe<Array<WindowType>>;
-  notes?: Maybe<Scalars['String']>;
-};
-
-export type Inspection = {
-  __typename?: 'Inspection';
-  id: Scalars['ID'];
-  inspectionType: InspectionType;
-  type: Scalars['String'];
-  description?: Maybe<Scalars['String']>;
-  dateCreated?: Maybe<Scalars['Date']>;
-};
-
-export enum InspectionType {
-  Tanks = 'Tanks',
-  Pollution = 'Pollution',
-  Maintenance = 'Maintenance',
-}
-
-export type Installations = {
-  __typename?: 'Installations';
-  type?: Maybe<Scalars['String']>;
-  numberOfSameInstallations?: Maybe<Scalars['Int']>;
-  notes?: Maybe<Scalars['String']>;
-};
-
-export type InstallationsInput = {
-  type?: Maybe<Scalars['String']>;
-  numberOfSameInstallations?: Maybe<Scalars['Int']>;
-  notes?: Maybe<Scalars['String']>;
-};
-
-export enum InstallationsType {
-  RotaryStableMilkingSystem = 'RotaryStableMilkingSystem',
-  MilkingParlorSystem = 'MilkingParlorSystem',
-  MilkingRobot = 'MilkingRobot',
-  HerringBoneStable = 'HerringBoneStable',
-  SideBySideMilkingSystem = 'SideBySideMilkingSystem',
-}
-
-export type IntRange = {
-  __typename?: 'IntRange';
-  from?: Maybe<Scalars['Int']>;
-  to?: Maybe<Scalars['Int']>;
-};
-
-export type IntRangeInput = {
-  from?: Maybe<Scalars['Int']>;
-  to?: Maybe<Scalars['Int']>;
-};
-
-export type Interests = LastUpdated & {
-  __typename?: 'Interests';
-  groundInterest?: Maybe<Scalars['AbsoluteFloat']>;
-  buildingInterest?: Maybe<Scalars['AbsoluteFloat']>;
-  rentedagen?: Maybe<Scalars['AbsoluteFloat']>;
-  suspensiveCondition?: Maybe<Scalars['String']>;
-  description?: Maybe<Scalars['String']>;
-  dateCreated?: Maybe<Scalars['Date']>;
-  dateUpdated?: Maybe<Scalars['Date']>;
-  lastEditedBy?: Maybe<LastUpdatedProfile>;
-};
-
-export type InterestsInput = {
-  id: Scalars['ID'];
-  groundInterest?: Maybe<Scalars['AbsoluteFloat']>;
-  buildingInterest?: Maybe<Scalars['AbsoluteFloat']>;
-  rentedagen?: Maybe<Scalars['AbsoluteFloat']>;
-  suspensiveCondition?: Maybe<Scalars['String']>;
-  description?: Maybe<Scalars['String']>;
-};
-
-export type Investment = LastUpdated & {
-  __typename?: 'Investment';
-  netRentalIncome?: Maybe<Scalars['AbsoluteFloat']>;
-  grossRentalIncome?: Maybe<Scalars['AbsoluteFloat']>;
-  economicRentalValue?: Maybe<Scalars['AbsoluteFloat']>;
-  averageMaturity?: Maybe<Scalars['AbsoluteFloat']>;
-  rentIndexed?: Maybe<Scalars['Boolean']>;
-  splitApartment?: Maybe<Scalars['Boolean']>;
-  averageVacancyPercentage?: Maybe<Scalars['Float']>;
-  numberOfRentableUnits?: Maybe<Scalars['Float']>;
-  amountOfTenants?: Maybe<Scalars['Int']>;
-  remainingTermContacts?: Maybe<Scalars['Int']>;
-  vacancySquareMeters?: Maybe<Scalars['Int']>;
-  notes?: Maybe<Scalars['String']>;
-  dateCreated?: Maybe<Scalars['Date']>;
-  description?: Maybe<Scalars['String']>;
-  dateUpdated?: Maybe<Scalars['Date']>;
-  lastEditedBy?: Maybe<LastUpdatedProfile>;
-};
-
-export type InvestmentInput = {
-  id: Scalars['ID'];
-  netRentalIncome?: Maybe<Scalars['AbsoluteFloat']>;
-  grossRentalIncome?: Maybe<Scalars['AbsoluteFloat']>;
-  economicRentalValue?: Maybe<Scalars['AbsoluteFloat']>;
-  averageMaturity?: Maybe<Scalars['AbsoluteFloat']>;
-  rentIndexed?: Maybe<Scalars['Boolean']>;
-  splitApartment?: Maybe<Scalars['Boolean']>;
-  averageVacancyPercentage?: Maybe<Scalars['Float']>;
-  numberOfRentableUnits?: Maybe<Scalars['Float']>;
-  amountOfTenants?: Maybe<Scalars['Int']>;
-  remainingTermContacts?: Maybe<Scalars['Int']>;
-  vacancySquareMeters?: Maybe<Scalars['Int']>;
-  notes?: Maybe<Scalars['String']>;
-  description?: Maybe<Scalars['String']>;
-};
-
-export type InvoiceDetails = {
-  __typename?: 'InvoiceDetails';
-  street?: Maybe<Scalars['String']>;
-  houseNumber?: Maybe<Scalars['String']>;
-  additionalNumber?: Maybe<Scalars['String']>;
-  zipCode?: Maybe<Scalars['String']>;
-  city?: Maybe<Scalars['String']>;
-  country?: Maybe<Scalars['String']>;
-  projectInvoiceNumber?: Maybe<Scalars['String']>;
-  contactPerson?: Maybe<Scalars['String']>;
-  description?: Maybe<Scalars['String']>;
-};
-
-export type InvoiceDetailsInput = {
-  street?: Maybe<Scalars['String']>;
-  houseNumber?: Maybe<Scalars['String']>;
-  additionalNumber?: Maybe<Scalars['String']>;
-  zipCode?: Maybe<Scalars['String']>;
-  city?: Maybe<Scalars['String']>;
-  country?: Maybe<Scalars['String']>;
-  projectInvoiceNumber?: Maybe<Scalars['String']>;
-  contactPerson?: Maybe<Scalars['String']>;
-  description?: Maybe<Scalars['String']>;
-};
-
-export type KikInfoInput = {
-  pimId: Scalars['ID'];
-  infoType: KikInfoType;
-};
-
-export enum KikInfoType {
-  CadastralPlot = 'CadastralPlot',
-  CadastralMap = 'CadastralMap',
-}
-
-export type KikSettings = {
-  __typename?: 'KikSettings';
-  username: Scalars['String'];
-};
-
-export type KikSettingsInput = {
-  username: Scalars['String'];
-  password: Scalars['String'];
-};
-
-export type KitchenAppliance = {
-  __typename?: 'KitchenAppliance';
-  name: KitchenAppliances;
-  quantity: Scalars['Int'];
-  notes?: Maybe<Scalars['String']>;
-};
-
-export enum KitchenAppliances {
-  Refrigerator = 'Refrigerator',
-  Microwave = 'Microwave',
-  Dishwasher = 'Dishwasher',
-  Oven = 'Oven',
-  Stove = 'Stove',
-}
-
-export enum KitchenConstruction {
-  ClosedKitchen = 'ClosedKitchen',
-  EatInKitchen = 'EatInKitchen',
-  HalfOpenKitchen = 'HalfOpenKitchen',
-  OpenKitchen = 'OpenKitchen',
-}
-
-export enum KitchenHob {
-  GasHob = 'GasHob',
-  InductionHob = 'InductionHob',
-  ElectricHob = 'ElectricHob',
-  CeramicHob = 'CeramicHob',
-  HalogenHob = 'HalogenHob',
-}
-
-export enum KitchenServices {
-  KitchenIsland = 'KitchenIsland',
-  WashIsland = 'WashIsland',
-}
-
-export type KitchenSpace = {
-  __typename?: 'KitchenSpace';
-  constructionYear?: Maybe<Scalars['Float']>;
-  notes?: Maybe<Scalars['String']>;
-  type?: Maybe<KitchenType>;
-  constructionType?: Maybe<Array<Maybe<KitchenConstruction>>>;
-  services?: Maybe<Array<Maybe<KitchenServices>>>;
-  servicesNotes?: Maybe<Scalars['String']>;
-  appliances?: Maybe<Array<Maybe<KitchenAppliance>>>;
-  hob?: Maybe<KitchenHob>;
-  shape?: Maybe<SpaceShape>;
-  measurement?: Maybe<CuboidMeasurement>;
-  serviceHeating?: Maybe<Array<Maybe<SpaceServiceHeating>>>;
-  images?: Maybe<Array<File>>;
-};
-
-export enum KitchenType {
-  MainKitchen = 'MainKitchen',
-  Scullery = 'Scullery',
-}
-
-export type Label = {
-  __typename?: 'Label';
-  id: Scalars['ID'];
-  icon?: Maybe<Scalars['String']>;
-  text: Scalars['String'];
-  property: LabelProperty;
-  dateCreated?: Maybe<Scalars['Date']>;
-};
-
-export type LabelInput = {
-  parentId: Scalars['ID'];
-  icon?: Maybe<Scalars['String']>;
-  text: Scalars['String'];
-  property: LabelProperty;
-};
-
-export enum LabelProperty {
-  ObligationToProvideInformation = 'ObligationToProvideInformation',
-  Picture = 'Picture',
-  Usp = 'Usp',
-  TextChapter = 'TextChapter',
-  ParkingSpecification = 'ParkingSpecification',
-  MonumentSpecification = 'MonumentSpecification',
-  InsideSpecification = 'InsideSpecification',
-  HousingOptions = 'HousingOptions',
-  SpecialTags = 'SpecialTags',
-  PropertyRights = 'PropertyRights',
-  HomeOwnerAssociation = 'HomeOwnerAssociation',
-  LocationGoodToKnow = 'LocationGoodToKnow',
-  Location = 'Location',
-  CadastreMap = 'CadastreMap',
-  MediaLink = 'MediaLink',
-  Tag = 'Tag',
-  TankInspection = 'TankInspection',
-  PollutionInspection = 'PollutionInspection',
-  MaintenanceInspection = 'MaintenanceInspection',
-  Cost = 'Cost',
-  Task = 'Task',
-  ReasonToMove = 'ReasonToMove',
-}
-
-export type LastUpdated = {
-  dateUpdated?: Maybe<Scalars['Date']>;
-  lastEditedBy?: Maybe<LastUpdatedProfile>;
-};
-
-export type LastUpdatedProfile = {
-  __typename?: 'LastUpdatedProfile';
-  id: Scalars['ID'];
-  firstName?: Maybe<Scalars['String']>;
-  lastName?: Maybe<Scalars['String']>;
-  email?: Maybe<Scalars['String']>;
-};
-
-export type Lease = {
-  __typename?: 'Lease';
-  leaseholder?: Maybe<LeaseholderType>;
-  information?: Maybe<LeaseInformationType>;
-  duration?: Maybe<LeaseDurationType>;
-  yearlyPrice?: Maybe<Scalars['Float']>;
-  endDate?: Maybe<Scalars['Date']>;
-};
-
-export enum LeaseDurationType {
-  Forever = 'Forever',
-  Temporary = 'Temporary',
-  Constantly = 'Constantly',
-}
-
-export enum LeaseInformationType {
-  Virable = 'Virable',
-  Fixed = 'Fixed',
-}
-
-export type LeaseInput = {
-  leaseholder?: Maybe<LeaseholderType>;
-  information?: Maybe<LeaseInformationType>;
-  duration?: Maybe<LeaseDurationType>;
-  yearlyPrice?: Maybe<Scalars['Float']>;
-  endDate?: Maybe<Scalars['Date']>;
-};
-
-export enum LeaseholderType {
-  Different = 'Different',
-  Township = 'Township',
-  Private = 'Private',
-}
-
-export enum LegalFormType {
-  Bv = 'BV',
-  Cv = 'CV',
-  Cooperation = 'Cooperation',
-  Proprietorship = 'Proprietorship',
-  Partnership = 'Partnership',
-  Nv = 'NV',
-  Vof = 'VOF',
-  Foundation = 'Foundation',
-  Association = 'Association',
-}
-
-export type LeisureMeasurements = {
-  __typename?: 'LeisureMeasurements';
-  surface?: Maybe<Scalars['AbsoluteFloat']>;
-  numberOfPitches?: Maybe<Scalars['Int']>;
-  numberOfStays?: Maybe<Scalars['Int']>;
-  capacityOfPersons?: Maybe<Scalars['Int']>;
-};
-
-export type LeisureMeasurementsInput = {
-  surface?: Maybe<Scalars['AbsoluteFloat']>;
-  numberOfPitches?: Maybe<Scalars['Int']>;
-  numberOfStays?: Maybe<Scalars['Int']>;
-  capacityOfPersons?: Maybe<Scalars['Int']>;
-};
-
-export enum LeisureServicesType {
-  Electric = 'Electric',
-  Reception = 'Reception',
-  SanitaryBlocks = 'SanitaryBlocks',
-  SwimmingPool = 'SwimmingPool',
-  SewageSystem = 'SewageSystem',
-  CateringAvailable = 'CateringAvailable',
-  CampShop = 'CampShop',
-}
-
-export type LeisureSpace = {
-  __typename?: 'LeisureSpace';
-  measurements?: Maybe<LeisureMeasurements>;
-  specifications?: Maybe<Array<Scalars['String']>>;
-  prices?: Maybe<GoodWillPrices>;
-  services?: Maybe<Array<Scalars['String']>>;
-};
-
-export type LeisureSpaceInput = {
-  measurements?: Maybe<LeisureMeasurementsInput>;
-  specifications?: Maybe<Array<Scalars['String']>>;
-  prices?: Maybe<GoodWillPricesInput>;
-  services?: Maybe<Array<Scalars['String']>>;
-};
-
-export enum LeisureSpecificationType {
-  TakeoverPersonnel = 'TakeoverPersonnel',
-  AnnualPitches = 'AnnualPitches',
-  ResidentialObjectAvailable = 'ResidentialObjectAvailable',
-  ReturnServices = 'ReturnServices',
-}
-
-export type LinkNcpToProjectPhaseInput = {
-  ncpId: Scalars['ID'];
-  projectPhaseId: Scalars['ID'];
-};
-
-export type LinkSalesCrmsInput = {
-  cyclusId: Scalars['String'];
-  crmIds: Array<Scalars['String']>;
-};
-
-export type LinkSalesCrmsListPaginationMeta = {
-  __typename?: 'LinkSalesCrmsListPaginationMeta';
-  total: Scalars['Int'];
-  page: Scalars['Int'];
-  limit: Scalars['Int'];
-};
-
-export type LinkSalesCrmsListResult = {
-  __typename?: 'LinkSalesCrmsListResult';
-  meta: LinkSalesCrmsListPaginationMeta;
-  salesCrmsItems?: Maybe<Array<CrmListItem>>;
-};
-
-export type LinkSalesPimsInput = {
-  cyclusId: Scalars['String'];
-  pimIds: Array<Scalars['String']>;
-};
-
-export type LinkSalesPimsListPaginationMeta = {
-  __typename?: 'LinkSalesPimsListPaginationMeta';
-  total: Scalars['Int'];
-  page: Scalars['Int'];
-  limit: Scalars['Int'];
-};
-
-export type LinkSalesPimsListResult = {
-  __typename?: 'LinkSalesPimsListResult';
-  meta: LinkSalesPimsListPaginationMeta;
-  salesPimsItems?: Maybe<Array<ListPim>>;
-};
-
-export type LinkedCrm = {
-  __typename?: 'LinkedCrm';
-  id: Scalars['ID'];
-  firstName?: Maybe<Scalars['String']>;
-  extraNames?: Maybe<Scalars['String']>;
-  initials?: Maybe<Scalars['String']>;
-  lastName?: Maybe<Scalars['String']>;
-  email?: Maybe<Scalars['String']>;
-  phoneNumber?: Maybe<Scalars['String']>;
-  avatar?: Maybe<File>;
-  isPassedAway?: Maybe<Scalars['Boolean']>;
-  dateOfDeath?: Maybe<Scalars['Date']>;
-};
-
-export type LinkedEntity = {
-  __typename?: 'LinkedEntity';
-  id: Scalars['ID'];
-  type?: Maybe<Entities>;
-};
-
-export type LinkedEntityInput = {
-  id: Scalars['ID'];
-  type?: Maybe<Entities>;
-};
-
-export type LinkedPim = {
-  __typename?: 'LinkedPim';
-  id: Scalars['ID'];
-  houseNumberPrefix?: Maybe<Scalars['String']>;
-  houseNumber: Scalars['String'];
-  houseNumberAddition?: Maybe<Scalars['String']>;
-  postalCode: Scalars['String'];
-  district?: Maybe<Scalars['String']>;
-  city: Scalars['String'];
-  state?: Maybe<Scalars['String']>;
-  county?: Maybe<Scalars['String']>;
-  country: Scalars['String'];
-  propertyType?: Maybe<PropertyType>;
-  attention?: Maybe<Scalars['String']>;
-  plotNumber?: Maybe<Scalars['Int']>;
-  salePrice?: Maybe<Scalars['AbsoluteFloat']>;
-  rentPrice?: Maybe<Scalars['AbsoluteFloat']>;
-  status: PimStatus;
-  images?: Maybe<Array<File>>;
-};
-
-export type LinkedPimFilters = {
-  archived?: Maybe<Scalars['Boolean']>;
-};
-
-export type LinkedPimInput = {
-  pimId: Scalars['ID'];
-  linkedPimIDs: Array<Scalars['ID']>;
-};
-
-export type LinkedPimSearchResult = {
-  __typename?: 'LinkedPimSearchResult';
-  metadata: SearchMetadata;
-  items?: Maybe<Array<LinkedPim>>;
-};
-
-export type ListCrmFilters = {
-  city?: Maybe<Scalars['String']>;
-  type?: Maybe<CrmType>;
-  status?: Maybe<CrmStatus>;
-};
-
-export type ListNcp = {
-  __typename?: 'ListNcp';
-  id: Scalars['ID'];
-  dateCreated: Scalars['Date'];
-  dateUpdated?: Maybe<Scalars['Date']>;
-  archived: Scalars['Boolean'];
-  areaRangeFrom?: Maybe<Scalars['AbsoluteFloat']>;
-  areaRangeTo?: Maybe<Scalars['AbsoluteFloat']>;
-  numberOfRoomsFrom?: Maybe<Scalars['Int']>;
-  numberOfRoomsTo?: Maybe<Scalars['Int']>;
-  logoPicture?: Maybe<File>;
-  mainPicture?: Maybe<Picture>;
-  name?: Maybe<Scalars['String']>;
-  salePriceFrom?: Maybe<Scalars['AbsoluteFloat']>;
-  salePriceTo?: Maybe<Scalars['AbsoluteFloat']>;
-  rentPriceFrom?: Maybe<Scalars['AbsoluteFloat']>;
-  rentPriceTo?: Maybe<Scalars['AbsoluteFloat']>;
-  saleLabel?: Maybe<Scalars['String']>;
-  rentLabel?: Maybe<Scalars['String']>;
-  partOfPhase?: Maybe<Scalars['Int']>;
-  soldNumber?: Maybe<Scalars['Int']>;
-  rentNumber?: Maybe<Scalars['Int']>;
-  completeness: Scalars['Float'];
-  available?: Maybe<Scalars['Int']>;
-  underOption?: Maybe<Scalars['Int']>;
-  soldOrRent?: Maybe<Scalars['Int']>;
-  matches?: Maybe<Scalars['Int']>;
-  interests?: Maybe<Scalars['Int']>;
-  candidates?: Maybe<Scalars['Int']>;
-  optants?: Maybe<Scalars['Int']>;
-  properties?: Maybe<Scalars['Int']>;
-  color?: Maybe<Scalars['String']>;
-  attentionNote?: Maybe<Scalars['String']>;
-  objectTypesCount?: Maybe<Scalars['Int']>;
-  city?: Maybe<Scalars['String']>;
-  projectType?: Maybe<ProjectType>;
-};
-
-export type ListNcpsFilters = {
-  archived?: Maybe<Scalars['Boolean']>;
-  pricingType?: Maybe<PricingType>;
-  projectType?: Maybe<ProjectType>;
-};
-
-export type ListObjectTypes = {
-  __typename?: 'ListObjectTypes';
-  id: Scalars['ID'];
-  ncpId: Scalars['ID'];
-  dateCreated: Scalars['Date'];
-  dateUpdated?: Maybe<Scalars['Date']>;
-  archived?: Maybe<Scalars['Boolean']>;
-  areaRangeFrom?: Maybe<Scalars['AbsoluteFloat']>;
-  areaRangeTo?: Maybe<Scalars['AbsoluteFloat']>;
-  numberOfRoomsFrom?: Maybe<Scalars['Int']>;
-  numberOfRoomsTo?: Maybe<Scalars['Int']>;
-  mainPicture?: Maybe<Picture>;
-  name?: Maybe<Scalars['String']>;
-  salePriceFrom?: Maybe<Scalars['AbsoluteFloat']>;
-  salePriceTo?: Maybe<Scalars['AbsoluteFloat']>;
-  rentPriceFrom?: Maybe<Scalars['AbsoluteFloat']>;
-  rentPriceTo?: Maybe<Scalars['AbsoluteFloat']>;
-  underOption?: Maybe<Scalars['Int']>;
-  soldOrRent?: Maybe<Scalars['Int']>;
-  saleLabel?: Maybe<Scalars['String']>;
-  rentLabel?: Maybe<Scalars['String']>;
-  partOfPhase?: Maybe<Scalars['Int']>;
-  completeness: Scalars['Float'];
-  matches?: Maybe<Scalars['Int']>;
-  interests?: Maybe<Scalars['Int']>;
-  propertiesConnected?: Maybe<Scalars['Int']>;
-  propertiesAvailable?: Maybe<Scalars['Int']>;
-  attentionNote?: Maybe<Scalars['String']>;
-};
-
-export type ListObjectTypesFilters = {
-  archived?: Maybe<Scalars['Boolean']>;
-  ncpId: Scalars['ID'];
-};
-
-export type ListPim = {
-  __typename?: 'ListPim';
-  id: Scalars['String'];
-  houseNumberPrefix?: Maybe<Scalars['String']>;
-  houseNumber: Scalars['String'];
-  houseNumberAddition?: Maybe<Scalars['String']>;
-  constructionNumberPrefix?: Maybe<Scalars['String']>;
-  constructionNumber?: Maybe<Scalars['String']>;
-  constructionNumberAddition?: Maybe<Scalars['String']>;
-  postalCode: Scalars['String'];
-  district?: Maybe<Scalars['String']>;
-  street?: Maybe<Scalars['String']>;
-  city: Scalars['String'];
-  state?: Maybe<Scalars['String']>;
-  county?: Maybe<Scalars['String']>;
-  country: Scalars['String'];
-  completeness: Scalars['Float'];
-  propertyType?: Maybe<PropertyType>;
-  salePrice?: Maybe<Scalars['Float']>;
-  rentPrice?: Maybe<Scalars['Float']>;
-  pictures?: Maybe<Array<Picture>>;
-  livingArea?: Maybe<Scalars['Int']>;
-  attentionNote?: Maybe<Scalars['String']>;
-  dateCreated: Scalars['Date'];
-  dateUpdated?: Maybe<Scalars['Date']>;
-  lastEditedBy?: Maybe<LastUpdatedProfile>;
-  houseOutside?: Maybe<ListPimHouseOutside>;
-  archived?: Maybe<Scalars['Boolean']>;
-  status: PimStatus;
-  developmentType: DevelopmentType;
-  linkedObjectTypeIds?: Maybe<Array<Maybe<Scalars['String']>>>;
-  mainPicture?: Maybe<Picture>;
-  isPurchased?: Maybe<Scalars['Boolean']>;
-};
-
-export type ListPimHouseOutside = {
-  __typename?: 'ListPimHouseOutside';
-  propertyRelated?: Maybe<ListPimPropertyRelated>;
-};
-
-export type ListPimPropertyRelated = {
-  __typename?: 'ListPimPropertyRelated';
-  items?: Maybe<Array<Maybe<PropertyRelatedItems>>>;
-};
-
-export type ListPimsFilters = {
-  developmentType?: Maybe<DevelopmentType>;
-  propertyTypes?: Maybe<Array<Maybe<PropertyType>>>;
-  status?: Maybe<PimStatus>;
-  houseNumberPrefix?: Maybe<Scalars['String']>;
-  houseNumber?: Maybe<Scalars['String']>;
-  houseNumberAddition?: Maybe<Scalars['String']>;
-  constructionNumberPrefix?: Maybe<Scalars['String']>;
-  constructionNumber?: Maybe<Scalars['String']>;
-  constructionNumberAddition?: Maybe<Scalars['String']>;
-  street?: Maybe<Scalars['String']>;
-  postalCode?: Maybe<Scalars['String']>;
-  district?: Maybe<Scalars['String']>;
-  city?: Maybe<Scalars['String']>;
-  state?: Maybe<Scalars['String']>;
-  county?: Maybe<Scalars['String']>;
-  country?: Maybe<Scalars['String']>;
-  archived?: Maybe<Scalars['Boolean']>;
-  pricingType?: Maybe<PricingType>;
-  isPurchased?: Maybe<Scalars['Boolean']>;
-};
-
-export type ListQuestionairesFilters = {
-  type?: Maybe<Scalars['String']>;
-  templateStatus?: Maybe<TemplateStatus>;
-};
-
-export type LivingRoomSpace = {
-  __typename?: 'LivingRoomSpace';
-  constructionYear?: Maybe<Scalars['Float']>;
-  notes?: Maybe<Scalars['String']>;
-  type?: Maybe<Array<Maybe<LivingRoomType>>>;
-  shape?: Maybe<SpaceShape>;
-  measurement?: Maybe<CuboidMeasurement>;
-  serviceHeating?: Maybe<Array<Maybe<SpaceServiceHeating>>>;
-  images?: Maybe<Array<File>>;
-  stairs?: Maybe<Scalars['Boolean']>;
-};
-
-export enum LivingRoomType {
-  ThroughRoom = 'ThroughRoom',
-  FormerEnSuite = 'FormerEnSuite',
-  RoomAndSuite = 'RoomAndSuite',
-  Conservatory = 'Conservatory',
-}
-
-export enum Location {
-  North = 'North',
-  South = 'South',
-  East = 'East',
-  West = 'West',
-}
-
-export enum LocationGoodToKnowType {
-  Restaurants = 'Restaurants',
-  Subway = 'Subway',
-  Recreation = 'Recreation',
-  Shops = 'Shops',
-  Train = 'Train',
-  School = 'School',
-  Highway = 'Highway',
-  Sport = 'Sport',
-}
-
-export enum LocationType {
-  OnTheEdgeOfForest = 'OnTheEdgeOfForest',
-  OnBusyRoad = 'OnBusyRoad',
-  OnPark = 'OnPark',
-  OnQuietRoad = 'OnQuietRoad',
-  OnFairway = 'OnFairway',
-  OnWater = 'OnWater',
-  ShelteredLocation = 'ShelteredLocation',
-  OutsideBuiltUpAreas = 'OutsideBuiltUpAreas',
-  InWoodedArea = 'InWoodedArea',
-  InCenter = 'InCenter',
-  InResidentialArea = 'InResidentialArea',
-  OpenLocation = 'OpenLocation',
-}
-
-export type LoginInput = {
-  username: Scalars['String'];
-  password: Scalars['String'];
-};
-
-export type LoginResponse = {
-  __typename?: 'LoginResponse';
-  error?: Maybe<Scalars['String']>;
-  AuthenticationResult: AuthenticationResult;
-};
-
-export enum LooseGroundType {
-  ForestPlot = 'ForestPlot',
-  ArableLand = 'ArableLand',
-  Grassland = 'Grassland',
-}
-
-export enum MaintenanceType {
-  Paintwork = 'Paintwork',
-  ElectricityConnections = 'ElectricityConnections',
-  WindowFrames = 'WindowFrames',
-}
-
-export enum MaritalStatusType {
-  Single = 'Single',
-  MarriedCommunityOfProperty = 'MarriedCommunityOfProperty',
-  MarriedPrenuptialAgreements = 'MarriedPrenuptialAgreements',
-  RegisteredPartner = 'RegisteredPartner',
-  Unmarried = 'Unmarried',
-  LivingTogether = 'LivingTogether',
-  Widow = 'Widow',
-  Widower = 'Widower',
-}
-
-export type MatchCharacteristics = {
-  __typename?: 'MatchCharacteristics';
-  general?: Maybe<MatchCharacteristicsGeneralType>;
-  property?: Maybe<MatchCharacteristicsProperty>;
-};
-
-export enum MatchCharacteristicsGeneralType {
-  SemiDetached = 'SemiDetached',
-  FinalHouse = 'FinalHouse',
-  CornerHouse = 'CornerHouse',
-  TerracedHouse = 'TerracedHouse',
-  DetachedHouse = 'DetachedHouse',
-  Recreation = 'Recreation',
-}
-
-export type MatchCharacteristicsInput = {
-  general?: Maybe<MatchCharacteristicsGeneralType>;
-  property?: Maybe<MatchCharacteristicsPropertyInput>;
+export type AllocatePeopleJointIncomeInput = {
+  lowestPercentage?: Maybe<Scalars['Int']>;
+  distributionThreshold?: Maybe<Scalars['Int']>;
+  ficitousCalculation?: Maybe<Scalars['Int']>;
+  includePension?: Maybe<Scalars['Int']>;
 };
 
-export enum MatchCharacteristicsMaintenanceQuality {
-  Good = 'Good',
-  Poor = 'Poor',
-  Regular = 'Regular',
-  Bad = 'Bad',
-  Terrible = 'Terrible',
-  Perfect = 'Perfect',
-}
-
-export type MatchCharacteristicsProperty = {
-  __typename?: 'MatchCharacteristicsProperty';
-  minAmountRooms?: Maybe<Scalars['Int']>;
-  minAmountBedrooms?: Maybe<Scalars['Int']>;
-  minAmountFloors?: Maybe<Scalars['Int']>;
-  residentialLayerFrom?: Maybe<Scalars['Int']>;
-  residentialLayerTo?: Maybe<Scalars['Int']>;
-  constructionYearFrom?: Maybe<Scalars['Int']>;
-  constructionYearTo?: Maybe<Scalars['Int']>;
-  maintenanceQuality?: Maybe<MatchCharacteristicsMaintenanceQuality>;
-};
-
-export type MatchCharacteristicsPropertyInput = {
-  minAmountRooms?: Maybe<Scalars['Int']>;
-  minAmountBedrooms?: Maybe<Scalars['Int']>;
-  minAmountFloors?: Maybe<Scalars['Int']>;
-  residentialLayerFrom?: Maybe<Scalars['Int']>;
-  residentialLayerTo?: Maybe<Scalars['Int']>;
-  constructionYearFrom?: Maybe<Scalars['Int']>;
-  constructionYearTo?: Maybe<Scalars['Int']>;
-  maintenanceQuality?: Maybe<MatchCharacteristicsMaintenanceQuality>;
-};
-
-export type MatchCommercialCharacteristics = {
-  __typename?: 'MatchCommercialCharacteristics';
-  general?: Maybe<MatchCommercialCharacteristicsGeneralType>;
-  property?: Maybe<MatchCommercialCharacteristicsProperty>;
-};
-
-export enum MatchCommercialCharacteristicsGeneralType {
-  Leissure = 'Leissure',
-  Logistic = 'Logistic',
-  PracticeRoom = 'PracticeRoom',
-}
-
-export type MatchCommercialCharacteristicsInput = {
-  general?: Maybe<MatchCommercialCharacteristicsGeneralType>;
-  property?: Maybe<MatchCommercialCharacteristicsPropertyInput>;
-};
-
-export type MatchCommercialCharacteristicsProperty = {
-  __typename?: 'MatchCommercialCharacteristicsProperty';
-  minFreeHeight?: Maybe<Scalars['Int']>;
-  minFreeSpan?: Maybe<Scalars['Int']>;
-  minFloorLoad?: Maybe<Scalars['Int']>;
-  minAmountOfFloors?: Maybe<Scalars['Int']>;
-  minParkingLots?: Maybe<Scalars['Int']>;
-  engergyLabel?: Maybe<EnergyType>;
-  constructionYearFrom?: Maybe<Scalars['Int']>;
-  constructionYearTo?: Maybe<Scalars['Int']>;
-  maintenanceQuality?: Maybe<MatchCharacteristicsMaintenanceQuality>;
-};
-
-export type MatchCommercialCharacteristicsPropertyInput = {
-  minFreeHeight?: Maybe<Scalars['Int']>;
-  minFreeSpan?: Maybe<Scalars['Int']>;
-  minFloorLoad?: Maybe<Scalars['Int']>;
-  minAmountOfFloors?: Maybe<Scalars['Int']>;
-  minParkingLots?: Maybe<Scalars['Int']>;
-  engergyLabel?: Maybe<EnergyType>;
-  constructionYearFrom?: Maybe<Scalars['Int']>;
-  constructionYearTo?: Maybe<Scalars['Int']>;
-  maintenanceQuality?: Maybe<MatchCharacteristicsMaintenanceQuality>;
-};
-
-export enum MatchCommercialConditions {
-  VatTaxed = 'VatTaxed',
-  Indexed = 'Indexed',
-  FurnishedIncludingServiceCost = 'FurnishedIncludingServiceCost',
-  PavedOutsideTerrain = 'PavedOutsideTerrain',
-  CompanyResidence = 'CompanyResidence',
-  Camping = 'Camping',
-  Investment = 'Investment',
-}
-
-export enum MatchCommercialEstateType {
-  BusinessSpace = 'BusinessSpace',
-  Offices = 'Offices',
-  RetailSpace = 'RetailSpace',
-  SocialRealEstate = 'SocialRealEstate',
-  CateringIndustry = 'CateringIndustry',
-  Terrain = 'Terrain',
-}
-
-export enum MatchEstateType {
-  SignleFamily = 'SignleFamily',
-  DykeHouse = 'DykeHouse',
-  CourtHouse = 'CourtHouse',
-  DriveInHome = 'DriveInHome',
-  SplitLevel = 'SplitLevel',
-  QuadrantHouse = 'QuadrantHouse',
-  PatioHouse = 'PatioHouse',
-  Villa = 'Villa',
-  CanalHouse = 'CanalHouse',
-  WaterHouse = 'WaterHouse',
-  Bungalow = 'Bungalow',
-  SemiBungalow = 'SemiBungalow',
-  StiltHouse = 'StiltHouse',
-  BusinessOrServiceHome = 'BusinessOrServiceHome',
-  Estate = 'Estate',
-  CountryHouse = 'CountryHouse',
-  Mansion = 'Mansion',
-}
-
-export type MatchGarden = {
-  __typename?: 'MatchGarden';
-  situation?: Maybe<Array<MatchGardenSituation>>;
-  outdoorSpacesMin?: Maybe<Scalars['Float']>;
-  outdoorSpacesMax?: Maybe<Scalars['Float']>;
-  volumeMin?: Maybe<Scalars['Float']>;
-  volumeMax?: Maybe<Scalars['Float']>;
-};
-
-export type MatchGardenInput = {
-  situation?: Maybe<Array<MatchGardenSituation>>;
-  outdoorSpacesMin?: Maybe<Scalars['Float']>;
-  outdoorSpacesMax?: Maybe<Scalars['Float']>;
-  volumeMin?: Maybe<Scalars['Float']>;
-  volumeMax?: Maybe<Scalars['Float']>;
-};
-
-export enum MatchGardenSituation {
-  North = 'North',
-  East = 'East',
-  South = 'South',
-  West = 'West',
-}
-
-export type MatchMeasurements = {
-  __typename?: 'MatchMeasurements';
-  surfaceFromMin?: Maybe<Scalars['Float']>;
-  surfaceToMin?: Maybe<Scalars['Float']>;
-  livingAreaFromMin?: Maybe<Scalars['Float']>;
-  livingAreaToMin?: Maybe<Scalars['Float']>;
-  businessSpaceSurfaceFromMin?: Maybe<Scalars['Float']>;
-  businessSpaceSurfaceToMin?: Maybe<Scalars['Float']>;
-  practiceRoomSurfaceToMax?: Maybe<Scalars['Float']>;
-  practiceRoomSurfaceToMin?: Maybe<Scalars['Float']>;
-  plotSurfaceFromMin?: Maybe<Scalars['Float']>;
-  plotSurfaceToMin?: Maybe<Scalars['Float']>;
-};
-
-export type MatchMeasurementsInput = {
-  surfaceFromMin?: Maybe<Scalars['Float']>;
-  surfaceToMin?: Maybe<Scalars['Float']>;
-  livingAreaFromMin?: Maybe<Scalars['Float']>;
-  livingAreaToMin?: Maybe<Scalars['Float']>;
-  businessSpaceSurfaceFromMin?: Maybe<Scalars['Float']>;
-  businessSpaceSurfaceToMin?: Maybe<Scalars['Float']>;
-  practiceRoomSurfaceToMax?: Maybe<Scalars['Float']>;
-  practiceRoomSurfaceToMin?: Maybe<Scalars['Float']>;
-  plotSurfaceFromMin?: Maybe<Scalars['Float']>;
-  plotSurfaceToMin?: Maybe<Scalars['Float']>;
-};
-
-export type MatchOutsidePricing = {
-  __typename?: 'MatchOutsidePricing';
-  minGarage?: Maybe<Scalars['Int']>;
-};
-
-export type MatchOutsidePricingInput = {
-  minGarage?: Maybe<Scalars['Int']>;
-};
-
-export type MatchPricing = {
-  __typename?: 'MatchPricing';
-  buyFrom?: Maybe<Scalars['Float']>;
-  buyTo?: Maybe<Scalars['Float']>;
-  rentFrom?: Maybe<Scalars['Float']>;
-  rentTo?: Maybe<Scalars['Float']>;
-  rentFrequency?: Maybe<PaymentFrequency>;
-  rentalPeriod?: Maybe<PaymentPeriod>;
-  preferredStartDate?: Maybe<Scalars['Date']>;
-};
-
-export type MatchPricingInput = {
-  buyFrom?: Maybe<Scalars['Float']>;
-  buyTo?: Maybe<Scalars['Float']>;
-  rentFrom?: Maybe<Scalars['Float']>;
-  rentTo?: Maybe<Scalars['Float']>;
-  rentFrequency?: Maybe<PaymentFrequency>;
-  rentalPeriod?: Maybe<PaymentPeriod>;
-  preferredStartDate?: Maybe<Scalars['Date']>;
-};
-
-export type MatchProfile = {
-  __typename?: 'MatchProfile';
-  id: Scalars['ID'];
-  crmId: Scalars['ID'];
-  companyId: Scalars['ID'];
-  propertyType?: Maybe<MatchPropertyType>;
-  startDate?: Maybe<Scalars['Date']>;
-  endDate?: Maybe<Scalars['Date']>;
-  matchDuration?: Maybe<MatchProfileDateRange>;
-  matchWith?: Maybe<Array<MatchProfileWith>>;
-  description?: Maybe<Scalars['String']>;
-  estateType?: Maybe<MatchEstateType>;
-  commercialEstateType?: Maybe<MatchCommercialEstateType>;
-  characteristics?: Maybe<MatchCharacteristics>;
-  commercialCharacteristics?: Maybe<MatchCommercialCharacteristics>;
-  pricing?: Maybe<MatchPricing>;
-  outside?: Maybe<MatchOutsidePricing>;
-  garden?: Maybe<MatchGarden>;
-  conditions?: Maybe<Array<MatchCommercialConditions>>;
-  services?: Maybe<Array<MatchService>>;
-  tags?: Maybe<Array<MatchTags>>;
-  measurements?: Maybe<MatchMeasurements>;
-  revenue?: Maybe<IntRange>;
-  exploitation?: Maybe<IntRange>;
-  requirements?: Maybe<Array<MatchRequirement>>;
-  locations?: Maybe<Array<MatchProfileLocation>>;
-  isActive: Scalars['Boolean'];
-  createdAt: Scalars['Date'];
-};
-
-export type MatchProfileDateRange = {
-  __typename?: 'MatchProfileDateRange';
-  from?: Maybe<Scalars['Date']>;
-  to?: Maybe<Scalars['Date']>;
-};
-
-export type MatchProfileLocation = {
-  __typename?: 'MatchProfileLocation';
-  latitude?: Maybe<Scalars['Float']>;
-  longitude?: Maybe<Scalars['Float']>;
-  street?: Maybe<Scalars['String']>;
-  houseNumber?: Maybe<Scalars['Int']>;
-  radius?: Maybe<Scalars['Float']>;
+export type AllocatePeopleIncomeInput = {
+  availableCapitalCount?: Maybe<Scalars['Int']>;
+  deductMonthlyObligations?: Maybe<Scalars['Int']>;
+  minAge?: Maybe<Scalars['Int']>;
+  employementType?: Maybe<AllocateEmploymentType>;
 };
 
-export type MatchProfileLocationInput = {
-  latitude?: Maybe<Scalars['Float']>;
-  longitude?: Maybe<Scalars['Float']>;
-  street?: Maybe<Scalars['String']>;
-  houseNumber?: Maybe<Scalars['Int']>;
-  radius?: Maybe<Scalars['Float']>;
+export type AllocateHomeInput = {
+  amountChildren?: Maybe<Scalars['Int']>;
+  amountAdults?: Maybe<Scalars['Int']>;
+  situation?: Maybe<AllocateHomeSituation>;
+  hasCurrentResidence?: Maybe<Scalars['Boolean']>;
 };
-
-export enum MatchProfileWith {
-  OwnPortfolio = 'OwnPortfolio',
-  ExternalNvm = 'ExternalNvm',
-}
-
-export enum MatchPropertyType {
-  Residential = 'Residential',
-  NewConstruction = 'NewConstruction',
-  Relet = 'Relet',
-  Commercial = 'Commercial',
-  Agriculture = 'Agriculture',
-  ParkingLot = 'ParkingLot',
-  BuildingPlot = 'BuildingPlot',
-}
-
-export enum MatchRentalPeriodType {
-  ThreeToSixMonths = 'ThreeToSixMonths',
-  SixToTwelveMonths = 'SixToTwelveMonths',
-  TwelveToTwentyfourMonths = 'TwelveToTwentyfourMonths',
-  TwentyfourToThirtysixMonths = 'TwentyfourToThirtysixMonths',
-  Indeterminate = 'Indeterminate',
-}
-
-export type MatchRequirement = {
-  __typename?: 'MatchRequirement';
-  key: MatchRequirementType;
-  status: MatchRequirementStatus;
-};
-
-export type MatchRequirementInput = {
-  key: MatchRequirementType;
-  status: MatchRequirementStatus;
-};
-
-export enum MatchRequirementStatus {
-  Required = 'Required',
-  Desirable = 'Desirable',
-  NotSignificant = 'NotSignificant',
-}
-
-export enum MatchRequirementType {
-  BathroomOnGroundFloor = 'BathroomOnGroundFloor',
-  RoofTerrace = 'RoofTerrace',
-  Balcony = 'Balcony',
-  Elevator = 'Elevator',
-  Monument = 'Monument',
-  MonumentalBuilding = 'MonumentalBuilding',
-  SwimmingPool = 'SwimmingPool',
-  PermanentHabitation = 'PermanentHabitation',
-  ProtectedCityOrVillageView = 'ProtectedCityOrVillageView',
-  DoubleOccupancyAvailable = 'DoubleOccupancyAvailable',
-  AccessibleToDisabledPeople = 'AccessibleToDisabledPeople',
-  AccssibleToTheElderly = 'AccssibleToTheElderly',
-  PartlyUpholstered = 'PartlyUpholstered',
-  PartiallyRented = 'PartiallyRented',
-  Furnished = 'Furnished',
-  Upholsterd = 'Upholsterd',
-  DiyHome = 'DiyHome',
-}
-
-export type MatchRevenueAndExploitation = {
-  __typename?: 'MatchRevenueAndExploitation';
-  revenueFrom?: Maybe<Scalars['Int']>;
-  revenueTo?: Maybe<Scalars['Int']>;
-  exploitationFrom?: Maybe<Scalars['Int']>;
-  exploitationTo?: Maybe<Scalars['Int']>;
-};
-
-export enum MatchService {
-  ConcreteFloor = 'ConcreteFloor',
-  Skylights = 'Skylights',
-  PaymentFrequencyHeating = 'PaymentFrequencyHeating',
-  LoadingDocks = 'LoadingDocks',
-  Sprinkler = 'Sprinkler',
-  PowerFlow = 'PowerFlow',
-  OverheadDoors = 'OverheadDoors',
-  ToiletRecessedLuminaries = 'ToiletRecessedLuminaries',
-  Elevators = 'Elevators',
-  OpenableWindows = 'OpenableWindows',
-}
-
-export enum MatchTags {
-  Seniors = 'Seniors',
-  DiyHouse = 'DiyHouse',
-  ReadyToMoveIn = 'ReadyToMoveIn',
-  Starter = 'Starter',
-  Rural = 'Rural',
-  Thirties = 'Thirties',
-  Exclusive = 'Exclusive',
-  ByWater = 'ByWater',
-  ChildFriendly = 'ChildFriendly',
-}
-
-export type Measurements = {
-  __typename?: 'Measurements';
-  volumeFrom?: Maybe<Scalars['AbsoluteFloat']>;
-  volumeTo?: Maybe<Scalars['AbsoluteFloat']>;
-  livingSpaceFrom?: Maybe<Scalars['AbsoluteFloat']>;
-  livingSpaceTo?: Maybe<Scalars['AbsoluteFloat']>;
-  plotAreaFrom?: Maybe<Scalars['AbsoluteFloat']>;
-  plotAreaTo?: Maybe<Scalars['AbsoluteFloat']>;
-  calculateAutomatically?: Maybe<Scalars['Boolean']>;
-};
-
-export type MeasurementsInput = {
-  volumeFrom?: Maybe<Scalars['AbsoluteFloat']>;
-  volumeTo?: Maybe<Scalars['AbsoluteFloat']>;
-  livingSpaceFrom?: Maybe<Scalars['AbsoluteFloat']>;
-  livingSpaceTo?: Maybe<Scalars['AbsoluteFloat']>;
-  plotAreaFrom?: Maybe<Scalars['AbsoluteFloat']>;
-  plotAreaTo?: Maybe<Scalars['AbsoluteFloat']>;
-  calculateAutomatically?: Maybe<Scalars['Boolean']>;
-};
-
-export type MediaLink = {
-  __typename?: 'MediaLink';
-  id: Scalars['String'];
-  name?: Maybe<Scalars['String']>;
-  type?: Maybe<Scalars['String']>;
-  url?: Maybe<Scalars['String']>;
-  dateCreated?: Maybe<Scalars['Date']>;
-};
-
-export enum MediaLinkType {
-  YouTube = 'YouTube',
-  ThreeSixtyDegree = 'ThreeSixtyDegree',
-  Floorplanner = 'Floorplanner',
-  FacebookTrackingCode = 'FacebookTrackingCode',
-}
-
-export type Meter = LastUpdated & {
-  __typename?: 'Meter';
-  id: Scalars['String'];
-  type: MeterType;
-  name: Scalars['String'];
-  description?: Maybe<Scalars['String']>;
-  readings?: Maybe<Array<Reading>>;
-  dateCreated?: Maybe<Scalars['Date']>;
-  dateUpdated?: Maybe<Scalars['Date']>;
-  lastEditedBy?: Maybe<LastUpdatedProfile>;
-};
-
-export enum MeterType {
-  Water = 'Water',
-  Gas = 'Gas',
-  Electric = 'Electric',
-}
-
-export type MetersMeta = LastUpdated & {
-  __typename?: 'MetersMeta';
-  description?: Maybe<Scalars['String']>;
-  Water?: Maybe<MetersSharedData>;
-  Gas?: Maybe<MetersSharedData>;
-  Electric?: Maybe<MetersSharedData>;
-  dateUpdated?: Maybe<Scalars['Date']>;
-  lastEditedBy?: Maybe<LastUpdatedProfile>;
-};
-
-export type MetersSharedData = {
-  __typename?: 'MetersSharedData';
-  description?: Maybe<Scalars['String']>;
-  lastEditedBy?: Maybe<LastUpdatedProfile>;
-  dateUpdated?: Maybe<Scalars['Date']>;
-};
-
-export enum MomentGeneralSetting {
-  ScheduleOnline = 'ScheduleOnline',
-  DoNotScheduleOnline = 'DoNotScheduleOnline',
-}
-
-export type MomentSchedule = {
-  __typename?: 'MomentSchedule';
-  day?: Maybe<MomentScheduleDay>;
-  startAt?: Maybe<Scalars['String']>;
-  endAt?: Maybe<Scalars['String']>;
-};
-
-export enum MomentScheduleDay {
-  Mon = 'Mon',
-  Tue = 'Tue',
-  Wed = 'Wed',
-  Thu = 'Thu',
-  Fri = 'Fri',
-  Sat = 'Sat',
-  Sun = 'Sun',
-}
-
-export type MomentScheduleInput = {
-  day?: Maybe<MomentScheduleDay>;
-  startAt?: Maybe<Scalars['String']>;
-  endAt?: Maybe<Scalars['String']>;
-};
-
-export type MonumentSpecification = {
-  __typename?: 'MonumentSpecification';
-  type?: Maybe<Array<Scalars['String']>>;
-  notes?: Maybe<Scalars['String']>;
-};
-
-export type MonumentSpecificationInput = {
-  type?: Maybe<Array<Scalars['String']>>;
-  notes?: Maybe<Scalars['String']>;
-};
-
-export enum MonumentType {
-  Heritage = 'Heritage',
-  MonumentalProperty = 'MonumentalProperty',
-  ProtectedCityOrVillageView = 'ProtectedCityOrVillageView',
-  NationalMonument = 'NationalMonument',
-  MunciapalMonument = 'MunciapalMonument',
-}
 
 export type Mutation = {
   __typename?: 'Mutation';
@@ -5875,1453 +1254,6 @@ export type MutationVerifyUserArgs = {
   input?: Maybe<VerifyUserInput>;
 };
 
-export type NcpCharacteristics = LastUpdated &
-  HasCharacteristicsSections & {
-    __typename?: 'NcpCharacteristics';
-    id: Scalars['ID'];
-    characteristicsSections?: Maybe<Array<CharacteristicsSections>>;
-    projectMarketing?: Maybe<ProjectMarketing>;
-    measurements?: Maybe<Measurements>;
-    energy?: Maybe<Energy>;
-    accountManagers?: Maybe<Array<Profile>>;
-    accountManagersIds?: Maybe<Array<Scalars['ID']>>;
-    identificationNumbers?: Maybe<Array<IdentificationNumber>>;
-    attentionNote?: Maybe<Scalars['String']>;
-    invoiceDetails?: Maybe<InvoiceDetails>;
-    lastEditedBy?: Maybe<LastUpdatedProfile>;
-    dateUpdated?: Maybe<Scalars['Date']>;
-    characteristicsDescription?: Maybe<Scalars['String']>;
-  };
-
-export type NcpCharacteristicsInput = {
-  id: Scalars['ID'];
-  projectMarketing?: Maybe<ProjectMarketingInput>;
-  measurements?: Maybe<MeasurementsInput>;
-  energy?: Maybe<EnergyInput>;
-  accountManagersIds?: Maybe<Array<Scalars['ID']>>;
-  attentionNote?: Maybe<Scalars['String']>;
-  invoiceDetails?: Maybe<InvoiceDetailsInput>;
-  characteristicsDescription?: Maybe<Scalars['String']>;
-};
-
-export type NcpGeneral = LastUpdated & {
-  __typename?: 'NcpGeneral';
-  id: Scalars['ID'];
-  type: NcpType;
-  dateCreated?: Maybe<Scalars['Date']>;
-  dateUpdated?: Maybe<Scalars['Date']>;
-  lastEditedBy?: Maybe<LastUpdatedProfile>;
-  name: Scalars['String'];
-  additionalName?: Maybe<Scalars['String']>;
-  street: Scalars['String'];
-  houseNumber: Scalars['String'];
-  additionalHouseNumber?: Maybe<Scalars['String']>;
-  zipCode: Scalars['String'];
-  city: Scalars['String'];
-  country: Scalars['String'];
-  archived: Scalars['Boolean'];
-  automaticallyCalculateQuantity?: Maybe<Scalars['Boolean']>;
-  properties?: Maybe<Scalars['Int']>;
-  objectTypesCount?: Maybe<Scalars['Int']>;
-  progressStatus?: Maybe<ProgressStatus>;
-  startConstruction?: Maybe<Scalars['Date']>;
-  noteStartConstruction?: Maybe<Scalars['String']>;
-  startSale?: Maybe<Scalars['Date']>;
-  noteStartSale?: Maybe<Scalars['String']>;
-  startDelivery?: Maybe<Scalars['Date']>;
-  noteStartDelivery?: Maybe<Scalars['String']>;
-  startConstructionAfterPresalePercentage?: Maybe<Scalars['Int']>;
-  projectRisk?: Maybe<ProjectRisk>;
-  notes?: Maybe<Scalars['String']>;
-  objectTypesListDescription?: Maybe<Scalars['String']>;
-  objectTypesListLastUpdatedBy?: Maybe<Profile>;
-  objectTypesListLastUpdatedOn?: Maybe<Scalars['Date']>;
-  linkedPropertiesListDescription?: Maybe<Scalars['String']>;
-  linkedPropertiesListLastUpdatedBy?: Maybe<Profile>;
-  linkedPropertiesListLastUpdatedOn?: Maybe<Scalars['Date']>;
-  projectType?: Maybe<ProjectType>;
-};
-
-export type NcpLinkedPims = EntityLinkedWithPims & {
-  __typename?: 'NcpLinkedPims';
-  id: Scalars['ID'];
-  dateUpdated?: Maybe<Scalars['Date']>;
-  lastEditedBy?: Maybe<LastUpdatedProfile>;
-  linkedProperties: PimListSearchResult;
-  linkedPropertiesIds?: Maybe<Array<Scalars['ID']>>;
-  description?: Maybe<Scalars['String']>;
-};
-
-export type NcpLinkedPimsLinkedPropertiesArgs = {
-  filters?: Maybe<LinkedPimFilters>;
-  sort?: Maybe<Array<Sort>>;
-  pagination: Pagination;
-};
-
-export type NcpListSearchResult = {
-  __typename?: 'NcpListSearchResult';
-  metadata?: Maybe<SearchMetadata>;
-  items?: Maybe<Array<ListNcp>>;
-};
-
-export type NcpMedia = LastUpdated & {
-  __typename?: 'NcpMedia';
-  id: Scalars['String'];
-  pictures?: Maybe<Array<Picture>>;
-  mainPictureId?: Maybe<Scalars['String']>;
-  mediaLinks?: Maybe<Array<MediaLink>>;
-  textChapters?: Maybe<Array<TextChapter>>;
-  usps?: Maybe<Array<Usp>>;
-  tags?: Maybe<Array<Tag>>;
-  dateUpdated?: Maybe<Scalars['Date']>;
-  lastEditedBy?: Maybe<LastUpdatedProfile>;
-  mediaDescription?: Maybe<Scalars['String']>;
-};
-
-export type NcpMediaPicturesArgs = {
-  sort?: Maybe<Sort>;
-};
-
-export type NcpPrices = {
-  __typename?: 'NcpPrices';
-  id: Scalars['ID'];
-  pricing?: Maybe<CommonPricing>;
-  costs?: Maybe<Array<CommonCost>>;
-  costsDetails?: Maybe<CostsDetails>;
-  interests?: Maybe<Interests>;
-};
-
-export type NcpPricesResult = {
-  __typename?: 'NcpPricesResult';
-  id: Scalars['ID'];
-  pricing?: Maybe<CommonPricing>;
-  costs?: Maybe<CommonCosts>;
-  interests?: Maybe<Interests>;
-};
-
-export type NcpSearchResult = {
-  __typename?: 'NcpSearchResult';
-  metadata?: Maybe<SearchMetadata>;
-  items?: Maybe<Array<NcpGeneral>>;
-};
-
-export type NcpServices = LastUpdated &
-  Services & {
-    __typename?: 'NcpServices';
-    id: Scalars['ID'];
-    hotWaterSupplies?: Maybe<Array<Service>>;
-    heatingSources?: Maybe<Array<Service>>;
-    additionalServices?: Maybe<Array<Service>>;
-    dateUpdated?: Maybe<Scalars['Date']>;
-    lastEditedBy?: Maybe<LastUpdatedProfile>;
-    servicesDescription?: Maybe<Scalars['String']>;
-  };
-
-export enum NcpType {
-  Houses = 'Houses',
-  Apartments = 'Apartments',
-  BuildingPlots = 'BuildingPlots',
-}
-
-export type NcpWithNewIdentificationNumber = {
-  __typename?: 'NcpWithNewIdentificationNumber';
-  ncp: NcpGeneral;
-  newIdentificationNumber: IdentificationNumber;
-};
-
-export type NcpWithNewService = {
-  __typename?: 'NcpWithNewService';
-  ncp: NcpServices;
-  newService: Service;
-};
-
-export type NcpWithSameAddressInput = {
-  ncpId?: Maybe<Scalars['String']>;
-  street?: Maybe<Scalars['String']>;
-  houseNumber?: Maybe<Scalars['String']>;
-  zipCode?: Maybe<Scalars['String']>;
-  city?: Maybe<Scalars['String']>;
-};
-
-export type NewCadastreMapInput = {
-  mapName: Scalars['String'];
-  fileID: Scalars['String'];
-  name?: Maybe<Scalars['String']>;
-  description?: Maybe<Scalars['String']>;
-  type?: Maybe<Scalars['String']>;
-};
-
-export type NewPictureInput = {
-  fileID: Scalars['String'];
-};
-
-export type Notification = {
-  __typename?: 'Notification';
-  id: Scalars['ID'];
-  receiver: Profile;
-  createdBy?: Maybe<Profile>;
-  linkedEntity?: Maybe<LinkedEntity>;
-  type: NotificationType;
-  description: Scalars['String'];
-  isRead: Scalars['Boolean'];
-  isDeleted: Scalars['Boolean'];
-  dateCreated: Scalars['Date'];
-};
-
-export type NotificationAdded = {
-  __typename?: 'NotificationAdded';
-  notification: Notification;
-};
-
-export type NotificationSearchResult = {
-  __typename?: 'NotificationSearchResult';
-  items?: Maybe<Array<Notification>>;
-};
-
-export enum NotificationType {
-  TaskAssigned = 'TaskAssigned',
-  InvitedToProject = 'InvitedToProject',
-  RemovedUserFromProject = 'RemovedUserFromProject',
-  AcceptedInviteToProject = 'AcceptedInviteToProject',
-  TiaraMutationUpdate = 'TiaraMutationUpdate',
-}
-
-export type NylasAccount = {
-  __typename?: 'NylasAccount';
-  id: Scalars['ID'];
-  userId: Scalars['ID'];
-  accountId: Scalars['ID'];
-  accessToken: Scalars['String'];
-  newAccount: Scalars['Boolean'];
-  isCalendarConnected?: Maybe<Scalars['Boolean']>;
-  isEmailConnected?: Maybe<Scalars['Boolean']>;
-};
-
-export type NylasAccountAuthOptions = {
-  loginHint: Scalars['String'];
-  redirectURI?: Maybe<Scalars['String']>;
-  scopes?: Maybe<Array<Scalars['String']>>;
-};
-
-export type NylasAccountItem = {
-  __typename?: 'NylasAccountItem';
-  id: Scalars['ID'];
-  email: Scalars['String'];
-  provider: Scalars['String'];
-  billingState: Scalars['String'];
-  syncState: Scalars['String'];
-  isCalendarConnected?: Maybe<Scalars['Boolean']>;
-  isEmailConnected?: Maybe<Scalars['Boolean']>;
-};
-
-export type NylasAddAccountInput = {
-  nylasToken: Scalars['String'];
-  isCalendarConnected?: Maybe<Scalars['Boolean']>;
-  isEmailConnected?: Maybe<Scalars['Boolean']>;
-};
-
-export type NylasAuthorizationInput = {
-  name: Scalars['String'];
-  email: Scalars['String'];
-  provider: NylasProviderType;
-  username: Scalars['String'];
-  password: Scalars['String'];
-};
-
-export enum NylasProviderType {
-  Exchange = 'Exchange',
-  Gmail = 'Gmail',
-  Outlook = 'Outlook',
-}
-
-export type ObjectTypeCharacteristics = LastUpdated &
-  HasCharacteristicsSections & {
-    __typename?: 'ObjectTypeCharacteristics';
-    id: Scalars['ID'];
-    characteristicsSections?: Maybe<Array<CharacteristicsSections>>;
-    projectMarketing?: Maybe<ProjectMarketing>;
-    measurements?: Maybe<Measurements>;
-    energy?: Maybe<Energy>;
-    accountManagers?: Maybe<Array<Profile>>;
-    accountManagersIds?: Maybe<Array<Scalars['ID']>>;
-    identificationNumbers?: Maybe<Array<IdentificationNumber>>;
-    attentionNote?: Maybe<Scalars['String']>;
-    lastEditedBy?: Maybe<LastUpdatedProfile>;
-    dateUpdated?: Maybe<Scalars['Date']>;
-    characteristicsDescription?: Maybe<Scalars['String']>;
-    type?: Maybe<TypeOfObjectType>;
-    automaticallySetObjectTypes?: Maybe<Scalars['Boolean']>;
-  };
-
-export type ObjectTypeCharacteristicsInput = {
-  id: Scalars['ID'];
-  projectMarketing?: Maybe<ProjectMarketingInput>;
-  measurements?: Maybe<MeasurementsInput>;
-  energy?: Maybe<EnergyInput>;
-  accountManagersIds?: Maybe<Array<Scalars['ID']>>;
-  attentionNote?: Maybe<Scalars['String']>;
-  characteristicsDescription?: Maybe<Scalars['String']>;
-  type?: Maybe<TypeOfObjectType>;
-  automaticallySetObjectTypes?: Maybe<Scalars['Boolean']>;
-};
-
-export type ObjectTypeGeneral = LastUpdated & {
-  __typename?: 'ObjectTypeGeneral';
-  id: Scalars['ID'];
-  name: Scalars['String'];
-  archived?: Maybe<Scalars['Boolean']>;
-  dateUpdated?: Maybe<Scalars['Date']>;
-  dateCreated?: Maybe<Scalars['Date']>;
-  lastEditedBy?: Maybe<LastUpdatedProfile>;
-  ncpId: Scalars['ID'];
-  linkedPropertiesListDescription?: Maybe<Scalars['String']>;
-  linkedPropertiesListLastUpdatedBy?: Maybe<Profile>;
-  linkedPropertiesListLastUpdatedOn?: Maybe<Scalars['Date']>;
-};
-
-export type ObjectTypeLinkedPims = EntityLinkedWithPims & {
-  __typename?: 'ObjectTypeLinkedPims';
-  id: Scalars['ID'];
-  dateUpdated?: Maybe<Scalars['Date']>;
-  lastEditedBy?: Maybe<LastUpdatedProfile>;
-  linkedProperties: PimListSearchResult;
-  linkedPropertiesIds?: Maybe<Array<Scalars['ID']>>;
-  description?: Maybe<Scalars['String']>;
-};
-
-export type ObjectTypeLinkedPimsLinkedPropertiesArgs = {
-  filters?: Maybe<LinkedPimFilters>;
-  sort?: Maybe<Array<Sort>>;
-  pagination: Pagination;
-};
-
-export type ObjectTypeListSearchResult = {
-  __typename?: 'ObjectTypeListSearchResult';
-  metadata?: Maybe<SearchMetadata>;
-  items?: Maybe<Array<ListObjectTypes>>;
-};
-
-export type ObjectTypeMedia = {
-  __typename?: 'ObjectTypeMedia';
-  id: Scalars['String'];
-  pictures?: Maybe<Array<Picture>>;
-  mainPictureId?: Maybe<Scalars['String']>;
-  mediaLinks?: Maybe<Array<MediaLink>>;
-  textChapters?: Maybe<Array<TextChapter>>;
-  usps?: Maybe<Array<Usp>>;
-  tags?: Maybe<Array<Tag>>;
-  dateUpdated?: Maybe<Scalars['Date']>;
-  lastEditedBy?: Maybe<LastUpdatedProfile>;
-  mediaDescription?: Maybe<Scalars['String']>;
-};
-
-export type ObjectTypeMediaPicturesArgs = {
-  sort?: Maybe<Sort>;
-};
-
-export type ObjectTypePrices = {
-  __typename?: 'ObjectTypePrices';
-  id: Scalars['ID'];
-  pricing?: Maybe<CommonPricing>;
-  costs?: Maybe<Array<CommonCost>>;
-  costsDetails?: Maybe<CostsDetails>;
-};
-
-export type ObjectTypePricesResult = {
-  __typename?: 'ObjectTypePricesResult';
-  id: Scalars['ID'];
-  pricing?: Maybe<CommonPricing>;
-  costs?: Maybe<CommonCosts>;
-};
-
-export type ObjectTypePricing = LastUpdated & {
-  __typename?: 'ObjectTypePricing';
-  rent?: Maybe<CommonRentInformations>;
-  sale?: Maybe<CommonSaleInformations>;
-  lastEditedBy?: Maybe<LastUpdatedProfile>;
-  dateUpdated?: Maybe<Scalars['Date']>;
-  description?: Maybe<Scalars['String']>;
-};
-
-export type ObjectTypeServices = LastUpdated &
-  Services & {
-    __typename?: 'ObjectTypeServices';
-    id: Scalars['ID'];
-    hotWaterSupplies?: Maybe<Array<Service>>;
-    heatingSources?: Maybe<Array<Service>>;
-    additionalServices?: Maybe<Array<Service>>;
-    dateUpdated?: Maybe<Scalars['Date']>;
-    lastEditedBy?: Maybe<LastUpdatedProfile>;
-    servicesDescription?: Maybe<Scalars['String']>;
-  };
-
-export type ObjectTypeWithNewIdentificationNumber = {
-  __typename?: 'ObjectTypeWithNewIdentificationNumber';
-  objectType: ObjectTypeCharacteristics;
-  newIdentificationNumber: IdentificationNumber;
-};
-
-export type ObjectTypeWithNewService = {
-  __typename?: 'ObjectTypeWithNewService';
-  objectType: ObjectTypeServices;
-  newService: Service;
-};
-
-export type ObligationToProvideInformation = {
-  __typename?: 'ObligationToProvideInformation';
-  label?: Maybe<Scalars['String']>;
-  notes?: Maybe<Scalars['String']>;
-};
-
-export type ObligationToProvideInformationInput = {
-  label?: Maybe<Scalars['String']>;
-  notes?: Maybe<Scalars['String']>;
-};
-
-export enum ObligationToProvideInformationType {
-  Boot = 'Boot',
-  BwLetter = 'BwLetter',
-  SoilPollution = 'SoilPollution',
-  Asbestos = 'Asbestos',
-  OwnSake = 'OwnSake',
-}
-
-export enum OfficeServicesType {
-  CableTrays = 'CableTrays',
-  Skylights = 'Skylights',
-  Pantry = 'Pantry',
-  Heating = 'Heating',
-  SuspendedCeiling = 'SuspendedCeiling',
-  Sprinkler = 'Sprinkler',
-  PowerFlow = 'PowerFlow',
-  OverheadDoors = 'OverheadDoors',
-  Toilet = 'Toilet',
-  RecessedLuminaires = 'RecessedLuminaires',
-  Elevators = 'Elevators',
-  OpenableWindows = 'OpenableWindows',
-  RoomLayout = 'RoomLayout',
-  FlexDesk = 'FlexDesk',
-}
-
-export type OfficeSpace = {
-  __typename?: 'OfficeSpace';
-  measurements?: Maybe<OfficeSpaceMeasurements>;
-  airTreatment?: Maybe<Array<Scalars['String']>>;
-  services?: Maybe<Array<Scalars['String']>>;
-  prices?: Maybe<BogPrices>;
-  turnKey?: Maybe<Scalars['Boolean']>;
-  commonRooms?: Maybe<Array<Scalars['String']>>;
-};
-
-export type OfficeSpaceInput = {
-  measurements?: Maybe<OfficeSpaceMeasurementsInput>;
-  airTreatment?: Maybe<Array<Scalars['String']>>;
-  services?: Maybe<Array<Scalars['String']>>;
-  prices?: Maybe<BogPricesInput>;
-  turnKey?: Maybe<Scalars['Boolean']>;
-  commonRooms?: Maybe<Array<Scalars['String']>>;
-};
-
-export type OfficeSpaceMeasurements = {
-  __typename?: 'OfficeSpaceMeasurements';
-  length?: Maybe<Scalars['AbsoluteFloat']>;
-  width?: Maybe<Scalars['AbsoluteFloat']>;
-  height?: Maybe<Scalars['AbsoluteFloat']>;
-  surface?: Maybe<Scalars['AbsoluteFloat']>;
-  volume?: Maybe<Scalars['AbsoluteFloat']>;
-  measurementsCertificateAvailable?: Maybe<Scalars['Boolean']>;
-  inUnitsFrom?: Maybe<Scalars['AbsoluteFloat']>;
-  amountOfFloors?: Maybe<Scalars['Int']>;
-};
-
-export type OfficeSpaceMeasurementsInput = {
-  length?: Maybe<Scalars['AbsoluteFloat']>;
-  width?: Maybe<Scalars['AbsoluteFloat']>;
-  height?: Maybe<Scalars['AbsoluteFloat']>;
-  surface?: Maybe<Scalars['AbsoluteFloat']>;
-  volume?: Maybe<Scalars['AbsoluteFloat']>;
-  measurementsCertificateAvailable?: Maybe<Scalars['Boolean']>;
-  inUnitsFrom?: Maybe<Scalars['AbsoluteFloat']>;
-  amountOfFloors?: Maybe<Scalars['Int']>;
-};
-
-export type Options = {
-  __typename?: 'Options';
-  name?: Maybe<Scalars['String']>;
-};
-
-export type OptionsInput = {
-  name?: Maybe<Scalars['String']>;
-};
-
-export type OtherSpace = {
-  __typename?: 'OtherSpace';
-  name?: Maybe<Scalars['String']>;
-  constructionYear?: Maybe<Scalars['Float']>;
-  notes?: Maybe<Scalars['String']>;
-  shape?: Maybe<SpaceShape>;
-  measurement?: Maybe<CuboidMeasurement>;
-  serviceHeating?: Maybe<Array<Maybe<SpaceServiceHeating>>>;
-  images?: Maybe<Array<File>>;
-};
-
-export type OutsideFeature = LastUpdated & {
-  __typename?: 'OutsideFeature';
-  id: Scalars['String'];
-  description?: Maybe<Scalars['String']>;
-  type: OutsideFeatureType;
-  configuration?: Maybe<OutsideFeatureConfiguration>;
-  dateCreated?: Maybe<Scalars['Date']>;
-  dateUpdated?: Maybe<Scalars['Date']>;
-  lastEditedBy?: Maybe<LastUpdatedProfile>;
-};
-
-export type OutsideFeatureConfiguration =
-  | GardenFeature
-  | GarageFeature
-  | StorageFeature
-  | TerrainFeature
-  | ParkingLotFeature;
-
-export enum OutsideFeatureType {
-  Garden = 'Garden',
-  Garage = 'Garage',
-  Storage = 'Storage',
-  Terrain = 'Terrain',
-  ParkingLot = 'ParkingLot',
-}
-
-export enum OwnershipChoiceType {
-  MembershipRight = 'MembershipRight',
-  Mandeling = 'Mandeling',
-  Understress = 'Understress',
-  Leasehold = 'Leasehold',
-  RightToRebuild = 'RightToRebuild',
-  FullOwnership = 'FullOwnership',
-  Usufruct = 'Usufruct',
-  SeeDeed = 'SeeDeed',
-  Oppresed = 'Oppresed',
-  LimitedRights = 'LimitedRights',
-  GroundLease = 'GroundLease',
-  LeaseholdAndBuilding = 'LeaseholdAndBuilding',
-  UseAndHabitation = 'UseAndHabitation',
-  Building = 'Building',
-  CityMayorLaw = 'CityMayorLaw',
-  NoneOfThem = 'NoneOfThem',
-  SharedOwnership = 'SharedOwnership',
-  PerpetualLease = 'PerpetualLease',
-  PerpetualSublease = 'PerpetualSublease',
-  Subleasehold = 'Subleasehold',
-  RightOfOverhang = 'RightOfOverhang',
-}
-
-export enum OwnershipType {
-  Rent = 'Rent',
-  Leased = 'Leased',
-  Owned = 'Owned',
-}
-
-export type Pagination = {
-  from?: Maybe<Scalars['Int']>;
-  limit?: Maybe<Scalars['Int']>;
-  searchAfter?: Maybe<Array<Scalars['String']>>;
-};
-
-export enum ParkingFacilities {
-  PaidParking = 'PaidParking',
-  OnSite = 'OnSite',
-  ParkingGarage = 'ParkingGarage',
-  OnClosedTerrain = 'OnClosedTerrain',
-  PublicParking = 'PublicParking',
-  ParkingPermits = 'ParkingPermits',
-}
-
-export type ParkingInsulation = {
-  __typename?: 'ParkingInsulation';
-  type?: Maybe<Array<Scalars['String']>>;
-  notes?: Maybe<Scalars['String']>;
-};
-
-export type ParkingInsulationInput = {
-  type?: Maybe<Array<Scalars['String']>>;
-  notes?: Maybe<Scalars['String']>;
-};
-
-export enum ParkingInsulationType {
-  Roof = 'Roof',
-  Wall = 'Wall',
-  Floor = 'Floor',
-  NoCavity = 'NoCavity',
-  DoubleGalzing = 'DoubleGalzing',
-  EcoConstruction = 'EcoConstruction',
-  PartlyDoubleGalzing = 'PartlyDoubleGalzing',
-  SecondaryWindows = 'SecondaryWindows',
-}
-
-export type ParkingLotFeature = {
-  __typename?: 'ParkingLotFeature';
-  number?: Maybe<Scalars['Float']>;
-  price?: Maybe<Scalars['Float']>;
-  cost?: Maybe<Scalars['Float']>;
-  notes?: Maybe<Scalars['String']>;
-  images?: Maybe<Array<File>>;
-};
-
-export type ParkingLotGeneral = {
-  __typename?: 'ParkingLotGeneral';
-  type?: Maybe<TypeOfParking>;
-  measurements?: Maybe<ParkingMeasurements>;
-  specifications?: Maybe<ParkingLotSpecifications>;
-  material?: Maybe<ParkingMaterial>;
-  insulation?: Maybe<ParkingInsulation>;
-};
-
-export type ParkingLotGeneralInput = {
-  type?: Maybe<TypeOfParkingInput>;
-  measurements?: Maybe<ParkingMeasurementsInput>;
-  specifications?: Maybe<ParkingLotSpecificationsInput>;
-  material?: Maybe<ParkingMaterialInput>;
-  insulation?: Maybe<ParkingInsulationInput>;
-};
-
-export type ParkingLotSpecifications = {
-  __typename?: 'ParkingLotSpecifications';
-  type?: Maybe<Array<Scalars['String']>>;
-  notes?: Maybe<Scalars['String']>;
-};
-
-export type ParkingLotSpecificationsInput = {
-  type?: Maybe<Array<Scalars['String']>>;
-  notes?: Maybe<Scalars['String']>;
-};
-
-export enum ParkingLotSpecificationsType {
-  OnEnclosedGrounds = 'OnEnclosedGrounds',
-  OnOwnProperty = 'OnOwnProperty',
-  ParkingPermit = 'ParkingPermit',
-  Indoor = 'Indoor',
-  WithAttic = 'WithAttic',
-  Freestanding = 'Freestanding',
-  ElectricDoor = 'ElectricDoor',
-  Water = 'Water',
-  Heating = 'Heating',
-}
-
-export type ParkingMaterial = {
-  __typename?: 'ParkingMaterial';
-  type?: Maybe<Array<Scalars['String']>>;
-  notes?: Maybe<Scalars['String']>;
-};
-
-export type ParkingMaterialInput = {
-  type?: Maybe<Array<Scalars['String']>>;
-  notes?: Maybe<Scalars['String']>;
-};
-
-export enum ParkingMaterialType {
-  Wood = 'Wood',
-  Stone = 'Stone',
-  Plastic = 'Plastic',
-  Metal = 'Metal',
-}
-
-export type ParkingMeasurements = {
-  __typename?: 'ParkingMeasurements';
-  length?: Maybe<Scalars['Float']>;
-  width?: Maybe<Scalars['Float']>;
-  surface?: Maybe<Scalars['Float']>;
-  capacity?: Maybe<Scalars['Int']>;
-  height?: Maybe<Scalars['Float']>;
-  volume?: Maybe<Scalars['Float']>;
-};
-
-export type ParkingMeasurementsInput = {
-  length?: Maybe<Scalars['Float']>;
-  width?: Maybe<Scalars['Float']>;
-  surface?: Maybe<Scalars['Float']>;
-  capacity?: Maybe<Scalars['Int']>;
-  height?: Maybe<Scalars['Float']>;
-  volume?: Maybe<Scalars['Float']>;
-};
-
-export type ParkingSpecification = {
-  __typename?: 'ParkingSpecification';
-  description?: Maybe<Scalars['String']>;
-  parkingCapacity?: Maybe<Scalars['String']>;
-  parkingFacilities?: Maybe<Array<Scalars['String']>>;
-};
-
-export type ParkingSpecificationInput = {
-  description?: Maybe<Scalars['String']>;
-  parkingCapacity?: Maybe<Scalars['String']>;
-  parkingFacilities?: Maybe<Array<Scalars['String']>>;
-};
-
-export enum PaymentFrequency {
-  Yearly = 'Yearly',
-  Monthly = 'Monthly',
-}
-
-export enum PaymentPeriod {
-  HalfYear = 'HalfYear',
-  OneYear = 'OneYear',
-  TwoYear = 'TwoYear',
-  ThreeYear = 'ThreeYear',
-  Undetermined = 'Undetermined',
-}
-
-export enum PeriodType {
-  PerMonth = 'PerMonth',
-  PerWeek = 'PerWeek',
-  PerFourWeeks = 'PerFourWeeks',
-  PerYear = 'PerYear',
-}
-
-export type PermissionsInTeamInput = {
-  createPermission: Scalars['Boolean'];
-  readPermission: Scalars['Boolean'];
-  updatePermission: Scalars['Boolean'];
-  deletePermission: Scalars['Boolean'];
-};
-
-export type PersonCapital = {
-  __typename?: 'PersonCapital';
-  deductMonthlyObligations?: Maybe<Scalars['AbsoluteFloat']>;
-  availableCapitalCount?: Maybe<Scalars['AbsoluteFloat']>;
-};
-
-export type PersonCapitalInput = {
-  deductMonthlyObligations?: Maybe<Scalars['AbsoluteFloat']>;
-  availableCapitalCount?: Maybe<Scalars['AbsoluteFloat']>;
-};
-
-export enum PersonRole {
-  Reservation = 'Reservation',
-  Candidate = 'Candidate',
-  Optant = 'Optant',
-  Tenant = 'Tenant',
-}
-
-export type PhoneNumber = {
-  __typename?: 'PhoneNumber';
-  id: Scalars['String'];
-  phoneNumber: Scalars['String'];
-  phoneNumberType?: Maybe<PhoneNumberType>;
-  isPublic?: Maybe<Scalars['Boolean']>;
-};
-
-export enum PhoneNumberType {
-  Business = 'Business',
-  Private = 'Private',
-}
-
-export type Picture = LastUpdated & {
-  __typename?: 'Picture';
-  id: Scalars['String'];
-  description?: Maybe<Scalars['String']>;
-  type?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
-  file?: Maybe<File>;
-  lastEditedBy?: Maybe<LastUpdatedProfile>;
-  dateUpdated?: Maybe<Scalars['Date']>;
-  isMainPicture?: Maybe<Scalars['Boolean']>;
-};
-
-export enum PictureType {
-  General = 'General',
-  Inside = 'Inside',
-  Outside = 'Outside',
-  LivingRoom = 'LivingRoom',
-  Kitchen = 'Kitchen',
-  Bathroom = 'Bathroom',
-  Garden = 'Garden',
-  Garage = 'Garage',
-  Terrain = 'Terrain',
-  Surroundings = 'Surroundings',
-  Attic = 'Attic',
-}
-
-export type Pim = LastUpdated & {
-  __typename?: 'Pim';
-  id: Scalars['ID'];
-  realEstateType: RealEstateType;
-  street: Scalars['String'];
-  houseNumberPrefix?: Maybe<Scalars['String']>;
-  houseNumber: Scalars['String'];
-  houseNumberAddition?: Maybe<Scalars['String']>;
-  constructionNumberPrefix?: Maybe<Scalars['String']>;
-  constructionNumber?: Maybe<Scalars['String']>;
-  constructionNumberAddition?: Maybe<Scalars['String']>;
-  postalCode: Scalars['String'];
-  district?: Maybe<Scalars['String']>;
-  city: Scalars['String'];
-  state?: Maybe<Scalars['String']>;
-  county?: Maybe<Scalars['String']>;
-  country: Scalars['String'];
-  developmentType: DevelopmentType;
-  status: PimStatus;
-  salePrice?: Maybe<Scalars['Float']>;
-  rentPrice?: Maybe<Scalars['Float']>;
-  description?: Maybe<Scalars['String']>;
-  images?: Maybe<Array<File>>;
-  livingArea?: Maybe<Scalars['Int']>;
-  propertyType?: Maybe<PropertyType>;
-  attentionNote?: Maybe<Scalars['String']>;
-  completeness: Scalars['Float'];
-  archived: Scalars['Boolean'];
-  dateCreated: Scalars['Date'];
-  houseGeneral?: Maybe<HouseGeneral>;
-  parkingGeneral?: Maybe<ParkingLotGeneral>;
-  bogGeneral?: Maybe<BogGeneral>;
-  aogGeneral?: Maybe<AogGeneral>;
-  houseOutside?: Maybe<HouseOutside>;
-  outsideFeatures?: Maybe<Array<OutsideFeature>>;
-  floors?: Maybe<Array<Floor>>;
-  insideGeneral?: Maybe<InsideGeneral>;
-  cadastre?: Maybe<Array<Cadastre>>;
-  meters?: Maybe<Array<Meter>>;
-  services?: Maybe<Array<Service>>;
-  servicesDescription?: Maybe<Scalars['String']>;
-  pictures?: Maybe<Array<Picture>>;
-  textChapters?: Maybe<Array<TextChapter>>;
-  usps?: Maybe<Array<Usp>>;
-  mediaLinks?: Maybe<Array<MediaLink>>;
-  mediaDescription?: Maybe<Scalars['String']>;
-  tags?: Maybe<Array<Tag>>;
-  pricing?: Maybe<Pricing>;
-  costs?: Maybe<Array<Cost>>;
-  lastEditedBy?: Maybe<LastUpdatedProfile>;
-  dateUpdated?: Maybe<Scalars['Date']>;
-  investment?: Maybe<Investment>;
-  specification?: Maybe<Specification>;
-  specificationAdvanced?: Maybe<SpecificationAdvanced>;
-  specificationDescription?: Maybe<Scalars['String']>;
-  linkedProperties?: Maybe<Array<LinkedPim>>;
-  inspections?: Maybe<Array<Inspection>>;
-  identificationNumbers?: Maybe<Array<IdentificationNumber>>;
-  salesSettings?: Maybe<SalesSettings>;
-  viewingMoments?: Maybe<Array<ViewingMoment>>;
-  location?: Maybe<PimLocation>;
-  linkedPropertiesDateUpdated?: Maybe<Scalars['Date']>;
-  linkedPropertieslastEditedBy?: Maybe<LastUpdatedProfile>;
-  inspectionsDateUpdated?: Maybe<Scalars['Date']>;
-  inspectionslastEditedBy?: Maybe<LastUpdatedProfile>;
-  metersMeta?: Maybe<MetersMeta>;
-  allocationCriterias?: Maybe<Array<AllocationCriteria>>;
-  apartmentGeneral?: Maybe<ApartmentGeneral>;
-  buildingPlotGeneral?: Maybe<BuildingPlotGeneral>;
-  bogSpaces?: Maybe<Array<BogSpace>>;
-  aogSpaces?: Maybe<Array<AogSpace>>;
-  mainPicture?: Maybe<Picture>;
-  isPurchased?: Maybe<Scalars['Boolean']>;
-};
-
-export type PimCadastre = {
-  __typename?: 'PimCadastre';
-  id: Scalars['ID'];
-  cadastre?: Maybe<Array<Cadastre>>;
-};
-
-export type PimGeneral = LastUpdated & {
-  __typename?: 'PimGeneral';
-  id: Scalars['ID'];
-  realEstateType: RealEstateType;
-  street: Scalars['String'];
-  houseNumberPrefix?: Maybe<Scalars['String']>;
-  houseNumber: Scalars['String'];
-  houseNumberAddition?: Maybe<Scalars['String']>;
-  constructionNumberPrefix?: Maybe<Scalars['String']>;
-  constructionNumber?: Maybe<Scalars['String']>;
-  constructionNumberAddition?: Maybe<Scalars['String']>;
-  postalCode: Scalars['String'];
-  district?: Maybe<Scalars['String']>;
-  city: Scalars['String'];
-  state?: Maybe<Scalars['String']>;
-  county?: Maybe<Scalars['String']>;
-  country: Scalars['String'];
-  developmentType: DevelopmentType;
-  status: PimStatus;
-  salePrice?: Maybe<Scalars['Float']>;
-  rentPrice?: Maybe<Scalars['Float']>;
-  description?: Maybe<Scalars['String']>;
-  images?: Maybe<Array<File>>;
-  livingArea?: Maybe<Scalars['Int']>;
-  propertyType: PropertyType;
-  attentionNote?: Maybe<Scalars['String']>;
-  showAttentionNote?: Maybe<Scalars['Boolean']>;
-  completeness: Scalars['Float'];
-  archived: Scalars['Boolean'];
-  dateCreated: Scalars['Date'];
-  dateUpdated?: Maybe<Scalars['Date']>;
-  lastEditedBy?: Maybe<LastUpdatedProfile>;
-  houseGeneral?: Maybe<HouseGeneral>;
-  bogGeneral?: Maybe<BogGeneral>;
-  parkingGeneral?: Maybe<ParkingLotGeneral>;
-  aogGeneral?: Maybe<AogGeneral>;
-  extraAddress?: Maybe<ExtraAddress>;
-  identificationNumbers?: Maybe<Array<IdentificationNumber>>;
-  showExtraAddress?: Maybe<Scalars['Boolean']>;
-  showIdentificationNumber?: Maybe<Scalars['Boolean']>;
-  apartmentGeneral?: Maybe<ApartmentGeneral>;
-  buildingPlotGeneral?: Maybe<BuildingPlotGeneral>;
-  isPurchased?: Maybe<Scalars['Boolean']>;
-};
-
-export type PimGeneralInput = {
-  id: Scalars['ID'];
-  realEstateType?: Maybe<RealEstateType>;
-  street: Scalars['String'];
-  houseNumberPrefix?: Maybe<Scalars['String']>;
-  houseNumber: Scalars['String'];
-  houseNumberAddition?: Maybe<Scalars['String']>;
-  constructionNumberPrefix?: Maybe<Scalars['String']>;
-  constructionNumber?: Maybe<Scalars['String']>;
-  constructionNumberAddition?: Maybe<Scalars['String']>;
-  postalCode: Scalars['String'];
-  district?: Maybe<Scalars['String']>;
-  city: Scalars['String'];
-  state?: Maybe<Scalars['String']>;
-  county?: Maybe<Scalars['String']>;
-  country: Scalars['String'];
-  developmentType?: Maybe<DevelopmentType>;
-  status?: Maybe<PimStatus>;
-  salePrice?: Maybe<Scalars['Float']>;
-  rentPrice?: Maybe<Scalars['Float']>;
-  description?: Maybe<Scalars['String']>;
-  livingArea?: Maybe<Scalars['Int']>;
-  houseGeneral?: Maybe<HouseGeneralInput>;
-  bogGeneral?: Maybe<BogGeneralInput>;
-  parkingGeneral?: Maybe<ParkingLotGeneralInput>;
-  aogGeneral?: Maybe<AogGeneralInput>;
-  extraAddress?: Maybe<ExtraAddressInput>;
-  showExtraAddress?: Maybe<Scalars['Boolean']>;
-  showIdentificationNumber?: Maybe<Scalars['Boolean']>;
-  apartmentGeneral?: Maybe<ApartmentGeneralInput>;
-  buildingPlotGeneral?: Maybe<BuildingPlotGeneralInput>;
-  attentionNote?: Maybe<Scalars['String']>;
-  showAttentionNote?: Maybe<Scalars['Boolean']>;
-  isPurchased?: Maybe<Scalars['Boolean']>;
-};
-
-export type PimInside = LastUpdated & {
-  __typename?: 'PimInside';
-  id: Scalars['String'];
-  floors?: Maybe<Array<Floor>>;
-  bogSpaces?: Maybe<Array<BogSpace>>;
-  bogSpacesDescription?: Maybe<Scalars['String']>;
-  aogSpaces?: Maybe<Array<AogSpace>>;
-  aogAnimalsDescription?: Maybe<Scalars['String']>;
-  aogBuildingsDescription?: Maybe<Scalars['String']>;
-  aogInstallationsDescription?: Maybe<Scalars['String']>;
-  aogGroundsDescription?: Maybe<Scalars['String']>;
-  insideGeneral?: Maybe<InsideGeneral>;
-  dateUpdated?: Maybe<Scalars['Date']>;
-  lastEditedBy?: Maybe<LastUpdatedProfile>;
-};
-
-export type PimListSearchResult = {
-  __typename?: 'PimListSearchResult';
-  metadata?: Maybe<SearchMetadata>;
-  items?: Maybe<Array<ListPim>>;
-};
-
-export type PimLocation = LastUpdated & {
-  __typename?: 'PimLocation';
-  id: Scalars['String'];
-  latitude?: Maybe<Scalars['Float']>;
-  longitude?: Maybe<Scalars['Float']>;
-  map?: Maybe<Scalars['String']>;
-  type?: Maybe<Array<Maybe<Scalars['String']>>>;
-  notes?: Maybe<Scalars['String']>;
-  goodToKnows?: Maybe<Array<GoodToKnow>>;
-  lastEditedBy?: Maybe<LastUpdatedProfile>;
-  dateUpdated?: Maybe<Scalars['Date']>;
-  description?: Maybe<Scalars['String']>;
-};
-
-export type PimMedia = LastUpdated & {
-  __typename?: 'PimMedia';
-  id: Scalars['String'];
-  pictures?: Maybe<Array<Picture>>;
-  mediaLinks?: Maybe<Array<MediaLink>>;
-  textChapters?: Maybe<Array<TextChapter>>;
-  usps?: Maybe<Array<Usp>>;
-  tags?: Maybe<Array<Tag>>;
-  dateUpdated?: Maybe<Scalars['Date']>;
-  lastEditedBy?: Maybe<LastUpdatedProfile>;
-  description?: Maybe<Scalars['String']>;
-};
-
-export type PimMediaPicturesArgs = {
-  sort?: Maybe<Sort>;
-};
-
-export type PimMeters = LastUpdated & {
-  __typename?: 'PimMeters';
-  id: Scalars['String'];
-  meters?: Maybe<Array<Meter>>;
-  metersMeta?: Maybe<MetersMeta>;
-  dateUpdated?: Maybe<Scalars['Date']>;
-  lastEditedBy?: Maybe<LastUpdatedProfile>;
-};
-
-export type PimOutside = LastUpdated & {
-  __typename?: 'PimOutside';
-  id: Scalars['ID'];
-  houseOutside?: Maybe<HouseOutside>;
-  outsideFeatures?: Maybe<Array<OutsideFeature>>;
-  dateUpdated?: Maybe<Scalars['Date']>;
-  lastEditedBy?: Maybe<LastUpdatedProfile>;
-};
-
-export type PimOutsideInput = {
-  id: Scalars['ID'];
-  houseOutside?: Maybe<HouseOutsideInput>;
-};
-
-export type PimPrices = LastUpdated & {
-  __typename?: 'PimPrices';
-  id: Scalars['ID'];
-  pricing?: Maybe<Pricing>;
-  costs?: Maybe<Array<Cost>>;
-  investment?: Maybe<Investment>;
-  costsDescription?: Maybe<Scalars['String']>;
-  dateUpdated?: Maybe<Scalars['Date']>;
-  lastEditedBy?: Maybe<LastUpdatedProfile>;
-};
-
-export type PimSales = LastUpdated & {
-  __typename?: 'PimSales';
-  id: Scalars['ID'];
-  salesSettings?: Maybe<SalesSettings>;
-  viewingMoments?: Maybe<Array<ViewingMoment>>;
-  lastEditedBy?: Maybe<LastUpdatedProfile>;
-  dateUpdated?: Maybe<Scalars['Date']>;
-  allocationCriterias?: Maybe<Array<AllocationCriteria>>;
-};
-
-export type PimSearchResult = {
-  __typename?: 'PimSearchResult';
-  metadata?: Maybe<SearchMetadata>;
-  items?: Maybe<Array<Pim>>;
-};
-
-export type PimServices = LastUpdated &
-  Services & {
-    __typename?: 'PimServices';
-    id: Scalars['String'];
-    meters?: Maybe<Array<Meter>>;
-    metersMeta?: Maybe<MetersMeta>;
-    hotWaterSupplies?: Maybe<Array<Service>>;
-    heatingSources?: Maybe<Array<Service>>;
-    additionalServices?: Maybe<Array<Service>>;
-    dateUpdated?: Maybe<Scalars['Date']>;
-    lastEditedBy?: Maybe<LastUpdatedProfile>;
-    description?: Maybe<Scalars['String']>;
-  };
-
-export type PimSpecification = {
-  __typename?: 'PimSpecification';
-  id: Scalars['ID'];
-  specification?: Maybe<Specification>;
-  specificationAdvanced?: Maybe<SpecificationAdvanced>;
-  linkedProperties?: Maybe<Array<LinkedPim>>;
-  inspections?: Maybe<Array<Inspection>>;
-  linkedPropertiesDateUpdated?: Maybe<Scalars['Date']>;
-  linkedPropertiesLastEditedBy?: Maybe<LastUpdatedProfile>;
-  linkedPropertiesDescription?: Maybe<Scalars['String']>;
-  inspectionsDateUpdated?: Maybe<Scalars['Date']>;
-  inspectionsLastEditedBy?: Maybe<LastUpdatedProfile>;
-  inspectionsDescription?: Maybe<Scalars['String']>;
-};
-
-export enum PimStatus {
-  Prospect = 'Prospect',
-  Available = 'Available',
-  Option = 'Option',
-  Bid = 'Bid',
-  SoldWithReservation = 'SoldWithReservation',
-  RentedWithReservation = 'RentedWithReservation',
-  Sold = 'Sold',
-  Rented = 'Rented',
-}
-
-export type PimWithNewAogSpace = {
-  __typename?: 'PimWithNewAogSpace';
-  newSpace?: Maybe<AogSpace>;
-  pim?: Maybe<Pim>;
-};
-
-export type PimWithNewBogSpace = {
-  __typename?: 'PimWithNewBogSpace';
-  newSpace: BogSpace;
-  pim: Pim;
-};
-
-export type PimWithNewCadastre = {
-  __typename?: 'PimWithNewCadastre';
-  pim?: Maybe<Pim>;
-  cadastre?: Maybe<Cadastre>;
-};
-
-export type PimWithNewFloor = {
-  __typename?: 'PimWithNewFloor';
-  newFloor: Floor;
-  pim: Pim;
-};
-
-export type PimWithNewIdentificationNumber = {
-  __typename?: 'PimWithNewIdentificationNumber';
-  pim: Pim;
-  newIdentificationNumber: IdentificationNumber;
-};
-
-export type PimWithNewMediaLink = {
-  __typename?: 'PimWithNewMediaLink';
-  pim: Pim;
-  newMediaLink: MediaLink;
-};
-
-export type PimWithNewOutside = {
-  __typename?: 'PimWithNewOutside';
-  pim: Pim;
-  newOutsideFeature: OutsideFeature;
-};
-
-export type PimWithNewPictures = {
-  __typename?: 'PimWithNewPictures';
-  pim: Pim;
-  newPictures?: Maybe<Array<Picture>>;
-};
-
-export type PimWithNewService = {
-  __typename?: 'PimWithNewService';
-  pim: Pim;
-  newService: Service;
-};
-
-export type PimWithNewTag = {
-  __typename?: 'PimWithNewTag';
-  pim: Pim;
-  newTag: Tag;
-};
-
-export type PimWithNewTextChapter = {
-  __typename?: 'PimWithNewTextChapter';
-  pim: Pim;
-  newChapter: TextChapter;
-};
-
-export type PimWithNewUsp = {
-  __typename?: 'PimWithNewUsp';
-  pim: Pim;
-  newUsp: Usp;
-};
-
-export type PimWithSameAddressInput = {
-  pimId?: Maybe<Scalars['String']>;
-  street?: Maybe<Scalars['String']>;
-  houseNumber?: Maybe<Scalars['String']>;
-  postalCode?: Maybe<Scalars['String']>;
-  city?: Maybe<Scalars['String']>;
-};
-
-export type PimWithUpdatedSpace = {
-  __typename?: 'PimWithUpdatedSpace';
-  newSpace: Space;
-  pim: Pim;
-};
-
-export enum PollutionType {
-  Asbestos = 'Asbestos',
-  Soil = 'Soil',
-}
-
-export enum PreferredLanguageType {
-  Dutch = 'Dutch',
-  English = 'English',
-  Polish = 'Polish',
-  German = 'German',
-  French = 'French',
-  Italian = 'Italian',
-  Spanish = 'Spanish',
-  Portuguese = 'Portuguese',
-}
-
-export enum PreferredLetterSalutationType {
-  Family = 'Family',
-  Lord = 'Lord',
-  Mylady = 'Mylady',
-  LordMylady = 'LordMylady',
-}
-
-export enum PreferredTitlePrefixType {
-  Dr = 'Dr',
-  Mr = 'Mr',
-  Ir = 'Ir',
-  Ing = 'Ing',
-  Drs = 'Drs',
-}
-
-export enum PreferredTitleSuffixType {
-  Msc = 'Msc',
-  Ma = 'MA',
-  Mre = 'MRE',
-  Mba = 'MBA',
-  Bc = 'Bc',
-}
-
-export type Pricing = LastUpdated & {
-  __typename?: 'Pricing';
-  rent?: Maybe<RentInformations>;
-  sale?: Maybe<SaleInformations>;
-  lastEditedBy?: Maybe<LastUpdatedProfile>;
-  dateUpdated?: Maybe<Scalars['Date']>;
-  description?: Maybe<Scalars['String']>;
-};
-
-export enum PricingType {
-  Sale = 'Sale',
-  Rent = 'Rent',
-}
-
-export type Profile = {
-  __typename?: 'Profile';
-  id: Scalars['ID'];
-  gender?: Maybe<GenderType>;
-  firstName?: Maybe<Scalars['String']>;
-  lastName?: Maybe<Scalars['String']>;
-  dateOfBirth?: Maybe<Scalars['Date']>;
-  functionDescription?: Maybe<Scalars['String']>;
-  email: Scalars['String'];
-  teams?: Maybe<Array<ProfileTeam>>;
-  emailAddresses?: Maybe<Array<EmailAddress>>;
-  phoneNumbers?: Maybe<Array<PhoneNumber>>;
-  socialMediaLinks?: Maybe<Array<SocialMediaLink>>;
-  company?: Maybe<Company>;
-  adminSettings?: Maybe<Array<AdminSettings>>;
-  isAdmin: Scalars['Boolean'];
-  isActive: Scalars['Boolean'];
-  initials?: Maybe<Scalars['String']>;
-  costUnit?: Maybe<Scalars['String']>;
-  hideOnMemos?: Maybe<Scalars['Boolean']>;
-  isAccountmanager?: Maybe<Scalars['Boolean']>;
-  image?: Maybe<File>;
-  language?: Maybe<Scalars['String']>;
-};
-
-export type ProfileFilters = {
-  isActive?: Maybe<Scalars['Boolean']>;
-};
-
-export type ProfileSearchResult = {
-  __typename?: 'ProfileSearchResult';
-  metadata?: Maybe<SearchMetadata>;
-  items?: Maybe<Array<Profile>>;
-};
-
-export type ProfileTeam = {
-  __typename?: 'ProfileTeam';
-  id: Scalars['ID'];
-  name?: Maybe<Scalars['String']>;
-  notes?: Maybe<Scalars['String']>;
-  createPermission: Scalars['Boolean'];
-  readPermission: Scalars['Boolean'];
-  updatePermission: Scalars['Boolean'];
-  deletePermission: Scalars['Boolean'];
-};
-
-export enum ProgressStatus {
-  Concept = 'Concept',
-  InPreparation = 'InPreparation',
-  InPresale = 'InPresale',
-  InProgress = 'InProgress',
-  Delivered = 'Delivered',
-}
-
-export type ProjectMarketing = {
-  __typename?: 'ProjectMarketing';
-  logos?: Maybe<Array<File>>;
-  mainLogoId?: Maybe<Scalars['String']>;
-  emailAddress?: Maybe<Scalars['String']>;
-  website?: Maybe<Scalars['String']>;
-  firstColor?: Maybe<Scalars['String']>;
-  secondColor?: Maybe<Scalars['String']>;
-};
-
-export type ProjectMarketingInput = {
-  emailAddress?: Maybe<Scalars['String']>;
-  website?: Maybe<Scalars['String']>;
-  firstColor?: Maybe<Scalars['String']>;
-  secondColor?: Maybe<Scalars['String']>;
-  mainLogoId?: Maybe<Scalars['String']>;
-};
-
-export type ProjectPhase = {
-  __typename?: 'ProjectPhase';
-  id: Scalars['ID'];
-  name: Scalars['String'];
-  logo?: Maybe<File>;
-  ncpIds?: Maybe<Array<Scalars['ID']>>;
-};
-
-export type ProjectPhaseFilters = {
-  name?: Maybe<Scalars['String']>;
-  ncpId?: Maybe<Scalars['ID']>;
-};
-
-export type ProjectPhaseSearchResult = {
-  __typename?: 'ProjectPhaseSearchResult';
-  metadata?: Maybe<SearchMetadata>;
-  items?: Maybe<Array<ProjectPhase>>;
-};
-
-export enum ProjectRisk {
-  Low = 'Low',
-  Middle = 'Middle',
-  High = 'High',
-}
-
-export enum ProjectType {
-  Commercial = 'Commercial',
-  Relet = 'Relet',
-  NewConstruction = 'NewConstruction',
-}
-
-export enum PropertyAvailability {
-  InConsultation = 'InConsultation',
-  Immediatelly = 'Immediatelly',
-  ByDate = 'ByDate',
-}
-
-export type PropertyAvailabilityInformation = {
-  __typename?: 'PropertyAvailabilityInformation';
-  availability?: Maybe<PropertyAvailability>;
-  from?: Maybe<Scalars['Date']>;
-  notes?: Maybe<Scalars['String']>;
-  habitation?: Maybe<PropertyHabitation>;
-  currentUse?: Maybe<Scalars['String']>;
-  currentDestination?: Maybe<Scalars['String']>;
-};
-
-export type PropertyAvailabilityInformationInput = {
-  availability?: Maybe<PropertyAvailability>;
-  from?: Maybe<Scalars['Date']>;
-  notes?: Maybe<Scalars['String']>;
-  habitation?: Maybe<PropertyHabitation>;
-  currentUse?: Maybe<Scalars['String']>;
-  currentDestination?: Maybe<Scalars['String']>;
-};
-
-export enum PropertyConnection {
-  SemiDetached = 'SemiDetached',
-  FinalHouse = 'FinalHouse',
-  CornerHouse = 'CornerHouse',
-  TerracedHouse = 'TerracedHouse',
-  DetachedHouse = 'DetachedHouse',
-}
-
-export enum PropertyHabitation {
-  RecreationalHome = 'RecreationalHome',
-  PermanentOccupation = 'PermanentOccupation',
-}
-
-export enum PropertyPublishedExternally {
-  Yes = 'Yes',
-  No = 'No',
-}
-
-export type PropertyRelated = {
-  __typename?: 'PropertyRelated';
-  items?: Maybe<Array<Maybe<PropertyRelatedItems>>>;
-  notes?: Maybe<Scalars['String']>;
-  images?: Maybe<Array<File>>;
-};
-
-export type PropertyRelatedInput = {
-  items?: Maybe<Array<Maybe<PropertyRelatedItems>>>;
-  notes?: Maybe<Scalars['String']>;
-  images?: Maybe<Array<Maybe<Scalars['String']>>>;
-};
-
-export enum PropertyRelatedItems {
-  Balcony = 'Balcony',
-  Terrace = 'Terrace',
-  RoofTerrace = 'RoofTerrace',
-  Porch = 'Porch',
-}
-
-export enum PropertyRightType {
-  BpRights = 'BpRights',
-  Easements = 'Easements',
-  RightOfSuperficies = 'RightOfSuperficies',
-  Cooperative = 'Cooperative',
-  Horizontal = 'Horizontal',
-}
-
-export type PropertyRights = {
-  __typename?: 'PropertyRights';
-  type?: Maybe<Array<Scalars['String']>>;
-  notes?: Maybe<Scalars['String']>;
-};
-
-export type PropertyRightsInput = {
-  type?: Maybe<Array<Scalars['String']>>;
-  notes?: Maybe<Scalars['String']>;
-};
-
-export enum PropertyType {
-  House = 'House',
-  Apartment = 'Apartment',
-  Commercial = 'Commercial',
-  Agricultural = 'Agricultural',
-  ParkingLot = 'ParkingLot',
-  BuildingPlot = 'BuildingPlot',
-  Other = 'Other',
-}
-
-export enum PropertyTypeDetailed {
-  SingleFamily = 'SingleFamily',
-  DykeHouse = 'DykeHouse',
-  CourtHouse = 'CourtHouse',
-  DriveInHome = 'DriveInHome',
-  SplitLevel = 'SplitLevel',
-  QuadrantHouse = 'QuadrantHouse',
-  PatioHouse = 'PatioHouse',
-  Villa = 'Villa',
-  CanalHouse = 'CanalHouse',
-  WaterHouse = 'WaterHouse',
-  Bungalow = 'Bungalow',
-  SemiBungalow = 'SemiBungalow',
-  StiltHouse = 'StiltHouse',
-  BusinessOrServiceHome = 'BusinessOrServiceHome',
-  Estate = 'Estate',
-  CountryHouse = 'CountryHouse',
-  Mansion = 'Mansion',
-}
-
-export enum PurchaseMix {
-  MgeConstruction = 'MgeConstruction',
-  PartOfIndividualProject = 'PartOfIndividualProject',
-  PurchaseGuarantee = 'PurchaseGuarantee',
-  MixedFormPurchaseRent = 'MixedFormPurchaseRent',
-}
-
-export enum QualityInformations {
-  Simple = 'Simple',
-  Normal = 'Normal',
-  Luxury = 'Luxury',
-  Excellent = 'Excellent',
-  GoodToStickOut = 'GoodToStickOut',
-  Good = 'Good',
-  ReasonableToGood = 'ReasonableToGood',
-  Fair = 'Fair',
-  ModerateToFairRedelijik = 'ModerateToFairRedelijik',
-  Moderate = 'Moderate',
-  BadToModerate = 'BadToModerate',
-  Bad = 'Bad',
-}
-
 export type Query = {
   __typename?: 'Query';
   _?: Maybe<Scalars['Boolean']>;
@@ -7760,89 +1692,1090 @@ export type QuerySearchArgs = {
   input: SearchInput;
 };
 
-export type Question = {
-  __typename?: 'Question';
-  id: Scalars['ID'];
-  name: Scalars['String'];
-  groupId?: Maybe<Scalars['String']>;
-  order?: Maybe<Scalars['Int']>;
-  type?: Maybe<QuestionType>;
-  required?: Maybe<Scalars['Boolean']>;
-  commentEnabled?: Maybe<Scalars['Boolean']>;
-  showOn?: Maybe<Scalars['Boolean']>;
-  options?: Maybe<Array<Maybe<Options>>>;
-  entity?: Maybe<Entity>;
+export type LoginInput = {
+  username: Scalars['String'];
+  password: Scalars['String'];
 };
 
-export type QuestionInput = {
-  groupId: Scalars['ID'];
-  name: Scalars['String'];
-  order?: Maybe<Scalars['Int']>;
-  type?: Maybe<QuestionType>;
-  required?: Maybe<Scalars['Boolean']>;
-  commentEnabled?: Maybe<Scalars['Boolean']>;
-  showOn?: Maybe<Scalars['Boolean']>;
-  options?: Maybe<Array<Maybe<OptionsInput>>>;
-  entity?: Maybe<EntityInput>;
+export type ForgotPasswordInput = {
+  username: Scalars['String'];
 };
 
-export enum QuestionType {
-  Text = 'text',
-  Radio = 'radio',
-  Checkbox = 'checkbox',
-  Multiplechoice = 'multiplechoice',
-  Number = 'number',
-  Email = 'email',
-  Price = 'price',
-  Singlelinetext = 'singlelinetext',
-  Multiplelinetext = 'multiplelinetext',
+export type ForgotPasswordResponse = {
+  __typename?: 'ForgotPasswordResponse';
+  error?: Maybe<Scalars['String']>;
+  stack?: Maybe<Scalars['String']>;
+};
+
+export type VerifyUserResponse = {
+  __typename?: 'VerifyUserResponse';
+  error?: Maybe<Scalars['String']>;
+  status: Scalars['String'];
+};
+
+export type AuthenticationResult = {
+  __typename?: 'AuthenticationResult';
+  AccessToken: Scalars['String'];
+  RefreshToken: Scalars['String'];
+};
+
+export type LoginResponse = {
+  __typename?: 'LoginResponse';
+  error?: Maybe<Scalars['String']>;
+  AuthenticationResult: AuthenticationResult;
+};
+
+export type ResetPasswordInput = {
+  password: Scalars['String'];
+  username: Scalars['String'];
+  code: Scalars['String'];
+};
+
+export type ResetPasswordResponse = {
+  __typename?: 'ResetPasswordResponse';
+  error?: Maybe<Scalars['String']>;
+  stack?: Maybe<Scalars['String']>;
+};
+
+export type VerifyUserInput = {
+  code?: Maybe<Scalars['String']>;
+  username?: Maybe<Scalars['String']>;
+};
+
+export type BillingResponse = {
+  url: Scalars['String'];
+};
+
+export type Billing = {
+  __typename?: 'Billing';
+  url: Scalars['String'];
+};
+
+export enum BulkField {
+  City = 'City',
+  Status = 'Status',
+  RentPrice = 'RentPrice',
+  SalePrice = 'SalePrice',
+  Security = 'Security',
+  Result = 'Result',
 }
 
-export type Questionaire = {
-  __typename?: 'Questionaire';
+export enum BulkEntities {
+  Pim = 'Pim',
+  ObjectType = 'ObjectType',
+  Ncp = 'Ncp',
+  Crm = 'Crm',
+}
+
+export enum BulkOperations {
+  SetField = 'SetField',
+  Delete = 'Delete',
+  Archive = 'Archive',
+}
+
+export type GetBulkDetailsInput = {
+  ids: Array<Scalars['ID']>;
+  field: BulkField;
+  entity: BulkEntities;
+};
+
+export type BulkOperationInput = {
+  operation: BulkOperations;
+  ids: Array<Scalars['ID']>;
+  entity: BulkEntities;
+  field?: Maybe<BulkField>;
+  value?: Maybe<Scalars['BulkFieldValue']>;
+};
+
+export type GetBulkResult = {
+  __typename?: 'GetBulkResult';
   id: Scalars['ID'];
-  companyId?: Maybe<Scalars['String']>;
-  type?: Maybe<TemplateType>;
-  templateName?: Maybe<Scalars['String']>;
-  isAdmin?: Maybe<Scalars['Boolean']>;
-  published?: Maybe<Scalars['Boolean']>;
-  copyFromId?: Maybe<Scalars['String']>;
-  entity?: Maybe<Entity>;
-  templateStatus?: Maybe<TemplateStatus>;
-  meta: TemplateMeta;
-  settings?: Maybe<TemplateSettings>;
-  labels?: Maybe<Array<Scalars['String']>>;
-  tags?: Maybe<Array<TemplatTag>>;
-  permissions?: Maybe<Array<TemplateSecurity>>;
+  value?: Maybe<Scalars['BulkFieldValue']>;
 };
 
-export type QuestionaireInput = {
-  templateName?: Maybe<Scalars['String']>;
-  type?: Maybe<TemplateType>;
-  isAdmin?: Maybe<Scalars['Boolean']>;
-  published?: Maybe<Scalars['Boolean']>;
-  copyFromId?: Maybe<Scalars['String']>;
-  entity?: Maybe<EntityInput>;
-  templateStatus?: Maybe<TemplateStatus>;
+export type BulkOperationResult = {
+  __typename?: 'BulkOperationResult';
+  undoIds: Array<Scalars['ID']>;
 };
 
-export type ReadNotificationInput = {
+export enum CalendarTypes {
+  Meeting = 'Meeting',
+  Appointment = 'Appointment',
+  Birthday = 'Birthday',
+  Travel = 'Travel',
+  Private = 'Private',
+  Task = 'Task',
+}
+
+export type CalendarGroup = {
+  __typename?: 'CalendarGroup';
   id: Scalars['ID'];
+  name: Scalars['String'];
+  color?: Maybe<Scalars['String']>;
+  members?: Maybe<Array<Profile>>;
 };
 
-export type Reading = {
-  __typename?: 'Reading';
-  id: Scalars['String'];
-  value?: Maybe<Scalars['Int']>;
-  dateOfReading?: Maybe<Scalars['Date']>;
+export enum AppointmentRepeat {
+  NoRepeat = 'NoRepeat',
+  Daily = 'Daily',
+  WorkDays = 'WorkDays',
+  Weekly = 'Weekly',
+  Monthly = 'Monthly',
+  Hourly = 'Hourly',
+  Yearly = 'Yearly',
+}
+
+export type AppointmentLocation = {
+  __typename?: 'AppointmentLocation';
+  id: Scalars['ID'];
+  availablePlaces?: Maybe<Scalars['Int']>;
+  name?: Maybe<Scalars['String']>;
+  suggest?: Maybe<Scalars['Boolean']>;
+};
+
+export enum AppointmentType {
+  Aquisition = 'Aquisition',
+  SigningContract = 'SigningContract',
+  Openhouse = 'Openhouse',
+  Purchase = 'Purchase',
+  Inspection = 'Inspection',
+  PersonalShowing = 'PersonalShowing',
+}
+
+export type AppointmentTerm = {
+  __typename?: 'AppointmentTerm';
+  from?: Maybe<Scalars['Date']>;
+  to?: Maybe<Scalars['Date']>;
+};
+
+export enum AppointmentMeetingType {
+  ExternalAgreement = 'ExternalAgreement',
+  Collegial = 'Collegial',
+  CompleteArgeement = 'CompleteArgeement',
+  RedirectAppointment = 'RedirectAppointment',
+  FollowUpJob = 'FollowUpJob',
+}
+
+export enum AppointmentAddressType {
+  LinkedPersonAddress = 'LinkedPersonAddress',
+  NewAcquisitionAddress = 'NewAcquisitionAddress',
+}
+
+export enum AppointmentState {
+  Pencil = 'Pencil',
+  Confirmed = 'Confirmed',
+  Completed = 'Completed',
+  Unconfirmed = 'Unconfirmed',
+}
+
+export type DraftAppointment = {
+  __typename?: 'DraftAppointment';
+  id?: Maybe<Scalars['ID']>;
+  title?: Maybe<Scalars['String']>;
+  from?: Maybe<Scalars['Date']>;
+  to?: Maybe<Scalars['Date']>;
+  alternativeTerms?: Maybe<Array<AppointmentTerm>>;
+  allDay?: Maybe<Scalars['Boolean']>;
+  confirmedDate?: Maybe<Scalars['Boolean']>;
+  repeatAppointment?: Maybe<AppointmentRepeat>;
   description?: Maybe<Scalars['String']>;
-  feedInId?: Maybe<Scalars['String']>;
+  assignedPimIds?: Maybe<Array<Scalars['String']>>;
+  agreementType?: Maybe<Array<Maybe<AppointmentMeetingType>>>;
+  invitedPersons?: Maybe<Array<Scalars['String']>>;
+  isInsideOffice?: Maybe<Scalars['Boolean']>;
+  location?: Maybe<Scalars['String']>;
+  outsideLocation?: Maybe<Scalars['String']>;
+  travelTimeBefore?: Maybe<Scalars['Int']>;
+  travelTimeAfter?: Maybe<Scalars['Int']>;
+  state?: Maybe<AppointmentState>;
+  type?: Maybe<CalendarTypes>;
+  appointmentType?: Maybe<AppointmentType>;
+  taskLabel?: Maybe<TaskLabel>;
+};
+
+export type Appointment = {
+  __typename?: 'Appointment';
+  id: Scalars['ID'];
+  title?: Maybe<Scalars['String']>;
+  from: Scalars['Date'];
+  to: Scalars['Date'];
+  alternativeTerms?: Maybe<Array<AppointmentTerm>>;
+  allDay?: Maybe<Scalars['Boolean']>;
+  confirmedDate?: Maybe<Scalars['Boolean']>;
+  repeatAppointment?: Maybe<AppointmentRepeat>;
+  description?: Maybe<Scalars['String']>;
+  assignedPimIds?: Maybe<Array<Scalars['String']>>;
+  agreementType?: Maybe<Array<Maybe<AppointmentMeetingType>>>;
+  invitedPersons?: Maybe<Array<Scalars['String']>>;
+  isInsideOffice?: Maybe<Scalars['Boolean']>;
+  location?: Maybe<Scalars['String']>;
+  outsideLocation?: Maybe<Scalars['String']>;
+  travelTimeBefore?: Maybe<Scalars['Int']>;
+  travelTimeAfter?: Maybe<Scalars['Int']>;
+  state?: Maybe<AppointmentState>;
+  type: CalendarTypes;
+  appointmentType?: Maybe<AppointmentType>;
+  taskLabel?: Maybe<TaskLabel>;
+  isConfirmed?: Maybe<Scalars['Boolean']>;
+};
+
+export type AppointmentTermInput = {
+  from?: Maybe<Scalars['Date']>;
+  to?: Maybe<Scalars['Date']>;
+};
+
+export type AddAppointmentInput = {
+  accountId: Scalars['ID'];
+  title?: Maybe<Scalars['String']>;
+  from: Scalars['Date'];
+  to: Scalars['Date'];
+  alternativeTerms?: Maybe<Array<AppointmentTermInput>>;
+  allDay?: Maybe<Scalars['Boolean']>;
+  confirmedDate?: Maybe<Scalars['Boolean']>;
+  repeatAppointment?: Maybe<AppointmentRepeat>;
+  description?: Maybe<Scalars['String']>;
+  assignedPimIds?: Maybe<Array<Scalars['String']>>;
+  agreementType?: Maybe<Array<Maybe<AppointmentMeetingType>>>;
+  invitedPersons?: Maybe<Array<Scalars['String']>>;
+  isInsideOffice?: Maybe<Scalars['Boolean']>;
+  location?: Maybe<Scalars['String']>;
+  outsideLocation?: Maybe<Scalars['String']>;
+  travelTimeBefore?: Maybe<Scalars['Int']>;
+  travelTimeAfter?: Maybe<Scalars['Int']>;
+  type: CalendarTypes;
+  appointmentType?: Maybe<AppointmentType>;
+  taskLabel?: Maybe<TaskLabel>;
+};
+
+export type AppointmentSearch = {
+  accountId: Scalars['ID'];
+  startDate: Scalars['String'];
+  endDate: Scalars['String'];
+  selectedUser?: Maybe<Scalars['String']>;
+  selectedGroup?: Maybe<Scalars['String']>;
+  selectedAppointmentType?: Maybe<AppointmentType>;
+  selectTaskType?: Maybe<Array<TaskLabel>>;
+};
+
+export enum CharacteristicsSections {
+  Measurements = 'Measurements',
+  ClientInformation = 'ClientInformation',
+  InvoiceDetails = 'InvoiceDetails',
+  IdentificationNumber = 'IdentificationNumber',
+  Energy = 'Energy',
+  Phase = 'Phase',
+  AccountManagers = 'AccountManagers',
+  ProjectMarketing = 'ProjectMarketing',
+  AttentionField = 'AttentionField',
+  ObjectTypes = 'ObjectTypes',
+}
+
+export type HasCharacteristicsSections = {
+  characteristicsSections?: Maybe<Array<CharacteristicsSections>>;
+};
+
+export type SetCharacteristicsSectionsInput = {
+  id: Scalars['ID'];
+  sections?: Maybe<Array<CharacteristicsSections>>;
+};
+
+export type ProjectMarketingInput = {
+  emailAddress?: Maybe<Scalars['String']>;
+  website?: Maybe<Scalars['String']>;
+  firstColor?: Maybe<Scalars['String']>;
+  secondColor?: Maybe<Scalars['String']>;
+  mainLogoId?: Maybe<Scalars['String']>;
+};
+
+export type ProjectMarketing = {
+  __typename?: 'ProjectMarketing';
+  logos?: Maybe<Array<File>>;
+  mainLogoId?: Maybe<Scalars['String']>;
+  emailAddress?: Maybe<Scalars['String']>;
+  website?: Maybe<Scalars['String']>;
+  firstColor?: Maybe<Scalars['String']>;
+  secondColor?: Maybe<Scalars['String']>;
+};
+
+export type MeasurementsInput = {
+  volumeFrom?: Maybe<Scalars['AbsoluteFloat']>;
+  volumeTo?: Maybe<Scalars['AbsoluteFloat']>;
+  livingSpaceFrom?: Maybe<Scalars['AbsoluteFloat']>;
+  livingSpaceTo?: Maybe<Scalars['AbsoluteFloat']>;
+  plotAreaFrom?: Maybe<Scalars['AbsoluteFloat']>;
+  plotAreaTo?: Maybe<Scalars['AbsoluteFloat']>;
+  calculateAutomatically?: Maybe<Scalars['Boolean']>;
+};
+
+export type Measurements = {
+  __typename?: 'Measurements';
+  volumeFrom?: Maybe<Scalars['AbsoluteFloat']>;
+  volumeTo?: Maybe<Scalars['AbsoluteFloat']>;
+  livingSpaceFrom?: Maybe<Scalars['AbsoluteFloat']>;
+  livingSpaceTo?: Maybe<Scalars['AbsoluteFloat']>;
+  plotAreaFrom?: Maybe<Scalars['AbsoluteFloat']>;
+  plotAreaTo?: Maybe<Scalars['AbsoluteFloat']>;
+  calculateAutomatically?: Maybe<Scalars['Boolean']>;
+};
+
+export type InvoiceDetailsInput = {
+  street?: Maybe<Scalars['String']>;
+  houseNumber?: Maybe<Scalars['String']>;
+  additionalNumber?: Maybe<Scalars['String']>;
+  zipCode?: Maybe<Scalars['String']>;
+  city?: Maybe<Scalars['String']>;
+  country?: Maybe<Scalars['String']>;
+  projectInvoiceNumber?: Maybe<Scalars['String']>;
+  contactPerson?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+};
+
+export type InvoiceDetails = {
+  __typename?: 'InvoiceDetails';
+  street?: Maybe<Scalars['String']>;
+  houseNumber?: Maybe<Scalars['String']>;
+  additionalNumber?: Maybe<Scalars['String']>;
+  zipCode?: Maybe<Scalars['String']>;
+  city?: Maybe<Scalars['String']>;
+  country?: Maybe<Scalars['String']>;
+  projectInvoiceNumber?: Maybe<Scalars['String']>;
+  contactPerson?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+};
+
+export enum BricrPlans {
+  Professional = 'Professional',
+  EnterPrise = 'EnterPrise',
+  Start = 'Start',
+}
+
+export type CreateCompanyInput = {
+  name: Scalars['String'];
+  email: Scalars['String'];
+  password: Scalars['String'];
+  space: Scalars['String'];
+  amountUsers?: Maybe<Scalars['Int']>;
+  amountProperties?: Maybe<Scalars['Int']>;
+  plan?: Maybe<BricrPlans>;
+};
+
+export type UpdateCompanyInput = {
+  id: Scalars['ID'];
+  name?: Maybe<Scalars['String']>;
+  address?: Maybe<Scalars['String']>;
+  addressSecondLine?: Maybe<Scalars['String']>;
+  state?: Maybe<Scalars['String']>;
+  city?: Maybe<Scalars['String']>;
+  zipcode?: Maybe<Scalars['String']>;
+  country?: Maybe<Scalars['String']>;
+  houseNumber?: Maybe<Scalars['String']>;
+  floor?: Maybe<Scalars['Int']>;
+  chamberOfCommerce?: Maybe<Scalars['String']>;
+  vat?: Maybe<Scalars['String']>;
+  imageId?: Maybe<Scalars['ID']>;
+};
+
+export type CheckCompanyRegistereInput = {
+  name: Scalars['String'];
+};
+
+export type Company = {
+  __typename?: 'Company';
+  id: Scalars['ID'];
+  teams?: Maybe<Array<Team>>;
+  users?: Maybe<Array<Profile>>;
+  name?: Maybe<Scalars['String']>;
+  domain?: Maybe<Scalars['String']>;
+  address?: Maybe<Scalars['String']>;
+  addressSecondLine?: Maybe<Scalars['String']>;
+  state?: Maybe<Scalars['String']>;
+  city?: Maybe<Scalars['String']>;
+  zipcode?: Maybe<Scalars['String']>;
+  country?: Maybe<Scalars['String']>;
+  houseNumber?: Maybe<Scalars['String']>;
+  floor?: Maybe<Scalars['Int']>;
+  chamberOfCommerce?: Maybe<Scalars['String']>;
+  vat?: Maybe<Scalars['String']>;
+  image?: Maybe<File>;
+};
+
+export type CheckRegisteredResponse = {
+  __typename?: 'CheckRegisteredResponse';
+  suggestions?: Maybe<Array<Scalars['String']>>;
+  taken: Scalars['Boolean'];
+};
+
+export enum CommonCostType {
+  Kitchen = 'Kitchen',
+  Tiles = 'Tiles',
+  Bathroom = 'Bathroom',
+  Service = 'Service',
+  Heating = 'Heating',
+  Electricity = 'Electricity',
+  Water = 'Water',
+  Sewage = 'Sewage',
+  WaterBoard = 'WaterBoard',
+  LandConsolidationInterest = 'LandConsolidationInterest',
+  HomeownerAssociation = 'HomeownerAssociation',
+  OzbUserPart = 'OzbUserPart',
+  OzbBusinessPart = 'OzbBusinessPart',
+  Custom = 'Custom',
+}
+
+export type CommonCost = {
+  __typename?: 'CommonCost';
+  id: Scalars['ID'];
+  serviceCostsFrom?: Maybe<Scalars['AbsoluteFloat']>;
+  serviceCostsTill?: Maybe<Scalars['AbsoluteFloat']>;
+  paymentsFrequency?: Maybe<CostPaymentFrequency>;
+  vatTaxedServiceCostsFrom?: Maybe<Scalars['AbsoluteFloat']>;
+  vatTaxedServiceCostsTill?: Maybe<Scalars['AbsoluteFloat']>;
+  vatPercentage?: Maybe<Scalars['CostVat']>;
+  notes?: Maybe<Scalars['String']>;
+  type: Scalars['String'];
+  name?: Maybe<Scalars['String']>;
   dateCreated?: Maybe<Scalars['Date']>;
 };
 
-export enum RealEstateType {
-  Residential = 'Residential',
+export type CommonCosts = LastUpdated & {
+  __typename?: 'CommonCosts';
+  costs?: Maybe<Array<CommonCost>>;
+  description?: Maybe<Scalars['String']>;
+  lastEditedBy?: Maybe<LastUpdatedProfile>;
+  dateUpdated?: Maybe<Scalars['Date']>;
+};
+
+export type AddCommonCostInput = {
+  id: Scalars['ID'];
+  type: Scalars['String'];
+  name?: Maybe<Scalars['String']>;
+};
+
+export type UpdateCommonCostInput = {
+  id: Scalars['ID'];
+  serviceCostsFrom?: Maybe<Scalars['AbsoluteFloat']>;
+  serviceCostsTill?: Maybe<Scalars['AbsoluteFloat']>;
+  paymentsFrequency?: Maybe<CostPaymentFrequency>;
+  vatTaxedServiceCostsFrom?: Maybe<Scalars['AbsoluteFloat']>;
+  vatTaxedServiceCostsTill?: Maybe<Scalars['AbsoluteFloat']>;
+  vatPercentage?: Maybe<Scalars['CostVat']>;
+  notes?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+};
+
+export type UpdateCommonCostsDetailsInput = {
+  id: Scalars['ID'];
+  description?: Maybe<Scalars['String']>;
+};
+
+export type CostsDetails = LastUpdated & {
+  __typename?: 'CostsDetails';
+  description?: Maybe<Scalars['String']>;
+  dateUpdated?: Maybe<Scalars['Date']>;
+  lastEditedBy?: Maybe<LastUpdatedProfile>;
+};
+
+export enum ContactAddressType {
+  HomeAddress = 'HomeAddress',
+  SalesAddress = 'SalesAddress',
+  MailingAddress = 'MailingAddress',
+  VisitingAddress = 'VisitingAddress',
+  BillingAddress = 'BillingAddress',
+  FutureAddress = 'FutureAddress',
+  PreviousAddress = 'PreviousAddress',
+  SecondAddress = 'SecondAddress',
+  Custom = 'Custom',
+}
+
+export enum ContactPhoneNumberType {
+  MainNumber = 'MainNumber',
+  MobileNumber = 'MobileNumber',
+  PrivateNumber = 'PrivateNumber',
+  BusinessNumber = 'BusinessNumber',
+  FaxNumber = 'FaxNumber',
+  Custom = 'Custom',
+}
+
+export enum ContactEmailAddressType {
+  MainAddress = 'MainAddress',
+  AddressForMatches = 'AddressForMatches',
+  AddressForInvoices = 'AddressForInvoices',
+  Private = 'Private',
   Business = 'Business',
+  PreviousAddress = 'PreviousAddress',
+  Custom = 'Custom',
+}
+
+export enum ContactSocialMediaType {
+  Facebook = 'Facebook',
+  Twitter = 'Twitter',
+  LinkedIn = 'LinkedIn',
+  Custom = 'Custom',
+}
+
+export type CrmContactInformation = LastUpdated & {
+  __typename?: 'CrmContactInformation';
+  id: Scalars['ID'];
+  contactInfoDescription?: Maybe<Scalars['String']>;
+  addresses?: Maybe<Array<CrmAddress>>;
+  phoneNumbers?: Maybe<Array<CrmPhoneNumber>>;
+  emailAddresses?: Maybe<Array<CrmEmailAddress>>;
+  socialMedia?: Maybe<Array<CrmSocialMedia>>;
+  dateCreated: Scalars['Date'];
+  lastEditedBy?: Maybe<LastUpdatedProfile>;
+  dateUpdated?: Maybe<Scalars['Date']>;
+};
+
+export type UpdateCrmContactInformationInput = {
+  id: Scalars['ID'];
+  contactInfoDescription?: Maybe<Scalars['String']>;
+  addresses?: Maybe<Array<CrmAddressInput>>;
+  phoneNumbers?: Maybe<Array<CrmPhoneNumberInput>>;
+  emailAddresses?: Maybe<Array<CrmEmailAddressInput>>;
+  socialMedia?: Maybe<Array<CrmSocialMediaInput>>;
+};
+
+export type CrmAddress = {
+  __typename?: 'CrmAddress';
+  id: Scalars['ID'];
+  type: ContactAddressType;
+  street?: Maybe<Scalars['String']>;
+  houseNumber?: Maybe<Scalars['Int']>;
+  addition?: Maybe<Scalars['String']>;
+  zipcode?: Maybe<Scalars['String']>;
+  city?: Maybe<Scalars['String']>;
+  country?: Maybe<Scalars['String']>;
+  extraInformation?: Maybe<Scalars['String']>;
+  availableFrom?: Maybe<Scalars['Date']>;
+  note?: Maybe<Scalars['String']>;
+};
+
+export type CrmPhoneNumber = {
+  __typename?: 'CrmPhoneNumber';
+  id: Scalars['ID'];
+  type: ContactPhoneNumberType;
+  countryCode?: Maybe<Scalars['String']>;
+  phoneNumber?: Maybe<Scalars['String']>;
+  availableFrom?: Maybe<Scalars['Date']>;
+  note?: Maybe<Scalars['String']>;
+};
+
+export type CrmEmailAddress = {
+  __typename?: 'CrmEmailAddress';
+  id: Scalars['ID'];
+  type: ContactEmailAddressType;
+  email?: Maybe<Scalars['String']>;
+  availableFrom?: Maybe<Scalars['Date']>;
+  note?: Maybe<Scalars['String']>;
+};
+
+export type CrmSocialMedia = {
+  __typename?: 'CrmSocialMedia';
+  id: Scalars['ID'];
+  type: ContactSocialMediaType;
+  url?: Maybe<Scalars['String']>;
+};
+
+export type CrmAddressInput = {
+  type: ContactAddressType;
+  street?: Maybe<Scalars['String']>;
+  houseNumber?: Maybe<Scalars['Int']>;
+  addition?: Maybe<Scalars['String']>;
+  zipcode?: Maybe<Scalars['String']>;
+  city?: Maybe<Scalars['String']>;
+  country?: Maybe<Scalars['String']>;
+  extraInformation?: Maybe<Scalars['String']>;
+  availableFrom?: Maybe<Scalars['Date']>;
+  note?: Maybe<Scalars['String']>;
+};
+
+export type CrmPhoneNumberInput = {
+  type: ContactPhoneNumberType;
+  countryCode?: Maybe<Scalars['String']>;
+  phoneNumber?: Maybe<Scalars['String']>;
+  availableFrom?: Maybe<Scalars['Date']>;
+  note?: Maybe<Scalars['String']>;
+};
+
+export type CrmEmailAddressInput = {
+  type: ContactEmailAddressType;
+  email?: Maybe<Scalars['String']>;
+  availableFrom?: Maybe<Scalars['Date']>;
+  note?: Maybe<Scalars['String']>;
+};
+
+export type CrmSocialMediaInput = {
+  type: ContactSocialMediaType;
+  url?: Maybe<Scalars['String']>;
+};
+
+export enum MaritalStatusType {
+  Single = 'Single',
+  MarriedCommunityOfProperty = 'MarriedCommunityOfProperty',
+  MarriedPrenuptialAgreements = 'MarriedPrenuptialAgreements',
+  RegisteredPartner = 'RegisteredPartner',
+  Unmarried = 'Unmarried',
+  LivingTogether = 'LivingTogether',
+  Widow = 'Widow',
+  Widower = 'Widower',
+}
+
+export type LinkedCrm = {
+  __typename?: 'LinkedCrm';
+  id: Scalars['ID'];
+  firstName?: Maybe<Scalars['String']>;
+  extraNames?: Maybe<Scalars['String']>;
+  initials?: Maybe<Scalars['String']>;
+  lastName?: Maybe<Scalars['String']>;
+  email?: Maybe<Scalars['String']>;
+  phoneNumber?: Maybe<Scalars['String']>;
+  avatar?: Maybe<File>;
+  isPassedAway?: Maybe<Scalars['Boolean']>;
+  dateOfDeath?: Maybe<Scalars['Date']>;
+};
+
+export type CrmContact = {
+  __typename?: 'CrmContact';
+  type: Scalars['String'];
+  contact: LinkedCrm;
+};
+
+export type CrmPartner = {
+  __typename?: 'CrmPartner';
+  isDivorced?: Maybe<Scalars['Boolean']>;
+  partner: LinkedCrm;
+};
+
+export type CrmFamilyContacts = {
+  __typename?: 'CrmFamilyContacts';
+  id: Scalars['ID'];
+  maritalStatus?: Maybe<Scalars['String']>;
+  maritalStatusDate?: Maybe<Scalars['Date']>;
+  maritalStatusInformation?: Maybe<Scalars['String']>;
+  familyCompositionChildren?: Maybe<Scalars['Int']>;
+  familyCompositionAdults?: Maybe<Scalars['Int']>;
+  familyCompositionInformation?: Maybe<Scalars['String']>;
+  partners?: Maybe<Array<CrmPartner>>;
+  contacts?: Maybe<Array<CrmContact>>;
+};
+
+export type UpdateCrmFamilyContactsInput = {
+  id: Scalars['ID'];
+  maritalStatus?: Maybe<Scalars['String']>;
+  maritalStatusDate?: Maybe<Scalars['Date']>;
+  maritalStatusInformation?: Maybe<Scalars['String']>;
+  familyCompositionChildren?: Maybe<Scalars['Int']>;
+  familyCompositionAdults?: Maybe<Scalars['Int']>;
+  familyCompositionInformation?: Maybe<Scalars['String']>;
+  partners?: Maybe<Array<CrmPartnerInput>>;
+  contacts?: Maybe<Array<CrmContactInput>>;
+};
+
+export type CrmContactInput = {
+  type: Scalars['String'];
+  contactId: Scalars['ID'];
+};
+
+export type CrmPartnerInput = {
+  id: Scalars['ID'];
+  isDivorced?: Maybe<Scalars['Boolean']>;
+  isPassedAway?: Maybe<Scalars['Boolean']>;
+  dateOfDeath?: Maybe<Scalars['Date']>;
+};
+
+export enum IncomeType {
+  Employer = 'Employer',
+  Equity = 'Equity',
+  Pension = 'Pension',
+  SocialBenefit = 'SocialBenefit',
+  Entrepreneur = 'Entrepreneur',
+}
+
+export enum PeriodType {
+  PerMonth = 'PerMonth',
+  PerWeek = 'PerWeek',
+  PerFourWeeks = 'PerFourWeeks',
+  PerYear = 'PerYear',
+}
+
+export enum EmploymentType {
+  FixedTerm = 'FixedTerm',
+  Indefinitely = 'Indefinitely',
+}
+
+export enum SocialBenefitType {
+  SocialBenefit = 'SocialBenefit',
+  Wajong = 'Wajong',
+  WiaWao = 'WiaWao',
+  IoawIow = 'IoawIow',
+}
+
+export enum EntrepreneurType {
+  IbEntrepreneur = 'IbEntrepreneur',
+  Dga = 'Dga',
+}
+
+export enum FinancialObligationType {
+  Obligation1 = 'Obligation1',
+  Obligation2 = 'Obligation2',
+  Obligation3 = 'Obligation3',
+}
+
+export enum BankType {
+  Ing = 'Ing',
+  Rabobank = 'Rabobank',
+  AbnAmro = 'AbnAmro',
+}
+
+export enum BankAccountPurposeType {
+  AutomaticIncasso = 'AutomaticIncasso',
+  ServiceCosts = 'ServiceCosts',
+  FirstInvoice = 'FirstInvoice',
+}
+
+export enum EmployerIncomeProfession {
+  Designer = 'Designer',
+}
+
+export type CrmFinancial = {
+  __typename?: 'CrmFinancial';
+  id: Scalars['ID'];
+  financialInfo?: Maybe<Scalars['String']>;
+  income?: Maybe<Array<CrmIncome>>;
+  financialObligations?: Maybe<Array<CrmFinancialObligation>>;
+  bankAccounts?: Maybe<Array<CrmBankAccount>>;
+};
+
+export type UpdateCrmFinancialInput = {
+  id: Scalars['ID'];
+  financialInfo?: Maybe<Scalars['String']>;
+  income?: Maybe<Array<CrmIncomeInput>>;
+  financialObligations?: Maybe<Array<CrmFinancialObligationInput>>;
+  bankAccounts?: Maybe<Array<CrmBankAccountInput>>;
+};
+
+export type CrmIncome = {
+  __typename?: 'CrmIncome';
+  id: Scalars['ID'];
+  type: IncomeType;
+  information?: Maybe<Scalars['String']>;
+  employerIncome?: Maybe<CrmEmployerIncome>;
+  equityIncome?: Maybe<CrmEquityIncome>;
+  pensionIncome?: Maybe<CrmPensionIncome>;
+  socialBenefitIncome?: Maybe<CrmSocialBenefitIncome>;
+  entrepreneurIncome?: Maybe<CrmEntrepreneurIncome>;
+};
+
+export type CrmEmployerInformation = {
+  __typename?: 'CrmEmployerInformation';
+  name?: Maybe<Scalars['String']>;
+  street?: Maybe<Scalars['String']>;
+  houseNumber?: Maybe<Scalars['Int']>;
+  addition?: Maybe<Scalars['String']>;
+  zipcode?: Maybe<Scalars['String']>;
+  city?: Maybe<Scalars['String']>;
+  country?: Maybe<Scalars['String']>;
+};
+
+export type CrmEmployerIncome = {
+  __typename?: 'CrmEmployerIncome';
+  profession?: Maybe<EmployerIncomeProfession>;
+  employer?: Maybe<LinkedCrm>;
+  employerInformation?: Maybe<CrmEmployerInformation>;
+  employmentType?: Maybe<Scalars['String']>;
+  grossIncome?: Maybe<Scalars['Int']>;
+  grossIncomePeriod?: Maybe<PeriodType>;
+  holidayBonus?: Maybe<Scalars['Boolean']>;
+  fixedThirteenthMonth?: Maybe<Scalars['Boolean']>;
+  irregularityAllowance?: Maybe<Scalars['Int']>;
+  irregularityAllowancePeriod?: Maybe<PeriodType>;
+  profitDistribution?: Maybe<Scalars['Int']>;
+  profitDistributionPeriod?: Maybe<PeriodType>;
+  commission?: Maybe<Scalars['Int']>;
+  commissionPeriod?: Maybe<PeriodType>;
+  overtime?: Maybe<Scalars['Int']>;
+  overtimePeriod?: Maybe<PeriodType>;
+};
+
+export type CrmEquityIncome = {
+  __typename?: 'CrmEquityIncome';
+  income?: Maybe<Scalars['Int']>;
+};
+
+export type CrmPensionIncome = {
+  __typename?: 'CrmPensionIncome';
+  aowBenefit?: Maybe<Scalars['Int']>;
+  aowBenefitPeriod?: Maybe<PeriodType>;
+  retirementBenefit?: Maybe<Scalars['Int']>;
+  retirementBenefitPeriod?: Maybe<PeriodType>;
+};
+
+export type CrmSocialBenefitIncome = {
+  __typename?: 'CrmSocialBenefitIncome';
+  income?: Maybe<Scalars['Int']>;
+  incomePeriod?: Maybe<PeriodType>;
+  socialBenefitType?: Maybe<Scalars['String']>;
+};
+
+export type CrmEntrepreneurIncome = {
+  __typename?: 'CrmEntrepreneurIncome';
+  entrepreneurType?: Maybe<EntrepreneurType>;
+  companyCar?: Maybe<Scalars['Boolean']>;
+  companyBike?: Maybe<Scalars['Boolean']>;
+  pastPensionAge?: Maybe<Scalars['Boolean']>;
+  smeProfitExemption?: Maybe<Scalars['Boolean']>;
+  incomePerYear?: Maybe<Scalars['Int']>;
+  workingHoursPerMonth?: Maybe<Scalars['Int']>;
+  yearsAsIndependent?: Maybe<Scalars['Int']>;
+};
+
+export type CrmFinancialObligation = {
+  __typename?: 'CrmFinancialObligation';
+  id: Scalars['ID'];
+  type: Scalars['String'];
+  financialObligation?: Maybe<Scalars['Int']>;
+  information?: Maybe<Scalars['String']>;
+};
+
+export type CrmBankAccount = {
+  __typename?: 'CrmBankAccount';
+  id: Scalars['ID'];
+  type: Scalars['String'];
+  accountNumber?: Maybe<Scalars['String']>;
+  bic?: Maybe<Scalars['String']>;
+  iban?: Maybe<Scalars['String']>;
+  swift?: Maybe<Scalars['String']>;
+  purpose?: Maybe<Scalars['String']>;
+};
+
+export type CrmIncomeInput = {
+  type: IncomeType;
+  information?: Maybe<Scalars['String']>;
+  employerIncome?: Maybe<CrmEmployerIncomeInput>;
+  equityIncome?: Maybe<CrmEquityIncomeInput>;
+  pensionIncome?: Maybe<CrmPensionIncomeInput>;
+  socialBenefitIncome?: Maybe<CrmSocialBenefitIncomeInput>;
+  entrepreneurIncome?: Maybe<CrmEntrepreneurIncomeInput>;
+};
+
+export type CrmEmployerInformationInput = {
+  name?: Maybe<Scalars['String']>;
+  street?: Maybe<Scalars['String']>;
+  houseNumber?: Maybe<Scalars['Int']>;
+  addition?: Maybe<Scalars['String']>;
+  zipcode?: Maybe<Scalars['String']>;
+  city?: Maybe<Scalars['String']>;
+  country?: Maybe<Scalars['String']>;
+};
+
+export type CrmEmployerIncomeInput = {
+  profession?: Maybe<EmployerIncomeProfession>;
+  employerId?: Maybe<Scalars['ID']>;
+  employerInformation?: Maybe<CrmEmployerInformationInput>;
+  employmentType?: Maybe<Scalars['String']>;
+  grossIncome?: Maybe<Scalars['Int']>;
+  grossIncomePeriod?: Maybe<PeriodType>;
+  holidayBonus?: Maybe<Scalars['Boolean']>;
+  fixedThirteenthMonth?: Maybe<Scalars['Boolean']>;
+  irregularityAllowance?: Maybe<Scalars['Int']>;
+  irregularityAllowancePeriod?: Maybe<PeriodType>;
+  profitDistribution?: Maybe<Scalars['Int']>;
+  profitDistributionPeriod?: Maybe<PeriodType>;
+  commission?: Maybe<Scalars['Int']>;
+  commissionPeriod?: Maybe<PeriodType>;
+  overtime?: Maybe<Scalars['Int']>;
+  overtimePeriod?: Maybe<PeriodType>;
+};
+
+export type CrmEquityIncomeInput = {
+  income?: Maybe<Scalars['Int']>;
+};
+
+export type CrmPensionIncomeInput = {
+  aowBenefit?: Maybe<Scalars['Int']>;
+  aowBenefitPeriod?: Maybe<PeriodType>;
+  retirementBenefit?: Maybe<Scalars['Int']>;
+  retirementBenefitPeriod?: Maybe<PeriodType>;
+};
+
+export type CrmSocialBenefitIncomeInput = {
+  income?: Maybe<Scalars['Int']>;
+  incomePeriod?: Maybe<PeriodType>;
+  socialBenefitType?: Maybe<Scalars['String']>;
+};
+
+export type CrmEntrepreneurIncomeInput = {
+  entrepreneurType?: Maybe<EntrepreneurType>;
+  companyCar?: Maybe<Scalars['Boolean']>;
+  companyBike?: Maybe<Scalars['Boolean']>;
+  pastPensionAge?: Maybe<Scalars['Boolean']>;
+  smeProfitExemption?: Maybe<Scalars['Boolean']>;
+  incomePerYear?: Maybe<Scalars['Int']>;
+  workingHoursPerMonth?: Maybe<Scalars['Int']>;
+  yearsAsIndependent?: Maybe<Scalars['Int']>;
+};
+
+export type CrmFinancialObligationInput = {
+  type: Scalars['String'];
+  financialObligation?: Maybe<Scalars['Int']>;
+  information?: Maybe<Scalars['String']>;
+};
+
+export type CrmBankAccountInput = {
+  type: Scalars['String'];
+  accountNumber?: Maybe<Scalars['String']>;
+  bic?: Maybe<Scalars['String']>;
+  iban?: Maybe<Scalars['String']>;
+  swift?: Maybe<Scalars['String']>;
+  purpose?: Maybe<Scalars['String']>;
+};
+
+export enum CrmType {
+  Relation = 'Relation',
+  Business = 'Business',
+}
+
+export enum PreferredLanguageType {
+  Dutch = 'Dutch',
+  English = 'English',
+  Polish = 'Polish',
+  German = 'German',
+  French = 'French',
+  Italian = 'Italian',
+  Spanish = 'Spanish',
+  Portuguese = 'Portuguese',
+}
+
+export enum PreferredTitlePrefixType {
+  Dr = 'Dr',
+  Mr = 'Mr',
+  Ir = 'Ir',
+  Ing = 'Ing',
+  Drs = 'Drs',
+}
+
+export enum PreferredTitleSuffixType {
+  Msc = 'Msc',
+  Ma = 'MA',
+  Mre = 'MRE',
+  Mba = 'MBA',
+  Bc = 'Bc',
+}
+
+export enum PreferredLetterSalutationType {
+  Family = 'Family',
+  Lord = 'Lord',
+  Mylady = 'Mylady',
+  LordMylady = 'LordMylady',
+}
+
+export enum IdentificationType {
+  Passport = 'Passport',
+  DriverLicense = 'DriverLicense',
+  IdCard = 'IdCard',
+  ResidencePermit = 'ResidencePermit',
+}
+
+export enum CrmStatus {
+  ActionRequired = 'ActionRequired',
+  Active = 'Active',
+  Inactive = 'Inactive',
+}
+
+export type CrmGeneral = LastUpdated & {
+  __typename?: 'CrmGeneral';
+  id: Scalars['ID'];
+  description?: Maybe<Scalars['String']>;
+  firstName?: Maybe<Scalars['String']>;
+  extraNames?: Maybe<Scalars['String']>;
+  initials?: Maybe<Scalars['String']>;
+  lastName?: Maybe<Scalars['String']>;
+  avatar?: Maybe<File>;
+  gender?: Maybe<GenderType>;
+  dateOfBirth?: Maybe<Scalars['Date']>;
+  placeOfBirth?: Maybe<Scalars['String']>;
+  nationality?: Maybe<Scalars['String']>;
+  dateOfDeath?: Maybe<Scalars['Date']>;
+  isPassedAway?: Maybe<Scalars['Boolean']>;
+  preferredLanguage?: Maybe<Scalars['String']>;
+  identification?: Maybe<IdentificationType>;
+  identificationNumber?: Maybe<Scalars['String']>;
+  identificationIssueCity?: Maybe<Scalars['String']>;
+  identificationIssueDate?: Maybe<Scalars['Date']>;
+  identificationExpirationDate?: Maybe<Scalars['Date']>;
+  preferredTitlePrefix?: Maybe<Scalars['String']>;
+  preferredTitleSuffix?: Maybe<Scalars['String']>;
+  preferredLetterSalutation?: Maybe<Scalars['String']>;
+  preferredTitleInformation?: Maybe<Scalars['String']>;
+  identificationNumbers?: Maybe<Array<CrmIdentificationNumber>>;
+  status?: Maybe<CrmStatus>;
+  dateCreated: Scalars['Date'];
+  lastEditedBy?: Maybe<LastUpdatedProfile>;
+  dateUpdated?: Maybe<Scalars['Date']>;
+  completeness: Scalars['Float'];
+};
+
+export type CrmIdentificationNumber = {
+  __typename?: 'CrmIdentificationNumber';
+  type: IdentificationNumberType;
+  number?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+};
+
+export type CrmIdentificationNumberInput = {
+  type: IdentificationNumberType;
+  number?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+};
+
+export type CreateCrmInput = {
+  type: CrmType;
+  firstName?: Maybe<Scalars['String']>;
+  initials?: Maybe<Scalars['String']>;
+  lastName?: Maybe<Scalars['String']>;
+  email?: Maybe<Scalars['String']>;
+  phoneNumber?: Maybe<Scalars['String']>;
+};
+
+export type UpdateCrmGeneralInput = {
+  id: Scalars['ID'];
+  description?: Maybe<Scalars['String']>;
+  firstName?: Maybe<Scalars['String']>;
+  extraNames?: Maybe<Scalars['String']>;
+  initials?: Maybe<Scalars['String']>;
+  lastName?: Maybe<Scalars['String']>;
+  gender?: Maybe<GenderType>;
+  avatarId?: Maybe<Scalars['String']>;
+  dateOfBirth?: Maybe<Scalars['Date']>;
+  placeOfBirth?: Maybe<Scalars['String']>;
+  nationality?: Maybe<Scalars['String']>;
+  dateOfDeath?: Maybe<Scalars['Date']>;
+  isPassedAway?: Maybe<Scalars['Boolean']>;
+  preferredLanguage?: Maybe<Scalars['String']>;
+  identification?: Maybe<IdentificationType>;
+  identificationNumber?: Maybe<Scalars['String']>;
+  identificationIssueCity?: Maybe<Scalars['String']>;
+  identificationIssueDate?: Maybe<Scalars['Date']>;
+  identificationExpirationDate?: Maybe<Scalars['Date']>;
+  preferredTitlePrefix?: Maybe<Scalars['String']>;
+  preferredTitleSuffix?: Maybe<Scalars['String']>;
+  preferredLetterSalutation?: Maybe<Scalars['String']>;
+  preferredTitleInformation?: Maybe<Scalars['String']>;
+  identificationNumbers?: Maybe<Array<CrmIdentificationNumberInput>>;
+  status?: Maybe<CrmStatus>;
+};
+
+export enum CurrentHomeSituationType {
+  LiveIn = 'LiveIn',
+  HomeForSale = 'HomeForSale',
+  SocialHousing = 'SocialHousing',
+  FreeSectorRentalHome = 'FreeSectorRentalHome',
+  StudentHouse = 'StudentHouse',
+}
+
+export enum CurrentHomeStatusType {
+  HouseSold = 'HouseSold',
+  AvailableForSale = 'AvailableForSale',
 }
 
 export enum ReasonToMoveType {
@@ -7859,478 +2792,236 @@ export enum ReasonToMoveType {
   Wedding = 'Wedding',
 }
 
-export type RectangleMeasurement = {
-  __typename?: 'RectangleMeasurement';
-  length?: Maybe<Scalars['Float']>;
-  width?: Maybe<Scalars['Float']>;
-  surface?: Maybe<Scalars['Float']>;
-};
-
-export type RectangleMeasurementInput = {
-  length?: Maybe<Scalars['Float']>;
-  width?: Maybe<Scalars['Float']>;
-  surface?: Maybe<Scalars['Float']>;
-};
-
-export type RemoveFilesInput = {
-  fileIDs: Array<Scalars['ID']>;
-  entity: EntityWithMultipleFiles;
-  entityID: Scalars['ID'];
-};
-
-export type RemoveUserFromTeamInput = {
-  teamId: Scalars['ID'];
-  userId: Scalars['ID'];
-};
-
-export type Renovation = {
-  __typename?: 'Renovation';
-  yearOfRenovation?: Maybe<Scalars['Int']>;
-  notes?: Maybe<Scalars['String']>;
-};
-
-export type RenovationInput = {
-  yearOfRenovation?: Maybe<Scalars['Int']>;
-  notes?: Maybe<Scalars['String']>;
-};
-
-export enum RentCondition {
-  VatTaxed = 'VatTaxed',
-  ExcludingServiceCosts = 'ExcludingServiceCosts',
-  Furnished = 'Furnished',
-  IncludingServiceCosts = 'IncludingServiceCosts',
-  Indexed = 'Indexed',
-}
-
-export type RentInformations = {
-  __typename?: 'RentInformations';
-  rentalPrice?: Maybe<Scalars['AbsoluteFloat']>;
-  paymentFrequency?: Maybe<RentPaymentFrequency>;
-  suffix?: Maybe<Scalars['String']>;
-  conditions?: Maybe<RentCondition>;
-  notes?: Maybe<Scalars['String']>;
-  isEnabled?: Maybe<Scalars['Boolean']>;
-};
-
-export type RentInformationsInput = {
-  rentalPrice?: Maybe<Scalars['AbsoluteFloat']>;
-  suffix?: Maybe<Scalars['String']>;
-  conditions?: Maybe<RentCondition>;
-  notes?: Maybe<Scalars['String']>;
-  paymentFrequency?: Maybe<RentPaymentFrequency>;
-};
-
-export enum RentPaymentFrequency {
-  PerMonth = 'PerMonth',
-  Annual = 'Annual',
-  Custom = 'Custom',
-}
-
-export type ResetPasswordInput = {
-  password: Scalars['String'];
-  username: Scalars['String'];
-  code: Scalars['String'];
-};
-
-export type ResetPasswordResponse = {
-  __typename?: 'ResetPasswordResponse';
-  error?: Maybe<Scalars['String']>;
-  stack?: Maybe<Scalars['String']>;
-};
-
-export type RetailMeasurements = {
-  __typename?: 'RetailMeasurements';
-  surface?: Maybe<Scalars['AbsoluteFloat']>;
-  salesFloorArea?: Maybe<Scalars['AbsoluteFloat']>;
-  frontWidth?: Maybe<Scalars['AbsoluteFloat']>;
-  inUnitsFrom?: Maybe<Scalars['AbsoluteFloat']>;
-  amountOfFloors?: Maybe<Scalars['Int']>;
-};
-
-export type RetailMeasurementsInput = {
-  surface?: Maybe<Scalars['AbsoluteFloat']>;
-  salesFloorArea?: Maybe<Scalars['AbsoluteFloat']>;
-  frontWidth?: Maybe<Scalars['AbsoluteFloat']>;
-  inUnitsFrom?: Maybe<Scalars['AbsoluteFloat']>;
-  amountOfFloors?: Maybe<Scalars['Int']>;
-};
-
-export type RetailSpace = {
-  __typename?: 'RetailSpace';
-  measurements?: Maybe<RetailMeasurements>;
-  airTreatment?: Maybe<Array<Scalars['String']>>;
-  specifications?: Maybe<Array<Scalars['String']>>;
-  prices?: Maybe<GoodWillPrices>;
-  wealthClass?: Maybe<Scalars['String']>;
-  retailerAssociationContribution?: Maybe<RetailerAssociationContribution>;
-  commonRooms?: Maybe<Array<Scalars['String']>>;
-};
-
-export type RetailSpaceInput = {
-  measurements?: Maybe<RetailMeasurementsInput>;
-  airTreatment?: Maybe<Array<Scalars['String']>>;
-  specifications?: Maybe<Array<Scalars['String']>>;
-  prices?: Maybe<GoodWillPricesInput>;
-  wealthClass?: Maybe<Scalars['String']>;
-  retailerAssociationContribution?: Maybe<RetailerAssociationContributionInput>;
-  commonRooms?: Maybe<Array<Scalars['String']>>;
-};
-
-export enum RetailSpecificationType {
-  TakeoverPersonnel = 'TakeoverPersonnel',
-  CateringAllowed = 'CateringAllowed',
-  IndustryLimitation = 'IndustryLimitation',
-  PublicOrientedServices = 'PublicOrientedServices',
-  Retail = 'Retail',
-  Showroom = 'Showroom',
-}
-
-export type RetailerAssociationContribution = {
-  __typename?: 'RetailerAssociationContribution';
-  contribution?: Maybe<Scalars['AbsoluteFloat']>;
-  termsOfCosts?: Maybe<Scalars['String']>;
-  vatPercentage?: Maybe<Scalars['AbsoluteFloat']>;
-  vatTaxedContribution?: Maybe<Scalars['AbsoluteFloat']>;
-  notes?: Maybe<Scalars['String']>;
-};
-
-export type RetailerAssociationContributionInput = {
-  contribution?: Maybe<Scalars['AbsoluteFloat']>;
-  termsOfCosts?: Maybe<Scalars['String']>;
-  vatPercentage?: Maybe<Scalars['AbsoluteFloat']>;
-  vatTaxedContribution?: Maybe<Scalars['AbsoluteFloat']>;
-  notes?: Maybe<Scalars['String']>;
-};
-
-export type RoofInformation = {
-  __typename?: 'RoofInformation';
-  type?: Maybe<RoofType>;
-  material?: Maybe<RoofMaterial>;
-  insulation?: Maybe<RoofInsulation>;
-  images?: Maybe<Array<File>>;
-  yearOfRoof?: Maybe<Scalars['Int']>;
-  gutter?: Maybe<GutterInformations>;
-  gutterMaterial?: Maybe<GutterMaterialInformations>;
-};
-
-export type RoofInformationInput = {
-  type?: Maybe<RoofTypeInput>;
-  material?: Maybe<RoofMaterialInput>;
-  insulation?: Maybe<RoofInsulationInput>;
-  gutter?: Maybe<GutterInformationsInput>;
-  gutterMaterial?: Maybe<GutterMaterialInformationsInput>;
-  images?: Maybe<Array<Maybe<Scalars['String']>>>;
-  yearOfRoof?: Maybe<Scalars['Int']>;
-};
-
-export type RoofInsulation = {
-  __typename?: 'RoofInsulation';
-  name?: Maybe<RoofInsulations>;
-  notes?: Maybe<Scalars['String']>;
-};
-
-export type RoofInsulationInput = {
-  name?: Maybe<RoofInsulations>;
-  notes?: Maybe<Scalars['String']>;
-};
-
-export enum RoofInsulations {
-  SprayFoam = 'SprayFoam',
-  RigidBoards = 'RigidBoards',
-  BlanketOrMatting = 'BlanketOrMatting',
-  GlassRock = 'GlassRock',
-  MineralWool = 'MineralWool',
-  LooseFill = 'LooseFill',
-  StructuralPanels = 'StructuralPanels',
-}
-
-export type RoofMaterial = {
-  __typename?: 'RoofMaterial';
-  name?: Maybe<RoofMaterials>;
-  notes?: Maybe<Scalars['String']>;
-};
-
-export type RoofMaterialInput = {
-  name?: Maybe<RoofMaterials>;
-  notes?: Maybe<Scalars['String']>;
-};
-
-export enum RoofMaterials {
-  Asbestos = 'Asbestos',
-  BituminousRoofing = 'BituminousRoofing',
-  Plastic = 'Plastic',
-  Slate = 'Slate',
-  Metal = 'Metal',
-  Pans = 'Pans',
-  Other = 'Other',
-}
-
-export type RoofType = {
-  __typename?: 'RoofType';
-  name?: Maybe<RoofTypes>;
-  notes?: Maybe<Scalars['String']>;
-};
-
-export type RoofTypeInput = {
-  name?: Maybe<RoofTypes>;
-  notes?: Maybe<Scalars['String']>;
-};
-
-export enum RoofTypes {
-  TransverseRoof = 'TransverseRoof',
-  ClassRoof = 'ClassRoof',
-  MansardRoof = 'MansardRoof',
-  FlatRoof = 'FlatRoof',
-  HippedRoof = 'HippedRoof',
-  TentRoof = 'TentRoof',
-  SaddleRoof = 'SaddleRoof',
-  CompositeRoof = 'CompositeRoof',
-}
-
-export enum SaleCondition {
-  VatTaxed = 'VatTaxed',
-  IncludingVat = 'IncludingVat',
-  ExcludingConstructionInterest = 'ExcludingConstructionInterest',
-}
-
-export type SaleGeneral = {
-  __typename?: 'SaleGeneral';
-  prefix?: Maybe<Scalars['String']>;
-  price?: Maybe<Scalars['AbsoluteFloat']>;
-  suffix?: Maybe<Scalars['String']>;
-  executionSale?: Maybe<Scalars['Boolean']>;
-  dateOfExecutionSale?: Maybe<Scalars['Date']>;
-  conditions?: Maybe<SaleCondition>;
-  purchaseMix?: Maybe<PurchaseMix>;
-  notes?: Maybe<Scalars['String']>;
-};
-
-export type SaleGeneralInput = {
-  prefix?: Maybe<Scalars['String']>;
-  price?: Maybe<Scalars['AbsoluteFloat']>;
-  suffix?: Maybe<Scalars['String']>;
-  executionSale?: Maybe<Scalars['Boolean']>;
-  dateOfExecutionSale?: Maybe<Scalars['Date']>;
-  conditions?: Maybe<SaleCondition>;
-  purchaseMix?: Maybe<PurchaseMix>;
-  notes?: Maybe<Scalars['String']>;
-};
-
-export type SaleInformations = {
-  __typename?: 'SaleInformations';
-  general?: Maybe<SaleGeneral>;
-  woz?: Maybe<SaleWoz>;
-  isEnabled?: Maybe<Scalars['Boolean']>;
-};
-
-export type SaleInformationsInput = {
-  general?: Maybe<SaleGeneralInput>;
-  woz?: Maybe<SaleWozInput>;
-};
-
-export enum SalePriceSuffix {
-  CostsBuyer = 'CostsBuyer',
-  FreeInName = 'FreeInName',
-  NoneOfThem = 'NoneOfThem',
-}
-
-export type SaleWoz = {
-  __typename?: 'SaleWOZ';
-  wozPrice?: Maybe<Scalars['AbsoluteFloat']>;
-  referenceDateWoz?: Maybe<Scalars['Date']>;
-  notes?: Maybe<Scalars['String']>;
-};
-
-export type SaleWozInput = {
-  wozPrice?: Maybe<Scalars['AbsoluteFloat']>;
-  referenceDateWoz?: Maybe<Scalars['Date']>;
-  notes?: Maybe<Scalars['String']>;
-};
-
-export type Sales = {
-  __typename?: 'Sales';
-  id: Scalars['String'];
-  label: SalesLabel;
-  status: SalesStatus;
-  createdAt: Scalars['Date'];
-  updatedAt: Scalars['Date'];
-  name?: Maybe<Scalars['String']>;
-  type: SalesType;
-  extraInfo?: Maybe<Scalars['String']>;
-  attentionNote?: Maybe<Scalars['String']>;
-  date?: Maybe<Scalars['Date']>;
-};
-
-export type SalesAccountContact = {
-  __typename?: 'SalesAccountContact';
+export type CrmHomeSituation = {
+  __typename?: 'CrmHomeSituation';
   id: Scalars['ID'];
-  cyclusId: Scalars['ID'];
-  userId: Scalars['ID'];
-  role: SalesRole;
+  currentHomeSituation?: Maybe<Scalars['String']>;
+  currentHomeStatus?: Maybe<Scalars['String']>;
+  currentHomeSalesValue?: Maybe<Scalars['Int']>;
+  currentHomeMortgage?: Maybe<Scalars['Int']>;
+  currentHomeInformation?: Maybe<Scalars['String']>;
+  reasonToMove?: Maybe<Array<Scalars['String']>>;
+  movingDate?: Maybe<Scalars['Date']>;
+  movingInformation?: Maybe<Scalars['String']>;
 };
 
-export type SalesAddress = {
-  __typename?: 'SalesAddress';
-  cyclusId: Scalars['ID'];
-  country: Scalars['String'];
-  city: Scalars['String'];
-  zipCode: Scalars['String'];
-  street: Scalars['String'];
-  houseNumber: Scalars['String'];
-  extraInfo?: Maybe<Scalars['String']>;
-};
-
-export type SalesBrokerage = {
-  __typename?: 'SalesBrokerage';
-  cyclusId: Scalars['ID'];
-  type: SalesBrokerageType;
-  percentage?: Maybe<Scalars['Int']>;
-  fixedAmount?: Maybe<Scalars['Int']>;
-  amountValues?: Maybe<Scalars['String']>;
-  vatPercentage?: Maybe<Scalars['Int']>;
-  reservationRate?: Maybe<Scalars['String']>;
-  partialCommission?: Maybe<Scalars['Int']>;
-  bonusPercentage?: Maybe<Scalars['Int']>;
-  description?: Maybe<Scalars['String']>;
-  notes?: Maybe<Scalars['String']>;
-};
-
-export enum SalesBrokerageType {
-  Percentage = 'Percentage',
-  Fixed = 'Fixed',
-}
-
-export type SalesClient = {
-  __typename?: 'SalesClient';
+export type UpdateCrmHomeSituationInput = {
   id: Scalars['ID'];
-  cyclusId: Scalars['ID'];
-  crmId: Scalars['ID'];
+  currentHomeSituation?: Maybe<Scalars['String']>;
+  currentHomeStatus?: Maybe<Scalars['String']>;
+  currentHomeSalesValue?: Maybe<Scalars['Int']>;
+  currentHomeMortgage?: Maybe<Scalars['Int']>;
+  currentHomeInformation?: Maybe<Scalars['String']>;
+  reasonToMove?: Maybe<Array<Scalars['String']>>;
+  movingDate?: Maybe<Scalars['Date']>;
+  movingInformation?: Maybe<Scalars['String']>;
 };
 
-export type SalesEntity = {
-  __typename?: 'SalesEntity';
-  cyclusId: Scalars['ID'];
-  entityType: Entities;
-  entityId: Scalars['ID'];
-};
-
-export type SalesFile = {
-  __typename?: 'SalesFile';
-  cyclusId: Scalars['ID'];
-  documentId: Scalars['ID'];
-  label: Scalars['String'];
-};
-
-export type SalesFilters = {
-  label: SalesLabel;
-  status: SalesStatus;
-};
-
-export enum SalesLabel {
-  Lead = 'Lead',
-  Acquisition = 'Acquisition',
-  Quotation = 'Quotation',
-  Order = 'Order',
-  Invoice = 'Invoice',
-}
-
-export type SalesPackage = {
-  __typename?: 'SalesPackage';
-  cyclusId: Scalars['ID'];
-  package: Scalars['String'];
-};
-
-export type SalesPim = {
-  __typename?: 'SalesPim';
+export type CrmListItem = {
+  __typename?: 'CrmListItem';
   id: Scalars['ID'];
-  cyclusId: Scalars['ID'];
-  pimId: Scalars['ID'];
-};
-
-export enum SalesRole {
-  Accountant = 'Accountant',
-  Concierge = 'Concierge',
-  Gardener = 'Gardener',
-}
-
-export type SalesSearchResult = {
-  __typename?: 'SalesSearchResult';
-  metadata?: Maybe<SearchMetadata>;
-  items?: Maybe<Array<Sales>>;
-};
-
-export type SalesSettings = {
-  __typename?: 'SalesSettings';
-  generalSettings?: Maybe<MomentGeneralSetting>;
-  amountOfViewings?: Maybe<Scalars['Int']>;
-};
-
-export type SalesSettingsInput = {
-  pimId: Scalars['ID'];
-  generalSettings?: Maybe<MomentGeneralSetting>;
-  amountOfViewings?: Maybe<Scalars['Int']>;
-  moments?: Maybe<Array<UpdateViewingMomentInput>>;
-};
-
-export enum SalesStatus {
-  ActionRequired = 'ActionRequired',
-  Active = 'Active',
-  Inactive = 'Inactive',
-  Complete = 'Complete',
-}
-
-export type SalesStatusChange = {
-  __typename?: 'SalesStatusChange';
-  id: Scalars['ID'];
-  cyclusId: Scalars['ID'];
-  status: SalesStatus;
-  createdAt: Scalars['Date'];
-  historyId: Scalars['ID'];
-};
-
-export enum SalesType {
-  Taxation = 'Taxation',
-  Inspection = 'Inspection',
-  SaleOrder = 'SaleOrder',
-}
-
-export type SearchInput = {
-  keyword: Scalars['String'];
-  types?: Maybe<Array<Entities>>;
-  page?: Maybe<Scalars['Int']>;
-  size?: Maybe<Scalars['Int']>;
-};
-
-export type SearchMetadata = {
-  __typename?: 'SearchMetadata';
-  total: Scalars['Int'];
-};
-
-export type SearchResult = {
-  __typename?: 'SearchResult';
-  users?: Maybe<Array<Profile>>;
-  emails?: Maybe<Array<Profile>>;
-  crms?: Maybe<Array<CrmListItem>>;
-  pims?: Maybe<Array<Pim>>;
-  teams?: Maybe<Array<Team>>;
-  ncps?: Maybe<Array<ListNcp>>;
+  type: CrmType;
+  firstName?: Maybe<Scalars['String']>;
+  initials?: Maybe<Scalars['String']>;
+  lastName?: Maybe<Scalars['String']>;
+  gender?: Maybe<GenderType>;
+  dateOfBirth?: Maybe<Scalars['Date']>;
+  placeOfBirth?: Maybe<Scalars['String']>;
+  nationality?: Maybe<Scalars['String']>;
+  maritalStatus?: Maybe<Scalars['String']>;
+  familyCompositionChildren?: Maybe<Scalars['Int']>;
+  familyCompositionAdults?: Maybe<Scalars['Int']>;
+  currentHomeSituation?: Maybe<Scalars['String']>;
+  partners?: Maybe<Array<CrmPartner>>;
+  phoneNumber?: Maybe<Scalars['String']>;
+  addresses?: Maybe<Array<CrmAddress>>;
+  email?: Maybe<Scalars['String']>;
+  avatar?: Maybe<File>;
+  status?: Maybe<CrmStatus>;
+  matchProfilesFrom?: Maybe<Scalars['Date']>;
+  matchProfilesTo?: Maybe<Scalars['Date']>;
   sales?: Maybe<Array<Sales>>;
+  dateCreated: Scalars['Date'];
+  dateUpdated?: Maybe<Scalars['Date']>;
+  completeness: Scalars['Float'];
 };
 
-export enum SectionWithDescriptionType {
-  Media = 'Media',
-  Inspection = 'Inspection',
-  LinkedProperties = 'LinkedProperties',
-  Services = 'Services',
-  PricesCosts = 'PricesCosts',
-  Meters = 'Meters',
-  BogSpaces = 'BogSpaces',
-  AogAnimals = 'AogAnimals',
-  AogBuildings = 'AogBuildings',
-  AogInstallations = 'AogInstallations',
-  AogGrounds = 'AogGrounds',
-  MetersMetaInfo = 'MetersMetaInfo',
+export type CrmListSearchResult = {
+  __typename?: 'CrmListSearchResult';
+  metadata?: Maybe<SearchMetadata>;
+  items?: Maybe<Array<CrmListItem>>;
+};
+
+export type ListCrmFilters = {
+  city?: Maybe<Scalars['String']>;
+  type?: Maybe<CrmType>;
+  status?: Maybe<CrmStatus>;
+};
+
+export type CrmWithSameInfoInput = {
+  firstName?: Maybe<Scalars['String']>;
+  initials?: Maybe<Scalars['String']>;
+  lastName?: Maybe<Scalars['String']>;
+  email?: Maybe<Scalars['String']>;
+  phoneNumber?: Maybe<Scalars['String']>;
+};
+
+export enum DmsEntityType {
+  Pim = 'Pim',
+  Ncp = 'Ncp',
+  Crm = 'Crm',
+  Sales = 'Sales',
 }
+
+export enum DmsFolderType {
+  Custom = 'Custom',
+  Default = 'Default',
+}
+
+export enum DmsPimFolderType {
+  Aquisition = 'Aquisition',
+  Quotation = 'Quotation',
+  SalesOrder = 'SalesOrder',
+  Property = 'Property',
+  Drawing = 'Drawing',
+  Questionaires = 'Questionaires',
+  ListOfItems = 'ListOfItems',
+  Publication = 'Publication',
+  Contracts = 'Contracts',
+  Internal = 'Internal',
+}
+
+export enum DmsCrmFolderType {
+  Personal = 'Personal',
+  Emails = 'Emails',
+  ContractsPrint = 'ContractsPrint',
+  Surveys = 'Surveys',
+  Invoices = 'Invoices',
+}
+
+export type DmsFolder = {
+  __typename?: 'DmsFolder';
+  entityId: Scalars['ID'];
+  id: Scalars['ID'];
+  companyId: Scalars['ID'];
+  foldername: Scalars['String'];
+  entityType: DmsEntityType;
+  type: DmsFolderType;
+  order?: Maybe<Scalars['Int']>;
+  deletedAt?: Maybe<Scalars['Date']>;
+  isEmailFolder?: Maybe<Scalars['Boolean']>;
+};
+
+export type CreateDmsFolderInput = {
+  entityId: Scalars['ID'];
+  foldername: Scalars['String'];
+  entityType: DmsEntityType;
+  type: DmsFolderType;
+  order?: Maybe<Scalars['Int']>;
+  deletedAt?: Maybe<Scalars['Date']>;
+};
+
+export type UpdateDmsFolderInput = {
+  entityId: Scalars['ID'];
+  id: Scalars['ID'];
+  foldername: Scalars['String'];
+  entityType: DmsEntityType;
+  type: DmsFolderType;
+  order?: Maybe<Scalars['Int']>;
+  deletedAt?: Maybe<Scalars['Date']>;
+};
+
+export type DeleteDmsFolderInput = {
+  entityId: Scalars['ID'];
+  id: Scalars['ID'];
+};
+
+export type EmailAndName = {
+  __typename?: 'EmailAndName';
+  email: Scalars['String'];
+  name: Scalars['String'];
+};
+
+export type EmailAndNameInput = {
+  email: Scalars['String'];
+  name: Scalars['String'];
+};
+
+export type EmailFolder = {
+  __typename?: 'EmailFolder';
+  id: Scalars['ID'];
+  nylasFolderId: Scalars['ID'];
+  name: Scalars['String'];
+  displayName?: Maybe<Scalars['String']>;
+  userId: Scalars['ID'];
+};
+
+export type ThreadMessage = {
+  __typename?: 'ThreadMessage';
+  id: Scalars['ID'];
+  folder: EmailFolder;
+  from: Array<EmailAndName>;
+  to: Array<EmailAndName>;
+  subject: Scalars['String'];
+  date: Scalars['Date'];
+  unread?: Maybe<Scalars['Boolean']>;
+  thread_id?: Maybe<Scalars['String']>;
+};
+
+export type EmailListItem = {
+  __typename?: 'EmailListItem';
+  id: Scalars['ID'];
+  folder: EmailFolder;
+  from: Array<EmailAndName>;
+  to: Array<EmailAndName>;
+  subject: Scalars['String'];
+  date: Scalars['Date'];
+  unread?: Maybe<Scalars['Boolean']>;
+  thread_id?: Maybe<Scalars['String']>;
+  threads?: Maybe<EmailThread>;
+  threadMessages?: Maybe<Array<ThreadMessage>>;
+  files?: Maybe<Array<EmailAttachment>>;
+};
+
+export type EmailAttachment = {
+  __typename?: 'EmailAttachment';
+  contentDisposition: Scalars['String'];
+  contentType: Scalars['String'];
+  filename: Scalars['String'];
+  id: Scalars['String'];
+  size: Scalars['Int'];
+};
+
+export type Email = {
+  __typename?: 'Email';
+  id: Scalars['ID'];
+  folder: EmailFolder;
+  from: Array<EmailAndName>;
+  to: Array<EmailAndName>;
+  cc?: Maybe<Array<EmailAndName>>;
+  bcc?: Maybe<Array<EmailAndName>>;
+  subject: Scalars['String'];
+  body: Scalars['String'];
+  date: Scalars['Date'];
+  unread?: Maybe<Scalars['Boolean']>;
+  files?: Maybe<Array<EmailAttachment>>;
+  thread_id?: Maybe<Scalars['String']>;
+  threads?: Maybe<EmailThread>;
+  threadMessages?: Maybe<Array<ThreadMessage>>;
+};
+
+export type EmailThread = {
+  __typename?: 'EmailThread';
+  id: Scalars['ID'];
+  message_ids: Array<Scalars['String']>;
+  participants: Array<EmailAndName>;
+};
+
+export type EmailFolderListItem = {
+  __typename?: 'EmailFolderListItem';
+  folder: EmailFolder;
+  numberOfUnreadEmails: Scalars['Int'];
+};
 
 export type SendEmailInput = {
   from: Array<EmailAndNameInput>;
@@ -8341,43 +3032,456 @@ export type SendEmailInput = {
   body: Scalars['String'];
 };
 
-export type Service = {
-  __typename?: 'Service';
+export type UpdateEmailInput = {
+  id: Scalars['ID'];
+  unread?: Maybe<Scalars['Boolean']>;
+};
+
+export type Energy = {
+  __typename?: 'Energy';
+  label?: Maybe<EnergyType>;
+  energyIndex?: Maybe<Scalars['String']>;
+  endDateEnergyLabel?: Maybe<Scalars['Date']>;
+  EPC?: Maybe<Scalars['String']>;
+  characteristicType?: Maybe<EnergyCharasteristicType>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type EnergyInput = {
+  label?: Maybe<EnergyType>;
+  energyIndex?: Maybe<Scalars['String']>;
+  endDateEnergyLabel?: Maybe<Scalars['Date']>;
+  EPC?: Maybe<Scalars['String']>;
+  characteristicType?: Maybe<EnergyCharasteristicType>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export enum EventEntityType {
+  AllocationCriteria = 'AllocationCriteria',
+  AogSpace = 'AogSpace',
+  BogSpace = 'BogSpace',
+  Cadastre = 'Cadastre',
+  CadastreMap = 'CadastreMap',
+  Cost = 'Cost',
+  Crm = 'Crm',
+  Floor = 'Floor',
+  Inspection = 'Inspection',
+  MediaLinks = 'MediaLinks',
+  Meter = 'Meter',
+  Ncp = 'Ncp',
+  ObjectType = 'ObjectType',
+  OutsideFeature = 'OutsideFeature',
+  Pim = 'Pim',
+  PimCost = 'PimCost',
+  ProjectPhase = 'ProjectPhase',
+  Reading = 'Reading',
+  Service = 'Service',
+  Space = 'Space',
+  Tags = 'Tags',
+  TextChapters = 'TextChapters',
+  Usps = 'Usps',
+  ViewingMoment = 'ViewingMoment',
+}
+
+export enum EventParentType {
+  Pim = 'Pim',
+  ObjectType = 'ObjectType',
+  Ncp = 'Ncp',
+}
+
+export enum EventAction {
+  Created = 'Created',
+  Removed = 'Removed',
+  Updated = 'Updated',
+}
+
+export type Event = {
+  __typename?: 'Event';
   id: Scalars['String'];
-  type: ServiceType;
-  name: Scalars['String'];
+  entityType: EventEntityType;
+  relatedEntityId?: Maybe<Scalars['String']>;
+  action: EventAction;
+  timestamp: Scalars['Date'];
+  data?: Maybe<Scalars['EventData']>;
+  emittedBy?: Maybe<Profile>;
+  parentType?: Maybe<EventParentType>;
+  parentId?: Maybe<Scalars['String']>;
   description?: Maybe<Scalars['String']>;
-  yearOfInstallation?: Maybe<Scalars['Int']>;
-  configuration: ServiceConfiguration;
-  ownership?: Maybe<OwnershipType>;
+};
+
+export type ChangesHistoryFilters = {
+  entityType?: Maybe<EventEntityType>;
+  relatedEntityId?: Maybe<Scalars['ID']>;
+};
+
+export type UndoIdQueryFilters = {
+  relatedEntityId: Scalars['ID'];
+};
+
+export type UndoEntityInput = {
+  undoIds: Array<Scalars['ID']>;
+};
+
+export type DeleteEntityInput = {
+  entityType: EventParentType;
+  entityIds: Array<Scalars['String']>;
+};
+
+export type UndoResult = {
+  __typename?: 'UndoResult';
+  successful?: Maybe<Scalars['Boolean']>;
+  message?: Maybe<Scalars['String']>;
+  entityId?: Maybe<Scalars['ID']>;
+  entityType?: Maybe<EventEntityType>;
+};
+
+export type DeleteResult = {
+  __typename?: 'DeleteResult';
+  successful?: Maybe<Scalars['Boolean']>;
+  message?: Maybe<Scalars['String']>;
+  undoId?: Maybe<Scalars['String']>;
+};
+
+export enum FilePermission {
+  Public = 'public',
+  Private = 'private',
+}
+
+export enum EntityWithFiles {
+  Pim = 'Pim',
+  Ncp = 'Ncp',
+  ObjectType = 'ObjectType',
+  Space = 'Space',
+  BogSpace = 'BogSpace',
+  AogSpace = 'AogSpace',
+  OutsideFeature = 'OutsideFeature',
+  OutsideGeneral = 'OutsideGeneral',
+  OutsidePropertyRelated = 'OutsidePropertyRelated',
+  RoofInformation = 'RoofInformation',
+  CadastreMap = 'CadastreMap',
+  MediaPicture = 'MediaPicture',
+  NcpMediaPicture = 'NcpMediaPicture',
+  ObjectTypeMediaPicture = 'ObjectTypeMediaPicture',
+  NcpProjectMarketing = 'NcpProjectMarketing',
+  ObjectTypeProjectMarketing = 'ObjectTypeProjectMarketing',
+  ProjectPhase = 'ProjectPhase',
+  Profile = 'Profile',
+  Crm = 'Crm',
+  Company = 'Company',
+}
+
+export enum EntityWithMultipleFiles {
+  Pim = 'Pim',
+  Ncp = 'Ncp',
+  ObjectType = 'ObjectType',
+  Space = 'Space',
+  BogSpace = 'BogSpace',
+  AogSpace = 'AogSpace',
+  OutsideFeature = 'OutsideFeature',
+  OutsideGeneral = 'OutsideGeneral',
+  OutsidePropertyRelated = 'OutsidePropertyRelated',
+  RoofInformation = 'RoofInformation',
+  NcpProjectMarketing = 'NcpProjectMarketing',
+  ObjectTypeProjectMarketing = 'ObjectTypeProjectMarketing',
+}
+
+export type CreateFileInput = {
+  fileName: Scalars['String'];
+  fileType: Scalars['String'];
+  permission: FilePermission;
+  description?: Maybe<Scalars['String']>;
+};
+
+export type AddFilesInput = {
+  fileIDs: Array<Scalars['ID']>;
+  entity: EntityWithFiles;
+  entityID: Scalars['ID'];
+};
+
+export type RemoveFilesInput = {
+  fileIDs: Array<Scalars['ID']>;
+  entity: EntityWithMultipleFiles;
+  entityID: Scalars['ID'];
+};
+
+export type File = {
+  __typename?: 'File';
+  id: Scalars['ID'];
+  fileName: Scalars['String'];
+  description?: Maybe<Scalars['String']>;
+  status: Scalars['Int'];
+  fileType: Scalars['String'];
+  permission: FilePermission;
+  key: Scalars['ID'];
+  createdAt?: Maybe<Scalars['Date']>;
+  signedUrl?: Maybe<Scalars['String']>;
+  url?: Maybe<Scalars['String']>;
+  bucket?: Maybe<Scalars['String']>;
+  entityID?: Maybe<Scalars['String']>;
+  entity?: Maybe<EntityWithFiles>;
+};
+
+export type InitSendFileInput = {
+  fileName?: Maybe<Scalars['String']>;
+  fileType?: Maybe<Scalars['String']>;
+  permission?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+};
+
+export type UploadFileResponse = {
+  __typename?: 'UploadFileResponse';
+  id?: Maybe<Scalars['String']>;
+};
+
+export type GetPrivateFileInput = {
+  key: Scalars['ID'];
+  entityID?: Maybe<Scalars['String']>;
+  entity?: Maybe<EntityWithFiles>;
+};
+
+export type History = {
+  __typename?: 'History';
+  id: Scalars['String'];
+  entity: Entities;
+  entityId: Scalars['String'];
+  description?: Maybe<Scalars['String']>;
+  data: Scalars['String'];
+  oldData: Scalars['String'];
+  createdAt: Scalars['Date'];
+  userId: Scalars['String'];
+  companyId: Scalars['String'];
+};
+
+export type CreateHistoryInput = {
+  __typename?: 'CreateHistoryInput';
+  entity: Entities;
+  entityId: Scalars['String'];
+  description?: Maybe<Scalars['String']>;
+  data: Scalars['String'];
+  oldData: Scalars['String'];
+  userId: Scalars['String'];
+  companyId: Scalars['String'];
+};
+
+export type HistoryData = {
+  __typename?: 'HistoryData';
+  id: Scalars['String'];
+  data: Scalars['String'];
+};
+
+export type CreateHistoryDataInput = {
+  __typename?: 'CreateHistoryDataInput';
+  data: Scalars['String'];
+};
+
+export type LinkedEntity = {
+  __typename?: 'LinkedEntity';
+  id: Scalars['ID'];
+  type?: Maybe<Entities>;
+};
+
+export type LinkedEntityInput = {
+  id: Scalars['ID'];
+  type?: Maybe<Entities>;
+};
+
+export enum Entities {
+  Team = 'team',
+  Pim = 'pim',
+  ListPim = 'listPim',
+  GeneralPim = 'generalPim',
+  PimCadastre = 'pimCadastre',
+  PimPrices = 'pimPrices',
+  PimOutside = 'pimOutside',
+  PimInside = 'pimInside',
+  Profile = 'profile',
+  PimServices = 'pimServices',
+  PimMedia = 'pimMedia',
+  PimSpecification = 'pimSpecification',
+  PimSales = 'pimSales',
+  Label = 'label',
+  NcpLabel = 'ncpLabel',
+  TaskLabel = 'taskLabel',
+  PimLocation = 'pimLocation',
+  Event = 'event',
+  NcpGeneral = 'ncpGeneral',
+  ListNcp = 'listNcp',
+  Ncp = 'ncp',
+  NcpCharacteristics = 'ncpCharacteristics',
+  NcpPrices = 'ncpPrices',
+  NcpMedia = 'ncpMedia',
+  NcpServices = 'ncpServices',
+  NcpLinkedPims = 'ncpLinkedPims',
+  ProjectPhase = 'projectPhase',
+  ObjectType = 'objectType',
+  ObjectTypeGeneral = 'objectTypeGeneral',
+  ObjectTypePrices = 'objectTypePrices',
+  ObjectTypeMedia = 'objectTypeMedia',
+  ObjectTypeLinkedPims = 'objectTypeLinkedPims',
+  ObjectTypeCharacteristics = 'objectTypeCharacteristics',
+  ObjectTypeServices = 'objectTypeServices',
+  ObjectTypesList = 'objectTypesList',
+  ObjectTypeLabel = 'objectTypeLabel',
+  Company = 'company',
+  Task = 'task',
+  Notification = 'notification',
+  Crm = 'crm',
+  CrmList = 'crmList',
+  CrmGeneral = 'crmGeneral',
+  Plan = 'plan',
+  CrmFamilyContacts = 'crmFamilyContacts',
+  CrmHomeSituation = 'crmHomeSituation',
+  CrmFinancial = 'crmFinancial',
+  CrmContactInformation = 'crmContactInformation',
+  CrmMatchProfile = 'crmMatchProfile',
+  AddOn = 'addOn',
+  TiaraMutation = 'tiaraMutation',
+  Email = 'email',
+  Users = 'users',
+  Sales = 'sales',
+}
+
+export enum IdentificationNumberType {
+  Sap = 'Sap',
+  Form = 'Form',
+}
+
+export type IdentificationNumber = {
+  __typename?: 'IdentificationNumber';
+  id: Scalars['String'];
+  name?: Maybe<Scalars['String']>;
+  number?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
   dateCreated?: Maybe<Scalars['Date']>;
 };
 
-export type ServiceConfiguration =
-  | HotWaterSupplyConfiguration
-  | HeatingSourceConfiguration
-  | AdditionalServiceConfiguration;
-
-export type ServiceDescriptionInput = {
-  id: Scalars['ID'];
-  servicesDescription?: Maybe<Scalars['String']>;
+export type AddIdentificationNumberInput = {
+  parentId: Scalars['String'];
+  name?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
 };
 
-export enum ServiceType {
-  HotWaterSupplies = 'HotWaterSupplies',
-  HeatingSources = 'HeatingSources',
-  AdditionalServices = 'AdditionalServices',
+export type UpdateIdentificationNumberInput = {
+  id: Scalars['String'];
+  name?: Maybe<Scalars['String']>;
+  number?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+};
+
+export enum KikInfoType {
+  CadastralPlot = 'CadastralPlot',
+  CadastralMap = 'CadastralMap',
 }
 
-export type Services = {
-  hotWaterSupplies?: Maybe<Array<Service>>;
-  heatingSources?: Maybe<Array<Service>>;
-  additionalServices?: Maybe<Array<Service>>;
+export type KikSettings = {
+  __typename?: 'KikSettings';
+  username: Scalars['String'];
 };
 
-export type SetCharacteristicsSectionsInput = {
+export type KikSettingsInput = {
+  username: Scalars['String'];
+  password: Scalars['String'];
+};
+
+export type KikInfoInput = {
+  pimId: Scalars['ID'];
+  infoType: KikInfoType;
+};
+
+export enum LabelProperty {
+  ObligationToProvideInformation = 'ObligationToProvideInformation',
+  Picture = 'Picture',
+  Usp = 'Usp',
+  TextChapter = 'TextChapter',
+  ParkingSpecification = 'ParkingSpecification',
+  MonumentSpecification = 'MonumentSpecification',
+  InsideSpecification = 'InsideSpecification',
+  HousingOptions = 'HousingOptions',
+  SpecialTags = 'SpecialTags',
+  PropertyRights = 'PropertyRights',
+  HomeOwnerAssociation = 'HomeOwnerAssociation',
+  LocationGoodToKnow = 'LocationGoodToKnow',
+  Location = 'Location',
+  CadastreMap = 'CadastreMap',
+  MediaLink = 'MediaLink',
+  Tag = 'Tag',
+  TankInspection = 'TankInspection',
+  PollutionInspection = 'PollutionInspection',
+  MaintenanceInspection = 'MaintenanceInspection',
+  Cost = 'Cost',
+  Task = 'Task',
+  ReasonToMove = 'ReasonToMove',
+}
+
+export type Label = {
+  __typename?: 'Label';
   id: Scalars['ID'];
-  sections?: Maybe<Array<CharacteristicsSections>>;
+  icon?: Maybe<Scalars['String']>;
+  text: Scalars['String'];
+  property: LabelProperty;
+  dateCreated?: Maybe<Scalars['Date']>;
+};
+
+export type LabelInput = {
+  parentId: Scalars['ID'];
+  icon?: Maybe<Scalars['String']>;
+  text: Scalars['String'];
+  property: LabelProperty;
+};
+
+export type LinkSalesCrmsInput = {
+  cyclusId: Scalars['String'];
+  crmIds: Array<Scalars['String']>;
+};
+
+export type LinkSalesCrmsListPaginationMeta = {
+  __typename?: 'LinkSalesCrmsListPaginationMeta';
+  total: Scalars['Int'];
+  page: Scalars['Int'];
+  limit: Scalars['Int'];
+};
+
+export type LinkSalesCrmsListResult = {
+  __typename?: 'LinkSalesCrmsListResult';
+  meta: LinkSalesCrmsListPaginationMeta;
+  salesCrmsItems?: Maybe<Array<CrmListItem>>;
+};
+
+export type LinkSalesPimsInput = {
+  cyclusId: Scalars['String'];
+  pimIds: Array<Scalars['String']>;
+};
+
+export type LinkSalesPimsListPaginationMeta = {
+  __typename?: 'LinkSalesPimsListPaginationMeta';
+  total: Scalars['Int'];
+  page: Scalars['Int'];
+  limit: Scalars['Int'];
+};
+
+export type LinkSalesPimsListResult = {
+  __typename?: 'LinkSalesPimsListResult';
+  meta: LinkSalesPimsListPaginationMeta;
+  salesPimsItems?: Maybe<Array<ListPim>>;
+};
+
+export type LinkedPimFilters = {
+  archived?: Maybe<Scalars['Boolean']>;
+};
+
+export type EntityLinkedWithPims = {
+  id: Scalars['ID'];
+  linkedProperties: PimListSearchResult;
+  linkedPropertiesIds?: Maybe<Array<Scalars['ID']>>;
+  lastEditedBy?: Maybe<LastUpdatedProfile>;
+  dateUpdated?: Maybe<Scalars['Date']>;
+  description?: Maybe<Scalars['String']>;
+};
+
+export type EntityLinkedWithPimsLinkedPropertiesArgs = {
+  filters?: Maybe<LinkedPimFilters>;
+  sort?: Maybe<Array<Sort>>;
+  pagination: Pagination;
 };
 
 export type SetLinkedPimsInput = {
@@ -8385,341 +3489,556 @@ export type SetLinkedPimsInput = {
   linkedProperties?: Maybe<Array<Scalars['ID']>>;
 };
 
-export enum SocialBenefitType {
-  SocialBenefit = 'SocialBenefit',
-  Wajong = 'Wajong',
-  WiaWao = 'WiaWao',
-  IoawIow = 'IoawIow',
-}
-
-export type SocialMediaLink = {
-  __typename?: 'SocialMediaLink';
-  id: Scalars['String'];
-  socialMediaLink: Scalars['String'];
-  socialMediaLinkType?: Maybe<SocialMediaLinkType>;
-  isPublic?: Maybe<Scalars['Boolean']>;
+export type LinkedPim = {
+  __typename?: 'LinkedPim';
+  id: Scalars['ID'];
+  houseNumberPrefix?: Maybe<Scalars['String']>;
+  houseNumber: Scalars['String'];
+  houseNumberAddition?: Maybe<Scalars['String']>;
+  postalCode: Scalars['String'];
+  district?: Maybe<Scalars['String']>;
+  city: Scalars['String'];
+  state?: Maybe<Scalars['String']>;
+  county?: Maybe<Scalars['String']>;
+  country: Scalars['String'];
+  propertyType?: Maybe<PropertyType>;
+  attention?: Maybe<Scalars['String']>;
+  plotNumber?: Maybe<Scalars['Int']>;
+  salePrice?: Maybe<Scalars['AbsoluteFloat']>;
+  rentPrice?: Maybe<Scalars['AbsoluteFloat']>;
+  status: PimStatus;
+  images?: Maybe<Array<File>>;
 };
 
-export enum SocialMediaLinkType {
-  LinkedIn = 'LinkedIn',
-  Twitter = 'Twitter',
-  Facebook = 'Facebook',
-  Pinterest = 'Pinterest',
-  Instagram = 'Instagram',
-  WhatsApp = 'WhatsApp',
-  PersonalWebsite = 'PersonalWebsite',
+export type LinkedPimSearchResult = {
+  __typename?: 'LinkedPimSearchResult';
+  metadata: SearchMetadata;
+  items?: Maybe<Array<LinkedPim>>;
+};
+
+export type ListPimPropertyRelated = {
+  __typename?: 'ListPimPropertyRelated';
+  items?: Maybe<Array<Maybe<PropertyRelatedItems>>>;
+};
+
+export type ListPimHouseOutside = {
+  __typename?: 'ListPimHouseOutside';
+  propertyRelated?: Maybe<ListPimPropertyRelated>;
+};
+
+export type ListPim = {
+  __typename?: 'ListPim';
+  id: Scalars['String'];
+  houseNumberPrefix?: Maybe<Scalars['String']>;
+  houseNumber: Scalars['String'];
+  houseNumberAddition?: Maybe<Scalars['String']>;
+  constructionNumberPrefix?: Maybe<Scalars['String']>;
+  constructionNumber?: Maybe<Scalars['String']>;
+  constructionNumberAddition?: Maybe<Scalars['String']>;
+  postalCode: Scalars['String'];
+  district?: Maybe<Scalars['String']>;
+  street?: Maybe<Scalars['String']>;
+  city: Scalars['String'];
+  state?: Maybe<Scalars['String']>;
+  county?: Maybe<Scalars['String']>;
+  country: Scalars['String'];
+  completeness: Scalars['Float'];
+  propertyType?: Maybe<PropertyType>;
+  salePrice?: Maybe<Scalars['Float']>;
+  rentPrice?: Maybe<Scalars['Float']>;
+  pictures?: Maybe<Array<Picture>>;
+  livingArea?: Maybe<Scalars['Int']>;
+  attentionNote?: Maybe<Scalars['String']>;
+  dateCreated: Scalars['Date'];
+  dateUpdated?: Maybe<Scalars['Date']>;
+  lastEditedBy?: Maybe<LastUpdatedProfile>;
+  houseOutside?: Maybe<ListPimHouseOutside>;
+  archived?: Maybe<Scalars['Boolean']>;
+  status: PimStatus;
+  developmentType: DevelopmentType;
+  linkedObjectTypeIds?: Maybe<Array<Maybe<Scalars['String']>>>;
+  mainPicture?: Maybe<Picture>;
+  isPurchased?: Maybe<Scalars['Boolean']>;
+};
+
+export type PimListSearchResult = {
+  __typename?: 'PimListSearchResult';
+  metadata?: Maybe<SearchMetadata>;
+  items?: Maybe<Array<ListPim>>;
+};
+
+export enum MatchPropertyType {
+  Residential = 'Residential',
+  NewConstruction = 'NewConstruction',
+  Relet = 'Relet',
+  Commercial = 'Commercial',
+  Agriculture = 'Agriculture',
+  ParkingLot = 'ParkingLot',
+  BuildingPlot = 'BuildingPlot',
 }
 
-export enum SocialRealEstateServicesType {
-  SanitaryShared = 'SanitaryShared',
-  SanitaryIndividually = 'SanitaryIndividually',
+export enum MatchEstateType {
+  SignleFamily = 'SignleFamily',
+  DykeHouse = 'DykeHouse',
+  CourtHouse = 'CourtHouse',
+  DriveInHome = 'DriveInHome',
+  SplitLevel = 'SplitLevel',
+  QuadrantHouse = 'QuadrantHouse',
+  PatioHouse = 'PatioHouse',
+  Villa = 'Villa',
+  CanalHouse = 'CanalHouse',
+  WaterHouse = 'WaterHouse',
+  Bungalow = 'Bungalow',
+  SemiBungalow = 'SemiBungalow',
+  StiltHouse = 'StiltHouse',
+  BusinessOrServiceHome = 'BusinessOrServiceHome',
+  Estate = 'Estate',
+  CountryHouse = 'CountryHouse',
+  Mansion = 'Mansion',
+}
+
+export enum MatchCommercialEstateType {
+  BusinessSpace = 'BusinessSpace',
+  Offices = 'Offices',
+  RetailSpace = 'RetailSpace',
+  SocialRealEstate = 'SocialRealEstate',
+  CateringIndustry = 'CateringIndustry',
+  Terrain = 'Terrain',
+}
+
+export enum MatchRentalPeriodType {
+  ThreeToSixMonths = 'ThreeToSixMonths',
+  SixToTwelveMonths = 'SixToTwelveMonths',
+  TwelveToTwentyfourMonths = 'TwelveToTwentyfourMonths',
+  TwentyfourToThirtysixMonths = 'TwentyfourToThirtysixMonths',
+  Indeterminate = 'Indeterminate',
+}
+
+export enum MatchProfileWith {
+  OwnPortfolio = 'OwnPortfolio',
+  ExternalNvm = 'ExternalNvm',
+}
+
+export enum MatchCharacteristicsGeneralType {
+  SemiDetached = 'SemiDetached',
+  FinalHouse = 'FinalHouse',
+  CornerHouse = 'CornerHouse',
+  TerracedHouse = 'TerracedHouse',
+  DetachedHouse = 'DetachedHouse',
+  Recreation = 'Recreation',
+}
+
+export enum MatchCommercialCharacteristicsGeneralType {
+  Leissure = 'Leissure',
+  Logistic = 'Logistic',
+  PracticeRoom = 'PracticeRoom',
+}
+
+export enum MatchCharacteristicsMaintenanceQuality {
+  Good = 'Good',
+  Poor = 'Poor',
+  Regular = 'Regular',
+  Bad = 'Bad',
+  Terrible = 'Terrible',
+  Perfect = 'Perfect',
+}
+
+export enum MatchCommercialConditions {
+  VatTaxed = 'VatTaxed',
+  Indexed = 'Indexed',
+  FurnishedIncludingServiceCost = 'FurnishedIncludingServiceCost',
+  PavedOutsideTerrain = 'PavedOutsideTerrain',
+  CompanyResidence = 'CompanyResidence',
+  Camping = 'Camping',
+  Investment = 'Investment',
+}
+
+export enum PaymentFrequency {
+  Yearly = 'Yearly',
+  Monthly = 'Monthly',
+}
+
+export enum PaymentPeriod {
+  HalfYear = 'HalfYear',
+  OneYear = 'OneYear',
+  TwoYear = 'TwoYear',
+  ThreeYear = 'ThreeYear',
+  Undetermined = 'Undetermined',
+}
+
+export enum MatchGardenSituation {
+  North = 'North',
+  East = 'East',
+  South = 'South',
+  West = 'West',
+}
+
+export enum MatchTags {
+  Seniors = 'Seniors',
+  DiyHouse = 'DiyHouse',
+  ReadyToMoveIn = 'ReadyToMoveIn',
+  Starter = 'Starter',
+  Rural = 'Rural',
+  Thirties = 'Thirties',
+  Exclusive = 'Exclusive',
+  ByWater = 'ByWater',
+  ChildFriendly = 'ChildFriendly',
+}
+
+export enum MatchRequirementType {
+  BathroomOnGroundFloor = 'BathroomOnGroundFloor',
+  RoofTerrace = 'RoofTerrace',
+  Balcony = 'Balcony',
   Elevator = 'Elevator',
-  Swimmingpool = 'Swimmingpool',
-  Daycare = 'Daycare',
-  PrivateParkingFacilities = 'PrivateParkingFacilities',
-  OutdoorSpaceAvailable = 'OutdoorSpaceAvailable',
-  OutOfSchoolChildcare = 'OutOfSchoolChildcare',
-  FireAlarmSystem = 'FireAlarmSystem',
+  Monument = 'Monument',
+  MonumentalBuilding = 'MonumentalBuilding',
+  SwimmingPool = 'SwimmingPool',
+  PermanentHabitation = 'PermanentHabitation',
+  ProtectedCityOrVillageView = 'ProtectedCityOrVillageView',
+  DoubleOccupancyAvailable = 'DoubleOccupancyAvailable',
+  AccessibleToDisabledPeople = 'AccessibleToDisabledPeople',
+  AccssibleToTheElderly = 'AccssibleToTheElderly',
+  PartlyUpholstered = 'PartlyUpholstered',
+  PartiallyRented = 'PartiallyRented',
+  Furnished = 'Furnished',
+  Upholsterd = 'Upholsterd',
+  DiyHome = 'DiyHome',
 }
 
-export type SocialRealEstateSpace = {
-  __typename?: 'SocialRealEstateSpace';
-  measurements?: Maybe<SocialRealEstateSpaceMeasurements>;
-  type?: Maybe<Scalars['String']>;
-  notesAboutType?: Maybe<Scalars['String']>;
-  destinationType?: Maybe<Array<Scalars['String']>>;
-  specifications?: Maybe<Array<Scalars['String']>>;
-  services?: Maybe<Array<Scalars['String']>>;
-  prices?: Maybe<SocialRealEstateSpacePrices>;
-};
-
-export type SocialRealEstateSpaceInput = {
-  measurements?: Maybe<SocialRealEstateSpaceMeasurementsInput>;
-  type?: Maybe<Scalars['String']>;
-  notesAboutType?: Maybe<Scalars['String']>;
-  destinationType?: Maybe<Array<Scalars['String']>>;
-  specifications?: Maybe<Array<Scalars['String']>>;
-  services?: Maybe<Array<Scalars['String']>>;
-  prices?: Maybe<SocialRealEstateSpacePricesInput>;
-};
-
-export type SocialRealEstateSpaceMeasurements = {
-  __typename?: 'SocialRealEstateSpaceMeasurements';
-  surface?: Maybe<Scalars['AbsoluteFloat']>;
-  numberOfCareUnits?: Maybe<Scalars['Int']>;
-  numberOfSeats?: Maybe<Scalars['Int']>;
-};
-
-export type SocialRealEstateSpaceMeasurementsInput = {
-  surface?: Maybe<Scalars['AbsoluteFloat']>;
-  numberOfCareUnits?: Maybe<Scalars['Int']>;
-  numberOfSeats?: Maybe<Scalars['Int']>;
-};
-
-export type SocialRealEstateSpacePrices = {
-  __typename?: 'SocialRealEstateSpacePrices';
-  vatRate?: Maybe<Scalars['AbsoluteFloat']>;
-  notes?: Maybe<Scalars['String']>;
-};
-
-export type SocialRealEstateSpacePricesInput = {
-  vatRate?: Maybe<Scalars['AbsoluteFloat']>;
-  notes?: Maybe<Scalars['String']>;
-};
-
-export enum SocialRealEstateSpaceType {
-  Cultural = 'Cultural',
-  Education = 'Education',
-  Religious = 'Religious',
-  Sport = 'Sport',
-  Care = 'Care',
+export enum MatchRequirementStatus {
+  Required = 'Required',
+  Desirable = 'Desirable',
+  NotSignificant = 'NotSignificant',
 }
 
-export enum SocialRealEstateSpecificationType {
-  PracticeSpace = 'PracticeSpace',
-  RedesignationPossible = 'RedesignationPossible',
-  HousingAvailable = 'HousingAvailable',
-  ReturnServices = 'ReturnServices',
+export enum MatchService {
+  ConcreteFloor = 'ConcreteFloor',
+  Skylights = 'Skylights',
+  PaymentFrequencyHeating = 'PaymentFrequencyHeating',
+  LoadingDocks = 'LoadingDocks',
+  Sprinkler = 'Sprinkler',
+  PowerFlow = 'PowerFlow',
+  OverheadDoors = 'OverheadDoors',
+  ToiletRecessedLuminaries = 'ToiletRecessedLuminaries',
+  Elevators = 'Elevators',
+  OpenableWindows = 'OpenableWindows',
 }
 
-export enum SoilType {
-  Clay = 'Clay',
-  Peat = 'Peat',
-  Sand = 'Sand',
-  Loam = 'Loam',
-}
-
-export type Sort = {
-  column: Scalars['String'];
-  direction: SortDirection;
+export type MatchProfile = {
+  __typename?: 'MatchProfile';
+  id: Scalars['ID'];
+  crmId: Scalars['ID'];
+  companyId: Scalars['ID'];
+  propertyType?: Maybe<MatchPropertyType>;
+  startDate?: Maybe<Scalars['Date']>;
+  endDate?: Maybe<Scalars['Date']>;
+  matchDuration?: Maybe<MatchProfileDateRange>;
+  matchWith?: Maybe<Array<MatchProfileWith>>;
+  description?: Maybe<Scalars['String']>;
+  estateType?: Maybe<MatchEstateType>;
+  commercialEstateType?: Maybe<MatchCommercialEstateType>;
+  characteristics?: Maybe<MatchCharacteristics>;
+  commercialCharacteristics?: Maybe<MatchCommercialCharacteristics>;
+  pricing?: Maybe<MatchPricing>;
+  outside?: Maybe<MatchOutsidePricing>;
+  garden?: Maybe<MatchGarden>;
+  conditions?: Maybe<Array<MatchCommercialConditions>>;
+  services?: Maybe<Array<MatchService>>;
+  tags?: Maybe<Array<MatchTags>>;
+  measurements?: Maybe<MatchMeasurements>;
+  revenue?: Maybe<IntRange>;
+  exploitation?: Maybe<IntRange>;
+  requirements?: Maybe<Array<MatchRequirement>>;
+  locations?: Maybe<Array<MatchProfileLocation>>;
+  isActive: Scalars['Boolean'];
+  createdAt: Scalars['Date'];
 };
 
-export enum SortDirection {
-  Asc = 'asc',
-  Desc = 'desc',
-}
-
-export type Space = {
-  __typename?: 'Space';
-  id: Scalars['String'];
-  spaceType: SpaceType;
-  spaceName?: Maybe<Scalars['String']>;
-  extraRoomPossibility: Scalars['Boolean'];
-  configuration?: Maybe<SpaceConfiguration>;
-  dateCreated?: Maybe<Scalars['Date']>;
+export type MatchRevenueAndExploitation = {
+  __typename?: 'MatchRevenueAndExploitation';
+  revenueFrom?: Maybe<Scalars['Int']>;
+  revenueTo?: Maybe<Scalars['Int']>;
+  exploitationFrom?: Maybe<Scalars['Int']>;
+  exploitationTo?: Maybe<Scalars['Int']>;
 };
 
-export type SpaceConfiguration =
-  | KitchenSpace
-  | BathroomSpace
-  | LivingRoomSpace
-  | BedroomSpace
-  | HomeOfficeSpace
-  | OtherSpace;
+export type MatchProfileDateRange = {
+  __typename?: 'MatchProfileDateRange';
+  from?: Maybe<Scalars['Date']>;
+  to?: Maybe<Scalars['Date']>;
+};
 
-export enum SpaceServiceHeating {
-  GeothermalHeat = 'GeothermalHeat',
-  NoHeating = 'NoHeating',
-  Fireplace = 'Fireplace',
-  MultiBurner = 'MultiBurner',
-  HotAirHeating = 'HotAirHeating',
-  PelletStove = 'PelletStove',
-  ElectricHeating = 'ElectricHeating',
-  DistrictHeating = 'DistrictHeating',
-  GasFireplace = 'GasFireplace',
-  CoalStove = 'CoalStove',
-  WallHeating = 'WallHeating',
-  HeatPump = 'HeatPump',
-  MotherFireplace = 'MotherFireplace',
-  GasHeaters = 'GasHeaters',
-  BlockHeatingWoodStove = 'BlockHeatingWoodStove',
-  CentralHeatingBoiler = 'CentralHeatingBoiler',
-  UnderfloorHeatingEntirely = 'UnderfloorHeatingEntirely',
-  PossibilityForFireplaceHeat = 'PossibilityForFireplaceHeat',
-  UnderfloorHeatingPartly = 'UnderfloorHeatingPartly',
-  RecoveryInstalation = 'RecoveryInstalation',
+export type MatchCharacteristics = {
+  __typename?: 'MatchCharacteristics';
+  general?: Maybe<MatchCharacteristicsGeneralType>;
+  property?: Maybe<MatchCharacteristicsProperty>;
+};
+
+export type MatchCharacteristicsProperty = {
+  __typename?: 'MatchCharacteristicsProperty';
+  minAmountRooms?: Maybe<Scalars['Int']>;
+  minAmountBedrooms?: Maybe<Scalars['Int']>;
+  minAmountFloors?: Maybe<Scalars['Int']>;
+  residentialLayerFrom?: Maybe<Scalars['Int']>;
+  residentialLayerTo?: Maybe<Scalars['Int']>;
+  constructionYearFrom?: Maybe<Scalars['Int']>;
+  constructionYearTo?: Maybe<Scalars['Int']>;
+  maintenanceQuality?: Maybe<MatchCharacteristicsMaintenanceQuality>;
+};
+
+export type MatchCommercialCharacteristics = {
+  __typename?: 'MatchCommercialCharacteristics';
+  general?: Maybe<MatchCommercialCharacteristicsGeneralType>;
+  property?: Maybe<MatchCommercialCharacteristicsProperty>;
+};
+
+export type MatchCommercialCharacteristicsProperty = {
+  __typename?: 'MatchCommercialCharacteristicsProperty';
+  minFreeHeight?: Maybe<Scalars['Int']>;
+  minFreeSpan?: Maybe<Scalars['Int']>;
+  minFloorLoad?: Maybe<Scalars['Int']>;
+  minAmountOfFloors?: Maybe<Scalars['Int']>;
+  minParkingLots?: Maybe<Scalars['Int']>;
+  engergyLabel?: Maybe<EnergyType>;
+  constructionYearFrom?: Maybe<Scalars['Int']>;
+  constructionYearTo?: Maybe<Scalars['Int']>;
+  maintenanceQuality?: Maybe<MatchCharacteristicsMaintenanceQuality>;
+};
+
+export type MatchPricing = {
+  __typename?: 'MatchPricing';
+  buyFrom?: Maybe<Scalars['Float']>;
+  buyTo?: Maybe<Scalars['Float']>;
+  rentFrom?: Maybe<Scalars['Float']>;
+  rentTo?: Maybe<Scalars['Float']>;
+  rentFrequency?: Maybe<PaymentFrequency>;
+  rentalPeriod?: Maybe<PaymentPeriod>;
+  preferredStartDate?: Maybe<Scalars['Date']>;
+};
+
+export type MatchOutsidePricing = {
+  __typename?: 'MatchOutsidePricing';
+  minGarage?: Maybe<Scalars['Int']>;
+};
+
+export type MatchGarden = {
+  __typename?: 'MatchGarden';
+  situation?: Maybe<Array<MatchGardenSituation>>;
+  outdoorSpacesMin?: Maybe<Scalars['Float']>;
+  outdoorSpacesMax?: Maybe<Scalars['Float']>;
+  volumeMin?: Maybe<Scalars['Float']>;
+  volumeMax?: Maybe<Scalars['Float']>;
+};
+
+export type MatchMeasurements = {
+  __typename?: 'MatchMeasurements';
+  surfaceFromMin?: Maybe<Scalars['Float']>;
+  surfaceToMin?: Maybe<Scalars['Float']>;
+  livingAreaFromMin?: Maybe<Scalars['Float']>;
+  livingAreaToMin?: Maybe<Scalars['Float']>;
+  businessSpaceSurfaceFromMin?: Maybe<Scalars['Float']>;
+  businessSpaceSurfaceToMin?: Maybe<Scalars['Float']>;
+  practiceRoomSurfaceToMax?: Maybe<Scalars['Float']>;
+  practiceRoomSurfaceToMin?: Maybe<Scalars['Float']>;
+  plotSurfaceFromMin?: Maybe<Scalars['Float']>;
+  plotSurfaceToMin?: Maybe<Scalars['Float']>;
+};
+
+export type MatchProfileLocation = {
+  __typename?: 'MatchProfileLocation';
+  latitude?: Maybe<Scalars['Float']>;
+  longitude?: Maybe<Scalars['Float']>;
+  street?: Maybe<Scalars['String']>;
+  houseNumber?: Maybe<Scalars['Int']>;
+  radius?: Maybe<Scalars['Float']>;
+};
+
+export type MatchRequirement = {
+  __typename?: 'MatchRequirement';
+  key: MatchRequirementType;
+  status: MatchRequirementStatus;
+};
+
+export type AddMatchProfileInput = {
+  crmId: Scalars['ID'];
+  propertyType?: Maybe<MatchPropertyType>;
+  startDate?: Maybe<Scalars['Date']>;
+  endDate?: Maybe<Scalars['Date']>;
+  matchDuration?: Maybe<DateRange>;
+  matchWith?: Maybe<Array<MatchProfileWith>>;
+  description?: Maybe<Scalars['String']>;
+  estateType?: Maybe<MatchEstateType>;
+  commercialEstateType?: Maybe<MatchCommercialEstateType>;
+  characteristics?: Maybe<MatchCharacteristicsInput>;
+  commercialCharacteristics?: Maybe<MatchCommercialCharacteristicsInput>;
+  pricing?: Maybe<MatchPricingInput>;
+  outside?: Maybe<MatchOutsidePricingInput>;
+  garden?: Maybe<MatchGardenInput>;
+  tags?: Maybe<Array<MatchTags>>;
+  measurements?: Maybe<MatchMeasurementsInput>;
+  revenue?: Maybe<IntRangeInput>;
+  exploitation?: Maybe<IntRangeInput>;
+  requirements?: Maybe<Array<MatchRequirementInput>>;
+  locations?: Maybe<Array<MatchProfileLocationInput>>;
+};
+
+export type CloneMatchProfileInput = {
+  id: Scalars['ID'];
+};
+
+export type UpdateMatchProfileInput = {
+  propertyType?: Maybe<MatchPropertyType>;
+  startDate?: Maybe<Scalars['Date']>;
+  endDate?: Maybe<Scalars['Date']>;
+  matchDuration?: Maybe<DateRange>;
+  matchWith?: Maybe<Array<MatchProfileWith>>;
+  description?: Maybe<Scalars['String']>;
+  estateType?: Maybe<MatchEstateType>;
+  commercialEstateType?: Maybe<MatchCommercialEstateType>;
+  characteristics?: Maybe<MatchCharacteristicsInput>;
+  commercialCharacteristics?: Maybe<MatchCommercialCharacteristicsInput>;
+  pricing?: Maybe<MatchPricingInput>;
+  outside?: Maybe<MatchOutsidePricingInput>;
+  garden?: Maybe<MatchGardenInput>;
+  tags?: Maybe<Array<MatchTags>>;
+  measurements?: Maybe<MatchMeasurementsInput>;
+  revenue?: Maybe<IntRangeInput>;
+  exploitation?: Maybe<IntRangeInput>;
+  requirements?: Maybe<Array<MatchRequirementInput>>;
+  locations?: Maybe<Array<MatchProfileLocationInput>>;
+  isActive?: Maybe<Scalars['Boolean']>;
+};
+
+export type MatchCharacteristicsInput = {
+  general?: Maybe<MatchCharacteristicsGeneralType>;
+  property?: Maybe<MatchCharacteristicsPropertyInput>;
+};
+
+export type MatchCommercialCharacteristicsInput = {
+  general?: Maybe<MatchCommercialCharacteristicsGeneralType>;
+  property?: Maybe<MatchCommercialCharacteristicsPropertyInput>;
+};
+
+export type IntRange = {
+  __typename?: 'IntRange';
+  from?: Maybe<Scalars['Int']>;
+  to?: Maybe<Scalars['Int']>;
+};
+
+export type IntRangeInput = {
+  from?: Maybe<Scalars['Int']>;
+  to?: Maybe<Scalars['Int']>;
+};
+
+export type MatchCharacteristicsPropertyInput = {
+  minAmountRooms?: Maybe<Scalars['Int']>;
+  minAmountBedrooms?: Maybe<Scalars['Int']>;
+  minAmountFloors?: Maybe<Scalars['Int']>;
+  residentialLayerFrom?: Maybe<Scalars['Int']>;
+  residentialLayerTo?: Maybe<Scalars['Int']>;
+  constructionYearFrom?: Maybe<Scalars['Int']>;
+  constructionYearTo?: Maybe<Scalars['Int']>;
+  maintenanceQuality?: Maybe<MatchCharacteristicsMaintenanceQuality>;
+};
+
+export type MatchCommercialCharacteristicsPropertyInput = {
+  minFreeHeight?: Maybe<Scalars['Int']>;
+  minFreeSpan?: Maybe<Scalars['Int']>;
+  minFloorLoad?: Maybe<Scalars['Int']>;
+  minAmountOfFloors?: Maybe<Scalars['Int']>;
+  minParkingLots?: Maybe<Scalars['Int']>;
+  engergyLabel?: Maybe<EnergyType>;
+  constructionYearFrom?: Maybe<Scalars['Int']>;
+  constructionYearTo?: Maybe<Scalars['Int']>;
+  maintenanceQuality?: Maybe<MatchCharacteristicsMaintenanceQuality>;
+};
+
+export type MatchPricingInput = {
+  buyFrom?: Maybe<Scalars['Float']>;
+  buyTo?: Maybe<Scalars['Float']>;
+  rentFrom?: Maybe<Scalars['Float']>;
+  rentTo?: Maybe<Scalars['Float']>;
+  rentFrequency?: Maybe<PaymentFrequency>;
+  rentalPeriod?: Maybe<PaymentPeriod>;
+  preferredStartDate?: Maybe<Scalars['Date']>;
+};
+
+export type MatchOutsidePricingInput = {
+  minGarage?: Maybe<Scalars['Int']>;
+};
+
+export type MatchGardenInput = {
+  situation?: Maybe<Array<MatchGardenSituation>>;
+  outdoorSpacesMin?: Maybe<Scalars['Float']>;
+  outdoorSpacesMax?: Maybe<Scalars['Float']>;
+  volumeMin?: Maybe<Scalars['Float']>;
+  volumeMax?: Maybe<Scalars['Float']>;
+};
+
+export type MatchMeasurementsInput = {
+  surfaceFromMin?: Maybe<Scalars['Float']>;
+  surfaceToMin?: Maybe<Scalars['Float']>;
+  livingAreaFromMin?: Maybe<Scalars['Float']>;
+  livingAreaToMin?: Maybe<Scalars['Float']>;
+  businessSpaceSurfaceFromMin?: Maybe<Scalars['Float']>;
+  businessSpaceSurfaceToMin?: Maybe<Scalars['Float']>;
+  practiceRoomSurfaceToMax?: Maybe<Scalars['Float']>;
+  practiceRoomSurfaceToMin?: Maybe<Scalars['Float']>;
+  plotSurfaceFromMin?: Maybe<Scalars['Float']>;
+  plotSurfaceToMin?: Maybe<Scalars['Float']>;
+};
+
+export type MatchProfileLocationInput = {
+  latitude?: Maybe<Scalars['Float']>;
+  longitude?: Maybe<Scalars['Float']>;
+  street?: Maybe<Scalars['String']>;
+  houseNumber?: Maybe<Scalars['Int']>;
+  radius?: Maybe<Scalars['Float']>;
+};
+
+export type MatchRequirementInput = {
+  key: MatchRequirementType;
+  status: MatchRequirementStatus;
+};
+
+export enum PictureType {
+  General = 'General',
+  Inside = 'Inside',
+  Outside = 'Outside',
+  LivingRoom = 'LivingRoom',
+  Kitchen = 'Kitchen',
+  Bathroom = 'Bathroom',
+  Garden = 'Garden',
+  Garage = 'Garage',
+  Terrain = 'Terrain',
+  Surroundings = 'Surroundings',
+  Attic = 'Attic',
 }
 
-export enum SpaceShape {
-  Rectangle = 'Rectangle',
-  Square = 'Square',
-  LType = 'LType',
-  TType = 'TType',
-  UType = 'UType',
-  ZType = 'ZType',
+export enum MediaLinkType {
+  YouTube = 'YouTube',
+  ThreeSixtyDegree = 'ThreeSixtyDegree',
+  Floorplanner = 'Floorplanner',
+  FacebookTrackingCode = 'FacebookTrackingCode',
 }
 
-export enum SpaceType {
+export enum ChapterOrUspType {
+  Garden = 'Garden',
+  Garage = 'Garage',
+  Storage = 'Storage',
+  Terrain = 'Terrain',
+  ParkingLot = 'ParkingLot',
   Kitchen = 'Kitchen',
   Bathroom = 'Bathroom',
   LivingRoom = 'LivingRoom',
   Bedroom = 'Bedroom',
   HomeOffice = 'HomeOffice',
-  Other = 'Other',
+  Attic = 'Attic',
+  Floor = 'Floor',
+  Basement = 'Basement',
+  GroundFloor = 'GroundFloor',
+  Funda = 'Funda',
 }
-
-export type SpecialTags = {
-  __typename?: 'SpecialTags';
-  type?: Maybe<Array<Scalars['String']>>;
-  notes?: Maybe<Scalars['String']>;
-};
-
-export type SpecialTagsInput = {
-  type?: Maybe<Array<Scalars['String']>>;
-  notes?: Maybe<Scalars['String']>;
-};
-
-export enum SpecialTagsType {
-  DemolitionProperty = 'DemolitionProperty',
-  DoItYourselfProperty = 'DoItYourselfProperty',
-  SeniorsProperty = 'SeniorsProperty',
-  RuralLiving = 'RuralLiving',
-  The30s = 'The30s',
-  LivingNearTheWater = 'LivingNearTheWater',
-  ExclusiveProperty = 'ExclusiveProperty',
-  Turnkey = 'Turnkey',
-  ReadyToUse = 'ReadyToUse',
-  StarterProperty = 'StarterProperty',
-}
-
-export type Specification = LastUpdated & {
-  __typename?: 'Specification';
-  energy?: Maybe<Energy>;
-  approvals?: Maybe<Approvals>;
-  obligation?: Maybe<ObligationToProvideInformation>;
-  description?: Maybe<Scalars['String']>;
-  dateUpdated?: Maybe<Scalars['Date']>;
-  lastEditedBy?: Maybe<LastUpdatedProfile>;
-};
-
-export type SpecificationAdvanced = LastUpdated & {
-  __typename?: 'SpecificationAdvanced';
-  parking?: Maybe<ParkingSpecification>;
-  monument?: Maybe<MonumentSpecification>;
-  inside?: Maybe<InsideSpecification>;
-  housingOptions?: Maybe<HousingOptions>;
-  specialTags?: Maybe<SpecialTags>;
-  propertyRights?: Maybe<PropertyRights>;
-  homeOwnerAssociation?: Maybe<HomeOwnerAssociation>;
-  description?: Maybe<Scalars['String']>;
-  lastEditedBy?: Maybe<LastUpdatedProfile>;
-  dateUpdated?: Maybe<Scalars['Date']>;
-};
-
-export type SpecificationAdvancedInput = {
-  pimId: Scalars['String'];
-  parking?: Maybe<ParkingSpecificationInput>;
-  monument?: Maybe<MonumentSpecificationInput>;
-  inside?: Maybe<InsideSpecificationInput>;
-  housingOptions?: Maybe<HousingOptionsInput>;
-  specialTags?: Maybe<SpecialTagsInput>;
-  propertyRights?: Maybe<PropertyRightsInput>;
-  homeOwnerAssociation?: Maybe<HomeOwnerAssociationInput>;
-  description?: Maybe<Scalars['String']>;
-};
-
-export type SpecificationInput = {
-  pimId: Scalars['ID'];
-  energy?: Maybe<EnergyInput>;
-  approvals?: Maybe<ApprovalsInput>;
-  obligation?: Maybe<ObligationToProvideInformationInput>;
-  description?: Maybe<Scalars['String']>;
-};
-
-export type Storage = {
-  __typename?: 'Storage';
-  measurements?: Maybe<StorageMeasurements>;
-  type?: Maybe<Scalars['String']>;
-  notes?: Maybe<Scalars['String']>;
-};
-
-export type StorageFeature = {
-  __typename?: 'StorageFeature';
-  main?: Maybe<Scalars['Boolean']>;
-  attached?: Maybe<Scalars['Boolean']>;
-  types?: Maybe<Array<Maybe<StorageType>>>;
-  materials?: Maybe<Array<Maybe<GarageAndStorageMaterial>>>;
-  insulations?: Maybe<Array<Maybe<StorageInsulation>>>;
-  services?: Maybe<Array<Maybe<StorageService>>>;
-  secondaryWindows?: Maybe<Scalars['Boolean']>;
-  measurement?: Maybe<CuboidMeasurement>;
-  notes?: Maybe<Scalars['String']>;
-  images?: Maybe<Array<File>>;
-};
-
-export type StorageInput = {
-  measurements?: Maybe<StorageMeasurementsInput>;
-  type?: Maybe<Scalars['String']>;
-  notes?: Maybe<Scalars['String']>;
-};
-
-export enum StorageInsulation {
-  NoInsulation = 'NoInsulation',
-  RoofInsulation = 'RoofInsulation',
-  DoubleGlazing = 'DoubleGlazing',
-  EcoConstruction = 'EcoConstruction',
-  NoCavity = 'NoCavity',
-  PartlyDoubleGlazing = 'PartlyDoubleGlazing',
-  WallInsulation = 'WallInsulation',
-  FloorInsulation = 'FloorInsulation',
-  FullyInsulated = 'FullyInsulated',
-}
-
-export type StorageMeasurements = {
-  __typename?: 'StorageMeasurements';
-  length?: Maybe<Scalars['AbsoluteFloat']>;
-  width?: Maybe<Scalars['AbsoluteFloat']>;
-  height?: Maybe<Scalars['AbsoluteFloat']>;
-  surface?: Maybe<Scalars['AbsoluteFloat']>;
-  volume?: Maybe<Scalars['AbsoluteFloat']>;
-};
-
-export type StorageMeasurementsInput = {
-  length?: Maybe<Scalars['AbsoluteFloat']>;
-  width?: Maybe<Scalars['AbsoluteFloat']>;
-  height?: Maybe<Scalars['AbsoluteFloat']>;
-  surface?: Maybe<Scalars['AbsoluteFloat']>;
-  volume?: Maybe<Scalars['AbsoluteFloat']>;
-};
-
-export enum StorageService {
-  WithElectricDoor = 'WithElectricDoor',
-  WithLoft = 'WithLoft',
-  EquippedWithElectricity = 'EquippedWithElectricity',
-  ProvidedWithHeating = 'ProvidedWithHeating',
-  ProvidedWithWater = 'ProvidedWithWater',
-}
-
-export enum StorageType {
-  StorageBox = 'StorageBox',
-  Shed = 'Shed',
-  TeaHouse = 'TeaHouse',
-  WithAttic = 'WithAttic',
-}
-
-export type Subscription = {
-  __typename?: 'Subscription';
-  _?: Maybe<Scalars['Boolean']>;
-  notificationAdded: NotificationAdded;
-};
-
-export type Subtask = LastUpdated & {
-  __typename?: 'Subtask';
-  id: Scalars['ID'];
-  title: Scalars['String'];
-  status: TaskStatus;
-  lastEditedBy?: Maybe<LastUpdatedProfile>;
-  dateUpdated?: Maybe<Scalars['Date']>;
-};
-
-export type Tag = {
-  __typename?: 'Tag';
-  id: Scalars['String'];
-  name?: Maybe<Scalars['String']>;
-  type?: Maybe<Scalars['String']>;
-  description?: Maybe<Scalars['String']>;
-  dateCreated?: Maybe<Scalars['Date']>;
-};
 
 export enum TagType {
   Remote = 'Remote',
@@ -8754,279 +4073,34 @@ export enum TagType {
   Shopping = 'Shopping',
 }
 
-export enum TankType {
-  Septic = 'Septic',
-  Oil = 'Oil',
-  Underground = 'Underground',
-}
+export type CommonMedia = LastUpdated & {
+  __typename?: 'CommonMedia';
+  id: Scalars['String'];
+  pictures?: Maybe<Array<Picture>>;
+  mediaLinks?: Maybe<Array<MediaLink>>;
+  textChapters?: Maybe<Array<TextChapter>>;
+  usps?: Maybe<Array<Usp>>;
+  tags?: Maybe<Array<Tag>>;
+  dateUpdated?: Maybe<Scalars['Date']>;
+  lastEditedBy?: Maybe<LastUpdatedProfile>;
+  mediaDescription?: Maybe<Scalars['String']>;
+};
 
-export type Task = LastUpdated & {
-  __typename?: 'Task';
-  id: Scalars['ID'];
-  taskIndex: Scalars['Int'];
-  title: Scalars['String'];
-  assignee: Scalars['ID'];
-  startDate?: Maybe<Scalars['Date']>;
-  deadline?: Maybe<Scalars['Date']>;
-  priority: TaskPriority;
-  label: Scalars['String'];
-  status: TaskStatus;
+export type CommonMediaPicturesArgs = {
+  sort?: Maybe<Sort>;
+};
+
+export type Picture = LastUpdated & {
+  __typename?: 'Picture';
+  id: Scalars['String'];
   description?: Maybe<Scalars['String']>;
-  originalEstimate?: Maybe<Scalars['Int']>;
-  subTasks?: Maybe<Array<Subtask>>;
-  logs?: Maybe<Array<TaskLog>>;
-  resultIntern?: Maybe<Scalars['String']>;
-  resultClient?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  file?: Maybe<File>;
   lastEditedBy?: Maybe<LastUpdatedProfile>;
   dateUpdated?: Maybe<Scalars['Date']>;
+  isMainPicture?: Maybe<Scalars['Boolean']>;
 };
-
-export type TaskFilters = {
-  search?: Maybe<Scalars['String']>;
-  assignees?: Maybe<Array<Scalars['ID']>>;
-  startDates?: Maybe<Array<DateRange>>;
-  deadlines?: Maybe<Array<DateRange>>;
-};
-
-export type TaskFullSummaryFilters = {
-  assignees?: Maybe<Array<Scalars['ID']>>;
-};
-
-export type TaskFullSummaryResult = {
-  __typename?: 'TaskFullSummaryResult';
-  today: Scalars['Int'];
-  nextWeek: Scalars['Int'];
-  future: Scalars['Int'];
-  overdue: Scalars['Int'];
-};
-
-export enum TaskLabel {
-  FollowUp = 'FollowUp',
-  Business = 'Business',
-  Private = 'Private',
-}
-
-export type TaskLog = {
-  __typename?: 'TaskLog';
-  timeSpent: Scalars['Int'];
-  dateStarted?: Maybe<Scalars['Date']>;
-  notes?: Maybe<Scalars['String']>;
-};
-
-export type TaskLogInput = {
-  timeSpent: Scalars['Int'];
-  dateStarted?: Maybe<Scalars['Date']>;
-  notes?: Maybe<Scalars['String']>;
-};
-
-export enum TaskPriority {
-  High = 'High',
-  Medium = 'Medium',
-  Low = 'Low',
-}
-
-export type TaskSearchResult = {
-  __typename?: 'TaskSearchResult';
-  metadata?: Maybe<SearchMetadata>;
-  items?: Maybe<Array<Task>>;
-};
-
-export enum TaskStatus {
-  ToDo = 'ToDo',
-  InProgress = 'InProgress',
-  Blocked = 'Blocked',
-  Done = 'Done',
-}
-
-export type TaskSummaryByStatusFilters = {
-  search?: Maybe<Scalars['String']>;
-  assignees?: Maybe<Array<Scalars['ID']>>;
-  startDates?: Maybe<Array<DateRange>>;
-  deadlines?: Maybe<Array<DateRange>>;
-};
-
-export type TaskSummaryByStatusResult = {
-  __typename?: 'TaskSummaryByStatusResult';
-  todo: Scalars['Int'];
-  inProgress: Scalars['Int'];
-  blocked: Scalars['Int'];
-  done: Scalars['Int'];
-};
-
-export type Team = {
-  __typename?: 'Team';
-  id: Scalars['ID'];
-  profileMembers?: Maybe<Array<TeamMember>>;
-  company: Company;
-  name?: Maybe<Scalars['String']>;
-  description?: Maybe<Scalars['String']>;
-  teamRights?: Maybe<Array<TeamRight>>;
-  isInitTeam?: Maybe<Scalars['Boolean']>;
-};
-
-export type TeamMember = {
-  __typename?: 'TeamMember';
-  id: Scalars['ID'];
-  notes?: Maybe<Scalars['String']>;
-  user: Profile;
-  createPermission: Scalars['Boolean'];
-  readPermission: Scalars['Boolean'];
-  updatePermission: Scalars['Boolean'];
-  deletePermission: Scalars['Boolean'];
-};
-
-export enum TeamRight {
-  Residential = 'Residential',
-  Commercial = 'Commercial',
-  Agricultural = 'Agricultural',
-  ParkingLot = 'ParkingLot',
-  BuildingPlot = 'BuildingPlot',
-  Ncp = 'NCP',
-  Crm = 'CRM',
-  Sales = 'Sales',
-  Documents = 'Documents',
-}
-
-export type TeamSearchResult = {
-  __typename?: 'TeamSearchResult';
-  metadata?: Maybe<SearchMetadata>;
-  items?: Maybe<Array<Team>>;
-};
-
-export type TemplatTag = {
-  __typename?: 'TemplatTag';
-  name: Scalars['String'];
-  amount?: Maybe<Scalars['Int']>;
-};
-
-export enum TemplateDocumentType {
-  Sale = 'Sale',
-  Rent = 'Rent',
-}
-
-export type TemplateGeneralInput = {
-  templateName?: Maybe<Scalars['String']>;
-  settings?: Maybe<TemplateSettingsInput>;
-  securities?: Maybe<Array<TemplateSecurityInput>>;
-};
-
-export type TemplateMeta = {
-  __typename?: 'TemplateMeta';
-  createdAt: Scalars['Date'];
-  deletedAt?: Maybe<Scalars['Date']>;
-};
-
-export type TemplateSecurity = {
-  __typename?: 'TemplateSecurity';
-  name: Scalars['String'];
-  create?: Maybe<Scalars['Boolean']>;
-  update?: Maybe<Scalars['Boolean']>;
-  read?: Maybe<Scalars['Boolean']>;
-  delete?: Maybe<Scalars['Boolean']>;
-};
-
-export type TemplateSecurityInput = {
-  name?: Maybe<Scalars['String']>;
-  create?: Maybe<Scalars['Boolean']>;
-  update?: Maybe<Scalars['Boolean']>;
-  read?: Maybe<Scalars['Boolean']>;
-  delete?: Maybe<Scalars['Boolean']>;
-};
-
-export type TemplateSettings = {
-  __typename?: 'TemplateSettings';
-  description?: Maybe<Scalars['String']>;
-  version?: Maybe<Scalars['String']>;
-  language?: Maybe<Scalars['String']>;
-  documentType?: Maybe<Scalars['String']>;
-};
-
-export type TemplateSettingsInput = {
-  description?: Maybe<Scalars['String']>;
-  version?: Maybe<Scalars['String']>;
-  language?: Maybe<Scalars['String']>;
-  documentType?: Maybe<Scalars['String']>;
-};
-
-export enum TemplateStatus {
-  Active = 'Active',
-  InActive = 'InActive',
-}
-
-export enum TemplateType {
-  Questionnaire = 'questionnaire',
-  Contract = 'contract',
-  Lvz = 'lvz',
-  Survey = 'survey',
-  Newsletter = 'newsletter',
-  Print = 'print',
-  SocialMedia = 'socialMedia',
-  Invoice = 'invoice',
-  Email = 'email',
-}
-
-export type TemplatesResponse = {
-  __typename?: 'TemplatesResponse';
-  count?: Maybe<Scalars['Int']>;
-  items?: Maybe<Array<Questionaire>>;
-};
-
-export enum TermsOfCostsType {
-  Monthly = 'Monthly',
-  Yearly = 'Yearly',
-}
-
-export type Terrain = {
-  __typename?: 'Terrain';
-  terrainSpecifications?: Maybe<TerrainSpecifications>;
-  specifications?: Maybe<Array<Scalars['String']>>;
-  typeOfPavement?: Maybe<Array<Scalars['String']>>;
-  prices?: Maybe<BogPrices>;
-};
-
-export type TerrainFeature = {
-  __typename?: 'TerrainFeature';
-  parking?: Maybe<TerrainParking>;
-  measurement?: Maybe<RectangleMeasurement>;
-  notes?: Maybe<Scalars['String']>;
-  images?: Maybe<Array<File>>;
-};
-
-export type TerrainInput = {
-  terrainSpecifications?: Maybe<TerrainSpecificationsInput>;
-  specifications?: Maybe<Array<Scalars['String']>>;
-  typeOfPavement?: Maybe<Array<Scalars['String']>>;
-  prices?: Maybe<BogPricesInput>;
-};
-
-export enum TerrainParking {
-  PaidParking = 'PaidParking',
-  PublicParking = 'PublicParking',
-  ParkingGarage = 'ParkingGarage',
-  ParkingPermits = 'ParkingPermits',
-}
-
-export type TerrainSpecifications = {
-  __typename?: 'TerrainSpecifications';
-  surface?: Maybe<Scalars['AbsoluteFloat']>;
-  buildingHeightTerrain?: Maybe<Scalars['AbsoluteFloat']>;
-  extensionTerrainPercent?: Maybe<Scalars['AbsoluteFloat']>;
-  extensionTerrainM2?: Maybe<Scalars['AbsoluteFloat']>;
-  pavedPercentage?: Maybe<Scalars['AbsoluteFloat']>;
-};
-
-export type TerrainSpecificationsInput = {
-  surface?: Maybe<Scalars['AbsoluteFloat']>;
-  buildingHeightTerrain?: Maybe<Scalars['AbsoluteFloat']>;
-  extensionTerrainPercent?: Maybe<Scalars['AbsoluteFloat']>;
-  extensionTerrainM2?: Maybe<Scalars['AbsoluteFloat']>;
-  pavedPercentage?: Maybe<Scalars['AbsoluteFloat']>;
-};
-
-export enum TerrainSpecificationsType {
-  Fenced = 'Fenced',
-  Lockable = 'Lockable',
-}
 
 export type TextChapter = {
   __typename?: 'TextChapter';
@@ -9037,395 +4111,189 @@ export type TextChapter = {
   dateCreated?: Maybe<Scalars['Date']>;
 };
 
-export type ThreadMessage = {
-  __typename?: 'ThreadMessage';
-  id: Scalars['ID'];
-  folder: EmailFolder;
-  from: Array<EmailAndName>;
-  to: Array<EmailAndName>;
-  subject: Scalars['String'];
-  date: Scalars['Date'];
-  unread?: Maybe<Scalars['Boolean']>;
-  thread_id?: Maybe<Scalars['String']>;
-};
-
-export enum TiaraEntities {
-  Pim = 'pim',
-  Ncp = 'ncp',
-  ObjectType = 'objectType',
-}
-
-export enum TiaraMessageType {
-  Aanmelden = 'Aanmelden',
-  Wijzigen = 'Wijzigen',
-  Afmelden = 'Afmelden',
-  OpvragenStatus = 'OpvragenStatus',
-}
-
-export type TiaraMutation = {
-  __typename?: 'TiaraMutation';
-  id: Scalars['ID'];
-  messageType: TiaraMessageType;
-  date: Scalars['Date'];
-  status: TiaraMutationStatusType;
-  errors?: Maybe<Array<Scalars['String']>>;
-};
-
-export enum TiaraMutationStatusType {
-  Success = 'Success',
-  Failure = 'Failure',
-  Open = 'Open',
-}
-
-export type TiaraSendMessageInput = {
-  entityId: Scalars['ID'];
-  entity: TiaraEntities;
-  messageType: TiaraMessageType;
-};
-
-export type TiaraValidation = {
-  __typename?: 'TiaraValidation';
-  errors?: Maybe<Array<Scalars['String']>>;
-};
-
-export type ToggleCommonPricingInput = {
-  id: Scalars['ID'];
-  isRent: Scalars['Boolean'];
-  isSale: Scalars['Boolean'];
-};
-
-export type TogglePricingInput = {
-  id: Scalars['ID'];
-  isRent: Scalars['Boolean'];
-  isSale: Scalars['Boolean'];
-};
-
-export enum TypeOfAppointment {
-  Viewing = 'Viewing',
-  OnlineViewing = 'OnlineViewing',
-}
-
-export enum TypeOfEmployment {
-  IncomeFromEquity = 'IncomeFromEquity',
-  SalariedEmployment = 'SalariedEmployment',
-  Entrepreneur = 'Entrepreneur',
-  Benefits = 'Benefits',
-  None = 'None',
-}
-
-export enum TypeOfObjectType {
-  House = 'House',
-  Apartament = 'Apartament',
-  BuildingPlot = 'BuildingPlot',
-}
-
-export type TypeOfParking = {
-  __typename?: 'TypeOfParking';
+export type Usp = {
+  __typename?: 'Usp';
+  id: Scalars['String'];
+  name?: Maybe<Scalars['String']>;
   type?: Maybe<Scalars['String']>;
-  parkingNumber?: Maybe<Scalars['Int']>;
-  notes?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+  dateCreated?: Maybe<Scalars['Date']>;
 };
 
-export type TypeOfParkingInput = {
+export type MediaLink = {
+  __typename?: 'MediaLink';
+  id: Scalars['String'];
+  name?: Maybe<Scalars['String']>;
   type?: Maybe<Scalars['String']>;
-  parkingNumber?: Maybe<Scalars['Int']>;
-  notes?: Maybe<Scalars['String']>;
+  url?: Maybe<Scalars['String']>;
+  dateCreated?: Maybe<Scalars['Date']>;
 };
 
-export enum TypeOfParkingType {
-  Garage = 'Garage',
-  ParkingBasement = 'ParkingBasement',
-  ParkingLot = 'ParkingLot',
-  Berth = 'Berth',
-  MobileHomePitch = 'MobileHomePitch',
-  CaravanSite = 'CaravanSite',
-}
-
-export enum TypeOfPavement {
-  Asphalt = 'Asphalt',
-  ClinkerBricks = 'ClinkerBricks',
-  StelconPlates = 'StelconPlates',
-  FloorTiles = 'FloorTiles',
-}
-
-export enum TypeOfStorage {
-  StorageRoom = 'StorageRoom',
-  StorageArea = 'StorageArea',
-}
-
-export type UndoEntityInput = {
-  undoIds: Array<Scalars['ID']>;
-};
-
-export type UndoIdQueryFilters = {
-  relatedEntityId: Scalars['ID'];
-};
-
-export type UndoResult = {
-  __typename?: 'UndoResult';
-  successful?: Maybe<Scalars['Boolean']>;
-  message?: Maybe<Scalars['String']>;
-  entityId?: Maybe<Scalars['ID']>;
-  entityType?: Maybe<EventEntityType>;
-};
-
-export type UpdateAogSpaceInput = {
-  pimId: Scalars['ID'];
-  spaceId: Scalars['ID'];
-  spaceName?: Maybe<Scalars['String']>;
-  groundConfiguration?: Maybe<GroundSpaceInput>;
-  buildingsConfiguration?: Maybe<BuildingsSpaceInput>;
-  installationsConfiguration?: Maybe<InstallationsInput>;
-  animalsConfiguration?: Maybe<AnimalsInput>;
-};
-
-export type UpdateBogSpaceInput = {
-  pimId: Scalars['ID'];
-  spaceId: Scalars['ID'];
-  spaceName?: Maybe<Scalars['String']>;
-  notes?: Maybe<Scalars['String']>;
-  description?: Maybe<Scalars['String']>;
-  retailSpaceConfiguration?: Maybe<RetailSpaceInput>;
-  leisureSpaceConfiguration?: Maybe<LeisureSpaceInput>;
-  horecaSpaceConfiguration?: Maybe<HorecaSpaceInput>;
-  businessSpaceConfiguration?: Maybe<BusinessSpaceInput>;
-  officeSpaceConfiguration?: Maybe<OfficeSpaceInput>;
-  socialRealEstateSpaceConfiguration?: Maybe<SocialRealEstateSpaceInput>;
-  terrainConfiguration?: Maybe<TerrainInput>;
-  storageConfiguration?: Maybe<StorageInput>;
-};
-
-export type UpdateCadastreInput = {
-  id: Scalars['String'];
-  pimId: Scalars['String'];
-  description?: Maybe<Scalars['String']>;
-  mapsDescription?: Maybe<Scalars['String']>;
-  plot?: Maybe<CadastrePlotInput>;
-};
-
-export type UpdateCadastreMapInput = {
-  pimId: Scalars['String'];
-  cadastreId: Scalars['String'];
-  mapId: Scalars['String'];
-  map?: Maybe<CadastreMapInput>;
-  fileId?: Maybe<Scalars['String']>;
-};
-
-export type UpdateCommonCostInput = {
-  id: Scalars['ID'];
-  serviceCostsFrom?: Maybe<Scalars['AbsoluteFloat']>;
-  serviceCostsTill?: Maybe<Scalars['AbsoluteFloat']>;
-  paymentsFrequency?: Maybe<CostPaymentFrequency>;
-  vatTaxedServiceCostsFrom?: Maybe<Scalars['AbsoluteFloat']>;
-  vatTaxedServiceCostsTill?: Maybe<Scalars['AbsoluteFloat']>;
-  vatPercentage?: Maybe<Scalars['CostVat']>;
-  notes?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
-};
-
-export type UpdateCommonCostsDetailsInput = {
-  id: Scalars['ID'];
-  description?: Maybe<Scalars['String']>;
-};
-
-export type UpdateCommonPricingInput = {
-  id: Scalars['ID'];
-  rent?: Maybe<CommonRentInformationsInput>;
-  sale?: Maybe<CommonSaleInformationsInput>;
-  description?: Maybe<Scalars['String']>;
-};
-
-export type UpdateCompanyInput = {
-  id: Scalars['ID'];
-  name?: Maybe<Scalars['String']>;
-  address?: Maybe<Scalars['String']>;
-  addressSecondLine?: Maybe<Scalars['String']>;
-  state?: Maybe<Scalars['String']>;
-  city?: Maybe<Scalars['String']>;
-  zipcode?: Maybe<Scalars['String']>;
-  country?: Maybe<Scalars['String']>;
-  houseNumber?: Maybe<Scalars['String']>;
-  floor?: Maybe<Scalars['Int']>;
-  chamberOfCommerce?: Maybe<Scalars['String']>;
-  vat?: Maybe<Scalars['String']>;
-  imageId?: Maybe<Scalars['ID']>;
-};
-
-export type UpdateCostInput = {
-  id: Scalars['ID'];
-  serviceCosts?: Maybe<Scalars['AbsoluteFloat']>;
-  paymentsFrequency?: Maybe<CostPaymentFrequency>;
-  vatTaxedServiceCosts?: Maybe<Scalars['AbsoluteFloat']>;
-  vatPercentage?: Maybe<Scalars['CostVat']>;
-  notes?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
-};
-
-export type UpdateCrmContactInformationInput = {
-  id: Scalars['ID'];
-  contactInfoDescription?: Maybe<Scalars['String']>;
-  addresses?: Maybe<Array<CrmAddressInput>>;
-  phoneNumbers?: Maybe<Array<CrmPhoneNumberInput>>;
-  emailAddresses?: Maybe<Array<CrmEmailAddressInput>>;
-  socialMedia?: Maybe<Array<CrmSocialMediaInput>>;
-};
-
-export type UpdateCrmFamilyContactsInput = {
-  id: Scalars['ID'];
-  maritalStatus?: Maybe<Scalars['String']>;
-  maritalStatusDate?: Maybe<Scalars['Date']>;
-  maritalStatusInformation?: Maybe<Scalars['String']>;
-  familyCompositionChildren?: Maybe<Scalars['Int']>;
-  familyCompositionAdults?: Maybe<Scalars['Int']>;
-  familyCompositionInformation?: Maybe<Scalars['String']>;
-  partners?: Maybe<Array<CrmPartnerInput>>;
-  contacts?: Maybe<Array<CrmContactInput>>;
-};
-
-export type UpdateCrmFinancialInput = {
-  id: Scalars['ID'];
-  financialInfo?: Maybe<Scalars['String']>;
-  income?: Maybe<Array<CrmIncomeInput>>;
-  financialObligations?: Maybe<Array<CrmFinancialObligationInput>>;
-  bankAccounts?: Maybe<Array<CrmBankAccountInput>>;
-};
-
-export type UpdateCrmGeneralInput = {
-  id: Scalars['ID'];
-  description?: Maybe<Scalars['String']>;
-  firstName?: Maybe<Scalars['String']>;
-  extraNames?: Maybe<Scalars['String']>;
-  initials?: Maybe<Scalars['String']>;
-  lastName?: Maybe<Scalars['String']>;
-  gender?: Maybe<GenderType>;
-  avatarId?: Maybe<Scalars['String']>;
-  dateOfBirth?: Maybe<Scalars['Date']>;
-  placeOfBirth?: Maybe<Scalars['String']>;
-  nationality?: Maybe<Scalars['String']>;
-  dateOfDeath?: Maybe<Scalars['Date']>;
-  isPassedAway?: Maybe<Scalars['Boolean']>;
-  preferredLanguage?: Maybe<Scalars['String']>;
-  identification?: Maybe<IdentificationType>;
-  identificationNumber?: Maybe<Scalars['String']>;
-  identificationIssueCity?: Maybe<Scalars['String']>;
-  identificationIssueDate?: Maybe<Scalars['Date']>;
-  identificationExpirationDate?: Maybe<Scalars['Date']>;
-  preferredTitlePrefix?: Maybe<Scalars['String']>;
-  preferredTitleSuffix?: Maybe<Scalars['String']>;
-  preferredLetterSalutation?: Maybe<Scalars['String']>;
-  preferredTitleInformation?: Maybe<Scalars['String']>;
-  identificationNumbers?: Maybe<Array<CrmIdentificationNumberInput>>;
-  status?: Maybe<CrmStatus>;
-};
-
-export type UpdateCrmHomeSituationInput = {
-  id: Scalars['ID'];
-  currentHomeSituation?: Maybe<Scalars['String']>;
-  currentHomeStatus?: Maybe<Scalars['String']>;
-  currentHomeSalesValue?: Maybe<Scalars['Int']>;
-  currentHomeMortgage?: Maybe<Scalars['Int']>;
-  currentHomeInformation?: Maybe<Scalars['String']>;
-  reasonToMove?: Maybe<Array<Scalars['String']>>;
-  movingDate?: Maybe<Scalars['Date']>;
-  movingInformation?: Maybe<Scalars['String']>;
-};
-
-export type UpdateDescriptionInput = {
-  section: SectionWithDescriptionType;
-  pimId: Scalars['String'];
-  description: Scalars['String'];
-  meterType?: Maybe<MeterType>;
-};
-
-export type UpdateDmsFolderInput = {
-  entityId: Scalars['ID'];
-  id: Scalars['ID'];
-  foldername: Scalars['String'];
-  entityType: DmsEntityType;
-  type: DmsFolderType;
-  order?: Maybe<Scalars['Int']>;
-  deletedAt?: Maybe<Scalars['Date']>;
-};
-
-export type UpdateEmailAddressInput = {
-  id: Scalars['String'];
-  profileId: Scalars['String'];
-  emailAddress: Scalars['String'];
-  emailAddressType?: Maybe<EmailAddressType>;
-  isPublic?: Maybe<Scalars['Boolean']>;
-};
-
-export type UpdateEmailInput = {
-  id: Scalars['ID'];
-  unread?: Maybe<Scalars['Boolean']>;
-};
-
-export type UpdateFloorInput = {
-  pimId: Scalars['String'];
-  floorId: Scalars['String'];
-  floorDescription?: Maybe<Scalars['String']>;
-  floorType?: Maybe<FloorType>;
-};
-
-export type UpdateGroupsInput = {
-  groupName?: Maybe<Scalars['String']>;
-  order?: Maybe<Scalars['Int']>;
-  entity?: Maybe<EntityInput>;
-};
-
-export type UpdateIdentificationNumberInput = {
+export type Tag = {
+  __typename?: 'Tag';
   id: Scalars['String'];
   name?: Maybe<Scalars['String']>;
-  number?: Maybe<Scalars['String']>;
   type?: Maybe<Scalars['String']>;
-};
-
-export type UpdateInspectionInput = {
-  id: Scalars['ID'];
   description?: Maybe<Scalars['String']>;
+  dateCreated?: Maybe<Scalars['Date']>;
 };
 
-export type UpdateLinkedPropertiesListDescription = {
+export type CommonNewPictureInput = {
+  fileID: Scalars['String'];
+  isMainPicture?: Maybe<Scalars['Boolean']>;
+};
+
+export type CommonAddPicturesInput = {
+  parentId: Scalars['String'];
+  pictures: Array<NewPictureInput>;
+};
+
+export type CommonAddTextChapterInput = {
+  parentId: Scalars['String'];
+  name?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  text?: Maybe<Scalars['String']>;
+};
+
+export type CommonUpdateTextChapterInput = {
+  parentId: Scalars['String'];
   id: Scalars['String'];
+  name?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  text?: Maybe<Scalars['String']>;
+};
+
+export type CommonAddUspsInput = {
+  parentId: Scalars['String'];
+  type?: Maybe<Scalars['String']>;
   description?: Maybe<Scalars['String']>;
 };
 
-export type UpdateMatchProfileInput = {
-  propertyType?: Maybe<MatchPropertyType>;
-  startDate?: Maybe<Scalars['Date']>;
-  endDate?: Maybe<Scalars['Date']>;
-  matchDuration?: Maybe<DateRange>;
-  matchWith?: Maybe<Array<MatchProfileWith>>;
+export type CommonUpdateUspsInput = {
+  parentId: Scalars['String'];
+  id: Scalars['String'];
+  type?: Maybe<Scalars['String']>;
   description?: Maybe<Scalars['String']>;
-  estateType?: Maybe<MatchEstateType>;
-  commercialEstateType?: Maybe<MatchCommercialEstateType>;
-  characteristics?: Maybe<MatchCharacteristicsInput>;
-  commercialCharacteristics?: Maybe<MatchCommercialCharacteristicsInput>;
-  pricing?: Maybe<MatchPricingInput>;
-  outside?: Maybe<MatchOutsidePricingInput>;
-  garden?: Maybe<MatchGardenInput>;
-  tags?: Maybe<Array<MatchTags>>;
-  measurements?: Maybe<MatchMeasurementsInput>;
-  revenue?: Maybe<IntRangeInput>;
-  exploitation?: Maybe<IntRangeInput>;
-  requirements?: Maybe<Array<MatchRequirementInput>>;
-  locations?: Maybe<Array<MatchProfileLocationInput>>;
-  isActive?: Maybe<Scalars['Boolean']>;
+  name?: Maybe<Scalars['String']>;
 };
 
-export type UpdateMediaLinkInput = {
-  pimId: Scalars['String'];
+export type CommonAddMediaLinkInput = {
+  parentId: Scalars['String'];
+  type?: Maybe<Scalars['String']>;
+  url?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+};
+
+export type CommonUpdateMediaLinkInput = {
+  parentId: Scalars['String'];
   id: Scalars['String'];
   type?: Maybe<Scalars['String']>;
   url?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
 };
 
-export type UpdateMeterInput = {
+export type CommonAddTagInput = {
+  parentId: Scalars['String'];
+  type?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+};
+
+export type CommonUpdateTagInput = {
   parentId: Scalars['String'];
   id: Scalars['String'];
+  type?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+};
+
+export type CommonUpdatePictureInput = {
+  parentId: Scalars['String'];
+  id: Scalars['String'];
+  type?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
   description?: Maybe<Scalars['String']>;
+  fileId?: Maybe<Scalars['String']>;
+  isMainPicture?: Maybe<Scalars['Boolean']>;
+};
+
+export type CommonUpdateMediaDescriptionInput = {
+  id: Scalars['String'];
+  description?: Maybe<Scalars['String']>;
+};
+
+export type NcpCharacteristicsInput = {
+  id: Scalars['ID'];
+  projectMarketing?: Maybe<ProjectMarketingInput>;
+  measurements?: Maybe<MeasurementsInput>;
+  energy?: Maybe<EnergyInput>;
+  accountManagersIds?: Maybe<Array<Scalars['ID']>>;
+  attentionNote?: Maybe<Scalars['String']>;
+  invoiceDetails?: Maybe<InvoiceDetailsInput>;
+  characteristicsDescription?: Maybe<Scalars['String']>;
+};
+
+export type NcpCharacteristics = LastUpdated &
+  HasCharacteristicsSections & {
+    __typename?: 'NcpCharacteristics';
+    id: Scalars['ID'];
+    characteristicsSections?: Maybe<Array<CharacteristicsSections>>;
+    projectMarketing?: Maybe<ProjectMarketing>;
+    measurements?: Maybe<Measurements>;
+    energy?: Maybe<Energy>;
+    accountManagers?: Maybe<Array<Profile>>;
+    accountManagersIds?: Maybe<Array<Scalars['ID']>>;
+    identificationNumbers?: Maybe<Array<IdentificationNumber>>;
+    attentionNote?: Maybe<Scalars['String']>;
+    invoiceDetails?: Maybe<InvoiceDetails>;
+    lastEditedBy?: Maybe<LastUpdatedProfile>;
+    dateUpdated?: Maybe<Scalars['Date']>;
+    characteristicsDescription?: Maybe<Scalars['String']>;
+  };
+
+export type NcpWithNewIdentificationNumber = {
+  __typename?: 'NcpWithNewIdentificationNumber';
+  ncp: NcpGeneral;
+  newIdentificationNumber: IdentificationNumber;
+};
+
+export enum NcpType {
+  Houses = 'Houses',
+  Apartments = 'Apartments',
+  BuildingPlots = 'BuildingPlots',
+}
+
+export enum ProjectType {
+  Commercial = 'Commercial',
+  Relet = 'Relet',
+  NewConstruction = 'NewConstruction',
+}
+
+export enum ProgressStatus {
+  Concept = 'Concept',
+  InPreparation = 'InPreparation',
+  InPresale = 'InPresale',
+  InProgress = 'InProgress',
+  Delivered = 'Delivered',
+}
+
+export enum ProjectRisk {
+  Low = 'Low',
+  Middle = 'Middle',
+  High = 'High',
+}
+
+export type CreateNcpInput = {
+  type: NcpType;
+  name: Scalars['String'];
+  additionalName?: Maybe<Scalars['String']>;
+  street: Scalars['String'];
+  houseNumber: Scalars['String'];
+  zipCode: Scalars['String'];
+  city: Scalars['String'];
+  country: Scalars['String'];
+  additionalHouseNumber?: Maybe<Scalars['String']>;
+  projectType?: Maybe<ProjectType>;
 };
 
 export type UpdateNcpInput = {
@@ -9454,32 +4322,2307 @@ export type UpdateNcpInput = {
   projectType?: Maybe<ProjectType>;
 };
 
+export type NcpGeneral = LastUpdated & {
+  __typename?: 'NcpGeneral';
+  id: Scalars['ID'];
+  type: NcpType;
+  dateCreated?: Maybe<Scalars['Date']>;
+  dateUpdated?: Maybe<Scalars['Date']>;
+  lastEditedBy?: Maybe<LastUpdatedProfile>;
+  name: Scalars['String'];
+  additionalName?: Maybe<Scalars['String']>;
+  street: Scalars['String'];
+  houseNumber: Scalars['String'];
+  additionalHouseNumber?: Maybe<Scalars['String']>;
+  zipCode: Scalars['String'];
+  city: Scalars['String'];
+  country: Scalars['String'];
+  archived: Scalars['Boolean'];
+  automaticallyCalculateQuantity?: Maybe<Scalars['Boolean']>;
+  properties?: Maybe<Scalars['Int']>;
+  objectTypesCount?: Maybe<Scalars['Int']>;
+  progressStatus?: Maybe<ProgressStatus>;
+  startConstruction?: Maybe<Scalars['Date']>;
+  noteStartConstruction?: Maybe<Scalars['String']>;
+  startSale?: Maybe<Scalars['Date']>;
+  noteStartSale?: Maybe<Scalars['String']>;
+  startDelivery?: Maybe<Scalars['Date']>;
+  noteStartDelivery?: Maybe<Scalars['String']>;
+  startConstructionAfterPresalePercentage?: Maybe<Scalars['Int']>;
+  projectRisk?: Maybe<ProjectRisk>;
+  notes?: Maybe<Scalars['String']>;
+  objectTypesListDescription?: Maybe<Scalars['String']>;
+  objectTypesListLastUpdatedBy?: Maybe<Profile>;
+  objectTypesListLastUpdatedOn?: Maybe<Scalars['Date']>;
+  linkedPropertiesListDescription?: Maybe<Scalars['String']>;
+  linkedPropertiesListLastUpdatedBy?: Maybe<Profile>;
+  linkedPropertiesListLastUpdatedOn?: Maybe<Scalars['Date']>;
+  projectType?: Maybe<ProjectType>;
+};
+
+export type NcpSearchResult = {
+  __typename?: 'NcpSearchResult';
+  metadata?: Maybe<SearchMetadata>;
+  items?: Maybe<Array<NcpGeneral>>;
+};
+
+export type NcpWithSameAddressInput = {
+  ncpId?: Maybe<Scalars['String']>;
+  street?: Maybe<Scalars['String']>;
+  houseNumber?: Maybe<Scalars['String']>;
+  zipCode?: Maybe<Scalars['String']>;
+  city?: Maybe<Scalars['String']>;
+};
+
+export type NcpLinkedPims = EntityLinkedWithPims & {
+  __typename?: 'NcpLinkedPims';
+  id: Scalars['ID'];
+  dateUpdated?: Maybe<Scalars['Date']>;
+  lastEditedBy?: Maybe<LastUpdatedProfile>;
+  linkedProperties: PimListSearchResult;
+  linkedPropertiesIds?: Maybe<Array<Scalars['ID']>>;
+  description?: Maybe<Scalars['String']>;
+};
+
+export type NcpLinkedPimsLinkedPropertiesArgs = {
+  filters?: Maybe<LinkedPimFilters>;
+  sort?: Maybe<Array<Sort>>;
+  pagination: Pagination;
+};
+
+export type ListNcpsFilters = {
+  archived?: Maybe<Scalars['Boolean']>;
+  pricingType?: Maybe<PricingType>;
+  projectType?: Maybe<ProjectType>;
+};
+
+export type ListNcp = {
+  __typename?: 'ListNcp';
+  id: Scalars['ID'];
+  dateCreated: Scalars['Date'];
+  dateUpdated?: Maybe<Scalars['Date']>;
+  archived: Scalars['Boolean'];
+  areaRangeFrom?: Maybe<Scalars['AbsoluteFloat']>;
+  areaRangeTo?: Maybe<Scalars['AbsoluteFloat']>;
+  numberOfRoomsFrom?: Maybe<Scalars['Int']>;
+  numberOfRoomsTo?: Maybe<Scalars['Int']>;
+  logoPicture?: Maybe<File>;
+  mainPicture?: Maybe<Picture>;
+  name?: Maybe<Scalars['String']>;
+  salePriceFrom?: Maybe<Scalars['AbsoluteFloat']>;
+  salePriceTo?: Maybe<Scalars['AbsoluteFloat']>;
+  rentPriceFrom?: Maybe<Scalars['AbsoluteFloat']>;
+  rentPriceTo?: Maybe<Scalars['AbsoluteFloat']>;
+  saleLabel?: Maybe<Scalars['String']>;
+  rentLabel?: Maybe<Scalars['String']>;
+  partOfPhase?: Maybe<Scalars['Int']>;
+  soldNumber?: Maybe<Scalars['Int']>;
+  rentNumber?: Maybe<Scalars['Int']>;
+  completeness: Scalars['Float'];
+  available?: Maybe<Scalars['Int']>;
+  underOption?: Maybe<Scalars['Int']>;
+  soldOrRent?: Maybe<Scalars['Int']>;
+  matches?: Maybe<Scalars['Int']>;
+  interests?: Maybe<Scalars['Int']>;
+  candidates?: Maybe<Scalars['Int']>;
+  optants?: Maybe<Scalars['Int']>;
+  properties?: Maybe<Scalars['Int']>;
+  color?: Maybe<Scalars['String']>;
+  attentionNote?: Maybe<Scalars['String']>;
+  objectTypesCount?: Maybe<Scalars['Int']>;
+  city?: Maybe<Scalars['String']>;
+  projectType?: Maybe<ProjectType>;
+};
+
 export type UpdateObjectTypesListDescription = {
   id: Scalars['String'];
   description?: Maybe<Scalars['String']>;
 };
 
-export type UpdateOutsideFeatureInput = {
-  pimId: Scalars['String'];
-  outsideFeatureId: Scalars['String'];
-  feature?: Maybe<Scalars['UpdateFeatureInputConfiguration']>;
+export type NcpListSearchResult = {
+  __typename?: 'NcpListSearchResult';
+  metadata?: Maybe<SearchMetadata>;
+  items?: Maybe<Array<ListNcp>>;
 };
 
-export type UpdatePhoneNumberInput = {
+export type NcpMedia = LastUpdated & {
+  __typename?: 'NcpMedia';
   id: Scalars['String'];
-  profileId: Scalars['String'];
-  phoneNumber: Scalars['String'];
-  phoneNumberType?: Maybe<PhoneNumberType>;
-  isPublic?: Maybe<Scalars['Boolean']>;
+  pictures?: Maybe<Array<Picture>>;
+  mainPictureId?: Maybe<Scalars['String']>;
+  mediaLinks?: Maybe<Array<MediaLink>>;
+  textChapters?: Maybe<Array<TextChapter>>;
+  usps?: Maybe<Array<Usp>>;
+  tags?: Maybe<Array<Tag>>;
+  dateUpdated?: Maybe<Scalars['Date']>;
+  lastEditedBy?: Maybe<LastUpdatedProfile>;
+  mediaDescription?: Maybe<Scalars['String']>;
 };
 
-export type UpdatePictureInput = {
-  pimId: Scalars['String'];
+export type NcpMediaPicturesArgs = {
+  sort?: Maybe<Sort>;
+};
+
+export type NcpPrices = {
+  __typename?: 'NcpPrices';
+  id: Scalars['ID'];
+  pricing?: Maybe<CommonPricing>;
+  costs?: Maybe<Array<CommonCost>>;
+  costsDetails?: Maybe<CostsDetails>;
+  interests?: Maybe<Interests>;
+};
+
+export type NcpPricesResult = {
+  __typename?: 'NcpPricesResult';
+  id: Scalars['ID'];
+  pricing?: Maybe<CommonPricing>;
+  costs?: Maybe<CommonCosts>;
+  interests?: Maybe<Interests>;
+};
+
+export type InterestsInput = {
+  id: Scalars['ID'];
+  groundInterest?: Maybe<Scalars['AbsoluteFloat']>;
+  buildingInterest?: Maybe<Scalars['AbsoluteFloat']>;
+  rentedagen?: Maybe<Scalars['AbsoluteFloat']>;
+  suspensiveCondition?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+};
+
+export type Interests = LastUpdated & {
+  __typename?: 'Interests';
+  groundInterest?: Maybe<Scalars['AbsoluteFloat']>;
+  buildingInterest?: Maybe<Scalars['AbsoluteFloat']>;
+  rentedagen?: Maybe<Scalars['AbsoluteFloat']>;
+  suspensiveCondition?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+  dateCreated?: Maybe<Scalars['Date']>;
+  dateUpdated?: Maybe<Scalars['Date']>;
+  lastEditedBy?: Maybe<LastUpdatedProfile>;
+};
+
+export type NcpServices = LastUpdated &
+  Services & {
+    __typename?: 'NcpServices';
+    id: Scalars['ID'];
+    hotWaterSupplies?: Maybe<Array<Service>>;
+    heatingSources?: Maybe<Array<Service>>;
+    additionalServices?: Maybe<Array<Service>>;
+    dateUpdated?: Maybe<Scalars['Date']>;
+    lastEditedBy?: Maybe<LastUpdatedProfile>;
+    servicesDescription?: Maybe<Scalars['String']>;
+  };
+
+export type NcpWithNewService = {
+  __typename?: 'NcpWithNewService';
+  ncp: NcpServices;
+  newService: Service;
+};
+
+export enum NotificationType {
+  TaskAssigned = 'TaskAssigned',
+  InvitedToProject = 'InvitedToProject',
+  RemovedUserFromProject = 'RemovedUserFromProject',
+  AcceptedInviteToProject = 'AcceptedInviteToProject',
+  TiaraMutationUpdate = 'TiaraMutationUpdate',
+}
+
+export type Notification = {
+  __typename?: 'Notification';
+  id: Scalars['ID'];
+  receiver: Profile;
+  createdBy?: Maybe<Profile>;
+  linkedEntity?: Maybe<LinkedEntity>;
+  type: NotificationType;
+  description: Scalars['String'];
+  isRead: Scalars['Boolean'];
+  isDeleted: Scalars['Boolean'];
+  dateCreated: Scalars['Date'];
+};
+
+export type NotificationSearchResult = {
+  __typename?: 'NotificationSearchResult';
+  items?: Maybe<Array<Notification>>;
+};
+
+export type NotificationAdded = {
+  __typename?: 'NotificationAdded';
+  notification: Notification;
+};
+
+export type CreateNotificationInput = {
+  type: NotificationType;
+  receiver: Scalars['ID'];
+  description: Scalars['String'];
+  linkedEntity?: Maybe<LinkedEntityInput>;
+};
+
+export type ReadNotificationInput = {
+  id: Scalars['ID'];
+};
+
+export type DeleteNotificationInput = {
+  id: Scalars['ID'];
+};
+
+export type BulkReadNotificationsInput = {
+  ids: Array<Scalars['ID']>;
+};
+
+export type BulkDeleteNotificationsInput = {
+  ids: Array<Scalars['ID']>;
+};
+
+export type Subscription = {
+  __typename?: 'Subscription';
+  _?: Maybe<Scalars['Boolean']>;
+  notificationAdded: NotificationAdded;
+};
+
+export type NylasAccount = {
+  __typename?: 'NylasAccount';
+  id: Scalars['ID'];
+  userId: Scalars['ID'];
+  accountId: Scalars['ID'];
+  accessToken: Scalars['String'];
+  newAccount: Scalars['Boolean'];
+  isCalendarConnected?: Maybe<Scalars['Boolean']>;
+  isEmailConnected?: Maybe<Scalars['Boolean']>;
+};
+
+export enum NylasProviderType {
+  Exchange = 'Exchange',
+  Gmail = 'Gmail',
+  Outlook = 'Outlook',
+}
+
+export type NylasAuthorizationInput = {
+  name: Scalars['String'];
+  email: Scalars['String'];
+  provider: NylasProviderType;
+  username: Scalars['String'];
+  password: Scalars['String'];
+};
+
+export type NylasAccountItem = {
+  __typename?: 'NylasAccountItem';
+  id: Scalars['ID'];
+  email: Scalars['String'];
+  provider: Scalars['String'];
+  billingState: Scalars['String'];
+  syncState: Scalars['String'];
+  isCalendarConnected?: Maybe<Scalars['Boolean']>;
+  isEmailConnected?: Maybe<Scalars['Boolean']>;
+};
+
+export type NylasAccountAuthOptions = {
+  loginHint: Scalars['String'];
+  redirectURI?: Maybe<Scalars['String']>;
+  scopes?: Maybe<Array<Scalars['String']>>;
+};
+
+export type NylasAddAccountInput = {
+  nylasToken: Scalars['String'];
+  isCalendarConnected?: Maybe<Scalars['Boolean']>;
+  isEmailConnected?: Maybe<Scalars['Boolean']>;
+};
+
+export enum TypeOfObjectType {
+  House = 'House',
+  Apartament = 'Apartament',
+  BuildingPlot = 'BuildingPlot',
+}
+
+export type ObjectTypeCharacteristicsInput = {
+  id: Scalars['ID'];
+  projectMarketing?: Maybe<ProjectMarketingInput>;
+  measurements?: Maybe<MeasurementsInput>;
+  energy?: Maybe<EnergyInput>;
+  accountManagersIds?: Maybe<Array<Scalars['ID']>>;
+  attentionNote?: Maybe<Scalars['String']>;
+  characteristicsDescription?: Maybe<Scalars['String']>;
+  type?: Maybe<TypeOfObjectType>;
+  automaticallySetObjectTypes?: Maybe<Scalars['Boolean']>;
+};
+
+export type ObjectTypeCharacteristics = LastUpdated &
+  HasCharacteristicsSections & {
+    __typename?: 'ObjectTypeCharacteristics';
+    id: Scalars['ID'];
+    characteristicsSections?: Maybe<Array<CharacteristicsSections>>;
+    projectMarketing?: Maybe<ProjectMarketing>;
+    measurements?: Maybe<Measurements>;
+    energy?: Maybe<Energy>;
+    accountManagers?: Maybe<Array<Profile>>;
+    accountManagersIds?: Maybe<Array<Scalars['ID']>>;
+    identificationNumbers?: Maybe<Array<IdentificationNumber>>;
+    attentionNote?: Maybe<Scalars['String']>;
+    lastEditedBy?: Maybe<LastUpdatedProfile>;
+    dateUpdated?: Maybe<Scalars['Date']>;
+    characteristicsDescription?: Maybe<Scalars['String']>;
+    type?: Maybe<TypeOfObjectType>;
+    automaticallySetObjectTypes?: Maybe<Scalars['Boolean']>;
+  };
+
+export type ObjectTypeWithNewIdentificationNumber = {
+  __typename?: 'ObjectTypeWithNewIdentificationNumber';
+  objectType: ObjectTypeCharacteristics;
+  newIdentificationNumber: IdentificationNumber;
+};
+
+export type ObjectTypeGeneral = LastUpdated & {
+  __typename?: 'ObjectTypeGeneral';
+  id: Scalars['ID'];
+  name: Scalars['String'];
+  archived?: Maybe<Scalars['Boolean']>;
+  dateUpdated?: Maybe<Scalars['Date']>;
+  dateCreated?: Maybe<Scalars['Date']>;
+  lastEditedBy?: Maybe<LastUpdatedProfile>;
+  ncpId: Scalars['ID'];
+  linkedPropertiesListDescription?: Maybe<Scalars['String']>;
+  linkedPropertiesListLastUpdatedBy?: Maybe<Profile>;
+  linkedPropertiesListLastUpdatedOn?: Maybe<Scalars['Date']>;
+};
+
+export type CreateObjectTypeInput = {
+  name: Scalars['String'];
+  ncpId: Scalars['ID'];
+};
+
+export type ObjectTypeLinkedPims = EntityLinkedWithPims & {
+  __typename?: 'ObjectTypeLinkedPims';
+  id: Scalars['ID'];
+  dateUpdated?: Maybe<Scalars['Date']>;
+  lastEditedBy?: Maybe<LastUpdatedProfile>;
+  linkedProperties: PimListSearchResult;
+  linkedPropertiesIds?: Maybe<Array<Scalars['ID']>>;
+  description?: Maybe<Scalars['String']>;
+};
+
+export type ObjectTypeLinkedPimsLinkedPropertiesArgs = {
+  filters?: Maybe<LinkedPimFilters>;
+  sort?: Maybe<Array<Sort>>;
+  pagination: Pagination;
+};
+
+export type UpdateLinkedPropertiesListDescription = {
   id: Scalars['String'];
+  description?: Maybe<Scalars['String']>;
+};
+
+export type ListObjectTypesFilters = {
+  archived?: Maybe<Scalars['Boolean']>;
+  ncpId: Scalars['ID'];
+};
+
+export type ListObjectTypes = {
+  __typename?: 'ListObjectTypes';
+  id: Scalars['ID'];
+  ncpId: Scalars['ID'];
+  dateCreated: Scalars['Date'];
+  dateUpdated?: Maybe<Scalars['Date']>;
+  archived?: Maybe<Scalars['Boolean']>;
+  areaRangeFrom?: Maybe<Scalars['AbsoluteFloat']>;
+  areaRangeTo?: Maybe<Scalars['AbsoluteFloat']>;
+  numberOfRoomsFrom?: Maybe<Scalars['Int']>;
+  numberOfRoomsTo?: Maybe<Scalars['Int']>;
+  mainPicture?: Maybe<Picture>;
+  name?: Maybe<Scalars['String']>;
+  salePriceFrom?: Maybe<Scalars['AbsoluteFloat']>;
+  salePriceTo?: Maybe<Scalars['AbsoluteFloat']>;
+  rentPriceFrom?: Maybe<Scalars['AbsoluteFloat']>;
+  rentPriceTo?: Maybe<Scalars['AbsoluteFloat']>;
+  underOption?: Maybe<Scalars['Int']>;
+  soldOrRent?: Maybe<Scalars['Int']>;
+  saleLabel?: Maybe<Scalars['String']>;
+  rentLabel?: Maybe<Scalars['String']>;
+  partOfPhase?: Maybe<Scalars['Int']>;
+  completeness: Scalars['Float'];
+  matches?: Maybe<Scalars['Int']>;
+  interests?: Maybe<Scalars['Int']>;
+  propertiesConnected?: Maybe<Scalars['Int']>;
+  propertiesAvailable?: Maybe<Scalars['Int']>;
+  attentionNote?: Maybe<Scalars['String']>;
+};
+
+export type ObjectTypeListSearchResult = {
+  __typename?: 'ObjectTypeListSearchResult';
+  metadata?: Maybe<SearchMetadata>;
+  items?: Maybe<Array<ListObjectTypes>>;
+};
+
+export type ObjectTypeMedia = {
+  __typename?: 'ObjectTypeMedia';
+  id: Scalars['String'];
+  pictures?: Maybe<Array<Picture>>;
+  mainPictureId?: Maybe<Scalars['String']>;
+  mediaLinks?: Maybe<Array<MediaLink>>;
+  textChapters?: Maybe<Array<TextChapter>>;
+  usps?: Maybe<Array<Usp>>;
+  tags?: Maybe<Array<Tag>>;
+  dateUpdated?: Maybe<Scalars['Date']>;
+  lastEditedBy?: Maybe<LastUpdatedProfile>;
+  mediaDescription?: Maybe<Scalars['String']>;
+};
+
+export type ObjectTypeMediaPicturesArgs = {
+  sort?: Maybe<Sort>;
+};
+
+export type ObjectTypePricing = LastUpdated & {
+  __typename?: 'ObjectTypePricing';
+  rent?: Maybe<CommonRentInformations>;
+  sale?: Maybe<CommonSaleInformations>;
+  lastEditedBy?: Maybe<LastUpdatedProfile>;
+  dateUpdated?: Maybe<Scalars['Date']>;
+  description?: Maybe<Scalars['String']>;
+};
+
+export type ObjectTypePrices = {
+  __typename?: 'ObjectTypePrices';
+  id: Scalars['ID'];
+  pricing?: Maybe<CommonPricing>;
+  costs?: Maybe<Array<CommonCost>>;
+  costsDetails?: Maybe<CostsDetails>;
+};
+
+export type ObjectTypePricesResult = {
+  __typename?: 'ObjectTypePricesResult';
+  id: Scalars['ID'];
+  pricing?: Maybe<CommonPricing>;
+  costs?: Maybe<CommonCosts>;
+};
+
+export type ObjectTypeServices = LastUpdated &
+  Services & {
+    __typename?: 'ObjectTypeServices';
+    id: Scalars['ID'];
+    hotWaterSupplies?: Maybe<Array<Service>>;
+    heatingSources?: Maybe<Array<Service>>;
+    additionalServices?: Maybe<Array<Service>>;
+    dateUpdated?: Maybe<Scalars['Date']>;
+    lastEditedBy?: Maybe<LastUpdatedProfile>;
+    servicesDescription?: Maybe<Scalars['String']>;
+  };
+
+export type ObjectTypeWithNewService = {
+  __typename?: 'ObjectTypeWithNewService';
+  objectType: ObjectTypeServices;
+  newService: Service;
+};
+
+export enum AogSpaceType {
+  Ground = 'Ground',
+  Buildings = 'Buildings',
+  Installations = 'Installations',
+  Animals = 'Animals',
+}
+
+export enum AogGeneralType {
+  ArableFarm = 'ArableFarm',
+  TreeNursery = 'TreeNursery',
+  MushroomCultivation = 'MushroomCultivation',
+  FruitGrowing = 'FruitGrowing',
+  Goats = 'Goats',
+  GlassGarden = 'GlassGarden',
+  YoungCattleRearing = 'YoungCattleRearing',
+  Turkeys = 'Turkeys',
+  Ducks = 'Ducks',
+  Geese = 'Geese',
+  Ostriches = 'Ostriches',
+  LayingHens = 'LayingHens',
+  RidingSchool = 'RidingSchool',
+  PensionStorage = 'PensionStorage',
+  DairyFarm = 'DairyFarm',
+  HorseHusbandry = 'HorseHusbandry',
+  EalFarm = 'EalFarm',
+  SheepFarm = 'SheepFarm',
+  FishFarm = 'FishFarm',
+  MeatCalf = 'MeatCalf',
+  Broiler = 'Broiler',
+  BeefBull = 'BeefBull',
+  FatteningPig = 'FatteningPig',
+  OpenFieldGarden = 'OpenFieldGarden',
+  WarnFarm = 'WarnFarm',
+  SawsAndFatteningPigFarm = 'SawsAndFatteningPigFarm',
+  SowFarm = 'SowFarm',
+  SucklerCowFarm = 'SucklerCowFarm',
+  LooseGround = 'LooseGround',
+}
+
+export enum AdditionalPositionNotArgaic {
+  OtherCompany = 'OtherCompany',
+  Horeca = 'Horeca',
+  Recreation = 'Recreation',
+  Living = 'Living',
+  CareFunction = 'CareFunction',
+  CaravanStorage = 'CaravanStorage',
+}
+
+export enum AogSpecificationsType {
+  EnvironmentalPermit = 'EnvironmentalPermit',
+  Drainage = 'Drainage',
+  ProductionRights = 'ProductionRights',
+}
+
+export enum LooseGroundType {
+  ForestPlot = 'ForestPlot',
+  ArableLand = 'ArableLand',
+  Grassland = 'Grassland',
+}
+
+export enum AogSoilType {
+  Clay = 'Clay',
+  Peat = 'Peat',
+  Gravel = 'Gravel',
+  Sand = 'Sand',
+  Loam = 'Loam',
+}
+
+export enum CultivationTypes {
+  FlowerBulbs = 'FlowerBulbs',
+  Fruit = 'Fruit',
+  Plants = 'Plants',
+  Vegetables = 'Vegetables',
+  Flowers = 'Flowers',
+  Trees = 'Trees',
+}
+
+export enum FenceTypes {
+  Wood = 'Wood',
+  Plastic = 'Plastic',
+  PlasticBand = 'PlasticBand',
+}
+
+export enum BuildingType {
+  Sheds = 'Sheds',
+  RidingHalls = 'RidingHalls',
+  Canteen = 'Canteen',
+  StorageShed = 'StorageShed',
+  MachineShed = 'MachineShed',
+  GlassCurb = 'GlassCurb',
+  ManureSilo = 'ManureSilo',
+  HorseBoxes = 'HorseBoxes',
+  CageHouse = 'CageHouse',
+  Cubicles = 'Cubicles',
+  FatteningPigsty = 'FatteningPigsty',
+  BreedingPigsty = 'BreedingPigsty',
+  PigletStable = 'PigletStable',
+}
+
+export enum InstallationsType {
+  RotaryStableMilkingSystem = 'RotaryStableMilkingSystem',
+  MilkingParlorSystem = 'MilkingParlorSystem',
+  MilkingRobot = 'MilkingRobot',
+  HerringBoneStable = 'HerringBoneStable',
+  SideBySideMilkingSystem = 'SideBySideMilkingSystem',
+}
+
+export enum AnimalsType {
+  Geese = 'Geese',
+  Ducks = 'Ducks',
+  Ostriches = 'Ostriches',
+  LayingHens = 'LayingHens',
+  Cows = 'Cows',
+  Horses = 'Horses',
+  Eels = 'Eels',
+  Sheep = 'Sheep',
+  Fish = 'Fish',
+  VealCalves = 'VealCalves',
+  Broilers = 'Broilers',
+  MeatBulls = 'MeatBulls',
+  Worms = 'Worms',
+}
+
+export type AogHouseLot = {
+  __typename?: 'AogHouseLot';
+  length?: Maybe<Scalars['AbsoluteFloat']>;
+  width?: Maybe<Scalars['AbsoluteFloat']>;
+  surface?: Maybe<Scalars['AbsoluteFloat']>;
+  amountOfHouses?: Maybe<Scalars['Int']>;
+};
+
+export type AogHouseLotInput = {
+  length?: Maybe<Scalars['AbsoluteFloat']>;
+  width?: Maybe<Scalars['AbsoluteFloat']>;
+  surface?: Maybe<Scalars['AbsoluteFloat']>;
+  amountOfHouses?: Maybe<Scalars['Int']>;
+};
+
+export type AogSpecifications = {
+  __typename?: 'AogSpecifications';
   type?: Maybe<Scalars['String']>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type AogSpecificationsInput = {
+  type?: Maybe<Scalars['String']>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type AogGeneral = {
+  __typename?: 'AogGeneral';
+  generalType?: Maybe<Scalars['String']>;
+  additionalPosition?: Maybe<Array<Scalars['String']>>;
+  houseLot?: Maybe<AogHouseLot>;
+  specifications?: Maybe<Array<AogSpecifications>>;
+};
+
+export type AogGeneralInput = {
+  generalType?: Maybe<Scalars['String']>;
+  additionalPosition?: Maybe<Array<Scalars['String']>>;
+  houseLot?: Maybe<AogHouseLotInput>;
+  specifications?: Maybe<Array<AogSpecificationsInput>>;
+};
+
+export type GroundMeasurements = {
+  __typename?: 'GroundMeasurements';
+  length?: Maybe<Scalars['AbsoluteFloat']>;
+  width?: Maybe<Scalars['AbsoluteFloat']>;
+  surface?: Maybe<Scalars['AbsoluteFloat']>;
+  fullBuiltWidth?: Maybe<Scalars['AbsoluteFloat']>;
+  currentNumberOfSeats?: Maybe<Scalars['Int']>;
+  housingArea?: Maybe<Scalars['AbsoluteFloat']>;
+};
+
+export type GroundMeasurementsInput = {
+  length?: Maybe<Scalars['AbsoluteFloat']>;
+  width?: Maybe<Scalars['AbsoluteFloat']>;
+  surface?: Maybe<Scalars['AbsoluteFloat']>;
+  fullBuiltWidth?: Maybe<Scalars['AbsoluteFloat']>;
+  currentNumberOfSeats?: Maybe<Scalars['Int']>;
+  housingArea?: Maybe<Scalars['AbsoluteFloat']>;
+};
+
+export type BuildingMeasurements = {
+  __typename?: 'BuildingMeasurements';
+  length?: Maybe<Scalars['AbsoluteFloat']>;
+  width?: Maybe<Scalars['AbsoluteFloat']>;
+  surface?: Maybe<Scalars['AbsoluteFloat']>;
+  height?: Maybe<Scalars['AbsoluteFloat']>;
+  volume?: Maybe<Scalars['AbsoluteFloat']>;
+  constructionYear?: Maybe<Scalars['Int']>;
+};
+
+export type BuildingMeasurementsInput = {
+  length?: Maybe<Scalars['AbsoluteFloat']>;
+  width?: Maybe<Scalars['AbsoluteFloat']>;
+  surface?: Maybe<Scalars['AbsoluteFloat']>;
+  height?: Maybe<Scalars['AbsoluteFloat']>;
+  volume?: Maybe<Scalars['AbsoluteFloat']>;
+  constructionYear?: Maybe<Scalars['Int']>;
+};
+
+export type GroundSpace = {
+  __typename?: 'GroundSpace';
+  typeOfLooseGround?: Maybe<Scalars['String']>;
+  soilType?: Maybe<Array<Scalars['String']>>;
+  soilTypeNotes?: Maybe<Scalars['String']>;
+  measurements?: Maybe<GroundMeasurements>;
+  specifications?: Maybe<Array<AogSpecifications>>;
+  cultivationTypes?: Maybe<Array<Scalars['String']>>;
+  fenceTypes?: Maybe<Array<Scalars['String']>>;
+};
+
+export type GroundSpaceInput = {
+  typeOfLooseGround?: Maybe<Scalars['String']>;
+  soilType?: Maybe<Array<Scalars['String']>>;
+  soilTypeNotes?: Maybe<Scalars['String']>;
+  measurements?: Maybe<GroundMeasurementsInput>;
+  specifications?: Maybe<Array<AogSpecificationsInput>>;
+  cultivationTypes?: Maybe<Array<Scalars['String']>>;
+  fenceTypes?: Maybe<Array<Scalars['String']>>;
+};
+
+export type BuildingsSpace = {
+  __typename?: 'BuildingsSpace';
+  buildingType?: Maybe<Scalars['String']>;
+  numberOfSameBuilding?: Maybe<Scalars['Int']>;
+  buildingTypeNotes?: Maybe<Scalars['String']>;
+  measurements?: Maybe<BuildingMeasurements>;
+};
+
+export type BuildingsSpaceInput = {
+  buildingType?: Maybe<Scalars['String']>;
+  numberOfSameBuilding?: Maybe<Scalars['Int']>;
+  buildingTypeNotes?: Maybe<Scalars['String']>;
+  measurements?: Maybe<BuildingMeasurementsInput>;
+};
+
+export type Installations = {
+  __typename?: 'Installations';
+  type?: Maybe<Scalars['String']>;
+  numberOfSameInstallations?: Maybe<Scalars['Int']>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type InstallationsInput = {
+  type?: Maybe<Scalars['String']>;
+  numberOfSameInstallations?: Maybe<Scalars['Int']>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type Animals = {
+  __typename?: 'Animals';
+  type?: Maybe<Scalars['String']>;
+  numberOfSameAnimals?: Maybe<Scalars['Int']>;
+  notes?: Maybe<Scalars['String']>;
+  specifications?: Maybe<Array<AogSpecifications>>;
+};
+
+export type AnimalsInput = {
+  type?: Maybe<Scalars['String']>;
+  numberOfSameAnimals?: Maybe<Scalars['Int']>;
+  notes?: Maybe<Scalars['String']>;
+  specifications?: Maybe<Array<AogSpecificationsInput>>;
+};
+
+export type AogSpace = LastUpdated & {
+  __typename?: 'AogSpace';
+  id: Scalars['ID'];
+  type: AogSpaceType;
+  name?: Maybe<Scalars['String']>;
+  groundConfiguration?: Maybe<GroundSpace>;
+  buildingsConfiguration?: Maybe<BuildingsSpace>;
+  installationsConfiguration?: Maybe<Installations>;
+  animalsConfiguration?: Maybe<Animals>;
+  images?: Maybe<Array<File>>;
+  dateUpdated?: Maybe<Scalars['Date']>;
+  lastEditedBy?: Maybe<LastUpdatedProfile>;
+  dateCreated?: Maybe<Scalars['Date']>;
+};
+
+export type UpdateAogSpaceInput = {
+  pimId: Scalars['ID'];
+  spaceId: Scalars['ID'];
+  spaceName?: Maybe<Scalars['String']>;
+  groundConfiguration?: Maybe<GroundSpaceInput>;
+  buildingsConfiguration?: Maybe<BuildingsSpaceInput>;
+  installationsConfiguration?: Maybe<InstallationsInput>;
+  animalsConfiguration?: Maybe<AnimalsInput>;
+};
+
+export type AddAogSpaceInput = {
+  id: Scalars['ID'];
+  type: AogSpaceType;
+  name?: Maybe<Scalars['String']>;
+};
+
+export type PimWithNewAogSpace = {
+  __typename?: 'PimWithNewAogSpace';
+  newSpace?: Maybe<AogSpace>;
+  pim?: Maybe<Pim>;
+};
+
+export enum GeneralBogType {
+  BusinessSpace = 'BusinessSpace',
+  Offices = 'Offices',
+  RetailSpace = 'RetailSpace',
+  SocialRealEstate = 'SocialRealEstate',
+  Horeca = 'Horeca',
+}
+
+export enum GeneralCharacteristicsBog {
+  Leissure = 'Leissure',
+  BuildingPlot = 'BuildingPlot',
+  Investment = 'Investment',
+  PavedOutsideArea = 'PavedOutsideArea',
+  LogisticsFunction = 'LogisticsFunction',
+}
+
+export type BogGeneralInput = {
+  type?: Maybe<GeneralBogType>;
+  characteristics?: Maybe<GeneralCharacteristicsBog>;
+  startsOnFloor?: Maybe<Scalars['Int']>;
+  totalFloors?: Maybe<Scalars['Int']>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type BogGeneral = {
+  __typename?: 'BogGeneral';
+  type?: Maybe<GeneralBogType>;
+  characteristics?: Maybe<GeneralCharacteristicsBog>;
+  startsOnFloor?: Maybe<Scalars['Int']>;
+  totalFloors?: Maybe<Scalars['Int']>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export enum BogSpaceType {
+  BusinessSpace = 'BusinessSpace',
+  OfficeSpace = 'OfficeSpace',
+  RetailSpace = 'RetailSpace',
+  Leisure = 'Leisure',
+  HorecaSpace = 'HorecaSpace',
+  SocialRealEstateSpace = 'SocialRealEstateSpace',
+  Terrain = 'Terrain',
+  Storage = 'Storage',
+}
+
+export enum AirTreatmentType {
+  AirCondition = 'AirCondition',
+  MechanicalVentilation = 'MechanicalVentilation',
+  TopCooling = 'TopCooling',
+}
+
+export enum SocialRealEstateSpecificationType {
+  PracticeSpace = 'PracticeSpace',
+  RedesignationPossible = 'RedesignationPossible',
+  HousingAvailable = 'HousingAvailable',
+  ReturnServices = 'ReturnServices',
+}
+
+export enum SocialRealEstateServicesType {
+  SanitaryShared = 'SanitaryShared',
+  SanitaryIndividually = 'SanitaryIndividually',
+  Elevator = 'Elevator',
+  Swimmingpool = 'Swimmingpool',
+  Daycare = 'Daycare',
+  PrivateParkingFacilities = 'PrivateParkingFacilities',
+  OutdoorSpaceAvailable = 'OutdoorSpaceAvailable',
+  OutOfSchoolChildcare = 'OutOfSchoolChildcare',
+  FireAlarmSystem = 'FireAlarmSystem',
+}
+
+export enum HorecaSpecificationType {
+  TakeoverPersonnel = 'TakeoverPersonnel',
+  CateringArea = 'CateringArea',
+  ResidentialObjectAvailable = 'ResidentialObjectAvailable',
+  Terrace = 'Terrace',
+  Luxery = 'Luxery',
+}
+
+export enum OfficeServicesType {
+  CableTrays = 'CableTrays',
+  Skylights = 'Skylights',
+  Pantry = 'Pantry',
+  Heating = 'Heating',
+  SuspendedCeiling = 'SuspendedCeiling',
+  Sprinkler = 'Sprinkler',
+  PowerFlow = 'PowerFlow',
+  OverheadDoors = 'OverheadDoors',
+  Toilet = 'Toilet',
+  RecessedLuminaires = 'RecessedLuminaires',
+  Elevators = 'Elevators',
+  OpenableWindows = 'OpenableWindows',
+  RoomLayout = 'RoomLayout',
+  FlexDesk = 'FlexDesk',
+}
+
+export enum BusinessServicesType {
+  ConcreteFloor = 'ConcreteFloor',
+  Skylights = 'Skylights',
+  Pantry = 'Pantry',
+  Heating = 'Heating',
+  LoadingDocks = 'LoadingDocks',
+  Sprinkler = 'Sprinkler',
+  PowerFlow = 'PowerFlow',
+  OverheadDoors = 'OverheadDoors',
+  Toilet = 'Toilet',
+  RecessedLuminaires = 'RecessedLuminaires',
+  Elevators = 'Elevators',
+  OpenableWindows = 'OpenableWindows',
+}
+
+export enum LeisureSpecificationType {
+  TakeoverPersonnel = 'TakeoverPersonnel',
+  AnnualPitches = 'AnnualPitches',
+  ResidentialObjectAvailable = 'ResidentialObjectAvailable',
+  ReturnServices = 'ReturnServices',
+}
+
+export enum RetailSpecificationType {
+  TakeoverPersonnel = 'TakeoverPersonnel',
+  CateringAllowed = 'CateringAllowed',
+  IndustryLimitation = 'IndustryLimitation',
+  PublicOrientedServices = 'PublicOrientedServices',
+  Retail = 'Retail',
+  Showroom = 'Showroom',
+}
+
+export enum LeisureServicesType {
+  Electric = 'Electric',
+  Reception = 'Reception',
+  SanitaryBlocks = 'SanitaryBlocks',
+  SwimmingPool = 'SwimmingPool',
+  SewageSystem = 'SewageSystem',
+  CateringAvailable = 'CateringAvailable',
+  CampShop = 'CampShop',
+}
+
+export enum TerrainSpecificationsType {
+  Fenced = 'Fenced',
+  Lockable = 'Lockable',
+}
+
+export enum WealthClassType {
+  A1 = 'A1',
+  A2 = 'A2',
+  B1 = 'B1',
+  B2 = 'B2',
+  C1 = 'C1',
+  C2 = 'C2',
+}
+
+export enum TermsOfCostsType {
+  Monthly = 'Monthly',
+  Yearly = 'Yearly',
+}
+
+export enum CommonRoomsType {
+  Canteen = 'Canteen',
+  Pantry = 'Pantry',
+  Kitchen = 'Kitchen',
+  FrontDesk = 'FrontDesk',
+  Sanitary = 'Sanitary',
+  ConferenceRoom = 'ConferenceRoom',
+}
+
+export enum HorecaType {
+  Snackbar = 'Snackbar',
+  ConferenceRoomCenter = 'ConferenceRoomCenter',
+  Restaurant = 'Restaurant',
+  Bistro = 'Bistro',
+  Disco = 'Disco',
+  Hotel = 'Hotel',
+  Cafe = 'Cafe',
+  EatCafe = 'EatCafe',
+  PancakeHouse = 'PancakeHouse',
+  Cafeteria = 'Cafeteria',
+  Restaria = 'Restaria',
+  Lunchroom = 'Lunchroom',
+  FastFood = 'FastFood',
+  RoadHouse = 'RoadHouse',
+  IceCreamParlour = 'IceCreamParlour',
+  SandwichShop = 'SandwichShop',
+}
+
+export enum LegalFormType {
+  Bv = 'BV',
+  Cv = 'CV',
+  Cooperation = 'Cooperation',
+  Proprietorship = 'Proprietorship',
+  Partnership = 'Partnership',
+  Nv = 'NV',
+  Vof = 'VOF',
+  Foundation = 'Foundation',
+  Association = 'Association',
+}
+
+export enum SocialRealEstateSpaceType {
+  Cultural = 'Cultural',
+  Education = 'Education',
+  Religious = 'Religious',
+  Sport = 'Sport',
+  Care = 'Care',
+}
+
+export enum DestinationType {
+  Socially = 'Socially',
+  Living = 'Living',
+}
+
+export enum TypeOfPavement {
+  Asphalt = 'Asphalt',
+  ClinkerBricks = 'ClinkerBricks',
+  StelconPlates = 'StelconPlates',
+  FloorTiles = 'FloorTiles',
+}
+
+export enum TypeOfStorage {
+  StorageRoom = 'StorageRoom',
+  StorageArea = 'StorageArea',
+}
+
+export type RetailMeasurements = {
+  __typename?: 'RetailMeasurements';
+  surface?: Maybe<Scalars['AbsoluteFloat']>;
+  salesFloorArea?: Maybe<Scalars['AbsoluteFloat']>;
+  frontWidth?: Maybe<Scalars['AbsoluteFloat']>;
+  inUnitsFrom?: Maybe<Scalars['AbsoluteFloat']>;
+  amountOfFloors?: Maybe<Scalars['Int']>;
+};
+
+export type RetailMeasurementsInput = {
+  surface?: Maybe<Scalars['AbsoluteFloat']>;
+  salesFloorArea?: Maybe<Scalars['AbsoluteFloat']>;
+  frontWidth?: Maybe<Scalars['AbsoluteFloat']>;
+  inUnitsFrom?: Maybe<Scalars['AbsoluteFloat']>;
+  amountOfFloors?: Maybe<Scalars['Int']>;
+};
+
+export type LeisureMeasurements = {
+  __typename?: 'LeisureMeasurements';
+  surface?: Maybe<Scalars['AbsoluteFloat']>;
+  numberOfPitches?: Maybe<Scalars['Int']>;
+  numberOfStays?: Maybe<Scalars['Int']>;
+  capacityOfPersons?: Maybe<Scalars['Int']>;
+};
+
+export type LeisureMeasurementsInput = {
+  surface?: Maybe<Scalars['AbsoluteFloat']>;
+  numberOfPitches?: Maybe<Scalars['Int']>;
+  numberOfStays?: Maybe<Scalars['Int']>;
+  capacityOfPersons?: Maybe<Scalars['Int']>;
+};
+
+export type HorecaMeasurements = {
+  __typename?: 'HorecaMeasurements';
+  surface?: Maybe<Scalars['AbsoluteFloat']>;
+  salesFloorArea?: Maybe<Scalars['AbsoluteFloat']>;
+  amountOfFloors?: Maybe<Scalars['Int']>;
+  amountOfRooms?: Maybe<Scalars['Int']>;
+  currentNumberOfSeats?: Maybe<Scalars['Int']>;
+  housingArea?: Maybe<Scalars['AbsoluteFloat']>;
+};
+
+export type HorecaMeasurementsInput = {
+  surface?: Maybe<Scalars['AbsoluteFloat']>;
+  salesFloorArea?: Maybe<Scalars['AbsoluteFloat']>;
+  amountOfFloors?: Maybe<Scalars['Int']>;
+  amountOfRooms?: Maybe<Scalars['Int']>;
+  currentNumberOfSeats?: Maybe<Scalars['Int']>;
+  housingArea?: Maybe<Scalars['AbsoluteFloat']>;
+};
+
+export type BusinessSpaceMeasurements = {
+  __typename?: 'BusinessSpaceMeasurements';
+  surface?: Maybe<Scalars['AbsoluteFloat']>;
+  freeHeight?: Maybe<Scalars['AbsoluteFloat']>;
+  freeSpan?: Maybe<Scalars['AbsoluteFloat']>;
+  floorLoad?: Maybe<Scalars['AbsoluteFloat']>;
+  inUnitsFrom?: Maybe<Scalars['AbsoluteFloat']>;
+  amountOfFloors?: Maybe<Scalars['Int']>;
+};
+
+export type BusinessSpaceMeasurementsInput = {
+  surface?: Maybe<Scalars['AbsoluteFloat']>;
+  freeHeight?: Maybe<Scalars['AbsoluteFloat']>;
+  freeSpan?: Maybe<Scalars['AbsoluteFloat']>;
+  floorLoad?: Maybe<Scalars['AbsoluteFloat']>;
+  inUnitsFrom?: Maybe<Scalars['AbsoluteFloat']>;
+  amountOfFloors?: Maybe<Scalars['Int']>;
+};
+
+export type OfficeSpaceMeasurements = {
+  __typename?: 'OfficeSpaceMeasurements';
+  length?: Maybe<Scalars['AbsoluteFloat']>;
+  width?: Maybe<Scalars['AbsoluteFloat']>;
+  height?: Maybe<Scalars['AbsoluteFloat']>;
+  surface?: Maybe<Scalars['AbsoluteFloat']>;
+  volume?: Maybe<Scalars['AbsoluteFloat']>;
+  measurementsCertificateAvailable?: Maybe<Scalars['Boolean']>;
+  inUnitsFrom?: Maybe<Scalars['AbsoluteFloat']>;
+  amountOfFloors?: Maybe<Scalars['Int']>;
+};
+
+export type OfficeSpaceMeasurementsInput = {
+  length?: Maybe<Scalars['AbsoluteFloat']>;
+  width?: Maybe<Scalars['AbsoluteFloat']>;
+  height?: Maybe<Scalars['AbsoluteFloat']>;
+  surface?: Maybe<Scalars['AbsoluteFloat']>;
+  volume?: Maybe<Scalars['AbsoluteFloat']>;
+  measurementsCertificateAvailable?: Maybe<Scalars['Boolean']>;
+  inUnitsFrom?: Maybe<Scalars['AbsoluteFloat']>;
+  amountOfFloors?: Maybe<Scalars['Int']>;
+};
+
+export type StorageMeasurements = {
+  __typename?: 'StorageMeasurements';
+  length?: Maybe<Scalars['AbsoluteFloat']>;
+  width?: Maybe<Scalars['AbsoluteFloat']>;
+  height?: Maybe<Scalars['AbsoluteFloat']>;
+  surface?: Maybe<Scalars['AbsoluteFloat']>;
+  volume?: Maybe<Scalars['AbsoluteFloat']>;
+};
+
+export type StorageMeasurementsInput = {
+  length?: Maybe<Scalars['AbsoluteFloat']>;
+  width?: Maybe<Scalars['AbsoluteFloat']>;
+  height?: Maybe<Scalars['AbsoluteFloat']>;
+  surface?: Maybe<Scalars['AbsoluteFloat']>;
+  volume?: Maybe<Scalars['AbsoluteFloat']>;
+};
+
+export type SocialRealEstateSpaceMeasurements = {
+  __typename?: 'SocialRealEstateSpaceMeasurements';
+  surface?: Maybe<Scalars['AbsoluteFloat']>;
+  numberOfCareUnits?: Maybe<Scalars['Int']>;
+  numberOfSeats?: Maybe<Scalars['Int']>;
+};
+
+export type SocialRealEstateSpaceMeasurementsInput = {
+  surface?: Maybe<Scalars['AbsoluteFloat']>;
+  numberOfCareUnits?: Maybe<Scalars['Int']>;
+  numberOfSeats?: Maybe<Scalars['Int']>;
+};
+
+export type GoodWillPrices = {
+  __typename?: 'GoodWillPrices';
+  priceInventoryGoodwill?: Maybe<Scalars['AbsoluteFloat']>;
+  vatRate?: Maybe<Scalars['AbsoluteFloat']>;
+  priceInventoryGoodwillVat?: Maybe<Scalars['AbsoluteFloat']>;
+  priceInventoryGoodwillIncludedVat?: Maybe<Scalars['AbsoluteFloat']>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type GoodWillPricesInput = {
+  priceInventoryGoodwill?: Maybe<Scalars['AbsoluteFloat']>;
+  vatRate?: Maybe<Scalars['AbsoluteFloat']>;
+  priceInventoryGoodwillVat?: Maybe<Scalars['AbsoluteFloat']>;
+  priceInventoryGoodwillIncludedVat?: Maybe<Scalars['AbsoluteFloat']>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type HorecaPrices = {
+  __typename?: 'HorecaPrices';
+  priceInventoryGoodwill?: Maybe<Scalars['AbsoluteFloat']>;
+  vatRate?: Maybe<Scalars['AbsoluteFloat']>;
+  priceInventoryGoodwillVat?: Maybe<Scalars['AbsoluteFloat']>;
+  priceInventoryGoodwillIncludedVat?: Maybe<Scalars['AbsoluteFloat']>;
+  revenueLastFiscalYear?: Maybe<Scalars['AbsoluteFloat']>;
+  rentalIncomeHomeYear?: Maybe<Scalars['AbsoluteFloat']>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type HorecaPricesInput = {
+  priceInventoryGoodwill?: Maybe<Scalars['AbsoluteFloat']>;
+  vatRate?: Maybe<Scalars['AbsoluteFloat']>;
+  priceInventoryGoodwillVat?: Maybe<Scalars['AbsoluteFloat']>;
+  priceInventoryGoodwillIncludedVat?: Maybe<Scalars['AbsoluteFloat']>;
+  revenueLastFiscalYear?: Maybe<Scalars['AbsoluteFloat']>;
+  rentalIncomeHomeYear?: Maybe<Scalars['AbsoluteFloat']>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type BogPrices = {
+  __typename?: 'BogPrices';
+  price?: Maybe<Scalars['AbsoluteFloat']>;
+  vatRate?: Maybe<Scalars['AbsoluteFloat']>;
+  priceVat?: Maybe<Scalars['AbsoluteFloat']>;
+  priceIncVat?: Maybe<Scalars['AbsoluteFloat']>;
+};
+
+export type BogPricesInput = {
+  price?: Maybe<Scalars['AbsoluteFloat']>;
+  vatRate?: Maybe<Scalars['AbsoluteFloat']>;
+  priceVat?: Maybe<Scalars['AbsoluteFloat']>;
+  priceIncVat?: Maybe<Scalars['AbsoluteFloat']>;
+};
+
+export type SocialRealEstateSpacePrices = {
+  __typename?: 'SocialRealEstateSpacePrices';
+  vatRate?: Maybe<Scalars['AbsoluteFloat']>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type SocialRealEstateSpacePricesInput = {
+  vatRate?: Maybe<Scalars['AbsoluteFloat']>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type RetailerAssociationContribution = {
+  __typename?: 'RetailerAssociationContribution';
+  contribution?: Maybe<Scalars['AbsoluteFloat']>;
+  termsOfCosts?: Maybe<Scalars['String']>;
+  vatPercentage?: Maybe<Scalars['AbsoluteFloat']>;
+  vatTaxedContribution?: Maybe<Scalars['AbsoluteFloat']>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type RetailerAssociationContributionInput = {
+  contribution?: Maybe<Scalars['AbsoluteFloat']>;
+  termsOfCosts?: Maybe<Scalars['String']>;
+  vatPercentage?: Maybe<Scalars['AbsoluteFloat']>;
+  vatTaxedContribution?: Maybe<Scalars['AbsoluteFloat']>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type TerrainSpecifications = {
+  __typename?: 'TerrainSpecifications';
+  surface?: Maybe<Scalars['AbsoluteFloat']>;
+  buildingHeightTerrain?: Maybe<Scalars['AbsoluteFloat']>;
+  extensionTerrainPercent?: Maybe<Scalars['AbsoluteFloat']>;
+  extensionTerrainM2?: Maybe<Scalars['AbsoluteFloat']>;
+  pavedPercentage?: Maybe<Scalars['AbsoluteFloat']>;
+};
+
+export type TerrainSpecificationsInput = {
+  surface?: Maybe<Scalars['AbsoluteFloat']>;
+  buildingHeightTerrain?: Maybe<Scalars['AbsoluteFloat']>;
+  extensionTerrainPercent?: Maybe<Scalars['AbsoluteFloat']>;
+  extensionTerrainM2?: Maybe<Scalars['AbsoluteFloat']>;
+  pavedPercentage?: Maybe<Scalars['AbsoluteFloat']>;
+};
+
+export type RetailSpace = {
+  __typename?: 'RetailSpace';
+  measurements?: Maybe<RetailMeasurements>;
+  airTreatment?: Maybe<Array<Scalars['String']>>;
+  specifications?: Maybe<Array<Scalars['String']>>;
+  prices?: Maybe<GoodWillPrices>;
+  wealthClass?: Maybe<Scalars['String']>;
+  retailerAssociationContribution?: Maybe<RetailerAssociationContribution>;
+  commonRooms?: Maybe<Array<Scalars['String']>>;
+};
+
+export type RetailSpaceInput = {
+  measurements?: Maybe<RetailMeasurementsInput>;
+  airTreatment?: Maybe<Array<Scalars['String']>>;
+  specifications?: Maybe<Array<Scalars['String']>>;
+  prices?: Maybe<GoodWillPricesInput>;
+  wealthClass?: Maybe<Scalars['String']>;
+  retailerAssociationContribution?: Maybe<RetailerAssociationContributionInput>;
+  commonRooms?: Maybe<Array<Scalars['String']>>;
+};
+
+export type LeisureSpace = {
+  __typename?: 'LeisureSpace';
+  measurements?: Maybe<LeisureMeasurements>;
+  specifications?: Maybe<Array<Scalars['String']>>;
+  prices?: Maybe<GoodWillPrices>;
+  services?: Maybe<Array<Scalars['String']>>;
+};
+
+export type LeisureSpaceInput = {
+  measurements?: Maybe<LeisureMeasurementsInput>;
+  specifications?: Maybe<Array<Scalars['String']>>;
+  prices?: Maybe<GoodWillPricesInput>;
+  services?: Maybe<Array<Scalars['String']>>;
+};
+
+export type HorecaSpace = {
+  __typename?: 'HorecaSpace';
+  measurements?: Maybe<HorecaMeasurements>;
+  type?: Maybe<Array<Scalars['String']>>;
+  notes?: Maybe<Scalars['String']>;
+  specifications?: Maybe<Array<Scalars['String']>>;
+  prices?: Maybe<HorecaPrices>;
+  wealthClass?: Maybe<Scalars['String']>;
+  legalForm?: Maybe<Scalars['String']>;
+};
+
+export type HorecaSpaceInput = {
+  measurements?: Maybe<HorecaMeasurementsInput>;
+  type?: Maybe<Array<Scalars['String']>>;
+  notes?: Maybe<Scalars['String']>;
+  specifications?: Maybe<Array<Scalars['String']>>;
+  prices?: Maybe<HorecaPricesInput>;
+  wealthClass?: Maybe<Scalars['String']>;
+  legalForm?: Maybe<Scalars['String']>;
+};
+
+export type BusinessSpace = {
+  __typename?: 'BusinessSpace';
+  measurements?: Maybe<BusinessSpaceMeasurements>;
+  airTreatment?: Maybe<Array<Scalars['String']>>;
+  services?: Maybe<Array<Scalars['String']>>;
+  prices?: Maybe<BogPrices>;
+};
+
+export type BusinessSpaceInput = {
+  measurements?: Maybe<BusinessSpaceMeasurementsInput>;
+  airTreatment?: Maybe<Array<Scalars['String']>>;
+  services?: Maybe<Array<Scalars['String']>>;
+  prices?: Maybe<BogPricesInput>;
+};
+
+export type OfficeSpace = {
+  __typename?: 'OfficeSpace';
+  measurements?: Maybe<OfficeSpaceMeasurements>;
+  airTreatment?: Maybe<Array<Scalars['String']>>;
+  services?: Maybe<Array<Scalars['String']>>;
+  prices?: Maybe<BogPrices>;
+  turnKey?: Maybe<Scalars['Boolean']>;
+  commonRooms?: Maybe<Array<Scalars['String']>>;
+};
+
+export type OfficeSpaceInput = {
+  measurements?: Maybe<OfficeSpaceMeasurementsInput>;
+  airTreatment?: Maybe<Array<Scalars['String']>>;
+  services?: Maybe<Array<Scalars['String']>>;
+  prices?: Maybe<BogPricesInput>;
+  turnKey?: Maybe<Scalars['Boolean']>;
+  commonRooms?: Maybe<Array<Scalars['String']>>;
+};
+
+export type SocialRealEstateSpace = {
+  __typename?: 'SocialRealEstateSpace';
+  measurements?: Maybe<SocialRealEstateSpaceMeasurements>;
+  type?: Maybe<Scalars['String']>;
+  notesAboutType?: Maybe<Scalars['String']>;
+  destinationType?: Maybe<Array<Scalars['String']>>;
+  specifications?: Maybe<Array<Scalars['String']>>;
+  services?: Maybe<Array<Scalars['String']>>;
+  prices?: Maybe<SocialRealEstateSpacePrices>;
+};
+
+export type SocialRealEstateSpaceInput = {
+  measurements?: Maybe<SocialRealEstateSpaceMeasurementsInput>;
+  type?: Maybe<Scalars['String']>;
+  notesAboutType?: Maybe<Scalars['String']>;
+  destinationType?: Maybe<Array<Scalars['String']>>;
+  specifications?: Maybe<Array<Scalars['String']>>;
+  services?: Maybe<Array<Scalars['String']>>;
+  prices?: Maybe<SocialRealEstateSpacePricesInput>;
+};
+
+export type Terrain = {
+  __typename?: 'Terrain';
+  terrainSpecifications?: Maybe<TerrainSpecifications>;
+  specifications?: Maybe<Array<Scalars['String']>>;
+  typeOfPavement?: Maybe<Array<Scalars['String']>>;
+  prices?: Maybe<BogPrices>;
+};
+
+export type TerrainInput = {
+  terrainSpecifications?: Maybe<TerrainSpecificationsInput>;
+  specifications?: Maybe<Array<Scalars['String']>>;
+  typeOfPavement?: Maybe<Array<Scalars['String']>>;
+  prices?: Maybe<BogPricesInput>;
+};
+
+export type Storage = {
+  __typename?: 'Storage';
+  measurements?: Maybe<StorageMeasurements>;
+  type?: Maybe<Scalars['String']>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type StorageInput = {
+  measurements?: Maybe<StorageMeasurementsInput>;
+  type?: Maybe<Scalars['String']>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type BogSpace = LastUpdated & {
+  __typename?: 'BogSpace';
+  id: Scalars['ID'];
+  type: BogSpaceType;
+  name?: Maybe<Scalars['String']>;
+  notes?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+  retailSpaceConfiguration?: Maybe<RetailSpace>;
+  leisureSpaceConfiguration?: Maybe<LeisureSpace>;
+  horecaSpaceConfiguration?: Maybe<HorecaSpace>;
+  businessSpaceConfiguration?: Maybe<BusinessSpace>;
+  officeSpaceConfiguration?: Maybe<OfficeSpace>;
+  socialRealEstateSpaceConfiguration?: Maybe<SocialRealEstateSpace>;
+  terrainConfiguration?: Maybe<Terrain>;
+  storageConfiguration?: Maybe<Storage>;
+  images?: Maybe<Array<File>>;
+  dateUpdated?: Maybe<Scalars['Date']>;
+  lastEditedBy?: Maybe<LastUpdatedProfile>;
+  dateCreated?: Maybe<Scalars['Date']>;
+};
+
+export type UpdateBogSpaceInput = {
+  pimId: Scalars['ID'];
+  spaceId: Scalars['ID'];
+  spaceName?: Maybe<Scalars['String']>;
+  notes?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+  retailSpaceConfiguration?: Maybe<RetailSpaceInput>;
+  leisureSpaceConfiguration?: Maybe<LeisureSpaceInput>;
+  horecaSpaceConfiguration?: Maybe<HorecaSpaceInput>;
+  businessSpaceConfiguration?: Maybe<BusinessSpaceInput>;
+  officeSpaceConfiguration?: Maybe<OfficeSpaceInput>;
+  socialRealEstateSpaceConfiguration?: Maybe<SocialRealEstateSpaceInput>;
+  terrainConfiguration?: Maybe<TerrainInput>;
+  storageConfiguration?: Maybe<StorageInput>;
+};
+
+export type AddBogSpaceInput = {
+  id: Scalars['ID'];
+  type: BogSpaceType;
+  name?: Maybe<Scalars['String']>;
+};
+
+export type PimWithNewBogSpace = {
+  __typename?: 'PimWithNewBogSpace';
+  newSpace: BogSpace;
+  pim: Pim;
+};
+
+export enum CadastreMapType {
+  Map = 'Map',
+  Register = 'Register',
+}
+
+export enum CodeSizeType {
+  Apartment = 'Apartment',
+  Tightness = 'Tightness',
+  PartLot = 'PartLot',
+  InWholePlot = 'InWholePlot',
+  MembershipRight = 'MembershipRight',
+}
+
+export enum LeaseholderType {
+  Different = 'Different',
+  Township = 'Township',
+  Private = 'Private',
+}
+
+export enum CadastreType {
+  CadastreMap = 'CadastreMap',
+  Plot = 'Plot',
+}
+
+export enum LeaseInformationType {
+  Virable = 'Virable',
+  Fixed = 'Fixed',
+}
+
+export enum LeaseDurationType {
+  Forever = 'Forever',
+  Temporary = 'Temporary',
+  Constantly = 'Constantly',
+}
+
+export enum CadastreOwnershipType {
+  PerpetualLeaseChargedWith = 'PerpetualLeaseChargedWith',
+  PropertyChargedWith = 'PropertyChargedWith',
+  AnnualLeaseholdChargedWith = 'AnnualLeaseholdChargedWith',
+  LeaseholdAndBuildingChargedWith = 'LeaseholdAndBuildingChargedWith',
+  BuildingChargedWith = 'BuildingChargedWith',
+  Other = 'Other',
+}
+
+export enum OwnershipChoiceType {
+  MembershipRight = 'MembershipRight',
+  Mandeling = 'Mandeling',
+  Understress = 'Understress',
+  Leasehold = 'Leasehold',
+  RightToRebuild = 'RightToRebuild',
+  FullOwnership = 'FullOwnership',
+  Usufruct = 'Usufruct',
+  SeeDeed = 'SeeDeed',
+  Oppresed = 'Oppresed',
+  LimitedRights = 'LimitedRights',
+  GroundLease = 'GroundLease',
+  LeaseholdAndBuilding = 'LeaseholdAndBuilding',
+  UseAndHabitation = 'UseAndHabitation',
+  Building = 'Building',
+  CityMayorLaw = 'CityMayorLaw',
+  NoneOfThem = 'NoneOfThem',
+  SharedOwnership = 'SharedOwnership',
+  PerpetualLease = 'PerpetualLease',
+  PerpetualSublease = 'PerpetualSublease',
+  Subleasehold = 'Subleasehold',
+  RightOfOverhang = 'RightOfOverhang',
+}
+
+export type CadastrePlotInput = {
+  id?: Maybe<Scalars['String']>;
+  notes?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  municipalCode?: Maybe<Scalars['String']>;
+  sectionCode?: Maybe<Scalars['String']>;
+  plot?: Maybe<Scalars['String']>;
+  indexNumber?: Maybe<Scalars['String']>;
+  surface?: Maybe<Scalars['Float']>;
+  share?: Maybe<Scalars['String']>;
+  codeSize?: Maybe<CodeSizeType>;
+  ownershipChoice?: Maybe<OwnershipChoiceType>;
+  ownershipType?: Maybe<CadastreOwnershipType>;
+  lease?: Maybe<LeaseInput>;
+  boughtOff?: Maybe<BoughtOffInput>;
+};
+
+export type UpdateCadastreInput = {
+  id: Scalars['String'];
+  pimId: Scalars['String'];
+  description?: Maybe<Scalars['String']>;
+  mapsDescription?: Maybe<Scalars['String']>;
+  plot?: Maybe<CadastrePlotInput>;
+};
+
+export type AddCadastreInput = {
+  pimId: Scalars['String'];
+  type: CadastreType;
+  description?: Maybe<Scalars['String']>;
+};
+
+export type AddCadastreMapsInput = {
+  pimId: Scalars['String'];
+  maps: Array<NewCadastreMapInput>;
+};
+
+export type BoughtOff = {
+  __typename?: 'BoughtOff';
+  date?: Maybe<Scalars['Date']>;
+  perpetually?: Maybe<Scalars['Boolean']>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type BoughtOffInput = {
+  date?: Maybe<Scalars['Date']>;
+  perpetually?: Maybe<Scalars['Boolean']>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type CadastrePlot = {
+  __typename?: 'CadastrePlot';
+  notes?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  municipalCode?: Maybe<Scalars['String']>;
+  sectionCode?: Maybe<Scalars['String']>;
+  plot?: Maybe<Scalars['String']>;
+  indexNumber?: Maybe<Scalars['String']>;
+  surface?: Maybe<Scalars['Float']>;
+  share?: Maybe<Scalars['String']>;
+  codeSize?: Maybe<CodeSizeType>;
+  ownershipChoice?: Maybe<OwnershipChoiceType>;
+  ownershipType?: Maybe<CadastreOwnershipType>;
+  lease?: Maybe<Lease>;
+  boughtOff?: Maybe<BoughtOff>;
+  dateCreated?: Maybe<Scalars['Date']>;
+};
+
+export type CadastreMap = {
+  __typename?: 'CadastreMap';
+  id: Scalars['String'];
+  mapName: Scalars['String'];
+  name?: Maybe<Scalars['String']>;
+  file?: Maybe<File>;
+  description?: Maybe<Scalars['String']>;
+  dateCreated?: Maybe<Scalars['Date']>;
+  type?: Maybe<Scalars['String']>;
+};
+
+export type Lease = {
+  __typename?: 'Lease';
+  leaseholder?: Maybe<LeaseholderType>;
+  information?: Maybe<LeaseInformationType>;
+  duration?: Maybe<LeaseDurationType>;
+  yearlyPrice?: Maybe<Scalars['Float']>;
+  endDate?: Maybe<Scalars['Date']>;
+};
+
+export type NewCadastreMapInput = {
+  mapName: Scalars['String'];
+  fileID: Scalars['String'];
   name?: Maybe<Scalars['String']>;
   description?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+};
+
+export type LeaseInput = {
+  leaseholder?: Maybe<LeaseholderType>;
+  information?: Maybe<LeaseInformationType>;
+  duration?: Maybe<LeaseDurationType>;
+  yearlyPrice?: Maybe<Scalars['Float']>;
+  endDate?: Maybe<Scalars['Date']>;
+};
+
+export type Cadastre = LastUpdated & {
+  __typename?: 'Cadastre';
+  id: Scalars['String'];
+  description?: Maybe<Scalars['String']>;
+  mapsDescription?: Maybe<Scalars['String']>;
+  type: CadastreType;
+  maps?: Maybe<Array<CadastreMap>>;
+  plot?: Maybe<CadastrePlot>;
+  dateCreated?: Maybe<Scalars['Date']>;
+  dateUpdated?: Maybe<Scalars['Date']>;
+  lastEditedBy?: Maybe<LastUpdatedProfile>;
+};
+
+export type PimCadastre = {
+  __typename?: 'PimCadastre';
+  id: Scalars['ID'];
+  cadastre?: Maybe<Array<Cadastre>>;
+};
+
+export type PimWithNewCadastre = {
+  __typename?: 'PimWithNewCadastre';
+  pim?: Maybe<Pim>;
+  cadastre?: Maybe<Cadastre>;
+};
+
+export type CadastreMapInput = {
+  mapName?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+};
+
+export type UpdateCadastreMapInput = {
+  pimId: Scalars['String'];
+  cadastreId: Scalars['String'];
+  mapId: Scalars['String'];
+  map?: Maybe<CadastreMapInput>;
   fileId?: Maybe<Scalars['String']>;
+};
+
+export type PimGeneralInput = {
+  id: Scalars['ID'];
+  realEstateType?: Maybe<RealEstateType>;
+  street: Scalars['String'];
+  houseNumberPrefix?: Maybe<Scalars['String']>;
+  houseNumber: Scalars['String'];
+  houseNumberAddition?: Maybe<Scalars['String']>;
+  constructionNumberPrefix?: Maybe<Scalars['String']>;
+  constructionNumber?: Maybe<Scalars['String']>;
+  constructionNumberAddition?: Maybe<Scalars['String']>;
+  postalCode: Scalars['String'];
+  district?: Maybe<Scalars['String']>;
+  city: Scalars['String'];
+  state?: Maybe<Scalars['String']>;
+  county?: Maybe<Scalars['String']>;
+  country: Scalars['String'];
+  developmentType?: Maybe<DevelopmentType>;
+  status?: Maybe<PimStatus>;
+  salePrice?: Maybe<Scalars['Float']>;
+  rentPrice?: Maybe<Scalars['Float']>;
+  description?: Maybe<Scalars['String']>;
+  livingArea?: Maybe<Scalars['Int']>;
+  houseGeneral?: Maybe<HouseGeneralInput>;
+  bogGeneral?: Maybe<BogGeneralInput>;
+  parkingGeneral?: Maybe<ParkingLotGeneralInput>;
+  aogGeneral?: Maybe<AogGeneralInput>;
+  extraAddress?: Maybe<ExtraAddressInput>;
+  showExtraAddress?: Maybe<Scalars['Boolean']>;
+  showIdentificationNumber?: Maybe<Scalars['Boolean']>;
+  apartmentGeneral?: Maybe<ApartmentGeneralInput>;
+  buildingPlotGeneral?: Maybe<BuildingPlotGeneralInput>;
+  attentionNote?: Maybe<Scalars['String']>;
+  showAttentionNote?: Maybe<Scalars['Boolean']>;
+  isPurchased?: Maybe<Scalars['Boolean']>;
+};
+
+export enum ApartmentType {
+  OneBedroomApartment = 'OneBedroomApartment',
+  TwoBedroomApartment = 'TwoBedroomApartment',
+  ThreeBedroomApartment = 'ThreeBedroomApartment',
+  FourBedroomApartment = 'FourBedroomApartment',
+  FiveBedroomApartment = 'FiveBedroomApartment',
+}
+
+export enum SoilType {
+  Clay = 'Clay',
+  Peat = 'Peat',
+  Sand = 'Sand',
+  Loam = 'Loam',
+}
+
+export enum CharacteristicsApartment {
+  CorridorApartment = 'CorridorApartment',
+  ServiceApartment = 'ServiceApartment',
+  NursingApartment = 'NursingApartment',
+  CallFloor = 'CallFloor',
+  DormRoom = 'DormRoom',
+  OpenPorch = 'OpenPorch',
+  PorchApartment = 'PorchApartment',
+  GalleryApartment = 'GalleryApartment',
+  Mezzanine = 'Mezzanine',
+  Penthouse = 'Penthouse',
+  Maisonette = 'Maisonette',
+  UpstairsApartment = 'UpstairsApartment',
+  DownstairsApartment = 'DownstairsApartment',
+  DoubleUpstairsApartment = 'DoubleUpstairsApartment',
+  DoubleDownstairsApartment = 'DoubleDownstairsApartment',
+}
+
+export type ApartmentPropertyDetailsInput = {
+  groundfloorApartmentStartsOnFloor?: Maybe<Scalars['Int']>;
+  amountOfTotalFloors?: Maybe<Scalars['Int']>;
+  notes?: Maybe<Scalars['String']>;
+  apartmentType?: Maybe<Scalars['String']>;
+  characteristicsApartment?: Maybe<Scalars['String']>;
+};
+
+export type ApartmentPropertyDetails = {
+  __typename?: 'ApartmentPropertyDetails';
+  groundfloorApartmentStartsOnFloor?: Maybe<Scalars['Int']>;
+  amountOfTotalFloors?: Maybe<Scalars['Int']>;
+  notes?: Maybe<Scalars['String']>;
+  apartmentType?: Maybe<Scalars['String']>;
+  characteristicsApartment?: Maybe<Scalars['String']>;
+};
+
+export type BuildingPlotPropertyDetails = {
+  __typename?: 'BuildingPlotPropertyDetails';
+  plotReadyForConstruction?: Maybe<Scalars['Boolean']>;
+  buildingPlotNumber?: Maybe<Scalars['Int']>;
+  notes?: Maybe<Scalars['String']>;
+  soilType?: Maybe<Scalars['String']>;
+  measurements?: Maybe<RectangleMeasurement>;
+};
+
+export type ApartmentGeneralInput = {
+  availability?: Maybe<PropertyAvailabilityInformationInput>;
+  construction?: Maybe<ConstructionInformationInput>;
+  propertyDetails?: Maybe<ApartmentPropertyDetailsInput>;
+};
+
+export type BuildingPlotPropertyDetailsInput = {
+  plotReadyForConstruction?: Maybe<Scalars['Boolean']>;
+  buildingPlotNumber?: Maybe<Scalars['Int']>;
+  notes?: Maybe<Scalars['String']>;
+  measurements?: Maybe<RectangleMeasurementInput>;
+  soilType?: Maybe<Scalars['String']>;
+};
+
+export type BuildingPlotGeneralInput = {
+  availability?: Maybe<PropertyAvailabilityInformationInput>;
+  construction?: Maybe<ConstructionInformationInput>;
+  propertyDetails?: Maybe<BuildingPlotPropertyDetailsInput>;
+};
+
+export type PropertyAvailabilityInformation = {
+  __typename?: 'PropertyAvailabilityInformation';
+  availability?: Maybe<PropertyAvailability>;
+  from?: Maybe<Scalars['Date']>;
+  notes?: Maybe<Scalars['String']>;
+  habitation?: Maybe<PropertyHabitation>;
+  currentUse?: Maybe<Scalars['String']>;
+  currentDestination?: Maybe<Scalars['String']>;
+};
+
+export type ConstructionInformation = {
+  __typename?: 'ConstructionInformation';
+  type?: Maybe<ConstructionType>;
+  from?: Maybe<Scalars['Date']>;
+  to?: Maybe<Scalars['Date']>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type ApartmentGeneral = {
+  __typename?: 'ApartmentGeneral';
+  availability?: Maybe<PropertyAvailabilityInformation>;
+  construction?: Maybe<ConstructionInformation>;
+  propertyDetails?: Maybe<ApartmentPropertyDetails>;
+};
+
+export type BuildingPlotGeneral = {
+  __typename?: 'BuildingPlotGeneral';
+  availability?: Maybe<PropertyAvailabilityInformation>;
+  construction?: Maybe<ConstructionInformation>;
+  propertyDetails?: Maybe<BuildingPlotPropertyDetails>;
+};
+
+export type HouseGeneral = {
+  __typename?: 'HouseGeneral';
+  availability?: Maybe<PropertyAvailabilityInformation>;
+  construction?: Maybe<ConstructionInformation>;
+  floor?: Maybe<FloorType>;
+  propertyConnection?: Maybe<PropertyConnection>;
+  propertyDetails?: Maybe<PropertyTypeDetailed>;
+};
+
+export type PropertyAvailabilityInformationInput = {
+  availability?: Maybe<PropertyAvailability>;
+  from?: Maybe<Scalars['Date']>;
+  notes?: Maybe<Scalars['String']>;
+  habitation?: Maybe<PropertyHabitation>;
+  currentUse?: Maybe<Scalars['String']>;
+  currentDestination?: Maybe<Scalars['String']>;
+};
+
+export type HouseGeneralInput = {
+  availability?: Maybe<PropertyAvailabilityInformationInput>;
+  construction?: Maybe<ConstructionInformationInput>;
+  floor?: Maybe<FloorType>;
+  propertyConnection?: Maybe<PropertyConnection>;
+  propertyDetails?: Maybe<PropertyTypeDetailed>;
+};
+
+export type ConstructionInformationInput = {
+  type?: Maybe<ConstructionType>;
+  from?: Maybe<Scalars['Date']>;
+  to?: Maybe<Scalars['Date']>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type ExtraAddress = {
+  __typename?: 'ExtraAddress';
+  plotNumber?: Maybe<Scalars['String']>;
+  plotNumberAddition?: Maybe<Scalars['String']>;
+  houseNumberStart?: Maybe<Scalars['String']>;
+  houseNumberEnd?: Maybe<Scalars['String']>;
+};
+
+export type ExtraAddressInput = {
+  plotNumber?: Maybe<Scalars['String']>;
+  plotNumberAddition?: Maybe<Scalars['String']>;
+  houseNumberStart?: Maybe<Scalars['String']>;
+  houseNumberEnd?: Maybe<Scalars['String']>;
+};
+
+export type PimGeneral = LastUpdated & {
+  __typename?: 'PimGeneral';
+  id: Scalars['ID'];
+  realEstateType: RealEstateType;
+  street: Scalars['String'];
+  houseNumberPrefix?: Maybe<Scalars['String']>;
+  houseNumber: Scalars['String'];
+  houseNumberAddition?: Maybe<Scalars['String']>;
+  constructionNumberPrefix?: Maybe<Scalars['String']>;
+  constructionNumber?: Maybe<Scalars['String']>;
+  constructionNumberAddition?: Maybe<Scalars['String']>;
+  postalCode: Scalars['String'];
+  district?: Maybe<Scalars['String']>;
+  city: Scalars['String'];
+  state?: Maybe<Scalars['String']>;
+  county?: Maybe<Scalars['String']>;
+  country: Scalars['String'];
+  developmentType: DevelopmentType;
+  status: PimStatus;
+  salePrice?: Maybe<Scalars['Float']>;
+  rentPrice?: Maybe<Scalars['Float']>;
+  description?: Maybe<Scalars['String']>;
+  images?: Maybe<Array<File>>;
+  livingArea?: Maybe<Scalars['Int']>;
+  propertyType: PropertyType;
+  attentionNote?: Maybe<Scalars['String']>;
+  showAttentionNote?: Maybe<Scalars['Boolean']>;
+  completeness: Scalars['Float'];
+  archived: Scalars['Boolean'];
+  dateCreated: Scalars['Date'];
+  dateUpdated?: Maybe<Scalars['Date']>;
+  lastEditedBy?: Maybe<LastUpdatedProfile>;
+  houseGeneral?: Maybe<HouseGeneral>;
+  bogGeneral?: Maybe<BogGeneral>;
+  parkingGeneral?: Maybe<ParkingLotGeneral>;
+  aogGeneral?: Maybe<AogGeneral>;
+  extraAddress?: Maybe<ExtraAddress>;
+  identificationNumbers?: Maybe<Array<IdentificationNumber>>;
+  showExtraAddress?: Maybe<Scalars['Boolean']>;
+  showIdentificationNumber?: Maybe<Scalars['Boolean']>;
+  apartmentGeneral?: Maybe<ApartmentGeneral>;
+  buildingPlotGeneral?: Maybe<BuildingPlotGeneral>;
+  isPurchased?: Maybe<Scalars['Boolean']>;
+};
+
+export type PimWithNewIdentificationNumber = {
+  __typename?: 'PimWithNewIdentificationNumber';
+  pim: Pim;
+  newIdentificationNumber: IdentificationNumber;
+};
+
+export type GeneralPimSearchResult = {
+  __typename?: 'GeneralPimSearchResult';
+  metadata?: Maybe<SearchMetadata>;
+  items?: Maybe<Array<PimGeneral>>;
+};
+
+export type PimWithSameAddressInput = {
+  pimId?: Maybe<Scalars['String']>;
+  street?: Maybe<Scalars['String']>;
+  houseNumber?: Maybe<Scalars['String']>;
+  postalCode?: Maybe<Scalars['String']>;
+  city?: Maybe<Scalars['String']>;
+};
+
+export enum SpaceServiceHeating {
+  GeothermalHeat = 'GeothermalHeat',
+  NoHeating = 'NoHeating',
+  Fireplace = 'Fireplace',
+  MultiBurner = 'MultiBurner',
+  HotAirHeating = 'HotAirHeating',
+  PelletStove = 'PelletStove',
+  ElectricHeating = 'ElectricHeating',
+  DistrictHeating = 'DistrictHeating',
+  GasFireplace = 'GasFireplace',
+  CoalStove = 'CoalStove',
+  WallHeating = 'WallHeating',
+  HeatPump = 'HeatPump',
+  MotherFireplace = 'MotherFireplace',
+  GasHeaters = 'GasHeaters',
+  BlockHeatingWoodStove = 'BlockHeatingWoodStove',
+  CentralHeatingBoiler = 'CentralHeatingBoiler',
+  UnderfloorHeatingEntirely = 'UnderfloorHeatingEntirely',
+  PossibilityForFireplaceHeat = 'PossibilityForFireplaceHeat',
+  UnderfloorHeatingPartly = 'UnderfloorHeatingPartly',
+  RecoveryInstalation = 'RecoveryInstalation',
+}
+
+export enum WindowType {
+  FloatGlass = 'FloatGlass',
+  SafetyLaminatedGlass = 'SafetyLaminatedGlass',
+  ObscuredGlass = 'ObscuredGlass',
+  AnnealedGlass = 'AnnealedGlass',
+  TintedGlass = 'TintedGlass',
+  TemperedGlass = 'TemperedGlass',
+  InsulatedGlass = 'InsulatedGlass',
+  MirroredGlass = 'MirroredGlass',
+  LowEglass = 'LowEglass',
+  WiredGlass = 'WiredGlass',
+  HeatStrengthenedGlass = 'HeatStrengthenedGlass',
+}
+
+export enum KitchenType {
+  MainKitchen = 'MainKitchen',
+  Scullery = 'Scullery',
+}
+
+export enum LivingRoomType {
+  ThroughRoom = 'ThroughRoom',
+  FormerEnSuite = 'FormerEnSuite',
+  RoomAndSuite = 'RoomAndSuite',
+  Conservatory = 'Conservatory',
+}
+
+export enum KitchenAppliances {
+  Refrigerator = 'Refrigerator',
+  Microwave = 'Microwave',
+  Dishwasher = 'Dishwasher',
+  Oven = 'Oven',
+  Stove = 'Stove',
+}
+
+export enum KitchenHob {
+  GasHob = 'GasHob',
+  InductionHob = 'InductionHob',
+  ElectricHob = 'ElectricHob',
+  CeramicHob = 'CeramicHob',
+  HalogenHob = 'HalogenHob',
+}
+
+export enum KitchenServices {
+  KitchenIsland = 'KitchenIsland',
+  WashIsland = 'WashIsland',
+}
+
+export enum BathroomServices {
+  Bidet = 'Bidet',
+  Sauna = 'Sauna',
+  WashingMachineConnection = 'WashingMachineConnection',
+  Shower = 'Shower',
+  SteamCabin = 'SteamCabin',
+  Sink = 'Sink',
+  CoubleWashbasin = 'CoubleWashbasin',
+  Toilet = 'Toilet',
+  Washbasin = 'Washbasin',
+  WalkInShower = 'WalkInShower',
+  Urinal = 'Urinal',
+  Whirlpool = 'Whirlpool',
+  Jacuzzi = 'Jacuzzi',
+  SitzBath = 'SitzBath',
+  Bathtub = 'Bathtub',
+}
+
+export type KitchenAppliance = {
+  __typename?: 'KitchenAppliance';
+  name: KitchenAppliances;
+  quantity: Scalars['Int'];
+  notes?: Maybe<Scalars['String']>;
+};
+
+export enum KitchenConstruction {
+  ClosedKitchen = 'ClosedKitchen',
+  EatInKitchen = 'EatInKitchen',
+  HalfOpenKitchen = 'HalfOpenKitchen',
+  OpenKitchen = 'OpenKitchen',
+}
+
+export type RectangleMeasurementInput = {
+  length?: Maybe<Scalars['Float']>;
+  width?: Maybe<Scalars['Float']>;
+  surface?: Maybe<Scalars['Float']>;
+};
+
+export type RectangleMeasurement = {
+  __typename?: 'RectangleMeasurement';
+  length?: Maybe<Scalars['Float']>;
+  width?: Maybe<Scalars['Float']>;
+  surface?: Maybe<Scalars['Float']>;
+};
+
+export type CuboidMeasurement = {
+  __typename?: 'CuboidMeasurement';
+  length?: Maybe<Scalars['Float']>;
+  width?: Maybe<Scalars['Float']>;
+  height?: Maybe<Scalars['Float']>;
+  surface?: Maybe<Scalars['Float']>;
+  volume?: Maybe<Scalars['Float']>;
+};
+
+export enum FloorType {
+  Attic = 'Attic',
+  Floor = 'Floor',
+  Basement = 'Basement',
+  GroundFloor = 'GroundFloor',
+  Loft = 'Loft',
+}
+
+export enum SpaceType {
+  Kitchen = 'Kitchen',
+  Bathroom = 'Bathroom',
+  LivingRoom = 'LivingRoom',
+  Bedroom = 'Bedroom',
+  HomeOffice = 'HomeOffice',
+  Other = 'Other',
+}
+
+export enum SpaceShape {
+  Rectangle = 'Rectangle',
+  Square = 'Square',
+  LType = 'LType',
+  TType = 'TType',
+  UType = 'UType',
+  ZType = 'ZType',
+}
+
+export type KitchenSpace = {
+  __typename?: 'KitchenSpace';
+  constructionYear?: Maybe<Scalars['Float']>;
+  notes?: Maybe<Scalars['String']>;
+  type?: Maybe<KitchenType>;
+  constructionType?: Maybe<Array<Maybe<KitchenConstruction>>>;
+  services?: Maybe<Array<Maybe<KitchenServices>>>;
+  servicesNotes?: Maybe<Scalars['String']>;
+  appliances?: Maybe<Array<Maybe<KitchenAppliance>>>;
+  hob?: Maybe<KitchenHob>;
+  shape?: Maybe<SpaceShape>;
+  measurement?: Maybe<CuboidMeasurement>;
+  serviceHeating?: Maybe<Array<Maybe<SpaceServiceHeating>>>;
+  images?: Maybe<Array<File>>;
+};
+
+export type BathroomSpace = {
+  __typename?: 'BathroomSpace';
+  constructionYear?: Maybe<Scalars['Float']>;
+  notes?: Maybe<Scalars['String']>;
+  services?: Maybe<Array<Maybe<BathroomServices>>>;
+  servicesNotes?: Maybe<Scalars['String']>;
+  shape?: Maybe<SpaceShape>;
+  measurement?: Maybe<CuboidMeasurement>;
+  serviceHeating?: Maybe<Array<Maybe<SpaceServiceHeating>>>;
+  images?: Maybe<Array<File>>;
+};
+
+export type LivingRoomSpace = {
+  __typename?: 'LivingRoomSpace';
+  constructionYear?: Maybe<Scalars['Float']>;
+  notes?: Maybe<Scalars['String']>;
+  type?: Maybe<Array<Maybe<LivingRoomType>>>;
+  shape?: Maybe<SpaceShape>;
+  measurement?: Maybe<CuboidMeasurement>;
+  serviceHeating?: Maybe<Array<Maybe<SpaceServiceHeating>>>;
+  images?: Maybe<Array<File>>;
+  stairs?: Maybe<Scalars['Boolean']>;
+};
+
+export type BedroomSpace = {
+  __typename?: 'BedroomSpace';
+  constructionYear?: Maybe<Scalars['Float']>;
+  notes?: Maybe<Scalars['String']>;
+  shape?: Maybe<SpaceShape>;
+  measurement?: Maybe<CuboidMeasurement>;
+  serviceHeating?: Maybe<Array<Maybe<SpaceServiceHeating>>>;
+  images?: Maybe<Array<File>>;
+};
+
+export type HomeOfficeSpace = {
+  __typename?: 'HomeOfficeSpace';
+  constructionYear?: Maybe<Scalars['Float']>;
+  notes?: Maybe<Scalars['String']>;
+  shape?: Maybe<SpaceShape>;
+  measurement?: Maybe<CuboidMeasurement>;
+  serviceHeating?: Maybe<Array<Maybe<SpaceServiceHeating>>>;
+  images?: Maybe<Array<File>>;
+};
+
+export type OtherSpace = {
+  __typename?: 'OtherSpace';
+  name?: Maybe<Scalars['String']>;
+  constructionYear?: Maybe<Scalars['Float']>;
+  notes?: Maybe<Scalars['String']>;
+  shape?: Maybe<SpaceShape>;
+  measurement?: Maybe<CuboidMeasurement>;
+  serviceHeating?: Maybe<Array<Maybe<SpaceServiceHeating>>>;
+  images?: Maybe<Array<File>>;
+};
+
+export type Floor = LastUpdated & {
+  __typename?: 'Floor';
+  id: Scalars['String'];
+  floorDescription?: Maybe<Scalars['String']>;
+  level: Scalars['Int'];
+  floorType: FloorType;
+  spaces?: Maybe<Array<Space>>;
+  lastEditedBy?: Maybe<LastUpdatedProfile>;
+  dateUpdated?: Maybe<Scalars['Date']>;
+  dateCreated?: Maybe<Scalars['Date']>;
+};
+
+export type SpaceConfiguration =
+  | KitchenSpace
+  | BathroomSpace
+  | LivingRoomSpace
+  | BedroomSpace
+  | HomeOfficeSpace
+  | OtherSpace;
+
+export type Space = {
+  __typename?: 'Space';
+  id: Scalars['String'];
+  spaceType: SpaceType;
+  spaceName?: Maybe<Scalars['String']>;
+  extraRoomPossibility: Scalars['Boolean'];
+  configuration?: Maybe<SpaceConfiguration>;
+  dateCreated?: Maybe<Scalars['Date']>;
+};
+
+export type PimInside = LastUpdated & {
+  __typename?: 'PimInside';
+  id: Scalars['String'];
+  floors?: Maybe<Array<Floor>>;
+  bogSpaces?: Maybe<Array<BogSpace>>;
+  bogSpacesDescription?: Maybe<Scalars['String']>;
+  aogSpaces?: Maybe<Array<AogSpace>>;
+  aogAnimalsDescription?: Maybe<Scalars['String']>;
+  aogBuildingsDescription?: Maybe<Scalars['String']>;
+  aogInstallationsDescription?: Maybe<Scalars['String']>;
+  aogGroundsDescription?: Maybe<Scalars['String']>;
+  insideGeneral?: Maybe<InsideGeneral>;
+  dateUpdated?: Maybe<Scalars['Date']>;
+  lastEditedBy?: Maybe<LastUpdatedProfile>;
+};
+
+export type PimWithUpdatedSpace = {
+  __typename?: 'PimWithUpdatedSpace';
+  newSpace: Space;
+  pim: Pim;
+};
+
+export type AddNewFloorInput = {
+  pimId: Scalars['String'];
+  floorDescription?: Maybe<Scalars['String']>;
+  floorType: FloorType;
+};
+
+export type AddSpaceInput = {
+  spaceType: SpaceType;
+  extraRoomPossibility: Scalars['Boolean'];
+  pimId: Scalars['String'];
+  floorId: Scalars['String'];
+  spaceName?: Maybe<Scalars['String']>;
+};
+
+export type UpdateSpaceInput = {
+  pimId: Scalars['String'];
+  spaceId: Scalars['String'];
+  spaceName?: Maybe<Scalars['String']>;
+  space?: Maybe<Scalars['UpdateSpaceInputConfiguration']>;
+};
+
+export type UpdateFloorInput = {
+  pimId: Scalars['String'];
+  floorId: Scalars['String'];
+  floorDescription?: Maybe<Scalars['String']>;
+  floorType?: Maybe<FloorType>;
+};
+
+export type InsideWindowsInput = {
+  types?: Maybe<Array<WindowType>>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type InsideWindows = {
+  __typename?: 'InsideWindows';
+  types?: Maybe<Array<WindowType>>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type RenovationInput = {
+  yearOfRenovation?: Maybe<Scalars['Int']>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type Renovation = {
+  __typename?: 'Renovation';
+  yearOfRenovation?: Maybe<Scalars['Int']>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type ExtensionInput = {
+  yearOfExtension?: Maybe<Scalars['Int']>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type Extension = {
+  __typename?: 'Extension';
+  yearOfExtension?: Maybe<Scalars['Int']>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type InsideGeneralInput = {
+  pimId: Scalars['ID'];
+  windows?: Maybe<InsideWindowsInput>;
+  extension?: Maybe<ExtensionInput>;
+  renovation?: Maybe<RenovationInput>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type InsideGeneral = LastUpdated & {
+  __typename?: 'InsideGeneral';
+  windows?: Maybe<InsideWindows>;
+  extension?: Maybe<Extension>;
+  renovation?: Maybe<Renovation>;
+  notes?: Maybe<Scalars['String']>;
+  dateUpdated?: Maybe<Scalars['Date']>;
+  lastEditedBy?: Maybe<LastUpdatedProfile>;
+};
+
+export type PimWithNewFloor = {
+  __typename?: 'PimWithNewFloor';
+  newFloor: Floor;
+  pim: Pim;
+};
+
+export enum LocationType {
+  OnTheEdgeOfForest = 'OnTheEdgeOfForest',
+  OnBusyRoad = 'OnBusyRoad',
+  OnPark = 'OnPark',
+  OnQuietRoad = 'OnQuietRoad',
+  OnFairway = 'OnFairway',
+  OnWater = 'OnWater',
+  ShelteredLocation = 'ShelteredLocation',
+  OutsideBuiltUpAreas = 'OutsideBuiltUpAreas',
+  InWoodedArea = 'InWoodedArea',
+  InCenter = 'InCenter',
+  InResidentialArea = 'InResidentialArea',
+  OpenLocation = 'OpenLocation',
+}
+
+export enum LocationGoodToKnowType {
+  Restaurants = 'Restaurants',
+  Subway = 'Subway',
+  Recreation = 'Recreation',
+  Shops = 'Shops',
+  Train = 'Train',
+  School = 'School',
+  Highway = 'Highway',
+  Sport = 'Sport',
+}
+
+export enum DistanceUnit {
+  Meters = 'Meters',
+  Kilometers = 'Kilometers',
+}
+
+export type GoodToKnow = {
+  __typename?: 'GoodToKnow';
+  type?: Maybe<Scalars['String']>;
+  distance?: Maybe<Scalars['Int']>;
+  units?: Maybe<DistanceUnit>;
+  checked?: Maybe<Scalars['Boolean']>;
+};
+
+export type PimLocation = LastUpdated & {
+  __typename?: 'PimLocation';
+  id: Scalars['String'];
+  latitude?: Maybe<Scalars['Float']>;
+  longitude?: Maybe<Scalars['Float']>;
+  map?: Maybe<Scalars['String']>;
+  type?: Maybe<Array<Maybe<Scalars['String']>>>;
+  notes?: Maybe<Scalars['String']>;
+  goodToKnows?: Maybe<Array<GoodToKnow>>;
+  lastEditedBy?: Maybe<LastUpdatedProfile>;
+  dateUpdated?: Maybe<Scalars['Date']>;
+  description?: Maybe<Scalars['String']>;
 };
 
 export type UpdatePimLocationInput = {
@@ -9493,11 +6636,1967 @@ export type UpdatePimLocationInput = {
   description?: Maybe<Scalars['String']>;
 };
 
+export type GoodToKnowInput = {
+  type?: Maybe<Scalars['String']>;
+  distance?: Maybe<Scalars['Int']>;
+  units?: Maybe<DistanceUnit>;
+  checked?: Maybe<Scalars['Boolean']>;
+};
+
+export type PimMedia = LastUpdated & {
+  __typename?: 'PimMedia';
+  id: Scalars['String'];
+  pictures?: Maybe<Array<Picture>>;
+  mediaLinks?: Maybe<Array<MediaLink>>;
+  textChapters?: Maybe<Array<TextChapter>>;
+  usps?: Maybe<Array<Usp>>;
+  tags?: Maybe<Array<Tag>>;
+  dateUpdated?: Maybe<Scalars['Date']>;
+  lastEditedBy?: Maybe<LastUpdatedProfile>;
+  description?: Maybe<Scalars['String']>;
+};
+
+export type PimMediaPicturesArgs = {
+  sort?: Maybe<Sort>;
+};
+
+export type PimWithNewPictures = {
+  __typename?: 'PimWithNewPictures';
+  pim: Pim;
+  newPictures?: Maybe<Array<Picture>>;
+};
+
+export type PimWithNewTextChapter = {
+  __typename?: 'PimWithNewTextChapter';
+  pim: Pim;
+  newChapter: TextChapter;
+};
+
+export type PimWithNewUsp = {
+  __typename?: 'PimWithNewUsp';
+  pim: Pim;
+  newUsp: Usp;
+};
+
+export type PimWithNewMediaLink = {
+  __typename?: 'PimWithNewMediaLink';
+  pim: Pim;
+  newMediaLink: MediaLink;
+};
+
+export type PimWithNewTag = {
+  __typename?: 'PimWithNewTag';
+  pim: Pim;
+  newTag: Tag;
+};
+
+export type NewPictureInput = {
+  fileID: Scalars['String'];
+};
+
+export type AddPicturesInput = {
+  pimId: Scalars['String'];
+  pictures: Array<NewPictureInput>;
+};
+
+export type AddTextChapterInput = {
+  pimId: Scalars['String'];
+  name?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  text?: Maybe<Scalars['String']>;
+};
+
+export type UpdateTextChapterInput = {
+  pimId: Scalars['String'];
+  id: Scalars['String'];
+  name?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  text?: Maybe<Scalars['String']>;
+};
+
+export type AddUspInput = {
+  pimId: Scalars['String'];
+  type?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+};
+
+export type UpdateUspInput = {
+  pimId: Scalars['String'];
+  id: Scalars['String'];
+  type?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+};
+
+export type AddMediaLinkInput = {
+  pimId: Scalars['String'];
+  type?: Maybe<Scalars['String']>;
+  url?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+};
+
+export type UpdateMediaLinkInput = {
+  pimId: Scalars['String'];
+  id: Scalars['String'];
+  type?: Maybe<Scalars['String']>;
+  url?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+};
+
+export type AddTagInput = {
+  pimId: Scalars['String'];
+  type?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+};
+
+export type UpdateTagInput = {
+  pimId: Scalars['String'];
+  id: Scalars['String'];
+  type?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+};
+
+export type UpdatePictureInput = {
+  pimId: Scalars['String'];
+  id: Scalars['String'];
+  type?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+  fileId?: Maybe<Scalars['String']>;
+};
+
+export type PimMeters = LastUpdated & {
+  __typename?: 'PimMeters';
+  id: Scalars['String'];
+  meters?: Maybe<Array<Meter>>;
+  metersMeta?: Maybe<MetersMeta>;
+  dateUpdated?: Maybe<Scalars['Date']>;
+  lastEditedBy?: Maybe<LastUpdatedProfile>;
+};
+
+export enum QualityInformations {
+  Simple = 'Simple',
+  Normal = 'Normal',
+  Luxury = 'Luxury',
+  Excellent = 'Excellent',
+  GoodToStickOut = 'GoodToStickOut',
+  Good = 'Good',
+  ReasonableToGood = 'ReasonableToGood',
+  Fair = 'Fair',
+  ModerateToFairRedelijik = 'ModerateToFairRedelijik',
+  Moderate = 'Moderate',
+  BadToModerate = 'BadToModerate',
+  Bad = 'Bad',
+}
+
+export enum RoofTypes {
+  TransverseRoof = 'TransverseRoof',
+  ClassRoof = 'ClassRoof',
+  MansardRoof = 'MansardRoof',
+  FlatRoof = 'FlatRoof',
+  HippedRoof = 'HippedRoof',
+  TentRoof = 'TentRoof',
+  SaddleRoof = 'SaddleRoof',
+  CompositeRoof = 'CompositeRoof',
+}
+
+export enum RoofMaterials {
+  Asbestos = 'Asbestos',
+  BituminousRoofing = 'BituminousRoofing',
+  Plastic = 'Plastic',
+  Slate = 'Slate',
+  Metal = 'Metal',
+  Pans = 'Pans',
+  Other = 'Other',
+}
+
+export enum RoofInsulations {
+  SprayFoam = 'SprayFoam',
+  RigidBoards = 'RigidBoards',
+  BlanketOrMatting = 'BlanketOrMatting',
+  GlassRock = 'GlassRock',
+  MineralWool = 'MineralWool',
+  LooseFill = 'LooseFill',
+  StructuralPanels = 'StructuralPanels',
+}
+
+export enum PropertyRelatedItems {
+  Balcony = 'Balcony',
+  Terrace = 'Terrace',
+  RoofTerrace = 'RoofTerrace',
+  Porch = 'Porch',
+}
+
+export enum OutsideFeatureType {
+  Garden = 'Garden',
+  Garage = 'Garage',
+  Storage = 'Storage',
+  Terrain = 'Terrain',
+  ParkingLot = 'ParkingLot',
+}
+
+export enum GardenType {
+  Backyard = 'Backyard',
+  PatioOrAtrium = 'PatioOrAtrium',
+  Place = 'Place',
+  AllGroundGarden = 'AllGroundGarden',
+  FrontGarden = 'FrontGarden',
+  SunTerrace = 'SunTerrace',
+  BackGarden = 'BackGarden',
+}
+
+export enum GardenQualityType {
+  ToBeConstructed = 'ToBeConstructed',
+  BeautifullyConstructed = 'BeautifullyConstructed',
+  Normal = 'Normal',
+  Neglected = 'Neglected',
+  TakenCareOf = 'TakenCareOf',
+}
+
+export enum GardenShapeType {
+  Square = 'Square',
+  Rectangle = 'Rectangle',
+  LShape = 'LShape',
+  UShape = 'UShape',
+  TShape = 'TShape',
+}
+
+export enum Location {
+  North = 'North',
+  South = 'South',
+  East = 'East',
+  West = 'West',
+}
+
+export enum GarageType {
+  NoGarage = 'NoGarage',
+  AttachmentWood = 'AttachmentWood',
+  AttachmentStone = 'AttachmentStone',
+  Carport = 'Carport',
+  GarageWithCarport = 'GarageWithCarport',
+  GaragePossible = 'GaragePossible',
+  GarageBox = 'GarageBox',
+  Indoor = 'Indoor',
+  ParkingBasement = 'ParkingBasement',
+  ParkingSpace = 'ParkingSpace',
+  Basement = 'Basement',
+  FreestandingWood = 'FreestandingWood',
+  FreestandingStone = 'FreestandingStone',
+}
+
+export enum GarageAndStorageMaterial {
+  Stone = 'Stone',
+  Wood = 'Wood',
+  Plastic = 'Plastic',
+  Metal = 'Metal',
+  Other = 'Other',
+}
+
+export enum GarageInsulation {
+  RoofInsulation = 'RoofInsulation',
+  DoubleGlazing = 'DoubleGlazing',
+  EcoConstruction = 'EcoConstruction',
+  NoCavity = 'NoCavity',
+  PartlyDoubleGlazing = 'PartlyDoubleGlazing',
+  WallInsulation = 'WallInsulation',
+  FloorInsulation = 'FloorInsulation',
+  FullyInsulated = 'FullyInsulated',
+}
+
+export enum GarageService {
+  ElectricDoor = 'ElectricDoor',
+  Loft = 'Loft',
+  Electricity = 'Electricity',
+  HeatingWater = 'HeatingWater',
+}
+
+export enum StorageType {
+  StorageBox = 'StorageBox',
+  Shed = 'Shed',
+  TeaHouse = 'TeaHouse',
+  WithAttic = 'WithAttic',
+}
+
+export enum StorageInsulation {
+  NoInsulation = 'NoInsulation',
+  RoofInsulation = 'RoofInsulation',
+  DoubleGlazing = 'DoubleGlazing',
+  EcoConstruction = 'EcoConstruction',
+  NoCavity = 'NoCavity',
+  PartlyDoubleGlazing = 'PartlyDoubleGlazing',
+  WallInsulation = 'WallInsulation',
+  FloorInsulation = 'FloorInsulation',
+  FullyInsulated = 'FullyInsulated',
+}
+
+export enum StorageService {
+  WithElectricDoor = 'WithElectricDoor',
+  WithLoft = 'WithLoft',
+  EquippedWithElectricity = 'EquippedWithElectricity',
+  ProvidedWithHeating = 'ProvidedWithHeating',
+  ProvidedWithWater = 'ProvidedWithWater',
+}
+
+export enum TerrainParking {
+  PaidParking = 'PaidParking',
+  PublicParking = 'PublicParking',
+  ParkingGarage = 'ParkingGarage',
+  ParkingPermits = 'ParkingPermits',
+}
+
+export enum FoundationType {
+  IsolatedFooting = 'IsolatedFooting',
+  CombinedFooting = 'CombinedFooting',
+  WallFooting = 'WallFooting',
+  SpreadLooting = 'SpreadLooting',
+  RaftOrMatFoundations = 'RaftOrMatFoundations',
+  PileFoundations = 'PileFoundations',
+  DrilledShafts = 'DrilledShafts',
+}
+
+export enum FoundationMaterialType {
+  Concrete = 'Concrete',
+  Timber = 'Timber',
+  Steel = 'Steel',
+  Plastic = 'Plastic',
+}
+
+export enum GutterType {
+  HalfRound = 'HalfRound',
+  Flatbottom = 'Flatbottom',
+  NoGutter = 'NoGutter',
+}
+
+export enum GutterMaterial {
+  Vinyl = 'Vinyl',
+  Stainless = 'Stainless',
+  Aluminium = 'Aluminium',
+  Copper = 'Copper',
+  Zinc = 'Zinc',
+  Steel = 'Steel',
+}
+
+export type RoofInformationInput = {
+  type?: Maybe<RoofTypeInput>;
+  material?: Maybe<RoofMaterialInput>;
+  insulation?: Maybe<RoofInsulationInput>;
+  gutter?: Maybe<GutterInformationsInput>;
+  gutterMaterial?: Maybe<GutterMaterialInformationsInput>;
+  images?: Maybe<Array<Maybe<Scalars['String']>>>;
+  yearOfRoof?: Maybe<Scalars['Int']>;
+};
+
+export type RoofTypeInput = {
+  name?: Maybe<RoofTypes>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type RoofMaterialInput = {
+  name?: Maybe<RoofMaterials>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type GutterMaterialInformationsInput = {
+  material?: Maybe<GutterMaterial>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type GutterMaterialInformations = {
+  __typename?: 'GutterMaterialInformations';
+  material?: Maybe<GutterMaterial>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type GutterInformationsInput = {
+  type?: Maybe<GutterType>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type GutterInformations = {
+  __typename?: 'GutterInformations';
+  type?: Maybe<GutterType>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type RoofInsulationInput = {
+  name?: Maybe<RoofInsulations>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type GeneralInformation = {
+  __typename?: 'GeneralInformation';
+  qualityInformation?: Maybe<Array<Maybe<QualityInformations>>>;
+  images?: Maybe<Array<File>>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type PropertyRelated = {
+  __typename?: 'PropertyRelated';
+  items?: Maybe<Array<Maybe<PropertyRelatedItems>>>;
+  notes?: Maybe<Scalars['String']>;
+  images?: Maybe<Array<File>>;
+};
+
+export type RoofType = {
+  __typename?: 'RoofType';
+  name?: Maybe<RoofTypes>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type RoofMaterial = {
+  __typename?: 'RoofMaterial';
+  name?: Maybe<RoofMaterials>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type RoofInsulation = {
+  __typename?: 'RoofInsulation';
+  name?: Maybe<RoofInsulations>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type RoofInformation = {
+  __typename?: 'RoofInformation';
+  type?: Maybe<RoofType>;
+  material?: Maybe<RoofMaterial>;
+  insulation?: Maybe<RoofInsulation>;
+  images?: Maybe<Array<File>>;
+  yearOfRoof?: Maybe<Scalars['Int']>;
+  gutter?: Maybe<GutterInformations>;
+  gutterMaterial?: Maybe<GutterMaterialInformations>;
+};
+
+export type FoundationTypeInformationsInput = {
+  type?: Maybe<FoundationType>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type FoundationTypeInformations = {
+  __typename?: 'FoundationTypeInformations';
+  type?: Maybe<FoundationType>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type FoundationMaterialInformationsInput = {
+  type?: Maybe<Array<FoundationMaterialType>>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type FoundationMaterialInformations = {
+  __typename?: 'FoundationMaterialInformations';
+  type?: Maybe<Array<FoundationMaterialType>>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type FoundationInput = {
+  type?: Maybe<FoundationTypeInformationsInput>;
+  material?: Maybe<FoundationMaterialInformationsInput>;
+};
+
+export type Foundation = {
+  __typename?: 'Foundation';
+  type?: Maybe<FoundationTypeInformations>;
+  material?: Maybe<FoundationMaterialInformations>;
+};
+
+export type HouseOutsideInput = {
+  generalInformation?: Maybe<GeneralInformationInput>;
+  foundation?: Maybe<FoundationInput>;
+  propertyRelated?: Maybe<PropertyRelatedInput>;
+  roofInformation?: Maybe<RoofInformationInput>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type HouseOutside = {
+  __typename?: 'HouseOutside';
+  generalInformation?: Maybe<GeneralInformation>;
+  foundation?: Maybe<Foundation>;
+  propertyRelated?: Maybe<PropertyRelated>;
+  roofInformation?: Maybe<RoofInformation>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type GardenFeature = {
+  __typename?: 'GardenFeature';
+  main?: Maybe<Scalars['Boolean']>;
+  type?: Maybe<GardenType>;
+  notes?: Maybe<Scalars['String']>;
+  quality?: Maybe<GardenQualityType>;
+  location?: Maybe<Array<Maybe<Location>>>;
+  shape?: Maybe<GardenShapeType>;
+  measurement?: Maybe<RectangleMeasurement>;
+  images?: Maybe<Array<File>>;
+};
+
+export type GarageFeature = {
+  __typename?: 'GarageFeature';
+  main?: Maybe<Scalars['Boolean']>;
+  types?: Maybe<Array<Maybe<GarageType>>>;
+  attached?: Maybe<Scalars['Boolean']>;
+  attic?: Maybe<Scalars['Boolean']>;
+  insulations?: Maybe<Array<Maybe<GarageInsulation>>>;
+  services?: Maybe<Array<Maybe<GarageService>>>;
+  secondaryWindows?: Maybe<Scalars['Boolean']>;
+  materials?: Maybe<Array<Maybe<GarageAndStorageMaterial>>>;
+  measurement?: Maybe<CuboidMeasurement>;
+  notes?: Maybe<Scalars['String']>;
+  images?: Maybe<Array<File>>;
+};
+
+export type StorageFeature = {
+  __typename?: 'StorageFeature';
+  main?: Maybe<Scalars['Boolean']>;
+  attached?: Maybe<Scalars['Boolean']>;
+  types?: Maybe<Array<Maybe<StorageType>>>;
+  materials?: Maybe<Array<Maybe<GarageAndStorageMaterial>>>;
+  insulations?: Maybe<Array<Maybe<StorageInsulation>>>;
+  services?: Maybe<Array<Maybe<StorageService>>>;
+  secondaryWindows?: Maybe<Scalars['Boolean']>;
+  measurement?: Maybe<CuboidMeasurement>;
+  notes?: Maybe<Scalars['String']>;
+  images?: Maybe<Array<File>>;
+};
+
+export type TerrainFeature = {
+  __typename?: 'TerrainFeature';
+  parking?: Maybe<TerrainParking>;
+  measurement?: Maybe<RectangleMeasurement>;
+  notes?: Maybe<Scalars['String']>;
+  images?: Maybe<Array<File>>;
+};
+
+export type ParkingLotFeature = {
+  __typename?: 'ParkingLotFeature';
+  number?: Maybe<Scalars['Float']>;
+  price?: Maybe<Scalars['Float']>;
+  cost?: Maybe<Scalars['Float']>;
+  notes?: Maybe<Scalars['String']>;
+  images?: Maybe<Array<File>>;
+};
+
+export type OutsideFeatureConfiguration =
+  | GardenFeature
+  | GarageFeature
+  | StorageFeature
+  | TerrainFeature
+  | ParkingLotFeature;
+
+export type OutsideFeature = LastUpdated & {
+  __typename?: 'OutsideFeature';
+  id: Scalars['String'];
+  description?: Maybe<Scalars['String']>;
+  type: OutsideFeatureType;
+  configuration?: Maybe<OutsideFeatureConfiguration>;
+  dateCreated?: Maybe<Scalars['Date']>;
+  dateUpdated?: Maybe<Scalars['Date']>;
+  lastEditedBy?: Maybe<LastUpdatedProfile>;
+};
+
+export type PimOutside = LastUpdated & {
+  __typename?: 'PimOutside';
+  id: Scalars['ID'];
+  houseOutside?: Maybe<HouseOutside>;
+  outsideFeatures?: Maybe<Array<OutsideFeature>>;
+  dateUpdated?: Maybe<Scalars['Date']>;
+  lastEditedBy?: Maybe<LastUpdatedProfile>;
+};
+
+export type PimOutsideInput = {
+  id: Scalars['ID'];
+  houseOutside?: Maybe<HouseOutsideInput>;
+};
+
+export type AddOutsideFeatureInput = {
+  pimId: Scalars['String'];
+  type: OutsideFeatureType;
+  description?: Maybe<Scalars['String']>;
+};
+
+export type PimWithNewOutside = {
+  __typename?: 'PimWithNewOutside';
+  pim: Pim;
+  newOutsideFeature: OutsideFeature;
+};
+
+export enum TypeOfParkingType {
+  Garage = 'Garage',
+  ParkingBasement = 'ParkingBasement',
+  ParkingLot = 'ParkingLot',
+  Berth = 'Berth',
+  MobileHomePitch = 'MobileHomePitch',
+  CaravanSite = 'CaravanSite',
+}
+
+export enum ParkingLotSpecificationsType {
+  OnEnclosedGrounds = 'OnEnclosedGrounds',
+  OnOwnProperty = 'OnOwnProperty',
+  ParkingPermit = 'ParkingPermit',
+  Indoor = 'Indoor',
+  WithAttic = 'WithAttic',
+  Freestanding = 'Freestanding',
+  ElectricDoor = 'ElectricDoor',
+  Water = 'Water',
+  Heating = 'Heating',
+}
+
+export enum ParkingMaterialType {
+  Wood = 'Wood',
+  Stone = 'Stone',
+  Plastic = 'Plastic',
+  Metal = 'Metal',
+}
+
+export enum ParkingInsulationType {
+  Roof = 'Roof',
+  Wall = 'Wall',
+  Floor = 'Floor',
+  NoCavity = 'NoCavity',
+  DoubleGalzing = 'DoubleGalzing',
+  EcoConstruction = 'EcoConstruction',
+  PartlyDoubleGalzing = 'PartlyDoubleGalzing',
+  SecondaryWindows = 'SecondaryWindows',
+}
+
+export type TypeOfParkingInput = {
+  type?: Maybe<Scalars['String']>;
+  parkingNumber?: Maybe<Scalars['Int']>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type TypeOfParking = {
+  __typename?: 'TypeOfParking';
+  type?: Maybe<Scalars['String']>;
+  parkingNumber?: Maybe<Scalars['Int']>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type ParkingLotSpecificationsInput = {
+  type?: Maybe<Array<Scalars['String']>>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type ParkingLotSpecifications = {
+  __typename?: 'ParkingLotSpecifications';
+  type?: Maybe<Array<Scalars['String']>>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type ParkingMaterialInput = {
+  type?: Maybe<Array<Scalars['String']>>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type ParkingMaterial = {
+  __typename?: 'ParkingMaterial';
+  type?: Maybe<Array<Scalars['String']>>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type ParkingInsulationInput = {
+  type?: Maybe<Array<Scalars['String']>>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type ParkingInsulation = {
+  __typename?: 'ParkingInsulation';
+  type?: Maybe<Array<Scalars['String']>>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type ParkingMeasurementsInput = {
+  length?: Maybe<Scalars['Float']>;
+  width?: Maybe<Scalars['Float']>;
+  surface?: Maybe<Scalars['Float']>;
+  capacity?: Maybe<Scalars['Int']>;
+  height?: Maybe<Scalars['Float']>;
+  volume?: Maybe<Scalars['Float']>;
+};
+
+export type ParkingMeasurements = {
+  __typename?: 'ParkingMeasurements';
+  length?: Maybe<Scalars['Float']>;
+  width?: Maybe<Scalars['Float']>;
+  surface?: Maybe<Scalars['Float']>;
+  capacity?: Maybe<Scalars['Int']>;
+  height?: Maybe<Scalars['Float']>;
+  volume?: Maybe<Scalars['Float']>;
+};
+
+export type ParkingLotGeneralInput = {
+  type?: Maybe<TypeOfParkingInput>;
+  measurements?: Maybe<ParkingMeasurementsInput>;
+  specifications?: Maybe<ParkingLotSpecificationsInput>;
+  material?: Maybe<ParkingMaterialInput>;
+  insulation?: Maybe<ParkingInsulationInput>;
+};
+
+export type ParkingLotGeneral = {
+  __typename?: 'ParkingLotGeneral';
+  type?: Maybe<TypeOfParking>;
+  measurements?: Maybe<ParkingMeasurements>;
+  specifications?: Maybe<ParkingLotSpecifications>;
+  material?: Maybe<ParkingMaterial>;
+  insulation?: Maybe<ParkingInsulation>;
+};
+
+export enum DateRangeType {
+  ThirtyDays = 'ThirtyDays',
+  TwoWeeks = 'TwoWeeks',
+  OneWeek = 'OneWeek',
+  ThreeDays = 'ThreeDays',
+}
+
+export enum CostPaymentFrequency {
+  Monthly = 'Monthly',
+  Yearly = 'Yearly',
+}
+
+export enum PricingType {
+  Sale = 'Sale',
+  Rent = 'Rent',
+}
+
+export enum CostType {
+  Service = 'Service',
+  Heating = 'Heating',
+  Electricity = 'Electricity',
+  Water = 'Water',
+  Sewage = 'Sewage',
+  WaterBoard = 'WaterBoard',
+  LandConsolidationInterest = 'LandConsolidationInterest',
+  HomeownerAssociation = 'HomeownerAssociation',
+  OzbUserPart = 'OzbUserPart',
+  OzbBusinessPart = 'OzbBusinessPart',
+  Custom = 'Custom',
+}
+
+export enum SalePriceSuffix {
+  CostsBuyer = 'CostsBuyer',
+  FreeInName = 'FreeInName',
+  NoneOfThem = 'NoneOfThem',
+}
+
+export enum RentPaymentFrequency {
+  PerMonth = 'PerMonth',
+  Annual = 'Annual',
+  Custom = 'Custom',
+}
+
+export enum SaleCondition {
+  VatTaxed = 'VatTaxed',
+  IncludingVat = 'IncludingVat',
+  ExcludingConstructionInterest = 'ExcludingConstructionInterest',
+}
+
+export enum RentCondition {
+  VatTaxed = 'VatTaxed',
+  ExcludingServiceCosts = 'ExcludingServiceCosts',
+  Furnished = 'Furnished',
+  IncludingServiceCosts = 'IncludingServiceCosts',
+  Indexed = 'Indexed',
+}
+
+export enum PurchaseMix {
+  MgeConstruction = 'MgeConstruction',
+  PartOfIndividualProject = 'PartOfIndividualProject',
+  PurchaseGuarantee = 'PurchaseGuarantee',
+  MixedFormPurchaseRent = 'MixedFormPurchaseRent',
+}
+
+export type SaleGeneralInput = {
+  prefix?: Maybe<Scalars['String']>;
+  price?: Maybe<Scalars['AbsoluteFloat']>;
+  suffix?: Maybe<Scalars['String']>;
+  executionSale?: Maybe<Scalars['Boolean']>;
+  dateOfExecutionSale?: Maybe<Scalars['Date']>;
+  conditions?: Maybe<SaleCondition>;
+  purchaseMix?: Maybe<PurchaseMix>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type SaleGeneral = {
+  __typename?: 'SaleGeneral';
+  prefix?: Maybe<Scalars['String']>;
+  price?: Maybe<Scalars['AbsoluteFloat']>;
+  suffix?: Maybe<Scalars['String']>;
+  executionSale?: Maybe<Scalars['Boolean']>;
+  dateOfExecutionSale?: Maybe<Scalars['Date']>;
+  conditions?: Maybe<SaleCondition>;
+  purchaseMix?: Maybe<PurchaseMix>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type SaleWozInput = {
+  wozPrice?: Maybe<Scalars['AbsoluteFloat']>;
+  referenceDateWoz?: Maybe<Scalars['Date']>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type SaleWoz = {
+  __typename?: 'SaleWOZ';
+  wozPrice?: Maybe<Scalars['AbsoluteFloat']>;
+  referenceDateWoz?: Maybe<Scalars['Date']>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type SaleInformationsInput = {
+  general?: Maybe<SaleGeneralInput>;
+  woz?: Maybe<SaleWozInput>;
+};
+
+export type SaleInformations = {
+  __typename?: 'SaleInformations';
+  general?: Maybe<SaleGeneral>;
+  woz?: Maybe<SaleWoz>;
+  isEnabled?: Maybe<Scalars['Boolean']>;
+};
+
+export type RentInformationsInput = {
+  rentalPrice?: Maybe<Scalars['AbsoluteFloat']>;
+  suffix?: Maybe<Scalars['String']>;
+  conditions?: Maybe<RentCondition>;
+  notes?: Maybe<Scalars['String']>;
+  paymentFrequency?: Maybe<RentPaymentFrequency>;
+};
+
+export type RentInformations = {
+  __typename?: 'RentInformations';
+  rentalPrice?: Maybe<Scalars['AbsoluteFloat']>;
+  paymentFrequency?: Maybe<RentPaymentFrequency>;
+  suffix?: Maybe<Scalars['String']>;
+  conditions?: Maybe<RentCondition>;
+  notes?: Maybe<Scalars['String']>;
+  isEnabled?: Maybe<Scalars['Boolean']>;
+};
+
+export type PimPrices = LastUpdated & {
+  __typename?: 'PimPrices';
+  id: Scalars['ID'];
+  pricing?: Maybe<Pricing>;
+  costs?: Maybe<Array<Cost>>;
+  investment?: Maybe<Investment>;
+  costsDescription?: Maybe<Scalars['String']>;
+  dateUpdated?: Maybe<Scalars['Date']>;
+  lastEditedBy?: Maybe<LastUpdatedProfile>;
+};
+
+export type TogglePricingInput = {
+  id: Scalars['ID'];
+  isRent: Scalars['Boolean'];
+  isSale: Scalars['Boolean'];
+};
+
 export type UpdatePricingInput = {
   id: Scalars['ID'];
   rent?: Maybe<RentInformationsInput>;
   sale?: Maybe<SaleInformationsInput>;
   description?: Maybe<Scalars['String']>;
+};
+
+export type Pricing = LastUpdated & {
+  __typename?: 'Pricing';
+  rent?: Maybe<RentInformations>;
+  sale?: Maybe<SaleInformations>;
+  lastEditedBy?: Maybe<LastUpdatedProfile>;
+  dateUpdated?: Maybe<Scalars['Date']>;
+  description?: Maybe<Scalars['String']>;
+};
+
+export type Cost = {
+  __typename?: 'Cost';
+  id: Scalars['ID'];
+  serviceCosts?: Maybe<Scalars['AbsoluteFloat']>;
+  paymentsFrequency?: Maybe<CostPaymentFrequency>;
+  vatTaxedServiceCosts?: Maybe<Scalars['AbsoluteFloat']>;
+  vatPercentage?: Maybe<Scalars['CostVat']>;
+  notes?: Maybe<Scalars['String']>;
+  type: Scalars['String'];
+  name?: Maybe<Scalars['String']>;
+  dateCreated?: Maybe<Scalars['Date']>;
+};
+
+export type AddCostInput = {
+  id: Scalars['ID'];
+  type: Scalars['String'];
+  name?: Maybe<Scalars['String']>;
+};
+
+export type UpdateCostInput = {
+  id: Scalars['ID'];
+  serviceCosts?: Maybe<Scalars['AbsoluteFloat']>;
+  paymentsFrequency?: Maybe<CostPaymentFrequency>;
+  vatTaxedServiceCosts?: Maybe<Scalars['AbsoluteFloat']>;
+  vatPercentage?: Maybe<Scalars['CostVat']>;
+  notes?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+};
+
+export type CostResult = {
+  __typename?: 'CostResult';
+  pim: Pim;
+  cost: Cost;
+};
+
+export type InvestmentInput = {
+  id: Scalars['ID'];
+  netRentalIncome?: Maybe<Scalars['AbsoluteFloat']>;
+  grossRentalIncome?: Maybe<Scalars['AbsoluteFloat']>;
+  economicRentalValue?: Maybe<Scalars['AbsoluteFloat']>;
+  averageMaturity?: Maybe<Scalars['AbsoluteFloat']>;
+  rentIndexed?: Maybe<Scalars['Boolean']>;
+  splitApartment?: Maybe<Scalars['Boolean']>;
+  averageVacancyPercentage?: Maybe<Scalars['Float']>;
+  numberOfRentableUnits?: Maybe<Scalars['Float']>;
+  amountOfTenants?: Maybe<Scalars['Int']>;
+  remainingTermContacts?: Maybe<Scalars['Int']>;
+  vacancySquareMeters?: Maybe<Scalars['Int']>;
+  notes?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+};
+
+export type Investment = LastUpdated & {
+  __typename?: 'Investment';
+  netRentalIncome?: Maybe<Scalars['AbsoluteFloat']>;
+  grossRentalIncome?: Maybe<Scalars['AbsoluteFloat']>;
+  economicRentalValue?: Maybe<Scalars['AbsoluteFloat']>;
+  averageMaturity?: Maybe<Scalars['AbsoluteFloat']>;
+  rentIndexed?: Maybe<Scalars['Boolean']>;
+  splitApartment?: Maybe<Scalars['Boolean']>;
+  averageVacancyPercentage?: Maybe<Scalars['Float']>;
+  numberOfRentableUnits?: Maybe<Scalars['Float']>;
+  amountOfTenants?: Maybe<Scalars['Int']>;
+  remainingTermContacts?: Maybe<Scalars['Int']>;
+  vacancySquareMeters?: Maybe<Scalars['Int']>;
+  notes?: Maybe<Scalars['String']>;
+  dateCreated?: Maybe<Scalars['Date']>;
+  description?: Maybe<Scalars['String']>;
+  dateUpdated?: Maybe<Scalars['Date']>;
+  lastEditedBy?: Maybe<LastUpdatedProfile>;
+};
+
+export enum MomentGeneralSetting {
+  ScheduleOnline = 'ScheduleOnline',
+  DoNotScheduleOnline = 'DoNotScheduleOnline',
+}
+
+export enum MomentScheduleDay {
+  Mon = 'Mon',
+  Tue = 'Tue',
+  Wed = 'Wed',
+  Thu = 'Thu',
+  Fri = 'Fri',
+  Sat = 'Sat',
+  Sun = 'Sun',
+}
+
+export enum TypeOfAppointment {
+  Viewing = 'Viewing',
+  OnlineViewing = 'OnlineViewing',
+}
+
+export enum AllocationCriteriaType {
+  MatchProfile = 'MatchProfile',
+  Allocation = 'Allocation',
+}
+
+export enum PropertyPublishedExternally {
+  Yes = 'Yes',
+  No = 'No',
+}
+
+export enum CriteriaOrder {
+  JointIncome = 'JointIncome',
+  MinimalAmountOfMissingDocuments = 'MinimalAmountOfMissingDocuments',
+  NumberOfPreferenceInterest = 'NumberOfPreferenceInterest',
+  DateOfRegistrationInterest = 'DateOfRegistrationInterest',
+  AdditionalWork = 'AdditionalWork',
+}
+
+export enum HomeSituation {
+  LivingIn = 'LivingIn',
+  OwnerOccupiedHome = 'OwnerOccupiedHome',
+  SocialHousing = 'SocialHousing',
+  FreeSectorRentalHome = 'FreeSectorRentalHome',
+}
+
+export enum TypeOfEmployment {
+  IncomeFromEquity = 'IncomeFromEquity',
+  SalariedEmployment = 'SalariedEmployment',
+  Entrepreneur = 'Entrepreneur',
+  Benefits = 'Benefits',
+  None = 'None',
+}
+
+export enum PersonRole {
+  Reservation = 'Reservation',
+  Candidate = 'Candidate',
+  Optant = 'Optant',
+  Tenant = 'Tenant',
+}
+
+export type MomentSchedule = {
+  __typename?: 'MomentSchedule';
+  day?: Maybe<MomentScheduleDay>;
+  startAt?: Maybe<Scalars['String']>;
+  endAt?: Maybe<Scalars['String']>;
+};
+
+export type MomentScheduleInput = {
+  day?: Maybe<MomentScheduleDay>;
+  startAt?: Maybe<Scalars['String']>;
+  endAt?: Maybe<Scalars['String']>;
+};
+
+export type ViewingMoment = {
+  __typename?: 'ViewingMoment';
+  id: Scalars['ID'];
+  typeOfAppointment?: Maybe<TypeOfAppointment>;
+  schedules?: Maybe<Array<MomentSchedule>>;
+  duration?: Maybe<Scalars['Int']>;
+  travelTimeBefore?: Maybe<Scalars['Int']>;
+  travelTimeAfter?: Maybe<Scalars['Int']>;
+  accountManagersIds?: Maybe<Array<Scalars['ID']>>;
+  dateCreated?: Maybe<Scalars['Date']>;
+  accountManagers?: Maybe<Array<Profile>>;
+};
+
+export type UpdateViewingMomentInput = {
+  id: Scalars['ID'];
+  typeOfAppointment?: Maybe<TypeOfAppointment>;
+  schedules?: Maybe<Array<MomentScheduleInput>>;
+  duration?: Maybe<Scalars['Int']>;
+  travelTimeBefore?: Maybe<Scalars['Int']>;
+  travelTimeAfter?: Maybe<Scalars['Int']>;
+  accountManagers?: Maybe<Array<Scalars['ID']>>;
+};
+
+export type AddViewingMomentInput = {
+  pimId: Scalars['ID'];
+};
+
+export type AddAllocationCriteriaInput = {
+  pimId: Scalars['ID'];
+};
+
+export type SalesSettingsInput = {
+  pimId: Scalars['ID'];
+  generalSettings?: Maybe<MomentGeneralSetting>;
+  amountOfViewings?: Maybe<Scalars['Int']>;
+  moments?: Maybe<Array<UpdateViewingMomentInput>>;
+};
+
+export type SalesSettings = {
+  __typename?: 'SalesSettings';
+  generalSettings?: Maybe<MomentGeneralSetting>;
+  amountOfViewings?: Maybe<Scalars['Int']>;
+};
+
+export type PimSales = LastUpdated & {
+  __typename?: 'PimSales';
+  id: Scalars['ID'];
+  salesSettings?: Maybe<SalesSettings>;
+  viewingMoments?: Maybe<Array<ViewingMoment>>;
+  lastEditedBy?: Maybe<LastUpdatedProfile>;
+  dateUpdated?: Maybe<Scalars['Date']>;
+  allocationCriterias?: Maybe<Array<AllocationCriteria>>;
+};
+
+export type AddViewingMomentResult = {
+  __typename?: 'AddViewingMomentResult';
+  pim: Pim;
+  moment: ViewingMoment;
+};
+
+export type AddAllocationCriteriaResult = {
+  __typename?: 'AddAllocationCriteriaResult';
+  pim: Pim;
+  criteria: AllocationCriteria;
+};
+
+export type PersonCapitalInput = {
+  deductMonthlyObligations?: Maybe<Scalars['AbsoluteFloat']>;
+  availableCapitalCount?: Maybe<Scalars['AbsoluteFloat']>;
+};
+
+export type PersonCapital = {
+  __typename?: 'PersonCapital';
+  deductMonthlyObligations?: Maybe<Scalars['AbsoluteFloat']>;
+  availableCapitalCount?: Maybe<Scalars['AbsoluteFloat']>;
+};
+
+export type AllocationCriteriaInput = {
+  id: Scalars['ID'];
+  description?: Maybe<Scalars['String']>;
+  type?: Maybe<AllocationCriteriaType>;
+  note?: Maybe<Scalars['String']>;
+  startDate?: Maybe<Scalars['Date']>;
+  endDate?: Maybe<Scalars['Date']>;
+  candidatesAssignedPerProperty?: Maybe<Scalars['Int']>;
+  minJointAnnualIncome?: Maybe<Scalars['AbsoluteFloat']>;
+  monthlyRentByMinJointIncome?: Maybe<Scalars['AbsoluteFloat']>;
+  maxJointAnnualIncome?: Maybe<Scalars['AbsoluteFloat']>;
+  monthlyRentByMaxJointIncome?: Maybe<Scalars['AbsoluteFloat']>;
+  publishedExternally?: Maybe<PropertyPublishedExternally>;
+  minNumberPreferenceInterest?: Maybe<Scalars['Int']>;
+  registrationFrom?: Maybe<Scalars['Date']>;
+  registrationTo?: Maybe<Scalars['Date']>;
+  assignOnlyPeopleWithPropertyInterest?: Maybe<Scalars['Boolean']>;
+  acceptedMissingDocuments?: Maybe<Scalars['Int']>;
+  onlyAcceptedDocuments?: Maybe<Scalars['Boolean']>;
+  criteriaOrder: Array<CriteriaOrder>;
+  lowestIncomePercentage?: Maybe<Scalars['AbsoluteFloat']>;
+  incomeDistributionThreshold?: Maybe<Scalars['AbsoluteFloat']>;
+  fictitiousIncomeCalculation?: Maybe<Scalars['AbsoluteFloat']>;
+  firstPersonFromCouple?: Maybe<PersonCapitalInput>;
+  secondPersonFromCouple?: Maybe<PersonCapitalInput>;
+  minimalAgeFirstPersonCouple?: Maybe<Scalars['Int']>;
+  minimalAgePartner?: Maybe<Scalars['Int']>;
+  homeSituation?: Maybe<Array<HomeSituation>>;
+  numberOfAdults?: Maybe<Scalars['Int']>;
+  numberOfChildren?: Maybe<Scalars['Int']>;
+  currentResidence?: Maybe<Scalars['String']>;
+  typeOfEmploymentFirstPersonInCouple?: Maybe<Array<TypeOfEmployment>>;
+  typeOfEmploymentSecondPersonInCouple?: Maybe<Array<TypeOfEmployment>>;
+  assignToPersonsWithRole?: Maybe<Array<PersonRole>>;
+  assignPeopleAboveMaxJointIncome?: Maybe<Scalars['Boolean']>;
+  segmentationProfileIds?: Maybe<Array<Scalars['ID']>>;
+};
+
+export type AllocationCriteria = {
+  __typename?: 'AllocationCriteria';
+  id: Scalars['ID'];
+  description?: Maybe<Scalars['String']>;
+  type?: Maybe<AllocationCriteriaType>;
+  note?: Maybe<Scalars['String']>;
+  startDate?: Maybe<Scalars['Date']>;
+  endDate?: Maybe<Scalars['Date']>;
+  candidatesAssignedPerProperty?: Maybe<Scalars['Int']>;
+  minJointAnnualIncome?: Maybe<Scalars['AbsoluteFloat']>;
+  monthlyRentByMinJointIncome?: Maybe<Scalars['AbsoluteFloat']>;
+  maxJointAnnualIncome?: Maybe<Scalars['AbsoluteFloat']>;
+  monthlyRentByMaxJointIncome?: Maybe<Scalars['AbsoluteFloat']>;
+  publishedExternally?: Maybe<PropertyPublishedExternally>;
+  minNumberPreferenceInterest?: Maybe<Scalars['Int']>;
+  registrationFrom?: Maybe<Scalars['Date']>;
+  registrationTo?: Maybe<Scalars['Date']>;
+  assignOnlyPeopleWithPropertyInterest?: Maybe<Scalars['Boolean']>;
+  acceptedMissingDocuments?: Maybe<Scalars['Int']>;
+  onlyAcceptedDocuments?: Maybe<Scalars['Boolean']>;
+  criteriaOrder: Array<CriteriaOrder>;
+  lowestIncomePercentage?: Maybe<Scalars['AbsoluteFloat']>;
+  incomeDistributionThreshold?: Maybe<Scalars['AbsoluteFloat']>;
+  fictitiousIncomeCalculation?: Maybe<Scalars['AbsoluteFloat']>;
+  firstPersonFromCouple?: Maybe<PersonCapital>;
+  secondPersonFromCouple?: Maybe<PersonCapital>;
+  minimalAgeFirstPersonCouple?: Maybe<Scalars['Int']>;
+  minimalAgePartner?: Maybe<Scalars['Int']>;
+  homeSituation?: Maybe<Array<HomeSituation>>;
+  numberOfAdults?: Maybe<Scalars['Int']>;
+  numberOfChildren?: Maybe<Scalars['Int']>;
+  currentResidence?: Maybe<Scalars['String']>;
+  typeOfEmploymentFirstPersonInCouple?: Maybe<Array<TypeOfEmployment>>;
+  typeOfEmploymentSecondPersonInCouple?: Maybe<Array<TypeOfEmployment>>;
+  assignToPersonsWithRole?: Maybe<Array<PersonRole>>;
+  assignPeopleAboveMaxJointIncome?: Maybe<Scalars['Boolean']>;
+  segmentationProfiles?: Maybe<Array<Profile>>;
+  segmentationProfileIds?: Maybe<Array<Scalars['String']>>;
+};
+
+export type PimServices = LastUpdated &
+  Services & {
+    __typename?: 'PimServices';
+    id: Scalars['String'];
+    meters?: Maybe<Array<Meter>>;
+    metersMeta?: Maybe<MetersMeta>;
+    hotWaterSupplies?: Maybe<Array<Service>>;
+    heatingSources?: Maybe<Array<Service>>;
+    additionalServices?: Maybe<Array<Service>>;
+    dateUpdated?: Maybe<Scalars['Date']>;
+    lastEditedBy?: Maybe<LastUpdatedProfile>;
+    description?: Maybe<Scalars['String']>;
+  };
+
+export type PimWithNewService = {
+  __typename?: 'PimWithNewService';
+  pim: Pim;
+  newService: Service;
+};
+
+export enum EnergyType {
+  A = 'A',
+  A1Plus = 'A1Plus',
+  A2Plus = 'A2Plus',
+  A3Plus = 'A3Plus',
+  A4Plus = 'A4Plus',
+  A5Plus = 'A5Plus',
+  B = 'B',
+  C = 'C',
+  D = 'D',
+  E = 'E',
+  F = 'F',
+  G = 'G',
+}
+
+export enum InspectionType {
+  Tanks = 'Tanks',
+  Pollution = 'Pollution',
+  Maintenance = 'Maintenance',
+}
+
+export enum ParkingFacilities {
+  PaidParking = 'PaidParking',
+  OnSite = 'OnSite',
+  ParkingGarage = 'ParkingGarage',
+  OnClosedTerrain = 'OnClosedTerrain',
+  PublicParking = 'PublicParking',
+  ParkingPermits = 'ParkingPermits',
+}
+
+export enum MonumentType {
+  Heritage = 'Heritage',
+  MonumentalProperty = 'MonumentalProperty',
+  ProtectedCityOrVillageView = 'ProtectedCityOrVillageView',
+  NationalMonument = 'NationalMonument',
+  MunciapalMonument = 'MunciapalMonument',
+}
+
+export enum InsideType {
+  Furnished = 'Furnished',
+  Upholstered = 'Upholstered',
+  PartialyUpholstered = 'PartialyUpholstered',
+}
+
+export enum HousingType {
+  PartiallyRented = 'PartiallyRented',
+  DoubleOccupancyAvailable = 'DoubleOccupancyAvailable',
+  DoubleOccupancyPossible = 'DoubleOccupancyPossible',
+  AccessibleToDisabledPeople = 'AccessibleToDisabledPeople',
+  AcessibleToTheEldery = 'AcessibleToTheEldery',
+}
+
+export enum SpecialTagsType {
+  DemolitionProperty = 'DemolitionProperty',
+  DoItYourselfProperty = 'DoItYourselfProperty',
+  SeniorsProperty = 'SeniorsProperty',
+  RuralLiving = 'RuralLiving',
+  The30s = 'The30s',
+  LivingNearTheWater = 'LivingNearTheWater',
+  ExclusiveProperty = 'ExclusiveProperty',
+  Turnkey = 'Turnkey',
+  ReadyToUse = 'ReadyToUse',
+  StarterProperty = 'StarterProperty',
+}
+
+export enum PropertyRightType {
+  BpRights = 'BpRights',
+  Easements = 'Easements',
+  RightOfSuperficies = 'RightOfSuperficies',
+  Cooperative = 'Cooperative',
+  Horizontal = 'Horizontal',
+}
+
+export enum GoodToKnowType {
+  MaintenancePlan = 'MaintenancePlan',
+  ReserveFund = 'ReserveFund',
+  HomeInsurance = 'HomeInsurance',
+  PeriodicContribution = 'PeriodicContribution',
+  Meeting = 'Meeting',
+  RegistrationChamberOfCommerce = 'RegistrationChamberOfCommerce',
+  ChecklistPresent = 'ChecklistPresent',
+  Active = 'Active',
+}
+
+export enum TankType {
+  Septic = 'Septic',
+  Oil = 'Oil',
+  Underground = 'Underground',
+}
+
+export enum PollutionType {
+  Asbestos = 'Asbestos',
+  Soil = 'Soil',
+}
+
+export enum MaintenanceType {
+  Paintwork = 'Paintwork',
+  ElectricityConnections = 'ElectricityConnections',
+  WindowFrames = 'WindowFrames',
+}
+
+export enum EnergyCharasteristicType {
+  Beng = 'Beng',
+  NaturalEnergy = 'NaturalEnergy',
+  ZeroOnMeter = 'ZeroOnMeter',
+}
+
+export enum ApprovalType {
+  AdaptedHome = 'AdaptedHome',
+  EnergyPerformanceAdvice = 'EnergyPerformanceAdvice',
+  PoliceMark = 'PoliceMark',
+  GeneralHomeApproval = 'GeneralHomeApproval',
+  GiwGuaranteeCertificate = 'GiwGuaranteeCertificate',
+  SwkGuaranteeCertificate = 'SwkGuaranteeCertificate',
+  ArchitecturalInspection = 'ArchitecturalInspection',
+  HouseGuarantee = 'HouseGuarantee',
+  HousingGuaranteeCertificate = 'HousingGuaranteeCertificate',
+  FireSafety = 'FireSafety',
+  KiwaSafeLiving = 'KiwaSafeLiving',
+  QualityMarkCertificate = 'QualityMarkCertificate',
+}
+
+export enum ObligationToProvideInformationType {
+  Boot = 'Boot',
+  BwLetter = 'BwLetter',
+  SoilPollution = 'SoilPollution',
+  Asbestos = 'Asbestos',
+  OwnSake = 'OwnSake',
+}
+
+export type LinkedPimInput = {
+  pimId: Scalars['ID'];
+  linkedPimIDs: Array<Scalars['ID']>;
+};
+
+export type Inspection = {
+  __typename?: 'Inspection';
+  id: Scalars['ID'];
+  inspectionType: InspectionType;
+  type: Scalars['String'];
+  description?: Maybe<Scalars['String']>;
+  dateCreated?: Maybe<Scalars['Date']>;
+};
+
+export type AddInspectionInput = {
+  pimId: Scalars['ID'];
+  inspectionType: InspectionType;
+  type: Scalars['String'];
+};
+
+export type UpdateInspectionInput = {
+  id: Scalars['ID'];
+  description?: Maybe<Scalars['String']>;
+};
+
+export type Approvals = {
+  __typename?: 'Approvals';
+  label?: Maybe<Array<ApprovalType>>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type ApprovalsInput = {
+  label?: Maybe<Array<ApprovalType>>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type ObligationToProvideInformationInput = {
+  label?: Maybe<Scalars['String']>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type ObligationToProvideInformation = {
+  __typename?: 'ObligationToProvideInformation';
+  label?: Maybe<Scalars['String']>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type SpecificationInput = {
+  pimId: Scalars['ID'];
+  energy?: Maybe<EnergyInput>;
+  approvals?: Maybe<ApprovalsInput>;
+  obligation?: Maybe<ObligationToProvideInformationInput>;
+  description?: Maybe<Scalars['String']>;
+};
+
+export type Specification = LastUpdated & {
+  __typename?: 'Specification';
+  energy?: Maybe<Energy>;
+  approvals?: Maybe<Approvals>;
+  obligation?: Maybe<ObligationToProvideInformation>;
+  description?: Maybe<Scalars['String']>;
+  dateUpdated?: Maybe<Scalars['Date']>;
+  lastEditedBy?: Maybe<LastUpdatedProfile>;
+};
+
+export type PimSpecification = {
+  __typename?: 'PimSpecification';
+  id: Scalars['ID'];
+  specification?: Maybe<Specification>;
+  specificationAdvanced?: Maybe<SpecificationAdvanced>;
+  linkedProperties?: Maybe<Array<LinkedPim>>;
+  inspections?: Maybe<Array<Inspection>>;
+  linkedPropertiesDateUpdated?: Maybe<Scalars['Date']>;
+  linkedPropertiesLastEditedBy?: Maybe<LastUpdatedProfile>;
+  linkedPropertiesDescription?: Maybe<Scalars['String']>;
+  inspectionsDateUpdated?: Maybe<Scalars['Date']>;
+  inspectionsLastEditedBy?: Maybe<LastUpdatedProfile>;
+  inspectionsDescription?: Maybe<Scalars['String']>;
+};
+
+export type AddInspectionResult = {
+  __typename?: 'AddInspectionResult';
+  inspection: Inspection;
+  pim: Pim;
+};
+
+export type ParkingSpecification = {
+  __typename?: 'ParkingSpecification';
+  description?: Maybe<Scalars['String']>;
+  parkingCapacity?: Maybe<Scalars['String']>;
+  parkingFacilities?: Maybe<Array<Scalars['String']>>;
+};
+
+export type ParkingSpecificationInput = {
+  description?: Maybe<Scalars['String']>;
+  parkingCapacity?: Maybe<Scalars['String']>;
+  parkingFacilities?: Maybe<Array<Scalars['String']>>;
+};
+
+export type MonumentSpecification = {
+  __typename?: 'MonumentSpecification';
+  type?: Maybe<Array<Scalars['String']>>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type MonumentSpecificationInput = {
+  type?: Maybe<Array<Scalars['String']>>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type InsideSpecification = {
+  __typename?: 'InsideSpecification';
+  type?: Maybe<Array<Scalars['String']>>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type InsideSpecificationInput = {
+  type?: Maybe<Array<Scalars['String']>>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type HousingOptions = {
+  __typename?: 'HousingOptions';
+  type?: Maybe<Array<Scalars['String']>>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type HousingOptionsInput = {
+  type?: Maybe<Array<Scalars['String']>>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type SpecialTags = {
+  __typename?: 'SpecialTags';
+  type?: Maybe<Array<Scalars['String']>>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type SpecialTagsInput = {
+  type?: Maybe<Array<Scalars['String']>>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type PropertyRights = {
+  __typename?: 'PropertyRights';
+  type?: Maybe<Array<Scalars['String']>>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type PropertyRightsInput = {
+  type?: Maybe<Array<Scalars['String']>>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type HomeOwnerAssociation = {
+  __typename?: 'HomeOwnerAssociation';
+  name?: Maybe<Scalars['String']>;
+  monthlyContribution?: Maybe<Scalars['AbsoluteFloat']>;
+  goodToKnow?: Maybe<Array<Scalars['String']>>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type HomeOwnerAssociationInput = {
+  name?: Maybe<Scalars['String']>;
+  monthlyContribution?: Maybe<Scalars['AbsoluteFloat']>;
+  goodToKnow?: Maybe<Array<Scalars['String']>>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type SpecificationAdvanced = LastUpdated & {
+  __typename?: 'SpecificationAdvanced';
+  parking?: Maybe<ParkingSpecification>;
+  monument?: Maybe<MonumentSpecification>;
+  inside?: Maybe<InsideSpecification>;
+  housingOptions?: Maybe<HousingOptions>;
+  specialTags?: Maybe<SpecialTags>;
+  propertyRights?: Maybe<PropertyRights>;
+  homeOwnerAssociation?: Maybe<HomeOwnerAssociation>;
+  description?: Maybe<Scalars['String']>;
+  lastEditedBy?: Maybe<LastUpdatedProfile>;
+  dateUpdated?: Maybe<Scalars['Date']>;
+};
+
+export type SpecificationAdvancedInput = {
+  pimId: Scalars['String'];
+  parking?: Maybe<ParkingSpecificationInput>;
+  monument?: Maybe<MonumentSpecificationInput>;
+  inside?: Maybe<InsideSpecificationInput>;
+  housingOptions?: Maybe<HousingOptionsInput>;
+  specialTags?: Maybe<SpecialTagsInput>;
+  propertyRights?: Maybe<PropertyRightsInput>;
+  homeOwnerAssociation?: Maybe<HomeOwnerAssociationInput>;
+  description?: Maybe<Scalars['String']>;
+};
+
+export enum RealEstateType {
+  Residential = 'Residential',
+  Business = 'Business',
+}
+
+export enum DevelopmentType {
+  New = 'New',
+  Existing = 'Existing',
+}
+
+export enum PimStatus {
+  Prospect = 'Prospect',
+  Available = 'Available',
+  Option = 'Option',
+  Bid = 'Bid',
+  SoldWithReservation = 'SoldWithReservation',
+  RentedWithReservation = 'RentedWithReservation',
+  Sold = 'Sold',
+  Rented = 'Rented',
+}
+
+export enum PropertyType {
+  House = 'House',
+  Apartment = 'Apartment',
+  Commercial = 'Commercial',
+  Agricultural = 'Agricultural',
+  ParkingLot = 'ParkingLot',
+  BuildingPlot = 'BuildingPlot',
+  Other = 'Other',
+}
+
+export enum PropertyTypeDetailed {
+  SingleFamily = 'SingleFamily',
+  DykeHouse = 'DykeHouse',
+  CourtHouse = 'CourtHouse',
+  DriveInHome = 'DriveInHome',
+  SplitLevel = 'SplitLevel',
+  QuadrantHouse = 'QuadrantHouse',
+  PatioHouse = 'PatioHouse',
+  Villa = 'Villa',
+  CanalHouse = 'CanalHouse',
+  WaterHouse = 'WaterHouse',
+  Bungalow = 'Bungalow',
+  SemiBungalow = 'SemiBungalow',
+  StiltHouse = 'StiltHouse',
+  BusinessOrServiceHome = 'BusinessOrServiceHome',
+  Estate = 'Estate',
+  CountryHouse = 'CountryHouse',
+  Mansion = 'Mansion',
+}
+
+export enum PropertyConnection {
+  SemiDetached = 'SemiDetached',
+  FinalHouse = 'FinalHouse',
+  CornerHouse = 'CornerHouse',
+  TerracedHouse = 'TerracedHouse',
+  DetachedHouse = 'DetachedHouse',
+}
+
+export enum PropertyAvailability {
+  InConsultation = 'InConsultation',
+  Immediatelly = 'Immediatelly',
+  ByDate = 'ByDate',
+}
+
+export enum PropertyHabitation {
+  RecreationalHome = 'RecreationalHome',
+  PermanentOccupation = 'PermanentOccupation',
+}
+
+export enum SectionWithDescriptionType {
+  Media = 'Media',
+  Inspection = 'Inspection',
+  LinkedProperties = 'LinkedProperties',
+  Services = 'Services',
+  PricesCosts = 'PricesCosts',
+  Meters = 'Meters',
+  BogSpaces = 'BogSpaces',
+  AogAnimals = 'AogAnimals',
+  AogBuildings = 'AogBuildings',
+  AogInstallations = 'AogInstallations',
+  AogGrounds = 'AogGrounds',
+  MetersMetaInfo = 'MetersMetaInfo',
+}
+
+export type PropertyRelatedInput = {
+  items?: Maybe<Array<Maybe<PropertyRelatedItems>>>;
+  notes?: Maybe<Scalars['String']>;
+  images?: Maybe<Array<Maybe<Scalars['String']>>>;
+};
+
+export type GeneralInformationInput = {
+  qualityInformation?: Maybe<Array<Maybe<QualityInformations>>>;
+  images?: Maybe<Array<Maybe<Scalars['String']>>>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export enum ConstructionType {
+  UnderConstruction = 'UnderConstruction',
+  InDevelopment = 'InDevelopment',
+}
+
+export type CreatePimInput = {
+  realEstateType: RealEstateType;
+  street: Scalars['String'];
+  houseNumberPrefix?: Maybe<Scalars['String']>;
+  houseNumber: Scalars['String'];
+  houseNumberAddition?: Maybe<Scalars['String']>;
+  constructionNumberPrefix?: Maybe<Scalars['String']>;
+  constructionNumber?: Maybe<Scalars['String']>;
+  constructionNumberAddition?: Maybe<Scalars['String']>;
+  postalCode: Scalars['String'];
+  district?: Maybe<Scalars['String']>;
+  city: Scalars['String'];
+  state?: Maybe<Scalars['String']>;
+  county?: Maybe<Scalars['String']>;
+  country: Scalars['String'];
+  developmentType: DevelopmentType;
+  status: PimStatus;
+  salePrice?: Maybe<Scalars['Float']>;
+  rentPrice?: Maybe<Scalars['Float']>;
+  description?: Maybe<Scalars['String']>;
+  livingArea?: Maybe<Scalars['Int']>;
+  propertyType?: Maybe<PropertyType>;
+  attentionNote?: Maybe<Scalars['String']>;
+};
+
+export type Pim = LastUpdated & {
+  __typename?: 'Pim';
+  id: Scalars['ID'];
+  realEstateType: RealEstateType;
+  street: Scalars['String'];
+  houseNumberPrefix?: Maybe<Scalars['String']>;
+  houseNumber: Scalars['String'];
+  houseNumberAddition?: Maybe<Scalars['String']>;
+  constructionNumberPrefix?: Maybe<Scalars['String']>;
+  constructionNumber?: Maybe<Scalars['String']>;
+  constructionNumberAddition?: Maybe<Scalars['String']>;
+  postalCode: Scalars['String'];
+  district?: Maybe<Scalars['String']>;
+  city: Scalars['String'];
+  state?: Maybe<Scalars['String']>;
+  county?: Maybe<Scalars['String']>;
+  country: Scalars['String'];
+  developmentType: DevelopmentType;
+  status: PimStatus;
+  salePrice?: Maybe<Scalars['Float']>;
+  rentPrice?: Maybe<Scalars['Float']>;
+  description?: Maybe<Scalars['String']>;
+  images?: Maybe<Array<File>>;
+  livingArea?: Maybe<Scalars['Int']>;
+  propertyType?: Maybe<PropertyType>;
+  attentionNote?: Maybe<Scalars['String']>;
+  completeness: Scalars['Float'];
+  archived: Scalars['Boolean'];
+  dateCreated: Scalars['Date'];
+  houseGeneral?: Maybe<HouseGeneral>;
+  parkingGeneral?: Maybe<ParkingLotGeneral>;
+  bogGeneral?: Maybe<BogGeneral>;
+  aogGeneral?: Maybe<AogGeneral>;
+  houseOutside?: Maybe<HouseOutside>;
+  outsideFeatures?: Maybe<Array<OutsideFeature>>;
+  floors?: Maybe<Array<Floor>>;
+  insideGeneral?: Maybe<InsideGeneral>;
+  cadastre?: Maybe<Array<Cadastre>>;
+  meters?: Maybe<Array<Meter>>;
+  services?: Maybe<Array<Service>>;
+  servicesDescription?: Maybe<Scalars['String']>;
+  pictures?: Maybe<Array<Picture>>;
+  textChapters?: Maybe<Array<TextChapter>>;
+  usps?: Maybe<Array<Usp>>;
+  mediaLinks?: Maybe<Array<MediaLink>>;
+  mediaDescription?: Maybe<Scalars['String']>;
+  tags?: Maybe<Array<Tag>>;
+  pricing?: Maybe<Pricing>;
+  costs?: Maybe<Array<Cost>>;
+  lastEditedBy?: Maybe<LastUpdatedProfile>;
+  dateUpdated?: Maybe<Scalars['Date']>;
+  investment?: Maybe<Investment>;
+  specification?: Maybe<Specification>;
+  specificationAdvanced?: Maybe<SpecificationAdvanced>;
+  specificationDescription?: Maybe<Scalars['String']>;
+  linkedProperties?: Maybe<Array<LinkedPim>>;
+  inspections?: Maybe<Array<Inspection>>;
+  identificationNumbers?: Maybe<Array<IdentificationNumber>>;
+  salesSettings?: Maybe<SalesSettings>;
+  viewingMoments?: Maybe<Array<ViewingMoment>>;
+  location?: Maybe<PimLocation>;
+  linkedPropertiesDateUpdated?: Maybe<Scalars['Date']>;
+  linkedPropertieslastEditedBy?: Maybe<LastUpdatedProfile>;
+  inspectionsDateUpdated?: Maybe<Scalars['Date']>;
+  inspectionslastEditedBy?: Maybe<LastUpdatedProfile>;
+  metersMeta?: Maybe<MetersMeta>;
+  allocationCriterias?: Maybe<Array<AllocationCriteria>>;
+  apartmentGeneral?: Maybe<ApartmentGeneral>;
+  buildingPlotGeneral?: Maybe<BuildingPlotGeneral>;
+  bogSpaces?: Maybe<Array<BogSpace>>;
+  aogSpaces?: Maybe<Array<AogSpace>>;
+  mainPicture?: Maybe<Picture>;
+  isPurchased?: Maybe<Scalars['Boolean']>;
+};
+
+export type PimSearchResult = {
+  __typename?: 'PimSearchResult';
+  metadata?: Maybe<SearchMetadata>;
+  items?: Maybe<Array<Pim>>;
+};
+
+export type ListPimsFilters = {
+  developmentType?: Maybe<DevelopmentType>;
+  propertyTypes?: Maybe<Array<Maybe<PropertyType>>>;
+  status?: Maybe<PimStatus>;
+  houseNumberPrefix?: Maybe<Scalars['String']>;
+  houseNumber?: Maybe<Scalars['String']>;
+  houseNumberAddition?: Maybe<Scalars['String']>;
+  constructionNumberPrefix?: Maybe<Scalars['String']>;
+  constructionNumber?: Maybe<Scalars['String']>;
+  constructionNumberAddition?: Maybe<Scalars['String']>;
+  street?: Maybe<Scalars['String']>;
+  postalCode?: Maybe<Scalars['String']>;
+  district?: Maybe<Scalars['String']>;
+  city?: Maybe<Scalars['String']>;
+  state?: Maybe<Scalars['String']>;
+  county?: Maybe<Scalars['String']>;
+  country?: Maybe<Scalars['String']>;
+  archived?: Maybe<Scalars['Boolean']>;
+  pricingType?: Maybe<PricingType>;
+  isPurchased?: Maybe<Scalars['Boolean']>;
+};
+
+export type UpdateOutsideFeatureInput = {
+  pimId: Scalars['String'];
+  outsideFeatureId: Scalars['String'];
+  feature?: Maybe<Scalars['UpdateFeatureInputConfiguration']>;
+};
+
+export type UpdateDescriptionInput = {
+  section: SectionWithDescriptionType;
+  pimId: Scalars['String'];
+  description: Scalars['String'];
+  meterType?: Maybe<MeterType>;
+};
+
+export enum CommonPricingType {
+  Sale = 'Sale',
+  Rent = 'Rent',
+}
+
+export type CommonPricing = LastUpdated & {
+  __typename?: 'CommonPricing';
+  rent?: Maybe<CommonRentInformations>;
+  sale?: Maybe<CommonSaleInformations>;
+  lastEditedBy?: Maybe<LastUpdatedProfile>;
+  dateUpdated?: Maybe<Scalars['Date']>;
+  description?: Maybe<Scalars['String']>;
+};
+
+export type CommonSaleInformationsInput = {
+  minPrice?: Maybe<Scalars['AbsoluteFloat']>;
+  maxPrice?: Maybe<Scalars['AbsoluteFloat']>;
+  calculateAutomatically?: Maybe<Scalars['Boolean']>;
+};
+
+export type CommonSaleInformations = {
+  __typename?: 'CommonSaleInformations';
+  minPrice?: Maybe<Scalars['AbsoluteFloat']>;
+  maxPrice?: Maybe<Scalars['AbsoluteFloat']>;
+  isEnabled?: Maybe<Scalars['Boolean']>;
+  calculateAutomatically?: Maybe<Scalars['Boolean']>;
+};
+
+export type CommonRentInformationsInput = {
+  minPrice?: Maybe<Scalars['AbsoluteFloat']>;
+  maxPrice?: Maybe<Scalars['AbsoluteFloat']>;
+  calculateAutomatically?: Maybe<Scalars['Boolean']>;
+};
+
+export type CommonRentInformations = {
+  __typename?: 'CommonRentInformations';
+  minPrice?: Maybe<Scalars['AbsoluteFloat']>;
+  maxPrice?: Maybe<Scalars['AbsoluteFloat']>;
+  isEnabled?: Maybe<Scalars['Boolean']>;
+  calculateAutomatically?: Maybe<Scalars['Boolean']>;
+};
+
+export type ToggleCommonPricingInput = {
+  id: Scalars['ID'];
+  isRent: Scalars['Boolean'];
+  isSale: Scalars['Boolean'];
+};
+
+export type UpdateCommonPricingInput = {
+  id: Scalars['ID'];
+  rent?: Maybe<CommonRentInformationsInput>;
+  sale?: Maybe<CommonSaleInformationsInput>;
+  description?: Maybe<Scalars['String']>;
+};
+
+export enum GenderType {
+  Male = 'Male',
+  Female = 'Female',
+  GenderNeutral = 'GenderNeutral',
+}
+
+export enum EmailAddressType {
+  Business = 'Business',
+  Private = 'Private',
+}
+
+export type EmailAddress = {
+  __typename?: 'EmailAddress';
+  id: Scalars['String'];
+  emailAddress: Scalars['String'];
+  emailAddressType?: Maybe<EmailAddressType>;
+  isPublic?: Maybe<Scalars['Boolean']>;
+};
+
+export type CreateEmailAddressInput = {
+  profileId: Scalars['String'];
+  emailAddress: Scalars['String'];
+  emailAddressType?: Maybe<EmailAddressType>;
+  isPublic?: Maybe<Scalars['Boolean']>;
+};
+
+export type UpdateEmailAddressInput = {
+  id: Scalars['String'];
+  profileId: Scalars['String'];
+  emailAddress: Scalars['String'];
+  emailAddressType?: Maybe<EmailAddressType>;
+  isPublic?: Maybe<Scalars['Boolean']>;
+};
+
+export enum PhoneNumberType {
+  Business = 'Business',
+  Private = 'Private',
+}
+
+export type PhoneNumber = {
+  __typename?: 'PhoneNumber';
+  id: Scalars['String'];
+  phoneNumber: Scalars['String'];
+  phoneNumberType?: Maybe<PhoneNumberType>;
+  isPublic?: Maybe<Scalars['Boolean']>;
+};
+
+export type CreatePhoneNumberInput = {
+  profileId: Scalars['String'];
+  phoneNumber: Scalars['String'];
+  phoneNumberType?: Maybe<PhoneNumberType>;
+  isPublic?: Maybe<Scalars['Boolean']>;
+};
+
+export type UpdatePhoneNumberInput = {
+  id: Scalars['String'];
+  profileId: Scalars['String'];
+  phoneNumber: Scalars['String'];
+  phoneNumberType?: Maybe<PhoneNumberType>;
+  isPublic?: Maybe<Scalars['Boolean']>;
+};
+
+export enum SocialMediaLinkType {
+  LinkedIn = 'LinkedIn',
+  Twitter = 'Twitter',
+  Facebook = 'Facebook',
+  Pinterest = 'Pinterest',
+  Instagram = 'Instagram',
+  WhatsApp = 'WhatsApp',
+  PersonalWebsite = 'PersonalWebsite',
+}
+
+export type SocialMediaLink = {
+  __typename?: 'SocialMediaLink';
+  id: Scalars['String'];
+  socialMediaLink: Scalars['String'];
+  socialMediaLinkType?: Maybe<SocialMediaLinkType>;
+  isPublic?: Maybe<Scalars['Boolean']>;
+};
+
+export type CreateSocialMediaLinkInput = {
+  profileId: Scalars['String'];
+  socialMediaLink: Scalars['String'];
+  socialMediaLinkType?: Maybe<SocialMediaLinkType>;
+  isPublic?: Maybe<Scalars['Boolean']>;
+};
+
+export type UpdateSocialMediaLinkInput = {
+  id: Scalars['String'];
+  profileId: Scalars['String'];
+  socialMediaLink: Scalars['String'];
+  socialMediaLinkType?: Maybe<SocialMediaLinkType>;
+  isPublic?: Maybe<Scalars['Boolean']>;
+};
+
+export enum AdminSettings {
+  General = 'General',
+  Users = 'Users',
+  Teams = 'Teams',
+  Options = 'Options',
+  Workflows = 'Workflows',
+  Matching = 'Matching',
+  Pim = 'PIM',
+  Crm = 'CRM',
+  Sales = 'SALES',
+  Email = 'Email',
+  Documents = 'Documents',
+  Calendar = 'Calendar',
+  Marketing = 'Marketing',
+  KpiTargets = 'KPITargets',
+  Notifications = 'Notifications',
+  Tasks = 'Tasks',
+  Billing = 'Billing',
+}
+
+export type Profile = {
+  __typename?: 'Profile';
+  id: Scalars['ID'];
+  gender?: Maybe<GenderType>;
+  firstName?: Maybe<Scalars['String']>;
+  lastName?: Maybe<Scalars['String']>;
+  dateOfBirth?: Maybe<Scalars['Date']>;
+  functionDescription?: Maybe<Scalars['String']>;
+  email: Scalars['String'];
+  teams?: Maybe<Array<ProfileTeam>>;
+  emailAddresses?: Maybe<Array<EmailAddress>>;
+  phoneNumbers?: Maybe<Array<PhoneNumber>>;
+  socialMediaLinks?: Maybe<Array<SocialMediaLink>>;
+  company?: Maybe<Company>;
+  adminSettings?: Maybe<Array<AdminSettings>>;
+  isAdmin: Scalars['Boolean'];
+  isActive: Scalars['Boolean'];
+  initials?: Maybe<Scalars['String']>;
+  costUnit?: Maybe<Scalars['String']>;
+  hideOnMemos?: Maybe<Scalars['Boolean']>;
+  isAccountmanager?: Maybe<Scalars['Boolean']>;
+  image?: Maybe<File>;
+  language?: Maybe<Scalars['String']>;
+};
+
+export type CreateProfileInput = {
+  gender?: Maybe<GenderType>;
+  firstName?: Maybe<Scalars['String']>;
+  lastName?: Maybe<Scalars['String']>;
+  dateOfBirth?: Maybe<Scalars['Date']>;
+  functionDescription?: Maybe<Scalars['String']>;
+  email: Scalars['String'];
+  isAdmin?: Maybe<Scalars['Boolean']>;
+  adminSettings?: Maybe<Array<AdminSettings>>;
+  language?: Maybe<Scalars['String']>;
 };
 
 export type UpdateProfileInput = {
@@ -9518,6 +8617,70 @@ export type UpdateProfileInput = {
   language?: Maybe<Scalars['String']>;
 };
 
+export type ProfileTeam = {
+  __typename?: 'ProfileTeam';
+  id: Scalars['ID'];
+  name?: Maybe<Scalars['String']>;
+  notes?: Maybe<Scalars['String']>;
+  createPermission: Scalars['Boolean'];
+  readPermission: Scalars['Boolean'];
+  updatePermission: Scalars['Boolean'];
+  deletePermission: Scalars['Boolean'];
+};
+
+export type TeamMember = {
+  __typename?: 'TeamMember';
+  id: Scalars['ID'];
+  notes?: Maybe<Scalars['String']>;
+  user: Profile;
+  createPermission: Scalars['Boolean'];
+  readPermission: Scalars['Boolean'];
+  updatePermission: Scalars['Boolean'];
+  deletePermission: Scalars['Boolean'];
+};
+
+export type Team = {
+  __typename?: 'Team';
+  id: Scalars['ID'];
+  profileMembers?: Maybe<Array<TeamMember>>;
+  company: Company;
+  name?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+  teamRights?: Maybe<Array<TeamRight>>;
+  isInitTeam?: Maybe<Scalars['Boolean']>;
+};
+
+export type ProfileSearchResult = {
+  __typename?: 'ProfileSearchResult';
+  metadata?: Maybe<SearchMetadata>;
+  items?: Maybe<Array<Profile>>;
+};
+
+export type ProfileFilters = {
+  isActive?: Maybe<Scalars['Boolean']>;
+};
+
+export type ConfirmProfileInvite = {
+  firstName?: Maybe<Scalars['String']>;
+  lastName?: Maybe<Scalars['String']>;
+  email: Scalars['String'];
+  password: Scalars['String'];
+};
+
+export type ProjectPhase = {
+  __typename?: 'ProjectPhase';
+  id: Scalars['ID'];
+  name: Scalars['String'];
+  logo?: Maybe<File>;
+  ncpIds?: Maybe<Array<Scalars['ID']>>;
+};
+
+export type CreateProjectPhaseInput = {
+  name: Scalars['String'];
+  logoId?: Maybe<Scalars['ID']>;
+  ncpId?: Maybe<Scalars['ID']>;
+};
+
 export type UpdateProjectPhaseInput = {
   id: Scalars['ID'];
   name: Scalars['String'];
@@ -9525,29 +8688,118 @@ export type UpdateProjectPhaseInput = {
   ncpIds?: Maybe<Array<Scalars['ID']>>;
 };
 
-export type UpdateQuestionInput = {
+export type ProjectPhaseFilters = {
   name?: Maybe<Scalars['String']>;
-  order?: Maybe<Scalars['Int']>;
-  type?: Maybe<QuestionType>;
-  required?: Maybe<Scalars['Boolean']>;
-  commentEnabled?: Maybe<Scalars['Boolean']>;
-  showOn?: Maybe<Scalars['Boolean']>;
-  options?: Maybe<Array<Maybe<OptionsInput>>>;
-  entity?: Maybe<EntityInput>;
+  ncpId?: Maybe<Scalars['ID']>;
 };
 
-export type UpdateQuestionaireInput = {
-  id: Scalars['ID'];
-  templateStatus?: Maybe<TemplateStatus>;
-  type: TemplateType;
+export type ProjectPhaseSearchResult = {
+  __typename?: 'ProjectPhaseSearchResult';
+  metadata?: Maybe<SearchMetadata>;
+  items?: Maybe<Array<ProjectPhase>>;
 };
 
-export type UpdateReadingInput = {
-  parentId: Scalars['ID'];
+export type LinkNcpToProjectPhaseInput = {
+  ncpId: Scalars['ID'];
+  projectPhaseId: Scalars['ID'];
+};
+
+export type Sales = {
+  __typename?: 'Sales';
+  id: Scalars['String'];
+  label: SalesLabel;
+  status: SalesStatus;
+  createdAt: Scalars['Date'];
+  updatedAt: Scalars['Date'];
+  name?: Maybe<Scalars['String']>;
+  type: SalesType;
+  extraInfo?: Maybe<Scalars['String']>;
+  attentionNote?: Maybe<Scalars['String']>;
+  date?: Maybe<Scalars['Date']>;
+};
+
+export type SalesStatusChange = {
+  __typename?: 'SalesStatusChange';
   id: Scalars['ID'];
-  value?: Maybe<Scalars['Int']>;
-  dateOfReading?: Maybe<Scalars['Date']>;
-  feedInId?: Maybe<Scalars['String']>;
+  cyclusId: Scalars['ID'];
+  status: SalesStatus;
+  createdAt: Scalars['Date'];
+  historyId: Scalars['ID'];
+};
+
+export type SalesClient = {
+  __typename?: 'SalesClient';
+  id: Scalars['ID'];
+  cyclusId: Scalars['ID'];
+  crmId: Scalars['ID'];
+};
+
+export type SalesPim = {
+  __typename?: 'SalesPim';
+  id: Scalars['ID'];
+  cyclusId: Scalars['ID'];
+  pimId: Scalars['ID'];
+};
+
+export type SalesAccountContact = {
+  __typename?: 'SalesAccountContact';
+  id: Scalars['ID'];
+  cyclusId: Scalars['ID'];
+  userId: Scalars['ID'];
+  role: SalesRole;
+};
+
+export type SalesEntity = {
+  __typename?: 'SalesEntity';
+  cyclusId: Scalars['ID'];
+  entityType: Entities;
+  entityId: Scalars['ID'];
+};
+
+export type SalesFile = {
+  __typename?: 'SalesFile';
+  cyclusId: Scalars['ID'];
+  documentId: Scalars['ID'];
+  label: Scalars['String'];
+};
+
+export type SalesPackage = {
+  __typename?: 'SalesPackage';
+  cyclusId: Scalars['ID'];
+  package: Scalars['String'];
+};
+
+export type SalesAddress = {
+  __typename?: 'SalesAddress';
+  cyclusId: Scalars['ID'];
+  country: Scalars['String'];
+  city: Scalars['String'];
+  zipCode: Scalars['String'];
+  street: Scalars['String'];
+  houseNumber: Scalars['String'];
+  extraInfo?: Maybe<Scalars['String']>;
+};
+
+export type SalesBrokerage = {
+  __typename?: 'SalesBrokerage';
+  cyclusId: Scalars['ID'];
+  type: SalesBrokerageType;
+  percentage?: Maybe<Scalars['Int']>;
+  fixedAmount?: Maybe<Scalars['Int']>;
+  amountValues?: Maybe<Scalars['String']>;
+  vatPercentage?: Maybe<Scalars['Int']>;
+  reservationRate?: Maybe<Scalars['String']>;
+  partialCommission?: Maybe<Scalars['Int']>;
+  bonusPercentage?: Maybe<Scalars['Int']>;
+  description?: Maybe<Scalars['String']>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type CreateSales = {
+  __typename?: 'CreateSales';
+  label: SalesLabel;
+  type: SalesType;
+  extraInfo?: Maybe<Scalars['String']>;
 };
 
 export type UpdateSales = {
@@ -9559,11 +8811,57 @@ export type UpdateSales = {
   extraInfo?: Maybe<Scalars['String']>;
 };
 
+export type CreateSalesStatusChange = {
+  __typename?: 'CreateSalesStatusChange';
+  cyclusId: Scalars['ID'];
+  label: SalesLabel;
+  status: SalesStatus;
+  historyId: Scalars['ID'];
+};
+
+export type CreateSalesAccountContact = {
+  __typename?: 'CreateSalesAccountContact';
+  cyclusId: Scalars['ID'];
+  userId: Scalars['ID'];
+  role: SalesRole;
+};
+
 export type UpdateSalesAccountContact = {
   __typename?: 'UpdateSalesAccountContact';
   cyclusId: Scalars['ID'];
   userId: Scalars['ID'];
   role: SalesRole;
+};
+
+export type CreateSalesEntity = {
+  __typename?: 'CreateSalesEntity';
+  cyclusId: Scalars['ID'];
+  entityType: Entities;
+  entityId: Scalars['ID'];
+};
+
+export type CreateSalesFile = {
+  __typename?: 'CreateSalesFile';
+  cyclusId: Scalars['ID'];
+  documentId: Scalars['ID'];
+  label: Scalars['String'];
+};
+
+export type CreateSalesPackage = {
+  __typename?: 'CreateSalesPackage';
+  cyclusId: Scalars['ID'];
+  package: Scalars['String'];
+};
+
+export type CreateSalesAddress = {
+  __typename?: 'CreateSalesAddress';
+  cyclusId: Scalars['ID'];
+  country?: Maybe<Scalars['String']>;
+  city?: Maybe<Scalars['String']>;
+  zipCode?: Maybe<Scalars['String']>;
+  street?: Maybe<Scalars['String']>;
+  houseNumber?: Maybe<Scalars['String']>;
+  extraInfo?: Maybe<Scalars['String']>;
 };
 
 export type UpdateSalesAddress = {
@@ -9574,6 +8872,21 @@ export type UpdateSalesAddress = {
   street?: Maybe<Scalars['String']>;
   houseNumber?: Maybe<Scalars['String']>;
   extraInfo?: Maybe<Scalars['String']>;
+};
+
+export type CreateSalesBrokerage = {
+  __typename?: 'CreateSalesBrokerage';
+  cyclusId: Scalars['ID'];
+  type: Scalars['Int'];
+  percentage?: Maybe<Scalars['Int']>;
+  fixedAmount?: Maybe<Scalars['Int']>;
+  amountValues?: Maybe<Scalars['String']>;
+  vatPercentage?: Maybe<Scalars['Int']>;
+  reservationRate?: Maybe<Scalars['String']>;
+  partialCommission?: Maybe<Scalars['Int']>;
+  bonusPercentage?: Maybe<Scalars['Int']>;
+  description?: Maybe<Scalars['String']>;
+  notes?: Maybe<Scalars['String']>;
 };
 
 export type UpdateSalesBrokerage = {
@@ -9590,6 +8903,239 @@ export type UpdateSalesBrokerage = {
   notes?: Maybe<Scalars['String']>;
 };
 
+export type CreateSalesPim = {
+  __typename?: 'CreateSalesPim';
+  cyclusId: Scalars['ID'];
+  pimId: Scalars['ID'];
+};
+
+export type BulkCreateSalesPim = {
+  __typename?: 'BulkCreateSalesPim';
+  cyclusId: Scalars['ID'];
+  pimIds?: Maybe<Array<Scalars['ID']>>;
+};
+
+export type CreateSalesCrm = {
+  __typename?: 'CreateSalesCrm';
+  cyclusId: Scalars['ID'];
+  crmId: Scalars['ID'];
+};
+
+export type BulkCreateSalesCrm = {
+  __typename?: 'BulkCreateSalesCrm';
+  cyclusId: Scalars['ID'];
+  crmIds?: Maybe<Array<Scalars['ID']>>;
+};
+
+export enum SalesBrokerageType {
+  Percentage = 'Percentage',
+  Fixed = 'Fixed',
+}
+
+export enum SalesLabel {
+  Lead = 'Lead',
+  Acquisition = 'Acquisition',
+  Quotation = 'Quotation',
+  Order = 'Order',
+  Invoice = 'Invoice',
+}
+
+export enum SalesStatus {
+  ActionRequired = 'ActionRequired',
+  Active = 'Active',
+  Inactive = 'Inactive',
+  Complete = 'Complete',
+}
+
+export enum SalesType {
+  Taxation = 'Taxation',
+  Inspection = 'Inspection',
+  SaleOrder = 'SaleOrder',
+}
+
+export enum SalesRole {
+  Accountant = 'Accountant',
+  Concierge = 'Concierge',
+  Gardener = 'Gardener',
+}
+
+export type SalesFilters = {
+  label: SalesLabel;
+  status: SalesStatus;
+};
+
+export type SalesSearchResult = {
+  __typename?: 'SalesSearchResult';
+  metadata?: Maybe<SearchMetadata>;
+  items?: Maybe<Array<Sales>>;
+};
+
+export type CreateSalesInput = {
+  label: SalesLabel;
+  type: SalesType;
+  extraInfo?: Maybe<Scalars['String']>;
+};
+
+export type SearchMetadata = {
+  __typename?: 'SearchMetadata';
+  total: Scalars['Int'];
+};
+
+export type LastUpdatedProfile = {
+  __typename?: 'LastUpdatedProfile';
+  id: Scalars['ID'];
+  firstName?: Maybe<Scalars['String']>;
+  lastName?: Maybe<Scalars['String']>;
+  email?: Maybe<Scalars['String']>;
+};
+
+export type LastUpdated = {
+  dateUpdated?: Maybe<Scalars['Date']>;
+  lastEditedBy?: Maybe<LastUpdatedProfile>;
+};
+
+export enum SortDirection {
+  Asc = 'asc',
+  Desc = 'desc',
+}
+
+export type Sort = {
+  column: Scalars['String'];
+  direction: SortDirection;
+};
+
+export type Pagination = {
+  from?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+  searchAfter?: Maybe<Array<Scalars['String']>>;
+};
+
+export type SearchResult = {
+  __typename?: 'SearchResult';
+  users?: Maybe<Array<Profile>>;
+  emails?: Maybe<Array<Profile>>;
+  crms?: Maybe<Array<CrmListItem>>;
+  pims?: Maybe<Array<Pim>>;
+  teams?: Maybe<Array<Team>>;
+  ncps?: Maybe<Array<ListNcp>>;
+  sales?: Maybe<Array<Sales>>;
+};
+
+export type SearchInput = {
+  keyword: Scalars['String'];
+  types?: Maybe<Array<Entities>>;
+  page?: Maybe<Scalars['Int']>;
+  size?: Maybe<Scalars['Int']>;
+};
+
+export enum MeterType {
+  Water = 'Water',
+  Gas = 'Gas',
+  Electric = 'Electric',
+}
+
+export enum HotWaterSupplyType {
+  CentralHeatingBoiler = 'CentralHeatingBoiler',
+  Boiler = 'Boiler',
+  Geyser = 'Geyser',
+  SolarWaterHeater = 'SolarWaterHeater',
+}
+
+export enum HotWaterSupplyFuelType {
+  Gas = 'Gas',
+  Electric = 'Electric',
+  Oil = 'Oil',
+}
+
+export enum HeatingSourceType {
+  GeothermalHeat = 'GeothermalHeat',
+  Fireplace = 'Fireplace',
+  AllBurner = 'AllBurner',
+  PelletStove = 'PelletStove',
+  BlockHeating = 'BlockHeating',
+  WoodStove = 'WoodStove',
+  DistrictHeating = 'DistrictHeating',
+  CentralHeatingBoiler = 'CentralHeatingBoiler',
+  CoalStove = 'CoalStove',
+  PartialElectricHeating = 'PartialElectricHeating',
+  MotherHearth = 'MotherHearth',
+  GasFire = 'GasFire',
+  PossibleFireplace = 'PossibleFireplace',
+  HeatRecoverySystem = 'HeatRecoverySystem',
+  GasHeaters = 'GasHeaters',
+  HeatPump = 'HeatPump',
+  HotAirHeating = 'HotAirHeating',
+  UnderfloorHeating = 'UnderfloorHeating',
+  UnderfloorHeatingCompletely = 'UnderfloorHeatingCompletely',
+  WallHeating = 'WallHeating',
+}
+
+export enum AdditionalServiceType {
+  AirConditioning = 'AirConditioning',
+  AlarmSystem = 'AlarmSystem',
+  ExteriorSunProtection = 'ExteriorSunProtection',
+  Skylight = 'Skylight',
+  SateliteDish = 'SateliteDish',
+  SlidingDoor = 'SlidingDoor',
+  CableTv = 'CableTv',
+  Windmill = 'Windmill',
+  SolarCollector = 'SolarCollector',
+  SwimmingPool = 'SwimmingPool',
+  FrenchBalcony = 'FrenchBalcony',
+  MechanicalVentilation = 'MechanicalVentilation',
+  Elevator = 'Elevator',
+  Flue = 'Flue',
+  Shutters = 'Shutters',
+}
+
+export enum OwnershipType {
+  Rent = 'Rent',
+  Leased = 'Leased',
+  Owned = 'Owned',
+}
+
+export enum ServiceType {
+  HotWaterSupplies = 'HotWaterSupplies',
+  HeatingSources = 'HeatingSources',
+  AdditionalServices = 'AdditionalServices',
+}
+
+export type AddMeterInput = {
+  parentId: Scalars['String'];
+  name: Scalars['String'];
+  type: MeterType;
+};
+
+export type UpdateMeterInput = {
+  parentId: Scalars['String'];
+  id: Scalars['String'];
+  name?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+};
+
+export type AddReadingInput = {
+  parentId: Scalars['ID'];
+  meterId: Scalars['ID'];
+  value?: Maybe<Scalars['Int']>;
+  dateOfReading?: Maybe<Scalars['Date']>;
+  feedInId?: Maybe<Scalars['String']>;
+};
+
+export type UpdateReadingInput = {
+  parentId: Scalars['ID'];
+  id: Scalars['ID'];
+  value?: Maybe<Scalars['Int']>;
+  dateOfReading?: Maybe<Scalars['Date']>;
+  feedInId?: Maybe<Scalars['String']>;
+};
+
+export type AddServiceInput = {
+  parentId: Scalars['ID'];
+  name: Scalars['String'];
+  type: ServiceType;
+  configuration?: Maybe<Scalars['ServiceConfigurationInput']>;
+};
+
 export type UpdateServiceInput = {
   parentId: Scalars['ID'];
   serviceId: Scalars['ID'];
@@ -9600,27 +9146,187 @@ export type UpdateServiceInput = {
   configuration?: Maybe<Scalars['ServiceConfigurationInput']>;
 };
 
-export type UpdateSocialMediaLinkInput = {
+export type Reading = {
+  __typename?: 'Reading';
   id: Scalars['String'];
-  profileId: Scalars['String'];
-  socialMediaLink: Scalars['String'];
-  socialMediaLinkType?: Maybe<SocialMediaLinkType>;
-  isPublic?: Maybe<Scalars['Boolean']>;
-};
-
-export type UpdateSpaceInput = {
-  pimId: Scalars['String'];
-  spaceId: Scalars['String'];
-  spaceName?: Maybe<Scalars['String']>;
-  space?: Maybe<Scalars['UpdateSpaceInputConfiguration']>;
-};
-
-export type UpdateTagInput = {
-  pimId: Scalars['String'];
-  id: Scalars['String'];
-  type?: Maybe<Scalars['String']>;
+  value?: Maybe<Scalars['Int']>;
+  dateOfReading?: Maybe<Scalars['Date']>;
   description?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
+  feedInId?: Maybe<Scalars['String']>;
+  dateCreated?: Maybe<Scalars['Date']>;
+};
+
+export type Meter = LastUpdated & {
+  __typename?: 'Meter';
+  id: Scalars['String'];
+  type: MeterType;
+  name: Scalars['String'];
+  description?: Maybe<Scalars['String']>;
+  readings?: Maybe<Array<Reading>>;
+  dateCreated?: Maybe<Scalars['Date']>;
+  dateUpdated?: Maybe<Scalars['Date']>;
+  lastEditedBy?: Maybe<LastUpdatedProfile>;
+};
+
+export type HeatingSourceMaintenanceContract = {
+  __typename?: 'HeatingSourceMaintenanceContract';
+  enabled: Scalars['Boolean'];
+  endDate?: Maybe<Scalars['Date']>;
+};
+
+export type HotWaterSupplyConfiguration = {
+  __typename?: 'HotWaterSupplyConfiguration';
+  type: HotWaterSupplyType;
+  fuel?: Maybe<HotWaterSupplyFuelType>;
+};
+
+export type HeatingSourceConfiguration = {
+  __typename?: 'HeatingSourceConfiguration';
+  type: HeatingSourceType;
+  maintenanceContract?: Maybe<HeatingSourceMaintenanceContract>;
+};
+
+export type AdditionalServiceConfiguration = {
+  __typename?: 'AdditionalServiceConfiguration';
+  type: AdditionalServiceType;
+};
+
+export type ServiceConfiguration =
+  | HotWaterSupplyConfiguration
+  | HeatingSourceConfiguration
+  | AdditionalServiceConfiguration;
+
+export type Service = {
+  __typename?: 'Service';
+  id: Scalars['String'];
+  type: ServiceType;
+  name: Scalars['String'];
+  description?: Maybe<Scalars['String']>;
+  yearOfInstallation?: Maybe<Scalars['Int']>;
+  configuration: ServiceConfiguration;
+  ownership?: Maybe<OwnershipType>;
+  dateCreated?: Maybe<Scalars['Date']>;
+};
+
+export type ServiceDescriptionInput = {
+  id: Scalars['ID'];
+  servicesDescription?: Maybe<Scalars['String']>;
+};
+
+export type Services = {
+  hotWaterSupplies?: Maybe<Array<Service>>;
+  heatingSources?: Maybe<Array<Service>>;
+  additionalServices?: Maybe<Array<Service>>;
+};
+
+export type MetersSharedData = {
+  __typename?: 'MetersSharedData';
+  description?: Maybe<Scalars['String']>;
+  lastEditedBy?: Maybe<LastUpdatedProfile>;
+  dateUpdated?: Maybe<Scalars['Date']>;
+};
+
+export type MetersMeta = LastUpdated & {
+  __typename?: 'MetersMeta';
+  description?: Maybe<Scalars['String']>;
+  Water?: Maybe<MetersSharedData>;
+  Gas?: Maybe<MetersSharedData>;
+  Electric?: Maybe<MetersSharedData>;
+  dateUpdated?: Maybe<Scalars['Date']>;
+  lastEditedBy?: Maybe<LastUpdatedProfile>;
+};
+
+export enum TaskLabel {
+  FollowUp = 'FollowUp',
+  Business = 'Business',
+  Private = 'Private',
+}
+
+export enum TaskPriority {
+  High = 'High',
+  Medium = 'Medium',
+  Low = 'Low',
+}
+
+export enum TaskStatus {
+  ToDo = 'ToDo',
+  InProgress = 'InProgress',
+  Blocked = 'Blocked',
+  Done = 'Done',
+}
+
+export type TaskLog = {
+  __typename?: 'TaskLog';
+  timeSpent: Scalars['Int'];
+  dateStarted?: Maybe<Scalars['Date']>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type Task = LastUpdated & {
+  __typename?: 'Task';
+  id: Scalars['ID'];
+  taskIndex: Scalars['Int'];
+  title: Scalars['String'];
+  assignee: Scalars['ID'];
+  startDate?: Maybe<Scalars['Date']>;
+  deadline?: Maybe<Scalars['Date']>;
+  priority: TaskPriority;
+  label: Scalars['String'];
+  status: TaskStatus;
+  description?: Maybe<Scalars['String']>;
+  originalEstimate?: Maybe<Scalars['Int']>;
+  subTasks?: Maybe<Array<Subtask>>;
+  logs?: Maybe<Array<TaskLog>>;
+  resultIntern?: Maybe<Scalars['String']>;
+  resultClient?: Maybe<Scalars['String']>;
+  lastEditedBy?: Maybe<LastUpdatedProfile>;
+  dateUpdated?: Maybe<Scalars['Date']>;
+};
+
+export type Subtask = LastUpdated & {
+  __typename?: 'Subtask';
+  id: Scalars['ID'];
+  title: Scalars['String'];
+  status: TaskStatus;
+  lastEditedBy?: Maybe<LastUpdatedProfile>;
+  dateUpdated?: Maybe<Scalars['Date']>;
+};
+
+export type TaskFullSummaryResult = {
+  __typename?: 'TaskFullSummaryResult';
+  today: Scalars['Int'];
+  nextWeek: Scalars['Int'];
+  future: Scalars['Int'];
+  overdue: Scalars['Int'];
+};
+
+export type TaskSummaryByStatusResult = {
+  __typename?: 'TaskSummaryByStatusResult';
+  todo: Scalars['Int'];
+  inProgress: Scalars['Int'];
+  blocked: Scalars['Int'];
+  done: Scalars['Int'];
+};
+
+export type TaskSearchResult = {
+  __typename?: 'TaskSearchResult';
+  metadata?: Maybe<SearchMetadata>;
+  items?: Maybe<Array<Task>>;
+};
+
+export type CreateTaskInput = {
+  title: Scalars['String'];
+  assignee: Scalars['ID'];
+  startDate?: Maybe<Scalars['Date']>;
+  deadline?: Maybe<Scalars['Date']>;
+  priority: TaskPriority;
+  label: Scalars['String'];
+};
+
+export type TaskLogInput = {
+  timeSpent: Scalars['Int'];
+  dateStarted?: Maybe<Scalars['Date']>;
+  notes?: Maybe<Scalars['String']>;
 };
 
 export type UpdateTaskInput = {
@@ -9639,6 +9345,64 @@ export type UpdateTaskInput = {
   resultClient?: Maybe<Scalars['String']>;
 };
 
+export type AddSubtaskInput = {
+  title: Scalars['String'];
+};
+
+export type DateRange = {
+  from?: Maybe<Scalars['Date']>;
+  to?: Maybe<Scalars['Date']>;
+};
+
+export type TaskFilters = {
+  search?: Maybe<Scalars['String']>;
+  assignees?: Maybe<Array<Scalars['ID']>>;
+  startDates?: Maybe<Array<DateRange>>;
+  deadlines?: Maybe<Array<DateRange>>;
+};
+
+export type TaskFullSummaryFilters = {
+  assignees?: Maybe<Array<Scalars['ID']>>;
+};
+
+export type TaskSummaryByStatusFilters = {
+  search?: Maybe<Scalars['String']>;
+  assignees?: Maybe<Array<Scalars['ID']>>;
+  startDates?: Maybe<Array<DateRange>>;
+  deadlines?: Maybe<Array<DateRange>>;
+};
+
+export enum TeamRight {
+  Residential = 'Residential',
+  Commercial = 'Commercial',
+  Agricultural = 'Agricultural',
+  ParkingLot = 'ParkingLot',
+  BuildingPlot = 'BuildingPlot',
+  Ncp = 'NCP',
+  Crm = 'CRM',
+  Sales = 'Sales',
+  Documents = 'Documents',
+}
+
+export type PermissionsInTeamInput = {
+  createPermission: Scalars['Boolean'];
+  readPermission: Scalars['Boolean'];
+  updatePermission: Scalars['Boolean'];
+  deletePermission: Scalars['Boolean'];
+};
+
+export type TeamSearchResult = {
+  __typename?: 'TeamSearchResult';
+  metadata?: Maybe<SearchMetadata>;
+  items?: Maybe<Array<Team>>;
+};
+
+export type AddTeamInput = {
+  name: Scalars['String'];
+  description?: Maybe<Scalars['String']>;
+  teamRights?: Maybe<Array<TeamRight>>;
+};
+
 export type UpdateTeamInput = {
   teamId: Scalars['ID'];
   name: Scalars['String'];
@@ -9646,12 +9410,11 @@ export type UpdateTeamInput = {
   teamRights?: Maybe<Array<TeamRight>>;
 };
 
-export type UpdateTextChapterInput = {
-  pimId: Scalars['String'];
-  id: Scalars['String'];
-  name?: Maybe<Scalars['String']>;
-  type?: Maybe<Scalars['String']>;
-  text?: Maybe<Scalars['String']>;
+export type AddUserToTeamInput = {
+  teamId: Scalars['ID'];
+  userId: Scalars['ID'];
+  permissions: PermissionsInTeamInput;
+  notes?: Maybe<Scalars['String']>;
 };
 
 export type UpdateUserInTeamInput = {
@@ -9661,145 +9424,288 @@ export type UpdateUserInTeamInput = {
   notes?: Maybe<Scalars['String']>;
 };
 
-export type UpdateUspInput = {
-  pimId: Scalars['String'];
-  id: Scalars['String'];
-  type?: Maybe<Scalars['String']>;
+export type RemoveUserFromTeamInput = {
+  teamId: Scalars['ID'];
+  userId: Scalars['ID'];
+};
+
+export enum TemplateStatus {
+  Active = 'Active',
+  InActive = 'InActive',
+}
+
+export type QuestionaireInput = {
+  templateName?: Maybe<Scalars['String']>;
+  type?: Maybe<TemplateType>;
+  isAdmin?: Maybe<Scalars['Boolean']>;
+  published?: Maybe<Scalars['Boolean']>;
+  copyFromId?: Maybe<Scalars['String']>;
+  entity?: Maybe<EntityInput>;
+  templateStatus?: Maybe<TemplateStatus>;
+};
+
+export type UpdateQuestionaireInput = {
+  id: Scalars['ID'];
+  templateStatus?: Maybe<TemplateStatus>;
+  type: TemplateType;
+};
+
+export enum TemplateDocumentType {
+  Sale = 'Sale',
+  Rent = 'Rent',
+}
+
+export type TemplateSettings = {
+  __typename?: 'TemplateSettings';
   description?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
+  version?: Maybe<Scalars['String']>;
+  language?: Maybe<Scalars['String']>;
+  documentType?: Maybe<Scalars['String']>;
 };
 
-export type UpdateViewingMomentInput = {
-  id: Scalars['ID'];
-  typeOfAppointment?: Maybe<TypeOfAppointment>;
-  schedules?: Maybe<Array<MomentScheduleInput>>;
-  duration?: Maybe<Scalars['Int']>;
-  travelTimeBefore?: Maybe<Scalars['Int']>;
-  travelTimeAfter?: Maybe<Scalars['Int']>;
-  accountManagers?: Maybe<Array<Scalars['ID']>>;
-};
-
-export type UpdateWorkflowActionInput = {
-  status?: Maybe<Scalars['Boolean']>;
-};
-
-export type UpdateWorkflowTriggerInput = {
-  status?: Maybe<Scalars['Boolean']>;
-  conditions?: Maybe<Scalars['String']>;
-};
-
-export type UploadFileResponse = {
-  __typename?: 'UploadFileResponse';
-  id?: Maybe<Scalars['String']>;
-};
-
-export type Usp = {
-  __typename?: 'Usp';
-  id: Scalars['String'];
-  name?: Maybe<Scalars['String']>;
-  type?: Maybe<Scalars['String']>;
-  description?: Maybe<Scalars['String']>;
-  dateCreated?: Maybe<Scalars['Date']>;
-};
-
-export type VerifyUserInput = {
-  code?: Maybe<Scalars['String']>;
-  username?: Maybe<Scalars['String']>;
-};
-
-export type VerifyUserResponse = {
-  __typename?: 'VerifyUserResponse';
-  error?: Maybe<Scalars['String']>;
-  status: Scalars['String'];
-};
-
-export type ViewingMoment = {
-  __typename?: 'ViewingMoment';
-  id: Scalars['ID'];
-  typeOfAppointment?: Maybe<TypeOfAppointment>;
-  schedules?: Maybe<Array<MomentSchedule>>;
-  duration?: Maybe<Scalars['Int']>;
-  travelTimeBefore?: Maybe<Scalars['Int']>;
-  travelTimeAfter?: Maybe<Scalars['Int']>;
-  accountManagersIds?: Maybe<Array<Scalars['ID']>>;
-  dateCreated?: Maybe<Scalars['Date']>;
-  accountManagers?: Maybe<Array<Profile>>;
-};
-
-export enum WealthClassType {
-  A1 = 'A1',
-  A2 = 'A2',
-  B1 = 'B1',
-  B2 = 'B2',
-  C1 = 'C1',
-  C2 = 'C2',
-}
-
-export enum WindowType {
-  FloatGlass = 'FloatGlass',
-  SafetyLaminatedGlass = 'SafetyLaminatedGlass',
-  ObscuredGlass = 'ObscuredGlass',
-  AnnealedGlass = 'AnnealedGlass',
-  TintedGlass = 'TintedGlass',
-  TemperedGlass = 'TemperedGlass',
-  InsulatedGlass = 'InsulatedGlass',
-  MirroredGlass = 'MirroredGlass',
-  LowEglass = 'LowEglass',
-  WiredGlass = 'WiredGlass',
-  HeatStrengthenedGlass = 'HeatStrengthenedGlass',
-}
-
-export type WorkflowAction = {
-  __typename?: 'WorkflowAction';
-  id: Scalars['ID'];
-  workflowActionGroupId: Scalars['ID'];
-  type: WorkflowActionType;
-  actionIndex: Scalars['Int'];
-  status: Scalars['Boolean'];
-};
-
-export type WorkflowActionGroup = {
-  __typename?: 'WorkflowActionGroup';
-  id: Scalars['ID'];
-  workflowTriggerId: Scalars['ID'];
-  type: WorkflowActionGroupType;
-};
-
-export enum WorkflowActionGroupType {
-  New = 'New',
-  Delete = 'Delete',
-  Update = 'Update',
-}
-
-export enum WorkflowActionType {
-  SendEmail = 'SendEmail',
-  Action1 = 'Action1',
-  Action2 = 'Action2',
-  Action3 = 'Action3',
-}
-
-export type WorkflowSection = {
-  __typename?: 'WorkflowSection';
-  id: Scalars['ID'];
-  workflowTemplateId: Scalars['ID'];
+export type TemplateSecurity = {
+  __typename?: 'TemplateSecurity';
   name: Scalars['String'];
-  startpoint: WorkflowSectionStartpoint;
-  startpointOutside?: Maybe<Scalars['ID']>;
-  endpoint: WorkflowSectionEndpoint;
-  endpointOutside?: Maybe<Scalars['ID']>;
+  create?: Maybe<Scalars['Boolean']>;
+  update?: Maybe<Scalars['Boolean']>;
+  read?: Maybe<Scalars['Boolean']>;
+  delete?: Maybe<Scalars['Boolean']>;
 };
 
-export enum WorkflowSectionEndpoint {
-  End = 'End',
-  Outside = 'Outside',
-  Next = 'Next',
+export type TemplateSettingsInput = {
+  description?: Maybe<Scalars['String']>;
+  version?: Maybe<Scalars['String']>;
+  language?: Maybe<Scalars['String']>;
+  documentType?: Maybe<Scalars['String']>;
+};
+
+export type TemplateSecurityInput = {
+  name?: Maybe<Scalars['String']>;
+  create?: Maybe<Scalars['Boolean']>;
+  update?: Maybe<Scalars['Boolean']>;
+  read?: Maybe<Scalars['Boolean']>;
+  delete?: Maybe<Scalars['Boolean']>;
+};
+
+export type TemplateGeneralInput = {
+  id?: Maybe<Scalars['ID']>;
+  templateName?: Maybe<Scalars['String']>;
+  type?: Maybe<TemplateType>;
+  settings?: Maybe<TemplateSettingsInput>;
+  permissions?: Maybe<Array<TemplateSecurityInput>>;
+};
+
+export type QuestionInput = {
+  groupId: Scalars['ID'];
+  name: Scalars['String'];
+  order?: Maybe<Scalars['Int']>;
+  type?: Maybe<QuestionType>;
+  required?: Maybe<Scalars['Boolean']>;
+  commentEnabled?: Maybe<Scalars['Boolean']>;
+  showOn?: Maybe<Scalars['Boolean']>;
+  options?: Maybe<Array<Maybe<OptionsInput>>>;
+  entity?: Maybe<EntityInput>;
+};
+
+export type UpdateQuestionInput = {
+  name?: Maybe<Scalars['String']>;
+  order?: Maybe<Scalars['Int']>;
+  type?: Maybe<QuestionType>;
+  required?: Maybe<Scalars['Boolean']>;
+  commentEnabled?: Maybe<Scalars['Boolean']>;
+  showOn?: Maybe<Scalars['Boolean']>;
+  options?: Maybe<Array<Maybe<OptionsInput>>>;
+  entity?: Maybe<EntityInput>;
+};
+
+export type GroupsInput = {
+  templateId: Scalars['ID'];
+  groupName: Scalars['String'];
+  order?: Maybe<Scalars['Int']>;
+  entity?: Maybe<EntityInput>;
+};
+
+export type UpdateGroupsInput = {
+  groupName?: Maybe<Scalars['String']>;
+  order?: Maybe<Scalars['Int']>;
+  entity?: Maybe<EntityInput>;
+};
+
+export type AnswersInput = {
+  templateId?: Maybe<Scalars['String']>;
+  date?: Maybe<Scalars['Date']>;
+  entities?: Maybe<Array<Maybe<EntityInput>>>;
+};
+
+export type OptionsInput = {
+  name?: Maybe<Scalars['String']>;
+};
+
+export type AnswerInput = {
+  options?: Maybe<Array<Maybe<OptionsInput>>>;
+  comment?: Maybe<Scalars['String']>;
+};
+
+export type EntityInput = {
+  type?: Maybe<Scalars['String']>;
+  subType?: Maybe<Scalars['String']>;
+};
+
+export type TemplateMeta = {
+  __typename?: 'TemplateMeta';
+  createdAt: Scalars['Date'];
+  deletedAt?: Maybe<Scalars['Date']>;
+};
+
+export type Questionaire = {
+  __typename?: 'Questionaire';
+  id: Scalars['ID'];
+  companyId?: Maybe<Scalars['String']>;
+  type?: Maybe<TemplateType>;
+  templateName?: Maybe<Scalars['String']>;
+  isAdmin?: Maybe<Scalars['Boolean']>;
+  published?: Maybe<Scalars['Boolean']>;
+  copyFromId?: Maybe<Scalars['String']>;
+  entity?: Maybe<Entity>;
+  templateStatus?: Maybe<TemplateStatus>;
+  meta: TemplateMeta;
+  settings?: Maybe<TemplateSettings>;
+  labels?: Maybe<Array<Scalars['String']>>;
+  tags?: Maybe<Array<TemplatTag>>;
+  permissions?: Maybe<Array<TemplateSecurity>>;
+};
+
+export type TemplatTag = {
+  __typename?: 'TemplatTag';
+  name: Scalars['String'];
+  amount?: Maybe<Scalars['Int']>;
+};
+
+export type Groups = {
+  __typename?: 'Groups';
+  id: Scalars['ID'];
+  templateId: Scalars['ID'];
+  groupName: Scalars['String'];
+  copyFromId?: Maybe<Scalars['String']>;
+  order?: Maybe<Scalars['Int']>;
+  entity?: Maybe<Entity>;
+};
+
+export type Question = {
+  __typename?: 'Question';
+  id: Scalars['ID'];
+  name: Scalars['String'];
+  groupId?: Maybe<Scalars['String']>;
+  order?: Maybe<Scalars['Int']>;
+  type?: Maybe<QuestionType>;
+  required?: Maybe<Scalars['Boolean']>;
+  commentEnabled?: Maybe<Scalars['Boolean']>;
+  showOn?: Maybe<Scalars['Boolean']>;
+  options?: Maybe<Array<Maybe<Options>>>;
+  entity?: Maybe<Entity>;
+};
+
+export type Answers = {
+  __typename?: 'Answers';
+  id: Scalars['ID'];
+  templateId?: Maybe<Scalars['String']>;
+  date?: Maybe<Scalars['Date']>;
+  entities?: Maybe<Array<Maybe<Entity>>>;
+};
+
+export type Answer = {
+  __typename?: 'Answer';
+  id: Scalars['ID'];
+  answersId?: Maybe<Scalars['String']>;
+  questionId?: Maybe<Scalars['String']>;
+  options?: Maybe<Array<Maybe<Options>>>;
+  comment?: Maybe<Scalars['String']>;
+};
+
+export type Options = {
+  __typename?: 'Options';
+  name?: Maybe<Scalars['String']>;
+};
+
+export enum QuestionType {
+  Text = 'text',
+  Radio = 'radio',
+  Checkbox = 'checkbox',
+  Multiplechoice = 'multiplechoice',
+  Number = 'number',
+  Email = 'email',
+  Price = 'price',
+  Singlelinetext = 'singlelinetext',
+  Multiplelinetext = 'multiplelinetext',
 }
 
-export enum WorkflowSectionStartpoint {
-  Start = 'Start',
-  Outside = 'Outside',
-  Previous = 'Previous',
+export enum TemplateType {
+  Questionnaire = 'questionnaire',
+  Contract = 'contract',
+  Lvz = 'lvz',
+  Survey = 'survey',
+  Newsletter = 'newsletter',
+  Print = 'print',
+  SocialMedia = 'socialMedia',
+  Invoice = 'invoice',
+  Email = 'email',
 }
+
+export type Entity = {
+  __typename?: 'Entity';
+  type?: Maybe<Scalars['String']>;
+  subType?: Maybe<Scalars['String']>;
+};
+
+export type ListQuestionairesFilters = {
+  type?: Maybe<Scalars['String']>;
+  templateStatus?: Maybe<TemplateStatus>;
+};
+
+export type TemplatesResponse = {
+  __typename?: 'TemplatesResponse';
+  count?: Maybe<Scalars['Int']>;
+  items?: Maybe<Array<Questionaire>>;
+};
+
+export enum TiaraMessageType {
+  Aanmelden = 'Aanmelden',
+  Wijzigen = 'Wijzigen',
+  Afmelden = 'Afmelden',
+  OpvragenStatus = 'OpvragenStatus',
+}
+
+export enum TiaraEntities {
+  Pim = 'pim',
+  Ncp = 'ncp',
+  ObjectType = 'objectType',
+}
+
+export enum TiaraMutationStatusType {
+  Success = 'Success',
+  Failure = 'Failure',
+  Open = 'Open',
+}
+
+export type TiaraMutation = {
+  __typename?: 'TiaraMutation';
+  id: Scalars['ID'];
+  messageType: TiaraMessageType;
+  date: Scalars['Date'];
+  status: TiaraMutationStatusType;
+  errors?: Maybe<Array<Scalars['String']>>;
+};
+
+export type TiaraValidation = {
+  __typename?: 'TiaraValidation';
+  errors?: Maybe<Array<Scalars['String']>>;
+};
+
+export type TiaraSendMessageInput = {
+  entityId: Scalars['ID'];
+  entity: TiaraEntities;
+  messageType: TiaraMessageType;
+};
 
 export type WorkflowTemplate = {
   __typename?: 'WorkflowTemplate';
@@ -9812,10 +9718,34 @@ export type WorkflowTemplate = {
   updatedAt: Scalars['Date'];
 };
 
-export enum WorkflowTemplateStatus {
-  Active = 'Active',
-  Inactive = 'Inactive',
-}
+export type CreateWorkflowTemplateInput = {
+  __typename?: 'CreateWorkflowTemplateInput';
+  companyId: Scalars['ID'];
+  name: Scalars['String'];
+  icon: Scalars['String'];
+};
+
+export type WorkflowSection = {
+  __typename?: 'WorkflowSection';
+  id: Scalars['ID'];
+  workflowTemplateId: Scalars['ID'];
+  name: Scalars['String'];
+  startpoint: WorkflowSectionStartpoint;
+  startpointOutside?: Maybe<Scalars['ID']>;
+  endpoint: WorkflowSectionEndpoint;
+  endpointOutside?: Maybe<Scalars['ID']>;
+};
+
+export type CreateWorkflowSectionInput = {
+  __typename?: 'CreateWorkflowSectionInput';
+  companyId: Scalars['ID'];
+  workflowTemplateId: Scalars['ID'];
+  name: Scalars['String'];
+  startpoint: WorkflowSectionStartpoint;
+  startpointOutside?: Maybe<Scalars['ID']>;
+  endpoint: WorkflowSectionEndpoint;
+  endpointOutside?: Maybe<Scalars['ID']>;
+};
 
 export type WorkflowTrigger = {
   __typename?: 'WorkflowTrigger';
@@ -9826,12 +9756,82 @@ export type WorkflowTrigger = {
   conditions?: Maybe<Scalars['String']>;
 };
 
+export type CreateWorkflowTriggerInput = {
+  __typename?: 'CreateWorkflowTriggerInput';
+  companyId: Scalars['ID'];
+  workflowSectionId: Scalars['ID'];
+  type: WorkflowTriggerType;
+};
+
+export type WorkflowActionGroup = {
+  __typename?: 'WorkflowActionGroup';
+  id: Scalars['ID'];
+  workflowTriggerId: Scalars['ID'];
+  type: WorkflowActionGroupType;
+};
+
+export type WorkflowAction = {
+  __typename?: 'WorkflowAction';
+  id: Scalars['ID'];
+  workflowActionGroupId: Scalars['ID'];
+  type: WorkflowActionType;
+  actionIndex: Scalars['Int'];
+  status: Scalars['Boolean'];
+};
+
+export type CreateWorkflowActionInput = {
+  companyId: Scalars['ID'];
+  workflowTriggerId: Scalars['ID'];
+  workflowActionGroupType?: Maybe<WorkflowActionGroupType>;
+  workflowActionGroupId?: Maybe<Scalars['ID']>;
+  type: WorkflowActionType;
+};
+
+export type UpdateWorkflowTriggerInput = {
+  status?: Maybe<Scalars['Boolean']>;
+  conditions?: Maybe<Scalars['String']>;
+};
+
+export type UpdateWorkflowActionInput = {
+  status?: Maybe<Scalars['Boolean']>;
+};
+
+export enum WorkflowTemplateStatus {
+  Active = 'Active',
+  Inactive = 'Inactive',
+}
+
+export enum WorkflowSectionStartpoint {
+  Start = 'Start',
+  Outside = 'Outside',
+  Previous = 'Previous',
+}
+
+export enum WorkflowSectionEndpoint {
+  End = 'End',
+  Outside = 'Outside',
+  Next = 'Next',
+}
+
 export enum WorkflowTriggerType {
   MakeAppointment = 'MakeAppointment',
   DifferentTrigger = 'DifferentTrigger',
   PimPricing = 'PimPricing',
   Trigger1 = 'Trigger1',
   Trigger2 = 'Trigger2',
+}
+
+export enum WorkflowActionGroupType {
+  New = 'New',
+  Delete = 'Delete',
+  Update = 'Update',
+}
+
+export enum WorkflowActionType {
+  SendEmail = 'SendEmail',
+  Action1 = 'Action1',
+  Action2 = 'Action2',
+  Action3 = 'Action3',
 }
 
 export type AddAllocateMutationVariables = Exact<{
@@ -12532,7 +12532,7 @@ export type GetCrmWithSameInfoQuery = { __typename?: 'Query' } & {
 };
 
 export type CrmBulkDetailsQueryVariables = Exact<{
-  ids: Array<Scalars['ID']> | Scalars['ID'];
+  ids: Array<Scalars['ID']>;
 }>;
 
 export type CrmBulkDetailsQuery = { __typename?: 'Query' } & {
@@ -12623,7 +12623,7 @@ export type GetKikSettingsQuery = { __typename?: 'Query' } & {
 
 export type GetLabelsQueryVariables = Exact<{
   id: Scalars['ID'];
-  properties?: Maybe<Array<LabelProperty> | LabelProperty>;
+  properties?: Maybe<Array<LabelProperty>>;
 }>;
 
 export type GetLabelsQuery = { __typename?: 'Query' } & {
@@ -12632,7 +12632,7 @@ export type GetLabelsQuery = { __typename?: 'Query' } & {
 
 export type GetCrmLabelsQueryVariables = Exact<{
   id: Scalars['ID'];
-  properties?: Maybe<Array<LabelProperty> | LabelProperty>;
+  properties?: Maybe<Array<LabelProperty>>;
 }>;
 
 export type GetCrmLabelsQuery = { __typename?: 'Query' } & {
@@ -12651,7 +12651,7 @@ export type CountPimsByParamsQuery = { __typename?: 'Query' } & {
 
 export type ListPimsCountQueryVariables = Exact<{
   pricingType?: Maybe<PricingType>;
-  propertyTypes?: Maybe<Array<Maybe<PropertyType>> | Maybe<PropertyType>>;
+  propertyTypes?: Maybe<Array<Maybe<PropertyType>>>;
 }>;
 
 export type ListPimsCountQuery = { __typename?: 'Query' } & {
@@ -12666,7 +12666,7 @@ export type ListPimsCountQuery = { __typename?: 'Query' } & {
 export type ListPimsQueryVariables = Exact<{
   archived: Scalars['Boolean'];
   pricingType?: Maybe<PricingType>;
-  propertyTypes?: Maybe<Array<Maybe<PropertyType>> | Maybe<PropertyType>>;
+  propertyTypes?: Maybe<Array<Maybe<PropertyType>>>;
   sortColumn: Scalars['String'];
   sortDirection: SortDirection;
   from: Scalars['Int'];
@@ -13075,7 +13075,7 @@ export type NcpGeneralOverallInfoQuery = { __typename?: 'Query' } & {
 
 export type GetNcpLabelsQueryVariables = Exact<{
   id: Scalars['ID'];
-  properties?: Maybe<Array<LabelProperty> | LabelProperty>;
+  properties?: Maybe<Array<LabelProperty>>;
 }>;
 
 export type GetNcpLabelsQuery = { __typename?: 'Query' } & {
@@ -13156,7 +13156,7 @@ export type ListNcpsQuery = { __typename?: 'Query' } & {
 };
 
 export type NcpBulkDetailsQueryVariables = Exact<{
-  ids: Array<Scalars['ID']> | Scalars['ID'];
+  ids: Array<Scalars['ID']>;
 }>;
 
 export type NcpBulkDetailsQuery = { __typename?: 'Query' } & {
@@ -13756,7 +13756,7 @@ export type ObjectTypeOverallInfoQuery = { __typename?: 'Query' } & {
 
 export type GetObjectTypeLabelsQueryVariables = Exact<{
   id: Scalars['ID'];
-  properties?: Maybe<Array<LabelProperty> | LabelProperty>;
+  properties?: Maybe<Array<LabelProperty>>;
 }>;
 
 export type GetObjectTypeLabelsQuery = { __typename?: 'Query' } & {
@@ -15886,7 +15886,7 @@ export type SettingInfoQuery = { __typename?: 'Query' } & {
 
 export type GetTaskLabelsQueryVariables = Exact<{
   id: Scalars['ID'];
-  properties?: Maybe<Array<LabelProperty> | LabelProperty>;
+  properties?: Maybe<Array<LabelProperty>>;
 }>;
 
 export type GetTaskLabelsQuery = { __typename?: 'Query' } & {
@@ -15935,8 +15935,8 @@ export type GetTaskQuery = { __typename?: 'Query' } & {
 
 export type GetTasksQueryVariables = Exact<{
   search?: Maybe<Scalars['String']>;
-  assignees?: Maybe<Array<Scalars['ID']> | Scalars['ID']>;
-  deadlines?: Maybe<Array<DateRange> | DateRange>;
+  assignees?: Maybe<Array<Scalars['ID']>>;
+  deadlines?: Maybe<Array<DateRange>>;
   sortColumn: Scalars['String'];
   sortDirection: SortDirection;
 }>;
@@ -15975,7 +15975,7 @@ export type GetTasksQuery = { __typename?: 'Query' } & {
 };
 
 export type GetTasksFullSummaryQueryVariables = Exact<{
-  assignees?: Maybe<Array<Scalars['ID']> | Scalars['ID']>;
+  assignees?: Maybe<Array<Scalars['ID']>>;
 }>;
 
 export type GetTasksFullSummaryQuery = { __typename?: 'Query' } & {
@@ -15986,8 +15986,8 @@ export type GetTasksFullSummaryQuery = { __typename?: 'Query' } & {
 
 export type GetTasksSummaryByStatusQueryVariables = Exact<{
   search?: Maybe<Scalars['String']>;
-  assignees?: Maybe<Array<Scalars['ID']> | Scalars['ID']>;
-  deadlines?: Maybe<Array<DateRange> | DateRange>;
+  assignees?: Maybe<Array<Scalars['ID']>>;
+  deadlines?: Maybe<Array<DateRange>>;
 }>;
 
 export type GetTasksSummaryByStatusQuery = { __typename?: 'Query' } & {
