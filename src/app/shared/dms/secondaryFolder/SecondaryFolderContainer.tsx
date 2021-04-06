@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import {
   CreateDmsFolderInput,
   DmsFolder,
+  ListDmsFolderFilesDocument,
   ListDmsFoldersDocument,
   useCreateDmsFolderMutation,
   useInitCreateDmsFileMutation,
@@ -77,6 +78,14 @@ export const SecondaryFolderContainer = (props: SecondaryFolderContainerProps) =
           },
         },
       },
+      refetchQueries: [
+        {
+          query: ListDmsFolderFilesDocument,
+          variables: {
+            folderId: selectedFolder?.id,
+          },
+        },
+      ],
     });
 
     if (initCreateDmsFile?.initCreateDmsFile && initCreateDmsFile.initCreateDmsFile.signedUrl) {
