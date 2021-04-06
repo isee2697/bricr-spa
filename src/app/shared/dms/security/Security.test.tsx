@@ -13,7 +13,7 @@ describe('Security', () => {
       meta: {
         createdAt: new Date().toISOString(),
       },
-      securities: [
+      permissions: [
         {
           name: 'Test security 1',
         },
@@ -23,7 +23,7 @@ describe('Security', () => {
     const { getByText } = render(<Security title={'Security Test Title'} onSave={onSave} data={securityData} />);
 
     expect(getByText('Security Test Title')).toBeInTheDocument();
-    securityData.securities?.forEach(security => {
+    securityData.permissions?.forEach(security => {
       expect(getByText(security.name)).toBeInTheDocument();
     });
   });
