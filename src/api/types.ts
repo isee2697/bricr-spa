@@ -672,7 +672,6 @@ export type MutationCreateCrmArgs = {
 
 export type MutationCreateDmsFileArgs = {
   input: DmsFileInput;
-  file: Scalars['UploadFileInput'];
 };
 
 export type MutationCreateDmsFolderArgs = {
@@ -10172,7 +10171,6 @@ export type UpdateCrmHomeSituationMutation = { __typename?: 'Mutation' } & {
 
 export type CreateDmsFileMutationVariables = Exact<{
   input: DmsFileInput;
-  file: Scalars['UploadFileInput'];
 }>;
 
 export type CreateDmsFileMutation = { __typename?: 'Mutation' } & {
@@ -16775,8 +16773,8 @@ export type UpdateCrmHomeSituationMutationOptions = ApolloReactCommon.BaseMutati
   UpdateCrmHomeSituationMutationVariables
 >;
 export const CreateDmsFileDocument = gql`
-  mutation CreateDmsFile($input: DmsFileInput!, $file: UploadFileInput!) {
-    createDmsFile(input: $input, file: $file)
+  mutation CreateDmsFile($input: DmsFileInput!) {
+    createDmsFile(input: $input)
       @rest(type: "CreateDmsFile", path: "/dms/files/create", method: "POST", endpoint: "default") {
       id
       signedUrl

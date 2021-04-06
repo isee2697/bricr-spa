@@ -9,6 +9,7 @@ import {
   useCreateDmsFileMutation,
   useListDmsFolderFilesLazyQuery,
   useListDmsFoldersQuery,
+  useUploadFileMutation,
 } from 'api/types';
 
 import { SecondaryFolder } from './SecondaryFolder';
@@ -20,6 +21,7 @@ export const SecondaryFolderContainer = (props: SecondaryFolderContainerProps) =
   const [listDmsFiles, { data: dmsFilesData, loading: isLoadingDmsFiles }] = useListDmsFolderFilesLazyQuery();
   const [selectedFolder, setSelectedFolder] = useState<DmsFolder | null>();
   const [createDmsFile] = useCreateDmsFileMutation();
+  const [uploadFile] = useUploadFileMutation();
 
   useEffect(() => {
     if (selectedFolder && selectedFolder.id) {
@@ -76,7 +78,6 @@ export const SecondaryFolderContainer = (props: SecondaryFolderContainerProps) =
               fileType: file.type,
             },
           },
-          file,
         },
         refetchQueries: [
           {
@@ -92,7 +93,14 @@ export const SecondaryFolderContainer = (props: SecondaryFolderContainerProps) =
         throw new Error('Failed to create DMS');
       }
 
-      return initCreateDmsFile?.createDmsFile.signedUrl;
+      await uploadFile({
+        variables: {
+          input: file,
+          pathBuilder: () => initCreateDmsFile.createDmsFile.signedUrl,
+        },
+      });
+
+      return initCreateDmsFile.createDmsFile.id;
     } catch (error) {
       return { error: true };
     }
