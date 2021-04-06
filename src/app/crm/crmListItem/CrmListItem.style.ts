@@ -18,17 +18,17 @@ export const useStyles = makeStyles(theme => ({
     },
     [theme.breakpoints.down('sm')]: {
       width: 47,
-      height: 47,  
+      height: 47,
     },
   },
   content: {
-      [theme.breakpoints.down('sm')]: {
-        background: 'pink',
-        padding: 0,
-        marginRight: 900,
-        width: 160,
-        height: 250,
-      },
+    [theme.breakpoints.down('sm')]: {
+      background: 'pink',
+      padding: 0,
+      marginRight: 900,
+      width: 160,
+      height: 250,
+    },
   },
   cursor: {
     cursor: 'pointer',
@@ -39,7 +39,6 @@ export const useStyles = makeStyles(theme => ({
       width: 90,
       height: 210,
     },
-    
   },
   crmUserName: {
     marginBottom: theme.spacing(1),
@@ -50,7 +49,6 @@ export const useStyles = makeStyles(theme => ({
   },
   label: {
     marginBottom: theme.spacing(0.5),
-  
   },
   crmUserAvatar: {
     fontSize: theme.spacing(20),
@@ -65,9 +63,7 @@ export const useStyles = makeStyles(theme => ({
       marginLeft: 0,
       width: '100%',
       height: 50,
-    
     },
-
   },
   avatarIcon: {
     marginRight: theme.spacing(0.5),
@@ -75,9 +71,7 @@ export const useStyles = makeStyles(theme => ({
       backgroundColor: 'yellow',
       width: 20,
       height: 30,
-    
     },
-    
   },
   meta: {
     width: 74,
@@ -109,14 +103,14 @@ export const useStyles = makeStyles(theme => ({
       width: 20,
       height: 57,
     },
-       [theme.breakpoints.down('sm')]: {
-        backgroundColor: 'blue',
-        align: 'left',
-        width: 87,
-        height: 67,
-      },
+    [theme.breakpoints.down('sm')]: {
+      backgroundColor: 'blue',
+      align: 'left',
+      width: 87,
+      height: 67,
+    },
   },
-  
+
   verticalAlignTop: {
     verticalAlign: 'top',
   },

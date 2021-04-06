@@ -21,7 +21,7 @@ export function useDebounce<T>(callback: (values: T) => void, delay: number): [(
         timer.current = null;
       }, delay);
     },
-    [callback, delay],
+    [T, callback, delay],
   );
 
   return [handleChange];
