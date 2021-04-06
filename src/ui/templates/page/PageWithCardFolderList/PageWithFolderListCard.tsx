@@ -4,9 +4,9 @@ import { Page } from '../Page';
 import { Box, Grid } from 'ui/atoms';
 import { CardWithFolder } from '../../cards/cardWithFolder/CardWithFolder';
 import { CardWithTable } from '../../cards/cardWithTable/CardWithTable';
-import { FileType, FileTypeView } from '../../cards/cardWithTable/CardWithTable.types';
+import { FileType } from '../../cards/cardWithTable/CardWithTable.types';
 import { ClockIcon, HomeIcon } from 'ui/atoms/icons';
-import { DmsFolder } from 'api/types';
+import { DmsFolder, DmsFolderViewType } from 'api/types';
 import { EMAILS } from 'api/mocks/email';
 import { InvoiceItems } from 'api/mocks/invoice';
 
@@ -78,25 +78,11 @@ export const PageWithFolderListCard = ({
                 onAdd={() => {}}
                 titleId={selectedFolder.foldername}
                 titleAmount={0}
-                view={
-                  selectedFolder.isEmailFolder
-                    ? FileTypeView.Email
-                    : selectedFolder.isQuestionaireFolder
-                    ? FileTypeView.Questionaire
-                    : selectedFolder.isListOfItemsFolder
-                    ? FileTypeView.ListOfItems
-                    : selectedFolder.isContractsFolder
-                    ? FileTypeView.Contracts
-                    : selectedFolder.isSurveyFolder
-                    ? FileTypeView.Survey
-                    : selectedFolder.isInvoicesFolder
-                    ? FileTypeView.Invoices
-                    : FileTypeView.File
-                }
+                view={selectedFolder.viewType}
                 files={
                   (selectedFolder.isEmailFolder
                     ? (EMAILS as FileType[])
-                    : selectedFolder.isInvoicesFolder
+                    : selectedFolder.viewType === DmsFolderViewType.Invoices
                     ? ((InvoiceItems as unknown) as FileType[])
                     : (files || []).map(file => ({
                         ...file,

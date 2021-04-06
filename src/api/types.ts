@@ -284,6 +284,7 @@ export type Mutation = {
   confirmProfileInvite: Profile;
   createCompany: Company;
   createCrm: CrmGeneral;
+  createDmsFile: DmsFile;
   createDmsFolder: DmsFolder;
   createEmailAddress: Profile;
   createNcp: NcpGeneral;
@@ -307,7 +308,6 @@ export type Mutation = {
   deleteQuestionaireGroup?: Maybe<Scalars['Boolean']>;
   deleteSubtask?: Maybe<Task>;
   forgotPassword?: Maybe<ForgotPasswordResponse>;
-  initCreateDmsFile: DmsFile;
   initSendFile: File;
   linkNcpToProjectPhase: ProjectPhase;
   linkSalesCrms?: Maybe<Array<CrmListItem>>;
@@ -670,6 +670,11 @@ export type MutationCreateCrmArgs = {
   input: CreateCrmInput;
 };
 
+export type MutationCreateDmsFileArgs = {
+  input: DmsFileInput;
+  file: Scalars['UploadFileInput'];
+};
+
 export type MutationCreateDmsFolderArgs = {
   input: CreateDmsFolderInput;
 };
@@ -760,10 +765,6 @@ export type MutationDeleteSubtaskArgs = {
 
 export type MutationForgotPasswordArgs = {
   input?: Maybe<ForgotPasswordInput>;
-};
-
-export type MutationInitCreateDmsFileArgs = {
-  input: DmsFileInput;
 };
 
 export type MutationInitSendFileArgs = {
@@ -2947,6 +2948,16 @@ export enum DmsCrmFolderType {
   Invoices = 'Invoices',
 }
 
+export enum DmsFolderViewType {
+  Emails = 'Emails',
+  File = 'File',
+  Questionaires = 'Questionaires',
+  ListOfItems = 'ListOfItems',
+  Contracts = 'Contracts',
+  Surveys = 'Surveys',
+  Invoices = 'Invoices',
+}
+
 export type DmsFolder = {
   __typename?: 'DmsFolder';
   entityId: Scalars['ID'];
@@ -2958,11 +2969,7 @@ export type DmsFolder = {
   order?: Maybe<Scalars['Int']>;
   deletedAt?: Maybe<Scalars['Date']>;
   isEmailFolder?: Maybe<Scalars['Boolean']>;
-  isQuestionaireFolder?: Maybe<Scalars['Boolean']>;
-  isListOfItemsFolder?: Maybe<Scalars['Boolean']>;
-  isContractsFolder?: Maybe<Scalars['Boolean']>;
-  isSurveyFolder?: Maybe<Scalars['Boolean']>;
-  isInvoicesFolder?: Maybe<Scalars['Boolean']>;
+  viewType: DmsFolderViewType;
   filesCount?: Maybe<Scalars['Int']>;
 };
 
@@ -10163,12 +10170,13 @@ export type UpdateCrmHomeSituationMutation = { __typename?: 'Mutation' } & {
   >;
 };
 
-export type InitCreateDmsFileMutationVariables = Exact<{
+export type CreateDmsFileMutationVariables = Exact<{
   input: DmsFileInput;
+  file: Scalars['UploadFileInput'];
 }>;
 
-export type InitCreateDmsFileMutation = { __typename?: 'Mutation' } & {
-  initCreateDmsFile: { __typename?: 'DmsFile' } & Pick<DmsFile, 'id' | 'signedUrl'>;
+export type CreateDmsFileMutation = { __typename?: 'Mutation' } & {
+  createDmsFile: { __typename?: 'DmsFile' } & Pick<DmsFile, 'id' | 'signedUrl'>;
 };
 
 export type CreateDmsFolderMutationVariables = Exact<{
@@ -12636,11 +12644,7 @@ export type ListDmsFoldersQuery = { __typename?: 'Query' } & {
         | 'order'
         | 'deletedAt'
         | 'isEmailFolder'
-        | 'isQuestionaireFolder'
-        | 'isListOfItemsFolder'
-        | 'isContractsFolder'
-        | 'isSurveyFolder'
-        | 'isInvoicesFolder'
+        | 'viewType'
         | 'filesCount'
       >
     >
@@ -16770,28 +16774,28 @@ export type UpdateCrmHomeSituationMutationOptions = ApolloReactCommon.BaseMutati
   UpdateCrmHomeSituationMutation,
   UpdateCrmHomeSituationMutationVariables
 >;
-export const InitCreateDmsFileDocument = gql`
-  mutation InitCreateDmsFile($input: DmsFileInput!) {
-    initCreateDmsFile(input: $input)
-      @rest(type: "InitCreateDmsFile", path: "/dms/files/create", method: "POST", endpoint: "default") {
+export const CreateDmsFileDocument = gql`
+  mutation CreateDmsFile($input: DmsFileInput!, $file: UploadFileInput!) {
+    createDmsFile(input: $input, file: $file)
+      @rest(type: "CreateDmsFile", path: "/dms/files/create", method: "POST", endpoint: "default") {
       id
       signedUrl
     }
   }
 `;
-export function useInitCreateDmsFileMutation(
-  baseOptions?: ApolloReactHooks.MutationHookOptions<InitCreateDmsFileMutation, InitCreateDmsFileMutationVariables>,
+export function useCreateDmsFileMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<CreateDmsFileMutation, CreateDmsFileMutationVariables>,
 ) {
-  return ApolloReactHooks.useMutation<InitCreateDmsFileMutation, InitCreateDmsFileMutationVariables>(
-    InitCreateDmsFileDocument,
+  return ApolloReactHooks.useMutation<CreateDmsFileMutation, CreateDmsFileMutationVariables>(
+    CreateDmsFileDocument,
     baseOptions,
   );
 }
-export type InitCreateDmsFileMutationHookResult = ReturnType<typeof useInitCreateDmsFileMutation>;
-export type InitCreateDmsFileMutationResult = ApolloReactCommon.MutationResult<InitCreateDmsFileMutation>;
-export type InitCreateDmsFileMutationOptions = ApolloReactCommon.BaseMutationOptions<
-  InitCreateDmsFileMutation,
-  InitCreateDmsFileMutationVariables
+export type CreateDmsFileMutationHookResult = ReturnType<typeof useCreateDmsFileMutation>;
+export type CreateDmsFileMutationResult = ApolloReactCommon.MutationResult<CreateDmsFileMutation>;
+export type CreateDmsFileMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  CreateDmsFileMutation,
+  CreateDmsFileMutationVariables
 >;
 export const CreateDmsFolderDocument = gql`
   mutation CreateDmsFolder($input: CreateDmsFolderInput!) {
@@ -21903,11 +21907,7 @@ export const ListDmsFoldersDocument = gql`
       order
       deletedAt
       isEmailFolder
-      isQuestionaireFolder
-      isListOfItemsFolder
-      isContractsFolder
-      isSurveyFolder
-      isInvoicesFolder
+      viewType
       filesCount
     }
   }

@@ -6,10 +6,9 @@ import {
   ListDmsFolderFilesDocument,
   ListDmsFoldersDocument,
   useCreateDmsFolderMutation,
-  useInitCreateDmsFileMutation,
+  useCreateDmsFileMutation,
   useListDmsFolderFilesLazyQuery,
   useListDmsFoldersQuery,
-  useUploadFileMutation,
 } from 'api/types';
 
 import { SecondaryFolder } from './SecondaryFolder';
@@ -20,8 +19,7 @@ export const SecondaryFolderContainer = (props: SecondaryFolderContainerProps) =
   const [createDmsFolder] = useCreateDmsFolderMutation();
   const [listDmsFiles, { data: dmsFilesData, loading: isLoadingDmsFiles }] = useListDmsFolderFilesLazyQuery();
   const [selectedFolder, setSelectedFolder] = useState<DmsFolder | null>();
-  const [createDmsFile] = useInitCreateDmsFileMutation();
-  const [uploadFile] = useUploadFileMutation();
+  const [createDmsFile] = useCreateDmsFileMutation();
 
   useEffect(() => {
     if (selectedFolder && selectedFolder.id) {
@@ -64,42 +62,40 @@ export const SecondaryFolderContainer = (props: SecondaryFolderContainerProps) =
   };
 
   const onUploadFile = async (dmsFolder: DmsFolder, file: globalThis.File) => {
-    const { data: initCreateDmsFile } = await createDmsFile({
-      variables: {
-        input: {
-          fileName: file.name,
-          folderId: dmsFolder.id,
-          entity: {
-            type: entityType,
-            subType: type,
-          },
-          meta: {
-            fileType: file.type,
-          },
-        },
-      },
-      refetchQueries: [
-        {
-          query: ListDmsFolderFilesDocument,
-          variables: {
-            folderId: selectedFolder?.id,
-          },
-        },
-      ],
-    });
-
-    if (initCreateDmsFile?.initCreateDmsFile && initCreateDmsFile.initCreateDmsFile.signedUrl) {
-      await uploadFile({
+    try {
+      const { data: initCreateDmsFile, errors } = await createDmsFile({
         variables: {
-          input: file,
-          pathBuilder: () => initCreateDmsFile.initCreateDmsFile.signedUrl,
+          input: {
+            fileName: file.name,
+            folderId: dmsFolder.id,
+            entity: {
+              type: entityType,
+              subType: type,
+            },
+            meta: {
+              fileType: file.type,
+            },
+          },
+          file,
         },
+        refetchQueries: [
+          {
+            query: ListDmsFolderFilesDocument,
+            variables: {
+              folderId: selectedFolder?.id,
+            },
+          },
+        ],
       });
 
-      return initCreateDmsFile.initCreateDmsFile.id;
-    }
+      if (errors || !initCreateDmsFile || !initCreateDmsFile.createDmsFile.signedUrl) {
+        throw new Error('Failed to create DMS');
+      }
 
-    return undefined;
+      return initCreateDmsFile?.createDmsFile.signedUrl;
+    } catch (error) {
+      return { error: true };
+    }
   };
 
   const handleSave = async (dmsFolder: DmsFolder, files: File[]) => {

@@ -33,7 +33,7 @@ input DmsFileMetaInput {
 }
 
 extend type Mutation {
-  initCreateDmsFile(input: DmsFileInput!): DmsFile! @auth
+  createDmsFile(input: DmsFileInput!, file: UploadFileInput!): DmsFile! @auth
 }
 
 extend type Query {

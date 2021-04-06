@@ -9,20 +9,21 @@ import { LinkIcon, PinIcon, SettingsIcon } from 'ui/atoms/icons';
 import { HeaderColumnItemType } from 'ui/molecules/columnModal/ColumnModal.types';
 import { InvoiceItem } from 'app/shared/dms/cardItems/invoiceItem/InvoiceItem';
 import { InvoiceItemStatus, InvoiceItemType } from 'app/shared/dms/cardItems/invoiceItem/InvoiceItem.types';
+import { DmsFolderViewType } from 'api/types';
 
 import { EmailFilters, FileFilters } from './Dictionary';
-import { FileTypeView, FileType } from './CardWithTable.types';
+import { FileType } from './CardWithTable.types';
 import { FileHeaderProps } from './CardWithTable.types';
 import { CardWithTableActions } from './actions/CardWithTableActions';
 
 const filesPreviewClassName = 'files-previewer';
 
 export const renderListIndexHeaderCell = (
-  view: FileTypeView,
+  view: DmsFolderViewType,
   headerCells: ListTableCell<FileType>[],
   onSettings: (open: boolean) => void,
 ) => {
-  if (view === FileTypeView.Email || view === FileTypeView.File) {
+  if (view === DmsFolderViewType.Emails || view === DmsFolderViewType.File) {
     return (
       <Box display="flex" flexGrow={1} mr={2}>
         <Box flexGrow={1}>
@@ -38,21 +39,21 @@ export const renderListIndexHeaderCell = (
   }
 };
 
-export const showHeaderCell = (view: FileTypeView) => {
-  return view === FileTypeView.Email || view === FileTypeView.File;
+export const showHeaderCell = (view: DmsFolderViewType) => {
+  return view === DmsFolderViewType.Emails || view === DmsFolderViewType.File;
 };
 
 type ActionFunction<F> = (file: F) => void;
 
 export const renderItem = (
-  view: FileTypeView,
+  view: DmsFolderViewType,
   item: FileType,
   isSelected: boolean,
   checkbox: ReactNode,
   headerCells: ListTableCell<FileType>[],
   actions: AnyObject,
 ) => {
-  if (view === FileTypeView.Invoices) {
+  if (view === DmsFolderViewType.Invoices) {
     return <InvoiceItem item={(item as unknown) as InvoiceItemType} />;
   } else {
     return (
@@ -121,7 +122,7 @@ export const renderCardListCell = (fieldName: keyof FileType, item?: FileType) =
 export const fileHeaderCells = ({ view }: FileHeaderProps): ListTableCell<FileType>[] => {
   let options: ListTableCell<FileType>[] = [];
 
-  if (view === FileTypeView.File) {
+  if (view === DmsFolderViewType.File) {
     options = [
       {
         field: 'name',
@@ -195,11 +196,11 @@ export const fileHeaderCells = ({ view }: FileHeaderProps): ListTableCell<FileTy
   return options;
 };
 
-const getFiltersForView = (view: FileTypeView) => (view === FileTypeView.File ? FileFilters : EmailFilters);
+const getFiltersForView = (view: DmsFolderViewType) => (view === DmsFolderViewType.File ? FileFilters : EmailFilters);
 const mapCellsToColumns = (cells: ListTableCell<FileType>[]): HeaderColumnItemType<FileType>[] =>
   cells.map(cell => ({ value: cell.field, hidden: !!cell.defaultHidden }));
 
-export const useCardWithTableState = (view: FileTypeView) => {
+export const useCardWithTableState = (view: DmsFolderViewType) => {
   const [baseHeaderCells, setHeaderCells] = useState(fileHeaderCells({ view }));
   const [filters, setFilters] = useState(getFiltersForView(view));
   const [activeFilters, setActiveFilters] = useState({});

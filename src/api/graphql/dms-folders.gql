@@ -31,6 +31,16 @@ enum DmsCrmFolderType {
     Invoices
 }
 
+enum DmsFolderViewType {
+    Emails
+    File
+    Questionaires
+    ListOfItems
+    Contracts
+    Surveys
+    Invoices
+}
+
 type DmsFolder {
     entityId: ID!
     id: ID!
@@ -41,11 +51,7 @@ type DmsFolder {
     order: Int
     deletedAt: Date
     isEmailFolder: Boolean
-    isQuestionaireFolder: Boolean
-    isListOfItemsFolder: Boolean
-    isContractsFolder: Boolean
-    isSurveyFolder: Boolean
-    isInvoicesFolder: Boolean
+    viewType: DmsFolderViewType!
     filesCount: Int
 }
 

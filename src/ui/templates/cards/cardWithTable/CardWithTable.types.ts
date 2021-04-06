@@ -3,17 +3,7 @@ import { ReactNode } from 'react';
 import { CardWithBodyProps } from '../cardWithBody/CardWithBody.types';
 import { Document } from 'app/crmRelationsDetails/documents/Documents.types';
 import { Email } from 'app/email/Email.types';
-import { DmsFile } from 'api/types';
-
-export enum FileTypeView {
-  Email = 'Email',
-  File = 'File',
-  Questionaire = 'Questionaire',
-  ListOfItems = 'ListOfItems',
-  Contracts = 'Contracts',
-  Survey = 'Survey',
-  Invoices = 'Invoices',
-}
+import { DmsFile, DmsFolderViewType } from 'api/types';
 
 export enum InvoicesStepStatus {
   Created = 'Created',
@@ -34,7 +24,7 @@ export type ActionFunctionObject<F> = { [name: string]: { exec: ActionFunction<F
 export type CardWithFileListProps<F extends FileType> = Omit<CardWithBodyProps, 'children' | 'titleActions'> & {
   disableUpload?: boolean;
   onAdd: VoidFunction;
-  view?: FileTypeView;
+  view: DmsFolderViewType;
   files: F[];
   onUploadFiles?: (files: File[]) => void;
   actions: ActionFunctionObject<F> & {
@@ -44,5 +34,5 @@ export type CardWithFileListProps<F extends FileType> = Omit<CardWithBodyProps, 
 };
 
 export type FileHeaderProps = {
-  view: FileTypeView;
+  view: DmsFolderViewType;
 };

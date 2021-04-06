@@ -18,11 +18,7 @@ export const LIST_DMS_FOLDERS = gql`
       order
       deletedAt
       isEmailFolder
-      isQuestionaireFolder
-      isListOfItemsFolder
-      isContractsFolder
-      isSurveyFolder
-      isInvoicesFolder
+      viewType
       filesCount
     }
   }

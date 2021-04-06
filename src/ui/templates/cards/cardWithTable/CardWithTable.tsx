@@ -12,23 +12,17 @@ import { UploadModalField } from 'ui/organisms';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { EmptyStateFilter } from 'ui/organisms/emptyStateFilter/EmptyStateFilter';
 import { InvoiceItemType } from 'app/shared/dms/cardItems/invoiceItem/InvoiceItem.types';
+import { DmsFolderViewType } from 'api/types';
 
 import { CardTableModals } from './modals/CardTableModals';
-import { CardWithFileListProps, FileType, FileTypeView } from './CardWithTable.types';
+import { CardWithFileListProps, FileType } from './CardWithTable.types';
 import { renderItem, renderListIndexHeaderCell, showHeaderCell, useCardWithTableState } from './CardWithTable.helper';
 import { useStyles } from './CardWithTable.styles';
 import { InvoicesTabs } from './Dictionary';
 
 export const CardWithTable: <F extends FileType>(
   p: CardWithFileListProps<F>,
-) => React.ReactElement<CardWithFileListProps<F>> = ({
-  onAdd,
-  view = FileTypeView.File,
-  onUploadFiles,
-  files,
-  actions,
-  ...props
-}) => {
+) => React.ReactElement<CardWithFileListProps<F>> = ({ onAdd, view, onUploadFiles, files, actions, ...props }) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
   const { push } = useHistory();
@@ -58,10 +52,10 @@ export const CardWithTable: <F extends FileType>(
               <IconButton aria-label="add" color="primary" size="small" onClick={onAdd}>
                 <AddIcon
                   color="inherit"
-                  onClick={() => (view === FileTypeView.File ? setUploadModalOpen(true) : push(AppRoute.email))}
+                  onClick={() => (view === DmsFolderViewType.File ? setUploadModalOpen(true) : push(AppRoute.email))}
                 />
               </IconButton>
-              {(view === FileTypeView.File || view === FileTypeView.Email) && (
+              {(view === DmsFolderViewType.File || view === DmsFolderViewType.Emails) && (
                 <>
                   <Box mr={2} />
                   <FiltersButton
@@ -78,7 +72,7 @@ export const CardWithTable: <F extends FileType>(
         }
         {...props}
       >
-        {view === FileTypeView.File && (
+        {view === DmsFolderViewType.File && (
           <Box mb={1}>
             <UploadModalField
               onFileParse={upload => onUploadFiles?.(upload)}
@@ -101,7 +95,7 @@ export const CardWithTable: <F extends FileType>(
         {files.length > 0 && hasActiveFilters(activeFilters) && (
           <ActiveFilters activeFilters={activeFilters} onDelete={newFilters => setActiveFilters(newFilters)} />
         )}
-        {view === FileTypeView.Invoices && (
+        {view === DmsFolderViewType.Invoices && (
           <ActionTabs
             variant="fullWidth"
             tabs={InvoicesTabs.map(tab => ({
@@ -117,7 +111,7 @@ export const CardWithTable: <F extends FileType>(
             className={classes.list}
             itemIndex="id"
             items={files.filter(file =>
-              view === FileTypeView.Invoices ? ((file as unknown) as InvoiceItemType).status === invoiceTab : true,
+              view === DmsFolderViewType.Invoices ? ((file as unknown) as InvoiceItemType).status === invoiceTab : true,
             )}
             listIndexHeader={renderListIndexHeaderCell(view, headerCells, setColumnModalOpen)}
             isShowHeader={showHeaderCell(view)}

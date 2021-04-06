@@ -1,7 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router';
 
-import { DmsFolderType } from 'api/types';
+import { DmsFolderType, DmsFolderViewType } from 'api/types';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { FiltersButton } from 'ui/molecules/filters/FiltersButton';
 import { PageWithFolderListCard } from 'ui/templates/page/PageWithCardFolderList/PageWithFolderListCard';
@@ -33,6 +33,7 @@ export const PrimaryFolder = ({
         entityId: '',
         entityType,
         type: DmsFolderType.Default,
+        viewType: DmsFolderViewType.File,
       }))}
       type={'primary'}
       onSidebarOpen={() => {}}
