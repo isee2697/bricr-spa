@@ -1,5 +1,4 @@
 import { TemplateSecurity } from 'api/types';
-import { SecurityData } from 'app/shared/dms/security/Security.types';
 
 export const DMS_TEMPLATE_RIGHTS: TemplateSecurity[] = [
   {name: 'Matches'},

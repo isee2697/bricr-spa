@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Route, Switch, Redirect } from 'react-router-dom';
 
-import { useCrmRelationsCustomerJourneyQueryParams } from 'app/shared/useCrmRelationsCustomerJourneyQueryParams/useCrmRelationsCustomerJourneyQueryParams';
 import {
   CRM_RELATIONS_CUSTOMER_JOURNEY_BIDDINGS,
   CRM_RELATIONS_CUSTOMER_JOURNEY_CANDIDATES,
@@ -13,7 +11,6 @@ import {
 } from 'api/mocks/crm-relation';
 import { CrmRelationsDetailsHeader } from '../crmRelationsDetailsHeader/CrmRelationsDetailsHeader';
 import { Grid, Typography } from 'ui/atoms';
-import { AppRoute } from 'routing/AppRoute.enum';
 import { ListPimsFilters } from 'api/types';
 
 import {
@@ -23,6 +20,7 @@ import {
 } from './CrmRelationsDetailsCustomerJourney.types';
 import { CrmRelationsDetailsCustomerJourney } from './CrmRelationsDetailsCustomerJourney';
 import { useStyles } from './CrmRelationsDetailsCustomerJourney.styles';
+import { useParams } from 'react-router-dom';
 
 export const CrmRelationsDetailsCustomerJourneyContainer = ({
   crm,
@@ -30,15 +28,14 @@ export const CrmRelationsDetailsCustomerJourneyContainer = ({
   onSidebarOpen,
 }: CrmRelationsDetailsCustomerJourneyContainerProps) => {
   const classes = useStyles();
-  const { status, setStatus } = useCrmRelationsCustomerJourneyQueryParams({
-    status: CrmRelationsDetailsCustomerJourneyTab.Buyer,
-  });
+
+  const {role} = useParams<{role: CrmRelationsDetailsCustomerJourneyTab}>();
   const [activeFilters, setActiveFilters] = useState<ListPimsFilters>({});
   const [data, setData] = useState<CrmRelationsDetailsCustomerJourneyType[]>(CRM_RELATIONS_CUSTOMER_JOURNEY_MATCHING);
   const [isOwner] = useState(true);
 
   useEffect(() => {
-    switch (status) {
+    switch (role) {
       case CrmRelationsDetailsCustomerJourneyTab.Matches:
         setData(CRM_RELATIONS_CUSTOMER_JOURNEY_MATCHING);
         break;
@@ -63,7 +60,7 @@ export const CrmRelationsDetailsCustomerJourneyContainer = ({
       default:
         setData(CRM_RELATIONS_CUSTOMER_JOURNEY_MATCHING);
     }
-  }, [status]);
+  }, [role]);
 
   const { firstName, lastName } = crm;
 
@@ -76,27 +73,15 @@ export const CrmRelationsDetailsCustomerJourneyContainer = ({
           {firstName} {lastName}
         </Typography>
       </Grid>
-
-      <Switch>
-        <Route
-          exact
-          path={`${AppRoute.crmRelationsDetails}/customer_journey`}
-          render={() => (
-            <CrmRelationsDetailsCustomerJourney
+      <CrmRelationsDetailsCustomerJourney
               crm={crm}
-              status={status}
-              onStatusChange={setStatus}
+              status={role}
               onFilter={filters => setActiveFilters(filters)}
               activeFilters={activeFilters}
               items={data}
               isOwner={isOwner}
             />
-          )}
-        />
-        <Route
-          render={() => <Redirect to={`${AppRoute.crmRelationsDetails.replace(':id', crm.id)}/customer_journey`} />}
-        />
-      </Switch>
+    
     </>
   );
 };

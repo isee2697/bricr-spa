@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 
 import { Badge, Box, Card, CardContent, CardHeader, IconButton, NavBreadcrumb, Tab, Tabs } from 'ui/atoms';
 import { List, PropertyItemPlaceholder } from 'ui/molecules';
@@ -21,15 +21,18 @@ import { useStyles } from './CrmRelationsDetailsCustomerJourney.styles';
 import { ListItem } from './listItem/ListItem';
 import { ListItemBuyer } from './listItem/listItemBuyer/ListItemBuyer';
 import { CrmRelationsCustomerJourneyFilters } from './dictionaries';
+import { AppRoute } from 'routing/AppRoute.enum';
 
 export const CrmRelationsDetailsCustomerJourney = ({
   items,
   status,
-  onStatusChange,
   activeFilters,
   onFilter,
   isOwner,
 }: CrmRelationsDetailsCustomerJourneyProps) => {
+  const { push } = useHistory();
+  const { id } = useParams<{id: string}>();
+
   const customerJourneyTabs = [
     {
       key: CrmRelationsDetailsCustomerJourneyTab.Matches,
@@ -119,7 +122,9 @@ export const CrmRelationsDetailsCustomerJourney = ({
               <Tabs
                 className={classes.tabs}
                 value={status}
-                onChange={(event, value) => onStatusChange(value)}
+                onChange={(event, value) => {
+                  push(AppRoute.crmRelationsDetailsJourney.replace(':id', id).replace(':role', value));
+                }}
                 indicatorColor="primary"
                 textColor="inherit"
                 variant="fullWidth"

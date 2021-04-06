@@ -90,13 +90,27 @@ export const CrmRelationsDetails = ({ crm, breadcrumbs, path, entityType }: CrmR
                     />
                   )}
                 />
+               
                 <Route
+                  exact={true}
+                  path={`${path}/customer_journey/:role`}
+                  render={() => (
+                    <CrmRelationsDetailsCustomerJourneyContainer
+                      onSidebarOpen={handleSidebarOpen}
+                      isSidebarVisible={isSidebarVisible}
+                      crm={crm}
+                    
+                    />
+                  )}
+                />
+                 <Route
                   path={`${path}/customer_journey`}
                   render={() => (
                     <CrmRelationsDetailsCustomerJourneyContainer
                       onSidebarOpen={handleSidebarOpen}
                       isSidebarVisible={isSidebarVisible}
                       crm={crm}
+                    
                     />
                   )}
                 />
