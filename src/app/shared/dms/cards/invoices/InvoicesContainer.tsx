@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { InvoiceItems } from 'api/mocks/invoice';
+import { InvoiceItems } from 'api/mocks/dms-invoice';
 
 import { Invoices } from './Invoices';
 

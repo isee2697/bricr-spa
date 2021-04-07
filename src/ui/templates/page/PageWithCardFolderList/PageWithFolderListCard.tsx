@@ -9,6 +9,7 @@ import { ClockIcon, HomeIcon } from 'ui/atoms/icons';
 import { DmsFolder, DmsFolderViewType } from 'api/types';
 import { EMAILS } from 'api/mocks/email';
 import { InvoicesContainer } from 'app/shared/dms/cards/invoices/InvoicesContainer';
+import { QuestionairesContainer } from 'app/shared/dms/cards/questoinaires/QuestionairesContainer';
 
 import { PageWithFolderListCardProps } from './PageWithFolderListCard.types';
 import { useStyles } from './PageWithCardFolderList.styles';
@@ -76,8 +77,8 @@ export const PageWithFolderListCard = ({
             <Box data-testid="card-with-table" mt={3.5}>
               <CardWithTable<FileType>
                 onAdd={() => {}}
-                titleId={selectedFolder.foldername}
-                titleAmount={0}
+                titleId={selectedFolder.isEmailFolder ? 'common.email' : 'common.common'}
+                titleAmount={selectedFolder.filesCount ?? 0}
                 view={selectedFolder.isEmailFolder ? FileTypeView.Email : FileTypeView.File}
                 files={
                   (selectedFolder.isEmailFolder
@@ -107,7 +108,9 @@ export const PageWithFolderListCard = ({
           )}
           {selectedFolder && selectedFolder.viewType === DmsFolderViewType.Contracts && <Box mt={3.5}>Contracts</Box>}
           {selectedFolder && selectedFolder.viewType === DmsFolderViewType.Questionaires && (
-            <Box mt={3.5}>Questionaires</Box>
+            <Box mt={3.5}>
+              <QuestionairesContainer />
+            </Box>
           )}
           {selectedFolder && selectedFolder.viewType === DmsFolderViewType.Surveys && <Box mt={3.5}>Surveys</Box>}
           {selectedFolder && selectedFolder.viewType === DmsFolderViewType.ListOfItems && (

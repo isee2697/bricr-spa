@@ -116,11 +116,6 @@ export const useStyles = makeStyles(theme => ({
       border: `1px solid ${theme.palette.green.main}`,
       color: theme.palette.white.main,
     },
-    '&.rejected': {
-      background: theme.palette.red.main,
-      border: `1px solid ${theme.palette.red.main}`,
-      color: theme.palette.white.main,
-    },
     '&.active': {
       background: theme.palette.white.main,
       border: `1px solid ${theme.palette.green.main}`,
