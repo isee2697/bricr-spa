@@ -7,70 +7,46 @@ import { Chip, Typography, Box, UserAvatar } from 'ui/atoms';
 import { ListTableCell } from 'ui/molecules/listTableItem/ListTableItem.types';
 import { LinkIcon, PinIcon, SettingsIcon } from 'ui/atoms/icons';
 import { HeaderColumnItemType } from 'ui/molecules/columnModal/ColumnModal.types';
-import { InvoiceItem } from 'app/shared/dms/cardItems/invoiceItem/InvoiceItem';
-import { InvoiceItemStatus, InvoiceItemType } from 'app/shared/dms/cardItems/invoiceItem/InvoiceItem.types';
-import { DmsFolderViewType } from 'api/types';
 
 import { EmailFilters, FileFilters } from './Dictionary';
-import { FileType } from './CardWithTable.types';
+import { FileType, FileTypeView } from './CardWithTable.types';
 import { FileHeaderProps } from './CardWithTable.types';
 import { CardWithTableActions } from './actions/CardWithTableActions';
 
 const filesPreviewClassName = 'files-previewer';
 
 export const renderListIndexHeaderCell = (
-  view: DmsFolderViewType,
   headerCells: ListTableCell<FileType>[],
   onSettings: (open: boolean) => void,
 ) => {
-  if (view === DmsFolderViewType.Emails || view === DmsFolderViewType.File) {
-    return (
-      <Box display="flex" flexGrow={1} mr={2}>
-        <Box flexGrow={1}>
-          <ListTableItem headerCells={headerCells} isHeader />
-        </Box>
-        <Box ml={0.5} mr={0.5}>
-          <SettingsIcon onClick={() => onSettings(true)} />
-        </Box>
+  return (
+    <Box display="flex" flexGrow={1} mr={2}>
+      <Box flexGrow={1}>
+        <ListTableItem headerCells={headerCells} isHeader />
       </Box>
-    );
-  } else {
-    return undefined;
-  }
+      <Box ml={0.5} mr={0.5}>
+        <SettingsIcon onClick={() => onSettings(true)} />
+      </Box>
+    </Box>
+  );
 };
-
-export const showHeaderCell = (view: DmsFolderViewType) => {
-  return view === DmsFolderViewType.Emails || view === DmsFolderViewType.File;
-};
-
-type ActionFunction<F> = (file: F) => void;
 
 export const renderItem = (
-  view: DmsFolderViewType,
   item: FileType,
   isSelected: boolean,
   checkbox: ReactNode,
   headerCells: ListTableCell<FileType>[],
   actions: AnyObject,
 ) => {
-  if (view === DmsFolderViewType.Invoices) {
-    return <InvoiceItem item={(item as unknown) as InvoiceItemType} />;
-  } else {
-    return (
-      <Box className="card-file-list">
-        <Box>{checkbox}</Box>
-        <Box flexGrow={1}>
-          <ListTableItem<FileType>
-            key={item.id}
-            renderCell={renderCardListCell}
-            headerCells={headerCells}
-            item={item}
-          />
-        </Box>
-        <CardWithTableActions item={item} actions={actions} />
+  return (
+    <Box className="card-file-list">
+      <Box>{checkbox}</Box>
+      <Box flexGrow={1}>
+        <ListTableItem<FileType> key={item.id} renderCell={renderCardListCell} headerCells={headerCells} item={item} />
       </Box>
-    );
-  }
+      <CardWithTableActions item={item} actions={actions} />
+    </Box>
+  );
 };
 
 export const renderCardListCell = (fieldName: keyof FileType, item?: FileType) => {
@@ -122,7 +98,7 @@ export const renderCardListCell = (fieldName: keyof FileType, item?: FileType) =
 export const fileHeaderCells = ({ view }: FileHeaderProps): ListTableCell<FileType>[] => {
   let options: ListTableCell<FileType>[] = [];
 
-  if (view === DmsFolderViewType.File) {
+  if (view === FileTypeView.File) {
     options = [
       {
         field: 'name',
@@ -196,18 +172,17 @@ export const fileHeaderCells = ({ view }: FileHeaderProps): ListTableCell<FileTy
   return options;
 };
 
-const getFiltersForView = (view: DmsFolderViewType) => (view === DmsFolderViewType.File ? FileFilters : EmailFilters);
+const getFiltersForView = (view: FileTypeView) => (view === FileTypeView.File ? FileFilters : EmailFilters);
 const mapCellsToColumns = (cells: ListTableCell<FileType>[]): HeaderColumnItemType<FileType>[] =>
   cells.map(cell => ({ value: cell.field, hidden: !!cell.defaultHidden }));
 
-export const useCardWithTableState = (view: DmsFolderViewType) => {
+export const useCardWithTableState = (view: FileTypeView) => {
   const [baseHeaderCells, setHeaderCells] = useState(fileHeaderCells({ view }));
   const [filters, setFilters] = useState(getFiltersForView(view));
   const [activeFilters, setActiveFilters] = useState({});
   const [isColumnModalOpen, setColumnModalOpen] = useState(false);
   const [isPreviewModalOpen, setPreviewModalOpen] = useState(false);
   const [isUploadModalOpen, setUploadModalOpen] = useState(false);
-  const [invoiceTab, setInvoiceTab] = useState<InvoiceItemStatus>(InvoiceItemStatus.ActionRequired);
 
   const [activeColumns, setActiveColumns] = useState(mapCellsToColumns(baseHeaderCells));
 
@@ -246,7 +221,5 @@ export const useCardWithTableState = (view: DmsFolderViewType) => {
     isPreviewModalOpen,
     setUploadModalOpen,
     isUploadModalOpen,
-    invoiceTab,
-    setInvoiceTab,
   };
 };

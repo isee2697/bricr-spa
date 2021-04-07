@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import {
   CreateDmsFolderInput,
   DmsFolder,
-  DmsFolderViewType,
   ListDmsFolderFilesDocument,
   ListDmsFoldersDocument,
   useCreateDmsFolderMutation,
@@ -25,7 +24,7 @@ export const SecondaryFolderContainer = (props: SecondaryFolderContainerProps) =
   const [uploadFile] = useUploadFileMutation();
 
   useEffect(() => {
-    if (selectedFolder && selectedFolder.id && selectedFolder.viewType === DmsFolderViewType.File) {
+    if (selectedFolder && selectedFolder.id && !selectedFolder.isEmailFolder) {
       listDmsFiles({
         variables: {
           folderId: selectedFolder.id,

@@ -4,11 +4,10 @@ import { Page } from '../Page';
 import { Box, Grid } from 'ui/atoms';
 import { CardWithFolder } from '../../cards/cardWithFolder/CardWithFolder';
 import { CardWithTable } from '../../cards/cardWithTable/CardWithTable';
-import { FileType } from '../../cards/cardWithTable/CardWithTable.types';
+import { FileType, FileTypeView } from '../../cards/cardWithTable/CardWithTable.types';
 import { ClockIcon, HomeIcon } from 'ui/atoms/icons';
-import { DmsFolder, DmsFolderViewType } from 'api/types';
+import { DmsFolder } from 'api/types';
 import { EMAILS } from 'api/mocks/email';
-import { InvoiceItems } from 'api/mocks/invoice';
 
 import { PageWithFolderListCardProps } from './PageWithFolderListCard.types';
 import { useStyles } from './PageWithCardFolderList.styles';
@@ -78,12 +77,10 @@ export const PageWithFolderListCard = ({
                 onAdd={() => {}}
                 titleId={selectedFolder.foldername}
                 titleAmount={0}
-                view={selectedFolder.viewType}
+                view={selectedFolder.isEmailFolder ? FileTypeView.Email : FileTypeView.File}
                 files={
                   (selectedFolder.isEmailFolder
                     ? (EMAILS as FileType[])
-                    : selectedFolder.viewType === DmsFolderViewType.Invoices
-                    ? ((InvoiceItems as unknown) as FileType[])
                     : (files || []).map(file => ({
                         ...file,
                         name: file.fileName,
