@@ -337,7 +337,7 @@ export const mockServer = () => {
           },
           updateAogSpace() {
             let returnSpace = {};
-            PIM_AOG.aogSpaces?.map(space => {
+            const _ = PIM_AOG.aogSpaces?.map(space => {
               if (variables.input.spaceId === space.id) {
                 space = { ...space, ...variables.input };
                 returnSpace = space;
@@ -349,7 +349,7 @@ export const mockServer = () => {
             return returnSpace;
           },
           updateCadastre() {
-            PIM_CADASTRE.cadastre?.map(c => (c.id === variables.input.id ? variables.input : c));
+            const _ = PIM_CADASTRE.cadastre?.map(c => (c.id === variables.input.id ? variables.input : c));
 
             return PIM_DETAILS;
           },
@@ -365,7 +365,7 @@ export const mockServer = () => {
             const data = PIM_CADASTRE.cadastre?.find(t => t.type === CadastreType.CadastreMap);
 
             if (data) {
-              data.maps?.push(mapCopy);
+              const _ = data.maps?.push(mapCopy);
               PIM_CADASTRE.cadastre = PIM_CADASTRE?.cadastre?.map(c => (c.type === data.type ? data : c));
             }
 
@@ -374,7 +374,7 @@ export const mockServer = () => {
             return PIM_CADASTRE;
           },
           updateCadastreMap() {
-            PIM_CADASTRE.cadastre?.map(c =>
+            const _ = PIM_CADASTRE.cadastre?.map(c =>
               c.id === variables.input.cadastreId
                 ? c.maps?.map(m => (m.id === variables.input.mapId ? variables.input.map : m))
                 : c,
@@ -459,9 +459,9 @@ export const mockServer = () => {
           updatePimReading() {
             const meter = PIM_SERVICES.meters?.find(m => m.id === variables.input.meterId);
 
-            meter?.readings?.map(r => (r.id === variables.input.id ? variables.input : r));
+            let _ = meter?.readings?.map(r => (r.id === variables.input.id ? variables.input : r));
 
-            PIM_SERVICES.meters?.map(m => (m.id === variables.input.id ? meter : m));
+            _ = PIM_SERVICES.meters?.map(m => (m.id === variables.input.id ? meter : m));
 
             return PIM_DETAILS;
           },

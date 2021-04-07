@@ -36,7 +36,7 @@ export const useStyles = (isTable?: boolean) =>
         backgroundColor: 'yellow',
         [breakpoints.down('sm')]: {
           marginLeft: 0,
-          marginRight: 0, 
+          marginRight: 0,
         },
       },
       display: 'flex',
@@ -72,7 +72,7 @@ export const useStyles = (isTable?: boolean) =>
       '& .MuiBox-root': {
         paddingLeft: 0,
         paddingTop: 0,
-      }
+      },
     },
     tableActionCell: {
       cursor: 'pointer',

@@ -142,9 +142,9 @@ export * from './simpleLocation/SimpleLocationIcon';
 export * from './keyboardBackspace/KeyboardBackspaceIcon';
 export * from './emptyFilter/EmptyFilterIcon';
 export * from './constructionNew/constructionCranehook';
-export * from './relet/ReletIcon'
-export * from './commercial/commercial'
-export * from './commbuilding/combuilding'
-export * from './agricultural/agriIcon'
-export * from './parking/parkingLot'
-export * from './building/BuildingIcon'
+export * from './relet/ReletIcon';
+export * from './commercial/commercial';
+export * from './commbuilding/combuilding';
+export * from './agricultural/agriIcon';
+export * from './parking/parkingLot';
+export * from './building/BuildingIcon';

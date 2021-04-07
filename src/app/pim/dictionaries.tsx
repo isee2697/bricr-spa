@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 import {
   CommercialIcon,
@@ -8,58 +8,54 @@ import {
   ReletIcon,
   AgriculturalIcon,
   ParkinglotIcon,
-} from "ui/atoms/icons";
-import { ProjectType, PropertyType } from "api/types";
-import { DevelopmentType, PricingType } from "api/types";
-import { BuildingIcon, EuroIcon, NewConstructionIcon } from "ui/atoms/icons";
-import {
-  FiltersSizes,
-  FiltersTypes,
-  Types,
-} from "ui/molecules/filters/Filters.types";
-import { BuildingplotIcon } from "ui/atoms/icons/buildingPlot/buildingIcon";
+} from 'ui/atoms/icons';
+import { ProjectType, PropertyType } from 'api/types';
+import { DevelopmentType, PricingType } from 'api/types';
+import { BuildingIcon, EuroIcon, NewConstructionIcon } from 'ui/atoms/icons';
+import { FiltersSizes, FiltersTypes, Types } from 'ui/molecules/filters/Filters.types';
+import { BuildingplotIcon } from 'ui/atoms/icons/buildingPlot/buildingIcon';
 
 export const PimTypes = [
   {
-    name: "residential",
+    name: 'residential',
     icon: <SaleIcon />,
     types: [PropertyType.Apartment, PropertyType.House],
   },
   {
-    name: "new_construction",
+    name: 'new_construction',
     icon: <ConstructionCraneIcon />,
     isProject: true,
     projectType: ProjectType.NewConstruction,
   },
   {
-    name: "relet",
+    name: 'relet',
     icon: <ReletIcon />,
     isProject: true,
     projectType: ProjectType.Relet,
   },
   {
-    name: "commercial",
+    name: 'commercial',
     icon: <CommercialIcon />,
     types: [PropertyType.Commercial],
   },
   {
-    name: "building_commercial",
+    name: 'building_commercial',
     icon: <CommercialIcon />,
     isProject: true,
     projectType: ProjectType.Commercial,
   },
   {
-    name: "agricultural",
+    name: 'agricultural',
     icon: <AgriculturalIcon />,
     types: [PropertyType.Agricultural],
   },
   {
-    name: "parkinglot",
+    name: 'parkinglot',
     icon: <ParkinglotIcon />,
     types: [PropertyType.ParkingLot],
   },
   {
-    name: "building_plot",
+    name: 'building_plot',
     icon: <BuildingplotIcon />,
     types: [PropertyType.BuildingPlot],
   },
@@ -67,21 +63,21 @@ export const PimTypes = [
 
 export const PimListFilters: FiltersTypes[] = [
   {
-    key: "city",
+    key: 'city',
     type: Types.Text,
     size: FiltersSizes.L,
   },
   {
-    key: "pricingRange",
+    key: 'pricingRange',
     type: Types.Range,
     size: FiltersSizes.L,
     options: [
-      { label: "from", value: "0", icon: <></> },
-      { label: "to", value: "5000", icon: <></> },
+      { label: 'from', value: '0', icon: <></> },
+      { label: 'to', value: '5000', icon: <></> },
     ],
   },
   {
-    key: "propertyTypes",
+    key: 'propertyTypes',
     type: Types.Checkbox,
     size: FiltersSizes.M,
     options: [
@@ -118,7 +114,7 @@ export const PimListFilters: FiltersTypes[] = [
     ],
   },
   {
-    key: "pricingType",
+    key: 'pricingType',
     type: Types.RadioButton,
     size: FiltersSizes.L,
     options: [
@@ -127,7 +123,7 @@ export const PimListFilters: FiltersTypes[] = [
     ],
   },
   {
-    key: "developmentType",
+    key: 'developmentType',
     type: Types.RadioButton,
     size: FiltersSizes.M,
     options: [
@@ -144,21 +140,21 @@ export const PimListFilters: FiltersTypes[] = [
     ],
   },
   {
-    key: "published",
+    key: 'published',
     type: Types.RadioButton,
     size: FiltersSizes.M,
     options: [
-      { label: "yes", value: "yes", icon: <SquareIcon /> },
-      { label: "no", value: "no", icon: <SquareIcon /> },
+      { label: 'yes', value: 'yes', icon: <SquareIcon /> },
+      { label: 'no', value: 'no', icon: <SquareIcon /> },
     ],
   },
   {
-    key: "transport",
+    key: 'transport',
     type: Types.DateRange,
     size: FiltersSizes.L,
   },
   {
-    key: "available",
+    key: 'available',
     type: Types.DateRange,
     size: FiltersSizes.L,
   },
