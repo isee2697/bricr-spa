@@ -110,11 +110,6 @@ input DateRangeInput {
   to: Date
 }
 
-input DateRangeInput {
-  from: Date
-  to: Date
-}
-
 input TaskFilters {
   search: String
   assignees: [ID!]
