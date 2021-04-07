@@ -169,6 +169,8 @@
     "@types/react-beautiful-dnd": "13.0.0",
     "@types/react-grid-layout": "1.1.1",
     "@types/testing-library__jest-dom": "5.0.0",
+    "@typescript-eslint/eslint-plugin": "4.21.0",
+    "@typescript-eslint/parser": "4.21.0",
     "@welldone-software/why-did-you-render": "4.0.3",
     "auto-changelog": "1.16.2",
     "cross-env": "6.0.3",
