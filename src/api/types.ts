@@ -128,7 +128,7 @@ export type AddMatchProfileInput = {
   propertyType?: Maybe<MatchPropertyType>;
   startDate?: Maybe<Scalars['Date']>;
   endDate?: Maybe<Scalars['Date']>;
-  matchDuration?: Maybe<DateRange>;
+  matchDuration?: Maybe<DateRangeInput>;
   matchWith?: Maybe<Array<MatchProfileWith>>;
   description?: Maybe<Scalars['String']>;
   estateType?: Maybe<MatchEstateType>;
