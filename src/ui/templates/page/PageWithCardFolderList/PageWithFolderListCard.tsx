@@ -6,8 +6,9 @@ import { CardWithFolder } from '../../cards/cardWithFolder/CardWithFolder';
 import { CardWithTable } from '../../cards/cardWithTable/CardWithTable';
 import { FileType, FileTypeView } from '../../cards/cardWithTable/CardWithTable.types';
 import { ClockIcon, HomeIcon } from 'ui/atoms/icons';
-import { DmsFolder } from 'api/types';
+import { DmsFolder, DmsFolderViewType } from 'api/types';
 import { EMAILS } from 'api/mocks/email';
+import { InvoicesContainer } from 'app/shared/dms/cards/invoices/InvoicesContainer';
 
 import { PageWithFolderListCardProps } from './PageWithFolderListCard.types';
 import { useStyles } from './PageWithCardFolderList.styles';
@@ -98,6 +99,19 @@ export const PageWithFolderListCard = ({
                 }}
               />
             </Box>
+          )}
+          {selectedFolder && selectedFolder.viewType === DmsFolderViewType.Invoices && (
+            <Box mt={3.5}>
+              <InvoicesContainer />
+            </Box>
+          )}
+          {selectedFolder && selectedFolder.viewType === DmsFolderViewType.Contracts && <Box mt={3.5}>Contracts</Box>}
+          {selectedFolder && selectedFolder.viewType === DmsFolderViewType.Questionaires && (
+            <Box mt={3.5}>Questionaires</Box>
+          )}
+          {selectedFolder && selectedFolder.viewType === DmsFolderViewType.Surveys && <Box mt={3.5}>Surveys</Box>}
+          {selectedFolder && selectedFolder.viewType === DmsFolderViewType.ListOfItems && (
+            <Box mt={3.5}>ListOfItems</Box>
           )}
         </Grid>
       </Page>
