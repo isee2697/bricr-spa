@@ -9,6 +9,7 @@ import { ClockIcon, HomeIcon } from 'ui/atoms/icons';
 import { DmsFolder, DmsFolderViewType } from 'api/types';
 import { EMAILS } from 'api/mocks/email';
 import { InvoicesContainer } from 'app/shared/dms/cards/invoices/InvoicesContainer';
+import { SurveysContainer } from 'app/shared/dms/cards/surveys/SurveysContainer';
 
 import { PageWithFolderListCardProps } from './PageWithFolderListCard.types';
 import { useStyles } from './PageWithCardFolderList.styles';
@@ -109,7 +110,11 @@ export const PageWithFolderListCard = ({
           {selectedFolder && selectedFolder.viewType === DmsFolderViewType.Questionaires && (
             <Box mt={3.5}>Questionaires</Box>
           )}
-          {selectedFolder && selectedFolder.viewType === DmsFolderViewType.Surveys && <Box mt={3.5}>Surveys</Box>}
+          {selectedFolder && selectedFolder.viewType === DmsFolderViewType.Surveys && (
+            <Box mt={3.5}>
+              <SurveysContainer />
+            </Box>
+          )}
           {selectedFolder && selectedFolder.viewType === DmsFolderViewType.ListOfItems && (
             <Box mt={3.5}>ListOfItems</Box>
           )}
