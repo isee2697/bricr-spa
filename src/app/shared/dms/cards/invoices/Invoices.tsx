@@ -24,7 +24,7 @@ export const Invoices = ({ invoices }: InvoicesProps) => {
     <CardWithBody
       titleId="dms.invoices.title"
       titleActions={
-        <IconButton size="small" variant="circle">
+        <IconButton color="primary" size="small" variant="circle">
           <AddIcon />
         </IconButton>
       }
