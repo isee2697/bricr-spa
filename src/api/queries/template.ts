@@ -113,7 +113,7 @@ export const GET_QUESTIONAIRE_GROUP = gql`
 export const LIST_QUESTIONS = gql`
   query ListQuestions($groupId: ID!) {
     listQuestions(groupId: $groupId)
-      @rest(type: "ListQuestions", path: "/questions/{args.groupId}", method: "GET", endpoint: "default") {
+      @rest(type: "ListQuestions", path: "/question?groupId={args.groupId}", method: "GET", endpoint: "default") {
       id
       groupId
       order
