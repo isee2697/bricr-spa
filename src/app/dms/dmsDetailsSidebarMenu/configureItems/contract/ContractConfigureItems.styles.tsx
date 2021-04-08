@@ -1,15 +1,20 @@
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 
-import { StepConnector, StepButton } from 'ui/atoms';
+import { StepConnector, StepLabel } from 'ui/atoms';
 
 export const useStyles = makeStyles(theme => ({
+  menuWrapper: {
+    width: '100%',
+    height: `calc(100% - ${theme.spacing(5)}px)`,
+    position: 'absolute',
+    zIndex: 1,
+  },
   step: {
     cursor: 'pointer',
     padding: 0,
-  },
-  completed: {
-    '&.MuiStep-completed  + div > span': {
-      borderColor: theme.palette.success.main,
+
+    '& *': {
+      cursor: 'pointer',
     },
   },
   stepper: {
@@ -38,6 +43,37 @@ export const useStyles = makeStyles(theme => ({
   date: {
     color: theme.palette.gray.main,
   },
+  boldText: {
+    fontWeight: theme.typography.fontWeightBold,
+  },
+  avatar: {
+    background: theme.palette.red.light,
+    color: theme.palette.red.main,
+    marginRight: theme.spacing(0.5),
+    width: theme.spacing(3),
+    height: theme.spacing(3),
+  },
+  sideBarButtonWrapper: {
+    height: theme.spacing(6),
+    paddingLeft: theme.spacing(3),
+    cursor: 'pointer',
+    color: theme.palette.gray.main,
+  },
+  sideBarButton: {
+    padding: theme.spacing(1, 0),
+
+    '&.selected': {
+      color: theme.palette.black.main,
+    },
+  },
+  sideBarBottomBorder: {
+    height: 2,
+    background: theme.palette.gray.light,
+
+    '&.selected': {
+      background: theme.palette.gradientPrimary.main,
+    },
+  },
 }));
 
 export const Connector = withStyles(theme => ({
@@ -46,7 +82,7 @@ export const Connector = withStyles(theme => ({
     paddingBottom: 0,
     marginTop: -theme.spacing(5),
     '& $line': {
-      height: theme.spacing(11.25),
+      minHeight: theme.spacing(8),
     },
   },
   active: {
@@ -79,10 +115,6 @@ export const Labels = withStyles(theme => ({
     flexDirection: 'row',
     alignItems: 'flex-start',
     height: theme.spacing(5),
-
-    '& > span': {
-      alignItems: 'flex-start',
-    },
   },
   label: {
     '& h5': {
@@ -106,4 +138,4 @@ export const Labels = withStyles(theme => ({
       fontWeight: theme.typography.fontWeightBold,
     },
   },
-}))(StepButton);
+}))(StepLabel);

@@ -1,18 +1,15 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { DateTime } from 'luxon';
-import { useHistory, useParams } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import {
   AppointmentLocation,
+  useAddAppointmentMutation,
   AppointmentMeetingType,
+  AddAppointmentInput,
   TaskLabel,
   CalendarTypes,
   AppointmentRepeat,
-  useDraftAppointmentMutation,
-  useConfirmAppointmentMutation,
-  DraftAppointment,
-  DraftAppointmentInput,
-  useGetAppointmentLazyQuery,
 } from 'api/types';
 import { AppRoute } from 'routing/AppRoute.enum';
 
@@ -56,14 +53,18 @@ const locations: AppointmentLocation[] = [
 ];
 
 const splitDateTime = (date: string) => {
-  return { date, time: date };
+  const datetime = DateTime.fromISO(date);
+
+  return { date: datetime.toISODate(), time: datetime.toISOTime() };
 };
 
 const mergeDateTime = (date: string, time: string) => {
   const jsDate = DateTime.fromISO(date).toJSDate();
   const jsTime = DateTime.fromISO(time).toJSDate();
 
-  return new Date(jsDate.getTime() + (jsTime.getTime() % (1000 * 3600 * 24)));
+  return new Date(
+    jsDate.getTime() + (jsTime.getTime() % (1000 * 3600 * 24)) - jsTime.getTimezoneOffset() * 60 * 1000,
+  ).toISOString();
 };
 
 const INITIAL_APPOINTMENT: AppointmentFormType = {
@@ -81,23 +82,10 @@ const INITIAL_APPOINTMENT: AppointmentFormType = {
 };
 
 export const NewAppointmentContainer = ({ teamMembers, account, isEdit }: NewAppointmentContainerProps) => {
-  const { id } = useParams<{ id: string }>();
-  const [draft, setDraft] = useState<DraftAppointment>();
-  const [draftAppointment] = useDraftAppointmentMutation();
-  const [confirmAppointment] = useConfirmAppointmentMutation();
+  const [appointment] = useState<AppointmentFormType>(INITIAL_APPOINTMENT);
+  const [addAppointment] = useAddAppointmentMutation();
   const { push } = useHistory();
   const [loading, setLoading] = useState<boolean>(false);
-  const [getAppointment, { data }] = useGetAppointmentLazyQuery({ fetchPolicy: 'no-cache' });
-
-  useEffect(() => {
-    const getAppointmentById = async () => {
-      await getAppointment({ variables: { appointmentId: id } });
-    };
-
-    if (id) {
-      getAppointmentById();
-    }
-  }, [getAppointment, id]);
 
   const handleSubmit = useCallback(
     async (appointment): Promise<boolean> => {
@@ -113,50 +101,31 @@ export const NewAppointmentContainer = ({ teamMembers, account, isEdit }: NewApp
       }
 
       const description = document.querySelector('.rich-text-field#description')?.innerHTML;
-
-      let appointmentInput: DraftAppointmentInput;
-
-      if (id || draft) {
-        appointmentInput = {
-          ...appointment,
-          id: id || draft?.id,
-          from: appointment.from ? mergeDateTime(appointment.from.date, appointment.from.time) : undefined,
-          to: appointment.to ? mergeDateTime(appointment.to.date, appointment.to.time) : undefined,
-          alternativeTerms: appointment.alternativeTerms?.map((item: AppointmentTermFormType) => ({
-            from: mergeDateTime(item.from.date, item.from.time),
-            to: mergeDateTime(item.to.date, item.to.time),
-          })),
-          agreementType: Object.values(AppointmentMeetingType).filter(type => appointment.agreementType?.[type]),
-          taskLabel: TaskLabel.Business,
-          description,
-        };
-      } else {
-        appointmentInput = {
-          ...appointment,
-          from: appointment.from ? mergeDateTime(appointment.from.date, appointment.from.time) : undefined,
-          to: appointment.to ? mergeDateTime(appointment.to.date, appointment.to.time) : undefined,
-          alternativeTerms: appointment.alternativeTerms?.map((item: AppointmentTermFormType) => ({
-            from: mergeDateTime(item.from.date, item.from.time),
-            to: mergeDateTime(item.to.date, item.to.time),
-          })),
-          agreementType: Object.values(AppointmentMeetingType).filter(type => appointment.agreementType?.[type]),
-          taskLabel: TaskLabel.Business,
-          description,
-        };
-      }
-
+      const appointmentInput: AddAppointmentInput = {
+        ...appointment,
+        accountId: account?.id || '',
+        from: mergeDateTime(appointment.from.date, appointment.from.time),
+        to: mergeDateTime(appointment.to.date, appointment.to.time),
+        alternativeTerms: appointment.alternativeTerms?.map((item: AppointmentTermFormType) => ({
+          from: mergeDateTime(item.from.date, item.from.time),
+          to: mergeDateTime(item.to.date, item.to.time),
+        })),
+        agreementType: Object.values(AppointmentMeetingType).filter(type => appointment.agreementType?.[type]),
+        taskLabel: TaskLabel.Business,
+        description,
+      };
       try {
         setLoading(true);
 
-        const { data, errors } = await draftAppointment({
+        const { data, errors } = await addAppointment({
           variables: {
             input: appointmentInput,
           },
         });
         setLoading(false);
 
-        if (!errors && data && data.draftAppointment) {
-          setDraft(data.draftAppointment);
+        if (!errors && data && data.addAppointment) {
+          push(AppRoute.calendarAppointments.replace(':accountId', account?.id || ''));
 
           return true;
         }
@@ -168,57 +137,16 @@ export const NewAppointmentContainer = ({ teamMembers, account, isEdit }: NewApp
         return false;
       }
     },
-    [draft, draftAppointment, id],
+    [account, addAppointment, push],
   );
-
-  const handleConfirmAppointment = useCallback(async (): Promise<boolean> => {
-    if (!draft || !draft.id || !account) {
-      throw new Error();
-    }
-
-    try {
-      setLoading(true);
-
-      const { data, errors } = await confirmAppointment({
-        variables: {
-          appointmentId: draft.id,
-          accountId: account.id,
-        },
-      });
-
-      setLoading(false);
-
-      if (!errors && data && data.confirmAppointment) {
-        push(AppRoute.calendarAppointments.replace(':accountId', account.id || ''));
-
-        return true;
-      }
-
-      throw new Error();
-    } catch {
-      setLoading(false);
-
-      return false;
-    }
-  }, [account, confirmAppointment, draft, push]);
 
   return (
     <NewAppointment
       locations={locations}
       members={teamMembers}
-      appointmentInfo={
-        data?.getAppointment
-          ? {
-              ...data.getAppointment,
-              from: data.getAppointment.from ? splitDateTime(data.getAppointment.from) : undefined,
-              to: data.getAppointment.to ? splitDateTime(data.getAppointment.to) : undefined,
-            }
-          : INITIAL_APPOINTMENT
-      }
+      appointmentInfo={appointment}
       onSubmit={handleSubmit}
-      onConfirm={handleConfirmAppointment}
       loading={loading}
-      isEdit={isEdit}
     />
   );
 };

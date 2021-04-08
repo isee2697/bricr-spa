@@ -1,30 +1,26 @@
-import React from "react";
-import { Switch, useParams, Route, Redirect } from "react-router-dom";
+import React from 'react';
+import { Switch, useParams, Route, Redirect } from 'react-router-dom';
 
-import { useLocale } from "hooks/useLocale/useLocale";
-import { Loader, NavBreadcrumb } from "ui/atoms";
-import { AppRoute } from "routing/AppRoute.enum";
-import { Security } from "app/shared/dms/security/Security";
-import { GeneralPageSettings } from "app/shared/dms/generalPageSettings/GeneralPageSettings";
-import { useStateQuery } from "hooks/useStateQuery/useStateQuery";
+import { useLocale } from 'hooks/useLocale/useLocale';
+import { Loader, NavBreadcrumb } from 'ui/atoms';
+import { AppRoute } from 'routing/AppRoute.enum';
+import { Security } from 'app/shared/dms/security/Security';
+import { GeneralPageSettings } from 'app/shared/dms/generalPageSettings/GeneralPageSettings';
+import { useStateQuery } from 'hooks/useStateQuery/useStateQuery';
 import {
   GetQuestionaireDocument,
   Questionaire,
+  TemplateGeneralInput,
   useGetQuestionaireQuery,
   useUpdateTemplateGeneralMutation,
-} from "api/types";
-import { useGetTemplateType } from "../../../hooks";
+} from 'api/types';
+import { useGetTemplateType } from '../../../hooks';
+import { DMS_TEMPLATE_RIGHTS } from 'api/mocks/dms-templates';
 
-import { DmsTemplateConfigureSettingsDetails } from "./dmsTemplateConfigureSettingsDetails/DmsTemplateConfigureSettingsDetails";
-import {
-  DmsTemplateDetailsContainerProps,
-  DocumentType,
-} from "./DmsTemplateDetailsContainer.types";
-import { DMS_TEMPLATE_RIGHTS } from "api/mocks/dms-templates";
+import { DmsTemplateConfigureSettingsDetails } from './dmsTemplateConfigureSettingsDetails/DmsTemplateConfigureSettingsDetails';
+import { DmsTemplateDetailsContainerProps, DocumentType } from './DmsTemplateDetailsContainer.types';
 
-export const DmsTemplateDetailsContainer = (
-  props: DmsTemplateDetailsContainerProps
-) => {
+export const DmsTemplateDetailsContainer = (props: DmsTemplateDetailsContainerProps) => {
   const { formatMessage } = useLocale();
   const { id } = useParams<{ id: string }>();
   const type = useGetTemplateType();
@@ -32,26 +28,29 @@ export const DmsTemplateDetailsContainer = (
     query: useGetQuestionaireQuery,
     variables: { id, type: type.toString() },
   });
+
   const [updateGeneral] = useUpdateTemplateGeneralMutation();
   const data = loadedData as Questionaire;
-  const backendData = [...(data.securities ?? [])];
-  const defaultPermissionsWithData = DMS_TEMPLATE_RIGHTS.map((permission) => {
-    const index = backendData.findIndex(
-      (item) => item?.name === permission.name
-    );
+  const backendData = [...(data.permissions || [])];
+  const defaultPermissionsWithData = DMS_TEMPLATE_RIGHTS.map(permission => {
+    const index = backendData.findIndex(item => item?.name.toLowerCase() === permission.name.toLowerCase());
+
     if (index !== -1) {
       const permissionData = backendData[index];
-      backendData.splice(index);
+      backendData.splice(index, 1);
+
       return permissionData;
     }
+
     return permission;
   });
-  data.securities = [...defaultPermissionsWithData, ...backendData];
+
+  data.permissions = [...defaultPermissionsWithData, ...backendData];
 
   if (loading) {
     return <Loader />;
   }
-  const handleSaveGeneral = async (form: Questionaire) => {
+  const handleSaveGeneral = async (form: TemplateGeneralInput) => {
     try {
       await updateGeneral({
         variables: {
@@ -59,18 +58,13 @@ export const DmsTemplateDetailsContainer = (
             id,
             type,
             ...form,
-            securities: form.securities?.filter((permission) => {
-              const isDefault = DMS_TEMPLATE_RIGHTS.find(
-                (item) => item.name === permission.name
-              );
+            permissions: form.permissions?.filter(permission => {
+              const isDefault = DMS_TEMPLATE_RIGHTS.find(item => item.name === permission.name);
+
               if (isDefault) {
-                return (
-                  !!permission?.create ||
-                  !!permission?.update ||
-                  !!permission?.read ||
-                  !!permission?.delete
-                );
+                return !!permission?.create || !!permission?.update || !!permission?.read || !!permission?.delete;
               }
+
               return true;
             }),
           },
@@ -85,14 +79,13 @@ export const DmsTemplateDetailsContainer = (
     } catch {
       return { error: true };
     }
+
     return undefined;
   };
+
   return (
     <>
-      <NavBreadcrumb
-        title={formatMessage({ id: "dms.templates.title" })}
-        to={AppRoute.dms + "/templates"}
-      />
+      <NavBreadcrumb title={formatMessage({ id: 'dms.templates.title' })} to={AppRoute.dms + '/templates'} />
       <Switch>
         <Route
           path={`${AppRoute.dms}/templates/:type/:category/${id}/general`}
@@ -102,9 +95,9 @@ export const DmsTemplateDetailsContainer = (
               data={data}
               onSave={handleSaveGeneral}
               updatedBy={{
-                id: "0001",
-                firstName: "Christian",
-                lastName: "van Gils",
+                id: '0001',
+                firstName: 'Christian',
+                lastName: 'van Gils',
               }}
               dateUpdated={new Date().toISOString()}
             />
@@ -118,21 +111,19 @@ export const DmsTemplateDetailsContainer = (
           path={`${AppRoute.dms}/templates/:type/:category/${id}/security`}
           render={() => (
             <Security
-              title={data.templateName ?? ""}
+              title={data.templateName ?? ''}
               onSave={handleSaveGeneral}
               data={data}
               updatedBy={{
-                id: "0001",
-                firstName: "Christian",
-                lastName: "van Gils",
+                id: '0001',
+                firstName: 'Christian',
+                lastName: 'van Gils',
               }}
               dateUpdated={new Date().toISOString()}
             />
           )}
         />
-        <Redirect
-          to={`${AppRoute.dms}/templates/:type/:category/${id}/general`}
-        />
+        <Redirect to={`${AppRoute.dms}/templates/:type/:category/${id}/general`} />
       </Switch>
     </>
   );

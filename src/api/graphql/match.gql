@@ -282,7 +282,7 @@ input AddMatchProfileInput {
   propertyType: MatchPropertyType
   startDate: Date
   endDate: Date
-  matchDuration: DateRange
+  matchDuration: DateRangeInput
   matchWith: [MatchProfileWith!]
   description: String
   estateType: MatchEstateType
@@ -308,7 +308,7 @@ input UpdateMatchProfileInput {
   propertyType: MatchPropertyType
   startDate: Date
   endDate: Date
-  matchDuration: DateRange
+  matchDuration: DateRangeInput
   matchWith: [MatchProfileWith!]
   description: String
   estateType: MatchEstateType

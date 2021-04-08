@@ -12,6 +12,7 @@ export const LIST_DMS_FOLDERS = gql`
       type
       order
       deletedAt
+      isEmailFolder
     }
   }
 `;

@@ -55,9 +55,11 @@ input TemplateSecurityInput {
 }
 
 input TemplateGeneralInput {
+    id: ID
     templateName: String
+    type: TemplateType
     settings: TemplateSettingsInput
-    securities: [TemplateSecurityInput!]
+    permissions: [TemplateSecurityInput!]
 }
 
 input QuestionInput {
@@ -121,7 +123,7 @@ type TemplateMeta {
 }
 
 type Questionaire {
-     id: ID! 
+    id: ID!
     companyId: String
     type: TemplateType
     templateName: String
@@ -134,7 +136,7 @@ type Questionaire {
     settings: TemplateSettings
     labels: [String!]
     tags: [TemplatTag!]
-    securities: [TemplateSecurity!]
+    permissions: [TemplateSecurity!]
 }
 
 type TemplatTag {

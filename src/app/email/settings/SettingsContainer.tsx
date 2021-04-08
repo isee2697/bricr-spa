@@ -8,7 +8,7 @@ import { useAuthState } from 'hooks';
 import { EmailSettings } from './Settings';
 import { EmailSettingsContainerProps } from './Settings.types';
 
-export const EmailSettingsContainer = ({ ...props }: EmailSettingsContainerProps) => {
+export const EmailSettingsContainer = (props: EmailSettingsContainerProps) => {
   const { user } = useAuthState();
   const [opt, setOptions] = useState<NylasAccountAuthOptions>();
   const { data: nylasAuthUrl } = useGetNylasAuthUrlQuery({

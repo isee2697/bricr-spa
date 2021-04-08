@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { EmailFolderListItem, EmailListItem, useListEmailLazyQuery } from 'api/types';
+import { EmailFolderListItem, EmailListItem, useListEmailQuery } from 'api/types';
 
 import { InboxFolder } from './InboxFolder';
 import { InboxFolderContainerProps } from './InboxFolder.types';
@@ -11,20 +11,10 @@ export const InboxFolderContainer = (props: InboxFolderContainerProps) => {
   const { folders } = props;
   const [currentFolder, setCurrentFolder] = useState<EmailFolderListItem>();
 
-  const [listEmails, { data }] = useListEmailLazyQuery({ fetchPolicy: 'no-cache' });
-
-  useEffect(() => {
-    const getEmails = async () => {
-      listEmails({
-        variables: {
-          accountId: inboxId,
-          folderId,
-        },
-      });
-    };
-
-    getEmails();
-  }, [folderId, inboxId, listEmails]);
+  const { data } = useListEmailQuery({
+    fetchPolicy: 'no-cache',
+    variables: { accountId: inboxId, folderId },
+  });
 
   useEffect(() => {
     const selectedFolder = folders.find(folder => folder.folder.nylasFolderId === folderId);
