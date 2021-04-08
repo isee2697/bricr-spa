@@ -46,7 +46,7 @@ export const GET_TASKS = gql`
   query GetTasks(
     $search: String
     $assignees: [ID!]
-    $deadlines: [DateRange!]
+    $deadlines: [DateRangeInput!]
     $sortColumn: String!
     $sortDirection: SortDirection!
   ) {
@@ -96,7 +96,7 @@ export const GET_TASKS_FULL_SUMMARY = gql`
 `;
 
 export const GET_TASKS_SUMMARY_BY_STATUS = gql`
-  query GetTasksSummaryByStatus($search: String, $assignees: [ID!], $deadlines: [DateRange!]) {
+  query GetTasksSummaryByStatus($search: String, $assignees: [ID!], $deadlines: [DateRangeInput!]) {
     getTasksSummaryByStatus(filters: { search: $search, assignees: $assignees, deadlines: $deadlines }) {
       todo
       inProgress

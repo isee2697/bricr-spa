@@ -24,6 +24,7 @@ import { PIM_GENERAL_1 } from './mocks/pim-general';
 import { PIM_INSIDE_1 } from './mocks/pim-inside';
 import { CADASTRE_3, CADASTRE_MAP_1, PIM_CADASTRE_1 } from './mocks/pim-cadastre';
 import { LIST_NCP_1, LIST_NCP_ARCHIVED_1 } from './mocks/ncp-list';
+import { TASKS } from './mocks/tasks';
 
 const graphqlSchema = buildSchema(loadSchemas());
 
@@ -783,6 +784,9 @@ export const mockServer = () => {
               metadata: { total: 0 },
               items: [],
             };
+          },
+          getTasks() {
+            return { items: TASKS };
           },
         };
 
