@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 
 import { Badge, Box, Card, CardContent, CardHeader, IconButton, NavBreadcrumb, Tab, Tabs } from 'ui/atoms';
 import { List, PropertyItemPlaceholder } from 'ui/molecules';
@@ -11,6 +11,7 @@ import { useEntityType } from 'app/shared/entityType';
 import { FiltersButton } from 'ui/molecules/filters/FiltersButton';
 import { ActiveFilters } from 'ui/molecules/filters/activeFilters/ActiveFilters';
 import { ListPimsFilters } from 'api/types';
+import { AppRoute } from 'routing/AppRoute.enum';
 
 import {
   CrmRelationsCustomerJourneyProperty,
@@ -25,11 +26,13 @@ import { CrmRelationsCustomerJourneyFilters } from './dictionaries';
 export const CrmRelationsDetailsCustomerJourney = ({
   items,
   status,
-  onStatusChange,
   activeFilters,
   onFilter,
   isOwner,
 }: CrmRelationsDetailsCustomerJourneyProps) => {
+  const { push } = useHistory();
+  const { id } = useParams<{ id: string }>();
+
   const customerJourneyTabs = [
     {
       key: CrmRelationsDetailsCustomerJourneyTab.Matches,
@@ -119,7 +122,9 @@ export const CrmRelationsDetailsCustomerJourney = ({
               <Tabs
                 className={classes.tabs}
                 value={status}
-                onChange={(event, value) => onStatusChange(value)}
+                onChange={(event, value) => {
+                  push(AppRoute.crmRelationsDetailsJourney.replace(':id', id).replace(':role', value));
+                }}
                 indicatorColor="primary"
                 textColor="inherit"
                 variant="fullWidth"

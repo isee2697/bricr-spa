@@ -76,6 +76,7 @@ export const CrmListItem = ({ crm, renderAction }: CrmListItemProps) => {
   return (
     <Box
       display="flex"
+      flexGrow="3"
       width="100%"
       flexDirection="column"
       className={clsx(classes.cursor, crm.status === CrmStatus.Inactive && classes.inactive)}
@@ -95,7 +96,7 @@ export const CrmListItem = ({ crm, renderAction }: CrmListItemProps) => {
             )}
           </Avatar>
         </Box>
-        <Box width="100%">
+        <Box flexGrow={1} className={classes.content}>
           <Box display="flex" justifyContent="space-between" mb={2}>
             <Box>
               <Box>

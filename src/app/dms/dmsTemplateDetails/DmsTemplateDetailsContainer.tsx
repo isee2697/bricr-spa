@@ -10,10 +10,12 @@ import { useStateQuery } from 'hooks/useStateQuery/useStateQuery';
 import {
   GetQuestionaireDocument,
   Questionaire,
+  TemplateGeneralInput,
   useGetQuestionaireQuery,
   useUpdateTemplateGeneralMutation,
 } from 'api/types';
 import { useGetTemplateType } from '../../../hooks';
+import { DMS_TEMPLATE_RIGHTS } from 'api/mocks/dms-templates';
 
 import { DmsTemplateConfigureSettingsDetails } from './dmsTemplateConfigureSettingsDetails/DmsTemplateConfigureSettingsDetails';
 import { DmsTemplateDetailsContainerProps, DocumentType } from './DmsTemplateDetailsContainer.types';
@@ -28,14 +30,27 @@ export const DmsTemplateDetailsContainer = (props: DmsTemplateDetailsContainerPr
   });
 
   const [updateGeneral] = useUpdateTemplateGeneralMutation();
-
   const data = loadedData as Questionaire;
+  const backendData = [...(data.permissions || [])];
+  const defaultPermissionsWithData = DMS_TEMPLATE_RIGHTS.map(permission => {
+    const index = backendData.findIndex(item => item?.name.toLowerCase() === permission.name.toLowerCase());
+
+    if (index !== -1) {
+      const permissionData = backendData[index];
+      backendData.splice(index, 1);
+
+      return permissionData;
+    }
+
+    return permission;
+  });
+
+  data.permissions = [...defaultPermissionsWithData, ...backendData];
 
   if (loading) {
     return <Loader />;
   }
-
-  const handleSaveGeneral = async (form: Questionaire) => {
+  const handleSaveGeneral = async (form: TemplateGeneralInput) => {
     try {
       await updateGeneral({
         variables: {
@@ -43,6 +58,15 @@ export const DmsTemplateDetailsContainer = (props: DmsTemplateDetailsContainerPr
             id,
             type,
             ...form,
+            permissions: form.permissions?.filter(permission => {
+              const isDefault = DMS_TEMPLATE_RIGHTS.find(item => item.name === permission.name);
+
+              if (isDefault) {
+                return !!permission?.create || !!permission?.update || !!permission?.read || !!permission?.delete;
+              }
+
+              return true;
+            }),
           },
         },
         refetchQueries: [
