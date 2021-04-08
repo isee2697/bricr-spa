@@ -105,7 +105,12 @@ input AddSubtaskInput {
   title: String!
 }
 
-input DateRange {
+input DateRangeInput {
+  from: Date
+  to: Date
+}
+
+type DateRange {
   from: Date
   to: Date
 }
@@ -113,8 +118,8 @@ input DateRange {
 input TaskFilters {
   search: String
   assignees: [ID!]
-  startDates: [DateRange!]
-  deadlines: [DateRange!]
+  startDates: [DateRangeInput!]
+  deadlines: [DateRangeInput!]
 }
 
 input TaskFullSummaryFilters {
@@ -124,8 +129,8 @@ input TaskFullSummaryFilters {
 input TaskSummaryByStatusFilters {
   search: String
   assignees: [ID!]
-  startDates: [DateRange!]
-  deadlines: [DateRange!]
+  startDates: [DateRangeInput!]
+  deadlines: [DateRangeInput!]
 }
 
 extend type Mutation {

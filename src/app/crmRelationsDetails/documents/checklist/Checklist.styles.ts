@@ -4,7 +4,6 @@ export const useStyles = makeStyles(theme => ({
   badge: {
     color: theme.palette.gray.main,
     background: theme.palette.gray.light,
-
     '&.ActionRequired': {
       color: theme.palette.white.main,
       background: theme.palette.error.main,
@@ -18,11 +17,9 @@ export const useStyles = makeStyles(theme => ({
     alignItems: 'stretch',
     position: 'relative',
     marginBottom: theme.spacing(3),
-
     '&.actionRequired': {
       background: theme.palette.yellow.light,
     },
-
     '&:after': {
       content: '""',
       position: 'absolute',
@@ -31,7 +28,6 @@ export const useStyles = makeStyles(theme => ({
       margin: theme.spacing(0, 2),
       borderBottom: `${theme.spacing(0.25)}px solid ${theme.palette.gray.light}`,
     },
-
     '&:last-child': {
       marginBottom: 0,
     },

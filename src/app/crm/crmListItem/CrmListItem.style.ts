@@ -12,9 +12,33 @@ export const useStyles = makeStyles(theme => ({
     marginRight: theme.spacing(2),
     filter: ({ status }: { status?: Maybe<CrmStatus> }) => (status === CrmStatus.Inactive ? 'grayscale(1)' : ''),
     fontSize: '3em',
+    [theme.breakpoints.down('md')]: {
+      width: 80,
+      height: 47,
+    },
+    [theme.breakpoints.down('sm')]: {
+      width: 47,
+      height: 47,
+    },
+  },
+  content: {
+    [theme.breakpoints.down('sm')]: {
+      background: 'pink',
+      padding: 0,
+      marginRight: 900,
+      width: 160,
+      height: 250,
+    },
   },
   cursor: {
     cursor: 'pointer',
+    [theme.breakpoints.down('sm')]: {
+      backgroundColor: 'red',
+      marginLeft: 'none',
+      marginRight: 900,
+      width: 90,
+      height: 210,
+    },
   },
   crmUserName: {
     marginBottom: theme.spacing(1),
@@ -33,9 +57,21 @@ export const useStyles = makeStyles(theme => ({
     background: theme.palette.gradientBlue.light,
     borderRadius: theme.spacing(0.5),
     paddingRight: theme.spacing(0.5),
+    [theme.breakpoints.down('sm')]: {
+      backgroundColor: 'purple',
+      marginRight: 0,
+      marginLeft: 0,
+      width: '100%',
+      height: 50,
+    },
   },
   avatarIcon: {
     marginRight: theme.spacing(0.5),
+    [theme.breakpoints.down('sm')]: {
+      backgroundColor: 'yellow',
+      width: 20,
+      height: 30,
+    },
   },
   meta: {
     width: 74,
@@ -59,11 +95,22 @@ export const useStyles = makeStyles(theme => ({
     display: 'flex',
     flexDirection: 'column',
     flexShrink: 0,
-    flexBasis: theme.spacing(22),
+    flexBasis: theme.spacing(5),
     fontSize: theme.typography.h6.fontSize,
     lineHeight: theme.typography.h6.lineHeight,
     color: theme.palette.gray.main,
+    [theme.breakpoints.down('md')]: {
+      width: 20,
+      height: 57,
+    },
+    [theme.breakpoints.down('sm')]: {
+      backgroundColor: 'blue',
+      align: 'left',
+      width: 87,
+      height: 67,
+    },
   },
+
   verticalAlignTop: {
     verticalAlign: 'top',
   },

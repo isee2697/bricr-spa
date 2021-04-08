@@ -5,7 +5,7 @@ import { Field, useFormState } from 'react-final-form';
 import { Avatar, Box, DialogContent, Grid } from 'ui/atoms';
 import { SelectCard, SubmitButton } from 'ui/molecules';
 import { BuildingIcon } from 'ui/atoms/icons/building/BuildingIcon';
-import { NewConstructionIcon } from 'ui/atoms/icons/newConstruction/NewConstructionIcon';
+import { NewConstructionIcon } from 'ui/atoms/icons/oldConstruction/NewConstructionIcon';
 import { ComplexBuildingIcon } from 'ui/atoms/icons/complexBuilding/ComplexBuildingIcon';
 import { useLocale } from 'hooks';
 import { requireValidator } from 'form/validators';
