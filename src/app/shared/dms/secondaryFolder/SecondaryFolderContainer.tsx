@@ -49,13 +49,14 @@ export const SecondaryFolderContainer = (props: SecondaryFolderContainerProps) =
     try {
       await createDmsFolder({
         variables: {
-          input: values,
+          input: { ...values, entityId: id },
         },
         refetchQueries: [
           {
             query: ListDmsFoldersDocument,
             variables: {
               entityId: id,
+              withFileAmount: true,
             },
           },
         ],
