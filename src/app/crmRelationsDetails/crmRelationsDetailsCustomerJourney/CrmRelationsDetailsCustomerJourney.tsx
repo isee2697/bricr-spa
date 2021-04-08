@@ -28,7 +28,6 @@ export const CrmRelationsDetailsCustomerJourney = ({
   status,
   activeFilters,
   onFilter,
-
   isOwner,
 }: CrmRelationsDetailsCustomerJourneyProps) => {
   const { push } = useHistory();
