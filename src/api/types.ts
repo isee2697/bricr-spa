@@ -2470,6 +2470,7 @@ export enum CurrentHomeStatusType {
 }
 
 export type DateRange = {
+  __typename?: 'DateRange';
   from?: Maybe<Scalars['Date']>;
   to?: Maybe<Scalars['Date']>;
 };
@@ -8910,9 +8911,11 @@ export enum TemplateDocumentType {
 }
 
 export type TemplateGeneralInput = {
+  id?: Maybe<Scalars['ID']>;
   templateName?: Maybe<Scalars['String']>;
+  type?: Maybe<TemplateType>;
   settings?: Maybe<TemplateSettingsInput>;
-  securities?: Maybe<Array<TemplateSecurityInput>>;
+  permissions?: Maybe<Array<TemplateSecurityInput>>;
 };
 
 export type TemplateMeta = {
@@ -9399,7 +9402,7 @@ export type UpdateMatchProfileInput = {
   propertyType?: Maybe<MatchPropertyType>;
   startDate?: Maybe<Scalars['Date']>;
   endDate?: Maybe<Scalars['Date']>;
-  matchDuration?: Maybe<DateRange>;
+  matchDuration?: Maybe<DateRangeInput>;
   matchWith?: Maybe<Array<MatchProfileWith>>;
   description?: Maybe<Scalars['String']>;
   estateType?: Maybe<MatchEstateType>;

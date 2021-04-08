@@ -1,8 +1,8 @@
-import { AppRoute } from '../../../src/routing/AppRoute.enum';
+import { AppRoute } from "../../../src/routing/AppRoute.enum";
 
 class Navigation {
   goToLogout(): void {
-    cy.get('#profile-button').click();
+    cy.get("#profile-button").click();
     cy.get(`a[href*="${AppRoute.logout}"]`)
       .first()
       .click();
@@ -10,6 +10,10 @@ class Navigation {
 
   goToHome(): void {
     cy.visit(Cypress.env().baseUrl + AppRoute.home);
+  }
+
+  goToDms(): void {
+    cy.visit(Cypress.env().baseUrl + AppRoute.dms);
   }
 
   goToPim(): void {
@@ -29,31 +33,57 @@ class Navigation {
   }
 
   goToResetPasswordPage(): void {
-    cy.visit(Cypress.env().baseUrl + AppRoute.resetPassword.replace(':token', 'token'));
+    cy.visit(
+      Cypress.env().baseUrl + AppRoute.resetPassword.replace(":token", "token")
+    );
   }
 
   goToPimServices(): void {
-    cy.visit(Cypress.env().baseUrl + AppRoute.pimDetails.replace('/:id', '') + '/PIM_1/services');
+    cy.visit(
+      Cypress.env().baseUrl +
+        AppRoute.pimDetails.replace("/:id", "") +
+        "/PIM_1/services"
+    );
   }
 
   goToPimBuildings(): void {
-    cy.visit(Cypress.env().baseUrl + AppRoute.pimDetails.replace('/:id', '') + '/PIM_4_AOG/buildings');
+    cy.visit(
+      Cypress.env().baseUrl +
+        AppRoute.pimDetails.replace("/:id", "") +
+        "/PIM_4_AOG/buildings"
+    );
   }
 
   goToPimGrounds(): void {
-    cy.visit(Cypress.env().baseUrl + AppRoute.pimDetails.replace('/:id', '') + '/PIM_4_AOG/ground');
+    cy.visit(
+      Cypress.env().baseUrl +
+        AppRoute.pimDetails.replace("/:id", "") +
+        "/PIM_4_AOG/ground"
+    );
   }
 
   goToPimAnimals(): void {
-    cy.visit(Cypress.env().baseUrl + AppRoute.pimDetails.replace('/:id', '') + '/PIM_4_AOG/animals');
+    cy.visit(
+      Cypress.env().baseUrl +
+        AppRoute.pimDetails.replace("/:id", "") +
+        "/PIM_4_AOG/animals"
+    );
   }
 
   goToPimMeters(): void {
-    cy.visit(Cypress.env().baseUrl + AppRoute.pimDetails.replace('/:id', '') + '/pim_1/meters');
+    cy.visit(
+      Cypress.env().baseUrl +
+        AppRoute.pimDetails.replace("/:id", "") +
+        "/pim_1/meters"
+    );
   }
 
   goToPimCadastre(): void {
-    cy.visit(Cypress.env().baseUrl + AppRoute.pimDetails.replace('/:id', '') + '/pim_1/cadastre');
+    cy.visit(
+      Cypress.env().baseUrl +
+        AppRoute.pimDetails.replace("/:id", "") +
+        "/pim_1/cadastre"
+    );
   }
 
   get homeLink(): string {

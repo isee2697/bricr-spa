@@ -60,10 +60,11 @@ jobs:
     resource_class: large
     docker:
       - image: cimg/node:12.19.1
+
     steps:
       - checkout
       - run:
-          command: cp .env.dist .env && npm install && node ./scripts/get_translations.js --accessToken=$PHRASE_ACCESS_TOKEN --projectID=$PHRASE_PROJECT_ID
+          command: cp .env.dist .env && npm ci && node ./scripts/get_translations.js --accessToken=$PHRASE_ACCESS_TOKEN --projectID=$PHRASE_PROJECT_ID
           name: "Config and install"
       - run: npm run lint
       - run: npm run build

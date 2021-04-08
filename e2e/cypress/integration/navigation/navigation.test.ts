@@ -17,4 +17,9 @@ context('Navigation', () => {
     NavigationMenu.goToHome();
     cy.contains('Welcome, test');
   });
+
+  it('allows to go to Dms and see the title', () => {
+    NavigationMenu.goToDms();
+    cy.contains('Document Management System')
+  })
 });

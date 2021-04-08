@@ -1,16 +1,14 @@
-import { SecurityData } from 'app/shared/dms/security/Security.types';
+import { TemplateSecurity } from 'api/types';
 
-export const DMS_TEMPLATE_RIGHTS: SecurityData = {
-  documentRights: [
-    {
-      id: '0001',
-      name: 'Match',
-      permissions: {
-        create: false,
-        read: true,
-        update: false,
-        delete: true,
-      },
-    },
-  ],
-};
+export const DMS_TEMPLATE_RIGHTS: TemplateSecurity[] = [
+  { name: 'Matches' },
+  { name: 'Interest' },
+  { name: 'Viewing' },
+  { name: 'Candidate' },
+  { name: 'Bidding' },
+  { name: 'Optant' },
+  { name: 'Buyer' },
+  { name: 'Tenant' },
+  { name: 'Broker' },
+  { name: 'Notary' },
+];
