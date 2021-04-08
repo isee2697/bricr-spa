@@ -13,7 +13,6 @@ export type CrmRelationsDetailsCustomerJourneyProps = {
   crm: CrmItem;
   items: CrmRelationsDetailsCustomerJourneyType[];
   status: CrmRelationsDetailsCustomerJourneyTab;
-  onStatusChange: (status: CrmRelationsDetailsCustomerJourneyTab) => void;
   activeFilters: ListPimsFilters;
   onFilter: (filters: ListPimsFilters) => void;
   isOwner?: boolean;
