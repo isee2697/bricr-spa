@@ -31,6 +31,16 @@ enum DmsCrmFolderType {
     Invoices
 }
 
+enum DmsFolderViewType {
+    Emails
+    File
+    Questionaires
+    ListOfItems
+    Contracts
+    Surveys
+    Invoices
+}
+
 type DmsFolder {
     entityId: ID!
     id: ID!
@@ -41,6 +51,8 @@ type DmsFolder {
     order: Int
     deletedAt: Date
     isEmailFolder: Boolean
+    viewType: DmsFolderViewType!
+    filesCount: Int
 }
 
 input CreateDmsFolderInput {
@@ -74,6 +86,6 @@ extend type Mutation {
 }
 
 extend type Query {
-    listDmsFolders(entityId: ID!): [DmsFolder!] @auth
+    listDmsFolders(entityId: ID!, withFileAmount: Boolean): [DmsFolder!] @auth
     getDmsFolder(folderId: ID!): DmsFolder @auth
 }

@@ -2,7 +2,8 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export const useStyles = makeStyles(theme => ({
   chip: {
-    borderRadius: theme.spacing(0.5),
+    borderRadius: ({ avatarVariant }: { avatarVariant: 'circle' | 'rounded' | 'square' }) =>
+      avatarVariant === 'circle' ? theme.spacing(1.5, 0.5, 0.5, 1.5) : theme.spacing(0.5),
     padding: 0,
     height: theme.spacing(3),
     overflow: 'hidden',
@@ -17,5 +18,8 @@ export const useStyles = makeStyles(theme => ({
     fontWeight: theme.typography.fontWeightBold,
     color: theme.palette.gray.main,
     marginBottom: theme.spacing(0.25),
+  },
+  chipLabel: {
+    color: theme.palette.text.primary,
   },
 }));

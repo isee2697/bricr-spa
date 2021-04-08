@@ -1,17 +1,53 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { ReactNode, useCallback, useEffect, useState } from 'react';
 import { DateTime } from 'luxon';
+import { AnyObject } from 'final-form';
 
-import { PreviewIcon } from 'ui/molecules';
+import { ListTableItem, PreviewIcon } from 'ui/molecules';
 import { Chip, Typography, Box, UserAvatar } from 'ui/atoms';
 import { ListTableCell } from 'ui/molecules/listTableItem/ListTableItem.types';
-import { LinkIcon, PinIcon } from 'ui/atoms/icons';
+import { LinkIcon, PinIcon, SettingsIcon } from 'ui/atoms/icons';
 import { HeaderColumnItemType } from 'ui/molecules/columnModal/ColumnModal.types';
 
 import { EmailFilters, FileFilters } from './Dictionary';
-import { FileTypeView, FileType } from './CardWithTable.types';
+import { FileType, FileTypeView } from './CardWithTable.types';
 import { FileHeaderProps } from './CardWithTable.types';
+import { CardWithTableActions } from './actions/CardWithTableActions';
 
 const filesPreviewClassName = 'files-previewer';
+
+export const renderListIndexHeaderCell = (
+  headerCells: ListTableCell<FileType>[],
+  onSettings: (open: boolean) => void,
+) => {
+  return (
+    <Box display="flex" flexGrow={1} mr={2}>
+      <Box flexGrow={1}>
+        <ListTableItem headerCells={headerCells} isHeader />
+      </Box>
+      <Box ml={0.5} mr={0.5}>
+        <SettingsIcon onClick={() => onSettings(true)} />
+      </Box>
+    </Box>
+  );
+};
+
+export const renderItem = (
+  item: FileType,
+  isSelected: boolean,
+  checkbox: ReactNode,
+  headerCells: ListTableCell<FileType>[],
+  actions: AnyObject,
+) => {
+  return (
+    <Box className="card-file-list">
+      <Box>{checkbox}</Box>
+      <Box flexGrow={1}>
+        <ListTableItem<FileType> key={item.id} renderCell={renderCardListCell} headerCells={headerCells} item={item} />
+      </Box>
+      <CardWithTableActions item={item} actions={actions} />
+    </Box>
+  );
+};
 
 export const renderCardListCell = (fieldName: keyof FileType, item?: FileType) => {
   const checkItem = Object.assign(item ?? {});

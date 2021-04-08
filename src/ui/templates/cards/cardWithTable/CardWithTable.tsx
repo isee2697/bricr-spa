@@ -2,32 +2,24 @@ import React from 'react';
 import { useHistory } from 'react-router';
 
 import { CardWithBody } from 'ui/templates/cards/cardWithBody/CardWithBody';
-import { Box, IconButton, Typography } from 'ui/atoms';
-import { AddIcon, SettingsIcon } from 'ui/atoms/icons';
+import { Box, IconButton } from 'ui/atoms';
+import { AddIcon } from 'ui/atoms/icons';
 import { FiltersButton } from 'ui/molecules/filters/FiltersButton';
 import { ActiveFilters, hasActiveFilters } from 'ui/molecules/filters/activeFilters/ActiveFilters';
-import { List, ListTableItem } from 'ui/molecules';
+import { List } from 'ui/molecules';
 import { useLocale } from 'hooks';
 import { UploadModalField } from 'ui/organisms';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { EmptyStateFilter } from 'ui/organisms/emptyStateFilter/EmptyStateFilter';
 
-import { CardWithTableActions } from './actions/CardWithTableActions';
 import { CardTableModals } from './modals/CardTableModals';
 import { CardWithFileListProps, FileType, FileTypeView } from './CardWithTable.types';
-import { renderCardListCell, useCardWithTableState } from './CardWithTable.helper';
+import { renderItem, renderListIndexHeaderCell, useCardWithTableState } from './CardWithTable.helper';
 import { useStyles } from './CardWithTable.styles';
 
 export const CardWithTable: <F extends FileType>(
   p: CardWithFileListProps<F>,
-) => React.ReactElement<CardWithFileListProps<F>> = ({
-  onAdd,
-  view = FileTypeView.File,
-  onUploadFiles,
-  files,
-  actions,
-  ...props
-}) => {
+) => React.ReactElement<CardWithFileListProps<F>> = ({ onAdd, view, onUploadFiles, files, actions, ...props }) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
   const { push } = useHistory();
@@ -99,35 +91,12 @@ export const CardWithTable: <F extends FileType>(
             className={classes.list}
             itemIndex="id"
             items={files}
-            listIndexHeader={
-              <Box display="flex" flexGrow={1} mr={2}>
-                <Box flexGrow={1}>
-                  <ListTableItem headerCells={headerCells} isHeader />
-                </Box>
-                <Box ml={0.5} mr={0.5}>
-                  <SettingsIcon onClick={() => setColumnModalOpen(true)} />
-                </Box>
-              </Box>
-            }
-            isShowHeader
-            renderItem={(item, isSelected, checkbox) => (
-              <Box className="card-file-list">
-                <Box>{checkbox}</Box>
-                <Box flexGrow={1}>
-                  <ListTableItem<FileType>
-                    key={item.id}
-                    renderCell={renderCardListCell}
-                    headerCells={headerCells}
-                    item={item}
-                  />
-                </Box>
-                <CardWithTableActions item={item} actions={actions} />
-              </Box>
-            )}
+            listIndexHeader={renderListIndexHeaderCell(headerCells, setColumnModalOpen)}
+            renderItem={(item, isSelected, checkbox) => renderItem(item, isSelected, checkbox, headerCells, actions)}
             emptyPlaceholder={<EmptyStateFilter type={view} isFiltered={Object.keys(activeFilters).length > 0} />}
           />
         ) : (
-          <Typography>{formatMessage({ id: 'files.details.no.files.upload.title' })}</Typography>
+          <EmptyStateFilter type={view} isFiltered={hasActiveFilters(activeFilters)} />
         )}
       </CardWithBody>
       <CardTableModals

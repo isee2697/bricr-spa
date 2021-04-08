@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { EMAILS } from '../../../../api/mocks/email';
+import { EMAILS } from 'api/mocks/email';
 import { render } from 'tests';
 
 import { CardWithTable } from './CardWithTable';

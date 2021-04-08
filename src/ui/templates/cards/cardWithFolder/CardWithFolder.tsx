@@ -137,7 +137,7 @@ export const CardWithFolder = ({
                   <FolderContainer
                     id={item.id}
                     name={item.foldername}
-                    childCount={0}
+                    childCount={item.filesCount || 0}
                     type={type === 'primary' ? 'main' : item.type === DmsFolderType.Default ? 'primary' : 'secondary'}
                     isOpened={item.id === selectedFolder?.id}
                     onClick={() => {

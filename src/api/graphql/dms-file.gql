@@ -1,0 +1,42 @@
+type DmsFile {
+  id: ID!
+  folderId: ID!
+  companyId: ID!
+  fileName: String!
+  isPrivate: Boolean!
+  entity: Entity
+  signedUrl: String!
+  meta: DmsFileMeta!
+}
+
+type DmsFileMeta {
+  createdAt: Date!
+  deletedAt: Date
+  fileType: String
+}
+
+input DmsFileInput {
+  id: ID
+  folderId: ID
+  companyId: ID
+  fileName: String
+  isPrivate: Boolean
+  entity: EntityInput
+  signedUrl: String
+  meta: DmsFileMetaInput
+}
+
+input DmsFileMetaInput {
+  createdAt: Date
+  deletedAt: Date
+  fileType: String
+}
+
+extend type Mutation {
+  createDmsFile(input: DmsFileInput!): DmsFile! @auth
+}
+
+extend type Query {
+  listDmsFolderFiles(folderId: ID!): [DmsFile!] @auth
+  listDmsCompanyFiles: [DmsFile!] @auth
+}

@@ -1,6 +1,8 @@
 import React from 'react';
 
+import { InvoiceItemStatus } from 'app/shared/dms/cardItems/invoiceItem/InvoiceItem.types';
 import { BuildingIcon } from 'ui/atoms/icons';
+import { ActionTab } from 'ui/molecules/actionTabs/ActionTabs.types';
 import { FiltersSizes, FiltersTypes, Types } from 'ui/molecules/filters/Filters.types';
 
 export const FileFilters: FiltersTypes[] = [
@@ -47,3 +49,10 @@ export const EmailFilters: FiltersTypes[] = [
     ],
   },
 ];
+
+export const InvoicesTabs: ActionTab[] = Object.keys(InvoiceItemStatus).map(tab => ({
+  value: tab,
+  label: tab,
+  hasBadge: tab === InvoiceItemStatus.ActionRequired,
+  badgeColor: 'error',
+}));

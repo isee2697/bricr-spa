@@ -28,7 +28,7 @@ export const CardWithBody = ({
           title={
             <>
               {titleId ? formatMessage({ id: titleId, defaultMessage: titleId }) : title}
-              {titleAmount && <Chip size="small" label={titleAmount} className={classes.count} />}
+              {titleAmount ? <Chip size="small" label={titleAmount} className={classes.count} /> : undefined}
             </>
           }
         />

@@ -1,9 +1,14 @@
 import { gql } from 'apollo-boost';
 
 export const LIST_DMS_FOLDERS = gql`
-  query ListDmsFolders($entityId: ID!) {
-    listDmsFolders(entityId: $entityId)
-      @rest(type: "ListDmsFolders", path: "/dms/folders/list/{args.entityId}", method: "GET", endpoint: "default") {
+  query ListDmsFolders($entityId: ID!, $withFileAmount: Boolean) {
+    listDmsFolders(entityId: $entityId, withFileAmount: $withFileAmount)
+      @rest(
+        type: "ListDmsFolders"
+        path: "/dms/folders/list/{args.entityId}?withFileAmount={args.withFileAmount}"
+        method: "GET"
+        endpoint: "default"
+      ) {
       id
       entityId
       companyId
@@ -13,6 +18,8 @@ export const LIST_DMS_FOLDERS = gql`
       order
       deletedAt
       isEmailFolder
+      viewType
+      filesCount
     }
   }
 `;
