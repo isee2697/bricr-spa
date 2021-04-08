@@ -128,7 +128,7 @@ export type AddMatchProfileInput = {
   propertyType?: Maybe<MatchPropertyType>;
   startDate?: Maybe<Scalars['Date']>;
   endDate?: Maybe<Scalars['Date']>;
-  matchDuration?: Maybe<DateRange>;
+  matchDuration?: Maybe<DateRangeInput>;
   matchWith?: Maybe<Array<MatchProfileWith>>;
   description?: Maybe<Scalars['String']>;
   estateType?: Maybe<MatchEstateType>;
@@ -2470,6 +2470,11 @@ export enum CurrentHomeStatusType {
 }
 
 export type DateRange = {
+  from?: Maybe<Scalars['Date']>;
+  to?: Maybe<Scalars['Date']>;
+};
+
+export type DateRangeInput = {
   from?: Maybe<Scalars['Date']>;
   to?: Maybe<Scalars['Date']>;
 };
@@ -8784,8 +8789,8 @@ export type Task = LastUpdated & {
 export type TaskFilters = {
   search?: Maybe<Scalars['String']>;
   assignees?: Maybe<Array<Scalars['ID']>>;
-  startDates?: Maybe<Array<DateRange>>;
-  deadlines?: Maybe<Array<DateRange>>;
+  startDates?: Maybe<Array<DateRangeInput>>;
+  deadlines?: Maybe<Array<DateRangeInput>>;
 };
 
 export type TaskFullSummaryFilters = {
@@ -8841,8 +8846,8 @@ export enum TaskStatus {
 export type TaskSummaryByStatusFilters = {
   search?: Maybe<Scalars['String']>;
   assignees?: Maybe<Array<Scalars['ID']>>;
-  startDates?: Maybe<Array<DateRange>>;
-  deadlines?: Maybe<Array<DateRange>>;
+  startDates?: Maybe<Array<DateRangeInput>>;
+  deadlines?: Maybe<Array<DateRangeInput>>;
 };
 
 export type TaskSummaryByStatusResult = {
@@ -15936,7 +15941,7 @@ export type GetTaskQuery = { __typename?: 'Query' } & {
 export type GetTasksQueryVariables = Exact<{
   search?: Maybe<Scalars['String']>;
   assignees?: Maybe<Array<Scalars['ID']> | Scalars['ID']>;
-  deadlines?: Maybe<Array<DateRange> | DateRange>;
+  deadlines?: Maybe<Array<DateRangeInput> | DateRangeInput>;
   sortColumn: Scalars['String'];
   sortDirection: SortDirection;
 }>;
@@ -15987,7 +15992,7 @@ export type GetTasksFullSummaryQuery = { __typename?: 'Query' } & {
 export type GetTasksSummaryByStatusQueryVariables = Exact<{
   search?: Maybe<Scalars['String']>;
   assignees?: Maybe<Array<Scalars['ID']> | Scalars['ID']>;
-  deadlines?: Maybe<Array<DateRange> | DateRange>;
+  deadlines?: Maybe<Array<DateRangeInput> | DateRangeInput>;
 }>;
 
 export type GetTasksSummaryByStatusQuery = { __typename?: 'Query' } & {
@@ -26837,7 +26842,7 @@ export const GetTasksDocument = gql`
   query GetTasks(
     $search: String
     $assignees: [ID!]
-    $deadlines: [DateRange!]
+    $deadlines: [DateRangeInput!]
     $sortColumn: String!
     $sortDirection: SortDirection!
   ) {
@@ -26920,7 +26925,7 @@ export type GetTasksFullSummaryQueryResult = ApolloReactCommon.QueryResult<
   GetTasksFullSummaryQueryVariables
 >;
 export const GetTasksSummaryByStatusDocument = gql`
-  query GetTasksSummaryByStatus($search: String, $assignees: [ID!], $deadlines: [DateRange!]) {
+  query GetTasksSummaryByStatus($search: String, $assignees: [ID!], $deadlines: [DateRangeInput!]) {
     getTasksSummaryByStatus(filters: { search: $search, assignees: $assignees, deadlines: $deadlines }) {
       todo
       inProgress
