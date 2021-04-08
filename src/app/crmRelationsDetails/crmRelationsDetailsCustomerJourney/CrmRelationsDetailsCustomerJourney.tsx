@@ -11,6 +11,7 @@ import { useEntityType } from 'app/shared/entityType';
 import { FiltersButton } from 'ui/molecules/filters/FiltersButton';
 import { ActiveFilters } from 'ui/molecules/filters/activeFilters/ActiveFilters';
 import { ListPimsFilters } from 'api/types';
+import { AppRoute } from 'routing/AppRoute.enum';
 
 import {
   CrmRelationsCustomerJourneyProperty,
@@ -21,17 +22,17 @@ import { useStyles } from './CrmRelationsDetailsCustomerJourney.styles';
 import { ListItem } from './listItem/ListItem';
 import { ListItemBuyer } from './listItem/listItemBuyer/ListItemBuyer';
 import { CrmRelationsCustomerJourneyFilters } from './dictionaries';
-import { AppRoute } from 'routing/AppRoute.enum';
 
 export const CrmRelationsDetailsCustomerJourney = ({
   items,
   status,
   activeFilters,
   onFilter,
+
   isOwner,
 }: CrmRelationsDetailsCustomerJourneyProps) => {
   const { push } = useHistory();
-  const { id } = useParams<{id: string}>();
+  const { id } = useParams<{ id: string }>();
 
   const customerJourneyTabs = [
     {

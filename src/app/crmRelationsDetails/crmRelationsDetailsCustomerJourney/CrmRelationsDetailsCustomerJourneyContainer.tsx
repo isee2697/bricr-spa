@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 
 import {
   CRM_RELATIONS_CUSTOMER_JOURNEY_BIDDINGS,
@@ -20,7 +21,6 @@ import {
 } from './CrmRelationsDetailsCustomerJourney.types';
 import { CrmRelationsDetailsCustomerJourney } from './CrmRelationsDetailsCustomerJourney';
 import { useStyles } from './CrmRelationsDetailsCustomerJourney.styles';
-import { useParams } from 'react-router-dom';
 
 export const CrmRelationsDetailsCustomerJourneyContainer = ({
   crm,
@@ -29,7 +29,7 @@ export const CrmRelationsDetailsCustomerJourneyContainer = ({
 }: CrmRelationsDetailsCustomerJourneyContainerProps) => {
   const classes = useStyles();
 
-  const {role} = useParams<{role: CrmRelationsDetailsCustomerJourneyTab}>();
+  const { role } = useParams<{ role: CrmRelationsDetailsCustomerJourneyTab }>();
   const [activeFilters, setActiveFilters] = useState<ListPimsFilters>({});
   const [data, setData] = useState<CrmRelationsDetailsCustomerJourneyType[]>(CRM_RELATIONS_CUSTOMER_JOURNEY_MATCHING);
   const [isOwner] = useState(true);
@@ -74,14 +74,13 @@ export const CrmRelationsDetailsCustomerJourneyContainer = ({
         </Typography>
       </Grid>
       <CrmRelationsDetailsCustomerJourney
-              crm={crm}
-              status={role}
-              onFilter={filters => setActiveFilters(filters)}
-              activeFilters={activeFilters}
-              items={data}
-              isOwner={isOwner}
-            />
-    
+        crm={crm}
+        status={role}
+        onFilter={filters => setActiveFilters(filters)}
+        activeFilters={activeFilters}
+        items={data}
+        isOwner={isOwner}
+      />
     </>
   );
 };
